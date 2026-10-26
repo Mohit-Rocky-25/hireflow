@@ -1,0 +1,218 @@
+[
+  {
+    "rowId": "american-express-analyst-officialName-0",
+    "subjectId": "american-express-analyst",
+    "field": "officialName",
+    "value": "American Express India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "American Express India Early Careers"
+  },
+  {
+    "rowId": "american-express-analyst-programName-1",
+    "subjectId": "american-express-analyst",
+    "field": "programName",
+    "value": "American Express Campus Technology Analyst",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "American Express Campus Technology Analyst Hiring for Batch 2026"
+  },
+  {
+    "rowId": "american-express-analyst-programPageUrl-2",
+    "subjectId": "american-express-analyst",
+    "field": "programPageUrl",
+    "value": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "American Express India Early Careers"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-cgpaMin-3",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.cgpaMin",
+    "value": 7,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 7.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-cgpaScale-4",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "7.0 CGPA on a 10.0 scale or 70.0 percent"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-percentAggregateMin-5",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.percentAggregateMin",
+    "value": 70,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "10.0 scale or 70.0 percent aggregate"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-maxActiveBacklogs-6",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs at time"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-maxGapMonths-7",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Education gap is capped at 12 months"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-branches-8",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Streams: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-degrees-9",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.Tech, MCA"
+  },
+  {
+    "rowId": "american-express-analyst-eligibility-batchYears-10",
+    "subjectId": "american-express-analyst",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Technology Analyst Hiring for Batch 2026"
+  },
+  {
+    "rowId": "american-express-analyst-stage-name-11",
+    "subjectId": "american-express-analyst",
+    "field": "stage.name",
+    "value": "Amex Coding and Aptitude Challenge",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Amex Coding and Aptitude Challenge"
+  },
+  {
+    "rowId": "american-express-analyst-stage-name-12",
+    "subjectId": "american-express-analyst",
+    "field": "stage.name",
+    "value": "Technical Architecture and Coding Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Architecture and Coding Interview"
+  },
+  {
+    "rowId": "american-express-analyst-stage-name-13",
+    "subjectId": "american-express-analyst",
+    "field": "stage.name",
+    "value": "Leadership Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Leadership Interview"
+  },
+  {
+    "rowId": "american-express-analyst-bondMonths-14",
+    "subjectId": "american-express-analyst",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "American Express has 0 months bond"
+  },
+  {
+    "rowId": "american-express-analyst-bondAmount-15",
+    "subjectId": "american-express-analyst",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond commitment"
+  },
+  {
+    "rowId": "american-express-analyst-stipend-16",
+    "subjectId": "american-express-analyst",
+    "field": "stipend",
+    "value": 65000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.americanexpress.com/india/campus-technology-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly internship stipend is 65000 rupees"
+  }
+]

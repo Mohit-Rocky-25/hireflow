@@ -1,0 +1,219 @@
+[
+  {
+    "rowId": "tech-mahindra-ase-officialName-0",
+    "subjectId": "tech-mahindra-ase",
+    "field": "officialName",
+    "value": "Tech Mahindra Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tech Mahindra Limited Official Campus Recruitment"
+  },
+  {
+    "rowId": "tech-mahindra-ase-programName-1",
+    "subjectId": "tech-mahindra-ase",
+    "field": "programName",
+    "value": "Tech Mahindra Associate Software Engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tech Mahindra Associate Software Engineer ASE Hiring for Batch 2026"
+  },
+  {
+    "rowId": "tech-mahindra-ase-programPageUrl-2",
+    "subjectId": "tech-mahindra-ase",
+    "field": "programPageUrl",
+    "value": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tech Mahindra Limited Official Campus Recruitment"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-cgpaMin-3",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 point"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-cgpaScale-4",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "6.0 CGPA on a 10.0 point scale in 10th"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-percentAggregateMin-5",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-maxActiveBacklogs-6",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "candidate must have 0 active backlogs at onboarding"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-maxGapMonths-7",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum education gap is 12 months"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-branches-8",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME",
+      "CIVIL"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches accepted: CSE, IT, ECE, EEE, ME, CIVIL"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-degrees-9",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Eligible qualifications: B.E., B.Tech, MCA"
+  },
+  {
+    "rowId": "tech-mahindra-ase-eligibility-batchYears-10",
+    "subjectId": "tech-mahindra-ase",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Associate Software Engineer ASE Hiring for Batch 2026"
+  },
+  {
+    "rowId": "tech-mahindra-ase-stage-name-11",
+    "subjectId": "tech-mahindra-ase",
+    "field": "stage.name",
+    "value": "English Essay and Aptitude Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: English Essay and Aptitude Test"
+  },
+  {
+    "rowId": "tech-mahindra-ase-stage-name-12",
+    "subjectId": "tech-mahindra-ase",
+    "field": "stage.name",
+    "value": "Technical Evaluation",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Evaluation"
+  },
+  {
+    "rowId": "tech-mahindra-ase-stage-name-13",
+    "subjectId": "tech-mahindra-ase",
+    "field": "stage.name",
+    "value": "HR Discussion",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: HR Discussion"
+  },
+  {
+    "rowId": "tech-mahindra-ase-bondMonths-14",
+    "subjectId": "tech-mahindra-ase",
+    "field": "bondMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Service tenure agreement is 24 months with commitment bond"
+  },
+  {
+    "rowId": "tech-mahindra-ase-bondAmount-15",
+    "subjectId": "tech-mahindra-ase",
+    "field": "bondAmount",
+    "value": 100000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 100000 rupees"
+  },
+  {
+    "rowId": "tech-mahindra-ase-stipend-16",
+    "subjectId": "tech-mahindra-ase",
+    "field": "stipend",
+    "value": 15000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.techmahindra.com/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Trainee stipend is 15000 rupees"
+  }
+]

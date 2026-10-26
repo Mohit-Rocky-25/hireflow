@@ -1,0 +1,206 @@
+[
+  {
+    "rowId": "cognizant-genc-elevate-officialName-0",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "officialName",
+    "value": "Cognizant Technology Solutions India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant Technology Solutions India Official Portal"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-programName-1",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "programName",
+    "value": "Cognizant GenC Elevate",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant GenC Elevate Hiring Program for Batch 2026"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-programPageUrl-2",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "programPageUrl",
+    "value": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant Technology Solutions India Official Portal"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-cgpaMin-3",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.cgpaMin",
+    "value": 6.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-cgpaScale-4",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.5 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-percentAggregateMin-5",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.percentAggregateMin",
+    "value": 65,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-maxActiveBacklogs-6",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must maintain 0 active backlogs at drive"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-maxGapMonths-7",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum education gap is 24 months"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-branches-8",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Target branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-degrees-9",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.Tech, MCA"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-eligibility-batchYears-10",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "GenC Elevate Hiring Program for Batch 2026"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-stage-name-11",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "stage.name",
+    "value": "Advanced Programming Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Advanced Programming Assessment"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-stage-name-12",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-bondMonths-13",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant GenC Elevate has 0 months bond"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-bondAmount-14",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond commitment"
+  },
+  {
+    "rowId": "cognizant-genc-elevate-stipend-15",
+    "subjectId": "cognizant-genc-elevate",
+    "field": "stipend",
+    "value": 18000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-elevate",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Training stipend is 18000 rupees"
+  }
+]

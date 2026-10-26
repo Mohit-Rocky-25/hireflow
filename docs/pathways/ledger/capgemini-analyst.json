@@ -1,0 +1,220 @@
+[
+  {
+    "rowId": "capgemini-analyst-officialName-0",
+    "subjectId": "capgemini-analyst",
+    "field": "officialName",
+    "value": "Capgemini India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Capgemini India Official Campus Portal"
+  },
+  {
+    "rowId": "capgemini-analyst-programName-1",
+    "subjectId": "capgemini-analyst",
+    "field": "programName",
+    "value": "Capgemini Exceller Analyst Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Capgemini Exceller Analyst Hiring for Batch 2026"
+  },
+  {
+    "rowId": "capgemini-analyst-programPageUrl-2",
+    "subjectId": "capgemini-analyst",
+    "field": "programPageUrl",
+    "value": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Capgemini India Official Campus Portal"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-cgpaMin-3",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-cgpaScale-4",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.0 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-percentAggregateMin-5",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-maxActiveBacklogs-6",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 1,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "maximum of 1 active backlog at evaluation time"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-maxGapMonths-7",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Permitted education gap is maximum 24 months"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-branches-8",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME",
+      "CIVIL"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE, ME, CIVIL"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-degrees-9",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Eligible qualifications: B.E., B.Tech, MCA, M.Tech"
+  },
+  {
+    "rowId": "capgemini-analyst-eligibility-batchYears-10",
+    "subjectId": "capgemini-analyst",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Capgemini Exceller Analyst Hiring for Batch 2026"
+  },
+  {
+    "rowId": "capgemini-analyst-stage-name-11",
+    "subjectId": "capgemini-analyst",
+    "field": "stage.name",
+    "value": "Technical and Aptitude Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Technical and Aptitude Assessment"
+  },
+  {
+    "rowId": "capgemini-analyst-stage-name-12",
+    "subjectId": "capgemini-analyst",
+    "field": "stage.name",
+    "value": "Spoken English Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Spoken English Test"
+  },
+  {
+    "rowId": "capgemini-analyst-stage-name-13",
+    "subjectId": "capgemini-analyst",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Technical Interview"
+  },
+  {
+    "rowId": "capgemini-analyst-bondMonths-14",
+    "subjectId": "capgemini-analyst",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Capgemini has 0 months bond"
+  },
+  {
+    "rowId": "capgemini-analyst-bondAmount-15",
+    "subjectId": "capgemini-analyst",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond commitment"
+  },
+  {
+    "rowId": "capgemini-analyst-stipend-16",
+    "subjectId": "capgemini-analyst",
+    "field": "stipend",
+    "value": 15000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.capgemini.com/in-en/careers/campus/exceller-analyst",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Training stipend is 15000 rupees"
+  }
+]

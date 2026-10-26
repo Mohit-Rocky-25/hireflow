@@ -1,0 +1,219 @@
+[
+  {
+    "rowId": "zoho-se-officialName-0",
+    "subjectId": "zoho-se",
+    "field": "officialName",
+    "value": "Zoho Corporation",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Zoho Corporation Official Careers Portal"
+  },
+  {
+    "rowId": "zoho-se-programName-1",
+    "subjectId": "zoho-se",
+    "field": "programName",
+    "value": "Zoho Software Developer Campus Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Zoho Software Developer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "zoho-se-programPageUrl-2",
+    "subjectId": "zoho-se",
+    "field": "programPageUrl",
+    "value": "https://www.zoho.com/careers/campus/software-developer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Zoho Corporation Official Careers Portal"
+  },
+  {
+    "rowId": "zoho-se-eligibility-cgpaMin-3",
+    "subjectId": "zoho-se",
+    "field": "eligibility.cgpaMin",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "minimum 0.0 CGPA on a 10.0 point scale"
+  },
+  {
+    "rowId": "zoho-se-eligibility-cgpaScale-4",
+    "subjectId": "zoho-se",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "0.0 CGPA on a 10.0 point scale with no"
+  },
+  {
+    "rowId": "zoho-se-eligibility-maxActiveBacklogs-5",
+    "subjectId": "zoho-se",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "maximum 5 active backlogs permitted during evaluation"
+  },
+  {
+    "rowId": "zoho-se-eligibility-maxGapMonths-6",
+    "subjectId": "zoho-se",
+    "field": "eligibility.maxGapMonths",
+    "value": 36,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Allowed education gap is 36 months"
+  },
+  {
+    "rowId": "zoho-se-eligibility-branches-7",
+    "subjectId": "zoho-se",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME",
+      "CIVIL"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Streams: CSE, IT, ECE, EEE, ME, CIVIL"
+  },
+  {
+    "rowId": "zoho-se-eligibility-degrees-8",
+    "subjectId": "zoho-se",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, MCA, M.Sc"
+  },
+  {
+    "rowId": "zoho-se-eligibility-batchYears-9",
+    "subjectId": "zoho-se",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Software Developer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "zoho-se-stage-name-10",
+    "subjectId": "zoho-se",
+    "field": "stage.name",
+    "value": "General Aptitude Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: General Aptitude Assessment"
+  },
+  {
+    "rowId": "zoho-se-stage-name-11",
+    "subjectId": "zoho-se",
+    "field": "stage.name",
+    "value": "Basic Programming Round",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Basic Programming Round"
+  },
+  {
+    "rowId": "zoho-se-stage-name-12",
+    "subjectId": "zoho-se",
+    "field": "stage.name",
+    "value": "Advanced Programming Round",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Advanced Programming Round"
+  },
+  {
+    "rowId": "zoho-se-stage-name-13",
+    "subjectId": "zoho-se",
+    "field": "stage.name",
+    "value": "Technical and HR Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 4: Technical and HR Interview"
+  },
+  {
+    "rowId": "zoho-se-bondMonths-14",
+    "subjectId": "zoho-se",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Zoho maintains 0 months bond"
+  },
+  {
+    "rowId": "zoho-se-bondAmount-15",
+    "subjectId": "zoho-se",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond"
+  },
+  {
+    "rowId": "zoho-se-stipend-16",
+    "subjectId": "zoho-se",
+    "field": "stipend",
+    "value": 20000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.zoho.com/careers/campus/software-developer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly training stipend is 20000 rupees"
+  }
+]

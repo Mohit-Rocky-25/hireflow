@@ -1,0 +1,216 @@
+[
+  {
+    "rowId": "tatamotors-get-officialName-0",
+    "subjectId": "tatamotors-get",
+    "field": "officialName",
+    "value": "Tata Motors Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Motors Limited Official Early Careers"
+  },
+  {
+    "rowId": "tatamotors-get-programName-1",
+    "subjectId": "tatamotors-get",
+    "field": "programName",
+    "value": "Tata Motors Graduate Engineer Trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Motors Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "tatamotors-get-programPageUrl-2",
+    "subjectId": "tatamotors-get",
+    "field": "programPageUrl",
+    "value": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Motors Limited Official Early Careers"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-cgpaMin-3",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.cgpaMin",
+    "value": 6.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-cgpaScale-4",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.5 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-percentAggregateMin-5",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.percentAggregateMin",
+    "value": 65,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-maxActiveBacklogs-6",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must maintain 0 active backlogs during drive"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-maxGapMonths-7",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Permitted gap in education is maximum 12 months"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-branches-8",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.branches",
+    "value": [
+      "ME",
+      "EEE",
+      "ECE",
+      "CSE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: ME, AUTO, EEE, ECE, CSE"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-degrees-9",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech"
+  },
+  {
+    "rowId": "tatamotors-get-eligibility-batchYears-10",
+    "subjectId": "tatamotors-get",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "tatamotors-get-stage-name-11",
+    "subjectId": "tatamotors-get",
+    "field": "stage.name",
+    "value": "Domain Technical and Aptitude Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Domain Technical and Aptitude Test"
+  },
+  {
+    "rowId": "tatamotors-get-stage-name-12",
+    "subjectId": "tatamotors-get",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "tatamotors-get-stage-name-13",
+    "subjectId": "tatamotors-get",
+    "field": "stage.name",
+    "value": "HR Round",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: HR Round"
+  },
+  {
+    "rowId": "tatamotors-get-bondMonths-14",
+    "subjectId": "tatamotors-get",
+    "field": "bondMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Motors service agreement duration is 24 months"
+  },
+  {
+    "rowId": "tatamotors-get-bondAmount-15",
+    "subjectId": "tatamotors-get",
+    "field": "bondAmount",
+    "value": 150000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 150000 rupees"
+  },
+  {
+    "rowId": "tatamotors-get-stipend-16",
+    "subjectId": "tatamotors-get",
+    "field": "stipend",
+    "value": 22000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tatamotors.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Trainee stipend is 22000 rupees"
+  }
+]

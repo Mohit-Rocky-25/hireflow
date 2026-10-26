@@ -1,0 +1,207 @@
+[
+  {
+    "rowId": "tcs-digital-officialName-0",
+    "subjectId": "tcs-digital",
+    "field": "officialName",
+    "value": "Tata Consultancy Services",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Consultancy Services Official Campus Portal"
+  },
+  {
+    "rowId": "tcs-digital-programName-1",
+    "subjectId": "tcs-digital",
+    "field": "programName",
+    "value": "TCS Digital Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "TCS Digital Hiring for Batch 2026 Engineering Graduates"
+  },
+  {
+    "rowId": "tcs-digital-programPageUrl-2",
+    "subjectId": "tcs-digital",
+    "field": "programPageUrl",
+    "value": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Tata Consultancy Services Official Campus Portal"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-cgpaMin-3",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.cgpaMin",
+    "value": 7,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 70.0 percent or 7.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-cgpaScale-4",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 7.0 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-percentAggregateMin-5",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.percentAggregateMin",
+    "value": 70,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 70.0 percent or 7.0 CGPA"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-maxActiveBacklogs-6",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs at the time"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-maxGapMonths-7",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum academic gap allowed is 24 months"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-branches-8",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-degrees-9",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.E., M.Tech, MCA"
+  },
+  {
+    "rowId": "tcs-digital-eligibility-batchYears-10",
+    "subjectId": "tcs-digital",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Digital Hiring for Batch 2026 Engineering Graduates"
+  },
+  {
+    "rowId": "tcs-digital-stage-name-11",
+    "subjectId": "tcs-digital",
+    "field": "stage.name",
+    "value": "Advanced Cognitive and Advanced Coding Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Advanced Cognitive and Advanced Coding Test"
+  },
+  {
+    "rowId": "tcs-digital-stage-name-12",
+    "subjectId": "tcs-digital",
+    "field": "stage.name",
+    "value": "Technical Deep Dive Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Deep Dive Interview"
+  },
+  {
+    "rowId": "tcs-digital-bondMonths-13",
+    "subjectId": "tcs-digital",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Service agreement: 12 months with bond amount"
+  },
+  {
+    "rowId": "tcs-digital-bondAmount-14",
+    "subjectId": "tcs-digital",
+    "field": "bondAmount",
+    "value": 50000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 50000 rupees"
+  },
+  {
+    "rowId": "tcs-digital-stipend-15",
+    "subjectId": "tcs-digital",
+    "field": "stipend",
+    "value": 25000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.tcs.com/careers/india/tcs-fresher-digital-hiring",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly internship stipend is 25000 rupees"
+  }
+]

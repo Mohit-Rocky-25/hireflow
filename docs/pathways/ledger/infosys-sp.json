@@ -1,0 +1,219 @@
+[
+  {
+    "rowId": "infosys-sp-officialName-0",
+    "subjectId": "infosys-sp",
+    "field": "officialName",
+    "value": "Infosys Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Limited Early Careers"
+  },
+  {
+    "rowId": "infosys-sp-programName-1",
+    "subjectId": "infosys-sp",
+    "field": "programName",
+    "value": "Infosys Specialist Programmer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Specialist Programmer SP Hiring for Batch 2026"
+  },
+  {
+    "rowId": "infosys-sp-programPageUrl-2",
+    "subjectId": "infosys-sp",
+    "field": "programPageUrl",
+    "value": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Limited Early Careers"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-cgpaMin-3",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.cgpaMin",
+    "value": 6.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-cgpaScale-4",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.5 CGPA on a 10.0 scale in undergraduate"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-percentAggregateMin-5",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.percentAggregateMin",
+    "value": 65,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-maxActiveBacklogs-6",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-maxGapMonths-7",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum allowed academic gap is 24 months"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-branches-8",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-degrees-9",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.E., M.Tech, MCA"
+  },
+  {
+    "rowId": "infosys-sp-eligibility-batchYears-10",
+    "subjectId": "infosys-sp",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Specialist Programmer SP Hiring for Batch 2026 via"
+  },
+  {
+    "rowId": "infosys-sp-stage-name-11",
+    "subjectId": "infosys-sp",
+    "field": "stage.name",
+    "value": "HackWithInfy Competitive Coding Round 1",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: HackWithInfy Competitive Coding Round 1"
+  },
+  {
+    "rowId": "infosys-sp-stage-name-12",
+    "subjectId": "infosys-sp",
+    "field": "stage.name",
+    "value": "HackWithInfy Grand Finale Coding",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: HackWithInfy Grand Finale Coding"
+  },
+  {
+    "rowId": "infosys-sp-stage-name-13",
+    "subjectId": "infosys-sp",
+    "field": "stage.name",
+    "value": "Technical Specialist Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Technical Specialist Interview"
+  },
+  {
+    "rowId": "infosys-sp-bondMonths-14",
+    "subjectId": "infosys-sp",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Service agreement: 12 months with bond amount"
+  },
+  {
+    "rowId": "infosys-sp-bondAmount-15",
+    "subjectId": "infosys-sp",
+    "field": "bondAmount",
+    "value": 100000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 100000 rupees"
+  },
+  {
+    "rowId": "infosys-sp-stipend-16",
+    "subjectId": "infosys-sp",
+    "field": "stipend",
+    "value": 30000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/specialist-programmer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Trainee stipend is 30000 rupees"
+  }
+]

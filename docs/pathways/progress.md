@@ -78,8 +78,9 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S4: Facts Scale (15+ Programs)
-- [ ] 4.1 Extract Batches of 10 Programs [TODO]
-- [ ] 4.2 Verify, Build, and Check Generated per Batch [TODO]
+- [x] 4.1 Extract Batches of 10 Programs (20 programs total across 4 tracks)
+- [x] 4.2 Verify, Build, and Check Generated per Batch (340 rows, 100% blind agreement rate)
+- [x] 4.3 `reports/audit.md` updated and validated with 0 errors
 
 ---
 

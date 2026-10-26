@@ -1,0 +1,219 @@
+[
+  {
+    "rowId": "bosch-get-officialName-0",
+    "subjectId": "bosch-get",
+    "field": "officialName",
+    "value": "Bosch Global Software Technologies",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Bosch Global Software Technologies Official Careers"
+  },
+  {
+    "rowId": "bosch-get-programName-1",
+    "subjectId": "bosch-get",
+    "field": "programName",
+    "value": "Bosch Graduate Engineer Trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Bosch Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "bosch-get-programPageUrl-2",
+    "subjectId": "bosch-get",
+    "field": "programPageUrl",
+    "value": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Bosch Global Software Technologies Official Careers"
+  },
+  {
+    "rowId": "bosch-get-eligibility-cgpaMin-3",
+    "subjectId": "bosch-get",
+    "field": "eligibility.cgpaMin",
+    "value": 7,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 70.0 percent or 7.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "bosch-get-eligibility-cgpaScale-4",
+    "subjectId": "bosch-get",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 7.0 CGPA on a 10.0 scale in Engineering"
+  },
+  {
+    "rowId": "bosch-get-eligibility-percentAggregateMin-5",
+    "subjectId": "bosch-get",
+    "field": "eligibility.percentAggregateMin",
+    "value": 70,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 70.0 percent or 7.0 CGPA"
+  },
+  {
+    "rowId": "bosch-get-eligibility-maxActiveBacklogs-6",
+    "subjectId": "bosch-get",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs at drive"
+  },
+  {
+    "rowId": "bosch-get-eligibility-maxGapMonths-7",
+    "subjectId": "bosch-get",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum education gap is 12 months"
+  },
+  {
+    "rowId": "bosch-get-eligibility-branches-8",
+    "subjectId": "bosch-get",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE, ME"
+  },
+  {
+    "rowId": "bosch-get-eligibility-degrees-9",
+    "subjectId": "bosch-get",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.E., M.Tech"
+  },
+  {
+    "rowId": "bosch-get-eligibility-batchYears-10",
+    "subjectId": "bosch-get",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "bosch-get-stage-name-11",
+    "subjectId": "bosch-get",
+    "field": "stage.name",
+    "value": "Bosch Technical and Logical Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Bosch Technical and Logical Test"
+  },
+  {
+    "rowId": "bosch-get-stage-name-12",
+    "subjectId": "bosch-get",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "bosch-get-stage-name-13",
+    "subjectId": "bosch-get",
+    "field": "stage.name",
+    "value": "Managerial and HR Round",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Managerial and HR Round"
+  },
+  {
+    "rowId": "bosch-get-bondMonths-14",
+    "subjectId": "bosch-get",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Bosch service agreement is 12 months with bond amount"
+  },
+  {
+    "rowId": "bosch-get-bondAmount-15",
+    "subjectId": "bosch-get",
+    "field": "bondAmount",
+    "value": 100000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 100000 rupees"
+  },
+  {
+    "rowId": "bosch-get-stipend-16",
+    "subjectId": "bosch-get",
+    "field": "stipend",
+    "value": 24000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.bosch.in/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Trainee stipend is 24000 rupees"
+  }
+]

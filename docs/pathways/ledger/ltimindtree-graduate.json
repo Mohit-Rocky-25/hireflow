@@ -1,0 +1,205 @@
+[
+  {
+    "rowId": "ltimindtree-graduate-officialName-0",
+    "subjectId": "ltimindtree-graduate",
+    "field": "officialName",
+    "value": "LTIMindtree Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "LTIMindtree Official Campus Recruitment Portal"
+  },
+  {
+    "rowId": "ltimindtree-graduate-programName-1",
+    "subjectId": "ltimindtree-graduate",
+    "field": "programName",
+    "value": "LTIMindtree Graduate Trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "LTIMindtree Graduate Trainee Program for Batch 2026"
+  },
+  {
+    "rowId": "ltimindtree-graduate-programPageUrl-2",
+    "subjectId": "ltimindtree-graduate",
+    "field": "programPageUrl",
+    "value": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "LTIMindtree Official Campus Recruitment Portal"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-cgpaMin-3",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-cgpaScale-4",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.0 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-percentAggregateMin-5",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-maxActiveBacklogs-6",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "allowed: 0 active backlogs during drive"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-maxGapMonths-7",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Education gap allowed: maximum 24 months"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-branches-8",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-degrees-9",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, MCA"
+  },
+  {
+    "rowId": "ltimindtree-graduate-eligibility-batchYears-10",
+    "subjectId": "ltimindtree-graduate",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "LTIMindtree Graduate Trainee Program for Batch 2026"
+  },
+  {
+    "rowId": "ltimindtree-graduate-stage-name-11",
+    "subjectId": "ltimindtree-graduate",
+    "field": "stage.name",
+    "value": "Technical and Aptitude Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Technical and Aptitude Assessment"
+  },
+  {
+    "rowId": "ltimindtree-graduate-stage-name-12",
+    "subjectId": "ltimindtree-graduate",
+    "field": "stage.name",
+    "value": "Technical and HR Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical and HR Interview"
+  },
+  {
+    "rowId": "ltimindtree-graduate-bondMonths-13",
+    "subjectId": "ltimindtree-graduate",
+    "field": "bondMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Service commitment: 24 months agreement with bond amount"
+  },
+  {
+    "rowId": "ltimindtree-graduate-bondAmount-14",
+    "subjectId": "ltimindtree-graduate",
+    "field": "bondAmount",
+    "value": 200000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 200000 rupees"
+  },
+  {
+    "rowId": "ltimindtree-graduate-stipend-15",
+    "subjectId": "ltimindtree-graduate",
+    "field": "stipend",
+    "value": 18000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.ltimindtree.com/careers/campus/graduate-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly stipend is 18000 rupees"
+  }
+]

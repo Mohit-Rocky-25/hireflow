@@ -1,0 +1,204 @@
+[
+  {
+    "rowId": "walmart-sde-officialName-0",
+    "subjectId": "walmart-sde",
+    "field": "officialName",
+    "value": "Walmart Global Tech India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Walmart Global Tech India Official Careers"
+  },
+  {
+    "rowId": "walmart-sde-programName-1",
+    "subjectId": "walmart-sde",
+    "field": "programName",
+    "value": "Walmart SDE-1 Campus Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Walmart Software Development Engineer SDE-1 Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "walmart-sde-programPageUrl-2",
+    "subjectId": "walmart-sde",
+    "field": "programPageUrl",
+    "value": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Walmart Global Tech India Official Careers"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-cgpaMin-3",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.cgpaMin",
+    "value": 7.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum academic requirement: 7.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-cgpaScale-4",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "7.5 CGPA on a 10.0 scale across semesters"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-maxActiveBacklogs-5",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "candidate must have 0 active backlogs"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-maxGapMonths-6",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum gap in education is 12 months"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-branches-7",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-degrees-8",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, M.Tech"
+  },
+  {
+    "rowId": "walmart-sde-eligibility-batchYears-9",
+    "subjectId": "walmart-sde",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "SDE-1 Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "walmart-sde-stage-name-10",
+    "subjectId": "walmart-sde",
+    "field": "stage.name",
+    "value": "Online Coding Round",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Online Coding Round"
+  },
+  {
+    "rowId": "walmart-sde-stage-name-11",
+    "subjectId": "walmart-sde",
+    "field": "stage.name",
+    "value": "Technical Problem Solving Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Problem Solving Interview"
+  },
+  {
+    "rowId": "walmart-sde-stage-name-12",
+    "subjectId": "walmart-sde",
+    "field": "stage.name",
+    "value": "Hiring Manager Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Hiring Manager Interview"
+  },
+  {
+    "rowId": "walmart-sde-bondMonths-13",
+    "subjectId": "walmart-sde",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Walmart Global Tech has 0 months bond"
+  },
+  {
+    "rowId": "walmart-sde-bondAmount-14",
+    "subjectId": "walmart-sde",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond"
+  },
+  {
+    "rowId": "walmart-sde-stipend-15",
+    "subjectId": "walmart-sde",
+    "field": "stipend",
+    "value": 85000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.walmart.com/global-tech-india/campus-sde",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly internship stipend is 85000 rupees"
+  }
+]

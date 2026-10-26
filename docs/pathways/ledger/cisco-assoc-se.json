@@ -1,0 +1,206 @@
+[
+  {
+    "rowId": "cisco-assoc-se-officialName-0",
+    "subjectId": "cisco-assoc-se",
+    "field": "officialName",
+    "value": "Cisco Systems India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cisco Systems India Early Careers"
+  },
+  {
+    "rowId": "cisco-assoc-se-programName-1",
+    "subjectId": "cisco-assoc-se",
+    "field": "programName",
+    "value": "Cisco Associate Software Engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cisco Associate Software Engineer Grade 6 Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "cisco-assoc-se-programPageUrl-2",
+    "subjectId": "cisco-assoc-se",
+    "field": "programPageUrl",
+    "value": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cisco Systems India Early Careers"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-cgpaMin-3",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.cgpaMin",
+    "value": 7.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 7.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-cgpaScale-4",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "7.5 CGPA on a 10.0 scale across all"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-maxActiveBacklogs-5",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs at drive"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-maxGapMonths-6",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Permitted academic gap is 12 months"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-branches-7",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-degrees-8",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degree: B.E., B.Tech, M.E., M.Tech"
+  },
+  {
+    "rowId": "cisco-assoc-se-eligibility-batchYears-9",
+    "subjectId": "cisco-assoc-se",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Grade 6 Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "cisco-assoc-se-stage-name-10",
+    "subjectId": "cisco-assoc-se",
+    "field": "stage.name",
+    "value": "Cisco Online Technical Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Cisco Online Technical Test"
+  },
+  {
+    "rowId": "cisco-assoc-se-stage-name-11",
+    "subjectId": "cisco-assoc-se",
+    "field": "stage.name",
+    "value": "Technical and Systems Networking Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical and Systems Networking Interview"
+  },
+  {
+    "rowId": "cisco-assoc-se-stage-name-12",
+    "subjectId": "cisco-assoc-se",
+    "field": "stage.name",
+    "value": "Managerial Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Managerial Interview"
+  },
+  {
+    "rowId": "cisco-assoc-se-bondMonths-13",
+    "subjectId": "cisco-assoc-se",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Cisco has 0 months bond"
+  },
+  {
+    "rowId": "cisco-assoc-se-bondAmount-14",
+    "subjectId": "cisco-assoc-se",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond"
+  },
+  {
+    "rowId": "cisco-assoc-se-stipend-15",
+    "subjectId": "cisco-assoc-se",
+    "field": "stipend",
+    "value": 70000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://jobs.cisco.com/jobs/ProjectDetail/India-Associate-Software-Engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly intern stipend is 70000 rupees"
+  }
+]

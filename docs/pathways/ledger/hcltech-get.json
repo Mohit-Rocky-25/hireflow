@@ -1,0 +1,205 @@
+[
+  {
+    "rowId": "hcltech-get-officialName-0",
+    "subjectId": "hcltech-get",
+    "field": "officialName",
+    "value": "HCL Technologies Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "HCLTech Official Early Careers Recruitment"
+  },
+  {
+    "rowId": "hcltech-get-programName-1",
+    "subjectId": "hcltech-get",
+    "field": "programName",
+    "value": "HCLTech Graduate Engineer Trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "HCLTech Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "hcltech-get-programPageUrl-2",
+    "subjectId": "hcltech-get",
+    "field": "programPageUrl",
+    "value": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "HCLTech Official Early Careers Recruitment"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-cgpaMin-3",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.cgpaMin",
+    "value": 6.5,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-cgpaScale-4",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.5 CGPA on a 10.0 scale across 10th"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-percentAggregateMin-5",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.percentAggregateMin",
+    "value": 65,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 65.0 percent or 6.5 CGPA"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-maxActiveBacklogs-6",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must maintain 0 active backlogs at assessment"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-maxGapMonths-7",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Max academic gap permitted is 12 months"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-branches-8",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-degrees-9",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Streams eligible: B.E., B.Tech, MCA"
+  },
+  {
+    "rowId": "hcltech-get-eligibility-batchYears-10",
+    "subjectId": "hcltech-get",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Graduate Engineer Trainee GET Program for Batch 2026"
+  },
+  {
+    "rowId": "hcltech-get-stage-name-11",
+    "subjectId": "hcltech-get",
+    "field": "stage.name",
+    "value": "Aptitude and Technical Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Aptitude and Technical Test"
+  },
+  {
+    "rowId": "hcltech-get-stage-name-12",
+    "subjectId": "hcltech-get",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "hcltech-get-bondMonths-13",
+    "subjectId": "hcltech-get",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "service agreement is 12 months with bond amount"
+  },
+  {
+    "rowId": "hcltech-get-bondAmount-14",
+    "subjectId": "hcltech-get",
+    "field": "bondAmount",
+    "value": 50000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 50000 rupees"
+  },
+  {
+    "rowId": "hcltech-get-stipend-15",
+    "subjectId": "hcltech-get",
+    "field": "stipend",
+    "value": 14000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.hcltech.com/careers/campus/graduate-engineer-trainee",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly stipend during training is 14000 rupees"
+  }
+]

@@ -1,0 +1,216 @@
+[
+  {
+    "rowId": "target-engineer-officialName-0",
+    "subjectId": "target-engineer",
+    "field": "officialName",
+    "value": "Target Corporation India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Target Corporation India Campus Technology Careers"
+  },
+  {
+    "rowId": "target-engineer-programName-1",
+    "subjectId": "target-engineer",
+    "field": "programName",
+    "value": "Target India Campus Technology Program",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Target India Campus Engineer Program for Batch 2026"
+  },
+  {
+    "rowId": "target-engineer-programPageUrl-2",
+    "subjectId": "target-engineer",
+    "field": "programPageUrl",
+    "value": "https://corporate.target.com/careers/india/campus-technology",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Target Corporation India Campus Technology Careers"
+  },
+  {
+    "rowId": "target-engineer-eligibility-cgpaMin-3",
+    "subjectId": "target-engineer",
+    "field": "eligibility.cgpaMin",
+    "value": 7,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 7.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "target-engineer-eligibility-cgpaScale-4",
+    "subjectId": "target-engineer",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "7.0 CGPA on a 10.0 scale or 70.0 percent"
+  },
+  {
+    "rowId": "target-engineer-eligibility-percentAggregateMin-5",
+    "subjectId": "target-engineer",
+    "field": "eligibility.percentAggregateMin",
+    "value": 70,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "10.0 scale or 70.0 percent aggregate"
+  },
+  {
+    "rowId": "target-engineer-eligibility-maxActiveBacklogs-6",
+    "subjectId": "target-engineer",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must have 0 active backlogs at graduation"
+  },
+  {
+    "rowId": "target-engineer-eligibility-maxGapMonths-7",
+    "subjectId": "target-engineer",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum allowed gap is 12 months"
+  },
+  {
+    "rowId": "target-engineer-eligibility-branches-8",
+    "subjectId": "target-engineer",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE"
+  },
+  {
+    "rowId": "target-engineer-eligibility-degrees-9",
+    "subjectId": "target-engineer",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Qualifications: B.E., B.Tech, M.Tech in Computer Science"
+  },
+  {
+    "rowId": "target-engineer-eligibility-batchYears-10",
+    "subjectId": "target-engineer",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Campus Engineer Program for Batch 2026"
+  },
+  {
+    "rowId": "target-engineer-stage-name-11",
+    "subjectId": "target-engineer",
+    "field": "stage.name",
+    "value": "Coding Challenge and Algorithmic Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Coding Challenge and Algorithmic Test"
+  },
+  {
+    "rowId": "target-engineer-stage-name-12",
+    "subjectId": "target-engineer",
+    "field": "stage.name",
+    "value": "Systems Design and Coding Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Systems Design and Coding Interview"
+  },
+  {
+    "rowId": "target-engineer-stage-name-13",
+    "subjectId": "target-engineer",
+    "field": "stage.name",
+    "value": "Culture and Values Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Culture and Values Interview"
+  },
+  {
+    "rowId": "target-engineer-bondMonths-14",
+    "subjectId": "target-engineer",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Target provides 0 months bond"
+  },
+  {
+    "rowId": "target-engineer-bondAmount-15",
+    "subjectId": "target-engineer",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond"
+  },
+  {
+    "rowId": "target-engineer-stipend-16",
+    "subjectId": "target-engineer",
+    "field": "stipend",
+    "value": 45000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://corporate.target.com/careers/india/campus-technology",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly intern stipend is 45000 rupees"
+  }
+]

@@ -1,0 +1,216 @@
+[
+  {
+    "rowId": "freshworks-ase-officialName-0",
+    "subjectId": "freshworks-ase",
+    "field": "officialName",
+    "value": "Freshworks Inc",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Freshworks Inc Official India Careers"
+  },
+  {
+    "rowId": "freshworks-ase-programName-1",
+    "subjectId": "freshworks-ase",
+    "field": "programName",
+    "value": "Freshworks Campus Software Engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Freshworks Associate Software Engineer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "freshworks-ase-programPageUrl-2",
+    "subjectId": "freshworks-ase",
+    "field": "programPageUrl",
+    "value": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Freshworks Inc Official India Careers"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-cgpaMin-3",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.cgpaMin",
+    "value": 7,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 7.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-cgpaScale-4",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "7.0 CGPA on a 10.0 scale or 70.0 percent"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-percentAggregateMin-5",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.percentAggregateMin",
+    "value": 70,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "10.0 scale or 70.0 percent aggregate"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-maxActiveBacklogs-6",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Candidates must have 0 active backlogs at time"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-maxGapMonths-7",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.maxGapMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum allowed education gap is 12 months"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-branches-8",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Branches: CSE, IT, ECE"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-degrees-9",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees: B.E., B.Tech, MCA"
+  },
+  {
+    "rowId": "freshworks-ase-eligibility-batchYears-10",
+    "subjectId": "freshworks-ase",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Associate Software Engineer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "freshworks-ase-stage-name-11",
+    "subjectId": "freshworks-ase",
+    "field": "stage.name",
+    "value": "Online Coding and Problem Solving Test",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Online Coding and Problem Solving Test"
+  },
+  {
+    "rowId": "freshworks-ase-stage-name-12",
+    "subjectId": "freshworks-ase",
+    "field": "stage.name",
+    "value": "Data Structures and Algorithms Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Data Structures and Algorithms Interview"
+  },
+  {
+    "rowId": "freshworks-ase-stage-name-13",
+    "subjectId": "freshworks-ase",
+    "field": "stage.name",
+    "value": "Culture and Values Conversation",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 3: Culture and Values Conversation"
+  },
+  {
+    "rowId": "freshworks-ase-bondMonths-14",
+    "subjectId": "freshworks-ase",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Freshworks maintains 0 months bond"
+  },
+  {
+    "rowId": "freshworks-ase-bondAmount-15",
+    "subjectId": "freshworks-ase",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond"
+  },
+  {
+    "rowId": "freshworks-ase-stipend-16",
+    "subjectId": "freshworks-ase",
+    "field": "stipend",
+    "value": 35000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.freshworks.com/careers/campus/associate-software-engineer",
+    "retrievedAt": "2026-10-26T10:50:04.862Z",
+    "extractedBy": "ai",
+    "snippet": "Monthly intern stipend is 35000 rupees"
+  }
+]
