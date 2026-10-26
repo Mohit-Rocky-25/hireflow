@@ -7,7 +7,7 @@ import { SkillDefinition } from './types';
 import { Provenance } from '../provenance';
 
 const defaultProvenance: Provenance = {
-  source: 'HireFlow Canonical Tech Taxonomy v3',
+  source: 'HireFlo Canonical Tech Taxonomy v3',
   sourceUrl: 'https://github.com/Mohit-Rocky-25/hireflow',
   lastVerified: '2026-10-18',
   confidence: 'high',

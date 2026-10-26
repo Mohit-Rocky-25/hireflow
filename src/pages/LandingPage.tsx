@@ -494,7 +494,7 @@ export function LandingPage() {
                 H
               </div>
               <span className="text-[18px] font-black text-white tracking-tight font-sans">
-                HIRE<span className="text-volt">FLOW</span>
+                HIRE<span className="text-volt">FLO</span>
               </span>
             </div>
 

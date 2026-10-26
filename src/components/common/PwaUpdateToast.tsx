@@ -18,7 +18,7 @@ export const PwaUpdateToast: React.FC = () => {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs font-bold uppercase tracking-[1.2px] text-white">Update Available</p>
-        <p className="text-[11px] text-silver mt-0.5">A new version of HireFlow is ready.</p>
+        <p className="text-[11px] text-silver mt-0.5">A new version of HireFlo is ready.</p>
       </div>
       <div className="flex items-center gap-1.5 shrink-0">
         <button

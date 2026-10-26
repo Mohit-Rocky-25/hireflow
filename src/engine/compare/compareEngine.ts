@@ -194,7 +194,7 @@ export function compareJDsAndCandidate(
           type: 'credential',
           title: 'AWS Certified Cloud Practitioner or Docker Basics',
           actionNote: `Study official architecture guides and verify fundamentals for ${skillDef.canonical}.`,
-          sourceRef: 'HireFlow Verified Opportunities Data',
+          sourceRef: 'HireFlo Verified Opportunities Data',
         });
       } else if (['react', 'vue', 'angular', 'nextjs'].includes(skillDef.id)) {
         bridgePlan.push({
@@ -203,7 +203,7 @@ export function compareJDsAndCandidate(
           type: 'project_brief',
           title: `Interactive Web Application with ${skillDef.canonical}`,
           actionNote: `Build an end-to-end frontend dashboard with responsive layout and push repository to GitHub.`,
-          sourceRef: 'HireFlow Curated Briefs Library',
+          sourceRef: 'HireFlo Curated Briefs Library',
         });
       } else if (['nodejs', 'python', 'fastapi', 'postgresql', 'mysql', 'sql'].includes(skillDef.id)) {
         bridgePlan.push({
@@ -212,7 +212,7 @@ export function compareJDsAndCandidate(
           type: 'project_brief',
           title: `RESTful Microservice with ${skillDef.canonical}`,
           actionNote: `Implement CRUD endpoints with indexed relational database queries and automated API tests.`,
-          sourceRef: 'HireFlow Curated Briefs Library',
+          sourceRef: 'HireFlo Curated Briefs Library',
         });
       } else {
         // Honest fallback when no curated brief exists in repo (Principle P-1)
@@ -221,7 +221,7 @@ export function compareJDsAndCandidate(
           skillName: skillDef.canonical,
           type: 'gap_notice',
           title: skillDef.canonical,
-          actionNote: 'No matching item in HireFlow yet. Self-directed documentation review recommended.',
+          actionNote: 'No matching item in HireFlo yet. Self-directed documentation review recommended.',
         });
       }
     } else {
@@ -230,7 +230,7 @@ export function compareJDsAndCandidate(
         skillName: gapName,
         type: 'gap_notice',
         title: gapName,
-        actionNote: 'No matching item in HireFlow yet. Self-directed documentation review recommended.',
+        actionNote: 'No matching item in HireFlo yet. Self-directed documentation review recommended.',
       });
     }
   });
@@ -240,7 +240,7 @@ export function compareJDsAndCandidate(
     roleB,
     venn,
     bridgePlan: bridgePlan.slice(0, 3), // Show up to 3 structured steps (R6.3)
-    disclaimer: 'This is HireFlow\'s own estimate of job match. Different companies use different systems and humans make the final call.',
+    disclaimer: 'This is HireFlo\'s own estimate of job match. Different companies use different systems and humans make the final call.',
   };
 }
 

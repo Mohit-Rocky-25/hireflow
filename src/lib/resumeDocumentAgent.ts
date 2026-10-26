@@ -302,7 +302,7 @@ export function readAndClassifyDocument(text: string, fileName?: string): Docume
   let refusalReason: string | undefined = undefined;
   if (!isValidResume) {
     if (detectedAntiPattern) {
-      refusalReason = `Document classified as a ${detectedAntiPattern.label}. HireFlow strictly refuses to compute speculative scores or placement predictions on non-resume text.`;
+      refusalReason = `Document classified as a ${detectedAntiPattern.label}. HireFlo strictly refuses to compute speculative scores or placement predictions on non-resume text.`;
       diagnostics.push(refusalReason);
     } else if (sectionsFound.length === 0) {
       refusalReason = `No recognized resume sections found (missing ${missingCoreSections.join(', ')}). A resume must be organized with standard headings detailing your background.`;

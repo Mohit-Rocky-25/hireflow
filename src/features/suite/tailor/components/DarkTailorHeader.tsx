@@ -172,7 +172,7 @@ export function DarkTailorHeader({
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-extrabold text-base tracking-tight text-white uppercase font-mono">
-                    HIRE<span className="text-volt">FLOW</span> RESUME STUDIO
+                    HIRE<span className="text-volt">FLO</span> RESUME STUDIO
                   </span>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider bg-volt/10 text-volt border border-volt/30">
                     <CheckCircle2 className="w-2.5 h-2.5" />

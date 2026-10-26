@@ -84,7 +84,7 @@ export function CareersDataExplorer() {
               Careers Data Platform Explorer
             </h1>
             <p className="text-xs font-mono text-neutral-400 mt-1">
-              One shared data layer for all HireFlow tools (Career Trajectory, TalentLens, ATS Roaster, Tailor My Resume)
+              One shared data layer for all HireFlo tools (Career Trajectory, TalentLens, ATS Roaster, Tailor My Resume)
             </p>
           </div>
 

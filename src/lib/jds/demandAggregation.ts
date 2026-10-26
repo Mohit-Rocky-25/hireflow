@@ -166,7 +166,7 @@ export function aggregateDemandedSkills(
       })),
       confidence: totalJdCount >= 3 ? 'high' : 'medium',
       limitations: [
-        'Derived strictly from the JDs you saved in HireFlow, not the global tech market.',
+        'Derived strictly from the JDs you saved in HireFlo, not the global tech market.',
         'Weights reflect configured campus hiring priority multipliers.',
       ],
     };

@@ -58,7 +58,7 @@ export function CareerPathBackButton({
           {!isHub && (
             <nav className="hidden sm:flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[1.2px] text-silver pl-2 border-l border-charcoal" aria-label="Breadcrumb">
               <Link to="/" className="text-silver hover:text-volt transition-colors">
-                HIREFLOW
+                HIREFLO
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-silver/60 stroke-[1.5px]" aria-hidden="true" />
               <Link to="/tools/career-path" className="text-silver hover:text-volt transition-colors">

@@ -221,7 +221,7 @@ export function PrivacyDisclaimer() {
                   <div className="text-center py-6 text-text-muted">
                     <Check className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
                     <p className="font-medium text-text">Zero Local Data Stored</p>
-                    <p className="text-[11px]">Your browser storage contains no cached HireFlow records.</p>
+                    <p className="text-[11px]">Your browser storage contains no cached HireFlo records.</p>
                   </div>
                 ) : (
                   <div className="border border-border rounded-lg overflow-hidden">

@@ -161,7 +161,7 @@ export function LocalhostNavigator() {
       name: 'Home / Landing Page',
       path: '/',
       category: 'Public Explorers',
-      description: 'HireFlow public hero landing page with feature showcase',
+      description: 'HireFlo public hero landing page with feature showcase',
       icon: Home,
     },
     {
@@ -303,7 +303,7 @@ export function LocalhostNavigator() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-base font-bold text-white uppercase tracking-tight">HireFlow Localhost Directory</h2>
+                    <h2 className="text-base font-bold text-white uppercase tracking-tight">HireFlo Localhost Directory</h2>
                     <span className="px-2 py-0.5 text-xs font-mono rounded bg-near-black text-volt border border-volt/40">
                       Live on :{currentPort}
                     </span>

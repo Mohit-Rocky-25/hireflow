@@ -75,8 +75,8 @@ export async function generatePdfResume(
   pdfDoc.setTitle(`${candidate.fullName || 'Candidate'} - Resume`);
   pdfDoc.setAuthor(candidate.fullName || 'Candidate');
   pdfDoc.setSubject('Professional ATS Tailored Resume');
-  pdfDoc.setProducer('HireFlow ATS Vector Engine');
-  pdfDoc.setCreator('HireFlow');
+  pdfDoc.setProducer('HireFlo ATS Vector Engine');
+  pdfDoc.setCreator('HireFlo');
 
   // Embed standard typography
   const isClassic = resume.layoutSettings?.template === 'classic';

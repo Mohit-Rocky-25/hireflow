@@ -557,7 +557,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
             )}
             {flowStage === 'vortex' && (
               <div className="hf-cyclone-word token-flow">
-                <span className="hf-vortex-letter-glow">FLOW</span>
+                <span className="hf-vortex-letter-glow">FLO</span>
                 <div className="hf-word-vortex-tail" />
               </div>
             )}
@@ -589,9 +589,9 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
               {hireStage === 'landed' && <div className="hf-word-impact-flare" />}
             </div>
 
-            {/* WORD 2: FLOW */}
+            {/* WORD 2: FLO */}
             <div className={`hf-word-capsule slot-flow ${flowStage}`}>
-              <span className="hf-brand-title-text hf-title-accent">Flow</span>
+              <span className="hf-brand-title-text hf-title-accent">Flo</span>
               {flowStage === 'landed' && <div className="hf-word-impact-flare flare-cyan" />}
             </div>
 
