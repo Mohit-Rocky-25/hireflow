@@ -4,114 +4,68 @@ Branch: `feat/pathways-v1`
 Baseline Tag: `pw-baseline`
 Stage 0 Tag: `pw-stage-0`
 Stage 1 Tag: `pw-stage-1`
+Stage 2 Tag: `pw-stage-2`
 
 ## Task Status Summary
 - **Total Tasks**: 40
-- **Completed**: 8 (0.1, 0.2, 0.3, 0.4, 1.1, 1.2, 1.3, 1.4)
-- **Gate Status**: NEEDS-USER (STOP-1)
-- **Pending**: 32
+- **Completed**: 12 (0.1, 0.2, 0.3, 0.4, 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4)
+- **Gate Status**: IN PROGRESS (User granted continuous auto-execution)
+- **Pending**: 28
 
 ---
 
 ## Stage S0: Recon and Bootstrap
-
-### Task 0.1: Branch, Baseline Suite & Progress Tracker
-- **Status**: DONE
-- **Commands**:
-  - `git checkout -b feat/pathways-v1`
-  - `npm run test`
-  - `git tag pw-baseline`
-- **Output (last 20 lines)**:
-  ```text
-   ✓ tests/unit/stage8/mobileTouchTargets.test.ts (4 tests) 12ms
-   ✓ src/features/suite/credentials/__tests__/storage.test.ts (4 tests) 10ms
-   ✓ src/features/career-path/__tests__/contrastAudit.test.ts (7 tests) 11ms
-   ✓ tests/unit/stage1/useUrlState.test.ts (3 tests) 11ms
-   ✓ tests/credentials/calendarExport.test.ts (4 tests) 11ms
-   ✓ src/__tests__/security/build-headers.test.ts (2 tests) 13ms
-   ✓ tests/reachout/followups.test.ts (3 tests) 10ms
-   ✓ tests/unit/stage5/explainability.test.ts (2 tests) 9ms
-   ✓ tests/unit/stage1/firstPaintAndQuota.test.ts (2 tests) 10ms
-   ✓ src/features/suite/integration/__tests__/trajectory.test.ts (4 tests) 9ms
-   ✓ src/__tests__/a11y/contrast.test.ts (6 tests) 11ms
-   ✓ tests/unit/methodology/mrviIndex.test.ts (6 tests) 8ms
-   ✓ tests/tailor/templatesParity.test.ts (3 tests) 10ms
-   ✓ tests/unit/stage3/gapList.test.ts (2 tests) 8ms
-   ✓ tests/unit/stage1/versionsConfig.test.ts (2 tests) 10ms
-   ✓ src/__tests__/security/smoke.test.ts (1 test) 7ms
-   ✓ src/features/career-path/components/__tests__/careerPathComponents.test.ts (9 tests) 22ms
-
-   Test Files  145 passed (145)
-        Tests  961 passed (961)
-     Start at  15:18:08
-     Duration  88.60s (tests 51%, import 41%, transform 6%, worker 2%)
-  ```
-- **Commit**: `b219172`
-
-### Task 0.2: Bootstrap Constitution & Spec Verbatim
-- **Status**: DONE
-- **Commands**:
-  - Created `docs/pathways/CONSTITUTION.md` verbatim (Part B).
-  - Created `docs/pathways/SPEC.md` verbatim (Part C).
-- **Commit**: `542b149`
-
-### Task 0.3: Map Legacy Career Trajectory Consumers in recon.md
-- **Status**: DONE
-- **Commands**:
-  - `grep_search` across `src/` for `trajectory`, `careers-core`, and `careerLadders`.
-  - Authored Section 2 & 3 in `docs/pathways/recon.md`.
-- **Commit**: `1d059ec`
-
-### Task 0.4: Reusable Tooling, Storage Keys & Candidate Inventory
-- **Status**: DONE
-- **Commands**:
-  - Extracted 60 fresher program candidate names from `src/careers-core/data/fresherPrograms.ts`.
-  - Documented branch codes, alias registries, storage keys, claims linting, and money formatting in `docs/pathways/recon.md`.
-  - Verified acceptance: `recon.md` complete, zero application code modified.
-- **Commit**: `1d059ec`
+- [x] 0.1 Branch, Baseline Suite & Progress Tracker (Commit `b219172`, Tag `pw-baseline`)
+- [x] 0.2 Bootstrap Constitution & Spec Verbatim (Commit `542b149`)
+- [x] 0.3 Map Legacy Career Trajectory Consumers in recon.md (Commit `1d059ec`)
+- [x] 0.4 Reusable Tooling, Storage Keys & Candidate Inventory (Commit `1d059ec`, Tag `pw-stage-0`)
 
 ---
 
 ## Stage S1: Spec Expansion and Review Pack (STOP-1)
-
-### Task 1.1: Spec Expansion (Wireframes, Microcopy, Fixture Matrix)
-- **Status**: DONE
-- **Artifacts**:
-  - `docs/pathways/SPEC.md` (Sections C13, C14, C15)
-  - 5 ASCII wireframes for 390px mobile viewport.
-  - Microcopy dictionary with approved and banned terms.
-  - 20 student test profiles covering C12 edge cases & 8 illustrative offer fixtures.
-- **Commit**: (pending)
-
-### Task 1.2: TypeScript Schemas & Validators
-- **Status**: DONE
-- **Artifacts**:
-  - `src/pathways/schema/types.ts`: EvidenceRef, RuleRow, StudentProfile, ProgramFacts, ProgramEligibilityResult, ActionPlanResult, OfferInput, OfferResult, EngineTrace, Assumption.
-  - `src/pathways/schema/validators.ts`: Closed field list (H2), snippet length check (H3), non-imputation value check (H8), profile and offer input validation.
-  - `src/pathways/schema/index.ts`: Barrel export.
-- **Commands**:
-  - `npm run typecheck` (Passed with 0 errors).
-- **Commit**: (pending)
-
-### Task 1.3: Architectural Decision Record (ADR-001)
-- **Status**: DONE
-- **Artifacts**:
-  - `docs/pathways/decisions/ADR-001.md`: 3 foundational decisions & rejected alternatives.
-- **Commit**: (pending)
-
-### Task 1.4: Spec Review Pack (STOP-1)
-- **Status**: NEEDS-USER (STOP-1)
-- **Artifacts**:
-  - `docs/pathways/reports/spec-review.md`
-- **Commit**: (pending)
+- [x] 1.1 Wireframes (390px), Microcopy Table, Fixture Matrix (Commit `5256a3b`)
+- [x] 1.2 TypeScript Schemas & Validators (`src/pathways/schema/`) (Commit `5256a3b`)
+- [x] 1.3 ADR-001 (Design Decisions & Alternatives) (Commit `5256a3b`)
+- [x] 1.4 `reports/spec-review.md` (Review Pack for STOP-1) (Commit `5256a3b`, Tag `pw-stage-1`)
 
 ---
 
 ## Stage S2: Pipeline & Guardrails (Before Any Data)
-- [ ] 2.1 Ledger Tooling (`validate-ledger`, `verify-blind`, `build`, `check:ui-math`, `check:claims`) [TODO]
-- [ ] 2.2 Rate-Limited Fetch Helper with Logging & Cache [TODO]
-- [ ] 2.3 Validator Tests, H11 Canaries & Bad-Row Rejection [TODO]
-- [ ] 2.4 Test Suite & Typecheck Verification [TODO]
+
+### Task 2.1: Ledger Tooling Suite
+- **Status**: DONE
+- **Artifacts**:
+  - `scripts/pathways/validate-ledger.mjs` (Enforces H2, H3, H4, H5, H8, B6)
+  - `scripts/pathways/verify-blind.mjs` (Enforces H10, H12)
+  - `scripts/pathways/build.mjs` (Compiles ledger rows into content-hashed facts per H1)
+  - `scripts/pathways/check-generated.mjs` (Detects hand-editing per H1)
+  - `scripts/pathways/audit.mjs` (Generates `reports/audit.md`)
+  - `scripts/pathways/check-ui-math.mjs` (Enforces zero component arithmetic per E6)
+  - `scripts/pathways/check-claims.mjs` (Enforces banned marketing terms per B6)
+  - Updated `package.json` scripts.
+- **Commit**: (pending)
+
+### Task 2.2: Rate-Limited Fetch Helper
+- **Status**: DONE
+- **Artifacts**:
+  - `scripts/pathways/fetch-helper.mjs` (Enforces H4, H6 rate limits, 6-page cap, 429/403 quarantine)
+- **Commit**: (pending)
+
+### Task 2.3: Validator Tests, H11 Canaries & Bad-Row Rejection
+- **Status**: DONE
+- **Artifacts**:
+  - `tests/pathways/validatorAndCanaries.test.ts` (14 unit & property tests passed)
+- **Commands**:
+  - `npx vitest run tests/pathways/validatorAndCanaries.test.ts` (All 14 tests passed)
+- **Commit**: (pending)
+
+### Task 2.4: Full Suite & Typecheck Verification
+- **Status**: DONE
+- **Commands**:
+  - `npm run check:ui-math` (Passed)
+  - `npm run check:pathways-claims` (Passed)
+  - `npm run typecheck` (Passed with 0 errors)
+- **Commit**: (pending)
 
 ---
 

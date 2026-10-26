@@ -38,7 +38,14 @@
     "build:companies": "node scripts/companies100/build-companies.mjs",
     "check:generated": "node scripts/companies100/check-generated.mjs",
     "validate:companies": "node scripts/companies100/check-generated.mjs && vitest run tests/talentlens/companies100Sanity.test.ts",
-    "audit:companies": "node scripts/companies100/audit-companies.mjs"
+    "audit:companies": "node scripts/companies100/audit-companies.mjs",
+    "pathways:validate-ledger": "node scripts/pathways/validate-ledger.mjs",
+    "pathways:verify-blind": "node scripts/pathways/verify-blind.mjs",
+    "pathways:build": "node scripts/pathways/build.mjs",
+    "pathways:check-generated": "node scripts/pathways/check-generated.mjs",
+    "pathways:audit": "node scripts/pathways/audit.mjs",
+    "check:ui-math": "node scripts/pathways/check-ui-math.mjs",
+    "check:pathways-claims": "node scripts/pathways/check-claims.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
