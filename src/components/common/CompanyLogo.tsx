@@ -7,6 +7,7 @@
 // ============================================================
 
 import React from 'react';
+import { EXTENDED_ALIASES, EXTENDED_LOGO_COMPONENTS } from './companyLogosExtended';
 
 export interface CompanyLogoProps {
   company: { id?: string; name?: string; logo?: string; tier?: string } | string;
@@ -111,6 +112,7 @@ function getInitials(name: string): string {
 }
 
 const EXACT_ALIASES: Record<string, string> = {
+  ...EXTENDED_ALIASES,
   google: 'google',
   alphabet: 'google',
   microsoft: 'microsoft',
@@ -296,6 +298,7 @@ const EXACT_ALIASES: Record<string, string> = {
 type SvgComponent = React.FC<{ className?: string }>;
 
 const LOGO_COMPONENTS: Record<string, SvgComponent> = {
+  ...EXTENDED_LOGO_COMPONENTS,
   accenture: ({className }) => (
     <svg viewBox="0 0 24 24" className={className} fill="none">
       <path fill="#A100FF" d="m.66 16.95 13.242-4.926L.66 6.852V0l22.68 9.132v5.682L.66 24Z" />
