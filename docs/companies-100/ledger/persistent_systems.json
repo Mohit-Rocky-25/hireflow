@@ -1,0 +1,116 @@
+{
+  "companyId": "persistent_systems",
+  "name": "Persistent Systems",
+  "tier": "IT_SERVICES",
+  "tierRationale": "Global digital engineering provider specializing in cloud software products.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "persistent_systems-officialName",
+      "companyId": "persistent_systems",
+      "field": "officialName",
+      "value": "Persistent Systems Limited",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Persistent Systems Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-officialSiteUrl",
+      "companyId": "persistent_systems",
+      "field": "officialSiteUrl",
+      "value": "https://www.persistent.com",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Official corporate website of Persistent Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-indiaPresenceUrl",
+      "companyId": "persistent_systems",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.persistent.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Persistent Systems Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-careersUrl",
+      "companyId": "persistent_systems",
+      "field": "careersUrl",
+      "value": "https://www.persistent.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Persistent Systems Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-campusPageUrl",
+      "companyId": "persistent_systems",
+      "field": "campusPageUrl",
+      "value": "https://www.persistent.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Persistent Systems early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-hq",
+      "companyId": "persistent_systems",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "persistent_systems-industry",
+      "companyId": "persistent_systems",
+      "field": "industry",
+      "value": "Digital Engineering & Enterprise Modernization Services",
+      "sourceKind": "official",
+      "url": "https://www.persistent.com",
+      "retrievedAt": "2026-10-25T18:20:09.410Z",
+      "snippet": "Specializing in Digital Engineering & Enterprise Modernization Services",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

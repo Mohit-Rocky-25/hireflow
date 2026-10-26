@@ -1,0 +1,131 @@
+{
+  "companyId": "polestar_solutions",
+  "name": "Polestar Solutions",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Data analytics consulting and business intelligence technology consulting firm.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "polestar_solutions-officialName",
+      "companyId": "polestar_solutions",
+      "field": "officialName",
+      "value": "Polestar Solutions and Services India LLP",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "Polestar Solutions and Services India LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-officialSiteUrl",
+      "companyId": "polestar_solutions",
+      "field": "officialSiteUrl",
+      "value": "https://www.polestarllp.com",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "Official corporate website of Polestar Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-indiaPresenceUrl",
+      "companyId": "polestar_solutions",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.polestarllp.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "Polestar Solutions and Services India LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-careersUrl",
+      "companyId": "polestar_solutions",
+      "field": "careersUrl",
+      "value": "https://www.polestarllp.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "Polestar Solutions Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-hq",
+      "companyId": "polestar_solutions",
+      "field": "hq",
+      "value": "Noida, Uttar Pradesh",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "headquartered in Noida, Uttar Pradesh",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-industry",
+      "companyId": "polestar_solutions",
+      "field": "industry",
+      "value": "Enterprise Data Management, Cloud Analytics & PowerBI",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com",
+      "retrievedAt": "2026-10-25T18:20:09.167Z",
+      "snippet": "Specializing in Enterprise Data Management, Cloud Analytics & PowerBI",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-jobFamily-1",
+      "companyId": "polestar_solutions",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.324Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "polestar_solutions-jobFamily-2",
+      "companyId": "polestar_solutions",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.polestarllp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.324Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Polestar Solutions.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

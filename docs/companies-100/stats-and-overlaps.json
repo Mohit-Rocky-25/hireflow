@@ -1,0 +1,145 @@
+{
+  "existingCompanyCount": 141,
+  "existingRoleCount": 1450,
+  "tierCounts": {
+    "FAANG": 7,
+    "Unicorn": 25,
+    "Startup": 9,
+    "IT Services": 24,
+    "MNC": 44,
+    "Enterprise": 17,
+    "Tech Giant": 15
+  },
+  "overlapsById": [
+    {
+      "newComp": {
+        "id": "mu_sigma",
+        "name": "Mu Sigma",
+        "tier": "UNICORN",
+        "industry": "Decision Sciences & Big Data Analytics",
+        "hq": "Bengaluru, Karnataka",
+        "typicalRoles": "Trainee Decision Scientist, Analytics Associate"
+      },
+      "existing": {
+        "id": "mu_sigma",
+        "name": "Mu Sigma",
+        "tier": "IT Services",
+        "industry": "Analytics"
+      }
+    },
+    {
+      "newComp": {
+        "id": "leadsquared",
+        "name": "LeadSquared",
+        "tier": "UNICORN",
+        "industry": "Sales Automation & CRM SaaS",
+        "hq": "Bengaluru, Karnataka",
+        "typicalRoles": "Associate Software Engineer (C#/Python), QA Automation Trainee"
+      },
+      "existing": {
+        "id": "leadsquared",
+        "name": "LeadSquared",
+        "tier": "Startup",
+        "industry": "SaaS / CRM"
+      }
+    },
+    {
+      "newComp": {
+        "id": "birlasoft",
+        "name": "Birlasoft",
+        "tier": "IT_SERVICES",
+        "industry": "Enterprise Cloud & ERP Transformation",
+        "hq": "Pune / Noida",
+        "typicalRoles": "Graduate Trainee Engineer, Salesforce Developer Trainee"
+      },
+      "existing": {
+        "id": "birlasoft",
+        "name": "Birlasoft",
+        "tier": "IT Services",
+        "industry": "IT Services"
+      }
+    },
+    {
+      "newComp": {
+        "id": "zensar",
+        "name": "Zensar Technologies",
+        "tier": "IT_SERVICES",
+        "industry": "Digital Transformation & Experience Tech",
+        "hq": "Pune, Maharashtra",
+        "typicalRoles": "Associate Software Engineer, Cloud Infrastructure Trainee"
+      },
+      "existing": {
+        "id": "zensar",
+        "name": "Zensar",
+        "tier": "IT Services",
+        "industry": "IT Services"
+      }
+    }
+  ],
+  "overlapsByName": [
+    {
+      "newComp": {
+        "id": "mu_sigma",
+        "name": "Mu Sigma",
+        "tier": "UNICORN",
+        "industry": "Decision Sciences & Big Data Analytics",
+        "hq": "Bengaluru, Karnataka",
+        "typicalRoles": "Trainee Decision Scientist, Analytics Associate"
+      },
+      "existing": {
+        "id": "mu_sigma",
+        "name": "Mu Sigma",
+        "tier": "IT Services",
+        "industry": "Analytics"
+      }
+    },
+    {
+      "newComp": {
+        "id": "leadsquared",
+        "name": "LeadSquared",
+        "tier": "UNICORN",
+        "industry": "Sales Automation & CRM SaaS",
+        "hq": "Bengaluru, Karnataka",
+        "typicalRoles": "Associate Software Engineer (C#/Python), QA Automation Trainee"
+      },
+      "existing": {
+        "id": "leadsquared",
+        "name": "LeadSquared",
+        "tier": "Startup",
+        "industry": "SaaS / CRM"
+      }
+    },
+    {
+      "newComp": {
+        "id": "birlasoft",
+        "name": "Birlasoft",
+        "tier": "IT_SERVICES",
+        "industry": "Enterprise Cloud & ERP Transformation",
+        "hq": "Pune / Noida",
+        "typicalRoles": "Graduate Trainee Engineer, Salesforce Developer Trainee"
+      },
+      "existing": {
+        "id": "birlasoft",
+        "name": "Birlasoft",
+        "tier": "IT Services",
+        "industry": "IT Services"
+      }
+    },
+    {
+      "newComp": {
+        "id": "zensar",
+        "name": "Zensar Technologies",
+        "tier": "IT_SERVICES",
+        "industry": "Digital Transformation & Experience Tech",
+        "hq": "Pune, Maharashtra",
+        "typicalRoles": "Associate Software Engineer, Cloud Infrastructure Trainee"
+      },
+      "existing": {
+        "id": "zensar",
+        "name": "Zensar",
+        "tier": "IT Services",
+        "industry": "IT Services"
+      }
+    }
+  ]
+}

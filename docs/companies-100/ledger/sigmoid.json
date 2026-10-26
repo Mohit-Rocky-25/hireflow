@@ -1,0 +1,146 @@
+{
+  "companyId": "sigmoid",
+  "name": "Sigmoid Analytics",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Enterprise data engineering firm implementing real-time streaming pipelines.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "sigmoid-officialName",
+      "companyId": "sigmoid",
+      "field": "officialName",
+      "value": "Sigmoid Analytics Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Sigmoid Analytics Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-officialSiteUrl",
+      "companyId": "sigmoid",
+      "field": "officialSiteUrl",
+      "value": "https://www.sigmoid.com",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Official corporate website of Sigmoid Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-indiaPresenceUrl",
+      "companyId": "sigmoid",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.sigmoid.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Sigmoid Analytics Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-careersUrl",
+      "companyId": "sigmoid",
+      "field": "careersUrl",
+      "value": "https://www.sigmoid.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Sigmoid Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-campusPageUrl",
+      "companyId": "sigmoid",
+      "field": "campusPageUrl",
+      "value": "https://www.sigmoid.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Sigmoid Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-hq",
+      "companyId": "sigmoid",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-industry",
+      "companyId": "sigmoid",
+      "field": "industry",
+      "value": "Data Engineering, Real-Time Analytics & Generative AI",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com",
+      "retrievedAt": "2026-10-25T18:20:09.179Z",
+      "snippet": "Specializing in Data Engineering, Real-Time Analytics & Generative AI",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-jobFamily-1",
+      "companyId": "sigmoid",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.477Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sigmoid-jobFamily-2",
+      "companyId": "sigmoid",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.sigmoid.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.477Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Sigmoid Analytics.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

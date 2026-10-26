@@ -556,15 +556,28 @@ export function ReachOutPage() {
     <div className="min-h-screen bg-black text-white pb-24 font-sans selection:bg-volt selection:text-black">
       {/* ── Top Bar / Breadcrumb ── */}
       <div className="border-b border-charcoal bg-black/95 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Link
-              to="/tools"
-              className="inline-flex items-center gap-1.5 text-xs text-silver hover:text-white font-bold px-3 py-1.5 rounded bg-near-black hover:bg-hover-gray transition-colors border border-charcoal"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Tools Hub
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/"
+                className="w-9 h-9 rounded bg-near-black hover:bg-hover-gray border border-charcoal flex items-center justify-center text-silver hover:text-white transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
+                aria-label="Go to Home"
+                title="Go to Home"
+              >
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5a1 1 0 0 1-1-1v-4.5h-3V20a1 1 0 0 1-1 1.5h-5A1.5 1.5 0 0 1 3 20z" />
+                </svg>
+              </Link>
+              <Link
+                to="/tools"
+                className="w-9 h-9 rounded bg-near-black hover:bg-hover-gray border border-charcoal flex items-center justify-center text-silver hover:text-white transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
+                aria-label="Back to Tools Hub"
+                title="Back to Tools Hub"
+              >
+                ←
+              </Link>
+            </div>
             <span className="text-charcoal">/</span>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded bg-near-black text-volt border border-charcoal">
               <Sparkles className="w-3 h-3 text-volt" />

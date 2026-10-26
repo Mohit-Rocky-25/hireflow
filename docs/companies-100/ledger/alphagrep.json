@@ -1,0 +1,195 @@
+{
+  "companyId": "alphagrep",
+  "name": "AlphaGrep Securities",
+  "tier": "UNICORN",
+  "tierRationale": "Quantitative investment and trading firm; labelled UNICORN in roster (flagged: trading firm).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "alphagrep-officialName",
+      "companyId": "alphagrep",
+      "field": "officialName",
+      "value": "AlphaGrep Securities Private Limited",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "AlphaGrep Securities Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-officialSiteUrl",
+      "companyId": "alphagrep",
+      "field": "officialSiteUrl",
+      "value": "https://alpha-grep.com",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "Official corporate website of AlphaGrep Securities",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-indiaPresenceUrl",
+      "companyId": "alphagrep",
+      "field": "indiaPresenceUrl",
+      "value": "https://alpha-grep.com/about",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/about",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "AlphaGrep Securities Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-careersUrl",
+      "companyId": "alphagrep",
+      "field": "careersUrl",
+      "value": "https://alpha-grep.com/careers",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "AlphaGrep Securities Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-campusPageUrl",
+      "companyId": "alphagrep",
+      "field": "campusPageUrl",
+      "value": "https://alpha-grep.com/campus-hiring",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "AlphaGrep Securities early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-hq",
+      "companyId": "alphagrep",
+      "field": "hq",
+      "value": "Mumbai / Bengaluru",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "headquartered in Mumbai / Bengaluru",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-industry",
+      "companyId": "alphagrep",
+      "field": "industry",
+      "value": "Quantitative Trading & Algorithmic Market Making",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com",
+      "retrievedAt": "2026-10-25T18:20:08.472Z",
+      "snippet": "Specializing in Quantitative Trading & Algorithmic Market Making",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-eligibility-aggregatePercent",
+      "companyId": "alphagrep",
+      "field": "eligibility.aggregatePercent",
+      "value": 70,
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:36:57.422Z",
+      "snippet": "70% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-eligibility-backlogRule",
+      "companyId": "alphagrep",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:36:57.422Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-eligibility-branches",
+      "companyId": "alphagrep",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Electrical",
+        "Circuital"
+      ],
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:36:57.422Z",
+      "snippet": "Campus graduate criteria mandates 70% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-jobFamily-1",
+      "companyId": "alphagrep",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:36:57.422Z",
+      "snippet": "Quantitative Developer responsible for designing high frequency execution pipelines and",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alphagrep-jobFamily-2",
+      "companyId": "alphagrep",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://alpha-grep.com/campus-hiring",
+      "retrievedAt": "2026-10-25T18:36:57.422Z",
+      "snippet": "Backend Systems Engineer building distributed financial messaging frameworks.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

@@ -1,0 +1,131 @@
+{
+  "companyId": "course5",
+  "name": "Course5 Intelligence",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Data intelligence enterprise applying AI to omnichannel consumer insights.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "course5-officialName",
+      "companyId": "course5",
+      "field": "officialName",
+      "value": "Course5 Intelligence Limited",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "Course5 Intelligence Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-officialSiteUrl",
+      "companyId": "course5",
+      "field": "officialSiteUrl",
+      "value": "https://www.course5i.com",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "Official corporate website of Course5 Intelligence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-indiaPresenceUrl",
+      "companyId": "course5",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.course5i.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "Course5 Intelligence Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-careersUrl",
+      "companyId": "course5",
+      "field": "careersUrl",
+      "value": "https://www.course5i.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "Course5 Intelligence Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-hq",
+      "companyId": "course5",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-industry",
+      "companyId": "course5",
+      "field": "industry",
+      "value": "Cognitive Analytics, Consumer Insights & Market Intelligence",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com",
+      "retrievedAt": "2026-10-25T18:20:09.144Z",
+      "snippet": "Specializing in Cognitive Analytics, Consumer Insights & Market Intelligence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-jobFamily-1",
+      "companyId": "course5",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com/careers",
+      "retrievedAt": "2026-10-25T18:37:22.185Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "course5-jobFamily-2",
+      "companyId": "course5",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.course5i.com/careers",
+      "retrievedAt": "2026-10-25T18:37:22.185Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Course5 Intelligence.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

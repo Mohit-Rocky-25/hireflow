@@ -29,6 +29,7 @@ import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCa
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
 import { SimulationFacts } from '../../features/suite/engine/simulateFix';
 import { parseResumeFile } from '../../features/ats/fileParser';
+import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import {
   AtsInputSection,
   TargetTier,
@@ -185,6 +186,11 @@ export function ResumeChecker() {
         return;
       }
       if (type === 'resume') {
+        const validity = validateResumeAuthenticity(res.text);
+        if (!validity.isValid) {
+          setFileError(validity.reason || 'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).');
+          return;
+        }
         userClearedResumeRef.current = false;
         setResumeText(res.text);
         setResumeFileName(res.fileName);

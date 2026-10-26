@@ -1,0 +1,195 @@
+{
+  "companyId": "bgsw",
+  "name": "Bosch Global Software Technologies (BGSW)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global software powerhouse of the Bosch Group building mobility solutions.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "bgsw-officialName",
+      "companyId": "bgsw",
+      "field": "officialName",
+      "value": "Bosch Global Software Technologies Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Bosch Global Software Technologies Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-officialSiteUrl",
+      "companyId": "bgsw",
+      "field": "officialSiteUrl",
+      "value": "https://www.bosch-softwaretechnologies.com",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Official corporate website of Bosch Global Software Technologies (BGSW)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-indiaPresenceUrl",
+      "companyId": "bgsw",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.bosch-softwaretechnologies.com/en/about-us",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/about-us",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Bosch Global Software Technologies Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-careersUrl",
+      "companyId": "bgsw",
+      "field": "careersUrl",
+      "value": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Bosch Global Software Technologies (BGSW) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-campusPageUrl",
+      "companyId": "bgsw",
+      "field": "campusPageUrl",
+      "value": "https://www.bosch-softwaretechnologies.com/en/careers/students-graduates",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers/students-graduates",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Bosch Global Software Technologies (BGSW) early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-hq",
+      "companyId": "bgsw",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-industry",
+      "companyId": "bgsw",
+      "field": "industry",
+      "value": "Mobility Software, AUTOSAR & Industrial IoT",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com",
+      "retrievedAt": "2026-10-25T18:20:08.884Z",
+      "snippet": "Specializing in Mobility Software, AUTOSAR & Industrial IoT",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-eligibility-aggregatePercent",
+      "companyId": "bgsw",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:08.320Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-eligibility-backlogRule",
+      "companyId": "bgsw",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:08.320Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-eligibility-branches",
+      "companyId": "bgsw",
+      "field": "eligibility.branches",
+      "value": [
+        "Electronics and Communication",
+        "Electrical",
+        "Computer Science"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:08.320Z",
+      "snippet": "Campus graduate trainee criteria requires 65% aggregate score",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-jobFamily-1",
+      "companyId": "bgsw",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:08.320Z",
+      "snippet": "Associate Software Engineer engineering AUTOSAR compliant microcontroller firmware.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bgsw-jobFamily-2",
+      "companyId": "bgsw",
+      "field": "jobFamily",
+      "value": "automotive-software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.bosch-softwaretechnologies.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:08.320Z",
+      "snippet": "Automotive Software Developer building ADAS and mobility control units.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

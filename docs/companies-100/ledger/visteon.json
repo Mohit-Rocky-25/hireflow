@@ -1,0 +1,116 @@
+{
+  "companyId": "visteon",
+  "name": "Visteon Corporation",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Tier-1 automotive electronics innovator specializing in cockpit domain controllers.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "visteon-officialName",
+      "companyId": "visteon",
+      "field": "officialName",
+      "value": "Visteon Automotive Systems India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Visteon Automotive Systems India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-officialSiteUrl",
+      "companyId": "visteon",
+      "field": "officialSiteUrl",
+      "value": "https://www.visteon.com",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Official corporate website of Visteon Corporation",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-indiaPresenceUrl",
+      "companyId": "visteon",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.visteon.com/careers/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/locations/india",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Visteon Automotive Systems India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-careersUrl",
+      "companyId": "visteon",
+      "field": "careersUrl",
+      "value": "https://www.visteon.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Visteon Corporation Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-campusPageUrl",
+      "companyId": "visteon",
+      "field": "campusPageUrl",
+      "value": "https://www.visteon.com/careers/campus-recruitment",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com/careers/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Visteon Corporation early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-hq",
+      "companyId": "visteon",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "visteon-industry",
+      "companyId": "visteon",
+      "field": "industry",
+      "value": "Automotive Cockpit Electronics & Digital Displays",
+      "sourceKind": "official",
+      "url": "https://www.visteon.com",
+      "retrievedAt": "2026-10-25T18:20:08.788Z",
+      "snippet": "Specializing in Automotive Cockpit Electronics & Digital Displays",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

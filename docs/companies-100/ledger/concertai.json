@@ -1,0 +1,131 @@
+{
+  "companyId": "concertai",
+  "name": "ConcertAI",
+  "tier": "GCC",
+  "tierRationale": "AI-powered oncology data analytics platform engineering center in Bengaluru.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "concertai-officialName",
+      "companyId": "concertai",
+      "field": "officialName",
+      "value": "ConcertAI India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "ConcertAI India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-officialSiteUrl",
+      "companyId": "concertai",
+      "field": "officialSiteUrl",
+      "value": "https://www.concertai.com",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "Official corporate website of ConcertAI",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-indiaPresenceUrl",
+      "companyId": "concertai",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.concertai.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "ConcertAI India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-careersUrl",
+      "companyId": "concertai",
+      "field": "careersUrl",
+      "value": "https://www.concertai.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "ConcertAI Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-hq",
+      "companyId": "concertai",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-industry",
+      "companyId": "concertai",
+      "field": "industry",
+      "value": "Healthcare AI & Oncology Real-World Data Platforms",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com",
+      "retrievedAt": "2026-10-25T18:20:08.722Z",
+      "snippet": "Specializing in Healthcare AI & Oncology Real-World Data Platforms",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-jobFamily-1",
+      "companyId": "concertai",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.721Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "concertai-jobFamily-2",
+      "companyId": "concertai",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.concertai.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.721Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at ConcertAI.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

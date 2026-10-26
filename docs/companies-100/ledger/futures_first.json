@@ -1,0 +1,197 @@
+{
+  "companyId": "futures_first",
+  "name": "Futures First",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global proprietary trading group operating through Indian technology and research centers.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "futures_first-officialName",
+      "companyId": "futures_first",
+      "field": "officialName",
+      "value": "Futures First Info Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Futures First Info Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-officialSiteUrl",
+      "companyId": "futures_first",
+      "field": "officialSiteUrl",
+      "value": "https://www.futuresfirst.com",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Official corporate website of Futures First",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-indiaPresenceUrl",
+      "companyId": "futures_first",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.futuresfirst.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Futures First Info Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-careersUrl",
+      "companyId": "futures_first",
+      "field": "careersUrl",
+      "value": "https://www.futuresfirst.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Futures First Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-campusPageUrl",
+      "companyId": "futures_first",
+      "field": "campusPageUrl",
+      "value": "https://www.futuresfirst.com/campus-recruitment",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Futures First early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-hq",
+      "companyId": "futures_first",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-industry",
+      "companyId": "futures_first",
+      "field": "industry",
+      "value": "Financial Markets & Quantitative Trading",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com",
+      "retrievedAt": "2026-10-25T18:20:08.439Z",
+      "snippet": "Specializing in Financial Markets & Quantitative Trading",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-eligibility-aggregatePercent",
+      "companyId": "futures_first",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:36:57.165Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-eligibility-backlogRule",
+      "companyId": "futures_first",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:36:57.165Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-eligibility-branches",
+      "companyId": "futures_first",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Mathematics",
+        "Statistics",
+        "Economics",
+        "Engineering"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:36:57.165Z",
+      "snippet": "Campus hiring criteria specifies 65% aggregate score in",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-jobFamily-1",
+      "companyId": "futures_first",
+      "field": "jobFamily",
+      "value": "quant-researcher",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:36:57.165Z",
+      "snippet": "Market Analyst and Quantitative Market Strategist trainee positions across asset",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "futures_first-jobFamily-2",
+      "companyId": "futures_first",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://www.futuresfirst.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:36:57.165Z",
+      "snippet": "Quantitative Systems Developer supporting proprietary high-throughput algorithmic execution engines.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

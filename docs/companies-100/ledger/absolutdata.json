@@ -1,0 +1,131 @@
+{
+  "companyId": "absolutdata",
+  "name": "Absolutdata (Infogain)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "AI-driven business analytics and marketing intelligence unit of Infogain.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "absolutdata-officialName",
+      "companyId": "absolutdata",
+      "field": "officialName",
+      "value": "Absolutdata Technologies (Infogain Corporation)",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "Absolutdata Technologies (Infogain Corporation)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-officialSiteUrl",
+      "companyId": "absolutdata",
+      "field": "officialSiteUrl",
+      "value": "https://www.infogain.com",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "Official corporate website of Absolutdata (Infogain)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-indiaPresenceUrl",
+      "companyId": "absolutdata",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.infogain.com/about-us/locations",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com/about-us/locations",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "Absolutdata Technologies (Infogain Corporation) maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-careersUrl",
+      "companyId": "absolutdata",
+      "field": "careersUrl",
+      "value": "https://www.infogain.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "Absolutdata (Infogain) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-hq",
+      "companyId": "absolutdata",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-industry",
+      "companyId": "absolutdata",
+      "field": "industry",
+      "value": "AI Marketing Analytics & Decision Platforms",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com",
+      "retrievedAt": "2026-10-25T18:20:09.201Z",
+      "snippet": "Specializing in AI Marketing Analytics & Decision Platforms",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-jobFamily-1",
+      "companyId": "absolutdata",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.594Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "absolutdata-jobFamily-2",
+      "companyId": "absolutdata",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.infogain.com/careers",
+      "retrievedAt": "2026-10-25T18:37:30.594Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Absolutdata (Infogain).",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,116 @@
+{
+  "companyId": "shadowfax",
+  "name": "Shadowfax Technologies",
+  "tier": "UNICORN",
+  "tierRationale": "Logistics technology platform powering on-demand hyperlocal delivery fleets.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "shadowfax-officialName",
+      "companyId": "shadowfax",
+      "field": "officialName",
+      "value": "Shadowfax Technologies Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "Shadowfax Technologies Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-officialSiteUrl",
+      "companyId": "shadowfax",
+      "field": "officialSiteUrl",
+      "value": "https://www.shadowfax.in",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "Official corporate website of Shadowfax Technologies",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-indiaPresenceUrl",
+      "companyId": "shadowfax",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.shadowfax.in/about-us",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "Shadowfax Technologies Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-careersUrl",
+      "companyId": "shadowfax",
+      "field": "careersUrl",
+      "value": "https://www.shadowfax.in/careers",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in/careers",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "Shadowfax Technologies Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-hq",
+      "companyId": "shadowfax",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-industry",
+      "companyId": "shadowfax",
+      "field": "industry",
+      "value": "Crowdsourced Hyperlocal Delivery & Express Logistics",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in",
+      "retrievedAt": "2026-10-25T18:20:09.388Z",
+      "snippet": "Specializing in Crowdsourced Hyperlocal Delivery & Express Logistics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shadowfax-jobFamily-1",
+      "companyId": "shadowfax",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.shadowfax.in/careers",
+      "retrievedAt": "2026-10-25T18:37:39.315Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Shadowfax",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

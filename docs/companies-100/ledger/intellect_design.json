@@ -1,0 +1,131 @@
+{
+  "companyId": "intellect_design",
+  "name": "Intellect Design Arena",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "FinTech product architecture firm providing composable enterprise banking platforms.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "intellect_design-officialName",
+      "companyId": "intellect_design",
+      "field": "officialName",
+      "value": "Intellect Design Arena Limited",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "Intellect Design Arena Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-officialSiteUrl",
+      "companyId": "intellect_design",
+      "field": "officialSiteUrl",
+      "value": "https://www.intellectdesign.com",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "Official corporate website of Intellect Design Arena",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-indiaPresenceUrl",
+      "companyId": "intellect_design",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.intellectdesign.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "Intellect Design Arena Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-careersUrl",
+      "companyId": "intellect_design",
+      "field": "careersUrl",
+      "value": "https://www.intellectdesign.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "Intellect Design Arena Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-hq",
+      "companyId": "intellect_design",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-industry",
+      "companyId": "intellect_design",
+      "field": "industry",
+      "value": "Composable Banking & Insurance FinTech Products",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com",
+      "retrievedAt": "2026-10-25T18:20:09.509Z",
+      "snippet": "Specializing in Composable Banking & Insurance FinTech Products",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-jobFamily-1",
+      "companyId": "intellect_design",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.980Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Intellect",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "intellect_design-jobFamily-2",
+      "companyId": "intellect_design",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.intellectdesign.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.980Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Intellect",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

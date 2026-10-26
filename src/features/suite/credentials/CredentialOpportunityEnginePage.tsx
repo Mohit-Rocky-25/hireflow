@@ -18,7 +18,7 @@ import {
   TrendingUp,
   SlidersHorizontal,
 } from 'lucide-react';
-import { PageNav } from '../../../components/common/PageNav';
+import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { CertificationsTab } from './components/CertificationsTab';
 import { EventsTab } from './components/EventsTab';
 import { OpenSourceTab } from './components/OpenSourceTab';
@@ -85,9 +85,8 @@ export function CredentialOpportunityEnginePage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative selection:bg-volt/20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 space-y-8 animate-fade-in relative">
-        {/* Navigation */}
-        <PageNav fallbackRoute="/tools" preferFallback={true} />
+      <PublicNavbar />
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 space-y-8 animate-fade-in relative">
 
         {/* Refined Executive Hero Section */}
         <div className="border border-charcoal bg-surface rounded p-6 sm:p-8 shadow-xs relative overflow-hidden">

@@ -6,7 +6,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
 import { Metric } from '../../components/common/Metric';
 import { Tag } from '../../components/common/Tag';
@@ -117,10 +117,10 @@ export function SavedJdLibraryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pb-16">
-      <PageNav fallbackRoute="/tools" />
+    <div className="min-h-screen bg-black text-white pt-24 pb-16">
+      <PublicNavbar />
 
-      <header className="max-w-5xl mx-auto px-4 pt-20 pb-4 text-center sm:text-left">
+      <header className="max-w-5xl mx-auto px-4 pt-4 pb-4 text-center sm:text-left">
         <h1 className="text-2xl font-mono font-bold tracking-tight text-white flex items-center gap-2 uppercase">
           <Briefcase className="h-6 w-6 text-volt" />
           <span>Saved Job Description Library</span>

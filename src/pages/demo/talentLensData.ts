@@ -154280,6 +154280,7 @@ const RAW_COMPANIES = [
 // ════════════════════════════════════════════════════════════
 
 import { deduplicateCompanies } from '../../lib/companySearchEngine';
+import { companies100 } from '../../data/market/companies100/generated/companies';
 
 export interface Role {
   title: string;
@@ -154297,12 +154298,34 @@ export interface Role {
   requiredSkills?: string[];
   fullText?: string;
   selectionProcess?: { stage: string }[];
+  compensation?: string;
+  benefits?: string[];
+  hiringProcess?: string[];
   source?: string;
   sourceUrl?: string | null;
   lastVerified?: string | null;
   confidence?: 'high' | 'medium' | 'low';
   status?: 'verified' | 'needs-recheck' | 'unverified';
+  profileKind?: 'representative';
+  competencyFit?: 'good' | 'approximate';
+  uncoveredSkills?: string[];
+  jobFamily?: 'software-eng' | 'data-ai' | 'quant' | 'embedded-hardware' | 'platform-infra' | 'consulting-solutions' | 'other';
+  statedYoEMin?: number;
+  statedYoEMax?: number;
+  statedPackageMin?: number;
+  statedPackageMax?: number;
+  statedPackageCurrency?: 'INR' | 'USD';
+  verifiedAt?: string;
+  verificationSource?: string;
   [key: string]: any;
+}
+
+export interface CompanySourceRecord {
+  field: string;
+  sourceKind: 'official' | 'company-published';
+  url: string;
+  lastCheckedAt: string;
+  checkedBy: string;
 }
 
 export interface Company {
@@ -154316,12 +154339,21 @@ export interface Company {
   hiring2023?: number;
   hiring2024?: number;
   openRoles?: number;
+  avgPackage?: string;
+  glassdoor?: number;
   roles: Role[];
   source?: string;
   sourceUrl?: string | null;
   lastVerified?: string | null;
   confidence?: 'high' | 'medium' | 'low';
   status?: 'verified' | 'needs-recheck' | 'unverified';
+  depth?: 'deep' | 'standard' | 'basic';
+  dataStatus?: 'legacy_unaudited' | 'sourced' | 'editorial' | 'quarantined';
+  officialSiteUrl?: string;
+  careersUrl?: string;
+  tierRationale?: string;
+  editorial?: boolean;
+  sources?: CompanySourceRecord[];
   [key: string]: any;
 }
 
@@ -154329,6 +154361,9 @@ export interface Company {
 function attachProvenance(companies: any[]): Company[] {
   return companies.map((c) => ({
     ...c,
+    depth: c.depth || 'deep',
+    dataStatus: c.dataStatus || 'legacy_unaudited',
+    editorial: c.editorial ?? false,
     source: c.source || 'HireFlow Curated Dataset 2024-25',
     sourceUrl: c.sourceUrl || null,
     lastVerified: c.lastVerified || null,
@@ -154345,7 +154380,12 @@ function attachProvenance(companies: any[]): Company[] {
   })) as Company[];
 }
 
-export const COMPANIES: Company[] = deduplicateCompanies<Company>(attachProvenance(RAW_COMPANIES));
+export const COMPANIES: Company[] = deduplicateCompanies<Company>(
+  attachProvenance([
+    ...RAW_COMPANIES,
+    ...(companies100 as unknown as Company[]).filter((c) => c.dataStatus !== 'quarantined'),
+  ])
+);
 
 // TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
 // ════════════════════════════════════════════════════════════

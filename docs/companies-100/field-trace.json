@@ -1,0 +1,2201 @@
+{
+  "company": {
+    "id": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 55,
+        "text": "id: c.id.toLowerCase(),"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 57,
+        "text": "aliases: [c.name.toLowerCase(), c.id.toLowerCase()],"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 66,
+        "text": "url: `https://hireflow.internal/companies/${c.id.toLowerCase()}`,"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 81,
+        "text": "const existingIds = new Set(PLATFORM_COMPANIES.map((c) => c.id.toLowerCase()));"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 84,
+        "text": "if (!existingIds.has(c.id.toLowerCase())) {"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 85,
+        "text": "existingIds.add(c.id.toLowerCase());"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 108,
+        "text": "all.find((c) => c.id === canonicalId) ||"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 111,
+        "text": "c.id.toLowerCase() === idOrAlias.toLowerCase() ||"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 125,
+        "text": "c.id.toLowerCase().includes(q) ||"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 44,
+        "text": "c.id.toLowerCase().includes(search.toLowerCase());"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 184,
+        "text": "<option key={c.id} value={c.id}>"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 327,
+        "text": "const programs = careers.programs.forCompany(c.id);"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 328,
+        "text": "const levels = careers.levels.forCompany(c.id);"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 331,
+        "text": "key={c.id}"
+      },
+      {
+        "file": "src/careers-core/legacy/adapters.ts",
+        "line": 58,
+        "text": "const cid = company.id.toLowerCase();"
+      },
+      {
+        "file": "src/careers-core/legacy/adapters.ts",
+        "line": 102,
+        "text": "return companies.find((c) => getLegacyCompanySlug(c.name) === slug || c.id === slug);"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 19,
+        "text": "if (!company.id || typeof company.id !== 'string') {"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 20,
+        "text": "issues.push({ entityType: 'company', id: company.id || 'unknown', field: 'id', message: 'Missing or invalid id', severity: 'error' });"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 24,
+        "text": "issues.push({ entityType: 'company', id: company.id, field: 'name', message: 'Missing or invalid name', severity: 'error' });"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 28,
+        "text": "issues.push({ entityType: 'company', id: company.id, field: 'marketSegment', message: 'Missing market segment', severity: 'error' });"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 32,
+        "text": "issues.push({ entityType: 'company', id: company.id, field: 'provenance', message: 'Missing provenance or confidence', severity: 'error' });"
+      },
+      {
+        "file": "src/components/common/FresherChecksPanel.tsx",
+        "line": 124,
+        "text": "<li key={c.id} className=\"text-[11px] text-silver flex items-start gap-1.5\">"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 131,
+        "text": "const companyId = company.id.toLowerCase();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 17,
+        "text": "expect(company.id, `Company ${company.name} missing id`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 18,
+        "text": "expect(company.name, `Company ${company.id} missing name`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 19,
+        "text": "expect(company.marketSegment, `Company ${company.id} missing marketSegment`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 20,
+        "text": "expect(company.tier, `Company ${company.id} missing tier`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 21,
+        "text": "expect(company.headquarters, `Company ${company.id} missing HQ`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 22,
+        "text": "expect(company.tracks.length, `Company ${company.id} has no tracks`).toBeGreaterThan(0);"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 23,
+        "text": "expect(company.sources.length, `Company ${company.id} has no sources`).toBeGreaterThan(0);"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 24,
+        "text": "expect(company.levels.length, `Company ${company.id} has no levels`).toBeGreaterThan(0);"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 25,
+        "text": "expect(company.lastVerified, `Company ${company.id} missing lastVerified`).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 32,
+        "text": "const idLabel = `${company.id} • ${level.levelCode}`;"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 37,
+        "text": "expect(level.companyId, `${idLabel} companyId mismatch`).toBe(company.id);"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 105,
+        "text": "s.url.includes(company.id)"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 136,
+        "text": "`${company.id} [${track}] levels out of order: ${current.levelCode} (${currOrder}) followed by ${next.levelCode} (${nextOrder})`"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 142,
+        "text": "`${company.id} [${track}] comp should increase: ${next.levelCode} (p50: ${next.comp.total.p50}) should be >= ${current.levelCode} (p50: ${current.comp.total.p50})`"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 425,
+        "text": "key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 426,
+        "text": "onClick={() => handleSelectSource(m.company.id, m.level.levelCode, m.level.track)}"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 430,
+        "text": "<CompanyLogo company={m.company.id} size=\"xs\" showBorder={false} interactive={false} />"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 454,
+        "text": "sourceFuzzySuggestion.company.id,"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 483,
+        "text": "value: c.id,"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 557,
+        "text": "key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 558,
+        "text": "onClick={() => handleSelectTarget(m.company.id, m.level.levelCode, m.level.track)}"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 562,
+        "text": "<CompanyLogo company={m.company.id} size=\"xs\" showBorder={false} interactive={false} />"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 586,
+        "text": "targetFuzzySuggestion.company.id,"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 615,
+        "text": "value: c.id,"
+      },
+      {
+        "file": "src/features/career-path/components/LadderLevelExplorer.tsx",
+        "line": 167,
+        "text": "value: c.id,"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 728,
+        "text": "key={`${m.company.id}-${m.level.levelCode}-${m.level.track}`}"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 729,
+        "text": "onClick={() => handleSelectStudentDream(m.company.id, m.level.levelCode, m.level.track)}"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 754,
+        "text": "studentFuzzySuggestion.company.id,"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 784,
+        "text": "value: c.id,"
+      },
+      {
+        "file": "src/features/career-path/components/__tests__/careerPathComponents.test.ts",
+        "line": 64,
+        "text": "const google = companies.find((c) => c.id === 'google');"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 117,
+        "text": "c.id.toLowerCase() === cleanComp.toLowerCase() ||"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 94,
+        "text": "const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 38,
+        "text": "(c) => c.name.toLowerCase() === query || c.id.toLowerCase() === query"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 84,
+        "text": "id: c.id,"
+      },
+      {
+        "file": "src/features/suite/compare/CompareJDsPage.tsx",
+        "line": 332,
+        "text": ": SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.skillsHeadline || 'Custom resume loaded'}"
+      },
+      {
+        "file": "src/features/suite/credentials/components/CertificationsTab.tsx",
+        "line": 249,
+        "text": "const opp = allCerts.find((c) => c.id === oppId);"
+      },
+      {
+        "file": "src/features/suite/credentials/components/EventsTab.tsx",
+        "line": 224,
+        "text": "const opp = eventOpportunities.find((c) => c.id === oppId);"
+      },
+      {
+        "file": "src/features/suite/credentials/components/OpenSourceTab.tsx",
+        "line": 155,
+        "text": "const opp = osOpportunities.find((c) => c.id === oppId);"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 431,
+        "text": "const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 682,
+        "text": "<option key={c.id} value={c.name} className=\"bg-black text-white\">"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 252,
+        "text": "const companyId = normalizeText(company.id || '');"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 292,
+        "text": "const canonicalId = company.id?.toLowerCase().replace(/[^a-z0-9]/g, '');"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 545,
+        "text": ".filter(c => c.id !== topCompany.id && (c.industry === topCompany.industry || c.tier === topCompany.tier))"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 586,
+        "text": ": (company.id || '').toLowerCase().trim();"
+      },
+      {
+        "file": "src/lib/__tests__/careerEngine.test.ts",
+        "line": 93,
+        "text": "const tcsSteppingStone = plan.alternateSteppingStones.find((s) => s.company.id === 'tcs');"
+      },
+      {
+        "file": "src/lib/__tests__/careerEngine.test.ts",
+        "line": 209,
+        "text": "(s) => s.company.id === 'bosch-india' || s.company.id === 'lnt' || s.company.id === 'mahindra'"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 81,
+        "text": "return careers.programs.forCompany(company.id);"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 314,
+        "text": "<EligibilityCard targetCompanyId={company.id} className=\"my-4\" />"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 449,
+        "text": "to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent("
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 59,
+        "text": "to={`/tools/jd-compare?c1=${company.id}`}"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 68,
+        "text": "to={`/tools/career-path/company-levels?company=${company.id}`}"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 110,
+        "text": "to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(role.title)}`}"
+      },
+      {
+        "file": "src/pages/demo/components/FresherProgramCard.tsx",
+        "line": 168,
+        "text": "to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 431,
+        "text": "const matchInfo = scoredResults.find(m => m.company.id === company.id);"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 459,
+        "text": "key={`${company.id}-${company.name}-${idx}`}"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1179,
+        "text": "MARKET_ENTRIES.find((e) => e.id.toLowerCase() === company.id.toLowerCase()) ||"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1204,
+        "text": "const slugId = getCompanySlug(c.id);"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1206,
+        "text": "const cleanId = c.id.toLowerCase().replace(/[^a-z0-9]/g, '');"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1210,
+        "text": "c.id.toLowerCase() === normalized ||"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 91,
+        "text": "selectedCompanyId: company ? company.id : null,"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 93,
+        "text": "company && state.selectedCompanyId === company.id"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 97,
+        "text": "company && state.selectedCompanyId === company.id"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 145,
+        "text": "return _companiesResolver().find((c) => c.id === selectedCompanyId) || null;"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 156,
+        "text": "(_companiesResolver ? _companiesResolver().find((c) => c.id === selectedCompanyId) : null);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 33,
+        "text": "const google = COMPANIES.find((c) => c.id === 'google');"
+      },
+      {
+        "file": "src/pages/LandingPage.tsx",
+        "line": 254,
+        "text": "key={company.id}"
+      },
+      {
+        "file": "src/pages/LandingPage.tsx",
+        "line": 255,
+        "text": "to={`/demo/company/${company.id}`}"
+      },
+      {
+        "file": "src/store/useStore.ts",
+        "line": 170,
+        "text": "companies: s.companies.map(c => c.id === id ? { ...c, ...updates, updatedAt: now() } : c),"
+      },
+      {
+        "file": "src/__tests__/careers/regressionParity.test.ts",
+        "line": 15,
+        "text": "const snapshotCompanyIds = snapshot.careerLadders.companies.map((c: any) => c.id.toLowerCase());"
+      },
+      {
+        "file": "src/__tests__/careers/validatePlatformData.test.ts",
+        "line": 12,
+        "text": "const companyIds = new Set(PLATFORM_COMPANIES.map((c) => c.id));"
+      },
+      {
+        "file": "src/__tests__/careers/validatePlatformData.test.ts",
+        "line": 34,
+        "text": "const companyIds = new Set(PLATFORM_COMPANIES.map((c) => c.id));"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 28,
+        "text": "const cat1 = fixtures.categories.find((c: any) => c.id === 'CAT-01');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 45,
+        "text": "const cat2 = fixtures.categories.find((c: any) => c.id === 'CAT-02');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 64,
+        "text": "const cat4 = fixtures.categories.find((c: any) => c.id === 'CAT-04');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 79,
+        "text": "const cat5 = fixtures.categories.find((c: any) => c.id === 'CAT-05');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 88,
+        "text": "const cat6 = fixtures.categories.find((c: any) => c.id === 'CAT-06');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 99,
+        "text": "const cat7 = fixtures.categories.find((c: any) => c.id === 'CAT-07');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 108,
+        "text": "const cat8 = fixtures.categories.find((c: any) => c.id === 'CAT-08');"
+      },
+      {
+        "file": "src/__tests__/security/ai-redteam.test.ts",
+        "line": 125,
+        "text": "const cat9 = fixtures.categories.find((c: any) => c.id === 'CAT-09');"
+      }
+    ],
+    "name": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 56,
+        "text": "name: c.name,"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 57,
+        "text": "aliases: [c.name.toLowerCase(), c.id.toLowerCase()],"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 67,
+        "text": "title: `${c.name} Verified Company Profile`,"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 68,
+        "text": "publisher: c.name,"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 112,
+        "text": "c.name.toLowerCase() === idOrAlias.toLowerCase() ||"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 124,
+        "text": "c.name.toLowerCase().includes(q) ||"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 43,
+        "text": "c.name.toLowerCase().includes(search.toLowerCase()) ||"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 185,
+        "text": "{c.name}"
+      },
+      {
+        "file": "src/careers-core/dev/CareersDataExplorer.tsx",
+        "line": 337,
+        "text": "<h4 className=\"text-base font-bold text-white\">{c.name}</h4>"
+      },
+      {
+        "file": "src/careers-core/legacy/adapters.ts",
+        "line": 102,
+        "text": "return companies.find((c) => getLegacyCompanySlug(c.name) === slug || c.id === slug);"
+      },
+      {
+        "file": "src/careers-core/schema/validators.ts",
+        "line": 23,
+        "text": "if (!company.name || typeof company.name !== 'string') {"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 106,
+        "text": "const fullText = `${company.name} ${level.levelCode} ${level.title}`.toLowerCase();"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 110,
+        "text": "if (company.name.toLowerCase() === q) score += 30;"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 122,
+        "text": "label: `${company.name} • ${level.levelCode} (${level.title})`,"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 149,
+        "text": "const compDist = levenshteinDistance(q, company.name.toLowerCase());"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 150,
+        "text": "if (compDist < bestScore && compDist <= Math.max(3, Math.floor(company.name.length * 0.45))) {"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 156,
+        "text": "label: `${company.name} • ${defaultLvl.levelCode} (${defaultLvl.title})`,"
+      },
+      {
+        "file": "src/data/careerLadders/index.ts",
+        "line": 167,
+        "text": "label: `${company.name} • ${level.levelCode} (${level.title})`,"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 54,
+        "text": "const name = (company.name || '').toLowerCase();"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 130,
+        "text": "const companyName = company.name;"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 17,
+        "text": "expect(company.id, `Company ${company.name} missing id`).toBeTruthy();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 18,
+        "text": "expect(company.name, `Company ${company.id} missing name`).toBeTruthy();"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 432,
+        "text": "<span className=\"font-black text-white\">{m.company.name}</span>"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 484,
+        "text": "label: c.name,"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 564,
+        "text": "<span className=\"font-black text-white\">{m.company.name}</span>"
+      },
+      {
+        "file": "src/features/career-path/CareerPathSimulator.tsx",
+        "line": 616,
+        "text": "label: c.name,"
+      },
+      {
+        "file": "src/features/career-path/components/LadderLevelExplorer.tsx",
+        "line": 168,
+        "text": "label: c.name,"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 733,
+        "text": "<span className=\"font-black text-foreground\">{m.company.name}</span>"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 785,
+        "text": "label: c.name,"
+      },
+      {
+        "file": "src/features/career-path/components/StudentPlacementPathway.tsx",
+        "line": 1296,
+        "text": "<span className=\"font-black text-foreground text-sm\">{stone.company.name}</span>"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 118,
+        "text": "c.name.toLowerCase() === cleanComp.toLowerCase()"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 94,
+        "text": "const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 97,
+        "text": "onChangeSlot('company', comp.name);"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 102,
+        "text": "const hooks = selectCompanyHooks(comp.name);"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 38,
+        "text": "(c) => c.name.toLowerCase() === query || c.id.toLowerCase() === query"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 66,
+        "text": "companyName: company.name,"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 74,
+        "text": "? `${company.name}'s ${company.industry} platform`"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 75,
+        "text": ": `Add what you admire about ${company.name}`,"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 85,
+        "text": "name: c.name,"
+      },
+      {
+        "file": "src/features/suite/credentials/__tests__/accessibilityAndFilterAudit.test.ts",
+        "line": 36,
+        "text": "expect(cloudCerts.map((c) => c.name)).toContain('AWS Certified Cloud Practitioner');"
+      },
+      {
+        "file": "src/features/suite/credentials/__tests__/accessibilityAndFilterAudit.test.ts",
+        "line": 37,
+        "text": "expect(cloudCerts.map((c) => c.name)).toContain('AWS Certified Solutions Architect – Associate');"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 431,
+        "text": "const comp = COMPANIES.find((c) => c.name === compName || c.id === compName);"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 438,
+        "text": "company: comp.name,"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 441,
+        "text": "admired_project: `${comp.name}'s ${comp.industry} infrastructure`,"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 682,
+        "text": "<option key={c.id} value={c.name} className=\"bg-black text-white\">"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 683,
+        "text": "{c.name} ({c.tier})"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 249,
+        "text": "const companyName = normalizeText(company.name);"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 250,
+        "text": "const companyNameStripped = stripSpaces(company.name);"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 260,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 261,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 271,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 272,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 284,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 302,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 311,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 324,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 325,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 337,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 338,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 355,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 356,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 369,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 382,
+        "text": "matchedTerm: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 383,
+        "text": "highlightText: company.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 497,
+        "text": "matchedTerm: c.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 532,
+        "text": "if (normalizeText(topMatch.company.name) !== normalizeText(trimmed)) {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 533,
+        "text": "didYouMean = topMatch.company.name;"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 547,
+        "text": ".forEach(c => suggestedSet.add(c.name));"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 552,
+        "text": "name: c.name,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 553,
+        "text": "dist: damerauLevenshtein(trimmed, c.name),"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 554,
+        "text": "sim: jaroWinkler(trimmed, c.name),"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 562,
+        "text": "fuzzyCandidates.forEach(c => suggestedSet.add(c.name));"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 584,
+        "text": "const key = company.name"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 585,
+        "text": "? company.name.toLowerCase().replace(/[^a-z0-9]/g, '')"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 103,
+        "text": "desc: `${matchingProg.eligibility.notes || `Campus graduate engineering intake for ${company.name}`}. Cutoff: ${matchingProg.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${matchingProg.selectionProcess.map((s) => s.stage).join(' → ')}.`,"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 263,
+        "text": "<span className=\"text-volt\">{company.name}</span>"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 375,
+        "text": "placeholder={`Search ${company.roles.length} roles at ${company.name}...`}"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 455,
+        "text": "No General Fresher / Campus Intake for {company.name}"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 458,
+        "text": "{company.name} engineering hires strictly lateral senior roles in India. There is no open campus graduate intake program."
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 527,
+        "text": "No roles at {company.name} match &ldquo;{roleSearch}&rdquo;."
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 129,
+        "text": "Calibrate {company.name} — {selectedRole.title} with a verified engineering resume:"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 172,
+        "text": "{company.name} ({company.tier})"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 257,
+        "text": "<strong className=\"text-white font-semibold\">{company.name}</strong>. {selectedRole.desc}"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 501,
+        "text": "<span>Company Hiring Context — {company.name}</span>"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 844,
+        "text": "<strong>Deterministic Evaluation:</strong> Evaluated against public career criteria for {company.name} ({selectedRole.title}). Indian Copyright Act §52 & Nominative Fair Use."
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 21,
+        "text": "<h2 className=\"text-[22px] font-bold text-white uppercase tracking-tight\">{company.name}</h2>"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 163,
+        "text": "<span>Touchpoints: Official {company.name} Careers / Public Intake Criteria</span>"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 179,
+        "text": "{company.name} — {role.title}"
+      },
+      {
+        "file": "src/pages/demo/components/FresherProgramCard.tsx",
+        "line": 186,
+        "text": "{company.name} — {prog.programName}"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 49,
+        "text": "{company.name} — {selectedRole.title}"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 87,
+        "text": "Benchmark your profile against {company.name}&rsquo;s criteria. Add your resume or test immediately with our verified engineering sample resume."
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 192,
+        "text": "Click any role from {company.name}&lsquo;s list on the left to inspect requirements and run AI screening."
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 459,
+        "text": "key={`${company.id}-${company.name}-${idx}`}"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 460,
+        "text": "to={`/demo/company/${getCompanySlug(company.name)}`}"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 470,
+        "text": "{company.name}"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 719,
+        "text": "finding = `Practice note: Resume references ${flagList}. Production environments at ${company.name} typically emphasize ${foundModern.slice(0, 2).join(', ') || intel.currentStandard.slice(0, 2).join(', ')}.`;"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 779,
+        "text": "buildVerdict = `Stack and build patterns align strongly with current engineering standards at ${company.name}. Strong candidate profile for initial screening review.`;"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 887,
+        "text": "detail: `Resume references ${b.competency.toUpperCase()} primarily in list format. To increase evaluation confidence at ${company.name}, articulate technical decisions and measurable outcomes in project bullets.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 922,
+        "text": "detail: `Engineering screeners at ${company.name} prioritize verifiable impact. Add numerical indicators answering: How many users? What throughput or latency? What percentage improvement?`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 934,
+        "text": "FAANG: `${company.name} screening pipeline typically evaluates: algorithmic correctness, clean modular code, and behavioral depth. Current readiness estimate: ${score}%.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 935,
+        "text": "Unicorn: `${company.name} emphasizes product execution velocity and end-to-end feature ownership. Prepare working demo links and architecture stories.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 936,
+        "text": "MNC: `${company.name} values disciplined engineering practices, automated testing (JUnit/Jest), and robust enterprise architecture.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 937,
+        "text": "'IT Services': `${company.name} recruitment evaluates foundational programming syntax, standard ATS document layout, and NQT assessment standing.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 938,
+        "text": "Startup: `${company.name} evaluates live URLs, shipped GitHub projects, and autonomous full-stack execution velocity.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 939,
+        "text": "Enterprise: `${company.name} prioritizes clean OOP patterns, database query performance, and long-term maintainability.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 944,
+        "text": "title: `${company.name} Technical Preparation Direction`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 945,
+        "text": "detail: tierAdvice[company.tier] || `Review public engineering publications for ${company.name} to understand architectural stack priorities.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 950,
+        "text": "bulletTemplate: `Built {{project}} aligning with ${company.name} engineering stack; validated with {{test suite / metric}}.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 951,
+        "text": "resources: [`\"${company.name} engineering blog\"`, `Public interview experience archives`],"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1115,
+        "text": "const cName = (company.name || '').toLowerCase();"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1203,
+        "text": "const slugName = getCompanySlug(c.name);"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1205,
+        "text": "const cleanName = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 43,
+        "text": "const norm = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 44,
+        "text": "if (seen.has(norm)) duplicates.push(c.name);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 181,
+        "text": "c.name.toLowerCase().includes('android') ||"
+      },
+      {
+        "file": "src/pages/LandingPage.tsx",
+        "line": 259,
+        "text": "<span>{company.name}</span>"
+      }
+    ],
+    "logo": [],
+    "gradient": [],
+    "industry": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 44,
+        "text": "/banking|finance|broking|credit|payment|mnc|enterprise/i.test((c.industry || '') + (c.tier || '')) ? 'GCC / Finance' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 45,
+        "text": "/service|consulting|it services/i.test((c.industry || '') + (c.tier || '')) ? 'Indian IT Services' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 46,
+        "text": "/automotive|manufacturing|engineering/i.test(c.industry || '') ? 'Core Engineering & Automotive' :"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 53,
+        "text": "const ind = (company.industry || '').toLowerCase();"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 61,
+        "text": "const productAreas = company.industry ? [company.industry] : [];"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 67,
+        "text": "industry: company.industry,"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 74,
+        "text": "? `${company.name}'s ${company.industry} platform`"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 441,
+        "text": "admired_project: `${comp.name}'s ${comp.industry} infrastructure`,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 435,
+        "text": "const industry = normalizeText(company.industry || '');"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 441,
+        "text": "matchedTerm: company.industry,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 442,
+        "text": "highlightText: company.industry,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 486,
+        "text": "const matchIndustry = industryFilter === 'All' || c.industry?.includes(industryFilter);"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 509,
+        "text": "const matchIndustry = industryFilter === 'All' || company.industry?.includes(industryFilter);"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 545,
+        "text": ".filter(c => c.id !== topCompany.id && (c.industry === topCompany.industry || c.tier === topCompany.tier))"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 379,
+        "text": "{company.industry} focus"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 516,
+        "text": "sub: company.industry,"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 29,
+        "text": "<span>{company.industry}</span>"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 502,
+        "text": "{company.avgPackage} • {company.industry}"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1114,
+        "text": "const ind = (company.industry || '').toLowerCase();"
+      }
+    ],
+    "hq": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 60,
+        "text": "headquarters: c.hq || null,"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 452,
+        "text": "headquarters: company.hq || 'India',"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 447,
+        "text": "const hq = normalizeText(company.hq || '');"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 453,
+        "text": "matchedTerm: company.hq,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 454,
+        "text": "highlightText: company.hq,"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 27,
+        "text": "<span>{company.hq}</span>"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 472,
+        "text": "<div className=\"text-[11px] text-silver font-mono\">{company.hq}</div>"
+      }
+    ],
+    "tier": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 43,
+        "text": "/faang|big tech/i.test(c.tier) ? 'Big Tech India' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 44,
+        "text": "/banking|finance|broking|credit|payment|mnc|enterprise/i.test((c.industry || '') + (c.tier || '')) ? 'GCC / Finance' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 45,
+        "text": "/service|consulting|it services/i.test((c.industry || '') + (c.tier || '')) ? 'Indian IT Services' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 50,
+        "text": "/faang/i.test(c.tier) ? 'Tier S' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 51,
+        "text": "/unicorn/i.test(c.tier) ? 'Tier A' :"
+      },
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 52,
+        "text": "/startup|mid/i.test(c.tier) ? 'Tier B' : 'Tier A';"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 55,
+        "text": "const tier = (company.tier || '').toLowerCase();"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 73,
+        "text": "const tier = (company.tier || '').toLowerCase();"
+      },
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 20,
+        "text": "expect(company.tier, `Company ${company.id} missing tier`).toBeTruthy();"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 68,
+        "text": "tier: company.tier,"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 86,
+        "text": "tier: c.tier || 'Enterprise',"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 683,
+        "text": "{c.name} ({c.tier})"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 487,
+        "text": "const matchTier = tierFilter === 'All' || c.tier === tierFilter;"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 510,
+        "text": "const matchTier = tierFilter === 'All' || company.tier === tierFilter;"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 545,
+        "text": ".filter(c => c.id !== topCompany.id && (c.industry === topCompany.industry || c.tier === topCompany.tier))"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 172,
+        "text": "{company.name} ({company.tier})"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 377,
+        "text": "<div className=\"text-xs font-bold text-white\">{company.tier} Tier</div>"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 522,
+        "text": "sub: company.tier,"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 23,
+        "text": "{company.tier}"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 476,
+        "text": "{company.tier}"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 727,
+        "text": "finding = `${comp.toUpperCase()} usage appears current (${foundModern.slice(0, 2).join(', ')}) with baseline production familiarity. ${company.tier} expectations: ${intel.productionPatterns.slice(0, 3).join(', ')}.`;"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 945,
+        "text": "detail: tierAdvice[company.tier] || `Review public engineering publications for ${company.name} to understand architectural stack priorities.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1113,
+        "text": "const tier = (company.tier || '').toUpperCase();"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 175,
+        "text": "const faangCompanies = COMPANIES.filter((c) => c.tier === 'FAANG');"
+      }
+    ],
+    "hiring2023": [
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 509,
+        "text": "company.hiring2023 != null ? company.hiring2023.toLocaleString() : '—'"
+      }
+    ],
+    "hiring2024": [
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 610,
+        "text": "if (typeof company.hiring2024 === 'number' && typeof existing.hiring2024 === 'number') {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 611,
+        "text": "existing.hiring2024 = Math.max(existing.hiring2024, company.hiring2024);"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 507,
+        "text": "value: company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—',"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 41,
+        "text": "{company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 484,
+        "text": "{company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}"
+      }
+    ],
+    "openRoles": [
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 607,
+        "text": "if (typeof company.openRoles === 'number' && typeof existing.openRoles === 'number') {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 608,
+        "text": "existing.openRoles = Math.max(existing.openRoles, company.openRoles);"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 515,
+        "text": "value: `${company.openRoles}+`,"
+      },
+      {
+        "file": "src/pages/demo/components/CompanyHeaderCard.tsx",
+        "line": 48,
+        "text": "<div className=\"text-xs font-bold text-white font-mono\">{company.openRoles}+</div>"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 492,
+        "text": "<div className=\"text-xs font-bold text-white font-mono\">{company.openRoles}+</div>"
+      }
+    ],
+    "roles": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 315,
+        "text": "COMPANIES.reduce((acc, c) => acc + (c.roles?.length || 0), 0)"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 127,
+        "text": "const roles = company.roles || [];"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 98,
+        "text": "if (comp.roles[0]) {"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 99,
+        "text": "onChangeSlot('role', comp.roles[0].title);"
+      },
+      {
+        "file": "src/features/reach-out/components/TemplateInputsPanel.tsx",
+        "line": 100,
+        "text": "onChangeSlot('primary_skill', comp.roles[0].competencies.slice(0, 3).join(', '));"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 53,
+        "text": "for (const role of company.roles || []) {"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 433,
+        "text": "const roleTitle = comp.roles[0]?.title || 'Software Engineer';"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 434,
+        "text": "const skills = comp.roles[0]?.competencies.slice(0, 3).join(', ') || 'Go, Distributed Systems';"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 388,
+        "text": "if (company.roles && Array.isArray(company.roles)) {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 389,
+        "text": "for (const role of company.roles) {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 592,
+        "text": "roles: [...(company.roles || [])],"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 598,
+        "text": "(company.roles || []).forEach(r => {"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 87,
+        "text": "const standardRole = company.roles.find((r) => r.title === selectedRoleTitle);"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 116,
+        "text": "if (!q) return company.roles;"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 117,
+        "text": "return company.roles.filter("
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 363,
+        "text": "{company.roles.length}"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 369,
+        "text": "{company.roles.length > 8 && ("
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 375,
+        "text": "placeholder={`Search ${company.roles.length} roles at ${company.name}...`}"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 465,
+        "text": "<span className=\"!text-black group-hover:!text-volt font-black\">Explore Experienced Roles ({company.roles.length})</span>"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 533,
+        "text": "Show all {company.roles.length} roles"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 579,
+        "text": "value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 434,
+        "text": "(company.roles || []).forEach(r => {"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 551,
+        "text": "{company.roles.length} Roles available"
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 616,
+        "text": "value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 158,
+        "text": "return company.roles.find((r) => r.title === selectedRoleTitle) || null;"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 24,
+        "text": "const totalRoles = COMPANIES.reduce((acc, c) => acc + c.roles.length, 0);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 29,
+        "text": "expect(c.roles.length).toBeGreaterThanOrEqual(10);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 55,
+        "text": "c.roles.forEach((r) => {"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 182,
+        "text": "c.roles.some((r) => r.title.toLowerCase().includes('android') || r.desc.toLowerCase().includes('android'))"
+      }
+    ],
+    "source": [
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 52,
+        "text": "expect(c.source).toBeDefined();"
+      }
+    ],
+    "sourceUrl": [],
+    "lastVerified": [
+      {
+        "file": "src/data/__tests__/validateData.test.ts",
+        "line": 25,
+        "text": "expect(company.lastVerified, `Company ${company.id} missing lastVerified`).toMatch(/^\\d{4}-\\d{2}-\\d{2}$/);"
+      }
+    ],
+    "confidence": [
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 53,
+        "text": "expect(c.confidence).toMatch(/high|medium|low/);"
+      }
+    ],
+    "status": [
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 54,
+        "text": "expect(c.status).toMatch(/verified|needs-recheck|unverified/);"
+      }
+    ]
+  },
+  "role": {
+    "title": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 364,
+        "text": "? PLATFORM_ROLES.filter((r) => r.title.toLowerCase().includes(q))"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 134,
+        "text": "const entryRole = roles.find((r) => /entry|junior|sde-?1|intern|associate/i.test(r.level || r.title)) || roles[0];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 135,
+        "text": "const midRole = roles.find((r) => /mid|sde-?2|swe ii|developer|software engineer/i.test(r.level || r.title)) || roles[Math.min(1, roles.length - 1)];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 136,
+        "text": "const seniorRole = roles.find((r) => /senior|sde-?3|lead|staff/i.test(r.level || r.title)) || roles[Math.min(2, roles.length - 1)];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 137,
+        "text": "const staffRole = roles.find((r) => /lead|staff|principal|architect|manager/i.test(r.level || r.title)) || roles[Math.min(3, roles.length - 1)];"
+      },
+      {
+        "file": "src/engine/ledger/schema.ts",
+        "line": 215,
+        "text": "role: r.title || r.role || '',"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 162,
+        "text": "let matchedRole = talentComp.roles.find((r: any) => r.title.toLowerCase() === lowRole);"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 164,
+        "text": "matchedRole = talentComp.roles.find((r: any) => r.title.toLowerCase() === baseRole);"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 169,
+        "text": "r.title.toLowerCase().includes(lowRole) ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 170,
+        "text": "lowRole.includes(r.title.toLowerCase()) ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 172,
+        "text": "(r.title.toLowerCase().includes(baseRole) ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 173,
+        "text": "baseRole.includes(r.title.toLowerCase())))"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 246,
+        "text": "r.title.toLowerCase() === lowRole ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 247,
+        "text": "(baseRole && r.title.toLowerCase() === baseRole) ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 249,
+        "text": "r.title.toLowerCase().includes(lowRole) ||"
+      },
+      {
+        "file": "src/features/career-path/resolveTargetJob.ts",
+        "line": 250,
+        "text": "lowRole.includes(r.title.toLowerCase())"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 54,
+        "text": "if (role.title) roleTitles.push(role.title);"
+      },
+      {
+        "file": "src/lib/ats/canonicalAnalysis.ts",
+        "line": 745,
+        "text": "title: r.title,"
+      },
+      {
+        "file": "src/lib/ats/canonicalAnalysis.ts",
+        "line": 1041,
+        "text": "title: r.title,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 390,
+        "text": "const roleTitle = normalizeText(role.title || '');"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 396,
+        "text": "matchedTerm: role.title,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 397,
+        "text": "highlightText: role.title,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 409,
+        "text": "matchedTerm: role.title,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 410,
+        "text": "highlightText: role.title,"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 596,
+        "text": "const existingTitles = new Set((existing.roles || []).map(r => normalizeText(r.title)));"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 599,
+        "text": "const titleNorm = normalizeText(r.title);"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 87,
+        "text": "const standardRole = company.roles.find((r) => r.title === selectedRoleTitle);"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 119,
+        "text": "r.title.toLowerCase().includes(q) ||"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 474,
+        "text": "(selectedRole.title === `${prog.roleTitle} (${prog.programName})` ||"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 475,
+        "text": "selectedRole.title === prog.programName ||"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 476,
+        "text": "selectedRole.title.includes(prog.programName));"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 503,
+        "text": "const isSelected = selectedRole?.title === role.title;"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 506,
+        "text": "key={role.title}"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 129,
+        "text": "Calibrate {company.name} — {selectedRole.title} with a verified engineering resume:"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 176,
+        "text": "Targeting: {selectedRole.title} ({selectedRole.level})"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 256,
+        "text": "<strong className=\"text-white font-semibold\">{selectedRole.title}</strong> at{' '}"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 322,
+        "text": "<div className=\"text-xs font-bold text-white\">{selectedRole.title}</div>"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 450,
+        "text": "selectedRole.title"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 844,
+        "text": "<strong>Deterministic Evaluation:</strong> Evaluated against public career criteria for {company.name} ({selectedRole.title}). Indian Copyright Act §52 & Nominative Fair Use."
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 42,
+        "text": "{role.title}"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 110,
+        "text": "to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(role.title)}`}"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 179,
+        "text": "{company.name} — {role.title}"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 49,
+        "text": "{company.name} — {selectedRole.title}"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 863,
+        "text": "detail: `\"${role.title}\" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`,"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1097,
+        "text": "const title = (role.title || '').toLowerCase();"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1138,
+        "text": "sourceSentence: `${role.title} requirement for ${compKey} (${level} level).`,"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 105,
+        "text": "selectedRoleTitle: role ? role.title : null,"
+      },
+      {
+        "file": "src/pages/demo/useTalentLensStore.ts",
+        "line": 158,
+        "text": "return company.roles.find((r) => r.title === selectedRoleTitle) || null;"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 102,
+        "text": "expect(useTalentLensStore.getState().selectedRoleTitle).toBe(role.title);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 103,
+        "text": "expect(useTalentLensStore.getState().getSelectedRole()?.title).toBe(role.title);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 116,
+        "text": "const role = google.roles.find((r) => r.title.includes('L3') || r.title.includes('L4')) || google.roles[0];"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 182,
+        "text": "c.roles.some((r) => r.title.toLowerCase().includes('android') || r.desc.toLowerCase().includes('android'))"
+      },
+      {
+        "file": "src/pages/LandingPage.tsx",
+        "line": 437,
+        "text": "{role.title}"
+      }
+    ],
+    "level": [
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 134,
+        "text": "const entryRole = roles.find((r) => /entry|junior|sde-?1|intern|associate/i.test(r.level || r.title)) || roles[0];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 135,
+        "text": "const midRole = roles.find((r) => /mid|sde-?2|swe ii|developer|software engineer/i.test(r.level || r.title)) || roles[Math.min(1, roles.length - 1)];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 136,
+        "text": "const seniorRole = roles.find((r) => /senior|sde-?3|lead|staff/i.test(r.level || r.title)) || roles[Math.min(2, roles.length - 1)];"
+      },
+      {
+        "file": "src/data/careerLadders/synthesizer.ts",
+        "line": 137,
+        "text": "const staffRole = roles.find((r) => /lead|staff|principal|architect|manager/i.test(r.level || r.title)) || roles[Math.min(3, roles.length - 1)];"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 120,
+        "text": "r.level.toLowerCase().includes(q) ||"
+      },
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 176,
+        "text": "Targeting: {selectedRole.title} ({selectedRole.level})"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 45,
+        "text": "{role.level}"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 53,
+        "text": "Level: <span className=\"font-bold text-white\">{selectedRole.level}</span>"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1151,
+        "text": "jdLevel: (role.level || '').toLowerCase().includes('senior') ? 'senior' : 'entry',"
+      }
+    ],
+    "desc": [
+      {
+        "file": "src/pages/demo/components/AnalysisResultView.tsx",
+        "line": 257,
+        "text": "<strong className=\"text-white font-semibold\">{company.name}</strong>. {selectedRole.desc}"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 49,
+        "text": "{role.desc}"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 182,
+        "text": "c.roles.some((r) => r.title.toLowerCase().includes('android') || r.desc.toLowerCase().includes('android'))"
+      }
+    ],
+    "competencies": [
+      {
+        "file": "src/careers-core/api/index.ts",
+        "line": 274,
+        "text": "if (role) return role.competencies;"
+      },
+      {
+        "file": "src/features/reach-out/engine/companyHooks.ts",
+        "line": 55,
+        "text": "for (const comp of role.competencies || []) {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 417,
+        "text": "if (role.competencies && Array.isArray(role.competencies)) {"
+      },
+      {
+        "file": "src/lib/companySearchEngine.ts",
+        "line": 418,
+        "text": "for (const comp of role.competencies) {"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 121,
+        "text": "r.competencies.some((c) => c.toLowerCase().includes(q))"
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 69,
+        "text": "{role.competencies.map((c) => ("
+      },
+      {
+        "file": "src/pages/demo/components/ExperiencedRoleCard.tsx",
+        "line": 182,
+        "text": "{role.competencies.length} competencies to analyze"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 58,
+        "text": "{selectedRole.competencies.length} to analyze"
+      },
+      {
+        "file": "src/pages/demo/components/TargetRoleActionPanel.tsx",
+        "line": 69,
+        "text": "{selectedRole.competencies.map((comp) => ("
+      },
+      {
+        "file": "src/pages/demo/MatchingDemo.tsx",
+        "line": 435,
+        "text": "(r.competencies || []).forEach((c: string) => {"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1025,
+        "text": "const emptyBreakdown = role.competencies.map((comp) => ({"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1087,
+        "text": "const breakdown = role.competencies.map((comp) => ({"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1096,
+        "text": "const compNames = role.competencies.join(' ').toLowerCase();"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1130,
+        "text": "const confirmedRequirements: ConfirmedRequirement[] = role.competencies.map((compKey, idx) => {"
+      },
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 1166,
+        "text": "const marketIntel = runMarketIntelligenceEngine(resumeText, role.competencies, company, role);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 119,
+        "text": "const breakdown = role.competencies.map((comp) => ({"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 125,
+        "text": "expect(breakdown.length).toBe(role.competencies.length);"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 144,
+        "text": "const intel = runMarketIntelligenceEngine(resume, role.competencies, google, role);"
+      }
+    ],
+    "reqLevel": [
+      {
+        "file": "src/pages/demo/talentLensEngine.ts",
+        "line": 989,
+        "text": "const reqLevelMap = (role.reqLevel as unknown as Record<string, string>) || {};"
+      },
+      {
+        "file": "src/pages/demo/__tests__/talentlens.test.ts",
+        "line": 118,
+        "text": "const reqLevelMap = role.reqLevel as unknown as Record<string, string>;"
+      }
+    ],
+    "location": [],
+    "employmentType": [],
+    "experienceLevel": [],
+    "aboutRole": [],
+    "responsibilities": [],
+    "requiredQualifications": [],
+    "requiredSkills": [],
+    "preferredSkills": [],
+    "toolsAndTech": [],
+    "softSkills": [],
+    "hiringProcess": [],
+    "selectionProcess": [],
+    "compensation": [],
+    "benefits": [],
+    "fullText": []
+  },
+  "eligibility": {
+    "companyId": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 68,
+        "text": "· <CompanyLogo company={rule.companyId} size=\"xs\" showBorder={false} interactive={false} />"
+      }
+    ],
+    "companyName": [],
+    "displayName": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 69,
+        "text": "<span>{rule.displayName}</span>"
+      }
+    ],
+    "aggregatePercent": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 36,
+        "text": "const requiredPercent = rule.aggregatePercent;"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 41,
+        "text": "if (!rule || (!rule.aggregatePercent && !rule.cgpaEquivalent)) {"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 56,
+        "text": "const requiredPercent = rule.aggregatePercent ?? 60;"
+      }
+    ],
+    "cgpaEquivalent": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 37,
+        "text": "const requiredCgpa = rule.cgpaEquivalent;"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 41,
+        "text": "if (!rule || (!rule.aggregatePercent && !rule.cgpaEquivalent)) {"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 57,
+        "text": "const requiredCgpaEquivalent = rule.cgpaEquivalent ?? 6.0;"
+      }
+    ],
+    "sourceName": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 102,
+        "text": "sourceName={rule.sourceName}"
+      },
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 110,
+        "text": "sourceName={rule.sourceName}"
+      },
+      {
+        "file": "src/features/reach-out/__tests__/reachOutTrust.test.tsx",
+        "line": 147,
+        "text": "expect(rule.sourceName).toBeTruthy();"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 1483,
+        "text": "{`Source: ${rule.sourceName}, last checked ${rule.lastCheckedDate}`}"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 69,
+        "text": "sourceName: rule.sourceName,"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 116,
+        "text": "sourceName: rule.sourceName,"
+      }
+    ],
+    "sourceUrl": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 99,
+        "text": "{rule.sourceUrl ? ("
+      },
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 103,
+        "text": "sourceUrl={rule.sourceUrl}"
+      },
+      {
+        "file": "src/features/reach-out/__tests__/reachOutTrust.test.tsx",
+        "line": 148,
+        "text": "expect(rule.sourceUrl).not.toBeNull();"
+      },
+      {
+        "file": "src/features/reach-out/__tests__/reachOutTrust.test.tsx",
+        "line": 149,
+        "text": "expect(rule.sourceUrl).toMatch(/^https:\\/\\/.+/);"
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 1476,
+        "text": "{rule.sourceUrl ? ("
+      },
+      {
+        "file": "src/features/suite/outreach/ReachOutPage.tsx",
+        "line": 1478,
+        "text": "href={rule.sourceUrl}"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 68,
+        "text": "sourceUrl: rule.sourceUrl,"
+      },
+      {
+        "file": "src/scoring/core/eligibility.ts",
+        "line": 115,
+        "text": "sourceUrl: rule.sourceUrl,"
+      }
+    ],
+    "notes": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 121,
+        "text": "{rule.notes}{' '}"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 103,
+        "text": "desc: `${matchingProg.eligibility.notes || `Campus graduate engineering intake for ${company.name}`}. Cutoff: ${matchingProg.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${matchingProg.selectionProcess.map((s) => s.stage).join(' → ')}.`,"
+      },
+      {
+        "file": "src/pages/demo/CompanyRolesPage.tsx",
+        "line": 155,
+        "text": "desc: `${prog.eligibility.notes || `Campus graduate engineering intake for ${company?.name || prog.companyId}`}. Cutoff: ${prog.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${prog.selectionProcess.map((s) => s.stage).join(' → ')}.`,"
+      }
+    ],
+    "confidence": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 104,
+        "text": "confidence={rule.confidence}"
+      }
+    ],
+    "lastReviewed": [
+      {
+        "file": "src/components/common/EligibilityCard.tsx",
+        "line": 105,
+        "text": "lastReviewed={rule.lastReviewed}"
+      }
+    ]
+  }
+}

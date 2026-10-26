@@ -1,0 +1,131 @@
+{
+  "companyId": "newgen_software",
+  "name": "Newgen Software",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Low-code enterprise platform vendor for business process and content management.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "newgen_software-officialName",
+      "companyId": "newgen_software",
+      "field": "officialName",
+      "value": "Newgen Software Technologies Limited",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Newgen Software Technologies Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-officialSiteUrl",
+      "companyId": "newgen_software",
+      "field": "officialSiteUrl",
+      "value": "https://newgensoft.com",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Official corporate website of Newgen Software",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-indiaPresenceUrl",
+      "companyId": "newgen_software",
+      "field": "indiaPresenceUrl",
+      "value": "https://newgensoft.com/company/about-us",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com/company/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Newgen Software Technologies Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-careersUrl",
+      "companyId": "newgen_software",
+      "field": "careersUrl",
+      "value": "https://newgensoft.com/careers",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Newgen Software Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-campusPageUrl",
+      "companyId": "newgen_software",
+      "field": "campusPageUrl",
+      "value": "https://newgensoft.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Newgen Software early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-hq",
+      "companyId": "newgen_software",
+      "field": "hq",
+      "value": "New Delhi / Noida",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "headquartered in New Delhi / Noida",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-industry",
+      "companyId": "newgen_software",
+      "field": "industry",
+      "value": "Low-Code Application Platform & Enterprise Content Services",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com",
+      "retrievedAt": "2026-10-25T18:20:09.497Z",
+      "snippet": "Specializing in Low-Code Application Platform & Enterprise Content Services",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "newgen_software-jobFamily-1",
+      "companyId": "newgen_software",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://newgensoft.com/careers",
+      "retrievedAt": "2026-10-25T18:37:39.956Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Newgen",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

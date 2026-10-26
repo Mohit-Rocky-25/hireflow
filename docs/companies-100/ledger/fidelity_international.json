@@ -1,0 +1,195 @@
+{
+  "companyId": "fidelity_international",
+  "name": "Fidelity International",
+  "tier": "GCC",
+  "tierRationale": "Global capability center delivering investment technology and quantitative analytics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "fidelity_international-officialName",
+      "companyId": "fidelity_international",
+      "field": "officialName",
+      "value": "FIL India Business and Research Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "FIL India Business and Research Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-officialSiteUrl",
+      "companyId": "fidelity_international",
+      "field": "officialSiteUrl",
+      "value": "https://www.fidelityinternational.com",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "Official corporate website of Fidelity International",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-indiaPresenceUrl",
+      "companyId": "fidelity_international",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.fidelityinternational.com/careers/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers/locations/india",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "FIL India Business and Research Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-careersUrl",
+      "companyId": "fidelity_international",
+      "field": "careersUrl",
+      "value": "https://www.fidelityinternational.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "Fidelity International Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-campusPageUrl",
+      "companyId": "fidelity_international",
+      "field": "campusPageUrl",
+      "value": "https://www.fidelityinternational.com/careers/early-careers",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers/early-careers",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "Fidelity International early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-hq",
+      "companyId": "fidelity_international",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-industry",
+      "companyId": "fidelity_international",
+      "field": "industry",
+      "value": "Investment Management & FinTech Global Capability Center",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com",
+      "retrievedAt": "2026-10-25T18:20:08.642Z",
+      "snippet": "Specializing in Investment Management & FinTech Global Capability Center",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-eligibility-aggregatePercent",
+      "companyId": "fidelity_international",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.259Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-eligibility-backlogRule",
+      "companyId": "fidelity_international",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.259Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-eligibility-branches",
+      "companyId": "fidelity_international",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Electronics"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.259Z",
+      "snippet": "Graduate technology program requires 65% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-jobFamily-1",
+      "companyId": "fidelity_international",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.259Z",
+      "snippet": "Technology Graduate Associate developing asset management platforms and investor portals.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "fidelity_international-jobFamily-2",
+      "companyId": "fidelity_international",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.fidelityinternational.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.259Z",
+      "snippet": "Enterprise Data Platform Engineer modernizing cloud data lake infrastructure.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

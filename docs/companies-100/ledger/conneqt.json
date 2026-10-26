@@ -1,0 +1,131 @@
+{
+  "companyId": "conneqt",
+  "name": "Conneqt Business Solutions",
+  "tier": "IT_SERVICES",
+  "tierRationale": "BPM and digital customer experience technology provider (Quess Corp subsidiary).",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "conneqt-officialName",
+      "companyId": "conneqt",
+      "field": "officialName",
+      "value": "Conneqt Business Solutions Limited",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "Conneqt Business Solutions Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-officialSiteUrl",
+      "companyId": "conneqt",
+      "field": "officialSiteUrl",
+      "value": "https://conneqtcorp.com",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "Official corporate website of Conneqt Business Solutions",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-indiaPresenceUrl",
+      "companyId": "conneqt",
+      "field": "indiaPresenceUrl",
+      "value": "https://conneqtcorp.com/about-us",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "Conneqt Business Solutions Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-careersUrl",
+      "companyId": "conneqt",
+      "field": "careersUrl",
+      "value": "https://conneqtcorp.com/careers",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "Conneqt Business Solutions Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-hq",
+      "companyId": "conneqt",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-industry",
+      "companyId": "conneqt",
+      "field": "industry",
+      "value": "Digital Customer Experience & Business Process Management",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com",
+      "retrievedAt": "2026-10-25T18:20:08.744Z",
+      "snippet": "Specializing in Digital Customer Experience & Business Process Management",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-jobFamily-1",
+      "companyId": "conneqt",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.976Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at Conneqt",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "conneqt-jobFamily-2",
+      "companyId": "conneqt",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://conneqtcorp.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.976Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at Conneqt",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

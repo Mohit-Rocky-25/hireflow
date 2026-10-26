@@ -1,0 +1,116 @@
+{
+  "companyId": "emerson_india",
+  "name": "Emerson Innovation Center",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global automation technology and software company providing industrial solutions.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "emerson_india-officialName",
+      "companyId": "emerson_india",
+      "field": "officialName",
+      "value": "Emerson Process Management (India) Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "Emerson Process Management (India) Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-officialSiteUrl",
+      "companyId": "emerson_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.emerson.com",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "Official corporate website of Emerson Innovation Center",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-indiaPresenceUrl",
+      "companyId": "emerson_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.emerson.com/en-in/about-us/emerson-in-india",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com/en-in/about-us/emerson-in-india",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "Emerson Process Management (India) Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-careersUrl",
+      "companyId": "emerson_india",
+      "field": "careersUrl",
+      "value": "https://www.emerson.com/en-in/careers",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com/en-in/careers",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "Emerson Innovation Center Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-hq",
+      "companyId": "emerson_india",
+      "field": "hq",
+      "value": "Pune, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "headquartered in Pune, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-industry",
+      "companyId": "emerson_india",
+      "field": "industry",
+      "value": "Process Automation, Measurement Instrumentation & SCADA",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com",
+      "retrievedAt": "2026-10-25T18:20:09.009Z",
+      "snippet": "Specializing in Process Automation, Measurement Instrumentation & SCADA",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "emerson_india-jobFamily-1",
+      "companyId": "emerson_india",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.emerson.com/en-in/careers",
+      "retrievedAt": "2026-10-25T18:37:15.602Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Emerson",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

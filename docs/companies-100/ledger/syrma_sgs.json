@@ -1,0 +1,101 @@
+{
+  "companyId": "syrma_sgs",
+  "name": "Syrma SGS Technology",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Leading Indian electronics system design and manufacturing (ESDM) enterprise.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "syrma_sgs-officialName",
+      "companyId": "syrma_sgs",
+      "field": "officialName",
+      "value": "Syrma SGS Technology Limited",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "Syrma SGS Technology Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "syrma_sgs-officialSiteUrl",
+      "companyId": "syrma_sgs",
+      "field": "officialSiteUrl",
+      "value": "https://syrmasgs.com",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "Official corporate website of Syrma SGS Technology",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "syrma_sgs-indiaPresenceUrl",
+      "companyId": "syrma_sgs",
+      "field": "indiaPresenceUrl",
+      "value": "https://syrmasgs.com/about-us",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "Syrma SGS Technology Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "syrma_sgs-careersUrl",
+      "companyId": "syrma_sgs",
+      "field": "careersUrl",
+      "value": "https://syrmasgs.com/careers",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "Syrma SGS Technology Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "syrma_sgs-hq",
+      "companyId": "syrma_sgs",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "syrma_sgs-industry",
+      "companyId": "syrma_sgs",
+      "field": "industry",
+      "value": "Electronics Manufacturing & Precision Hardware Engineering",
+      "sourceKind": "official",
+      "url": "https://syrmasgs.com",
+      "retrievedAt": "2026-10-25T18:20:08.838Z",
+      "snippet": "Specializing in Electronics Manufacturing & Precision Hardware Engineering",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "basic"
+}

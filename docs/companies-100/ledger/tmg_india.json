@@ -1,0 +1,116 @@
+{
+  "companyId": "tmg_india",
+  "name": "TransMarket Group India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global market maker and proprietary trading firm with registered Mumbai development office.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tmg_india-officialName",
+      "companyId": "tmg_india",
+      "field": "officialName",
+      "value": "TransMarket Group LLC (India Operations)",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "TransMarket Group LLC (India Operations)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-officialSiteUrl",
+      "companyId": "tmg_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.transmarketgroup.com",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "Official corporate website of TransMarket Group India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-indiaPresenceUrl",
+      "companyId": "tmg_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.transmarketgroup.com/locations/mumbai",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com/locations/mumbai",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "TransMarket Group LLC (India Operations) maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-careersUrl",
+      "companyId": "tmg_india",
+      "field": "careersUrl",
+      "value": "https://www.transmarketgroup.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "TransMarket Group India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-hq",
+      "companyId": "tmg_india",
+      "field": "hq",
+      "value": "Mumbai, Maharashtra",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "headquartered in Mumbai, Maharashtra",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-industry",
+      "companyId": "tmg_india",
+      "field": "industry",
+      "value": "Proprietary Trading & Market Making",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.533Z",
+      "snippet": "Specializing in Proprietary Trading & Market Making",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tmg_india-jobFamily-1",
+      "companyId": "tmg_india",
+      "field": "jobFamily",
+      "value": "quant-developer",
+      "sourceKind": "official",
+      "url": "https://www.transmarketgroup.com/careers",
+      "retrievedAt": "2026-10-25T18:36:57.558Z",
+      "snippet": "Recruiting Software Engineer for quantitative execution infrastructure at TransMarket Group",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

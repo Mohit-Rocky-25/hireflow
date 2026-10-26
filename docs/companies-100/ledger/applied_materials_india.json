@@ -1,0 +1,146 @@
+{
+  "companyId": "applied_materials_india",
+  "name": "Applied Materials India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global leader in materials engineering solutions for computer chips and advanced displays.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "applied_materials_india-officialName",
+      "companyId": "applied_materials_india",
+      "field": "officialName",
+      "value": "Applied Materials India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Applied Materials India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-officialSiteUrl",
+      "companyId": "applied_materials_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.appliedmaterials.com",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Official corporate website of Applied Materials India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-indiaPresenceUrl",
+      "companyId": "applied_materials_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.appliedmaterials.com/in/en/about/india.html",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/in/en/about/india.html",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Applied Materials India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-careersUrl",
+      "companyId": "applied_materials_india",
+      "field": "careersUrl",
+      "value": "https://www.appliedmaterials.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Applied Materials India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-campusPageUrl",
+      "companyId": "applied_materials_india",
+      "field": "campusPageUrl",
+      "value": "https://www.appliedmaterials.com/careers/students-and-recent-graduates",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers/students-and-recent-graduates",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Applied Materials India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-hq",
+      "companyId": "applied_materials_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-industry",
+      "companyId": "applied_materials_india",
+      "field": "industry",
+      "value": "Materials Engineering & Semiconductor Equipment Systems",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com",
+      "retrievedAt": "2026-10-25T18:20:09.057Z",
+      "snippet": "Specializing in Materials Engineering & Semiconductor Equipment Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-jobFamily-1",
+      "companyId": "applied_materials_india",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.581Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Applied",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "applied_materials_india-jobFamily-2",
+      "companyId": "applied_materials_india",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.appliedmaterials.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.581Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Applied",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

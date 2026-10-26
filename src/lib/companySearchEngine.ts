@@ -467,6 +467,7 @@ export function searchCompanies<T extends SearchableCompany>(
   options: {
     industryFilter?: string;
     tierFilter?: string;
+    depthFilter?: string;
     minScore?: number;
     maxResults?: number;
   } = {}
@@ -474,18 +475,20 @@ export function searchCompanies<T extends SearchableCompany>(
   const {
     industryFilter = 'All',
     tierFilter = 'All',
+    depthFilter = 'All',
     minScore = 20,
-    maxResults = 200,
+    maxResults = 250,
   } = options;
 
   const trimmed = query.trim();
 
-  // If search query is empty, apply simple industry/tier filtering
+  // If search query is empty, apply simple industry/tier/depth filtering
   if (!trimmed) {
     const filtered = companies.filter(c => {
       const matchIndustry = industryFilter === 'All' || c.industry?.includes(industryFilter);
       const matchTier = tierFilter === 'All' || c.tier === tierFilter;
-      return matchIndustry && matchTier;
+      const matchDepth = depthFilter === 'All' || c.depth === depthFilter;
+      return matchIndustry && matchTier && matchDepth;
     });
 
     return {
@@ -505,10 +508,11 @@ export function searchCompanies<T extends SearchableCompany>(
   // 1. Evaluate every company
   const matches: SearchMatchResult<T>[] = [];
   for (const company of companies) {
-    // Check tier / industry filters first
+    // Check tier / industry / depth filters first
     const matchIndustry = industryFilter === 'All' || company.industry?.includes(industryFilter);
     const matchTier = tierFilter === 'All' || company.tier === tierFilter;
-    if (!matchIndustry || !matchTier) continue;
+    const matchDepth = depthFilter === 'All' || company.depth === depthFilter;
+    if (!matchIndustry || !matchTier || !matchDepth) continue;
 
     const match = evaluateCompanyMatch(company, trimmed);
     if (match && match.score >= minScore) {

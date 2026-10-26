@@ -1,0 +1,131 @@
+{
+  "companyId": "shiprocket",
+  "name": "Shiprocket",
+  "tier": "UNICORN",
+  "tierRationale": "E-commerce logistics aggregation and post-purchase enablement unicorn.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "shiprocket-officialName",
+      "companyId": "shiprocket",
+      "field": "officialName",
+      "value": "BigFoot Retail Solutions Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "BigFoot Retail Solutions Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-officialSiteUrl",
+      "companyId": "shiprocket",
+      "field": "officialSiteUrl",
+      "value": "https://www.shiprocket.in",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "Official corporate website of Shiprocket",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-indiaPresenceUrl",
+      "companyId": "shiprocket",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.shiprocket.in/about-us",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "BigFoot Retail Solutions Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-careersUrl",
+      "companyId": "shiprocket",
+      "field": "careersUrl",
+      "value": "https://www.shiprocket.in/careers",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in/careers",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "Shiprocket Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-hq",
+      "companyId": "shiprocket",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-industry",
+      "companyId": "shiprocket",
+      "field": "industry",
+      "value": "E-commerce Logistics & Supply Chain Enablement SaaS",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in",
+      "retrievedAt": "2026-10-25T18:20:09.334Z",
+      "snippet": "Specializing in E-commerce Logistics & Supply Chain Enablement SaaS",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-jobFamily-1",
+      "companyId": "shiprocket",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in/careers",
+      "retrievedAt": "2026-10-25T18:37:36.129Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "shiprocket-jobFamily-2",
+      "companyId": "shiprocket",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.shiprocket.in/careers",
+      "retrievedAt": "2026-10-25T18:37:36.129Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Shiprocket.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

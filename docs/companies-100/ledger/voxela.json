@@ -1,0 +1,7 @@
+{
+  "companyId": "voxela",
+  "status": "quarantined",
+  "quarantineReason": "Entity does not resolve to an official registered campus hiring domain in India; H8 quarantine.",
+  "tierRationale": "Roster label STARTUP unsupported by verified official primary employer site.",
+  "rows": []
+}

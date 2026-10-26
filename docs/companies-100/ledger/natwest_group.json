@@ -1,0 +1,195 @@
+{
+  "companyId": "natwest_group",
+  "name": "NatWest Group India",
+  "tier": "GCC",
+  "tierRationale": "Major digital banking, risk modeling, and technology backbone for NatWest Group UK.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "natwest_group-officialName",
+      "companyId": "natwest_group",
+      "field": "officialName",
+      "value": "NatWest Group India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "NatWest Group India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-officialSiteUrl",
+      "companyId": "natwest_group",
+      "field": "officialSiteUrl",
+      "value": "https://www.natwestgroup.com",
+      "sourceKind": "official",
+      "url": "https://www.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "Official corporate website of NatWest Group India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-indiaPresenceUrl",
+      "companyId": "natwest_group",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.natwestgroup.com/careers/india-careers",
+      "sourceKind": "official",
+      "url": "https://www.natwestgroup.com/careers/india-careers",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "NatWest Group India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-careersUrl",
+      "companyId": "natwest_group",
+      "field": "careersUrl",
+      "value": "https://jobs.natwestgroup.com",
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "NatWest Group India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-campusPageUrl",
+      "companyId": "natwest_group",
+      "field": "campusPageUrl",
+      "value": "https://jobs.natwestgroup.com/early-careers",
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com/early-careers",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "NatWest Group India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-hq",
+      "companyId": "natwest_group",
+      "field": "hq",
+      "value": "Gurugram, Haryana",
+      "sourceKind": "official",
+      "url": "https://www.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "headquartered in Gurugram, Haryana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-industry",
+      "companyId": "natwest_group",
+      "field": "industry",
+      "value": "Commercial & Retail Banking Digital Operations",
+      "sourceKind": "official",
+      "url": "https://www.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:20:08.671Z",
+      "snippet": "Specializing in Commercial & Retail Banking Digital Operations",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-eligibility-aggregatePercent",
+      "companyId": "natwest_group",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:37:02.352Z",
+      "snippet": "60% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-eligibility-backlogRule",
+      "companyId": "natwest_group",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:37:02.352Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-eligibility-branches",
+      "companyId": "natwest_group",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Electronics"
+      ],
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:37:02.352Z",
+      "snippet": "Early careers engineering cutoff requires 60% aggregate marks",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-jobFamily-1",
+      "companyId": "natwest_group",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:37:02.352Z",
+      "snippet": "Graduate Software Engineer supporting retail banking digital services modernization.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "natwest_group-jobFamily-2",
+      "companyId": "natwest_group",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://jobs.natwestgroup.com",
+      "retrievedAt": "2026-10-25T18:37:02.352Z",
+      "snippet": "Payments Systems Engineer engineering secure transactional microservices.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

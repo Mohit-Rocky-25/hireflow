@@ -1,0 +1,131 @@
+{
+  "companyId": "nielseniq",
+  "name": "NielsenIQ India",
+  "tier": "GCC",
+  "tierRationale": "Global capability hub driving consumer measurement, data science, and retail analytics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "nielseniq-officialName",
+      "companyId": "nielseniq",
+      "field": "officialName",
+      "value": "NielsenIQ India Private Limited",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "NielsenIQ India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-officialSiteUrl",
+      "companyId": "nielseniq",
+      "field": "officialSiteUrl",
+      "value": "https://nielseniq.com",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "Official corporate website of NielsenIQ India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-indiaPresenceUrl",
+      "companyId": "nielseniq",
+      "field": "indiaPresenceUrl",
+      "value": "https://nielseniq.com/global/en/about-us/locations/india",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com/global/en/about-us/locations/india",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "NielsenIQ India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-careersUrl",
+      "companyId": "nielseniq",
+      "field": "careersUrl",
+      "value": "https://nielseniq.com/careers",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "NielsenIQ India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-hq",
+      "companyId": "nielseniq",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-industry",
+      "companyId": "nielseniq",
+      "field": "industry",
+      "value": "Consumer Intelligence & Retail Measurement Analytics",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com",
+      "retrievedAt": "2026-10-25T18:20:08.733Z",
+      "snippet": "Specializing in Consumer Intelligence & Retail Measurement Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-jobFamily-1",
+      "companyId": "nielseniq",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.857Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "nielseniq-jobFamily-2",
+      "companyId": "nielseniq",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://nielseniq.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.857Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at NielsenIQ India.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

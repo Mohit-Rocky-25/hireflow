@@ -1,0 +1,131 @@
+{
+  "companyId": "sasken",
+  "name": "Sasken Technologies",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Product engineering firm specializing in wireless communications and embedded hardware.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "sasken-officialName",
+      "companyId": "sasken",
+      "field": "officialName",
+      "value": "Sasken Technologies Limited",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "Sasken Technologies Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-officialSiteUrl",
+      "companyId": "sasken",
+      "field": "officialSiteUrl",
+      "value": "https://www.sasken.com",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "Official corporate website of Sasken Technologies",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-indiaPresenceUrl",
+      "companyId": "sasken",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.sasken.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "Sasken Technologies Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-careersUrl",
+      "companyId": "sasken",
+      "field": "careersUrl",
+      "value": "https://www.sasken.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "Sasken Technologies Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-hq",
+      "companyId": "sasken",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-industry",
+      "companyId": "sasken",
+      "field": "industry",
+      "value": "Product Engineering, Telecom & Semiconductor Embedded Tech",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com",
+      "retrievedAt": "2026-10-25T18:20:09.557Z",
+      "snippet": "Specializing in Product Engineering, Telecom & Semiconductor Embedded Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-jobFamily-1",
+      "companyId": "sasken",
+      "field": "jobFamily",
+      "value": "embedded-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.550Z",
+      "snippet": "Hiring Embedded Software Engineer for hardware controller systems at Sasken",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "sasken-jobFamily-2",
+      "companyId": "sasken",
+      "field": "jobFamily",
+      "value": "qa-automation",
+      "sourceKind": "official",
+      "url": "https://www.sasken.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.550Z",
+      "snippet": "Quality Assurance Test Automation Engineer for system validation at Sasken",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

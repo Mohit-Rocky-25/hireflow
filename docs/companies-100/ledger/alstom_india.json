@@ -1,0 +1,146 @@
+{
+  "companyId": "alstom_india",
+  "name": "Alstom India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Pioneer in sustainable and smart mobility, providing rolling stock and signaling systems.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "alstom_india-officialName",
+      "companyId": "alstom_india",
+      "field": "officialName",
+      "value": "Alstom Transport India Limited",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Alstom Transport India Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-officialSiteUrl",
+      "companyId": "alstom_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.alstom.com",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Official corporate website of Alstom India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-indiaPresenceUrl",
+      "companyId": "alstom_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.alstom.com/alstom-india",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com/alstom-india",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Alstom Transport India Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-careersUrl",
+      "companyId": "alstom_india",
+      "field": "careersUrl",
+      "value": "https://www.alstom.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Alstom India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-campusPageUrl",
+      "companyId": "alstom_india",
+      "field": "campusPageUrl",
+      "value": "https://www.alstom.com/careers/young-talents",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com/careers/young-talents",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Alstom India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-hq",
+      "companyId": "alstom_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-industry",
+      "companyId": "alstom_india",
+      "field": "industry",
+      "value": "Railway Signaling, Metro Infrastructure & Mobility",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com",
+      "retrievedAt": "2026-10-25T18:20:08.946Z",
+      "snippet": "Specializing in Railway Signaling, Metro Infrastructure & Mobility",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-jobFamily-1",
+      "companyId": "alstom_india",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.354Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "alstom_india-jobFamily-2",
+      "companyId": "alstom_india",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.alstom.com/careers",
+      "retrievedAt": "2026-10-25T18:37:15.354Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Alstom India.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

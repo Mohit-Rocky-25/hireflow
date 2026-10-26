@@ -1,0 +1,116 @@
+{
+  "companyId": "zee_tech",
+  "name": "Zee Entertainment (Zee5)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Media and entertainment network building cloud video streaming platforms.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "zee_tech-officialName",
+      "companyId": "zee_tech",
+      "field": "officialName",
+      "value": "Zee Entertainment Enterprises Limited",
+      "sourceKind": "official",
+      "url": "https://www.zee.com",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "Zee Entertainment Enterprises Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-officialSiteUrl",
+      "companyId": "zee_tech",
+      "field": "officialSiteUrl",
+      "value": "https://www.zee.com",
+      "sourceKind": "official",
+      "url": "https://www.zee.com",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "Official corporate website of Zee Entertainment (Zee5)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-indiaPresenceUrl",
+      "companyId": "zee_tech",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.zee.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.zee.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "Zee Entertainment Enterprises Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-careersUrl",
+      "companyId": "zee_tech",
+      "field": "careersUrl",
+      "value": "https://www.zee.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.zee.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "Zee Entertainment (Zee5) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-hq",
+      "companyId": "zee_tech",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.zee.com",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-industry",
+      "companyId": "zee_tech",
+      "field": "industry",
+      "value": "OTT Streaming Infrastructure & Media Technology",
+      "sourceKind": "official",
+      "url": "https://www.zee.com",
+      "retrievedAt": "2026-10-25T18:20:09.277Z",
+      "snippet": "Specializing in OTT Streaming Infrastructure & Media Technology",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "zee_tech-jobFamily-1",
+      "companyId": "zee_tech",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.zee.com/careers",
+      "retrievedAt": "2026-10-25T18:37:35.693Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Zee",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

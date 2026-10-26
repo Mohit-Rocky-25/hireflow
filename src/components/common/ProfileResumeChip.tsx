@@ -9,7 +9,6 @@ import React, { useState } from 'react';
 import { useProfileStore, ActiveResume } from '../../store/profileStore';
 import { EmptyState } from './EmptyState';
 import { Drawer } from './Drawer';
-import { FileText, Check, Plus, Upload, RefreshCw } from 'lucide-react';
 import { hashText } from '../../lib/safeUtils';
 import { toast } from '../ui/Toast';
 
@@ -138,7 +137,7 @@ export function ProfileResumeChip({
   return (
     <>
       <div className="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/90 px-3 py-1 text-xs text-slate-300 shadow-sm">
-        <FileText className="h-3.5 w-3.5 text-emerald-400" />
+        <span className="font-mono text-[10px] px-1 py-0.2 bg-emerald-500/20 text-emerald-400 rounded font-bold">DOC</span>
         <span>
           Using: <strong className="text-white font-medium">{currentEffective.label}</strong>
         </span>
@@ -180,9 +179,8 @@ export function ProfileResumeChip({
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-white text-sm">{v.label}</span>
                         {isSelected && (
-                          <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] bg-emerald-900/60 text-emerald-300">
-                            <Check className="h-2.5 w-2.5" />
-                            <span>Active</span>
+                          <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] bg-emerald-900/60 text-emerald-300 font-mono">
+                            ✓ Active
                           </span>
                         )}
                       </div>
@@ -243,7 +241,7 @@ export function ProfileResumeChip({
                 onClick={handleAddNewResume}
                 className="w-full rounded-md border border-slate-700 bg-slate-800 hover:bg-slate-700 py-2 text-xs font-medium text-slate-200 transition-colors flex items-center justify-center gap-1.5"
               >
-                <Plus className="h-3.5 w-3.5" />
+                <span className="font-mono text-sm leading-none">+</span>
                 <span>Add Version</span>
               </button>
             </div>

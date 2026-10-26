@@ -18,7 +18,8 @@ html {
   min-height: 100%;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
   background-color: #000000;
   color-scheme: dark;
 }

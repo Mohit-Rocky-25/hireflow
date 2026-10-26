@@ -30,18 +30,21 @@ describe('Independent Oracle Test (Task 1.6)', () => {
   it('asserts exact parity to 1e-9 between engine composite and independent oracle across all 24 synthetic fixtures', () => {
     for (const fixture of SYNTHETIC_FIXTURES) {
       // Create representative context for fixture
+      const isExperienced = fixture.experienceLevel === '3+ yrs';
+      const isUglyFormat = fixture.category === 'ugly_format';
+
       const context: ScoringContext = {
-        experienceLevel: fixture.experienceLevel,
+        experienceLevel: isExperienced ? '2+ yrs' : fixture.experienceLevel,
         roleFamily: fixture.roleFamily,
-        jdPresent: fixture.jobDescription !== undefined,
+        jdPresent: Boolean(fixture.jdText),
         confirmedRequirements: [
           { id: '1', text: 'Backend', category: 'must', confidence: 0.9, inTaxonomy: true },
           { id: '2', text: 'Database', category: 'must', confidence: 0.85, inTaxonomy: true },
           { id: '3', text: 'Testing', category: 'preferred', confidence: 0.8, inTaxonomy: true },
         ],
-        jdLevel: fixture.experienceLevel === '3+ yr' ? 'mid' : 'entry',
-        candidateYearsExperience: fixture.experienceLevel === '3+ yr' ? 3.5 : 1.0,
-        requiredYearsExperience: fixture.experienceLevel === '3+ yr' ? 3.0 : 0,
+        jdLevel: isExperienced ? 'mid' : 'entry',
+        candidateYearsExperience: isExperienced ? 3.5 : 1.0,
+        requiredYearsExperience: isExperienced ? 3.0 : 0,
       };
 
       const trace = runScoringEngine(
@@ -56,10 +59,10 @@ describe('Independent Oracle Test (Task 1.6)', () => {
             'Built distributed key-value store with raft consensus in Go to ensure high availability.',
           ],
           skillsBlockText: 'Go, PostgreSQL, Redis, Docker, Kubernetes',
-          hasGithubOrDemoLink: !fixture.isFormatUgly,
-          hasPhoto: fixture.isFormatUgly,
-          hasDeclaration: fixture.isFormatUgly,
-          hasFatherNameOrFullAddress: fixture.isFormatUgly,
+          hasGithubOrDemoLink: !isUglyFormat,
+          hasPhoto: isUglyFormat,
+          hasDeclaration: isUglyFormat,
+          hasFatherNameOrFullAddress: isUglyFormat,
           detectedWordCount: 300,
         },
         { spec: CANONICAL_SCORING_SPEC }

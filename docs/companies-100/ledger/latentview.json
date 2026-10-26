@@ -1,0 +1,196 @@
+{
+  "companyId": "latentview",
+  "name": "LatentView Analytics",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Publicly listed digital analytics firm providing algorithmic business insights.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "latentview-officialName",
+      "companyId": "latentview",
+      "field": "officialName",
+      "value": "LatentView Analytics Limited",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "LatentView Analytics Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-officialSiteUrl",
+      "companyId": "latentview",
+      "field": "officialSiteUrl",
+      "value": "https://www.latentview.com",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "Official corporate website of LatentView Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-indiaPresenceUrl",
+      "companyId": "latentview",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.latentview.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "LatentView Analytics Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-careersUrl",
+      "companyId": "latentview",
+      "field": "careersUrl",
+      "value": "https://www.latentview.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "LatentView Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-campusPageUrl",
+      "companyId": "latentview",
+      "field": "campusPageUrl",
+      "value": "https://www.latentview.com/careers/graduates",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers/graduates",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "LatentView Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-hq",
+      "companyId": "latentview",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-industry",
+      "companyId": "latentview",
+      "field": "industry",
+      "value": "Digital Analytics, Data Engineering & Business Consulting",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com",
+      "retrievedAt": "2026-10-25T18:20:09.109Z",
+      "snippet": "Specializing in Digital Analytics, Data Engineering & Business Consulting",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-eligibility-aggregatePercent",
+      "companyId": "latentview",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.842Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-eligibility-backlogRule",
+      "companyId": "latentview",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.842Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-eligibility-branches",
+      "companyId": "latentview",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Data Science",
+        "Statistics",
+        "Mathematics"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.842Z",
+      "snippet": "IdeaLabs campus intake requires 65% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-jobFamily-1",
+      "companyId": "latentview",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.842Z",
+      "snippet": "Associate Decision Scientist applying statistical analysis to commercial pricing models.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "latentview-jobFamily-2",
+      "companyId": "latentview",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://www.latentview.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.842Z",
+      "snippet": "Data Pipeline Engineer building ETL ingestion frameworks on Snowflake.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

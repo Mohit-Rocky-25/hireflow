@@ -1,0 +1,195 @@
+{
+  "companyId": "standard_chartered_gbs",
+  "name": "Standard Chartered GBS",
+  "tier": "GCC",
+  "tierRationale": "Global business service center managing transaction banking and digital platform engineering.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "standard_chartered_gbs-officialName",
+      "companyId": "standard_chartered_gbs",
+      "field": "officialName",
+      "value": "Standard Chartered Global Business Services Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.sc.com",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Standard Chartered Global Business Services Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-officialSiteUrl",
+      "companyId": "standard_chartered_gbs",
+      "field": "officialSiteUrl",
+      "value": "https://www.sc.com",
+      "sourceKind": "official",
+      "url": "https://www.sc.com",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Official corporate website of Standard Chartered GBS",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-indiaPresenceUrl",
+      "companyId": "standard_chartered_gbs",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.sc.com/in/about-us/global-business-services",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/in/about-us/global-business-services",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Standard Chartered Global Business Services Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-careersUrl",
+      "companyId": "standard_chartered_gbs",
+      "field": "careersUrl",
+      "value": "https://www.sc.com/en/careers",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Standard Chartered GBS Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-campusPageUrl",
+      "companyId": "standard_chartered_gbs",
+      "field": "campusPageUrl",
+      "value": "https://www.sc.com/en/careers/early-careers",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers/early-careers",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Standard Chartered GBS early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-hq",
+      "companyId": "standard_chartered_gbs",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.sc.com",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-industry",
+      "companyId": "standard_chartered_gbs",
+      "field": "industry",
+      "value": "International Banking Services & FinTech Engineering",
+      "sourceKind": "official",
+      "url": "https://www.sc.com",
+      "retrievedAt": "2026-10-25T18:20:08.698Z",
+      "snippet": "Specializing in International Banking Services & FinTech Engineering",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-eligibility-aggregatePercent",
+      "companyId": "standard_chartered_gbs",
+      "field": "eligibility.aggregatePercent",
+      "value": 60,
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:02.606Z",
+      "snippet": "60% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-eligibility-backlogRule",
+      "companyId": "standard_chartered_gbs",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:02.606Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-eligibility-branches",
+      "companyId": "standard_chartered_gbs",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Information Technology",
+        "Circuital"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:02.606Z",
+      "snippet": "Early careers intake requires 60% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-jobFamily-1",
+      "companyId": "standard_chartered_gbs",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:02.606Z",
+      "snippet": "Graduate Technologist working across core banking and international settlement engines.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "standard_chartered_gbs-jobFamily-2",
+      "companyId": "standard_chartered_gbs",
+      "field": "jobFamily",
+      "value": "devops-cloud-engineer",
+      "sourceKind": "official",
+      "url": "https://www.sc.com/en/careers",
+      "retrievedAt": "2026-10-25T18:37:02.606Z",
+      "snippet": "Cloud Operations Engineer automating resilient hybrid infrastructure pipelines.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

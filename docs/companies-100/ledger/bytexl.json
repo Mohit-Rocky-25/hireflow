@@ -1,0 +1,101 @@
+{
+  "companyId": "bytexl",
+  "name": "ByteXL",
+  "tier": "STARTUP",
+  "tierRationale": "Higher education transformation partner delivering experiential learning to universities.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "bytexl-officialName",
+      "companyId": "bytexl",
+      "field": "officialName",
+      "value": "ByteXL India Private Limited",
+      "sourceKind": "official",
+      "url": "https://bytexl.com",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "ByteXL India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bytexl-officialSiteUrl",
+      "companyId": "bytexl",
+      "field": "officialSiteUrl",
+      "value": "https://bytexl.com",
+      "sourceKind": "official",
+      "url": "https://bytexl.com",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "Official corporate website of ByteXL",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bytexl-indiaPresenceUrl",
+      "companyId": "bytexl",
+      "field": "indiaPresenceUrl",
+      "value": "https://bytexl.com/about-us",
+      "sourceKind": "official",
+      "url": "https://bytexl.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "ByteXL India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bytexl-careersUrl",
+      "companyId": "bytexl",
+      "field": "careersUrl",
+      "value": "https://bytexl.com/careers",
+      "sourceKind": "official",
+      "url": "https://bytexl.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "ByteXL Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bytexl-hq",
+      "companyId": "bytexl",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://bytexl.com",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "bytexl-industry",
+      "companyId": "bytexl",
+      "field": "industry",
+      "value": "Higher Education Tech & Campus Training Systems",
+      "sourceKind": "official",
+      "url": "https://bytexl.com",
+      "retrievedAt": "2026-10-25T18:20:09.299Z",
+      "snippet": "Specializing in Higher Education Tech & Campus Training Systems",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "basic"
+}

@@ -1,0 +1,97 @@
+{
+  "software-engineer": {
+    "title": "Software Development Engineer - Campus / Early Career",
+    "level": "Fresher / SDE-1",
+    "track": "SWE",
+    "overviewTemplate": "Design, implement, and maintain scalable software services and applications at {{companyName}}.",
+    "keyResponsibilities": [
+      "Write modular, testable, and efficient code adhering to engineering best practices.",
+      "Collaborate with senior engineers to design and build core microservices and UI components.",
+      "Participate in code reviews, automated unit testing, and continuous integration pipelines.",
+      "Diagnose, debug, and resolve issues across development, staging, and production environments."
+    ],
+    "requiredSkills": [
+      "Data Structures and Algorithms",
+      "Object-Oriented Programming (Java / C++ / Python / Go)",
+      "Database Systems (SQL / NoSQL)",
+      "Git and Version Control"
+    ],
+    "experienceYears": 0
+  },
+  "backend-engineer": {
+    "title": "Backend Software Engineer",
+    "level": "Fresher / Associate Engineer",
+    "track": "SWE",
+    "overviewTemplate": "Build resilient backend APIs, event pipelines, and high-throughput data services at {{companyName}}.",
+    "keyResponsibilities": [
+      "Develop robust RESTful and gRPC APIs powering critical business workflows.",
+      "Optimize database queries, indexing strategies, and caching layers for low latency.",
+      "Implement distributed messaging queues and asynchronous background workers.",
+      "Ensure compliance with system security, zero-egress data standards, and monitoring telemetry."
+    ],
+    "requiredSkills": [
+      "Backend Architecture (Java / Go / Node.js / Python)",
+      "Distributed Caching (Redis / Memcached)",
+      "Relational & Document Databases (PostgreSQL / MongoDB)",
+      "API Design and System Reliability"
+    ],
+    "experienceYears": 0
+  },
+  "frontend-engineer": {
+    "title": "Frontend Software Engineer",
+    "level": "Fresher / Associate Engineer",
+    "track": "SWE",
+    "overviewTemplate": "Engineer performant, accessible, and responsive user interfaces at {{companyName}}.",
+    "keyResponsibilities": [
+      "Develop accessible and responsive web applications using modern UI component frameworks.",
+      "Translate wireframes and system requirements into performant, polished user experiences.",
+      "Optimize client-side bundle performance, network caching, and rendering metrics.",
+      "Implement client-side unit and end-to-end accessibility test suites."
+    ],
+    "requiredSkills": [
+      "JavaScript / TypeScript",
+      "Modern Web Frameworks (React / Vue)",
+      "CSS3, Responsive Layouts, and Web Standards",
+      "Web Performance and Accessibility (a11y)"
+    ],
+    "experienceYears": 0
+  },
+  "data-engineer": {
+    "title": "Data Platform Engineer",
+    "level": "Fresher / Associate Engineer",
+    "track": "DATA",
+    "overviewTemplate": "Design, build, and operate large-scale data ingestion and transformation pipelines at {{companyName}}.",
+    "keyResponsibilities": [
+      "Build batch and stream processing pipelines for diverse data sources.",
+      "Maintain data warehousing models, schema evolutions, and data quality checks.",
+      "Optimize distributed computation jobs for throughput, cost, and reliability.",
+      "Collaborate with analytics teams to structure clean semantic data layers."
+    ],
+    "requiredSkills": [
+      "Python / Scala / SQL",
+      "Data Processing (Apache Spark / Kafka / Airflow)",
+      "Data Warehousing (Snowflake / BigQuery / Redshift)",
+      "Data Modeling and ETL Pipelines"
+    ],
+    "experienceYears": 0
+  },
+  "qa-automation": {
+    "title": "Quality Assurance & Test Automation Engineer",
+    "level": "Fresher / Associate Engineer",
+    "track": "QA",
+    "overviewTemplate": "Ensure comprehensive software reliability and release quality through automated testing at {{companyName}}.",
+    "keyResponsibilities": [
+      "Develop and maintain automated integration, API, and regression test suites.",
+      "Identify defect patterns, edge cases, and performance regressions early in CI/CD cycles.",
+      "Collaborate with developers to establish rigorous automated test coverage gates.",
+      "Conduct exploratory testing on mission-critical platform releases."
+    ],
+    "requiredSkills": [
+      "Test Automation Frameworks (Selenium / Playwright / Cypress)",
+      "API Testing (Postman / REST Assured)",
+      "Programming / Scripting (Python / Java / JavaScript)",
+      "Continuous Integration & Defect Tracking"
+    ],
+    "experienceYears": 0
+  }
+}

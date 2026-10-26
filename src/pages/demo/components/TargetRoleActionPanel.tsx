@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, Info, Sparkles, FileText, CheckCircle, RefreshCw, AlertTriangle } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -29,8 +28,8 @@ export function TargetRoleActionPanel({
     <div className="hidden lg:block w-[380px] shrink-0 sticky top-[96px]">
       <div className="bg-near-black border border-charcoal rounded-lg p-5 shadow-level-1">
         <div className="flex items-center gap-3 mb-4 pb-3 border-b border-charcoal">
-          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0">
-            <Brain className="w-5 h-5 stroke-[1.5px]" />
+          <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 font-mono text-sm font-bold">
+            AI
           </div>
           <div>
             <h3 className="font-bold text-white text-[15px] uppercase tracking-tight">Target Verification</h3>
@@ -50,8 +49,13 @@ export function TargetRoleActionPanel({
                   {company.name} — {selectedRole.title}
                 </div>
               </div>
-              <div className="text-xs text-silver mt-1 font-mono">
-                Level: <span className="font-bold text-white">{selectedRole.level}</span>
+              <div className="text-xs text-silver mt-1 font-mono flex items-center justify-between">
+                <span>Level: <span className="font-bold text-white">{selectedRole.level || 'Standard'}</span></span>
+                {selectedRole.profileKind === 'representative' && (
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.5px] px-1.5 py-0.5 rounded bg-black text-pale-yellow border border-pale-yellow/40">
+                    Editorial
+                  </span>
+                )}
               </div>
               <div className="mt-2.5 pt-2.5 border-t border-charcoal flex items-center justify-between text-xs">
                 <span className="text-silver uppercase tracking-[1px] text-[10px]">Target Competencies</span>
@@ -82,7 +86,7 @@ export function TargetRoleActionPanel({
             {!resumeText.trim() ? (
               <div className="p-3.5 bg-black border border-charcoal rounded mb-4 text-xs space-y-2">
                 <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px]">
-                  <Info className="w-4 h-4 stroke-[1.5px]" /> Resume needed for AI screening
+                  <span className="font-mono text-xs font-bold text-pale-yellow">[i]</span> Resume needed for AI screening
                 </div>
                 <p className="text-xs text-silver leading-relaxed">
                   Benchmark your profile against {company.name}&rsquo;s criteria. Add your resume or test immediately with our verified engineering sample resume.
@@ -93,14 +97,14 @@ export function TargetRoleActionPanel({
                     onClick={onLoadSampleResume}
                     className="group w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 !text-black group-hover:!text-white" />
+                    <span className="text-xs font-bold !text-black group-hover:!text-white">★</span>
                     <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify</span>
                   </button>
                   <Link
                     to="/demo"
                     className="inline-flex items-center justify-center gap-1 text-[11px] font-semibold uppercase tracking-[1px] text-silver hover:text-white py-1"
                   >
-                    <FileText className="w-3 h-3 stroke-[1.5px]" /> Or upload custom in Step 1
+                    <span className="font-mono text-xs">TXT</span> Or upload custom in Step 1
                   </Link>
                 </div>
               </div>
@@ -110,7 +114,7 @@ export function TargetRoleActionPanel({
                 return (
                   <div className="p-3 bg-black border border-charcoal rounded mb-4 flex items-center justify-between gap-2 text-xs text-white">
                     <div className="flex items-center gap-2">
-                      <CheckCircle className="w-4 h-4 text-volt flex-shrink-0 stroke-[1.5px]" />
+                      <span className="text-volt font-bold text-xs">✓</span>
                       <div>
                         <div className="font-bold uppercase tracking-[1px] text-[11px] text-volt">Resume verified in state</div>
                         <div className="text-[11px] text-silver font-mono">
@@ -133,7 +137,7 @@ export function TargetRoleActionPanel({
                 <div className="p-3 bg-black border border-danger/60 rounded mb-4 text-xs text-white text-left">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
                     <div className="flex items-center gap-1.5 text-danger font-bold text-[11px] uppercase tracking-wider">
-                      <AlertTriangle className="w-4 h-4 text-danger flex-shrink-0" />
+                      <span className="text-danger font-mono font-bold text-xs">[!]</span>
                       <span>Non-Resume Text Detected</span>
                     </div>
                     <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-near-black text-danger border border-danger/40">
@@ -168,12 +172,12 @@ export function TargetRoleActionPanel({
             >
               {analyzing ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin stroke-[1.5px] !text-black group-hover:!text-white" />
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-black group-hover:border-white border-t-transparent rounded-full animate-spin" />
                   <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
                 </>
               ) : (
                 <>
-                  <Brain className="w-4 h-4 stroke-[1.5px] !text-black group-hover:!text-white" />
+                  <span className="font-mono text-sm font-black !text-black group-hover:!text-white">⚡</span>
                   <span className="!text-black group-hover:!text-white font-black">
                     {!validateResumeAuthenticity(resumeText).isValid ? 'Run AI Analysis (Score: 0%)' : 'Run Deep AI Analysis'}
                   </span>
@@ -184,7 +188,7 @@ export function TargetRoleActionPanel({
         ) : (
           <div className="text-center py-9 px-4 bg-black border border-dashed border-charcoal rounded">
             <div className="inline-block px-3 py-1 rounded bg-near-black text-silver border border-charcoal font-mono text-[10px] uppercase tracking-[1.4px] mb-3">
-              TARGET SPEC // UNSELECTED
+              Role Selection Required
             </div>
             <div className="text-sm font-bold text-white mb-1 uppercase tracking-tight">
               Select a role first

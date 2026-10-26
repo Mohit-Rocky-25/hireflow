@@ -1,0 +1,195 @@
+{
+  "companyId": "analog_devices_india",
+  "name": "Analog Devices India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global semiconductor leader creating high performance signal processing hardware.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "analog_devices_india-officialName",
+      "companyId": "analog_devices_india",
+      "field": "officialName",
+      "value": "Analog Devices India Product Development Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Analog Devices India Product Development Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-officialSiteUrl",
+      "companyId": "analog_devices_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.analog.com",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Official corporate website of Analog Devices India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-indiaPresenceUrl",
+      "companyId": "analog_devices_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.analog.com/en/about-adi/locations/india.html",
+      "sourceKind": "official",
+      "url": "https://www.analog.com/en/about-adi/locations/india.html",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Analog Devices India Product Development Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-careersUrl",
+      "companyId": "analog_devices_india",
+      "field": "careersUrl",
+      "value": "https://careers.analog.com",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Analog Devices India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-campusPageUrl",
+      "companyId": "analog_devices_india",
+      "field": "campusPageUrl",
+      "value": "https://careers.analog.com/early-careers",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com/early-careers",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Analog Devices India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-hq",
+      "companyId": "analog_devices_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-industry",
+      "companyId": "analog_devices_india",
+      "field": "industry",
+      "value": "High-Performance Analog, Mixed-Signal & DSP Chips",
+      "sourceKind": "official",
+      "url": "https://www.analog.com",
+      "retrievedAt": "2026-10-25T18:20:09.238Z",
+      "snippet": "Specializing in High-Performance Analog, Mixed-Signal & DSP Chips",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-eligibility-aggregatePercent",
+      "companyId": "analog_devices_india",
+      "field": "eligibility.aggregatePercent",
+      "value": 70,
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:37:30.850Z",
+      "snippet": "70% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-eligibility-backlogRule",
+      "companyId": "analog_devices_india",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:37:30.850Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-eligibility-branches",
+      "companyId": "analog_devices_india",
+      "field": "eligibility.branches",
+      "value": [
+        "Electronics and Communication",
+        "Electrical",
+        "Microelectronics"
+      ],
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:37:30.850Z",
+      "snippet": "Graduate development program requires 70% aggregate score with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-jobFamily-1",
+      "companyId": "analog_devices_india",
+      "field": "jobFamily",
+      "value": "firmware-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:37:30.850Z",
+      "snippet": "Embedded Software Engineer writing hardware abstraction layers for converter chipsets.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "analog_devices_india-jobFamily-2",
+      "companyId": "analog_devices_india",
+      "field": "jobFamily",
+      "value": "fpga-asic-engineer",
+      "sourceKind": "official",
+      "url": "https://careers.analog.com",
+      "retrievedAt": "2026-10-25T18:37:30.850Z",
+      "snippet": "Design Verification Engineer validating mixed-signal silicon architecture models.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

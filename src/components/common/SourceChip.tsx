@@ -43,15 +43,33 @@ export function SourceChip({
   let label = 'Reported';
   let Icon = Newspaper;
 
+  // Freshness & Stale Calculation (>180 days)
+  let daysAgo: number | null = null;
+  let isStale = false;
+  if (lastReviewed) {
+    const parsedDate = new Date(lastReviewed);
+    if (!isNaN(parsedDate.getTime())) {
+      daysAgo = Math.max(0, Math.floor((Date.now() - parsedDate.getTime()) / (1000 * 60 * 60 * 24)));
+      if (daysAgo > 180) {
+        isStale = true;
+      }
+    }
+  }
+
   switch (kind) {
+    case 'official':
     case 'official-requirement':
-      badgeStyle = 'bg-near-black text-volt border-volt/50';
-      label = 'Official';
+      badgeStyle = isStale
+        ? 'bg-near-black text-pale-yellow border-pale-yellow/60'
+        : 'bg-near-black text-volt border-volt/50';
+      label = daysAgo !== null ? `Official source, checked ${daysAgo}d ago` : 'Official';
       Icon = ShieldCheck;
       break;
     case 'company-published':
-      badgeStyle = 'bg-near-black text-volt border-volt/50';
-      label = 'Company-published';
+      badgeStyle = isStale
+        ? 'bg-near-black text-pale-yellow border-pale-yellow/60'
+        : 'bg-near-black text-volt border-volt/50';
+      label = daysAgo !== null ? `Official source, checked ${daysAgo}d ago` : 'Company-published';
       Icon = CheckCircle2;
       break;
     case 'community-reported':
@@ -60,8 +78,9 @@ export function SourceChip({
       Icon = Newspaper;
       break;
     case 'editorial-opinion':
+    case 'editorial':
       badgeStyle = 'bg-near-black text-silver border-charcoal';
-      label = 'Opinion';
+      label = 'Editorial';
       Icon = HelpCircle;
       break;
     default:
@@ -73,8 +92,9 @@ export function SourceChip({
     <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] border ${badgeStyle} ${className}`}>
       <Icon className="w-3 h-3 stroke-[1.5px]" />
       <span>{label}</span>
+      {isStale && <span className="text-pale-yellow font-bold text-[10px]">[STALE: &gt;180d]</span>}
       {sourceName && <span className="max-w-[130px] truncate opacity-90">({sourceName})</span>}
-      {lastReviewed && <span className="opacity-75">· {lastReviewed}</span>}
+      {!daysAgo && lastReviewed && <span className="opacity-75">· {lastReviewed}</span>}
       {sourceUrl && <ExternalLink className="w-3 h-3 opacity-80 stroke-[1.5px]" />}
     </span>
   );

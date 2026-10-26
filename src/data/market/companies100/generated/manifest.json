@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-10-25T18:46:12.055Z",
+  "totalCompaniesCount": 94,
+  "totalEligibilityRulesCount": 25,
+  "totalLedgerRowsProcessed": 833,
+  "hashes": {
+    "companiesTs": "b80dadc08e752ee403d36cec395163fe4389ad6020f6a21f64923bf577f278a0",
+    "eligibilityTs": "6974ab7acd78ad966b72dc51516dd82bc7e2c958980b718deb6151f8d5f6c8b7"
+  }
+}

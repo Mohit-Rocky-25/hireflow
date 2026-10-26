@@ -1,31 +1,43 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ArrowRight, Menu, X, Compass, FileSearch, Award, Scale, Database, UserCheck } from 'lucide-react';
 
 export function PublicNavbar() {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black border-b border-charcoal">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-black border-b border-charcoal">
+      <div className="w-full px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
         <div className="flex items-center gap-4 sm:gap-6">
           <div className="flex items-center gap-2">
             <button
               type="button"
-              title="Go back"
-              onClick={() => navigate(-1)}
+              title="Go to Home"
+              aria-label="Go to home"
+              onClick={() => navigate('/')}
               className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
             >
-              <ChevronLeft className="w-4 h-4 stroke-[1.5px]" />
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5a1 1 0 0 1-1-1v-4.5h-3V20a1 1 0 0 1-1 1.5h-5A1.5 1.5 0 0 1 3 20z" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              title="Go back"
+              aria-label="Go back"
+              onClick={() => navigate(-1)}
+              className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
+            >
+              ←
             </button>
             <button
               type="button"
               title="Go forward"
+              aria-label="Go forward"
               onClick={() => navigate(1)}
-              className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
+              className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
             >
-              <ChevronRight className="w-4 h-4 stroke-[1.5px]" />
+              →
             </button>
           </div>
 
@@ -80,17 +92,17 @@ export function PublicNavbar() {
             className="group hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded text-[13px] font-bold !text-black bg-volt hover:bg-[#1d1d1d] hover:!text-white border border-volt transition-colors active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
           >
             <span className="!text-black group-hover:!text-white font-black">OPEN TOOLS HUB</span>
-            <ArrowRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
+            <span className="font-mono text-sm leading-none !text-black group-hover:!text-white">→</span>
           </Link>
 
           {/* Mobile hamburger */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded bg-near-black border border-charcoal text-silver hover:text-volt transition-colors focus-visible:outline-2 focus-visible:outline-volt"
+            className="md:hidden w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-volt transition-colors focus-visible:outline-2 focus-visible:outline-volt font-mono text-base"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5 stroke-[1.5px]" /> : <Menu className="w-5 h-5 stroke-[1.5px]" />}
+            {mobileMenuOpen ? '✕' : '☰'}
           </button>
         </div>
       </div>
@@ -102,57 +114,58 @@ export function PublicNavbar() {
             <Link
               to="/demo"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <UserCheck className="w-4 h-4 stroke-[1.5px] text-silver" />
-              <span>TALENTLENS™ SIMULATOR</span>
+              <span>TALENTLENS SIMULATOR</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/tools"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              DECISION SUITE HUB
+              <span>DECISION SUITE HUB</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/tools/resume-checker"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <FileSearch className="w-4 h-4 stroke-[1.5px] text-silver" />
               <span>ATS ROASTER</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/tools/career-path"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <Compass className="w-4 h-4 stroke-[1.5px] text-silver" />
               <span>CAREER TRAJECTORY</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/tools/credential-engine"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <Award className="w-4 h-4 stroke-[1.5px] text-silver" />
               <span>CREDENTIAL & OPPORTUNITY ENGINE</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/methodology"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <Scale className="w-4 h-4 stroke-[1.5px] text-silver" />
               <span>SCORING METHODOLOGY</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
             <Link
               to="/data"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center gap-2 transition-colors"
+              className="px-3.5 py-2.5 rounded text-[13px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
             >
-              <Database className="w-4 h-4 stroke-[1.5px] text-silver" />
               <span>YOUR DATA & PRIVACY</span>
+              <span className="font-mono text-silver text-xs">→</span>
             </Link>
           </div>
         </div>

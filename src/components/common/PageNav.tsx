@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Home } from 'lucide-react';
 
 interface PageNavProps {
   onBack?: () => void;
@@ -59,23 +58,23 @@ export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = fal
   return (
     <div className="absolute top-6 left-6 z-40 flex items-center gap-3 animate-fade-in">
       <button 
-        onClick={handleBack}
-        className={navButtonClass}
-        aria-label="Go back"
-      >
-        <div className={sweepOverlay} />
-        <ArrowLeft className="w-4 h-4 relative z-10 group-active:text-white group-focus-visible:text-white transition-colors" />
-        <span className="relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">Back</span>
-      </button>
-
-      <button 
         onClick={() => navigate('/')}
         className={navButtonClass}
         aria-label="Go home"
       >
         <div className={sweepOverlay} />
-        <Home className="w-4 h-4 relative z-10 group-active:text-white group-focus-visible:text-white transition-colors" />
+        <span className="font-mono text-sm leading-none relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">⌂</span>
         <span className="relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">Home</span>
+      </button>
+
+      <button 
+        onClick={handleBack}
+        className={navButtonClass}
+        aria-label="Go back"
+      >
+        <div className={sweepOverlay} />
+        <span className="font-mono text-sm leading-none relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">←</span>
+        <span className="relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">Back</span>
       </button>
     </div>
   );

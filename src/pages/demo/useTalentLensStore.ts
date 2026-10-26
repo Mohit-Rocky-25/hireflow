@@ -28,6 +28,7 @@ export interface TalentLensState {
   companySearch: string;
   industryFilter: string;
   tierFilter: string;
+  depthFilter: string;
   selectedCompany: Company | null;
   selectedCompanyId: string | null;
   selectedRole: Role | null;
@@ -41,6 +42,7 @@ export interface TalentLensState {
   setCompanySearch: (search: string) => void;
   setIndustryFilter: (industry: string) => void;
   setTierFilter: (tier: string) => void;
+  setDepthFilter: (depth: string) => void;
   selectCompany: (company: Company | null) => void;
   selectRole: (role: Role | null) => void;
   setResult: (result: AnalysisResult | null) => void;
@@ -63,6 +65,7 @@ export const useTalentLensStore = create<TalentLensState>()(
       companySearch: '',
       industryFilter: 'All',
       tierFilter: 'All',
+      depthFilter: 'All',
       selectedCompany: null,
       selectedCompanyId: null,
       selectedRole: null,
@@ -84,6 +87,9 @@ export const useTalentLensStore = create<TalentLensState>()(
 
       setTierFilter: (tier: string) =>
         set({ tierFilter: tier }),
+
+      setDepthFilter: (depth: string) =>
+        set({ depthFilter: depth }),
 
       selectCompany: (company: Company | null) =>
         set((state) => ({

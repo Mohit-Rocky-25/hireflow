@@ -1,0 +1,101 @@
+{
+  "companyId": "renesas_india",
+  "name": "Renesas Electronics India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Semiconductor leader in microcontrollers, analog, power, and SoC products.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "renesas_india-officialName",
+      "companyId": "renesas_india",
+      "field": "officialName",
+      "value": "Renesas Electronics India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "Renesas Electronics India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "renesas_india-officialSiteUrl",
+      "companyId": "renesas_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.renesas.com",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "Official corporate website of Renesas Electronics India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "renesas_india-indiaPresenceUrl",
+      "companyId": "renesas_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.renesas.com/us/en/about/company/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com/us/en/about/company/locations/india",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "Renesas Electronics India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "renesas_india-careersUrl",
+      "companyId": "renesas_india",
+      "field": "careersUrl",
+      "value": "https://www.renesas.com/us/en/about/careers",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com/us/en/about/careers",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "Renesas Electronics India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "renesas_india-hq",
+      "companyId": "renesas_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "renesas_india-industry",
+      "companyId": "renesas_india",
+      "field": "industry",
+      "value": "Microcontrollers, Analog, Power & SoC Semiconductor Design",
+      "sourceKind": "official",
+      "url": "https://www.renesas.com",
+      "retrievedAt": "2026-10-25T18:20:09.581Z",
+      "snippet": "Specializing in Microcontrollers, Analog, Power & SoC Semiconductor Design",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "basic"
+}

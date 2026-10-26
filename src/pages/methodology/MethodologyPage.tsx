@@ -42,7 +42,7 @@ import { buildZeroPiiReportPayload } from '../../scoring/core/reportPayload';
 import { SYNTHETIC_FIXTURES, SyntheticFixture } from '../../scoring/__fixtures__/syntheticFixtures';
 import provenanceData from '../../data/provenance.generated.json';
 import { useFeedbackStore } from '../../store/feedbackStore';
-import { PageNav } from '../../components/common/PageNav';
+import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { copyDiagnosticPayload, generateDiagnosticPayload } from '../../lib/diagnostics/reportWrongResult';
 import { ScoreTrace, PillarTraceItem } from '../../scoring/core/types';
 import { ExperienceLevel } from '../../scoring/spec/types';
@@ -251,9 +251,9 @@ export function MethodologyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white py-10 px-4 sm:px-6 lg:px-8 relative">
+    <div className="min-h-screen bg-black text-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 relative">
+      <PublicNavbar />
       <div className="max-w-6xl mx-auto space-y-12">
-        <PageNav fallbackRoute="/tools" />
 
         {/* Title Header */}
         <div className="border-b border-charcoal pb-8">
@@ -278,7 +278,7 @@ export function MethodologyPage() {
             <span className="text-charcoal">&bull;</span>
             <span>Spec Fingerprint: <strong className="text-volt">{specFingerprint}</strong></span>
             <span className="text-charcoal">&bull;</span>
-            <span>Provenance Datasets: <strong className="text-white">{provenanceData.datasets.length} Verified</strong></span>
+            <span>Provenance Datasets: <strong className="text-white">{provenanceData.datasets.length} Audited</strong></span>
             {feedbackStats.total > 0 && (
               <>
                 <span className="text-charcoal">&bull;</span>
@@ -938,7 +938,7 @@ export function MethodologyPage() {
                       <td className="p-3">
                         {row.status === 'verified' && (
                           <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase">
-                            Verified
+                            Audited
                           </span>
                         )}
                         {row.status === 'editorial' && (

@@ -1,0 +1,196 @@
+{
+  "companyId": "tiger_analytics",
+  "name": "Tiger Analytics",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Full-stack AI and advanced analytics consulting enterprise serving global multinationals.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "tiger_analytics-officialName",
+      "companyId": "tiger_analytics",
+      "field": "officialName",
+      "value": "Tiger Analytics India LLP",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Tiger Analytics India LLP",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-officialSiteUrl",
+      "companyId": "tiger_analytics",
+      "field": "officialSiteUrl",
+      "value": "https://www.tigeranalytics.com",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Official corporate website of Tiger Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-indiaPresenceUrl",
+      "companyId": "tiger_analytics",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.tigeranalytics.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Tiger Analytics India LLP maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-careersUrl",
+      "companyId": "tiger_analytics",
+      "field": "careersUrl",
+      "value": "https://www.tigeranalytics.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Tiger Analytics Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-campusPageUrl",
+      "companyId": "tiger_analytics",
+      "field": "campusPageUrl",
+      "value": "https://www.tigeranalytics.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Tiger Analytics early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-hq",
+      "companyId": "tiger_analytics",
+      "field": "hq",
+      "value": "Chennai, Tamil Nadu",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "headquartered in Chennai, Tamil Nadu",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-industry",
+      "companyId": "tiger_analytics",
+      "field": "industry",
+      "value": "Advanced Analytics, Machine Learning & AI Consulting",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com",
+      "retrievedAt": "2026-10-25T18:20:09.122Z",
+      "snippet": "Specializing in Advanced Analytics, Machine Learning & AI Consulting",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-eligibility-aggregatePercent",
+      "companyId": "tiger_analytics",
+      "field": "eligibility.aggregatePercent",
+      "value": 65,
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.941Z",
+      "snippet": "65% aggregate",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-eligibility-backlogRule",
+      "companyId": "tiger_analytics",
+      "field": "eligibility.backlogRule",
+      "value": "no_active_backlogs",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.941Z",
+      "snippet": "zero active backlogs",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-eligibility-branches",
+      "companyId": "tiger_analytics",
+      "field": "eligibility.branches",
+      "value": [
+        "Computer Science",
+        "Data Science",
+        "Statistics",
+        "Mathematics"
+      ],
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.941Z",
+      "snippet": "Campus graduate intake specifies 65% aggregate marks with",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-jobFamily-1",
+      "companyId": "tiger_analytics",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.941Z",
+      "snippet": "Analyst - Advanced Analytics creating supervised predictive models for enterprise",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "tiger_analytics-jobFamily-2",
+      "companyId": "tiger_analytics",
+      "field": "jobFamily",
+      "value": "ml-engineer",
+      "sourceKind": "official",
+      "url": "https://www.tigeranalytics.com/careers",
+      "retrievedAt": "2026-10-25T18:37:21.941Z",
+      "snippet": "Machine Learning Engineer deploying neural network models on Kubernetes.",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}

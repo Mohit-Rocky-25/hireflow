@@ -1,0 +1,146 @@
+{
+  "companyId": "state_street_india",
+  "name": "State Street Global Advisors",
+  "tier": "GCC",
+  "tierRationale": "Core operational and technology capability center for global custodial asset management.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "state_street_india-officialName",
+      "companyId": "state_street_india",
+      "field": "officialName",
+      "value": "State Street Corporate Services Mumbai Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "State Street Corporate Services Mumbai Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-officialSiteUrl",
+      "companyId": "state_street_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.statestreet.com",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "Official corporate website of State Street Global Advisors",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-indiaPresenceUrl",
+      "companyId": "state_street_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.statestreet.com/in/en/asset-manager/about/locations/india",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com/in/en/asset-manager/about/locations/india",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "State Street Corporate Services Mumbai Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-careersUrl",
+      "companyId": "state_street_india",
+      "field": "careersUrl",
+      "value": "https://www.statestreet.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "State Street Global Advisors Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-campusPageUrl",
+      "companyId": "state_street_india",
+      "field": "campusPageUrl",
+      "value": "https://www.statestreet.com/careers/early-career-programs",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com/careers/early-career-programs",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "State Street Global Advisors early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-hq",
+      "companyId": "state_street_india",
+      "field": "hq",
+      "value": "Bengaluru / Hyderabad",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "headquartered in Bengaluru / Hyderabad",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-industry",
+      "companyId": "state_street_india",
+      "field": "industry",
+      "value": "Financial Technology & Custodial Services GCC",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com",
+      "retrievedAt": "2026-10-25T18:20:08.656Z",
+      "snippet": "Specializing in Financial Technology & Custodial Services GCC",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-jobFamily-1",
+      "companyId": "state_street_india",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.319Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at State",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "state_street_india-jobFamily-2",
+      "companyId": "state_street_india",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.statestreet.com/careers",
+      "retrievedAt": "2026-10-25T18:37:02.319Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at State",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

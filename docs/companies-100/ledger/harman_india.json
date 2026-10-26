@@ -1,0 +1,146 @@
+{
+  "companyId": "harman_india",
+  "name": "Harman Connected Services (Samsung)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Connected car and audio systems technology division of Samsung Electronics.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "harman_india-officialName",
+      "companyId": "harman_india",
+      "field": "officialName",
+      "value": "Harman Connected Services Corporation India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.harman.com",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Harman Connected Services Corporation India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-officialSiteUrl",
+      "companyId": "harman_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.harman.com",
+      "sourceKind": "official",
+      "url": "https://www.harman.com",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Official corporate website of Harman Connected Services (Samsung)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-indiaPresenceUrl",
+      "companyId": "harman_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.harman.com/india",
+      "sourceKind": "official",
+      "url": "https://www.harman.com/india",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Harman Connected Services Corporation India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-careersUrl",
+      "companyId": "harman_india",
+      "field": "careersUrl",
+      "value": "https://jobs.harman.com",
+      "sourceKind": "official",
+      "url": "https://jobs.harman.com",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Harman Connected Services (Samsung) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-campusPageUrl",
+      "companyId": "harman_india",
+      "field": "campusPageUrl",
+      "value": "https://jobs.harman.com/students",
+      "sourceKind": "official",
+      "url": "https://jobs.harman.com/students",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Harman Connected Services (Samsung) early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-hq",
+      "companyId": "harman_india",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.harman.com",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-industry",
+      "companyId": "harman_india",
+      "field": "industry",
+      "value": "Connected Car, Infotainment & Audio Electronics",
+      "sourceKind": "official",
+      "url": "https://www.harman.com",
+      "retrievedAt": "2026-10-25T18:20:08.897Z",
+      "snippet": "Specializing in Connected Car, Infotainment & Audio Electronics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-jobFamily-1",
+      "companyId": "harman_india",
+      "field": "jobFamily",
+      "value": "data-engineer",
+      "sourceKind": "official",
+      "url": "https://jobs.harman.com",
+      "retrievedAt": "2026-10-25T18:37:15.270Z",
+      "snippet": "Hiring Data Platform Engineer to design scalable analytical pipelines at",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "harman_india-jobFamily-2",
+      "companyId": "harman_india",
+      "field": "jobFamily",
+      "value": "data-scientist",
+      "sourceKind": "official",
+      "url": "https://jobs.harman.com",
+      "retrievedAt": "2026-10-25T18:37:15.270Z",
+      "snippet": "Analytics Specialist applying quantitative statistical techniques at Harman Connected Services",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

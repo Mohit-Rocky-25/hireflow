@@ -139,17 +139,31 @@ export function DarkTailorHeader({
 
   return (
     <header className="bg-black/95 border-b border-charcoal backdrop-blur-md sticky top-0 z-40 text-neutral-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          {/* Left: Back Link + Brand Title */}
-          <div className="flex items-center gap-3">
-            <Link
-              to="/tools"
-              className="p-1.5 rounded bg-surface border border-charcoal text-neutral-400 hover:text-white hover:border-neutral-500 transition"
-              title="Back to Suite Tools"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </Link>
+          {/* Left: Home & Back Buttons + Brand Title */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Link
+                to="/"
+                className="w-9 h-9 rounded bg-near-black hover:bg-hover-gray border border-charcoal flex items-center justify-center text-silver hover:text-white transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
+                aria-label="Go to Home"
+                title="Go to Home"
+              >
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5a1 1 0 0 1-1-1v-4.5h-3V20a1 1 0 0 1-1 1.5h-5A1.5 1.5 0 0 1 3 20z" />
+                </svg>
+              </Link>
+
+              <Link
+                to="/tools"
+                className="w-9 h-9 rounded bg-near-black hover:bg-hover-gray border border-charcoal flex items-center justify-center text-silver hover:text-white transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
+                title="Back to Suite Tools"
+                aria-label="Go back"
+              >
+                ←
+              </Link>
+            </div>
 
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded bg-volt text-black flex items-center justify-center font-bold shadow-xs">

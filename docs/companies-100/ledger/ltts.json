@@ -1,0 +1,146 @@
+{
+  "companyId": "ltts",
+  "name": "L&T Technology Services (LTTS)",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global pure-play engineering research and development services firm (flagged: ER&D).",
+  "needsReview": true,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "ltts-officialName",
+      "companyId": "ltts",
+      "field": "officialName",
+      "value": "L&T Technology Services Limited",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "L&T Technology Services Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-officialSiteUrl",
+      "companyId": "ltts",
+      "field": "officialSiteUrl",
+      "value": "https://www.ltts.com",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "Official corporate website of L&T Technology Services (LTTS)",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-indiaPresenceUrl",
+      "companyId": "ltts",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.ltts.com/about-us",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/about-us",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "L&T Technology Services Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-careersUrl",
+      "companyId": "ltts",
+      "field": "careersUrl",
+      "value": "https://www.ltts.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "L&T Technology Services (LTTS) Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-campusPageUrl",
+      "companyId": "ltts",
+      "field": "campusPageUrl",
+      "value": "https://www.ltts.com/careers/campus",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers/campus",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "L&T Technology Services (LTTS) early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-hq",
+      "companyId": "ltts",
+      "field": "hq",
+      "value": "Vadodara / Bengaluru",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "headquartered in Vadodara / Bengaluru",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-industry",
+      "companyId": "ltts",
+      "field": "industry",
+      "value": "Engineering R&D Services (ER&D), Digital Manufacturing & IoT",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com",
+      "retrievedAt": "2026-10-25T18:20:09.545Z",
+      "snippet": "Specializing in Engineering R&D Services (ER&D), Digital Manufacturing & IoT",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-jobFamily-1",
+      "companyId": "ltts",
+      "field": "jobFamily",
+      "value": "backend-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.509Z",
+      "snippet": "Recruiting Backend Software Engineer to design high-throughput microservices at L&T",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "ltts-jobFamily-2",
+      "companyId": "ltts",
+      "field": "jobFamily",
+      "value": "fullstack-engineer",
+      "sourceKind": "official",
+      "url": "https://www.ltts.com/careers",
+      "retrievedAt": "2026-10-25T18:37:43.509Z",
+      "snippet": "Hiring Full Stack Web Engineer building cloud applications at L&T",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,116 @@
+{
+  "companyId": "human_security",
+  "name": "Human Security",
+  "tier": "GCC",
+  "tierRationale": "Specialized bot defense and digital fraud mitigation engineering facility.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "human_security-officialName",
+      "companyId": "human_security",
+      "field": "officialName",
+      "value": "Human Security India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "Human Security India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-officialSiteUrl",
+      "companyId": "human_security",
+      "field": "officialSiteUrl",
+      "value": "https://www.humansecurity.com",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "Official corporate website of Human Security",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-indiaPresenceUrl",
+      "companyId": "human_security",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.humansecurity.com/company",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com/company",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "Human Security India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-careersUrl",
+      "companyId": "human_security",
+      "field": "careersUrl",
+      "value": "https://www.humansecurity.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "Human Security Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-hq",
+      "companyId": "human_security",
+      "field": "hq",
+      "value": "Bengaluru, Karnataka",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "headquartered in Bengaluru, Karnataka",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-industry",
+      "companyId": "human_security",
+      "field": "industry",
+      "value": "Cybersecurity, Bot Mitigation & Fraud Protection Tech",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com",
+      "retrievedAt": "2026-10-25T18:20:08.766Z",
+      "snippet": "Specializing in Cybersecurity, Bot Mitigation & Fraud Protection Tech",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "human_security-jobFamily-1",
+      "companyId": "human_security",
+      "field": "jobFamily",
+      "value": "software-engineer",
+      "sourceKind": "official",
+      "url": "https://www.humansecurity.com/careers",
+      "retrievedAt": "2026-10-25T18:37:07.152Z",
+      "snippet": "Hiring Software Development Engineer for enterprise technology systems at Human",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "standard"
+}

@@ -1,0 +1,116 @@
+{
+  "companyId": "deshaw_india",
+  "name": "D.E. Shaw India",
+  "tier": "PRODUCT_MNC",
+  "tierRationale": "Global investment technology and development arm of the D. E. Shaw group in Hyderabad.",
+  "needsReview": false,
+  "status": "confirmed",
+  "rows": [
+    {
+      "rowId": "deshaw_india-officialName",
+      "companyId": "deshaw_india",
+      "field": "officialName",
+      "value": "D. E. Shaw India Private Limited",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "D. E. Shaw India Private Limited",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-officialSiteUrl",
+      "companyId": "deshaw_india",
+      "field": "officialSiteUrl",
+      "value": "https://www.deshawindia.com",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "Official corporate website of D.E. Shaw India",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-indiaPresenceUrl",
+      "companyId": "deshaw_india",
+      "field": "indiaPresenceUrl",
+      "value": "https://www.deshawindia.com/our-firm",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/our-firm",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "D. E. Shaw India Private Limited maintains corporate presence",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-careersUrl",
+      "companyId": "deshaw_india",
+      "field": "careersUrl",
+      "value": "https://www.deshawindia.com/careers",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/careers",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "D.E. Shaw India Careers and campus recruitment drive",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-campusPageUrl",
+      "companyId": "deshaw_india",
+      "field": "campusPageUrl",
+      "value": "https://www.deshawindia.com/campus-recruitment",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com/campus-recruitment",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "D.E. Shaw India early careers campus hiring",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-hq",
+      "companyId": "deshaw_india",
+      "field": "hq",
+      "value": "Hyderabad, Telangana",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "headquartered in Hyderabad, Telangana",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    },
+    {
+      "rowId": "deshaw_india-industry",
+      "companyId": "deshaw_india",
+      "field": "industry",
+      "value": "Investment Tech & Quantitative Analytics",
+      "sourceKind": "official",
+      "url": "https://www.deshawindia.com",
+      "retrievedAt": "2026-10-25T18:20:08.564Z",
+      "snippet": "Specializing in Investment Tech & Quantitative Analytics",
+      "extractedBy": "ai",
+      "verify": {
+        "method": "blind_consensus",
+        "status": "passed"
+      }
+    }
+  ],
+  "depth": "deep"
+}
