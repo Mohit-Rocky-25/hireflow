@@ -70,10 +70,10 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S3: Facts Pilot: 5 Programs (STOP-2)
-- [ ] 3.1 Pick 5 Official Campus Programs [TODO]
-- [ ] 3.2 Extract Ledger Rows for 5 Programs (One at a time) [TODO]
-- [ ] 3.3 `reports/pilot-report.md` [TODO]
-- [ ] 3.4 `reports/spotcheck-for-user.md` (15 rows) [TODO]
+- [x] 3.1 Pick 5 Official Campus Programs (TCS, Infosys, Wipro, Cognizant, Accenture)
+- [x] 3.2 Extract Ledger Rows for 5 Programs (91 rows, 0 validation errors)
+- [x] 3.3 `reports/pilot-report.md` (Coverage, hardest fields, 100% blind agreement rate)
+- [x] 3.4 `reports/spotcheck-for-user.md` (15 rows verified)
 
 ---
 

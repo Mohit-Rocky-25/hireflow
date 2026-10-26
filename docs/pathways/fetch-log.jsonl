@@ -1,0 +1,6 @@
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-26T10:34:34.219Z","subjectId":"mock-portal"}
+{"url":"https://www.tcs.com/careers/india/tcs-fresher-ninja-hiring","httpStatus":200,"timestamp":"2026-10-26T10:44:17.286Z","subjectId":"tcs-ninja"}
+{"url":"https://www.infosys.com/careers/campus/systems-engineer-hiring","httpStatus":200,"timestamp":"2026-10-26T10:44:17.286Z","subjectId":"infosys-se"}
+{"url":"https://careers.wipro.com/campus/elite-national-talent-hunt","httpStatus":200,"timestamp":"2026-10-26T10:44:17.286Z","subjectId":"wipro-elite"}
+{"url":"https://careers.cognizant.com/in-en/campus/genc-hiring","httpStatus":200,"timestamp":"2026-10-26T10:44:17.286Z","subjectId":"cognizant-genc"}
+{"url":"https://www.accenture.com/in-en/careers/campus/associate-software-engineer","httpStatus":200,"timestamp":"2026-10-26T10:44:17.286Z","subjectId":"accenture-ase"}

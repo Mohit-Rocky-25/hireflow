@@ -14,7 +14,7 @@ export interface EvidenceRef {
   rowId: string;
   subjectId: string;
   field: string;
-  value: string | number | boolean | string[];
+  value: string | number | boolean | string[] | number[];
   unit?: string;
   sourceKind: SourceKind;
   publisherType: PublisherType;
@@ -53,8 +53,8 @@ export type ProgramOverallStatus =
 export interface CriterionResult {
   criterion: string;
   state: CriterionState;
-  required: string | number | boolean | string[] | null;
-  provided: string | number | boolean | string[] | null;
+  required: string | number | boolean | string[] | number[] | null;
+  provided: string | number | boolean | string[] | number[] | null;
   evidence: string[]; // rowIds
   note?: string;
 }

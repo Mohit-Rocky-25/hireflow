@@ -1,0 +1,231 @@
+[
+  {
+    "rowId": "cognizant-genc-officialName-0",
+    "subjectId": "cognizant-genc",
+    "field": "officialName",
+    "value": "Cognizant Technology Solutions India",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant Technology Solutions India Official Campus Portal"
+  },
+  {
+    "rowId": "cognizant-genc-programName-1",
+    "subjectId": "cognizant-genc",
+    "field": "programName",
+    "value": "Cognizant GenC Campus Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant GenC Campus Hiring Program for Batch 2026"
+  },
+  {
+    "rowId": "cognizant-genc-programPageUrl-2",
+    "subjectId": "cognizant-genc",
+    "field": "programPageUrl",
+    "value": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant Technology Solutions India Official Campus Portal"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-cgpaMin-3",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 point"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-cgpaScale-4",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "6.0 CGPA on a 10.0 point scale throughout standard"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-percentAggregateMin-5",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-percent10Min-6",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.percent10Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "10.0 point scale throughout standard 10th, standard 12th"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-percent12Min-7",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.percent12Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "standard 10th, standard 12th, and Graduation"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-maxActiveBacklogs-8",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Candidate must maintain 0 active backlogs at the time"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-maxGapMonths-9",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Permitted education gap is maximum 24 months"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-branches-10",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Target branches: CSE, IT, ECE, EEE"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-degrees-11",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Eligible qualifications: B.E., B.Tech, M.E., M.Tech, MCA"
+  },
+  {
+    "rowId": "cognizant-genc-eligibility-batchYears-12",
+    "subjectId": "cognizant-genc",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "GenC Campus Hiring Program for Batch 2026"
+  },
+  {
+    "rowId": "cognizant-genc-stage-name-13",
+    "subjectId": "cognizant-genc",
+    "field": "stage.name",
+    "value": "GenC Skill Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: GenC Skill Assessment"
+  },
+  {
+    "rowId": "cognizant-genc-stage-name-14",
+    "subjectId": "cognizant-genc",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "cognizant-genc-bondMonths-15",
+    "subjectId": "cognizant-genc",
+    "field": "bondMonths",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Cognizant GenC has 0 months bond"
+  },
+  {
+    "rowId": "cognizant-genc-bondAmount-16",
+    "subjectId": "cognizant-genc",
+    "field": "bondAmount",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "and 0 rupees bond commitment"
+  },
+  {
+    "rowId": "cognizant-genc-stipend-17",
+    "subjectId": "cognizant-genc",
+    "field": "stipend",
+    "value": 12000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.cognizant.com/in-en/campus/genc-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Training stipend is 12000 rupees"
+  }
+]

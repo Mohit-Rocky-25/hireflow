@@ -1,0 +1,231 @@
+[
+  {
+    "rowId": "wipro-elite-officialName-0",
+    "subjectId": "wipro-elite",
+    "field": "officialName",
+    "value": "Wipro Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Wipro Limited Official Early Careers Portal"
+  },
+  {
+    "rowId": "wipro-elite-programName-1",
+    "subjectId": "wipro-elite",
+    "field": "programName",
+    "value": "Wipro Elite National Talent Hunt",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Wipro Elite National Talent Hunt NLTH for Batch 2026"
+  },
+  {
+    "rowId": "wipro-elite-programPageUrl-2",
+    "subjectId": "wipro-elite",
+    "field": "programPageUrl",
+    "value": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Wipro Limited Official Early Careers Portal"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-cgpaMin-3",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-cgpaScale-4",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.0 CGPA on a 10.0 scale in 10th"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-percentAggregateMin-5",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-percent10Min-6",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.percent10Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "6.0 CGPA on a 10.0 scale in 10th, 12th"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-percent12Min-7",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.percent12Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "scale in 10th, 12th, and Graduation"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-maxActiveBacklogs-8",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 1,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "maximum of 1 active backlog at the time of evaluation"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-maxGapMonths-9",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.maxGapMonths",
+    "value": 36,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Maximum permissible education gap is 36 months"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-branches-10",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME",
+      "CIVIL"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Engineering branches: CSE, IT, ECE, EEE, ME, CIVIL"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-degrees-11",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.Tech"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Eligible degrees: B.E., B.Tech, 5-Year Integrated M.Tech"
+  },
+  {
+    "rowId": "wipro-elite-eligibility-batchYears-12",
+    "subjectId": "wipro-elite",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Elite National Talent Hunt NLTH for Batch 2026"
+  },
+  {
+    "rowId": "wipro-elite-stage-name-13",
+    "subjectId": "wipro-elite",
+    "field": "stage.name",
+    "value": "Elite National Qualifier Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Elite National Qualifier Assessment"
+  },
+  {
+    "rowId": "wipro-elite-stage-name-14",
+    "subjectId": "wipro-elite",
+    "field": "stage.name",
+    "value": "Business Discussion Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Business Discussion Interview"
+  },
+  {
+    "rowId": "wipro-elite-bondMonths-15",
+    "subjectId": "wipro-elite",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Service agreement duration is 12 months with bond amount"
+  },
+  {
+    "rowId": "wipro-elite-bondAmount-16",
+    "subjectId": "wipro-elite",
+    "field": "bondAmount",
+    "value": 75000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 75000 rupees"
+  },
+  {
+    "rowId": "wipro-elite-stipend-17",
+    "subjectId": "wipro-elite",
+    "field": "stipend",
+    "value": 12000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://careers.wipro.com/campus/elite-national-talent-hunt",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Internship stipend is 12000 rupees"
+  }
+]

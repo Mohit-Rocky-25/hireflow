@@ -1,0 +1,233 @@
+[
+  {
+    "rowId": "infosys-se-officialName-0",
+    "subjectId": "infosys-se",
+    "field": "officialName",
+    "value": "Infosys Limited",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Limited Official Campus Recruitment"
+  },
+  {
+    "rowId": "infosys-se-programName-1",
+    "subjectId": "infosys-se",
+    "field": "programName",
+    "value": "Infosys Systems Engineer Campus Hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Systems Engineer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "infosys-se-programPageUrl-2",
+    "subjectId": "infosys-se",
+    "field": "programPageUrl",
+    "value": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Limited Official Campus Recruitment"
+  },
+  {
+    "rowId": "infosys-se-eligibility-cgpaMin-3",
+    "subjectId": "infosys-se",
+    "field": "eligibility.cgpaMin",
+    "value": 6,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 scale"
+  },
+  {
+    "rowId": "infosys-se-eligibility-cgpaScale-4",
+    "subjectId": "infosys-se",
+    "field": "eligibility.cgpaScale",
+    "value": 10,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "or 6.0 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "infosys-se-eligibility-percentAggregateMin-5",
+    "subjectId": "infosys-se",
+    "field": "eligibility.percentAggregateMin",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA"
+  },
+  {
+    "rowId": "infosys-se-eligibility-percent10Min-6",
+    "subjectId": "infosys-se",
+    "field": "eligibility.percent10Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Minimum 60.0 percent or 6.0 CGPA on a 10.0 scale throughout 10th"
+  },
+  {
+    "rowId": "infosys-se-eligibility-percent12Min-7",
+    "subjectId": "infosys-se",
+    "field": "eligibility.percent12Min",
+    "value": 60,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "scale throughout 10th, 12th, and Undergraduate degree"
+  },
+  {
+    "rowId": "infosys-se-eligibility-maxActiveBacklogs-8",
+    "subjectId": "infosys-se",
+    "field": "eligibility.maxActiveBacklogs",
+    "value": 0,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "candidates must have 0 active backlogs at assessment time"
+  },
+  {
+    "rowId": "infosys-se-eligibility-maxGapMonths-9",
+    "subjectId": "infosys-se",
+    "field": "eligibility.maxGapMonths",
+    "value": 24,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Academic gap allowed is up to 24 months across education"
+  },
+  {
+    "rowId": "infosys-se-eligibility-branches-10",
+    "subjectId": "infosys-se",
+    "field": "eligibility.branches",
+    "value": [
+      "CSE",
+      "IT",
+      "ECE",
+      "EEE",
+      "ME",
+      "CIVIL"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Eligible branches: CSE, IT, ECE, EEE, ME, CIVIL"
+  },
+  {
+    "rowId": "infosys-se-eligibility-degrees-11",
+    "subjectId": "infosys-se",
+    "field": "eligibility.degrees",
+    "value": [
+      "B.E.",
+      "B.Tech",
+      "M.E.",
+      "M.Tech",
+      "MCA"
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Degrees eligible: B.E., B.Tech, M.E., M.Tech, MCA"
+  },
+  {
+    "rowId": "infosys-se-eligibility-batchYears-12",
+    "subjectId": "infosys-se",
+    "field": "eligibility.batchYears",
+    "value": [
+      2026
+    ],
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Infosys Systems Engineer Campus Hiring for Batch 2026"
+  },
+  {
+    "rowId": "infosys-se-stage-name-13",
+    "subjectId": "infosys-se",
+    "field": "stage.name",
+    "value": "Infosys Online Assessment",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 1: Infosys Online Assessment"
+  },
+  {
+    "rowId": "infosys-se-stage-name-14",
+    "subjectId": "infosys-se",
+    "field": "stage.name",
+    "value": "Technical Interview",
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Stage 2: Technical Interview"
+  },
+  {
+    "rowId": "infosys-se-bondMonths-15",
+    "subjectId": "infosys-se",
+    "field": "bondMonths",
+    "value": 12,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "12 months mandatory tenure with commitment bond"
+  },
+  {
+    "rowId": "infosys-se-bondAmount-16",
+    "subjectId": "infosys-se",
+    "field": "bondAmount",
+    "value": 100000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "bond amount of 100000 rupees"
+  },
+  {
+    "rowId": "infosys-se-stipend-17",
+    "subjectId": "infosys-se",
+    "field": "stipend",
+    "value": 20000,
+    "sourceKind": "official",
+    "publisherType": "company",
+    "url": "https://www.infosys.com/careers/campus/systems-engineer-hiring",
+    "retrievedAt": "2026-10-26T10:44:17.286Z",
+    "extractedBy": "ai",
+    "snippet": "Trainee stipend is 20000 rupees"
+  }
+]
