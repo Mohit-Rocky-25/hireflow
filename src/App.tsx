@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { useStore } from './store/useStore';
 import { CinematicLoader } from './components/Loader/CinematicLoader';
+import { initSupabaseAuthListener } from './lib/supabase/client';
+import { autoSyncManager } from './lib/sync/autoSyncManager';
 
 // Lazy-loaded Pages & Tools (C13: Code-splitting)
 const LandingPage = React.lazy(() => import('./pages/LandingPage').then((m) => ({ default: m.LandingPage })));
@@ -76,6 +78,35 @@ export default function App() {
       initDemoData();
     }
   }, [_initialized, initDemoData]);
+
+  // Supabase real-time auth listener (Google OAuth redirect & session recovery)
+  useEffect(() => {
+    const unsub = initSupabaseAuthListener(
+      (user) => {
+        const currentUser = useStore.getState().currentUser;
+        if (!currentUser || currentUser.id !== user.id) {
+          useStore.setState({
+            currentUser: {
+              id: user.id,
+              email: user.email,
+              displayName: user.displayName,
+              avatarUrl: user.avatarUrl || '',
+              role: 'CANDIDATE',
+              status: 'active',
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+            },
+            isAuthenticated: true,
+          });
+          autoSyncManager.pullFromCloud(user.id);
+        }
+      },
+      () => {
+        useStore.getState().logout();
+      }
+    );
+    return unsub;
+  }, []);
 
   const handleLoadingFinish = useCallback(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {

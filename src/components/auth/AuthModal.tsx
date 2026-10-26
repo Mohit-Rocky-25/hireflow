@@ -90,30 +90,33 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
     setErrorMessage(null);
     try {
       const res: any = await cloudAuth.signInWithGoogle();
-      const googleUser = (res && res.user) ? res.user : {
-        id: 'google_user_demo',
-        email: 'alex.candidate@gmail.com',
-        user_metadata: { full_name: 'Alex Rivera' },
-      };
+      // If Supabase is configured, browser redirects to Google Accounts.
+      // Only run local simulation if Supabase is unconfigured:
+      if (!cloudAuth.isConfigured()) {
+        const googleUser = (res && res.user) ? res.user : {
+          id: 'google_user_demo',
+          email: 'alex.candidate@gmail.com',
+          user_metadata: { full_name: 'Alex Rivera' },
+        };
 
-      const user = register(
-        {
-          displayName: googleUser.user_metadata?.full_name || 'Candidate User',
-          email: googleUser.email || 'candidate@gmail.com',
-          role: 'CANDIDATE',
-          avatarUrl: '',
-        },
-        'google_oauth_pass'
-      );
+        const user = register(
+          {
+            displayName: googleUser.user_metadata?.full_name || 'Candidate User',
+            email: googleUser.email || 'candidate@gmail.com',
+            role: 'CANDIDATE',
+            avatarUrl: '',
+          },
+          'google_oauth_pass'
+        );
 
-      await autoSyncManager.pullFromCloud(user.id);
-      autoSyncManager.scheduleSync(300);
+        await autoSyncManager.pullFromCloud(user.id);
+        autoSyncManager.scheduleSync(300);
 
-      toast('success', `Signed in with Google as ${user.displayName}!`);
-      onClose();
+        toast('success', `Signed in with Google as ${user.displayName}!`);
+        onClose();
+      }
     } catch (err: any) {
       setErrorMessage(err.message || 'Google sign-in was interrupted.');
-    } finally {
       setIsLoading(false);
     }
   };

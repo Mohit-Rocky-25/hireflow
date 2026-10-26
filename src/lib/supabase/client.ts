@@ -136,3 +136,40 @@ function simulateLocalAuth(email: string, fullName: string) {
   localStorage.setItem('hireflo_simulated_user', JSON.stringify({ user: simulatedUser }));
   return { user: simulatedUser, session: { user: simulatedUser } };
 }
+
+/**
+ * Global Auth State Listener for Supabase (handles OAuth redirect callbacks & session persistence)
+ */
+export function initSupabaseAuthListener(
+  onSignIn?: (user: { id: string; email: string; displayName: string; avatarUrl?: string }) => void,
+  onSignOut?: () => void
+) {
+  if (!isSupabaseConfigured || !supabase) return () => {};
+
+  const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+    if (session?.user) {
+      const u = session.user;
+      const displayName =
+        u.user_metadata?.full_name ||
+        u.user_metadata?.name ||
+        u.email?.split('@')[0] ||
+        'Candidate';
+
+      if (onSignIn) {
+        onSignIn({
+          id: u.id,
+          email: u.email || '',
+          displayName,
+          avatarUrl: u.user_metadata?.avatar_url || '',
+        });
+      }
+    } else if (event === 'SIGNED_OUT') {
+      if (onSignOut) onSignOut();
+    }
+  });
+
+  return () => {
+    authListener.subscription.unsubscribe();
+  };
+}
+
