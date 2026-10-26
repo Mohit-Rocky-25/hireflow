@@ -1,6 +1,6 @@
 # Pathways Comprehensive Data & Engine Audit Report
 
-- **Generated At**: 2026-10-26T10:50:34.931Z
+- **Generated At**: 2026-10-26T11:34:54.432Z
 - **Audit Tool**: `scripts/pathways/audit.mjs`
 - **Governed By**: `docs/pathways/CONSTITUTION.md`
 
@@ -9,19 +9,19 @@
 ## 1. Census & Evidence Breakdown
 | Metric | Value |
 | :--- | :--- |
-| **Total Ledger Rows** | 340 |
+| **Total Ledger Rows** | 363 |
 | **Official Company Portal Rows** | 340 |
 | **Company-Published Documents** | 0 |
-| **Government Statutory Rules** | 0 |
-| **Active Subjects Shipped** | 20 |
+| **Government Statutory Rules** | 23 |
+| **Active Subjects Shipped** | 23 |
 | **Quarantined Subjects** | 0 |
 | **Facts Without Sourced Evidence (Must be 0)** | **0** |
 
 ---
 
 ## 2. Blind Re-Extraction Self-Check (Constitution B4/H10)
-- **Total Rows Evaluated**: 225
-- **Agreements**: 225
+- **Total Rows Evaluated**: 248
+- **Agreements**: 248
 - **Disagreements**: 0
 - **Agreement Rate**: **100.00%** (Pass threshold >= 95%)
 
@@ -40,11 +40,34 @@
 - `eligibility.percent10Min`: 4 rows
 - `eligibility.percent12Min`: 4 rows
 - `eligibility.percentAggregateMin`: 17 rows
+- `epf.employeeRate`: 1 rows
+- `epf.wageCeiling`: 1 rows
+- `labour.wageDefinition.gratuityDays`: 1 rows
+- `labour.wageDefinition.gratuityDivisor`: 1 rows
+- `labour.wageDefinition.gratuityVestingYears`: 1 rows
+- `labour.wageDefinition.minRatio`: 1 rows
 - `officialName`: 20 rows
 - `programName`: 20 rows
 - `programPageUrl`: 20 rows
 - `stage.name`: 55 rows
 - `stipend`: 20 rows
+- `tax.cessRate`: 1 rows
+- `tax.newRegime.slab1Max`: 1 rows
+- `tax.newRegime.slab1Rate`: 1 rows
+- `tax.newRegime.slab2Max`: 1 rows
+- `tax.newRegime.slab2Rate`: 1 rows
+- `tax.newRegime.slab3Max`: 1 rows
+- `tax.newRegime.slab3Rate`: 1 rows
+- `tax.newRegime.slab4Max`: 1 rows
+- `tax.newRegime.slab4Rate`: 1 rows
+- `tax.newRegime.slab5Max`: 1 rows
+- `tax.newRegime.slab5Rate`: 1 rows
+- `tax.newRegime.slab6Max`: 1 rows
+- `tax.newRegime.slab6Rate`: 1 rows
+- `tax.newRegime.slab7Rate`: 1 rows
+- `tax.rebate87A.maxRebate`: 1 rows
+- `tax.rebate87A.threshold`: 1 rows
+- `tax.standardDeduction`: 1 rows
 
 ---
 

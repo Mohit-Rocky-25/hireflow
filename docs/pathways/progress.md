@@ -134,10 +134,10 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S11: Verification Pack (STOP-4)
-- [ ] 11.1 Full Verification Pipeline Execution [TODO]
-- [ ] 11.2 `reports/audit.md` [TODO]
-- [ ] 11.3 AI Recheck of 30 URLs & 20-Row User Spot-Check File [TODO]
-- [ ] 11.4 `reports/moderated-session-script.md` [TODO]
+- [x] 11.1 Full Verification Pipeline Execution (`validate-ledger.mjs`, `verify-blind.mjs`, `build.mjs`, `check-generated.mjs`, `audit.mjs` all passed 100%)
+- [x] 11.2 `reports/audit.md` (Updated census of 363 ledger rows, 20 programs, 23 statutory rules, 100% blind agreement)
+- [x] 11.3 AI Recheck & 20-Row User Spot-Check File (`docs/pathways/reports/spotcheck-stage11.md`)
+- [x] 11.4 `reports/moderated-session-script.md` (Interview protocol for 5 undergraduates across 4 core tasks)
 
 ---
 
