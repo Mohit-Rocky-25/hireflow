@@ -37,3 +37,4 @@
 {"url":"https://www.freshworks.com/careers/campus/associate-software-engineer","httpStatus":200,"timestamp":"2026-10-26T11:06:09.174Z","subjectId":"freshworks-ase"}
 {"url":"https://www.tatamotors.com/careers/campus/graduate-engineer-trainee","httpStatus":200,"timestamp":"2026-10-26T11:06:09.174Z","subjectId":"tatamotors-get"}
 {"url":"https://www.bosch.in/careers/campus/graduate-engineer-trainee","httpStatus":200,"timestamp":"2026-10-26T11:06:09.174Z","subjectId":"bosch-get"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-26T11:32:52.443Z","subjectId":"mock-portal"}

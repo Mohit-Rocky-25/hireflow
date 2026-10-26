@@ -124,12 +124,12 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S10: UI Implementation (Design Tokens Only)
-- [ ] 10.1 Profile Store & Core Input Components (3-Input Budget) [TODO]
-- [ ] 10.2 Five Routes & All Wireframe States [TODO]
-- [ ] 10.3 Evidence Chips, Local Feedback & Non-Affiliation Footer [TODO]
-- [ ] 10.4 Feature Flag Registration (`PATHWAYS_ENABLED`) [TODO]
-- [ ] 10.5 UI Tests (Input Budget, 390px Mobile, Keyboard, Math Check) [TODO]
-- [ ] 10.6 Red-Team Pass S10 [TODO]
+- [x] 10.1 Profile Store & Core Input Components (3-Input Budget: `profileStore.ts`, `ProfileBudgetBar.tsx`)
+- [x] 10.2 Five Routes & All Wireframe States (`PathwaysRadarPage`, `ProgramDetailPage`, `ActionPlanPage`, `OfferEvaluatorPage`, `AboutDataPage`)
+- [x] 10.3 Evidence Chips, Local Feedback & Non-Affiliation Footer (`EvidenceChip.tsx`, `FeedbackModal.tsx`, `NonAffiliationFooter.tsx`)
+- [x] 10.4 Feature Flag Registration (`PATHWAYS_ENABLED: true` in `features.ts`, route wiring in `App.tsx`, entry in `ToolsHubPage.tsx`)
+- [x] 10.5 UI Tests (Input Budget, 390px Mobile, Keyboard, Zero Math Check: `tests/pathways/ui.test.ts` 9/9 passed)
+- [x] 10.6 Red-Team Pass S10 (`docs/pathways/reports/redteam-s10.md`)
 
 ---
 

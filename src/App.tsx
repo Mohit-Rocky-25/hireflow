@@ -28,6 +28,14 @@ const ScanHistoryPage = React.lazy(() => import('./pages/history/ScanHistoryPage
 const SavedJdLibraryPage = React.lazy(() => import('./pages/jd-library/SavedJdLibraryPage').then((m) => ({ default: m.SavedJdLibraryPage })));
 const MethodologyPage = React.lazy(() => import('./pages/methodology/MethodologyPage'));
 
+// Pathways Suite (C2 behind PATHWAYS_ENABLED)
+import { FEATURES } from './config';
+const PathwaysRadarPage = React.lazy(() => import('./pathways/pages/PathwaysRadarPage').then((m) => ({ default: m.PathwaysRadarPage })));
+const ProgramDetailPage = React.lazy(() => import('./pathways/pages/ProgramDetailPage').then((m) => ({ default: m.ProgramDetailPage })));
+const ActionPlanPage = React.lazy(() => import('./pathways/pages/ActionPlanPage').then((m) => ({ default: m.ActionPlanPage })));
+const OfferEvaluatorPage = React.lazy(() => import('./pathways/pages/OfferEvaluatorPage').then((m) => ({ default: m.OfferEvaluatorPage })));
+const AboutDataPage = React.lazy(() => import('./pathways/pages/AboutDataPage').then((m) => ({ default: m.AboutDataPage })));
+
 // Overlays & Providers
 import { ToastContainer } from './components/ui/Toast';
 import { ProfileProvider } from './features/suite/profile/ProfileContext';
@@ -126,6 +134,13 @@ export default function App() {
             <Route path="/tools/jd-library" element={<RedirectWithSearch to="/jd-library" />} />
             <Route path="/methodology" element={<MethodologyPage />} />
             <Route path="/tools/methodology" element={<RedirectWithSearch to="/methodology" />} />
+
+            {/* Pathways Fresher Campus Intelligence Suite (C2 behind PATHWAYS_ENABLED) */}
+            <Route path="/tools/pathways" element={FEATURES.PATHWAYS_ENABLED ? <PathwaysRadarPage /> : <Navigate to="/tools" replace />} />
+            <Route path="/tools/pathways/program/:id" element={FEATURES.PATHWAYS_ENABLED ? <ProgramDetailPage /> : <Navigate to="/tools" replace />} />
+            <Route path="/tools/pathways/plan" element={FEATURES.PATHWAYS_ENABLED ? <ActionPlanPage /> : <Navigate to="/tools" replace />} />
+            <Route path="/tools/pathways/offers" element={FEATURES.PATHWAYS_ENABLED ? <OfferEvaluatorPage /> : <Navigate to="/tools" replace />} />
+            <Route path="/tools/pathways/about-data" element={FEATURES.PATHWAYS_ENABLED ? <AboutDataPage /> : <Navigate to="/tools" replace />} />
 
             {/* Legacy Fallbacks (graceful redirects for old bookmarks) */}
             <Route path="/portal/*" element={<Navigate to="/tools" replace />} />
