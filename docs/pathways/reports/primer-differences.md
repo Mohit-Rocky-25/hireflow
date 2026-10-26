@@ -20,7 +20,7 @@ Generic online "CTC to In-Hand" calculators found on casual tech blogs and salar
 
 ### Difference 3: Gratuity Illusion in CTC
 - **Naive Calculators:** Treat gratuity (4.81% of basic pay) as a component of the candidate's compensation package.
-- **Pathways Engine Reality:** Under Section 4 of the Payment of Gratuity Act, 1972, gratuity is strictly payable only after completing **5 continuous years of service** with the same employer. For freshers who stay an average of 18–30 months in their first role, gratuity included in the CTC is effectively an employer accounting reserve that the fresher will never receive. Pathways isolates gratuity from guaranteed annual cash.
+- **Pathways Engine Reality:** Under Section 4 of the Payment of Gratuity Act, 1972, gratuity is strictly payable only after completing **5 continuous years of service** with the same employer. For freshers who stay an average of 18–30 months in their first role, gratuity included in the CTC is effectively an employer accounting reserve that the fresher will never receive. Pathways isolates gratuity from fixed annual cash.
 
 ### Difference 4: Half-Up Integer Rupee Arithmetic vs Floating-Point Distortion
 - **Naive Calculators:** Use floating point numbers, resulting in bizarre fractional rupees (e.g., ₹34,219.87321).

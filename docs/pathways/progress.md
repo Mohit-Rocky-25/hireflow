@@ -92,10 +92,11 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S6: Offer Engine & Worked Examples (STOP-3)
-- [ ] 6.1 `src/pathways/engine/offer.ts` Pure Deterministic Functions [TODO]
-- [ ] 6.2 Unit Tests & Seeded Property Tests [TODO]
-- [ ] 6.3 8 Hand-Worked Examples in `reports/offer-worked-examples.md` [TODO]
-- [ ] 6.4 Mutation Spot-Check (10 mutants) & Red-Team Pass S6 [TODO]
+- [x] 6.1 `src/pathways/engine/offer.ts` Pure Deterministic Functions (Tax, EPF, Exit Timeline, Red Flags, 3-offer compare)
+- [x] 6.2 Unit Tests & Seeded Property Tests (14 tests passed, 8 C15 fixtures)
+- [x] 6.3 8 Hand-Worked Examples in `reports/offer-worked-examples.md`
+- [x] 6.4 Mutation Spot-Check (10 mutants, 100% kill score in `reports/mutation-offer.md`)
+- [x] 6.5 Red-Team Pass S6 (`reports/redteam-s6.md`)
 
 ---
 
