@@ -101,10 +101,11 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S7: Eligibility Engine & CGPA Gap Calculator
-- [ ] 7.1 `src/pathways/engine/eligibility.ts` Pure Engine [TODO]
-- [ ] 7.2 CGPA Gap Formula Function [TODO]
-- [ ] 7.3 Truth Tables, 20-Profile Fixture Tests & Invariant Property Tests [TODO]
-- [ ] 7.4 Mutation Spot-Check (10 mutants) & Red-Team Pass S7 [TODO]
+- [x] 7.1 `src/pathways/engine/eligibility.ts` Pure Engine (4 statuses, E4 unit mismatch handling)
+- [x] 7.2 CGPA Gap Formula Function ($R = (T\cdot N - C\cdot n)/(N - n)$)
+- [x] 7.3 Truth Tables, 20-Profile Fixture Tests & Invariant Property Tests (24 tests passed)
+- [x] 7.4 Mutation Spot-Check (10 mutants, 100% kill score in `reports/mutation-eligibility.md`)
+- [x] 7.5 Red-Team Pass S7 (`reports/redteam-s7.md`)
 
 ---
 

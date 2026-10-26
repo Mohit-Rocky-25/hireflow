@@ -294,7 +294,7 @@ const SCALE_PROGRAMS = [
       { field: 'eligibility.cgpaScale', value: 10.0, snippet: '0.0 CGPA on a 10.0 point scale with no' },
       { field: 'eligibility.maxActiveBacklogs', value: 5, snippet: 'maximum 5 active backlogs permitted during evaluation' },
       { field: 'eligibility.maxGapMonths', value: 36, snippet: 'Allowed education gap is 36 months' },
-      { field: 'eligibility.branches', value: ['CSE', 'IT', 'ECE', 'EEE', 'ME', 'CIVIL'], snippet: 'Streams: CSE, IT, ECE, EEE, ME, CIVIL' },
+      { field: 'eligibility.branches', value: ['ALL'], snippet: 'point scale with no branch bar' },
       { field: 'eligibility.degrees', value: ['B.E.', 'B.Tech', 'MCA'], snippet: 'Degrees: B.E., B.Tech, MCA, M.Sc' },
       { field: 'eligibility.batchYears', value: [2026], snippet: 'Software Developer Campus Hiring for Batch 2026' },
       { field: 'stage.name', value: 'General Aptitude Assessment', snippet: 'Stage 1: General Aptitude Assessment' },
