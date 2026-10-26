@@ -118,8 +118,8 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S9: Readiness Link
-- [ ] 9.1 Local TalentLens/Roaster Trace Reader & Archetype Map [TODO]
-- [ ] 9.2 Tests for Readiness Integration (Zero Network, Zero Recompute) [TODO]
+- [x] 9.1 Local TalentLens/Roaster Trace Reader & Archetype Map (`src/pathways/engine/readiness.ts`)
+- [x] 9.2 Tests for Readiness Integration (Zero network egress, zero score recomputation, 4 tests passed)
 
 ---
 
