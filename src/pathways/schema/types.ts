@@ -128,21 +128,32 @@ export interface StudentProfile {
  * Editorial Assumption Structure (Model Layer L2 — Constitution B2)
  */
 export type AssumptionStatus = 'draft' | 'reviewed';
-export type ReviewerCategory = 'chartered_accountant' | 'placement_officer' | 'legal_counsel' | 'academic_dean' | null;
+export type ReviewerCategory =
+  | 'chartered_accountant'
+  | 'placement_officer'
+  | 'legal_counsel'
+  | 'academic_dean'
+  | 'tpo'
+  | 'recruiter'
+  | 'legal'
+  | 'fresh-grad'
+  | null;
 
 export interface Assumption {
   id: string;
-  label: string;
-  min: number;
-  likely: number;
-  max: number;
-  unit: string;
+  label?: string;
+  min?: number;
+  likely?: number;
+  max?: number;
+  unit?: string;
   kind: 'editorial';
   rationale: string;
   status: AssumptionStatus;
   reviewerCategory: ReviewerCategory;
   reviewedAt: string | null;
 }
+
+export type AssumptionRecord = Assumption;
 
 /**
  * Deterministic Engine Execution Trace (Constitution B3/E2)

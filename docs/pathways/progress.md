@@ -110,10 +110,10 @@ Stage 2 Tag: `pw-stage-2`
 ---
 
 ## Stage S8: Action Plan Engine & Models
-- [ ] 8.1 `src/pathways/models/assumptions.ts` (All Draft) [TODO]
-- [ ] 8.2 `src/pathways/engine/plan.ts` Pure Engine [TODO]
-- [ ] 8.3 Plan Engine Tests & Determinism Validation [TODO]
-- [ ] 8.4 Mutation Spot-Check (10 mutants) [TODO]
+- [x] 8.1 `src/pathways/models/assumptions.ts` (All draft status per B5/C4)
+- [x] 8.2 `src/pathways/engine/plan.ts` Pure Engine (3 ordered lanes, relative weeks, pace multiplier)
+- [x] 8.3 Plan Engine Tests & Determinism Validation (5 tests passed)
+- [x] 8.4 Mutation Spot-Check (10 mutants, 100% kill score in `reports/mutation-plan.md`)
 
 ---
 
