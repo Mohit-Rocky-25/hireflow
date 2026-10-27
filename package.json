@@ -17,6 +17,7 @@
     "test:data": "vitest run src/data/__tests__/",
     "test:a11y": "vitest run tests/a11y/ src/__tests__/a11y/",
     "calibrate": "npx tsx scripts/calibrate.ts",
+    "scoring:rating-sheet": "npx tsx scripts/scoring-rating-sheet.ts",
     "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
     "privacy:check": "npx tsx scripts/check-privacy.ts",
     "parse:eval": "npx tsx scripts/parse-eval.ts",

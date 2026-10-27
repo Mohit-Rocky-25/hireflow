@@ -70,6 +70,18 @@ function matchSectionHeader(line: string): string | null {
   // Lines that look like email/phone/urls are not section headers
   if (cleanLine.includes('@') || cleanLine.startsWith('http') || cleanLine.includes('www.')) return null;
 
+  // Lines with commas are inline attribute lists (e.g. "Technologies: Embedded C, FreeRTOS"), not section headers
+  if (cleanLine.includes(',')) return null;
+
+  // Lines with colon followed by substantive words are inline field labels (e.g. "Technologies: React and Node.js")
+  const colonIdx = cleanLine.indexOf(':');
+  if (colonIdx !== -1) {
+    const afterColon = cleanLine.slice(colonIdx + 1).trim();
+    if (afterColon.length > 0 && afterColon.split(/\s+/).length > 2) {
+      return null;
+    }
+  }
+
   const normalizedLine = cleanLine
     .toLowerCase()
     .replace(/[^a-z0-9]/g, ' ')
