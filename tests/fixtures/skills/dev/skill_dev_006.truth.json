@@ -1,0 +1,47 @@
+{
+  "id": "skill_dev_006",
+  "isHoldout": false,
+  "trapType": "spark_vs_prose",
+  "roleCategory": "Data/Management",
+  "resumeText": "Name: Amit Trivedi\nEmail: amit@bigdata.org\n\nSKILLS:\nApache Spark, PySpark, Hadoop, Scala, Kafka, SQL\n\nEXPERIENCE:\nData Engineer | Databound (2022 - Present)\n- Built large-scale ETL pipelines using Apache Spark on Databricks processing 4TB daily telemetry data.\n- Tuned Spark shuffle partitions and caching, reducing query runtimes from 90 mins to 18 mins.\n\nEDUCATION:\nB.Tech CSE, 2022",
+  "jdText": "Role: Big Data Engineer\nRequirements:\n- 2+ years of Apache Spark / PySpark experience.\n- Solid experience in distributed data processing.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Apache Spark",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Spark",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Apache Spark",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Apache Spark",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "skill_holdout_018",
+  "isHoldout": true,
+  "trapType": "go_vs_prose",
+  "roleCategory": "Product/Backend",
+  "resumeText": "Name: Ananya Roy\nEmail: ananya@product.io\n\nSKILLS:\nProduct Management, Jira, Agile, User Research, SQL\n\nEXPERIENCE:\nAssociate Product Manager | GrowthCo (2022 - Present)\n- Partnered with go-to-market and sales teams to drive 45% user adoption for new product line.\n- Known as an enthusiastic go-getter who organized weekly cross-functional sprints.\n- Enabled team to go live with mobile onboarding flow ahead of target deadline.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Backend Engineer\nRequirements:\n- Proficiency in Go programming language.\n- Experience deploying services to AWS.",
+  "resumeMentions": [
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Jira",
+      "tokenFound": "Jira",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "AWS",
+      "tokenFound": "AWS",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Go",
+      "expectedClassification": "MISSING",
+      "rationale": "Prose \"go-to-market\", \"go-getter\", \"go live\" must NOT match Go programming language"
+    },
+    {
+      "jdSkill": "AWS",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "skill_dev_046",
+  "isHoldout": false,
+  "trapType": "java_vs_javascript",
+  "roleCategory": "Backend",
+  "resumeText": "Name: Rohit Sharma\nEmail: rohit@example.com\n\nTECHNICAL SKILLS:\nLanguages: Java, Spring Boot, Hibernate, SQL, Git\n\nEXPERIENCE:\nSoftware Engineer | Enterprise Corp (2022 - Present)\n- Developed high-throughput microservices using Java 17 and Spring Boot handling 20,000 req/sec.\n- Optimized Hibernate ORM queries against PostgreSQL database, cutting latency by 35%.\n- Integrated JUnit test suites achieving 85% code coverage.\n\nEDUCATION:\nB.Tech in CSE, 2022",
+  "jdText": "Role: Senior Frontend Engineer\nRequirements:\n- Must have 3+ years of professional JavaScript experience.\n- Deep understanding of modern JavaScript (ES6+), React, and DOM APIs.\n- Nice to have: TypeScript and Node.js.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java 17",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Git",
+      "tokenFound": "Git",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "JavaScript",
+      "expectedClassification": "MISSING",
+      "rationale": "Candidate has Java, not JavaScript"
+    },
+    {
+      "jdSkill": "React",
+      "expectedClassification": "MISSING"
+    },
+    {
+      "jdSkill": "TypeScript",
+      "expectedClassification": "MISSING"
+    },
+    {
+      "jdSkill": "Node.js",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

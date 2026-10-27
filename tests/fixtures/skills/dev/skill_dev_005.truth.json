@@ -1,0 +1,23 @@
+{
+  "id": "skill_dev_005",
+  "isHoldout": false,
+  "trapType": "swift_vs_prose",
+  "roleCategory": "Mobile/Operations",
+  "resumeText": "Name: Vikram Rao\nEmail: vikram@supplychain.com\n\nSKILLS:\nLogistics, Warehouse Management, ERP, Vendor Management\n\nEXPERIENCE:\nOperations Lead | FastLogistics (2021 - Present)\n- Ensured swift delivery of over 150,000 retail packages per month during peak holiday seasons.\n- Commended by management for swift response to critical supply chain bottlenecks.\n\nEDUCATION:\nB.Com, 2021",
+  "jdText": "Role: iOS App Developer\nRequirements:\n- 2+ years of Swift programming experience.",
+  "resumeMentions": [],
+  "jdRequirements": [
+    {
+      "canonicalId": "Swift",
+      "tokenFound": "Swift",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Swift",
+      "expectedClassification": "MISSING",
+      "rationale": "Prose \"swift delivery\" must NOT match Swift iOS language"
+    }
+  ]
+}

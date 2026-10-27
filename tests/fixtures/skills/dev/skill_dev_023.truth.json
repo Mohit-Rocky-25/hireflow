@@ -1,0 +1,42 @@
+{
+  "id": "skill_dev_023",
+  "isHoldout": false,
+  "trapType": "node_vs_datastructure",
+  "roleCategory": "Backend/Algorithms",
+  "resumeText": "Name: Ankit Aggarwal\nEmail: ankit@algo.edu\n\nSKILLS:\nC++, Python, Data Structures, Algorithms\n\nEXPERIENCE:\nCompetitive Programmer & Research Intern (2022 - Present)\n- Implemented advanced graph search traversing over 100,000 node structures with BFS and DFS.\n- Optimized trie node memory footprint by 40% using compressed pointer representations.\n- Analyzed leaf node distributions in binary search trees.\n\nEDUCATION:\nB.Tech CSE, 2022",
+  "jdText": "Role: Backend Engineer\nRequirements:\n- Hands-on Node.js runtime experience.",
+  "resumeMentions": [
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Data Structures",
+      "tokenFound": "Data Structures",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Node.js",
+      "expectedClassification": "MISSING",
+      "rationale": "Graph \"node\" / \"leaf node\" / \"trie node\" must NOT match Node.js"
+    }
+  ]
+}

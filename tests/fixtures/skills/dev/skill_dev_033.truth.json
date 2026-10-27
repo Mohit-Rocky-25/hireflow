@@ -1,0 +1,56 @@
+{
+  "id": "skill_dev_033",
+  "isHoldout": false,
+  "trapType": "go_vs_prose",
+  "roleCategory": "Product/Backend",
+  "resumeText": "Name: Nikhil Joshi\nEmail: nikhil@go.dev\n\nSKILLS:\nGo, Kubernetes, Docker, gRPC, PostgreSQL\n\nEXPERIENCE:\nBackend Engineer | CloudScale (2022 - Present)\n- Engineered distributed microservices in Go (Golang) handling 50k RPS with gRPC.\n- Built concurrent worker pools using Go channels and goroutines for streaming ETL pipelines.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Go Backend Engineer\nRequirements:\n- Strong production experience in Go.\n- Microservices architecture with Docker and Kubernetes.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go (Golang)",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Go",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

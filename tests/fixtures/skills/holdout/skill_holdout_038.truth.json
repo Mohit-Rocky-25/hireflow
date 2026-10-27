@@ -1,0 +1,41 @@
+{
+  "id": "skill_holdout_038",
+  "isHoldout": true,
+  "trapType": "node_vs_datastructure",
+  "roleCategory": "Backend/Algorithms",
+  "resumeText": "Name: Tanmay Bhat\nEmail: tanmay@node.org\n\nSKILLS:\nNode.js, Express.js, MongoDB, JavaScript, TypeScript\n\nEXPERIENCE:\nFull-Stack Engineer | DevHub (2022 - Present)\n- Designed REST API endpoints in Node.js and Express with MongoDB backend.\n- Integrated JWT authentication and Redis caching on Node services.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Node.js Backend Engineer\nRequirements:\n- 2+ years of Node.js experience building backend APIs.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Express.js",
+      "tokenFound": "Express.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "MongoDB",
+      "tokenFound": "MongoDB",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Node.js",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

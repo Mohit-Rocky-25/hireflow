@@ -1,0 +1,45 @@
+{
+  "id": "skill_dev_022",
+  "isHoldout": false,
+  "trapType": "react_vs_reactive",
+  "roleCategory": "Frontend/Mobile/Backend",
+  "resumeText": "Name: Alok Mishra\nEmail: alok@mobiledev.io\n\nSKILLS:\nReact Native, Mobile App Development, iOS, Android, TypeScript\n\nEXPERIENCE:\nMobile Engineer | AppFoundry (2022 - Present)\n- Developed cross-platform mobile apps using React Native for 50k monthly active users.\n- Integrated native bridge modules in Java and Swift with React Native.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Web Frontend Developer\nRequirements:\n- Must have React experience for responsive web apps.\n- Solid HTML5 and CSS3.",
+  "resumeMentions": [
+    {
+      "canonicalId": "React Native",
+      "tokenFound": "React Native",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "HTML5",
+      "tokenFound": "HTML5",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "React",
+      "expectedClassification": "TRANSFERABLE",
+      "rationale": "React Native provides transferable credit to React but is not exact web React"
+    },
+    {
+      "jdSkill": "HTML5",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

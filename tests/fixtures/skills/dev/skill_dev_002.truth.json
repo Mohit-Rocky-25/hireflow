@@ -1,0 +1,62 @@
+{
+  "id": "skill_dev_002",
+  "isHoldout": false,
+  "trapType": "c_vs_cpp_vs_csharp",
+  "roleCategory": "Systems",
+  "resumeText": "Name: Arjun Verma\nEmail: arjun@systems.io\n\nTECHNICAL SKILLS:\nLanguages: C++, STL, Linux, Git, CMake\n\nEXPERIENCE:\nSystems Engineer | Embedded Core (2022 - Present)\n- Developed high-frequency trading execution engine using Modern C++ (C++17) with ultra low-latency.\n- Benchmarked lock-free algorithms in C++ reducing median order execution time to under 12 microseconds.\n- Automated builds using CMake and GCC on Linux.\n\nEDUCATION:\nB.E. Computer Science, 2022",
+  "jdText": "Role: .NET Application Developer\nRequirements:\n- 2+ years of production experience in C# and .NET Core.\n- Solid understanding of C# asynchronous programming and ASP.NET Core REST APIs.\n- Nice to have: SQL Server, Azure.",
+  "resumeMentions": [
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++17",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Linux",
+      "tokenFound": "Linux",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Git",
+      "tokenFound": "Git",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "C#",
+      "tokenFound": "C#",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": ".NET",
+      "tokenFound": ".NET Core",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "SQL Server",
+      "tokenFound": "SQL Server",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "C#",
+      "expectedClassification": "MISSING",
+      "rationale": "C++ must not match C#"
+    },
+    {
+      "jdSkill": ".NET",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

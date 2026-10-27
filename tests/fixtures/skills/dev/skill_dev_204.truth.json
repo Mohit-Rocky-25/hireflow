@@ -1,0 +1,103 @@
+{
+  "id": "skill_dev_204",
+  "isHoldout": false,
+  "roleCategory": "DevOps",
+  "resumeText": "Candidate skill_dev_204\nEmail: candidate_skill_dev_204@hireflow.test\n\nTECHNICAL SKILLS:\nDocker, Kubernetes, Terraform, AWS, CI/CD Pipelines, Linux\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2020 - Present)\n- Architected and deployed scalable Docker and Kubernetes services, reducing latency by 44%.\n- Engineered database indexing and query optimization on Terraform, supporting 60k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: DevOps Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Kubernetes.\n- Proficiency in Terraform.\n- Proficiency in Docker.\n- Proficiency in AWS.\n\nNice-to-Have Skills:\n- Experience with CI/CD Pipelines.\n- Experience with Prometheus.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Terraform",
+      "tokenFound": "Terraform",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "AWS",
+      "tokenFound": "AWS",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "CI/CD Pipelines",
+      "tokenFound": "CI/CD Pipelines",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Linux",
+      "tokenFound": "Linux",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Terraform",
+      "tokenFound": "Terraform",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "AWS",
+      "tokenFound": "AWS",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "CI/CD Pipelines",
+      "tokenFound": "CI/CD Pipelines",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Prometheus",
+      "tokenFound": "Prometheus",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Kubernetes",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Terraform",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "AWS",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "CI/CD Pipelines",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Prometheus",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

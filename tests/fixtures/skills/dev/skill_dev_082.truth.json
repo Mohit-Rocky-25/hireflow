@@ -1,0 +1,103 @@
+{
+  "id": "skill_dev_082",
+  "isHoldout": false,
+  "roleCategory": "Fullstack",
+  "resumeText": "Candidate skill_dev_082\nEmail: candidate_skill_dev_082@hireflow.test\n\nTECHNICAL SKILLS:\nTypeScript, React, Node.js, PostgreSQL, Docker, Git\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2021 - Present)\n- Architected and deployed scalable TypeScript and React services, reducing latency by 41%.\n- Engineered database indexing and query optimization on Node.js, supporting 69k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Fullstack Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in TypeScript.\n- Proficiency in React.\n- Proficiency in Node.js.\n- Proficiency in PostgreSQL.\n\nNice-to-Have Skills:\n- Experience with Docker.\n- Experience with AWS.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Git",
+      "tokenFound": "Git",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Node.js",
+      "tokenFound": "Node.js",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "AWS",
+      "tokenFound": "AWS",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "TypeScript",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Node.js",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "PostgreSQL",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "AWS",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "skill_holdout_016",
+  "isHoldout": true,
+  "trapType": "java_vs_javascript",
+  "roleCategory": "Backend",
+  "resumeText": "Name: Priya Patel\nEmail: priya@example.com\n\nTECHNICAL SKILLS:\nLanguages: JavaScript, React, HTML5, CSS3, Redux\n\nEXPERIENCE:\nFrontend Developer | TechApps (2021 - Present)\n- Built modular UI components in React and modern JavaScript serving 100k daily users.\n- Refactored legacy vanilla JavaScript code into clean ES6 modules.\n- Integrated RESTful APIs with Axios and Redux Toolkit.\n\nEDUCATION:\nB.Tech in IT, 2021",
+  "jdText": "Role: Backend Java Developer\nRequirements:\n- 3+ years of hands-on Java development experience.\n- Strong background in Java concurrency, JVM internals, and Spring Boot.\n- Preferred: Docker, Kubernetes.",
+  "resumeMentions": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "HTML5",
+      "tokenFound": "HTML5",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "CSS3",
+      "tokenFound": "CSS3",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Java",
+      "expectedClassification": "MISSING",
+      "rationale": "JavaScript must not match Java"
+    },
+    {
+      "jdSkill": "Spring Boot",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

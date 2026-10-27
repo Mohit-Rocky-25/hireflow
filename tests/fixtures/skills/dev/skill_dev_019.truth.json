@@ -1,0 +1,41 @@
+{
+  "id": "skill_dev_019",
+  "isHoldout": false,
+  "trapType": "r_vs_rnd",
+  "roleCategory": "Data/Research",
+  "resumeText": "Name: Suman Das\nEmail: suman@stats.org\n\nSKILLS:\nR, Python, ggplot2, tidyverse, Statistical Modeling\n\nEXPERIENCE:\nData Analyst | BioStats Lab (2022 - Present)\n- Conducted statistical hypothesis testing using R programming language and tidyverse packages.\n- Built publication-ready visualization charts in R using ggplot2 for clinical trial datasets.\n\nEDUCATION:\nM.Sc Statistics, 2022",
+  "jdText": "Role: Quantitative Analyst\nRequirements:\n- Proficiency in R or Python for statistical computing.\n- Strong background in regression analysis.",
+  "resumeMentions": [
+    {
+      "canonicalId": "R",
+      "tokenFound": "R",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "R",
+      "tokenFound": "R programming language",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "R",
+      "tokenFound": "R",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "R",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

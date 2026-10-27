@@ -1,0 +1,36 @@
+{
+  "id": "skill_holdout_019",
+  "isHoldout": true,
+  "trapType": "r_vs_rnd",
+  "roleCategory": "Data/Research",
+  "resumeText": "Name: Karan Kapoor\nEmail: karan@hardware.corp\n\nSKILLS:\nC++, Embedded C, Microcontrollers, PCB Design\n\nEXPERIENCE:\nHardware Design Engineer | AutoTech (2021 - Present)\n- Worked directly in the R&D division developing firmware for automotive battery management systems.\n- Led R & D testing protocols that ensured compliance with ISO 26262 safety standards.\n\nEDUCATION:\nB.Tech Electrical, 2021",
+  "jdText": "Role: Biostatistician\nRequirements:\n- Experience with R for data analysis.\n- Clinical research background.",
+  "resumeMentions": [
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "C",
+      "tokenFound": "Embedded C",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "R",
+      "tokenFound": "R",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "R",
+      "expectedClassification": "MISSING",
+      "rationale": "R&D / R & D division must NOT trigger R programming language match"
+    }
+  ]
+}

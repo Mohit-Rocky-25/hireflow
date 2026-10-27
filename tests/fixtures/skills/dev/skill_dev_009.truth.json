@@ -1,0 +1,88 @@
+{
+  "id": "skill_dev_009",
+  "isHoldout": false,
+  "trapType": "negations",
+  "roleCategory": "Backend/DevOps",
+  "resumeText": "Name: Varun Malhotra\nEmail: varun@dev.in\n\nSKILLS:\nJava, Spring Boot, MySQL, REST APIs, Git\n\nEXPERIENCE:\nSoftware Engineer | CloudScale (2022 - Present)\n- Developed microservices in Java and Spring Boot; no experience with Kafka or event streaming.\n- Worked in traditional on-premise environments, not familiar with Kubernetes orchestration.\n- Managed relational data models in MySQL without Redis caching.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Senior Distributed Systems Engineer\nRequirements:\n- Must have Apache Kafka for real-time stream processing.\n- Must have Kubernetes for container orchestration.\n- Strong background in Java and Spring Boot.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "MySQL",
+      "tokenFound": "MySQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "location": "experience-bullet",
+      "evidenceTier": "negated"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "location": "experience-bullet",
+      "evidenceTier": "negated"
+    },
+    {
+      "canonicalId": "Redis",
+      "tokenFound": "Redis",
+      "location": "experience-bullet",
+      "evidenceTier": "negated"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Java",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Spring Boot",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Kafka",
+      "expectedClassification": "MISSING",
+      "rationale": "Explicit negation: \"no experience with Kafka\""
+    },
+    {
+      "jdSkill": "Kubernetes",
+      "expectedClassification": "MISSING",
+      "rationale": "Explicit negation: \"not familiar with Kubernetes\""
+    }
+  ]
+}

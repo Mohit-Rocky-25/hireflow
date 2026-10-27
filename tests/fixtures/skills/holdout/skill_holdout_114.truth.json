@@ -1,0 +1,94 @@
+{
+  "id": "skill_holdout_114",
+  "isHoldout": true,
+  "roleCategory": "Backend",
+  "resumeText": "Candidate skill_holdout_114\nEmail: candidate_skill_holdout_114@hireflow.test\n\nTECHNICAL SKILLS:\nGo, gRPC, Docker, Kubernetes, PostgreSQL, Redis\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable Go and gRPC services, reducing latency by 25%.\n- Engineered database indexing and query optimization on Docker, supporting 79k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Backend Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Go.\n- Proficiency in Docker.\n- Proficiency in Kubernetes.\n\nNice-to-Have Skills:\n- Experience with Redis.\n- Experience with Prometheus.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "gRPC",
+      "tokenFound": "gRPC",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Redis",
+      "tokenFound": "Redis",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Go",
+      "tokenFound": "Go",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Redis",
+      "tokenFound": "Redis",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Prometheus",
+      "tokenFound": "Prometheus",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Go",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Kubernetes",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Redis",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Prometheus",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

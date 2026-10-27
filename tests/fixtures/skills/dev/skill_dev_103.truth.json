@@ -1,0 +1,88 @@
+{
+  "id": "skill_dev_103",
+  "isHoldout": false,
+  "roleCategory": "Fullstack",
+  "resumeText": "Candidate skill_dev_103\nEmail: candidate_skill_dev_103@hireflow.test\n\nTECHNICAL SKILLS:\nJavaScript, React, Express.js, MongoDB, REST APIs\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2021 - Present)\n- Architected and deployed scalable JavaScript and React services, reducing latency by 23%.\n- Engineered database indexing and query optimization on Express.js, supporting 53k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Fullstack Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in JavaScript.\n- Proficiency in React.\n- Proficiency in Express.js.\n\nNice-to-Have Skills:\n- Experience with MongoDB.\n- Experience with Jest.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Express.js",
+      "tokenFound": "Express.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "MongoDB",
+      "tokenFound": "MongoDB",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "REST APIs",
+      "tokenFound": "REST APIs",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Express.js",
+      "tokenFound": "Express.js",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "MongoDB",
+      "tokenFound": "MongoDB",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Jest",
+      "tokenFound": "Jest",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "JavaScript",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Express.js",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "MongoDB",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Jest",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

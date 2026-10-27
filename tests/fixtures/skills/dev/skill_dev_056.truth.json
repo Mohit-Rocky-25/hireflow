@@ -1,0 +1,62 @@
+{
+  "id": "skill_dev_056",
+  "isHoldout": false,
+  "trapType": "urls_emails",
+  "roleCategory": "General SDE",
+  "resumeText": "Name: Alex Smith\nEmail: alex.react.native@gmail.com\nGitHub: github.com/alexsmith/java-notes-repo\nWebsite: https://docker.io/alexdev/portfolio\n\nSKILLS:\nPython, Flask, SQLite\n\nEXPERIENCE:\nSoftware Intern | WebServices (2023)\n- Built data processing scripts in Python and Flask.\n- Tested local queries against SQLite database.\n\nEDUCATION:\nB.Sc Computer Science, 2023",
+  "jdText": "Role: Senior Java Developer\nRequirements:\n- Mandatory: Java, React Native, Docker.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Flask",
+      "tokenFound": "Flask",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "SQLite",
+      "tokenFound": "SQLite",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React Native",
+      "tokenFound": "React Native",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Java",
+      "expectedClassification": "MISSING",
+      "rationale": "Java appears only inside URL path \"github.com/alexsmith/java-notes-repo\""
+    },
+    {
+      "jdSkill": "React Native",
+      "expectedClassification": "MISSING",
+      "rationale": "React appears only in email handle \"alex.react.native@gmail.com\""
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "MISSING",
+      "rationale": "Docker appears only in domain \"docker.io\""
+    }
+  ]
+}

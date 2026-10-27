@@ -1,0 +1,79 @@
+{
+  "id": "skill_dev_072",
+  "isHoldout": false,
+  "roleCategory": "DevOps",
+  "resumeText": "Candidate skill_dev_072\nEmail: candidate_skill_dev_072@hireflow.test\n\nTECHNICAL SKILLS:\nLinux, Docker, Jenkins, GitLab CI, Ansible\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2020 - Present)\n- Architected and deployed scalable Linux and Docker services, reducing latency by 30%.\n- Engineered database indexing and query optimization on Jenkins, supporting 65k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: DevOps Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Linux.\n- Proficiency in Docker.\n- Proficiency in CI/CD Pipelines.\n\nNice-to-Have Skills:\n- Experience with Ansible.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Linux",
+      "tokenFound": "Linux",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Jenkins",
+      "tokenFound": "Jenkins",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "GitLab CI",
+      "tokenFound": "GitLab CI",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Ansible",
+      "tokenFound": "Ansible",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Linux",
+      "tokenFound": "Linux",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "CI/CD Pipelines",
+      "tokenFound": "CI/CD Pipelines",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Ansible",
+      "tokenFound": "Ansible",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Linux",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Docker",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "CI/CD Pipelines",
+      "expectedClassification": "MISSING"
+    },
+    {
+      "jdSkill": "Ansible",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

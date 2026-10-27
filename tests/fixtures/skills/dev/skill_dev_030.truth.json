@@ -1,0 +1,59 @@
+{
+  "id": "skill_dev_030",
+  "isHoldout": false,
+  "trapType": "nextjs_variants",
+  "roleCategory": "Frontend",
+  "resumeText": "Name: Sunita Patel\nEmail: sunita@frontend.dev\n\nSKILLS:\nNext JS, React, TypeScript, Tailwind CSS\n\nEXPERIENCE:\nFrontend Developer | VercelStudio (2022 - Present)\n- Developed server-side rendered web applications using Next JS and React.\n- Configured incremental static regeneration (ISR) in Next JS.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Senior Full-Stack Engineer\nRequirements:\n- Must have 2+ years of production experience in Next.js.\n- React and TypeScript expertise.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Next.js",
+      "tokenFound": "Next JS",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Next.js",
+      "tokenFound": "Next.js",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Next.js",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "TypeScript",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

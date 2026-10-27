@@ -1,0 +1,59 @@
+{
+  "id": "skill_dev_044",
+  "isHoldout": false,
+  "trapType": "cs_fundamentals",
+  "roleCategory": "Fresher / SDE",
+  "resumeText": "Name: Rahul Singhania\nEmail: rahul@nit.ac.in\n\nSKILLS:\nData Structures, Algorithms, OOP, DBMS, OS, Computer Networks, C++\n\nPROJECTS:\nAlgorithmic Trading Simulator\n- Implemented advanced Data Structures & Algorithms in C++ solving 300+ LeetCode problems.\n- Applied Object-Oriented Programming (OOP) design patterns to structure modular order execution.\n\nEDUCATION:\nB.Tech CSE, NIT Kurukshetra, 2024 (CGPA: 8.8)",
+  "jdText": "Role: Associate SDE (Freshers Welcome)\nRequirements:\n- Solid fundamentals in Data Structures & Algorithms (DSA).\n- Strong understanding of Object-Oriented Programming (OOP).\n- Working knowledge of DBMS and Computer Networks.\n- Nice to have: C++ or Java.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Data Structures",
+      "tokenFound": "Data Structures",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Algorithms",
+      "tokenFound": "Algorithms",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Data Structures & Algorithms",
+      "tokenFound": "Data Structures & Algorithms (DSA)",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Object-Oriented Programming",
+      "tokenFound": "Object-Oriented Programming (OOP)",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "C++",
+      "tokenFound": "C++",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Data Structures & Algorithms",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Object-Oriented Programming",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "C++",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

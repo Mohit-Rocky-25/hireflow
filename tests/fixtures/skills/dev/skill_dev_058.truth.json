@@ -1,0 +1,51 @@
+{
+  "id": "skill_dev_058",
+  "isHoldout": false,
+  "trapType": "sql_dialects",
+  "roleCategory": "Backend/Database",
+  "resumeText": "Name: Aditya Roy\nEmail: aditya@db.net\n\nSKILLS:\nPostgreSQL, SQL, Python, FastAPI, Docker\n\nEXPERIENCE:\nBackend Engineer | DataCorp (2022 - Present)\n- Wrote complex SQL queries and window functions against PostgreSQL database.\n- Indexed heavy reporting tables reducing query times by 40%.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: Database Engineer\nRequirements:\n- Strong SQL proficiency.\n- Experience with PostgreSQL relational databases.",
+  "resumeMentions": [
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "SQL",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "PostgreSQL",
+      "expectedClassification": "DIRECT",
+      "rationale": "Direct match"
+    }
+  ]
+}

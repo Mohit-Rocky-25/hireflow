@@ -1,0 +1,88 @@
+{
+  "id": "skill_dev_161",
+  "isHoldout": false,
+  "roleCategory": "Frontend",
+  "resumeText": "Candidate skill_dev_161\nEmail: candidate_skill_dev_161@hireflow.test\n\nTECHNICAL SKILLS:\nReact, TypeScript, Next.js, Tailwind CSS, Redux\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable React and TypeScript services, reducing latency by 49%.\n- Engineered database indexing and query optimization on Next.js, supporting 53k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Frontend Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in React.\n- Proficiency in TypeScript.\n- Proficiency in Tailwind CSS.\n\nNice-to-Have Skills:\n- Experience with Next.js.\n- Experience with Jest.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Next.js",
+      "tokenFound": "Next.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Tailwind CSS",
+      "tokenFound": "Tailwind CSS",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Redux",
+      "tokenFound": "Redux",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "TypeScript",
+      "tokenFound": "TypeScript",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Tailwind CSS",
+      "tokenFound": "Tailwind CSS",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Next.js",
+      "tokenFound": "Next.js",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Jest",
+      "tokenFound": "Jest",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "TypeScript",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Tailwind CSS",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Next.js",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Jest",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

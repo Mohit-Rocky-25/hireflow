@@ -1,0 +1,30 @@
+{
+  "id": "skill_dev_051",
+  "isHoldout": false,
+  "trapType": "spark_vs_prose",
+  "roleCategory": "Data/Management",
+  "resumeText": "Name: Riya Sen\nEmail: riya@brandmarketing.in\n\nSKILLS:\nDigital Marketing, Content Strategy, SEO, Copywriting\n\nEXPERIENCE:\nBrand Strategist | CreativesInc (2022 - Present)\n- Formulated viral campaigns designed to spark interest among Gen-Z technology consumers.\n- Spearheaded hackathon branding to spark innovation across engineering chapters.\n\nEDUCATION:\nB.A. Mass Comm, 2022",
+  "jdText": "Role: Data Platform Engineer\nRequirements:\n- Apache Spark or Flink experience.",
+  "resumeMentions": [
+    {
+      "canonicalId": "SEO",
+      "tokenFound": "SEO",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Apache Spark",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Apache Spark",
+      "expectedClassification": "MISSING",
+      "rationale": "Prose \"spark interest\" / \"spark innovation\" must NOT match Apache Spark"
+    }
+  ]
+}

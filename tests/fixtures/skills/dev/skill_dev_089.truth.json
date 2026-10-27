@@ -1,0 +1,94 @@
+{
+  "id": "skill_dev_089",
+  "isHoldout": false,
+  "roleCategory": "Backend",
+  "resumeText": "Candidate skill_dev_089\nEmail: candidate_skill_dev_089@hireflow.test\n\nTECHNICAL SKILLS:\nJava, Spring Boot, Microservices, PostgreSQL, Kafka, Docker\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2021 - Present)\n- Architected and deployed scalable Java and Spring Boot services, reducing latency by 34%.\n- Engineered database indexing and query optimization on Microservices, supporting 15k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Backend Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Java.\n- Proficiency in Spring Boot.\n- Proficiency in PostgreSQL.\n\nNice-to-Have Skills:\n- Experience with Kafka.\n- Experience with Kubernetes.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Microservices",
+      "tokenFound": "Microservices",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Java",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Spring Boot",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "PostgreSQL",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Kafka",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Kubernetes",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

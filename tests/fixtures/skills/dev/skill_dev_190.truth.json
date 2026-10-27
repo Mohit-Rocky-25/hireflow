@@ -1,0 +1,79 @@
+{
+  "id": "skill_dev_190",
+  "isHoldout": false,
+  "roleCategory": "Frontend",
+  "resumeText": "Candidate skill_dev_190\nEmail: candidate_skill_dev_190@hireflow.test\n\nTECHNICAL SKILLS:\nJavaScript, HTML5, CSS3, Vue.js, Webpack\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable JavaScript and HTML5 services, reducing latency by 46%.\n- Engineered database indexing and query optimization on CSS3, supporting 55k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Frontend Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in JavaScript.\n- Proficiency in HTML5.\n- Proficiency in CSS3.\n\nNice-to-Have Skills:\n- Experience with Vue.js.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "HTML5",
+      "tokenFound": "HTML5",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "CSS3",
+      "tokenFound": "CSS3",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Vue.js",
+      "tokenFound": "Vue.js",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Webpack",
+      "tokenFound": "Webpack",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "HTML5",
+      "tokenFound": "HTML5",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "CSS3",
+      "tokenFound": "CSS3",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Vue.js",
+      "tokenFound": "Vue.js",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "JavaScript",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "HTML5",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "CSS3",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Vue.js",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

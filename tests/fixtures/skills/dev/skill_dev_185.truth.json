@@ -1,0 +1,88 @@
+{
+  "id": "skill_dev_185",
+  "isHoldout": false,
+  "roleCategory": "Fullstack",
+  "resumeText": "Candidate skill_dev_185\nEmail: candidate_skill_dev_185@hireflow.test\n\nTECHNICAL SKILLS:\nPython, Django, React, PostgreSQL, Docker\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable Python and Django services, reducing latency by 44%.\n- Engineered database indexing and query optimization on React, supporting 88k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Fullstack Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Python.\n- Proficiency in Django.\n- Proficiency in React.\n\nNice-to-Have Skills:\n- Experience with PostgreSQL.\n- Experience with Redis.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Django",
+      "tokenFound": "Django",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Docker",
+      "tokenFound": "Docker",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Django",
+      "tokenFound": "Django",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Redis",
+      "tokenFound": "Redis",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Python",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Django",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "PostgreSQL",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Redis",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

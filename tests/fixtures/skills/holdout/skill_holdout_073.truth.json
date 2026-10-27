@@ -1,0 +1,94 @@
+{
+  "id": "skill_holdout_073",
+  "isHoldout": true,
+  "roleCategory": "Data",
+  "resumeText": "Candidate skill_holdout_073\nEmail: candidate_skill_holdout_073@hireflow.test\n\nTECHNICAL SKILLS:\nPython, SQL, Apache Spark, Pandas, PostgreSQL, Airflow\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable Python and SQL services, reducing latency by 24%.\n- Engineered database indexing and query optimization on Apache Spark, supporting 47k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Data Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Python.\n- Proficiency in SQL.\n- Proficiency in Apache Spark.\n\nNice-to-Have Skills:\n- Experience with Airflow.\n- Experience with Snowflake.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Apache Spark",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Pandas",
+      "tokenFound": "Pandas",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "PostgreSQL",
+      "tokenFound": "PostgreSQL",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Airflow",
+      "tokenFound": "Airflow",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "SQL",
+      "tokenFound": "SQL",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Apache Spark",
+      "tokenFound": "Apache Spark",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Airflow",
+      "tokenFound": "Airflow",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "Snowflake",
+      "tokenFound": "Snowflake",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Python",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "SQL",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Apache Spark",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Airflow",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Snowflake",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

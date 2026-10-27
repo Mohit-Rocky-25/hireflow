@@ -1,0 +1,35 @@
+{
+  "id": "skill_dev_050",
+  "isHoldout": false,
+  "trapType": "swift_vs_prose",
+  "roleCategory": "Mobile/Operations",
+  "resumeText": "Name: Deepa Nair\nEmail: deepa@ios.dev\n\nSKILLS:\nSwift, iOS Development, SwiftUI, Xcode, CocoaPods\n\nEXPERIENCE:\niOS Developer | AppWorks (2022 - Present)\n- Developed 2 production iOS applications using Swift and SwiftUI with 4.8 star rating on App Store.\n- Architected client networking stack in Swift with Combine framework.\n\nEDUCATION:\nB.Tech CSE, 2022",
+  "jdText": "Role: iOS Software Engineer\nRequirements:\n- 2+ years of hands-on Swift experience.\n- Deep familiarity with Apple Cocoa touch frameworks.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Swift",
+      "tokenFound": "Swift",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Swift",
+      "tokenFound": "Swift",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Swift",
+      "tokenFound": "Swift",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Swift",
+      "expectedClassification": "DIRECT"
+    }
+  ]
+}

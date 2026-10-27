@@ -1,0 +1,88 @@
+{
+  "id": "skill_dev_138",
+  "isHoldout": false,
+  "roleCategory": "Data",
+  "resumeText": "Candidate skill_dev_138\nEmail: candidate_skill_dev_138@hireflow.test\n\nTECHNICAL SKILLS:\nPython, Machine Learning, TensorFlow, Pandas, Scikit-Learn\n\nEXPERIENCE:\nSoftware Engineer | TechVentures (2022 - Present)\n- Architected and deployed scalable Python and Machine Learning services, reducing latency by 48%.\n- Engineered database indexing and query optimization on TensorFlow, supporting 85k daily active users.\n- Integrated CI/CD automation and unit testing across core microservice repositories.\n\nEDUCATION:\nB.Tech in Computer Science, 2021",
+  "jdText": "Role: Data Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n- Proficiency in Python.\n- Proficiency in Machine Learning.\n- Proficiency in TensorFlow.\n\nNice-to-Have Skills:\n- Experience with Scikit-Learn.\n- Experience with PyTorch.\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Machine Learning",
+      "tokenFound": "Machine Learning",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "TensorFlow",
+      "tokenFound": "TensorFlow",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Pandas",
+      "tokenFound": "Pandas",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Scikit-Learn",
+      "tokenFound": "Scikit-Learn",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Python",
+      "tokenFound": "Python",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Machine Learning",
+      "tokenFound": "Machine Learning",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "TensorFlow",
+      "tokenFound": "TensorFlow",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Scikit-Learn",
+      "tokenFound": "Scikit-Learn",
+      "priority": "preferred"
+    },
+    {
+      "canonicalId": "PyTorch",
+      "tokenFound": "PyTorch",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "Python",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Machine Learning",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "TensorFlow",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Scikit-Learn",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "PyTorch",
+      "expectedClassification": "MISSING"
+    }
+  ]
+}

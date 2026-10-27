@@ -1,0 +1,67 @@
+{
+  "id": "skill_dev_027",
+  "isHoldout": false,
+  "trapType": "listed_only_vs_used",
+  "roleCategory": "Fullstack",
+  "resumeText": "Name: Manisha K\nEmail: manisha@fullstack.io\n\nSKILLS:\nJavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go\n\nEXPERIENCE:\nFrontend Developer | AppStudio (2022 - Present)\n- Developed client-facing dashboards using React and JavaScript.\n- Integrated REST endpoints with Axios for 10,000 active users.\n\nEDUCATION:\nB.Tech 2022",
+  "jdText": "Role: DevOps Platform Engineer\nRequirements:\n- Kubernetes cluster administration.\n- Terraform for infrastructure as code.\n- Nice to have: React.",
+  "resumeMentions": [
+    {
+      "canonicalId": "JavaScript",
+      "tokenFound": "JavaScript",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Terraform",
+      "tokenFound": "Terraform",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "Kubernetes",
+      "tokenFound": "Kubernetes",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "Terraform",
+      "tokenFound": "Terraform",
+      "priority": "mandatory"
+    },
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "preferred"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "React",
+      "expectedClassification": "DIRECT"
+    },
+    {
+      "jdSkill": "Kubernetes",
+      "expectedClassification": "PARTIAL",
+      "rationale": "Listed only in skills section without project or work bullet evidence"
+    },
+    {
+      "jdSkill": "Terraform",
+      "expectedClassification": "PARTIAL",
+      "rationale": "Listed only in skills section without project or work bullet evidence"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "skill_holdout_022",
+  "isHoldout": true,
+  "trapType": "react_vs_reactive",
+  "roleCategory": "Frontend/Mobile/Backend",
+  "resumeText": "Name: Sameer Khan\nEmail: sameer@java.io\n\nSKILLS:\nJava, Spring Boot, RxJava, Project Reactor, Kafka\n\nEXPERIENCE:\nBackend Engineer | FinServices (2021 - Present)\n- Architected reactive streaming pipelines using Project Reactor and RxJava.\n- Designed reactive microservices processing asynchronous payment callbacks.\n\nEDUCATION:\nB.Tech CSE, 2021",
+  "jdText": "Role: React UI Engineer\nRequirements:\n- 2+ years of React development experience.",
+  "resumeMentions": [
+    {
+      "canonicalId": "Java",
+      "tokenFound": "Java",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Spring Boot",
+      "tokenFound": "Spring Boot",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Kafka",
+      "tokenFound": "Kafka",
+      "location": "skills-list",
+      "evidenceTier": "direct-use"
+    }
+  ],
+  "jdRequirements": [
+    {
+      "canonicalId": "React",
+      "tokenFound": "React",
+      "priority": "mandatory"
+    }
+  ],
+  "expectedMatches": [
+    {
+      "jdSkill": "React",
+      "expectedClassification": "MISSING",
+      "rationale": "RxJava/Project Reactor \"reactive\" must NOT match React frontend framework"
+    }
+  ]
+}
