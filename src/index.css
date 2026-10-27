@@ -531,3 +531,34 @@ span[class*="rounded"][class*="border"][class*="px-1.5"] {
   color: #d1d1d6 !important;
 }
 
+/* ── Mobile & Responsive Ergonomics (Stage 3 Polish) ── */
+@media (max-width: 640px) {
+  /* Minimum 44px touch target on interactive elements */
+  button,
+  a[role="button"],
+  input[type="button"],
+  input[type="submit"],
+  select {
+    min-height: 44px;
+  }
+
+  /* Prevent horizontal scroll blowouts on small screens */
+  .container,
+  main,
+  section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Auto-scroll containers for wide tabular/diff data on mobile */
+  table,
+  pre,
+  .tabular-scroll {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+
