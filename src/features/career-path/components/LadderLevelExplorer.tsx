@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { Dropdown } from '../../../components/career-path/Dropdown';
 import { sanitizeUrl } from '@/lib/security';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import {
   Clock,
   ShieldCheck,
@@ -92,7 +93,10 @@ export function LadderLevelExplorer({
       <div className="shiny-edge-card bg-near-black rounded-xl p-6 sm:p-8 border border-charcoal space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-black text-white">Explore Verified India Ladders</h2>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h2 className="text-xl font-black text-white">Explore Verified India Ladders</h2>
+              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+            </div>
             <p className="text-xs sm:text-sm text-silver mt-1">
               Real promotion cadences, committee review criteria, time-in-level statistics, and verified India CTC packages.
             </p>

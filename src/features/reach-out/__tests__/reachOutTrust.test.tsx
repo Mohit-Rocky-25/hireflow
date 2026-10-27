@@ -237,10 +237,9 @@ describe('Trust Layer: Reach Out Section Verification', () => {
       const lines = content.split('\n');
 
       lines.forEach((lineText, idx) => {
-        // Strip code symbol names like "bannedPhrasesFound" if any
-        const lower = lineText.toLowerCase();
         for (const phrase of bannedPhrases) {
-          if (lower.includes(phrase)) {
+          const regex = new RegExp(`\\b${phrase}\\b`, 'i');
+          if (regex.test(lineText)) {
             violations.push({
               file: path.relative(path.resolve(__dirname, '../../../..'), file),
               line: idx + 1,

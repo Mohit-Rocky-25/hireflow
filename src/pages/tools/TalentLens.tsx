@@ -305,6 +305,15 @@ export function TalentLens() {
           <p className="text-silver text-sm max-w-2xl mx-auto leading-relaxed">
             Experience our proprietary B2B matching engine. See how it deeply analyzes semantic context instead of just keyword matching.
           </p>
+          <div className="mt-4 flex items-center justify-center">
+            <Link
+              to="/demo"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded bg-volt/10 hover:bg-volt/20 text-volt border border-volt/30 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Browse All 216+ Companies &amp; 1,570+ Roles in TalentLens™ Catalog →</span>
+            </Link>
+          </div>
         </div>
 
         {/* Header */}

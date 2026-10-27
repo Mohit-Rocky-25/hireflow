@@ -13,6 +13,7 @@ import { DarkPaperPreview } from './components/DarkPaperPreview';
 import { DirectInputModal } from './components/DirectInputModal';
 import { MakeItBetterModal } from './components/MakeItBetterModal';
 import { MakeItBetterResult } from '../../../lib/tailor/engine/makeItBetterEngine';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { Sparkles, Zap, FileText, CheckCircle2, Target, X } from 'lucide-react';
 
 export function TailorResumePage() {
@@ -46,13 +47,14 @@ export function TailorResumePage() {
         {/* Subtle Page Intro Banner */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-border">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                 Handmade Resume Editor
               </h1>
               <span className="px-3 py-1 rounded-full text-xs font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                 Live Dynamic Sync
               </span>
+              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
             </div>
             <p className="text-sm text-neutral-300 mt-1.5 max-w-2xl leading-relaxed font-medium">
               Craft, polish, and tailor your resume in real time. Features bold subheadings, Google XYZ accomplishment formulas, verified metric locking, and 1-page overflow protection.

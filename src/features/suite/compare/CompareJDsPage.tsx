@@ -4,7 +4,7 @@
 // Head-to-Head Executive Comparison, Shared Gaps, Overlap Matrix
 // ============================================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sparkles,
@@ -37,6 +37,8 @@ import {
 import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
+import { COMPANIES } from '../../../pages/demo/talentLensData';
 import {
   compareJDs,
   CompareJDsResult,
@@ -143,6 +145,54 @@ export function CompareJDsPage() {
     setJds(jds.map((j) => (j.id === id ? { ...j, [field]: val } : j)));
   };
 
+  const sortedCompanies = useMemo(() => {
+    return [...COMPANIES].sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
+
+  const matchedCompanyForJD = useCallback((companyName?: string) => {
+    if (!companyName) return null;
+    const norm = companyName.trim().toLowerCase();
+    return COMPANIES.find((c) => c.name.toLowerCase() === norm || c.id.toLowerCase() === norm) || null;
+  }, []);
+
+  const loadCompanyRoleIntoJD = useCallback(
+    (id: string, comp: (typeof COMPANIES)[0], role: (typeof COMPANIES)[0]['roles'][0]) => {
+      const jdBody = [
+        role.aboutRole || role.desc || '',
+        role.responsibilities && role.responsibilities.length > 0
+          ? `\nKey Responsibilities:\n${role.responsibilities.map((r: string) => `• ${r}`).join('\n')}`
+          : '',
+        role.requiredQualifications && role.requiredQualifications.length > 0
+          ? `\nRequired Qualifications:\n${role.requiredQualifications.map((q: string) => `• ${q}`).join('\n')}`
+          : '',
+        role.preferredQualifications && role.preferredQualifications.length > 0
+          ? `\nPreferred Qualifications:\n${role.preferredQualifications.map((p: string) => `• ${p}`).join('\n')}`
+          : '',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      setJds((prev) =>
+        prev.map((j) =>
+          j.id === id
+            ? {
+                ...j,
+                company: comp.name,
+                roleTitle: role.title,
+                label: `${comp.name} - ${role.title}`,
+                experienceLevel: role.experienceLevel || role.level || '2+ Years',
+                location: role.location || 'Bengaluru / Hybrid',
+                salaryRange: comp.avgPackage || 'Market Competitive',
+                text: jdBody,
+              }
+            : j
+        )
+      );
+      if (result) setResult(null);
+    },
+    [result]
+  );
+
   const handleRunCompare = async () => {
     const validResume = resumeText.trim() || profile?.masterResumeText || '';
     if (!validResume) return;
@@ -234,8 +284,8 @@ export function CompareJDsPage() {
     <div className="min-h-screen bg-black text-white pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PublicNavbar />
 
-      {/* Top Bar with Profile Chip */}
-      <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between">
+      {/* Top Bar with Profile Chip & Legal Shield */}
+      <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
           <Link to="/tools" className="hover:text-volt transition-colors">Tools</Link>
           <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
@@ -243,7 +293,10 @@ export function CompareJDsPage() {
           <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
           <span className="text-volt font-bold">Compare Job Descriptions</span>
         </div>
-        <ProfileStatusChip />
+        <div className="flex items-center gap-3">
+          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <ProfileStatusChip />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
@@ -478,6 +531,60 @@ export function CompareJDsPage() {
                         )}
                       </div>
 
+                      {/* Quick Load from 216+ Verified Employers */}
+                      <div className="bg-surface-elevated/70 border border-charcoal rounded p-3 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-mono font-bold text-volt flex items-center gap-1.5 uppercase tracking-wide">
+                            <Sparkles className="w-3 h-3 text-volt" /> Quick Load Verified Role
+                          </span>
+                          <span className="text-[10px] text-neutral-400 font-mono">
+                            {COMPANIES.length}+ Tech Employers
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <select
+                            onChange={(e) => {
+                              const compId = e.target.value;
+                              if (!compId) return;
+                              const comp = sortedCompanies.find((c) => c.id === compId || c.name === compId);
+                              if (comp && comp.roles[0]) {
+                                loadCompanyRoleIntoJD(jd.id, comp, comp.roles[0]);
+                              }
+                            }}
+                            className="bg-black border border-charcoal rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-volt font-mono w-full"
+                            defaultValue=""
+                          >
+                            <option value="" disabled>Choose Company ({COMPANIES.length}+)...</option>
+                            {sortedCompanies.map((c) => (
+                              <option key={c.id} value={c.id} className="bg-black text-white">
+                                {c.name} ({c.roles.length} roles)
+                              </option>
+                            ))}
+                          </select>
+
+                          <select
+                            onChange={(e) => {
+                              const roleTitle = e.target.value;
+                              if (!roleTitle) return;
+                              const comp = matchedCompanyForJD(jd.company);
+                              if (comp) {
+                                const role = comp.roles.find((r) => r.title === roleTitle);
+                                if (role) loadCompanyRoleIntoJD(jd.id, comp, role);
+                              }
+                            }}
+                            className="bg-black border border-charcoal rounded px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-volt font-mono w-full"
+                            value={jd.roleTitle || ''}
+                          >
+                            <option value="" disabled>Select Role...</option>
+                            {(matchedCompanyForJD(jd.company)?.roles || []).map((r, rIdx) => (
+                              <option key={rIdx} value={r.title} className="bg-black text-white">
+                                {r.title} ({r.experienceLevel || r.level})
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
                       {/* Aligned Metadata Inputs */}
                       <div className="grid grid-cols-2 gap-3 text-xs">
                         <div>
@@ -488,6 +595,7 @@ export function CompareJDsPage() {
                             <Building2 className="w-4 h-4 text-volt shrink-0" />
                             <input
                               type="text"
+                              list="compare-companies-datalist"
                               value={jd.company || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'company', e.target.value)}
                               placeholder="e.g. Google"
@@ -708,6 +816,13 @@ export function CompareJDsPage() {
           </div>
         )}
       </div>
+
+      {/* Global Datalist for 216+ Companies Autocomplete */}
+      <datalist id="compare-companies-datalist">
+        {sortedCompanies.map((c) => (
+          <option key={c.id} value={c.name} />
+        ))}
+      </datalist>
     </div>
   );
 }

@@ -25,6 +25,7 @@ import { CareerPathBackButton } from '../../../components/career-path/CareerPath
 import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 
 export function CareerPathHub() {
   const { profile, hasProfile } = useProfile();
@@ -307,9 +308,12 @@ export function CareerPathHub() {
         >
           <div className="rounded-lg bg-near-black border border-charcoal p-8 sm:p-12 lg:p-16 hover:border-silver transition-colors">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-silver font-bold text-xs mb-5 border border-charcoal">
-                <Building2 className="w-4 h-4 text-silver" />
-                <span>Tool 2 • Verified company levels &amp; pay</span>
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-black text-silver font-bold text-xs border border-charcoal">
+                  <Building2 className="w-4 h-4 text-silver" />
+                  <span>Tool 2 • Verified company levels &amp; pay</span>
+                </div>
+                <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
               </div>
 
               <h2
@@ -320,13 +324,13 @@ export function CareerPathHub() {
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-silver font-normal leading-relaxed">
-                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 52 tech organizations.
+                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 216+ tech organizations and 1,570+ calibrated roles.
               </p>
 
               {/* Preview Chips */}
               <div className="mt-8 flex flex-wrap gap-2.5">
                 {[
-                  '52 India Tech Companies',
+                  '216+ India Tech Companies',
                   'Median, P25 & P75 INR CTC',
                   'Fixed Base + Variable + Equity Splits',
                   '6+ Structured Criteria per Level',

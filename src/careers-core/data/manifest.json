@@ -5,9 +5,9 @@
   "generatedAt": "2026-10-10T12:00:00.000Z",
   "owner": "HireFlow Platform Engineering",
   "entities": {
-    "companiesCount": 56,
-    "levelsCount": 182,
-    "rolesCount": 908,
+    "companiesCount": 216,
+    "levelsCount": 238,
+    "rolesCount": 1573,
     "fresherProgramsCount": 60,
     "branchesCount": 36,
     "equivalenceLevelsCount": 9,

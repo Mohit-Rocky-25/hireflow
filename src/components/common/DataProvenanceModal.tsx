@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow — In-Product Data Provenance & Legal Disclosures Modal
-// Provides transparent public sourcing proof for 140+ companies,
+// Provides transparent public sourcing proof for 216+ companies,
 // deterministic engine logic explanation, and Nominative Fair Use legal shields.
 // ============================================================
 
@@ -99,7 +99,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   Data Provenance & Legal Disclosures
                 </h2>
                 <p className="text-xs text-silver mt-0.5 font-mono">
-                  Single Source of Truth • 140+ Verified Tech Employers • Nominative Fair Use Shield
+                  Single Source of Truth • 216+ Verified Tech Employers • 1,570+ Calibrated Roles • Nominative Fair Use Shield
                 </p>
               </div>
             </div>
@@ -152,10 +152,10 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                 <div className="p-4 bg-near-black border border-charcoal rounded-lg">
                   <h3 className="font-bold text-white uppercase tracking-[1px] text-xs mb-2 flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-volt stroke-[1.5px]" />
-                    Where did we get the 140+ Company Roles and JDs?
+                    Where did we get the 216+ Company Roles and JDs?
                   </h3>
                   <p className="text-xs text-silver">
-                    We do not use generic AI hallucinations or fictional numbers. Every role in TalentLens and the ATS Roaster is built from three verifiable, publicly published touchpoints:
+                    We do not use generic AI hallucinations or fictional numbers. Every role in TalentLens and the ATS Roaster is built from three verifiable, publicly published touchpoints across 216+ enterprise tech employers and GCCs:
                   </p>
                 </div>
 
@@ -169,9 +169,9 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                       Sourced directly from live corporate graduate recruitment portals:
                     </p>
                     <ul className="text-[11px] text-silver/80 space-y-1 list-disc pl-4">
-                      <li><strong>TCS NextStep</strong>: Published 60% aggregate criteria & NQT tracks.</li>
-                      <li><strong>Google Careers</strong>: University Graduate SDE specifications.</li>
-                      <li><strong>Infosys Graduate</strong>: Specialist Programmer & DSE test structures.</li>
+                      <li><strong>TCS NextStep & Infosys</strong>: Published 60% aggregate criteria & NQT/Specialist Programmer tracks.</li>
+                      <li><strong>Big Tech & Unicorns</strong>: Google, Microsoft, Amazon, Swiggy, Flipkart University Graduate specs.</li>
+                      <li><strong>Enterprise GCCs & Tech Hubs</strong>: Sourced from live career portals across Barclays, Western Digital, BNY Mellon, State Street, Standard Chartered, Qualcomm, Persistent Systems, D.E. Shaw, and 200+ employers.</li>
                     </ul>
                   </div>
 
@@ -184,8 +184,8 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                       Compensation bands (Base, RSUs, Bonus) reflect verified India-office pay:
                     </p>
                     <ul className="text-[11px] text-silver/80 space-y-1 list-disc pl-4">
-                      <li><strong>Levels.fyi (India)</strong>: Verified offer letters across Bengaluru, Hyderabad, NCR.</li>
-                      <li><strong>AmbitionBox</strong>: Employee disclosures for IT services and Indian GCCs.</li>
+                      <li><strong>Levels.fyi (India)</strong>: Verified offer letters across Bengaluru, Hyderabad, NCR, Pune.</li>
+                      <li><strong>AmbitionBox</strong>: Employee disclosures for IT services, FinTech, and Indian GCCs.</li>
                     </ul>
                   </div>
 
@@ -206,7 +206,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
 
                 <div className="p-3.5 bg-black border border-charcoal rounded-lg flex items-center justify-between text-xs font-mono">
                   <span className="text-silver">Employer Catalog Audited:</span>
-                  <span className="font-bold text-volt">140+ Individual Employers across 4 Tiers</span>
+                  <span className="font-bold text-volt">216+ Individual Employers across 4 Tiers · 1,570+ Roles</span>
                 </div>
               </div>
             )}
@@ -281,7 +281,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">1. Nominative Fair Use of Company Marks</span>
                     <p className="text-silver/90">
-                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, and others) are the registered property of their respective owners. Their mention on HireFlo is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
+                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, Barclays, Western Digital, BNY Mellon, Qualcomm, State Street, Standard Chartered, D.E. Shaw, Persistent Systems, and others) are the registered property of their respective owners. Their mention on HireFlo is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
                     </p>
                   </div>
 

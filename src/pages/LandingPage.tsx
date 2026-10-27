@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { PublicNavbar } from '../components/common/PublicNavbar';
 import { careers } from '../careers-core';
 import { CompanyLogo } from '../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../components/common/DataProvenanceModal';
 
 const platformStats = careers.stats.counts();
 const TOTAL_COMPANIES = platformStats.companies;
@@ -243,11 +244,14 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* Calibrated Employers Strip with Authentic Vector Logos */}
+          {/* Calibrated Employers Strip with Authentic Vector Logos & Legal Shield */}
           <div className="mt-14 max-w-[1280px] mx-auto text-left">
-            <p className="text-[12px] font-semibold text-silver uppercase tracking-[1.4px] mb-4">
-              Calibrated Across {TOTAL_COMPANIES}+ Verified Employers &amp; Recruiters
-            </p>
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <p className="text-[12px] font-semibold text-silver uppercase tracking-[1.4px]">
+                Calibrated Across {TOTAL_COMPANIES}+ Verified Employers &amp; Recruiters
+              </p>
+              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+            </div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
               {TOP_COMPANIES.map((company) => (
                 <Link
@@ -498,11 +502,12 @@ export function LandingPage() {
               </span>
             </div>
 
-            <div className="flex flex-wrap gap-6 text-[13px] font-semibold uppercase tracking-[1.2px] text-silver">
+            <div className="flex flex-wrap items-center gap-6 text-[13px] font-semibold uppercase tracking-[1.2px] text-silver">
               <Link to="/tools" className="text-silver hover:text-volt transition-colors">Tools Hub</Link>
               <Link to="/methodology" className="text-silver hover:text-volt transition-colors">Methodology</Link>
               <Link to="/data" className="text-silver hover:text-volt transition-colors">Your Data</Link>
               <Link to="/demo" className="text-silver hover:text-volt transition-colors">TalentLens</Link>
+              <DataProvenanceModal triggerButtonText="Legal Shield" />
             </div>
 
             <p className="text-[13px] text-silver/60">

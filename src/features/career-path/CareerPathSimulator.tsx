@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CareerPathBackButton } from '../../components/career-path/CareerPathBackButton';
 import { Dropdown } from '../../components/career-path/Dropdown';
 import { CompanyLogo } from '../../components/common/CompanyLogo';
+import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import {
   TrendingUp,
   Clock,
@@ -253,32 +254,36 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
               </p>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex items-center gap-1.5 p-1 bg-near-black rounded border border-charcoal">
-              <button
-                type="button"
-                onClick={() => handleTabChange('simulator')}
-                className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'simulator'
-                    ? 'bg-volt text-[#151515] font-black'
-                    : 'text-silver hover:text-white'
-                }`}
-              >
-                <TrendingUp className="w-3.5 h-3.5" />
-                Dream Job Roadmap
-              </button>
-              <button
-                type="button"
-                onClick={() => handleTabChange('explorer')}
-                className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
-                  activeTab === 'explorer'
-                    ? 'bg-volt text-[#151515] font-black'
-                    : 'text-silver hover:text-white'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                Company Levels &amp; Pay
-              </button>
+            {/* Navigation Tabs and Legal Shield */}
+            <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-1.5 p-1 bg-near-black rounded border border-charcoal">
+                <button
+                  type="button"
+                  onClick={() => handleTabChange('simulator')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
+                    activeTab === 'simulator'
+                      ? 'bg-volt text-[#151515] font-black'
+                      : 'text-silver hover:text-white'
+                  }`}
+                >
+                  <TrendingUp className="w-3.5 h-3.5" />
+                  Dream Job Roadmap
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleTabChange('explorer')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-bold transition-colors cursor-pointer ${
+                    activeTab === 'explorer'
+                      ? 'bg-volt text-[#151515] font-black'
+                      : 'text-silver hover:text-white'
+                  }`}
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  Company Levels &amp; Pay
+                </button>
+              </div>
+
+              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
             </div>
           </div>
         </div>

@@ -49,6 +49,7 @@ import {
   getBriefHoursRange,
 } from './bundleBriefs';
 import { useProfile } from '../profile/ProfileContext';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { domainColor, DIFFICULTY_BADGE, buildBriefText } from './components/briefHelpers';
 import { BriefDetailModal } from './components/BriefDetailModal';
 import { BriefCard } from './components/BriefCard';
@@ -162,7 +163,8 @@ export function BuildBriefsPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 flex-wrap">
+          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
           <Link
             to="/tools/jd-compare"
             className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded border border-charcoal bg-near-black hover:bg-hover-gray text-white hover:text-volt transition-colors"

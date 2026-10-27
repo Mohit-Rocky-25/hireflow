@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow — Canonical Company Logo System
-// Authentic vector marks for 140+ enterprise & tech employers
+// Authentic vector marks for 216+ enterprise & tech employers
 // 100% verified corporate geometry (No hand-drawn or morphed doodles)
 // Zero black-on-black invisible symbols; fully calibrated for dark UI
 // Offline-compatible (Zero-Egress Architecture guaranteed)

@@ -51,6 +51,7 @@ import {
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
 import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import {
   ALL_REACH_OUT_TEMPLATES,
   SCENARIO_GROUPS,
@@ -372,6 +373,18 @@ export function ReachOutPage() {
     setTimeout(() => setJustConfirmed(null as any), 3000);
   };
 
+  const sortedCompanies = useMemo(() => {
+    return [...COMPANIES].sort((a, b) => a.name.localeCompare(b.name));
+  }, []);
+
+  const matchingRolesForCompany = useMemo(() => {
+    if (!draftSlots.company) return [];
+    const norm = draftSlots.company.trim().toLowerCase();
+    const comp = COMPANIES.find((c) => c.name.toLowerCase() === norm || c.id.toLowerCase() === norm);
+    if (!comp) return [];
+    return comp.roles;
+  }, [draftSlots.company]);
+
   // Apply a Market-Standard Evidence Preset
   const handleApplyEvidencePreset = (presetId: string) => {
     const preset = EVIDENCE_PRESETS.find((p) => p.id === presetId);
@@ -588,7 +601,8 @@ export function ReachOutPage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
             <Link
               to="/history"
               className="px-3.5 py-1.5 text-xs font-bold bg-near-black hover:bg-hover-gray border border-charcoal hover:border-silver rounded text-white transition-all flex items-center gap-1.5"
@@ -677,8 +691,8 @@ export function ReachOutPage() {
                   className="bg-black text-xs font-bold text-white focus:outline-none cursor-pointer"
                   defaultValue=""
                 >
-                  <option value="" disabled>Select Company...</option>
-                  {COMPANIES.slice(0, 30).map((c) => (
+                  <option value="" disabled>Select Company ({COMPANIES.length}+)...</option>
+                  {sortedCompanies.map((c) => (
                     <option key={c.id} value={c.name} className="bg-black text-white">
                       {c.name} ({c.tier})
                     </option>
@@ -749,6 +763,7 @@ export function ReachOutPage() {
                     </div>
                     <input
                       type="text"
+                      list="reachout-companies"
                       value={draftSlots.company || ''}
                       onChange={(e) => handleInputChange('company', e.target.value)}
                       placeholder="e.g. Razorpay, Swiggy, Zepto"
@@ -765,6 +780,7 @@ export function ReachOutPage() {
                     </div>
                     <input
                       type="text"
+                      list="reachout-roles"
                       value={draftSlots.role || ''}
                       onChange={(e) => handleInputChange('role', e.target.value)}
                       placeholder="e.g. Backend Engineer, Fullstack SDE"
@@ -1502,6 +1518,21 @@ export function ReachOutPage() {
           </p>
         </div>
       </div>
+
+      {/* Global Datalists for Company & Role Autocomplete across 216+ Employers */}
+      <datalist id="reachout-companies">
+        {sortedCompanies.map((c) => (
+          <option key={c.id} value={c.name} />
+        ))}
+      </datalist>
+
+      <datalist id="reachout-roles">
+        {matchingRolesForCompany.length > 0
+          ? matchingRolesForCompany.map((r, i) => <option key={i} value={r.title} />)
+          : Array.from(new Set(COMPANIES.flatMap((c) => c.roles.map((r) => r.title))))
+              .slice(0, 150)
+              .map((title, i) => <option key={i} value={title} />)}
+      </datalist>
     </div>
   );
 }
