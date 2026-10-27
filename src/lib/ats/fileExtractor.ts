@@ -14,6 +14,8 @@ import {
 } from './types';
 import { verifyMagicBytes, withParserTimeout } from '../secureFileValidator';
 import { parseResumeFile } from '../../features/ats/fileParser';
+import JSZip from 'jszip';
+import { DOMParser } from '@xmldom/xmldom';
 
 async function getPdfJs() {
   const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
@@ -545,8 +547,290 @@ async function extractFromPdfBuffer(
 }
 
 /**
- * Universal file extraction driver (Stage 1).
- * Supports PDF (enhanced), DOCX (via production parser), JSON, and text files.
+ * Direct XML DOCX text & structure extraction (Stage 2).
+ * Reads word/document.xml, relationships, headers, and footers directly via JSZip.
+ * Preserves text boxes (w:txbxContent), table row cell orders (w:tbl), hyperlinks,
+ * deduplicates mc:AlternateContent, and emits ATS warnings.
+ */
+async function extractFromDocxBuffer(
+  buffer: ArrayBuffer | Uint8Array,
+  fileName: string,
+  originalFile?: File
+): Promise<ExtractorOutcome> {
+  const warnings: string[] = [];
+  const linksSet = new Set<string>();
+
+  try {
+    const outcome = await withParserTimeout(
+      (async () => {
+        let zip: JSZip;
+        try {
+          zip = await JSZip.loadAsync(buffer);
+        } catch {
+          return {
+            ok: false as const,
+            reason: 'corrupt' as const,
+            message: `File "${fileName}" is corrupt or not a valid ZIP/DOCX archive.`,
+          };
+        }
+
+        const docXmlFile = zip.file('word/document.xml');
+        if (!docXmlFile) {
+          return {
+            ok: false as const,
+            reason: 'corrupt' as const,
+            message: `DOCX "${fileName}" is missing required word/document.xml payload.`,
+          };
+        }
+
+        const docXmlStr = await docXmlFile.async('text');
+        const doc = new DOMParser().parseFromString(docXmlStr, 'text/xml');
+
+        // 1. Hyperlink relationships
+        const relsMap = new Map<string, string>();
+        const relsFile = zip.file('word/_rels/document.xml.rels');
+        if (relsFile) {
+          try {
+            const relsXml = await relsFile.async('text');
+            const relsDoc = new DOMParser().parseFromString(relsXml, 'text/xml');
+            const rels = relsDoc.getElementsByTagName('Relationship');
+            for (let i = 0; i < rels.length; i++) {
+              const id = rels[i].getAttribute('Id');
+              const target = rels[i].getAttribute('Target');
+              if (id && target) relsMap.set(id, target);
+            }
+          } catch {
+            // Non-critical
+          }
+        }
+
+        // 2. Scan Header & Footer files for warnings
+        let hasHeaderFooterContent = false;
+        zip.forEach((relPath) => {
+          if (/^word\/(?:header|footer)\d*\.xml$/i.test(relPath)) {
+            hasHeaderFooterContent = true;
+          }
+        });
+        if (hasHeaderFooterContent) {
+          warnings.push('header-footer-content');
+        }
+
+        // 3. Helper to extract paragraph text without recursing into nested paragraphs (Criterion C3)
+        function extractParagraphText(pNode: Node): string {
+          let text = '';
+          const children = pNode.childNodes;
+          if (!children) return text;
+          for (let i = 0; i < children.length; i++) {
+            const child = children[i];
+            if (child.nodeName === 'mc:Fallback' || child.nodeName === 'w:drawing') continue;
+            if (child.nodeName === 'w:t') {
+              text += child.textContent || '';
+            } else if (child.nodeName === 'w:r') {
+              const rChildren = child.childNodes;
+              if (rChildren) {
+                for (let j = 0; j < rChildren.length; j++) {
+                  const rc = rChildren[j];
+                  if (rc.nodeName === 'w:t') text += rc.textContent || '';
+                }
+              }
+            } else if (child.nodeName === 'w:hyperlink') {
+              const rId = (child as Element).getAttribute('r:id');
+              if (rId && relsMap.has(rId)) {
+                linksSet.add(relsMap.get(rId)!);
+              }
+              const hChildren = child.childNodes;
+              if (hChildren) {
+                for (let j = 0; j < hChildren.length; j++) {
+                  const hc = hChildren[j];
+                  if (hc.nodeName === 'w:r') {
+                    const rChildren = hc.childNodes;
+                    if (rChildren) {
+                      for (let k = 0; k < rChildren.length; k++) {
+                        if (rChildren[k].nodeName === 'w:t') text += rChildren[k].textContent || '';
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          return text;
+        }
+
+        // 4. Traverse document body
+        const lines: string[] = [];
+        const body = doc.getElementsByTagName('w:body')[0];
+        if (!body) {
+          return {
+            ok: false as const,
+            reason: 'corrupt' as const,
+            message: `DOCX "${fileName}" has empty or corrupt body.`,
+          };
+        }
+
+        let foundDrawing = false;
+        let totalNonDrawingTextChars = 0;
+
+        function processParagraph(p: Element) {
+          const txbx = p.getElementsByTagName('w:txbxContent');
+          if (txbx.length > 0) {
+            if (!warnings.includes('text-box')) warnings.push('text-box');
+            for (let i = 0; i < txbx.length; i++) {
+              const subPs = txbx[i].getElementsByTagName('w:p');
+              for (let j = 0; j < subPs.length; j++) {
+                const subTxt = extractParagraphText(subPs[j]).trim();
+                if (subTxt) {
+                  lines.push(subTxt);
+                  totalNonDrawingTextChars += subTxt.length;
+                }
+              }
+            }
+            return;
+          }
+
+          const drawings = p.getElementsByTagName('w:drawing');
+          if (drawings.length > 0) foundDrawing = true;
+
+          const pText = extractParagraphText(p).trim();
+          if (pText) {
+            lines.push(pText);
+            totalNonDrawingTextChars += pText.length;
+          }
+        }
+
+        function processTable(tbl: Element) {
+          if (!warnings.includes('table-layout')) warnings.push('table-layout');
+          const rows = tbl.getElementsByTagName('w:tr');
+          for (let r = 0; r < rows.length; r++) {
+            const cells = rows[r].getElementsByTagName('w:tc');
+            const cellTexts: string[] = [];
+            for (let c = 0; c < cells.length; c++) {
+              const cellPs = cells[c].getElementsByTagName('w:p');
+              const pTexts: string[] = [];
+              for (let cp = 0; cp < cellPs.length; cp++) {
+                const txt = extractParagraphText(cellPs[cp]).trim();
+                if (txt) pTexts.push(txt);
+              }
+              const cellText = pTexts.join(' ').trim();
+              if (cellText) cellTexts.push(cellText);
+            }
+            if (cellTexts.length === 2) {
+              const rowJoined = cellTexts[0].endsWith(':')
+                ? `${cellTexts[0]} ${cellTexts[1]}`
+                : `${cellTexts[0]}: ${cellTexts[1]}`;
+              lines.push(rowJoined);
+              totalNonDrawingTextChars += rowJoined.length;
+            } else if (cellTexts.length > 0) {
+              const rowJoined = cellTexts.join(' | ');
+              lines.push(rowJoined);
+              totalNonDrawingTextChars += rowJoined.length;
+            }
+          }
+        }
+
+        // Check for multi-column sections
+        const cols = doc.getElementsByTagName('w:cols');
+        for (let i = 0; i < cols.length; i++) {
+          const num = cols[i].getAttribute('w:num');
+          if (num && parseInt(num, 10) > 1) {
+            if (!warnings.includes('multi-column-section')) {
+              warnings.push('multi-column-section');
+            }
+          }
+        }
+
+        const bodyChildren = body.childNodes;
+        for (let i = 0; i < bodyChildren.length; i++) {
+          const child = bodyChildren[i];
+          if (child.nodeName === 'w:p') {
+            processParagraph(child as Element);
+          } else if (child.nodeName === 'w:tbl') {
+            processTable(child as Element);
+          }
+        }
+
+        // 5. Image-only check
+        if (totalNonDrawingTextChars < 50 && foundDrawing) {
+          warnings.push('image-only-docx');
+        }
+
+        const rawJoined = lines.join('\n');
+        const normalizedText = normalizeExtractedText(rawJoined);
+
+        // Extract URLs from text to supplement relationships
+        const URL_REGEX =
+          /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
+        let m: RegExpExecArray | null;
+        while ((m = URL_REGEX.exec(normalizedText)) !== null) {
+          linksSet.add(m[0]);
+        }
+
+        const extractionLines: ExtractionLine[] = lines.map((text, idx) => ({
+          text,
+          page: 1,
+          x: 0,
+          y: idx,
+          fontSize: 10,
+        }));
+
+        const confidence = computeExtractionConfidence(
+          normalizedText.length,
+          1,
+          0,
+          false
+        );
+
+        return {
+          ok: true as const,
+          data: {
+            text: normalizedText,
+            lines: extractionLines,
+            pages: 1,
+            links: Array.from(linksSet),
+            warnings,
+            confidence,
+            method: 'docx' as const,
+          },
+        };
+      })(),
+      PARSING_THRESHOLDS.maxExtractorTimeoutMs,
+      'DOCX Extraction'
+    );
+    return outcome;
+  } catch (err: any) {
+    // 6. Mammoth fallback if direct XML fails
+    if (originalFile) {
+      try {
+        const fallbackRes = await parseResumeFile(originalFile);
+        if (fallbackRes.success) {
+          return {
+            ok: true,
+            data: {
+              text: normalizeExtractedText(fallbackRes.text),
+              lines: fallbackRes.text.split('\n').map((l, i) => ({ text: l, page: 1, x: 0, y: i, fontSize: 10 })),
+              pages: fallbackRes.pageCount || 1,
+              links: [],
+              warnings: ['mammoth-fallback', ...(fallbackRes.isScanned ? ['image-only-docx'] : [])],
+              confidence: 0.8,
+              method: 'docx',
+            },
+          };
+        }
+      } catch {
+        // Fallback also failed
+      }
+    }
+    return {
+      ok: false,
+      reason: 'corrupt',
+      message: err?.message || 'DOCX processing failed.',
+    };
+  }
+}
+
+/**
+ * Universal file extraction driver (Stage 1 & 2).
+ * Supports PDF (enhanced), DOCX (direct XML), JSON, and text files.
  */
 export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
   const fileName = file.name.toLowerCase();
@@ -623,36 +907,9 @@ export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
     return extractFromPdfBuffer(buffer, file.name);
   }
 
-  // 5. DOCX Extraction (Delegates to production parser; rewritten in Stage 2)
+  // 5. DOCX Extraction (Stage 2 Direct XML)
   if (ext === '.docx') {
-    try {
-      const res = await parseResumeFile(file);
-      if (!res.success) {
-        return {
-          ok: false,
-          reason: 'corrupt',
-          message: res.error || 'Failed to extract DOCX document.',
-        };
-      }
-      return {
-        ok: true,
-        data: {
-          text: normalizeExtractedText(res.text),
-          lines: res.text.split('\n').map((l, i) => ({ text: l, page: 1, x: 0, y: i, fontSize: 10 })),
-          pages: res.pageCount || 1,
-          links: [],
-          warnings: res.isScanned ? ['image-only-docx'] : [],
-          confidence: 0.85,
-          method: 'docx',
-        },
-      };
-    } catch (err: any) {
-      return {
-        ok: false,
-        reason: 'corrupt',
-        message: err?.message || 'DOCX processing failed.',
-      };
-    }
+    return extractFromDocxBuffer(buffer, file.name, file);
   }
 
   // 6. Plain text / Markdown fallback
