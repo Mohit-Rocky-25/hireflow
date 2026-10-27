@@ -233,20 +233,20 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
             <CompanyLogo company={job.company} size="lg" />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-base sm:text-lg font-mono font-black text-white tracking-tight uppercase">
+                <h2 className="text-lg sm:text-xl font-mono font-black text-white tracking-tight uppercase">
                   {job.company}
                 </h2>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                   Target Company
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                   Live Mapping
                 </span>
               </div>
-              <div className="text-xs text-neutral-400 font-mono mt-0.5 flex items-center gap-2">
-                <span className="text-neutral-200 font-bold">{job.title}</span>
+              <div className="text-xs text-neutral-300 font-mono mt-1 flex items-center gap-2">
+                <span className="text-white font-bold">{job.title}</span>
                 <span>•</span>
-                <span className="text-neutral-400">{job.requirements.length} Requirements Active</span>
+                <span className="text-neutral-300 font-medium">{job.requirements.length} Requirements Active</span>
                 <span>•</span>
                 <span className="text-volt font-bold">TalentLens™ Engine</span>
               </div>
@@ -256,7 +256,7 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
           {/* Quick Auto-Fit 1P Action */}
           <button
             onClick={handleAutoFit}
-            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-bold uppercase tracking-wider transition self-start sm:self-auto shadow-xs"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-bold uppercase tracking-wider transition self-start sm:self-auto shadow-xs"
             title="Automatically adjust font size, margins, and density to guarantee optimal 1-page fit"
           >
             <Zap className="w-3.5 h-3.5 text-black" />
@@ -265,33 +265,33 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
         </div>
 
         {/* Target Alignment Metrics Strip (3 Mini Cards) */}
-        <div className="grid grid-cols-3 gap-2.5 text-center">
-          <div className="bg-black rounded p-2.5 border border-charcoal">
-            <div className="text-xs sm:text-sm font-mono font-black text-volt">
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div className="bg-black rounded-lg p-3 border border-charcoal">
+            <div className="text-base sm:text-lg font-mono font-black text-volt">
               {mandatoryMatchedCount} / {mandatoryReqs.length}
             </div>
-            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Mandatory Criteria</div>
-            <div className="text-[10px] font-mono font-bold text-neutral-300 mt-0.5">
+            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Mandatory Criteria</div>
+            <div className="text-xs font-mono font-bold text-white mt-0.5">
               {Math.round((mandatoryMatchedCount / Math.max(1, mandatoryReqs.length)) * 100)}% Match
             </div>
           </div>
 
-          <div className="bg-black rounded p-2.5 border border-charcoal">
-            <div className="text-xs sm:text-sm font-mono font-black text-volt">
+          <div className="bg-black rounded-lg p-3 border border-charcoal">
+            <div className="text-base sm:text-lg font-mono font-black text-volt">
               {resume.pageCount || 1} Page
             </div>
-            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Length Status</div>
-            <div className="text-[10px] font-mono font-bold text-volt mt-0.5">
+            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Length Status</div>
+            <div className="text-xs font-mono font-bold text-volt mt-0.5">
               1-Page Sentinel Active
             </div>
           </div>
 
-          <div className="bg-black rounded p-2.5 border border-charcoal">
-            <div className="text-xs sm:text-sm font-mono font-black text-white">
+          <div className="bg-black rounded-lg p-3 border border-charcoal">
+            <div className="text-base sm:text-lg font-mono font-black text-white">
               100%
             </div>
-            <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mt-0.5">Truth Gate</div>
-            <div className="text-[10px] font-mono font-bold text-volt mt-0.5 flex items-center justify-center gap-1">
+            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Truth Gate</div>
+            <div className="text-xs font-mono font-bold text-volt mt-0.5 flex items-center justify-center gap-1">
               <span>Zero-Hallucination</span>
             </div>
           </div>

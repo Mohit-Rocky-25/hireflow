@@ -215,41 +215,41 @@ export const PathwaysRadarPage: React.FC = () => {
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">
                           {p.facts.officialName}
                         </span>
-                        <h3 className="text-base font-semibold text-white leading-snug">
+                        <h3 className="text-lg font-black text-white leading-snug">
                           {p.facts.programName}
                         </h3>
                       </div>
-                      <span className={`px-2.5 py-1 rounded-full text-[11px] font-mono border font-medium whitespace-nowrap ${badge.className}`}>
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-mono border font-bold whitespace-nowrap ${badge.className}`}>
                         {badge.label}
                       </span>
                     </div>
 
                     {/* Criteria Snapshot */}
-                    <div className="grid grid-cols-2 gap-2 text-xs font-mono bg-zinc-900/60 p-3 rounded-xl border border-zinc-800/50">
+                    <div className="grid grid-cols-2 gap-2.5 text-xs font-mono bg-zinc-900/60 p-3.5 rounded-xl border border-zinc-800/50">
                       <div>
-                        <span className="text-[10px] text-zinc-500 block">CGPA Cutoff</span>
-                        <span className="text-zinc-200">
+                        <span className="text-xs font-bold text-zinc-400 block mb-0.5">CGPA Cutoff</span>
+                        <span className="text-sm font-bold text-white">
                           {elig.cgpaMin !== undefined ? `${elig.cgpaMin} / ${elig.cgpaScale || 10}` : 'Unstated'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-zinc-500 block">Active Backlogs</span>
-                        <span className="text-zinc-200">
+                        <span className="text-xs font-bold text-zinc-400 block mb-0.5">Active Backlogs</span>
+                        <span className="text-sm font-bold text-white">
                           {elig.maxActiveBacklogs !== undefined ? `Max ${elig.maxActiveBacklogs}` : 'Unstated'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-zinc-500 block">Service Agreement</span>
-                        <span className="text-zinc-200">
+                        <span className="text-xs font-bold text-zinc-400 block mb-0.5">Service Agreement</span>
+                        <span className="text-sm font-bold text-white">
                           {p.facts.bondMonths ? `${p.facts.bondMonths} Mo (${formatRupees(p.facts.bondAmount || 0)})` : 'Nil (0 Bond)'}
                         </span>
                       </div>
                       <div>
-                        <span className="text-[10px] text-zinc-500 block">Stipend</span>
-                        <span className="text-zinc-200">
+                        <span className="text-xs font-bold text-zinc-400 block mb-0.5">Stipend</span>
+                        <span className="text-sm font-bold text-volt">
                           {p.facts.stipend ? formatRupees(p.facts.stipend) : 'Unstated'}
                         </span>
                       </div>
@@ -257,7 +257,7 @@ export const PathwaysRadarPage: React.FC = () => {
 
                     {/* Caveats or Blocking Inputs */}
                     {ev.caveats.length > 0 && (
-                      <div className="p-2.5 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-xs space-y-1">
+                      <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-xs space-y-1 font-medium">
                         {ev.caveats.map((c, idx) => (
                           <p key={idx} className="leading-relaxed">⚠ {c}</p>
                         ))}
@@ -265,7 +265,7 @@ export const PathwaysRadarPage: React.FC = () => {
                     )}
 
                     {ev.blockingInputs.length > 0 && (
-                      <div className="text-[11px] font-mono text-amber-400">
+                      <div className="text-xs font-mono font-bold text-amber-300">
                         Check these details: add {ev.blockingInputs.join(', ')} to settle this evaluation.
                       </div>
                     )}

@@ -35,62 +35,62 @@ export const AboutDataPage: React.FC = () => {
 
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono bg-zinc-800 text-zinc-300 uppercase">
+            <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-zinc-800 text-zinc-200 uppercase tracking-wider">
               Provenance Ledger
             </span>
-            <span className="text-zinc-500 text-xs font-mono">
+            <span className="text-zinc-400 text-xs font-mono font-medium">
               Build {PATHWAYS_MANIFEST.generatedAt.slice(0, 10)}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-2 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-white mt-2 tracking-tight">
             Pathways: Data & Methodology
           </h1>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
+          <p className="text-sm text-zinc-300 mt-1 max-w-2xl leading-relaxed font-medium">
             Deterministic career facts and compensation rules for Indian engineering graduates. Every fact in the ledger is backed by an official primary document with an audit trail.
           </p>
         </div>
 
         {/* Data Provenance Census */}
         <section className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-5 space-y-4">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-300 font-bold">
             Data Provenance Census
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-              <div className="text-zinc-500 font-mono">Verified Programs</div>
-              <div className="text-xl font-bold font-mono text-white">
+            <div className="p-3.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
+              <div className="text-zinc-400 font-mono text-xs font-semibold">Verified Programs</div>
+              <div className="text-2xl font-black font-mono text-white">
                 {PATHWAYS_MANIFEST.totalPrograms}
               </div>
-              <div className="text-[11px] text-zinc-400">Campus Tracks</div>
+              <div className="text-xs text-zinc-400 font-medium">Campus Tracks</div>
             </div>
 
-            <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-              <div className="text-zinc-500 font-mono">Ledger Facts</div>
-              <div className="text-xl font-bold font-mono text-volt">
+            <div className="p-3.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
+              <div className="text-zinc-400 font-mono text-xs font-semibold">Ledger Facts</div>
+              <div className="text-2xl font-black font-mono text-volt">
                 {PATHWAYS_MANIFEST.totalLedgerRows}
               </div>
-              <div className="text-[11px] text-zinc-400">Primary Evidence Rows</div>
+              <div className="text-xs text-zinc-400 font-medium">Primary Evidence Rows</div>
             </div>
 
-            <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-              <div className="text-zinc-500 font-mono">Statutory Rules</div>
-              <div className="text-xl font-bold font-mono text-emerald-400">
+            <div className="p-3.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
+              <div className="text-zinc-400 font-mono text-xs font-semibold">Statutory Rules</div>
+              <div className="text-2xl font-black font-mono text-emerald-400">
                 {PATHWAYS_MANIFEST.totalStatutoryRules}
               </div>
-              <div className="text-[11px] text-zinc-400">Govt Notifications</div>
+              <div className="text-xs text-zinc-400 font-medium">Govt Notifications</div>
             </div>
 
-            <div className="p-3 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
-              <div className="text-zinc-500 font-mono">Runtime Egress</div>
-              <div className="text-xl font-bold font-mono text-white">
+            <div className="p-3.5 bg-zinc-950 rounded-lg border border-zinc-800 space-y-1">
+              <div className="text-zinc-400 font-mono text-xs font-semibold">Runtime Egress</div>
+              <div className="text-2xl font-black font-mono text-white">
                 0
               </div>
-              <div className="text-[11px] text-zinc-400">Pure Local Storage</div>
+              <div className="text-xs text-zinc-400 font-medium">Pure Local Storage</div>
             </div>
           </div>
 
-          <div className="p-3 bg-zinc-950/60 rounded border border-zinc-800 text-[11px] font-mono text-zinc-400 space-y-1">
+          <div className="p-3 bg-zinc-950/60 rounded border border-zinc-800 text-xs font-mono text-zinc-300 space-y-1 font-medium">
             <div>Programs Hash: {PATHWAYS_MANIFEST.programsHash}</div>
             <div>Rules Hash: {PATHWAYS_MANIFEST.rulesHash}</div>
           </div>

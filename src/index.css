@@ -512,3 +512,22 @@ span[class*="rounded"][class*="border"][class*="px-1.5"] {
   padding-right: 8px !important;
 }
 
+/* High-contrast boost for dim neutral labels on dark canvas */
+.text-zinc-500,
+.text-neutral-500,
+.text-slate-500 {
+  color: #a3a3a8 !important;
+}
+
+.text-zinc-600,
+.text-neutral-600,
+.text-slate-600 {
+  color: #85858e !important;
+}
+
+.text-zinc-400,
+.text-neutral-400,
+.text-slate-400 {
+  color: #d1d1d6 !important;
+}
+

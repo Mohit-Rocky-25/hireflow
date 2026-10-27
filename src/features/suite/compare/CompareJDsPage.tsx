@@ -263,11 +263,11 @@ export function CompareJDsPage() {
         {/* Curated Presets Bar */}
         <div className="bg-surface border border-charcoal rounded p-4 sm:p-5 shadow-xs space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-neutral-300 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-sm font-mono font-bold text-white uppercase tracking-wider">
               <Zap className="w-4 h-4 text-volt" />
               <span>Instant Real-World Benchmarks</span>
             </div>
-            <span className="text-[11px] font-mono text-neutral-500">
+            <span className="text-xs text-neutral-300 font-medium">
               Calibrated production JDs with realistic engineering stacks
             </span>
           </div>
@@ -280,20 +280,20 @@ export function CompareJDsPage() {
                   key={preset.id}
                   type="button"
                   onClick={() => handleSelectPreset(preset)}
-                  className={`text-left p-3 rounded border transition-all cursor-pointer relative flex flex-col justify-between ${
+                  className={`text-left p-3.5 rounded border transition-all cursor-pointer relative flex flex-col justify-between ${
                     isSelected
                       ? 'bg-volt/10 border-volt shadow-xs ring-1 ring-volt/40 text-white'
-                      : 'bg-surface-elevated hover:bg-neutral-800 border-charcoal hover:border-neutral-500 text-neutral-400 hover:text-white'
+                      : 'bg-surface-elevated hover:bg-neutral-800 border-charcoal hover:border-neutral-500 text-neutral-300 hover:text-white'
                   }`}
                 >
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center justify-between gap-1">
-                      <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-black border border-charcoal text-volt uppercase">
+                      <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-black border border-charcoal text-volt uppercase">
                         {preset.badge}
                       </span>
                     </div>
-                    <div className="font-bold text-xs text-white line-clamp-1">{preset.title}</div>
-                    <div className="text-[11px] text-neutral-400 line-clamp-2 leading-tight">
+                    <div className="font-bold text-sm text-white line-clamp-1">{preset.title}</div>
+                    <div className="text-xs text-neutral-300 line-clamp-2 leading-relaxed">
                       {preset.keyDivergenceSummary}
                     </div>
                   </div>
@@ -303,7 +303,7 @@ export function CompareJDsPage() {
           </div>
 
           {activePreset && !result && (
-            <div className="mt-3 p-3 rounded bg-surface-elevated border border-charcoal text-xs text-neutral-300 flex items-start gap-2.5">
+            <div className="mt-3 p-3.5 rounded bg-surface-elevated border border-charcoal text-xs text-neutral-200 flex items-start gap-2.5">
               <Sparkles className="w-4 h-4 text-volt shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold text-white font-mono">Strategic Context: </span>
@@ -321,12 +321,12 @@ export function CompareJDsPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-white uppercase font-mono">Evaluating Candidate Profile</h3>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-elevated border border-charcoal text-neutral-400">
+                <h3 className="text-base font-bold text-white uppercase font-mono">Evaluating Candidate Profile</h3>
+                <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded bg-surface-elevated border border-charcoal text-neutral-300">
                   {resumeText.trim().split(/\s+/).filter(Boolean).length} words
                 </span>
               </div>
-              <p className="text-xs text-neutral-400 mt-0.5">
+              <p className="text-xs text-neutral-300 mt-0.5">
                 {activePersonaId === 'profile'
                   ? 'Using your active Master Resume from profile'
                   : SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.skillsHeadline || 'Custom resume loaded'}
@@ -479,29 +479,29 @@ export function CompareJDsPage() {
                       </div>
 
                       {/* Aligned Metadata Inputs */}
-                      <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="grid grid-cols-2 gap-3 text-xs">
                         <div>
-                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
+                          <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-1.5">
                             Company
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
-                            <Building2 className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                          <div className="flex items-center gap-2 bg-surface-elevated border border-charcoal rounded px-3 py-2">
+                            <Building2 className="w-4 h-4 text-volt shrink-0" />
                             <input
                               type="text"
                               value={jd.company || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'company', e.target.value)}
                               placeholder="e.g. Google"
-                              className="bg-transparent text-white font-mono font-semibold text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-semibold text-sm focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
+                          <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-1.5">
                             Role Title
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
-                            <Briefcase className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                          <div className="flex items-center gap-2 bg-surface-elevated border border-charcoal rounded px-3 py-2">
+                            <Briefcase className="w-4 h-4 text-volt shrink-0" />
                             <input
                               type="text"
                               value={jd.roleTitle || jd.label}
@@ -510,39 +510,39 @@ export function CompareJDsPage() {
                                 handleUpdateJD(jd.id, 'label', e.target.value);
                               }}
                               placeholder="e.g. Software Engineer L3"
-                              className="bg-transparent text-white font-mono font-semibold text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white font-semibold text-sm focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
+                          <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-1.5">
                             Seniority &amp; YOE
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
-                            <Clock className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                          <div className="flex items-center gap-2 bg-surface-elevated border border-charcoal rounded px-3 py-2">
+                            <Clock className="w-4 h-4 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.experienceLevel || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'experienceLevel', e.target.value)}
                               placeholder="e.g. 2–4 Years"
-                              className="bg-transparent text-white font-mono text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white text-sm focus:outline-none w-full"
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
+                          <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-1.5">
                             Location / CTC
                           </label>
-                          <div className="flex items-center gap-1.5 bg-surface-elevated border border-charcoal rounded px-2.5 py-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                          <div className="flex items-center gap-2 bg-surface-elevated border border-charcoal rounded px-3 py-2">
+                            <MapPin className="w-4 h-4 text-neutral-400 shrink-0" />
                             <input
                               type="text"
                               value={jd.location || ''}
                               onChange={(e) => handleUpdateJD(jd.id, 'location', e.target.value)}
                               placeholder="e.g. Bangalore / ₹30L+"
-                              className="bg-transparent text-white font-mono text-xs focus:outline-none w-full"
+                              className="bg-transparent text-white text-sm focus:outline-none w-full"
                             />
                           </div>
                         </div>
@@ -550,28 +550,28 @@ export function CompareJDsPage() {
 
                       {/* Job Description Textarea */}
                       <div>
-                        <label className="block text-[10px] font-mono font-bold text-neutral-400 uppercase mb-1">
+                        <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-1.5">
                           Production Job Description Text
                         </label>
                         <textarea
                           value={jd.text}
                           onChange={(e) => handleUpdateJD(jd.id, 'text', e.target.value)}
                           placeholder="Paste full job description requirements and responsibilities..."
-                          className="w-full h-56 bg-surface-elevated border border-charcoal rounded p-3 text-xs font-mono text-white placeholder:text-neutral-500 focus:outline-none focus:border-volt leading-relaxed"
+                          className="w-full h-56 bg-surface-elevated border border-charcoal rounded p-3.5 text-sm text-white placeholder:text-neutral-500 focus:outline-none focus:border-volt leading-relaxed"
                         />
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-3 border-t border-charcoal">
+                    <div className="flex items-center justify-between text-xs text-neutral-300 pt-3 border-t border-charcoal font-medium">
                       <span>{words} words</span>
                       {isShort && (
-                        <span className="text-amber-400 flex items-center gap-1">
-                          <AlertCircle className="w-3 h-3" /> Min 20 words required
+                        <span className="text-amber-400 flex items-center gap-1 font-bold">
+                          <AlertCircle className="w-3.5 h-3.5" /> Min 20 words required
                         </span>
                       )}
                       {words >= 150 && (
-                        <span className="text-volt flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> Rich JD Context
+                        <span className="text-volt flex items-center gap-1 font-bold">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Rich JD Context
                         </span>
                       )}
                     </div>
