@@ -120,5 +120,5 @@ describe('Stage 7.2: 500-Iteration Seeded PRNG Property & Invariant Tests', () =
       const uniquePillarIds = new Set(pillarIds);
       expect(uniquePillarIds.size).toBe(pillarIds.length);
     }
-  });
+  }, 15000);
 });

@@ -263,6 +263,11 @@ export function scoreAggregator(
   let finalScore = Math.round(weightedSum + keywordStuffingPenalty);
   finalScore = Math.max(0, Math.min(100, finalScore));
 
+  // Hard Invariant: Cap composite score at 35 when zero mandatory skills match
+  if (mustHaves.length > 0 && mustHaveCoverageScore === 0) {
+    finalScore = Math.min(finalScore, 35);
+  }
+
   // 9. Experience Gap Notice (Stage 2A: No hidden hard cap on composite score)
   let dealbreakerTriggered: { rule: string; reason: string } | undefined;
   if (

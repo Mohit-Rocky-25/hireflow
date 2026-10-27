@@ -178,3 +178,176 @@ describe('Stage 7.3: Metamorphic & Monotonic Invariant Suite', () => {
     expect(traceAlias.compositeDisplay).toBe(traceCanonical.compositeDisplay);
   });
 });
+
+describe('Stage 1 — End-to-End ATS Engine Metamorphic Invariants', () => {
+  const jdText = `
+    Role: Backend Platform Engineer
+    Company: ScaleTech
+    Requirements:
+    - Strong proficiency in Java, Python, and SQL.
+    - Hands-on experience with Docker and Kubernetes.
+    - Strong background in building microservices and REST APIs.
+    Nice-to-Have:
+    - Experience with Redis and Kafka.
+  `;
+
+  const baseResumeText = `
+    Alex Developer
+    Email: alex@example.com | Phone: +91 98765 43210
+    GitHub: github.com/alexdev
+
+    TECHNICAL SKILLS:
+    Java, SQL
+
+    WORK EXPERIENCE:
+    Software Engineer | DataSystems (2022 - Present)
+    - Assisted with backend service maintenance in Java.
+    - Worked on database queries using SQL.
+
+    PROJECTS:
+    Analytics Service
+    - Built reporting module in Java and SQL.
+
+    EDUCATION:
+    B.Tech in Computer Science, 2022
+  `;
+
+  it('Metamorphic 6: Adding missing required technology monotonically increases or maintains finalScore', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    const baseResult = analyzeDeterministic(baseResumeText, jdText);
+
+    const enhancedResume = `
+    Alex Developer
+    Email: alex@example.com | Phone: +91 98765 43210
+    GitHub: github.com/alexdev
+
+    TECHNICAL SKILLS:
+    Java, Python, SQL, Docker, Kubernetes
+
+    WORK EXPERIENCE:
+    Software Engineer | DataSystems (2022 - Present)
+    - Assisted with backend service maintenance in Java.
+    - Worked on database queries using SQL.
+    - Engineered Python microservices deployed onto Kubernetes clusters using Docker, cutting deploy cycles by 40%.
+
+    PROJECTS:
+    Analytics Service
+    - Built reporting module in Java and SQL.
+
+    EDUCATION:
+    B.Tech in Computer Science, 2022
+    `;
+
+    const enhancedResult = analyzeDeterministic(enhancedResume, jdText);
+
+    expect(enhancedResult.scoreBreakdown.finalScore).toBeGreaterThanOrEqual(
+      baseResult.scoreBreakdown.finalScore
+    );
+    expect(enhancedResult.scoreBreakdown.mustHaveCoverageScore).toBeGreaterThanOrEqual(
+      baseResult.scoreBreakdown.mustHaveCoverageScore
+    );
+  });
+
+  it('Metamorphic 7: Eliminating unevidenced skills clears keyword-stuffing penalty and increases score', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    // Stuffed resume: lists 25 skills, only 2 evidenced
+    const stuffedResume = `
+    Alex Developer
+    Email: alex@example.com | Phone: +91 98765 43210
+
+    TECHNICAL SKILLS:
+    Java, SQL, Python, C++, Go, Rust, Ruby, PHP, Swift, Kotlin, Scala, R, Dart,
+    Docker, Kubernetes, AWS, GCP, Azure, Terraform, Ansible, Chef, Puppet, Jenkins, GitLab, Kafka, Redis
+
+    WORK EXPERIENCE:
+    Software Engineer | DataSystems (2022 - Present)
+    - Assisted with backend service maintenance in Java.
+    - Worked on database queries using SQL.
+
+    EDUCATION:
+    B.Tech in Computer Science, 2022
+    `;
+
+    const stuffedResult = analyzeDeterministic(stuffedResume, jdText);
+    const cleanedResult = analyzeDeterministic(baseResumeText, jdText);
+
+    expect(cleanedResult.scoreBreakdown.finalScore).toBeGreaterThanOrEqual(
+      stuffedResult.scoreBreakdown.finalScore
+    );
+    expect(cleanedResult.scoreBreakdown.isStuffingFlagged).toBe(false);
+  });
+
+  it('Metamorphic 8: Strengthening weak verbs monotonically increases evidenceQualityScore', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    const weakResume = baseResumeText;
+    const strongResume = baseResumeText
+      .replace('Assisted with backend service maintenance in Java.', 'Architected scalable backend services in Java.')
+      .replace('Worked on database queries using SQL.', 'Engineered optimized database queries using SQL.');
+
+    const weakResult = analyzeDeterministic(weakResume, jdText);
+    const strongResult = analyzeDeterministic(strongResume, jdText);
+
+    expect(strongResult.scoreBreakdown.evidenceQualityScore).toBeGreaterThanOrEqual(
+      weakResult.scoreBreakdown.evidenceQualityScore
+    );
+  });
+
+  it('Metamorphic 9: Adding quantifiable metrics monotonically increases evidenceQualityScore', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    const withoutMetrics = baseResumeText;
+    const withMetrics = baseResumeText
+      .replace(
+        'Assisted with backend service maintenance in Java.',
+        'Maintained Java backend service supporting 50k DAU with 99.9% uptime.'
+      )
+      .replace(
+        'Worked on database queries using SQL.',
+        'Optimized SQL queries, decreasing p95 latency by 35ms across 10M records.'
+      );
+
+    const resultWithout = analyzeDeterministic(withoutMetrics, jdText);
+    const resultWith = analyzeDeterministic(withMetrics, jdText);
+
+    expect(resultWith.scoreBreakdown.evidenceQualityScore).toBeGreaterThanOrEqual(
+      resultWithout.scoreBreakdown.evidenceQualityScore
+    );
+  });
+
+  it('Metamorphic 10: Zero mandatory skills match strictly caps final score at 35', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    // Resume with zero of Java, Python, SQL, Docker, Kubernetes
+    const zeroMandatoryResume = `
+    Candidate
+    Email: candidate@example.com | Phone: +91 98765 43210
+    GitHub: github.com/cand
+
+    TECHNICAL SKILLS:
+    Photoshop, Figma, Copywriting, Marketing
+
+    WORK EXPERIENCE:
+    Designer | Studio (2022 - Present)
+    - Designed user flows in Figma and Photoshop.
+
+    EDUCATION:
+    B.A. in Graphic Design, 2022
+    `;
+
+    const result = analyzeDeterministic(zeroMandatoryResume, jdText);
+    expect(result.scoreBreakdown.mustHaveCoverageScore).toBe(0);
+    expect(result.scoreBreakdown.finalScore).toBeLessThanOrEqual(35);
+  });
+
+  it('Metamorphic 11: All pillar subscores and finalScore strictly bounded in [0, 100]', async () => {
+    const { analyzeDeterministic } = await import('../../src/lib/ats/index');
+    const result = analyzeDeterministic(baseResumeText, jdText);
+
+    expect(result.scoreBreakdown.finalScore).toBeGreaterThanOrEqual(0);
+    expect(result.scoreBreakdown.finalScore).toBeLessThanOrEqual(100);
+    expect(result.scoreBreakdown.mustHaveCoverageScore).toBeGreaterThanOrEqual(0);
+    expect(result.scoreBreakdown.mustHaveCoverageScore).toBeLessThanOrEqual(100);
+    expect(result.scoreBreakdown.evidenceQualityScore).toBeGreaterThanOrEqual(0);
+    expect(result.scoreBreakdown.evidenceQualityScore).toBeLessThanOrEqual(100);
+    expect(result.scoreBreakdown.formatSafetyScore).toBeGreaterThanOrEqual(0);
+    expect(result.scoreBreakdown.formatSafetyScore).toBeLessThanOrEqual(100);
+  });
+});
