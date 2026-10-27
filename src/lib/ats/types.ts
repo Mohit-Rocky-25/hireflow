@@ -221,6 +221,9 @@ export interface ScoreBreakdown {
   formatSafetyScore: number;        // Weight: 10%
   keywordStuffingPenalty: number;   // Deduction: 0 to -15
   finalScore: number;               // 0 - 100 (clamped)
+  scoreBand?: 'Tier S' | 'Tier A' | 'Tier B' | 'Tier C';
+  uncertaintyInterval?: [number, number];
+  honestTransparencyNote?: string;
   confidence?: 'High' | 'Medium' | 'Low';
   confidenceReason?: string;
   isEvidenceNA?: boolean;

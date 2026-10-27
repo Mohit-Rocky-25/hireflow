@@ -186,7 +186,8 @@ export function enforceInvariants(
   const baseEv = isEvNA ? 0 : 0.20; // spec-exempt: legacy base weight awaiting Stage 3
   const hasNice = (facts.jd?.niceToHaves || []).length > 0;
   const baseNice = hasNice ? 0.10 : 0; // spec-exempt: legacy base weight awaiting Stage 3
-  const baseSen = 0.15; // spec-exempt: legacy base weight awaiting Stage 3
+  const isSenConstant = Boolean(b.isSeniorityConstant);
+  const baseSen = isSenConstant ? 0 : 0.15; // spec-exempt: legacy base weight awaiting Stage 3
   const baseProj = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
   const baseForm = 0.10; // spec-exempt: legacy base weight awaiting Stage 3
 
@@ -202,7 +203,7 @@ export function enforceInvariants(
     b.mustHaveCoverageScore * nMust +
     (isEvNA ? 0 : b.evidenceQualityScore * nEv) +
     b.niceToHaveCoverageScore * nNice +
-    b.seniorityFitScore * nSen +
+    (isSenConstant ? 0 : b.seniorityFitScore * nSen) +
     b.projectRelevanceScore * nProj +
     b.formatSafetyScore * nForm;
 
@@ -213,12 +214,31 @@ export function enforceInvariants(
     expectedFinal = Math.min(expectedFinal, 55);
   }
 
+  // Hard Invariant: Cap composite score at 35 when zero mandatory skills match
+  if (mustHaves.length > 0 && b.mustHaveCoverageScore === 0) {
+    expectedFinal = Math.min(expectedFinal, 35);
+  }
+
   if (Math.abs(facts.scoreBreakdown.finalScore - expectedFinal) > 1) {
     const msg = `Invariant 5 Violation: finalScore (${facts.scoreBreakdown.finalScore}) did not match weighted sum (${expectedFinal}). Re-aligning.`;
     violations.push(msg);
     facts.scoreBreakdown.finalScore = expectedFinal;
     autoCorrected = true;
   }
+
+  // Ensure scoreBand and uncertaintyInterval strictly match finalScore
+  let scoreBand: 'Tier S' | 'Tier A' | 'Tier B' | 'Tier C' = 'Tier C';
+  if (facts.scoreBreakdown.finalScore >= 85) scoreBand = 'Tier S';
+  else if (facts.scoreBreakdown.finalScore >= 70) scoreBand = 'Tier A';
+  else if (facts.scoreBreakdown.finalScore >= 50) scoreBand = 'Tier B';
+  else scoreBand = 'Tier C';
+  facts.scoreBreakdown.scoreBand = scoreBand;
+
+  const delta = facts.scoreBreakdown.confidence === 'High' ? 3 : facts.scoreBreakdown.confidence === 'Medium' ? 5 : 8; // spec-exempt: calibrated uncertainty half-width
+  facts.scoreBreakdown.uncertaintyInterval = [
+    Math.max(0, facts.scoreBreakdown.finalScore - delta),
+    Math.min(100, facts.scoreBreakdown.finalScore + delta),
+  ];
 
   facts.verifiedCitationsCount = verifiedCitations;
 

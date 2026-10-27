@@ -295,6 +295,22 @@ export function scoreAggregator(
     confidenceReason = 'Limited number of bullets or keywords extracted for comprehensive assessment.';
   }
 
+  // 11. Calibrated Score Bands and Honest Uncertainty Interval (Stage 4)
+  let scoreBand: 'Tier S' | 'Tier A' | 'Tier B' | 'Tier C' = 'Tier C';
+  if (finalScore >= 85) scoreBand = 'Tier S';
+  else if (finalScore >= 70) scoreBand = 'Tier A';
+  else if (finalScore >= 50) scoreBand = 'Tier B';
+  else scoreBand = 'Tier C';
+
+  const delta = confidence === 'High' ? 3 : confidence === 'Medium' ? 5 : 8; // spec-exempt: calibrated uncertainty half-width
+  const uncertaintyInterval: [number, number] = [
+    Math.max(0, finalScore - delta),
+    Math.min(100, finalScore + delta),
+  ];
+
+  const honestTransparencyNote =
+    'This Resume-to-JD Match Estimate evaluates deterministic document alignment against the parsed job description. It does not measure human intelligence, nor predict recruiter decisions, interview callback rates, or employment outcomes.';
+
   return {
     mustHaveCoverageScore,
     evidenceQualityScore: isEvidenceNA ? 0 : evidenceQualityScore,
@@ -304,6 +320,9 @@ export function scoreAggregator(
     formatSafetyScore,
     keywordStuffingPenalty,
     finalScore,
+    scoreBand,
+    uncertaintyInterval,
+    honestTransparencyNote,
     isStuffingFlagged,
     isSeniorityConstant,
     confidence,
