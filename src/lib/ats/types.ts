@@ -17,6 +17,14 @@ export type SkillCategory =
   | 'Tools'
   | 'Soft/Leadership';
 
+export interface TaxonomyAmbiguity {
+  caseSensitive?: boolean;
+  needsContext?: boolean;
+  excludeInProse?: boolean;
+  contextWords?: string[];
+  proseExclusions?: string[];
+}
+
 export interface TaxonomySkill {
   canonical: string;
   category: SkillCategory;
@@ -24,6 +32,7 @@ export interface TaxonomySkill {
   related: string[];
   weight: number; // 1 to 5
   implies?: string[];
+  ambiguity?: TaxonomyAmbiguity;
 }
 
 export type SkillMatchStatus = 'exact' | 'alias' | 'implied' | 'related' | 'missing';
