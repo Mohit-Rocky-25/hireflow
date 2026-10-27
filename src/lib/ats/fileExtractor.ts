@@ -230,13 +230,13 @@ function assemblePageLines(
   let detectedLeftYMin = pageHeight;
   let detectedRightYMin = pageHeight;
 
-  const minSearchX = Math.round(pageWidth * 0.22);
-  const maxSearchX = Math.round(pageWidth * 0.68);
+  const minSearchX = Math.round(pageWidth * 0.22); // spec-exempt: PDF column search coordinate
+  const maxSearchX = Math.round(pageWidth * 0.68); // spec-exempt: PDF column search coordinate
   const minRequiredGutter = pageWidth * PARSING_THRESHOLDS.columnGutterMinWidthRatio;
 
   // Exclude top header band items from column gutter candidate search
   const bodyCandidateItems = textItems.filter(
-    (it) => !(it.y > pageHeight * 0.85 && (it.x + it.width) > pageWidth * 0.35) && it.width <= pageWidth * 0.55
+    (it) => !(it.y > pageHeight * 0.85 && (it.x + it.width) > pageWidth * 0.35) && it.width <= pageWidth * 0.55 // spec-exempt: PDF layout coordinate
   );
 
   for (let candidateX = minSearchX; candidateX <= maxSearchX; candidateX += 2) {
@@ -277,10 +277,10 @@ function assemblePageLines(
     const columnBottomY = Math.min(detectedLeftYMin, detectedRightYMin);
 
     const headerItems = textItems.filter(
-      (it) => it.y > columnTopY + 5 || it.width > pageWidth * 0.55
+      (it) => it.y > columnTopY + 5 || it.width > pageWidth * 0.55 // spec-exempt: PDF layout coordinate
     );
     const footerItems = textItems.filter(
-      (it) => it.y < columnBottomY - 5 && it.width > pageWidth * 0.55
+      (it) => it.y < columnBottomY - 5 && it.width > pageWidth * 0.55 // spec-exempt: PDF layout coordinate
     );
     const bodyItems = textItems.filter(
       (it) => !headerItems.includes(it) && !footerItems.includes(it)
@@ -462,7 +462,7 @@ async function extractFromPdfBuffer(
 
   // 4. Repeating Header / Footer Filtering (Task 5)
   if (totalPages >= 2) {
-    const marginRatio = PARSING_THRESHOLDS.headerFooterMarginRatio || 0.08;
+    const marginRatio = PARSING_THRESHOLDS.headerFooterMarginRatio || 0.08; // spec-exempt: parsing threshold fallback
     let foundRepeating = false;
 
     for (let p = 1; p <= totalPages; p++) {
@@ -937,7 +937,7 @@ export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
         pages: 1,
         links: [],
         warnings: [],
-        confidence: 0.95,
+        confidence: 0.95, // spec-exempt: raw paste parser confidence constant
         method: 'paste',
       },
     };

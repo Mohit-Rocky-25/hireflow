@@ -353,7 +353,7 @@ export function deepAnalyzeCompetency(
 
   const redFlagCount = signals.redFlags.filter((rf) => text.includes(rf.toLowerCase())).length;
 
-  const rawScore = (l1Score * 0.20) + (l2Score * 0.35) + (l3Score * 0.20) + (l4Score * 0.25) + l5Penalty - (redFlagCount * 15);
+  const rawScore = (l1Score * 0.20) + (l2Score * 0.35) + (l3Score * 0.20) + (l4Score * 0.25) + l5Penalty - (redFlagCount * 15); // spec-exempt: demo mock calculator
   const clampedScore = Math.max(0, Math.min(100, rawScore));
 
   let detectedLevel: 'expert' | 'strong' | 'working' | 'absent';

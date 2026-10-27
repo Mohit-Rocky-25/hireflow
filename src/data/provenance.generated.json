@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T19:08:28.540Z",
+  "generatedAt": "2026-10-27T21:55:20.325Z",
   "specVersion": "2.4.0",
   "engineVersion": "4.0.0",
   "datasets": [
@@ -28,7 +28,7 @@
       "lastVerified": "2026-10-24",
       "status": "verified",
       "derivedMetrics": {
-        "canonicalSkillsCount": 154,
+        "canonicalSkillsCount": 178,
         "taxonomyCategoriesCount": 13,
         "implicationEdgesCount": 7
       },
