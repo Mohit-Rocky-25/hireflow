@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { extractTextFromFile } from '../src/lib/ats/fileExtractor';
+import { extractTextFromFile, extractFromFile } from '../src/lib/ats/fileExtractor';
 import { parseResume } from '../src/lib/ats/parseResume';
 import { formatAuditor } from '../src/lib/ats/formatAuditor';
 import { FixtureTruth, LayoutFamilyId } from './parse-fixtures/types';
@@ -222,9 +222,15 @@ async function evalFixture(
   let extractedText = '';
   let crashed = false;
   let errorMessage: string | undefined;
+  let extractionOutcome: any = undefined;
 
   try {
-    extractedText = await extractTextFromFile(fileObj);
+    extractionOutcome = await extractFromFile(fileObj);
+    if (extractionOutcome.ok) {
+      extractedText = extractionOutcome.data.text;
+    } else {
+      extractedText = `[Unable to extract: ${extractionOutcome.message}]`;
+    }
   } catch (err: any) {
     crashed = true;
     errorMessage = err?.message || String(err);
@@ -234,7 +240,7 @@ async function evalFixture(
   let parsed: ReturnType<typeof parseResume> | undefined;
   if (!crashed) {
     try {
-      parsed = parseResume(extractedText);
+      parsed = extractionOutcome?.ok ? parseResume(extractionOutcome.data) : parseResume(extractedText);
     } catch (err: any) {
       crashed = true;
       errorMessage = err?.message || String(err);
@@ -385,9 +391,14 @@ async function evalFixture(
 
   // 6. Expected Warning Detection
   const auditorRisks = formatAuditor(parsed).map((r) => r.id.toLowerCase());
+  const extractionWarnings = extractionOutcome?.ok ? (extractionOutcome.data.warnings || []) : [];
   const allEmittedWarnings = [
-    ...(parsed.parseWarnings || []).map((w) => w.toLowerCase()),
+    ...(parsed.parseWarnings || []).map((w: string) => w.toLowerCase()),
     ...auditorRisks,
+    ...extractionWarnings.map((w: string) => w.toLowerCase()),
+    ...(extractionOutcome && !extractionOutcome.ok
+      ? [extractionOutcome.reason.toLowerCase(), extractionOutcome.message.toLowerCase()]
+      : []),
   ];
 
   let matchedExpectedWarnings = 0;
@@ -395,7 +406,11 @@ async function evalFixture(
     for (const expW of truth.expectedWarnings) {
       const expLower = expW.toLowerCase();
       if (
-        allEmittedWarnings.some((w) => w.includes(expLower)) ||
+        allEmittedWarnings.some((w) =>
+          w.includes(expLower) ||
+          (expLower === 'multi-column' && (w.includes('column') || w.includes('two-column'))) ||
+          (expLower === 'text-box' && w.includes('text-box'))
+        ) ||
         (truth.isImageOnly && allEmittedWarnings.some((w) => w.includes('scanned') || w.includes('image'))) ||
         (truth.isCorruptOrEncrypted && (allEmittedWarnings.some((w) => w.includes('corrupt') || w.includes('unable to extract')) || extractedText.includes('Unable to extract')))
       ) {

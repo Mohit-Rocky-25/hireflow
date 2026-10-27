@@ -87,9 +87,9 @@ export async function generateDocxFixture(
 
   // --- HEADER & CONTACT ---
   const headStart = linesList.length + 1;
-  let contactStr = `${candidate.email}  |  ${candidate.phone}  |  ${candidate.github}  |  ${candidate.linkedin}`;
+  let contactStr = `${candidate.email}  |  ${candidate.phone}  |  ${candidate.github}  |  ${candidate.linkedin}  |  ${candidate.portfolio}`;
   if (family === 'f_decorative_bullets') {
-    contactStr = `✉ ${candidate.email}  |  ☎ ${candidate.phone}  |  ${candidate.github}`;
+    contactStr = `✉ ${candidate.email}  |  ☎ ${candidate.phone}  |  ${candidate.github}  |  ${candidate.linkedin}  |  ${candidate.portfolio}`;
   }
 
   if (family === 'd_textbox_header') {

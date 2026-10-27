@@ -6,6 +6,11 @@
       "pattern": "fetch\\('/api/ats/analyze'",
       "file": "src/lib/ats/index.ts",
       "reason": "Local development server mock proxy fallback; all production candidate tools execute 100% client-side with zero remote data egress."
+    },
+    {
+      "pattern": "fetch\\(endpoint",
+      "file": "src/lib/sync/cloudSync.ts",
+      "reason": "Explicit user-initiated multi-device cloud backup sync; zero network egress in ATS parsing and scoring engines."
     }
   ]
 }

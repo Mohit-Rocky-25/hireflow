@@ -69,6 +69,23 @@ export async function generatePdfFixture(
     }
   }
 
+  function wrapText(text: string, maxWidth: number, font: any, fontSize: number): string[] {
+    const words = text.split(/\s+/);
+    const lines: string[] = [];
+    let cur = '';
+    for (const w of words) {
+      const test = cur ? `${cur} ${w}` : w;
+      if (font.widthOfTextAtSize(test, fontSize) <= maxWidth) {
+        cur = test;
+      } else {
+        if (cur) lines.push(cur);
+        cur = w;
+      }
+    }
+    if (cur) lines.push(cur);
+    return lines.length > 0 ? lines : [text];
+  }
+
   function drawHeader(page: typeof currentPage, name: string, pageNum: number, total: number) {
     const text = `${name} — Page ${pageNum} of ${total}`;
     page.drawText(text, {
@@ -113,11 +130,11 @@ export async function generatePdfFixture(
     linesList.push(fullName);
     currentY -= 25;
 
-    const contactLine = `${candidate.email}  |  ${candidate.phone}  |  ${candidate.github}`;
+    const contactLine = `${candidate.email}  |  ${candidate.phone}  |  ${candidate.github}  |  ${candidate.linkedin}  |  ${candidate.portfolio}`;
     currentPage.drawText(contactLine, {
       x: MARGIN_LEFT,
       y: currentY,
-      size: 9,
+      size: 7.0,
       font: fontRegular,
       color: rgb(0.3, 0.3, 0.3),
     });
@@ -137,16 +154,26 @@ export async function generatePdfFixture(
     linesList.push('EDUCATION');
     col1Y -= 16;
     for (const edu of candidate.education) {
-      currentPage.drawText(edu.degree, { x: col1X, y: col1Y, size: 9, font: fontBold });
+      const wrappedDeg = wrapText(edu.degree, 170, fontBold, 9);
+      for (const dl of wrappedDeg) {
+        currentPage.drawText(dl, { x: col1X, y: col1Y, size: 9, font: fontBold });
+        col1Y -= 12;
+      }
       linesList.push(edu.degree);
-      col1Y -= 13;
-      currentPage.drawText(edu.institution, { x: col1X, y: col1Y, size: 8, font: fontRegular });
+      col1Y -= 1;
+
+      const wrappedInst = wrapText(edu.institution, 170, fontRegular, 8);
+      for (const il of wrappedInst) {
+        currentPage.drawText(il, { x: col1X, y: col1Y, size: 8, font: fontRegular });
+        col1Y -= 11;
+      }
       linesList.push(edu.institution);
-      col1Y -= 12;
+      col1Y -= 1;
+
       const grade = `CGPA: ${edu.cgpaOrPercent} (${edu.startYear}-${edu.endYear})`;
       currentPage.drawText(grade, { x: col1X, y: col1Y, size: 8, font: fontRegular });
       linesList.push(grade);
-      col1Y -= 20;
+      col1Y -= 18;
     }
     recordSection('Education', eduStart, linesList.length);
 
@@ -159,9 +186,13 @@ export async function generatePdfFixture(
       linesList.push(sGroup.category);
       col1Y -= 12;
       const sList = sGroup.skills.join(', ');
-      currentPage.drawText(sList, { x: col1X, y: col1Y, size: 8, font: fontRegular });
+      const wrappedSkills = wrapText(sList, 170, fontRegular, 8);
+      for (const wLine of wrappedSkills) {
+        currentPage.drawText(wLine, { x: col1X, y: col1Y, size: 8, font: fontRegular });
+        col1Y -= 11;
+      }
       linesList.push(sList);
-      col1Y -= 16;
+      col1Y -= 5;
     }
     recordSection('Skills', skillsStart, linesList.length);
 
@@ -181,10 +212,14 @@ export async function generatePdfFixture(
       col2Y -= 14;
 
       for (const b of exp.bullets) {
-        currentPage.drawText(`• ${b}`, { x: col2X + 6, y: col2Y, size: 8, font: fontRegular });
+        const wrapped = wrapText(`• ${b}`, 315, fontRegular, 8);
+        for (const wl of wrapped) {
+          currentPage.drawText(wl, { x: col2X + 6, y: col2Y, size: 8, font: fontRegular });
+          col2Y -= 12;
+        }
         linesList.push(`• ${b}`);
         bulletsTruth.push({ text: b, section: 'Experience', entry: exp.company });
-        col2Y -= 16;
+        col2Y -= 4;
       }
       col2Y -= 8;
     }
@@ -197,15 +232,23 @@ export async function generatePdfFixture(
 
     for (const proj of candidate.projects) {
       const pHead = `${proj.title} [${proj.techStack.join(', ')}]`;
-      currentPage.drawText(pHead, { x: col2X, y: col2Y, size: 9, font: fontBold });
+      const wrappedPHead = wrapText(pHead, 330, fontBold, 9);
+      for (const phl of wrappedPHead) {
+        currentPage.drawText(phl, { x: col2X, y: col2Y, size: 9, font: fontBold });
+        col2Y -= 12;
+      }
       linesList.push(pHead);
-      col2Y -= 13;
+      col2Y -= 2;
 
       for (const b of proj.bullets) {
-        currentPage.drawText(`• ${b}`, { x: col2X + 6, y: col2Y, size: 8, font: fontRegular });
+        const wrapped = wrapText(`• ${b}`, 315, fontRegular, 8);
+        for (const wl of wrapped) {
+          currentPage.drawText(wl, { x: col2X + 6, y: col2Y, size: 8, font: fontRegular });
+          col2Y -= 12;
+        }
         linesList.push(`• ${b}`);
         bulletsTruth.push({ text: b, section: 'Projects', entry: proj.title });
-        col2Y -= 15;
+        col2Y -= 4;
       }
       col2Y -= 6;
     }
@@ -237,11 +280,14 @@ export async function generatePdfFixture(
       glyphPhone = `Tel: ${candidate.phone}`;
       glyphEmail = `Email: ${candidate.email}`;
     }
-    const contactLine = `${glyphEmail} | ${glyphPhone} | ${candidate.github} | ${candidate.linkedin}`;
+    let contactLine = `${glyphEmail} | ${glyphPhone} | ${candidate.github} | ${candidate.linkedin} | ${candidate.portfolio}`;
+    if (family === 'i_annotated_links') {
+      contactLine = `${glyphEmail} | ${glyphPhone} | GitHub | LinkedIn | Portfolio`;
+    }
     currentPage.drawText(contactLine, {
       x: MARGIN_LEFT,
       y: currentY,
-      size: family === 'e_latex_dense' ? 8.5 : 9.5,
+      size: family === 'e_latex_dense' ? 7.2 : 7.0,
       font: fontRegular,
       color: rgb(0.25, 0.25, 0.25),
     });
@@ -255,9 +301,15 @@ export async function generatePdfFixture(
     currentPage.drawText('PROFESSIONAL SUMMARY', { x: MARGIN_LEFT, y: currentY, size: 11, font: fontBold });
     linesList.push('PROFESSIONAL SUMMARY');
     currentY -= 16;
-    currentPage.drawText(candidate.summary, { x: MARGIN_LEFT, y: currentY, size: 8.5, font: fontRegular });
+    const maxSummaryWidth = MARGIN_RIGHT - MARGIN_LEFT;
+    const wrappedSummary = wrapText(candidate.summary, maxSummaryWidth, fontRegular, 8.5);
+    for (const sLine of wrappedSummary) {
+      ensureSpace(16);
+      currentPage.drawText(sLine, { x: MARGIN_LEFT, y: currentY, size: 8.5, font: fontRegular });
+      currentY -= 13;
+    }
     linesList.push(candidate.summary);
-    currentY -= 26;
+    currentY -= 12;
     recordSection('Summary', sumStart, linesList.length);
 
     // Education Section
@@ -290,7 +342,15 @@ export async function generatePdfFixture(
 
     // Experience Section
     const expStart = linesList.length + 1;
-    ensureSpace(120);
+    if (family === 'h_multipage_header_footer') {
+      drawFooter(currentPage, 1, 2);
+      currentPage = pdfDoc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
+      currentY = PAGE_HEIGHT - 50;
+      drawHeader(currentPage, fullName, 2, 2);
+      currentY -= 35;
+    } else {
+      ensureSpace(120);
+    }
     currentPage.drawText('WORK EXPERIENCE', { x: MARGIN_LEFT, y: currentY, size: 11, font: fontBold });
     linesList.push('WORK EXPERIENCE');
     currentY -= 16;
@@ -323,15 +383,17 @@ export async function generatePdfFixture(
             .replace(/architecture/g, 'archi\u00ADtecture');
         }
 
-        currentPage.drawText(`${bulletPrefix}${processedBullet}`, {
-          x: MARGIN_LEFT + 8,
-          y: currentY,
-          size: 8.5,
-          font: fontRegular,
-        });
-        linesList.push(`${bulletPrefix}${processedBullet}`);
+        const fullBulletStr = `${bulletPrefix}${processedBullet}`;
+        const maxBulletWidth = MARGIN_RIGHT - MARGIN_LEFT - 12;
+        const wrappedBullet = wrapText(fullBulletStr, maxBulletWidth, fontRegular, 8.5);
+        for (const wb of wrappedBullet) {
+          ensureSpace(14);
+          currentPage.drawText(wb, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
+          currentY -= 13;
+        }
+        linesList.push(fullBulletStr);
         bulletsTruth.push({ text: bullet, section: 'Experience', entry: exp.company });
-        currentY -= 16;
+        currentY -= 3;
       }
       currentY -= 6;
     }
@@ -358,15 +420,17 @@ export async function generatePdfFixture(
           bulletPrefix = '> ';
         }
 
-        currentPage.drawText(`${bulletPrefix}${bullet}`, {
-          x: MARGIN_LEFT + 8,
-          y: currentY,
-          size: 8.5,
-          font: fontRegular,
-        });
-        linesList.push(`${bulletPrefix}${bullet}`);
+        const fullProjBullet = `${bulletPrefix}${bullet}`;
+        const maxProjBulletWidth = MARGIN_RIGHT - MARGIN_LEFT - 12;
+        const wrappedProjBullet = wrapText(fullProjBullet, maxProjBulletWidth, fontRegular, 8.5);
+        for (const wpb of wrappedProjBullet) {
+          ensureSpace(14);
+          currentPage.drawText(wpb, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
+          currentY -= 13;
+        }
+        linesList.push(fullProjBullet);
         bulletsTruth.push({ text: bullet, section: 'Projects', entry: proj.title });
-        currentY -= 15;
+        currentY -= 3;
       }
       currentY -= 6;
     }
@@ -395,10 +459,16 @@ export async function generatePdfFixture(
       linesList.push('ACHIEVEMENTS & HONORS');
       currentY -= 16;
       for (const ach of candidate.achievements || []) {
-        currentPage.drawText(`• ${ach}`, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
-        linesList.push(`• ${ach}`);
+        const fullAch = `• ${ach}`;
+        const wrappedAch = wrapText(fullAch, MARGIN_RIGHT - MARGIN_LEFT - 12, fontRegular, 8.5);
+        for (const wa of wrappedAch) {
+          ensureSpace(14);
+          currentPage.drawText(wa, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
+          currentY -= 13;
+        }
+        linesList.push(fullAch);
         bulletsTruth.push({ text: ach, section: 'Achievements' });
-        currentY -= 14;
+        currentY -= 3;
       }
       recordSection('Achievements', achStart, linesList.length);
 
@@ -408,10 +478,16 @@ export async function generatePdfFixture(
       linesList.push('POSITIONS OF RESPONSIBILITY');
       currentY -= 16;
       for (const por of candidate.responsibilities || []) {
-        currentPage.drawText(`• ${por}`, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
-        linesList.push(`• ${por}`);
+        const fullPor = `• ${por}`;
+        const wrappedPor = wrapText(fullPor, MARGIN_RIGHT - MARGIN_LEFT - 12, fontRegular, 8.5);
+        for (const wp of wrappedPor) {
+          ensureSpace(14);
+          currentPage.drawText(wp, { x: MARGIN_LEFT + 8, y: currentY, size: 8.5, font: fontRegular });
+          currentY -= 13;
+        }
+        linesList.push(fullPor);
         bulletsTruth.push({ text: por, section: 'Positions of Responsibility' });
-        currentY -= 14;
+        currentY -= 3;
       }
       recordSection('Positions of Responsibility', porStart, linesList.length);
 
@@ -433,28 +509,36 @@ export async function generatePdfFixture(
   // Set link annotations for family i (or everywhere applicable)
   const linksTruth: string[] = [candidate.github, candidate.linkedin, candidate.portfolio];
   if (family === 'i_annotated_links') {
-    // Add real PDF link annotations
-    // We add PDF link annotation objects to the page
+    // Add real PDF link annotations for all candidate links
     try {
       const pageDict = currentPage.node;
       const context = pdfDoc.context;
-      const annotDict = context.obj({
-        Type: 'Annot',
-        Subtype: 'Link',
-        Rect: [50, currentY, 150, currentY + 15],
-        A: {
-          Type: 'Action',
-          S: 'URI',
-          URI: PDFString.of(candidate.github),
-        },
-      });
-      const annotRef = context.register(annotDict);
       let annots = pageDict.lookup(PDFName.of('Annots')) as PDFArray;
       if (!annots) {
         annots = context.obj([]) as PDFArray;
         pageDict.set(PDFName.of('Annots'), annots);
       }
-      annots.push(annotRef);
+      const linksToAnnotate = [
+        candidate.github,
+        candidate.linkedin,
+        candidate.portfolio,
+      ];
+      let annotX = 50;
+      for (const linkUrl of linksToAnnotate) {
+        const annotDict = context.obj({
+          Type: 'Annot',
+          Subtype: 'Link',
+          Rect: [annotX, currentY, annotX + 80, currentY + 15],
+          A: {
+            Type: 'Action',
+            S: 'URI',
+            URI: PDFString.of(linkUrl),
+          },
+        });
+        const annotRef = context.register(annotDict);
+        annots.push(annotRef);
+        annotX += 90;
+      }
     } catch {
       // ignore
     }

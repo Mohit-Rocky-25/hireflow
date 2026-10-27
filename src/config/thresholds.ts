@@ -108,3 +108,39 @@ export const TAILOR_MIRRORING_LIMITS = {
   /** Must-have coverage threshold for "Ready to apply" tier (otherwise "Needs a bridge") */
   readyToApplyThresholdPct: 75,
 } as const;
+
+/** Parsing tolerances and parameters for PDF/DOCX extractors (Issue 1) */
+export const PARSING_THRESHOLDS = {
+  /** Maximum file size in bytes (10 MB) */
+  maxFileSizeBytes: 10 * 1024 * 1024,
+  /** Maximum pages to parse before truncation guard */
+  maxPdfPages: 25,
+  /** Timeout in milliseconds for extractor operations */
+  maxExtractorTimeoutMs: 8000,
+  /** Vertical baseline clustering tolerance factor (multiplied by font size) */
+  lineYClusteringFontFactor: 0.35,
+  /** Minimum vertical gap in points to distinguish new lines */
+  minLineYDeltaPt: 2.5,
+  /** Horizontal space insertion factor (multiplied by glyph width / font size) */
+  spaceGapWidthFactor: 0.25,
+  /** Minimum relative width of two-column gutter compared to page width */
+  columnGutterMinWidthRatio: 0.008,
+  /** Minimum page height share that column gutter must span */
+  columnGutterMinHeightShare: 0.15,
+  /** Fraction of page height at top and bottom checked for repeating headers/footers */
+  headerFooterMarginRatio: 0.06,
+  /** Vertical alignment tolerance for repeating headers across pages in points */
+  headerFooterYDeltaPt: 6.0,
+  /** Minimum characters per page before triggering low-density / scanned image warning */
+  minCharsPerPage: 100,
+  /** Maximum garbled / non-printable glyph ratio before rejecting or penalizing confidence */
+  maxGarbledGlyphRatio: 0.05,
+  /** Confidence calculation weights */
+  confidenceWeights: {
+    charDensity: 0.45,
+    glyphQuality: 0.35,
+    layoutConsistency: 0.2,
+  },
+  /** Ambiguous column detection penalty on layout confidence */
+  columnAmbiguityPenalty: 0.2,
+} as const;

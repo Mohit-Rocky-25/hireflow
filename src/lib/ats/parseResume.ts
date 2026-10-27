@@ -3,12 +3,12 @@
 // Robust extraction of contact, sections, bullets, and skills
 // ============================================================
 
-import { ParsedResume } from './types';
+import { ParsedResume, ExtractionResult } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 import { findTokenInText } from './matchSkills';
 
 const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-const PHONE_REGEX = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3,5}\)?[-.\s]?\d{3,5}[-.\s]?\d{3,5}/;
+const PHONE_REGEX = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3,5}\)?[-.\s]?\d{3,5}(?:[-.\s]?\d{3,5})?/;
 const URL_REGEX = /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
 
 const SECTION_HEADERS: Record<string, RegExp> = {
@@ -20,10 +20,15 @@ const SECTION_HEADERS: Record<string, RegExp> = {
   certifications: /^(?:certifications|licenses & certifications|credentials|professional certifications|licenses|courses & certifications|courses)\b/i,
 };
 
-export function parseResume(rawText: string, today: Date = new Date()): ParsedResume {
-  const cleanText = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+export function parseResume(
+  rawTextOrExtraction: string | ExtractionResult,
+  today: Date = new Date()
+): ParsedResume {
+  const isExtractionResult = typeof rawTextOrExtraction !== 'string' && 'text' in rawTextOrExtraction;
+  const rawText = isExtractionResult ? rawTextOrExtraction.text : (rawTextOrExtraction as string);
+  const cleanText = (rawText || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
   const lines = cleanText.split('\n').map((l) => l.trim());
-  const parseWarnings: string[] = [];
+  const parseWarnings: string[] = isExtractionResult ? [...(rawTextOrExtraction.warnings || [])] : [];
 
   // 1. Contact Information Extraction
   const emailMatch = cleanText.match(EMAIL_REGEX);
@@ -32,11 +37,16 @@ export function parseResume(rawText: string, today: Date = new Date()): ParsedRe
   const phoneMatch = cleanText.match(PHONE_REGEX);
   const phone = phoneMatch ? phoneMatch[0].trim() : undefined;
 
-  const links: string[] = [];
-  let urlMatch: RegExpExecArray | null;
-  while ((urlMatch = URL_REGEX.exec(cleanText)) !== null) {
-    links.push(urlMatch[0]);
+  const linksSet = new Set<string>();
+  if (isExtractionResult && rawTextOrExtraction.links) {
+    for (const l of rawTextOrExtraction.links) linksSet.add(l);
   }
+  const localUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
+  const urlMatches = cleanText.match(localUrlRegex) || [];
+  for (const u of urlMatches) {
+    linksSet.add(u);
+  }
+  const links: string[] = Array.from(linksSet);
 
   // Name heuristic: usually in the first 3 non-empty lines that don't look like contact/skills
   let name: string | undefined;

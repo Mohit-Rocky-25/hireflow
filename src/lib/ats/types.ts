@@ -59,6 +59,38 @@ export interface BulletAnalysis {
   critique?: string;
 }
 
+export interface ExtractionLine {
+  text: string;
+  page: number;
+  x: number;
+  y: number;
+  fontSize: number;
+}
+
+export type ExtractionMethod = 'pdf-text' | 'docx' | 'paste' | 'ocr' | 'fallback';
+
+export interface ExtractionResult {
+  text: string;
+  lines: ExtractionLine[];
+  pages: number;
+  links: string[];
+  warnings: string[];
+  confidence: number;
+  method: ExtractionMethod;
+}
+
+export type ExtractorFailureReason =
+  | 'encrypted'
+  | 'corrupt'
+  | 'empty'
+  | 'too-large'
+  | 'unsupported'
+  | 'image-only';
+
+export type ExtractorOutcome =
+  | { ok: true; data: ExtractionResult }
+  | { ok: false; reason: ExtractorFailureReason; message: string };
+
 export interface FormatRiskItem {
   id: string;
   name: string;
