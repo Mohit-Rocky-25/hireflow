@@ -1,0 +1,130 @@
+{
+  "id": "b_two_col_sidebar_var1",
+  "name": "Neha Deshmukh",
+  "email": "neha.deshmukh@example.com",
+  "phone": "+91 98997 48105",
+  "links": [
+    "https://github.com/nehadeshmukh56",
+    "https://linkedin.com/in/nehadeshmukh56",
+    "https://nehadeshmukh56.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Education",
+      "startLine": 3,
+      "endLine": 6
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 7,
+      "endLine": 15
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 16,
+      "endLine": 20
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 21,
+      "endLine": 29
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2023",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Technology in Software Systems",
+      "institution": "Indian Institute of Technology Bombay",
+      "cgpaOrPercent": "9.10/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [
+    "multi-column"
+  ],
+  "layoutFamily": "b_two_col_sidebar",
+  "format": "pdf",
+  "fullGroundTruthText": "Neha Deshmukh\nneha.deshmukh@example.com  |  +91 98997 48105  |  https://github.com/nehadeshmukh56\nEDUCATION\nMaster of Technology in Software Systems\nIndian Institute of Technology Bombay\nCGPA: 9.10/10.0 (2020-2024)\nSKILLS\nLanguages\nGo, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems\nSpring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage\nPostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps\nDocker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines\nEXPERIENCE\nAssociate Software Engineer — Groww (Nextbillion Technology) Jun 2023 - Present\n• Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.\nPROJECTS\nPeer-to-Peer File Transfer Protocol with NAT Traversal [Rust, STUN/TURN, UDP, Tokio, Cryptography]\n• Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.\n• Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.\n• Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.\nDistributed Log-Structured Key-Value Store [Go, Raft Consensus, gRPC, LSM-Tree, Docker]\n• Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.\n• Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.\n• Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster."
+}

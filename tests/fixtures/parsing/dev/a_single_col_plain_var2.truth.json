@@ -1,0 +1,133 @@
+{
+  "id": "a_single_col_plain_var2",
+  "name": "Pooja Deshmukh",
+  "email": "pooja.deshmukh@example.com",
+  "phone": "+91 98577 21010",
+  "links": [
+    "https://github.com/poojadeshmukh33",
+    "https://linkedin.com/in/poojadeshmukh33",
+    "https://poojadeshmukh33.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.",
+      "section": "Experience",
+      "entry": "CRED (Dreamplug Technologies)"
+    },
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "CRED (Dreamplug Technologies)"
+    },
+    {
+      "text": "Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.",
+      "section": "Experience",
+      "entry": "CRED (Dreamplug Technologies)"
+    },
+    {
+      "text": "Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Information Technology",
+      "institution": "Indian Institute of Technology Madras",
+      "cgpaOrPercent": "8.20/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "a_single_col_plain",
+  "format": "docx",
+  "fullGroundTruthText": "Pooja Deshmukh\npooja.deshmukh@example.com  |  +91 98577 21010  |  https://github.com/poojadeshmukh33  |  https://linkedin.com/in/poojadeshmukh33\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nB.Tech in Information Technology — Indian Institute of Technology Madras (2021 - 2025)\nGrade: CGPA 8.20/10.0\nWORK EXPERIENCE\nFull Stack Software Engineer — CRED (Dreamplug Technologies), Bengaluru, India | Jun 2024 - Present\n• Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.\nPROJECTS\nDistributed Log-Structured Key-Value Store [Go, Raft Consensus, gRPC, LSM-Tree, Docker]\n• Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.\n• Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.\n• Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.\nAutonomous Code Review Linter & Security Auditor [Python, AST, Tree-sitter, Docker, FastAPI]\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

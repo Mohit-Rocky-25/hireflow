@@ -1,0 +1,19 @@
+{
+  "id": "k_image_only_var3",
+  "name": "Rohan Deshmukh",
+  "email": "rohan.deshmukh@example.com",
+  "phone": "+91 99525 12352",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "image-only"
+  ],
+  "layoutFamily": "k_image_only",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isImageOnly": true
+}

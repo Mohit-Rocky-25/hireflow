@@ -1,0 +1,19 @@
+{
+  "id": "k_image_only_var1",
+  "name": "Devansh Sharma",
+  "email": "devansh.sharma@example.com",
+  "phone": "+91 99959 32747",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "image-only"
+  ],
+  "layoutFamily": "k_image_only",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isImageOnly": true
+}

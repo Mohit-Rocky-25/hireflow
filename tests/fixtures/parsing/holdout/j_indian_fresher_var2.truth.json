@@ -1,0 +1,168 @@
+{
+  "id": "j_indian_fresher_var2",
+  "name": "Arjun Patel",
+  "email": "arjun.patel@example.com",
+  "phone": "+91 98576 84936",
+  "links": [
+    "https://github.com/arjunpatel68",
+    "https://linkedin.com/in/arjunpatel68",
+    "https://arjunpatel68.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    },
+    {
+      "canonical": "Achievements",
+      "startLine": 27,
+      "endLine": 30
+    },
+    {
+      "canonical": "Positions of Responsibility",
+      "startLine": 31,
+      "endLine": 33
+    },
+    {
+      "canonical": "Declaration",
+      "startLine": 34,
+      "endLine": 35
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.",
+      "section": "Experience",
+      "entry": "InMobi Technologies"
+    },
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "InMobi Technologies"
+    },
+    {
+      "text": "Implemented automated circuit-breaker pattern with Resilience4j across 8 downstream microservices, preventing cascade outages during third-party gateway downtime.",
+      "section": "Experience",
+      "entry": "InMobi Technologies"
+    },
+    {
+      "text": "Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Secured All India Rank 899 in JEE Advanced out of 250,000 candidates.",
+      "section": "Achievements"
+    },
+    {
+      "text": "Global Rank 191 out of 18,000+ participants in LeetCode Weekly Contest.",
+      "section": "Achievements"
+    },
+    {
+      "text": "Winner of National Smart India Hackathon (Ministry of Education) in Software Edition.",
+      "section": "Achievements"
+    },
+    {
+      "text": "Lead Coordinator, Departmental Technical Symposium (orchestrated coding marathons for 1,200+ students).",
+      "section": "Positions of Responsibility"
+    },
+    {
+      "text": "Peer Mentor, Data Structures and Algorithms Laboratory (guided 60+ junior undergraduates).",
+      "section": "Positions of Responsibility"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Technology in Software Systems",
+      "institution": "Indian Institute of Technology Bombay",
+      "cgpaOrPercent": "9.70/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "j_indian_fresher",
+  "format": "pdf",
+  "fullGroundTruthText": "Arjun Patel\narjun.patel@example.com | +91 98576 84936 | https://github.com/arjunpatel68 | https://linkedin.com/in/arjunpatel68\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nACADEMIC QUALIFICATIONS\nMaster of Technology in Software Systems — Indian Institute of Technology Bombay  2021 - 2025\nCumulative Grade Point Average: 9.70/10.0 | Class XII: 92% | Class X: 93%\nWORK EXPERIENCE\nFull Stack Software Engineer — InMobi Technologies, Bengaluru, India  Jun 2024 - Present\n• Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Implemented automated circuit-breaker pattern with Resilience4j across 8 downstream microservices, preventing cascade outages during third-party gateway downtime.\nTECHNICAL PROJECTS\nPeer-to-Peer File Transfer Protocol with NAT Traversal | Technologies: Rust, STUN/TURN, UDP, Tokio, Cryptography\n• Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.\n• Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.\n• Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.\nHigh-Concurrency Real-Time Collaboration Canvas | Technologies: TypeScript, WebSocket, CRDT, React, Node.js\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines\nACHIEVEMENTS & HONORS\n• Secured All India Rank 899 in JEE Advanced out of 250,000 candidates.\n• Global Rank 191 out of 18,000+ participants in LeetCode Weekly Contest.\n• Winner of National Smart India Hackathon (Ministry of Education) in Software Edition.\nPOSITIONS OF RESPONSIBILITY\n• Lead Coordinator, Departmental Technical Symposium (orchestrated coding marathons for 1,200+ students).\n• Peer Mentor, Data Structures and Algorithms Laboratory (guided 60+ junior undergraduates).\nDECLARATION\nI hereby declare that all the information furnished above is authentic and true to the best of my knowledge."
+}

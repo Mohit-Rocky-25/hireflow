@@ -1,0 +1,135 @@
+{
+  "id": "d_textbox_header_var2",
+  "name": "Shreya Mehta",
+  "email": "shreya.mehta@example.com",
+  "phone": "+91 98385 17130",
+  "links": [
+    "https://github.com/shreyamehta65",
+    "https://linkedin.com/in/shreyamehta65",
+    "https://shreyamehta65.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2025",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Technology in Software Systems",
+      "institution": "Indian Institute of Technology Bombay",
+      "cgpaOrPercent": "9.30/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [
+    "text-box"
+  ],
+  "layoutFamily": "d_textbox_header",
+  "format": "docx",
+  "fullGroundTruthText": "Shreya Mehta\nshreya.mehta@example.com  |  +91 98385 17130  |  https://github.com/shreyamehta65  |  https://linkedin.com/in/shreyamehta65\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nMaster of Technology in Software Systems — Indian Institute of Technology Bombay (2022 - 2026)\nGrade: CGPA 9.30/10.0\nWORK EXPERIENCE\nSoftware Engineer - Core Services — Zomato Limited, Gurugram, India | Jun 2025 - Present\n• Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\n• Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.\nPROJECTS\nPeer-to-Peer File Transfer Protocol with NAT Traversal [Rust, STUN/TURN, UDP, Tokio, Cryptography]\n• Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.\n• Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.\n• Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.\nAutonomous Code Review Linter & Security Auditor [Python, AST, Tree-sitter, Docker, FastAPI]\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

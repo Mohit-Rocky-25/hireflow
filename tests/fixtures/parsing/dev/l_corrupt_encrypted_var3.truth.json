@@ -1,0 +1,19 @@
+{
+  "id": "l_corrupt_encrypted_var3",
+  "name": "Aditi Rao",
+  "email": "aditi.rao@example.com",
+  "phone": "+91 98014 39203",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "corrupt"
+  ],
+  "layoutFamily": "l_corrupt_encrypted",
+  "format": "docx",
+  "fullGroundTruthText": "",
+  "isCorruptOrEncrypted": true
+}

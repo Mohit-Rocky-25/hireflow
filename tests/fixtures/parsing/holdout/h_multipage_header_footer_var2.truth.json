@@ -1,0 +1,133 @@
+{
+  "id": "h_multipage_header_footer_var2",
+  "name": "Anika Reddy",
+  "email": "anika.reddy@example.com",
+  "phone": "+91 98978 81028",
+  "links": [
+    "https://github.com/anikareddy23",
+    "https://linkedin.com/in/anikareddy23",
+    "https://anikareddy23.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Technology in Software Systems",
+      "institution": "College of Engineering, Guindy",
+      "cgpaOrPercent": "9.10/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "h_multipage_header_footer",
+  "format": "pdf",
+  "fullGroundTruthText": "Anika Reddy\nanika.reddy@example.com | +91 98978 81028 | https://github.com/anikareddy23 | https://linkedin.com/in/anikareddy23\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nMaster of Technology in Software Systems — College of Engineering, Guindy  2021 - 2025\nCumulative Grade Point Average: 9.10/10.0\nWORK EXPERIENCE\nAssociate Software Engineer — Groww (Nextbillion Technology), Bengaluru, India  Jun 2024 - Present\n• Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.\n• Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.\n• Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.\nTECHNICAL PROJECTS\nHigh-Concurrency Real-Time Collaboration Canvas | Technologies: TypeScript, WebSocket, CRDT, React, Node.js\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.\nAutonomous Code Review Linter & Security Auditor | Technologies: Python, AST, Tree-sitter, Docker, FastAPI\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

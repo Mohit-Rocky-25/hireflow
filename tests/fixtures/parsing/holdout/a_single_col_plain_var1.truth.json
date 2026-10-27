@@ -1,0 +1,133 @@
+{
+  "id": "a_single_col_plain_var1",
+  "name": "Aarav Chopra",
+  "email": "aarav.chopra@example.com",
+  "phone": "+91 98456 27241",
+  "links": [
+    "https://github.com/aaravchopra89",
+    "https://linkedin.com/in/aaravchopra89",
+    "https://aaravchopra89.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.",
+      "section": "Experience",
+      "entry": "Flipkart Internet Pvt. Ltd."
+    },
+    {
+      "text": "Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.",
+      "section": "Experience",
+      "entry": "Flipkart Internet Pvt. Ltd."
+    },
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "Flipkart Internet Pvt. Ltd."
+    },
+    {
+      "text": "Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Computer Science & Engineering",
+      "institution": "Vellore Institute of Technology",
+      "cgpaOrPercent": "8.30/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "a_single_col_plain",
+  "format": "docx",
+  "fullGroundTruthText": "Aarav Chopra\naarav.chopra@example.com  |  +91 98456 27241  |  https://github.com/aaravchopra89  |  https://linkedin.com/in/aaravchopra89\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nBachelor of Technology in Computer Science & Engineering — Vellore Institute of Technology (2021 - 2025)\nGrade: CGPA 8.30/10.0\nWORK EXPERIENCE\nBackend Engineering Intern — Flipkart Internet Pvt. Ltd., Bengaluru, India | Jun 2024 - Present\n• Architected high-throughput payment webhook processor using Go and Redis Streams, handling 14,000 requests/sec with p99 latency under 28ms.\n• Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\nPROJECTS\nDistributed Log-Structured Key-Value Store [Go, Raft Consensus, gRPC, LSM-Tree, Docker]\n• Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.\n• Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.\n• Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.\nHigh-Concurrency Real-Time Collaboration Canvas [TypeScript, WebSocket, CRDT, React, Node.js]\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

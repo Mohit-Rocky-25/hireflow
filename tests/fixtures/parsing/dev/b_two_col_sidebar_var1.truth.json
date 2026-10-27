@@ -1,0 +1,130 @@
+{
+  "id": "b_two_col_sidebar_var1",
+  "name": "Anika Singhania",
+  "email": "anika.singhania@example.com",
+  "phone": "+91 98401 92004",
+  "links": [
+    "https://github.com/anikasinghania92",
+    "https://linkedin.com/in/anikasinghania92",
+    "https://anikasinghania92.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Education",
+      "startLine": 3,
+      "endLine": 6
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 7,
+      "endLine": 15
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 16,
+      "endLine": 20
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 21,
+      "endLine": 29
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "Groww (Nextbillion Technology)"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2025",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Information Technology",
+      "institution": "College of Engineering, Guindy",
+      "cgpaOrPercent": "8.70/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [
+    "multi-column"
+  ],
+  "layoutFamily": "b_two_col_sidebar",
+  "format": "pdf",
+  "fullGroundTruthText": "Anika Singhania\nanika.singhania@example.com  |  +91 98401 92004  |  https://github.com/anikasinghania92\nEDUCATION\nB.Tech in Information Technology\nCollege of Engineering, Guindy\nCGPA: 8.70/10.0 (2022-2026)\nSKILLS\nLanguages\nGo, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems\nSpring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage\nPostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps\nDocker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines\nEXPERIENCE\nPlatform Engineer — Groww (Nextbillion Technology) Jun 2025 - Present\n• Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.\n• Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\nPROJECTS\nHigh-Concurrency Real-Time Collaboration Canvas [TypeScript, WebSocket, CRDT, React, Node.js]\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.\nPeer-to-Peer File Transfer Protocol with NAT Traversal [Rust, STUN/TURN, UDP, Tokio, Cryptography]\n• Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.\n• Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.\n• Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers."
+}

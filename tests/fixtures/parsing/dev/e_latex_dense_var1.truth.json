@@ -1,0 +1,133 @@
+{
+  "id": "e_latex_dense_var1",
+  "name": "Ishaan Mishra",
+  "email": "ishaan.mishra@example.com",
+  "phone": "+91 99512 97264",
+  "links": [
+    "https://github.com/ishaanmishra52",
+    "https://linkedin.com/in/ishaanmishra52",
+    "https://ishaanmishra52.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2023",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Technology in Software Systems",
+      "institution": "Vellore Institute of Technology",
+      "cgpaOrPercent": "9.00/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "e_latex_dense",
+  "format": "pdf",
+  "fullGroundTruthText": "Ishaan Mishra\nishaan.mishra@example.com | +91 99512 97264 | https://github.com/ishaanmishra52 | https://linkedin.com/in/ishaanmishra52\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nMaster of Technology in Software Systems — Vellore Institute of Technology  2020 - 2024\nCumulative Grade Point Average: 9.00/10.0\nWORK EXPERIENCE\nSoftware Engineer - Core Services — Swiggy (Bundl Technologies), Bengaluru, India  Jun 2023 - Present\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\n• Designed real-time event pipeline consuming 5M daily telemetry records via Apache Kafka, providing sub-second fraud detection alerts.\nTECHNICAL PROJECTS\nAutonomous Code Review Linter & Security Auditor | Technologies: Python, AST, Tree-sitter, Docker, FastAPI\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nHigh-Concurrency Real-Time Collaboration Canvas | Technologies: TypeScript, WebSocket, CRDT, React, Node.js\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

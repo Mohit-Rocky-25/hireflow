@@ -1,0 +1,133 @@
+{
+  "id": "a_single_col_plain_var3",
+  "name": "Devansh Pillai",
+  "email": "devansh.pillai@example.com",
+  "phone": "+91 98593 82905",
+  "links": [
+    "https://github.com/devanshpillai89",
+    "https://linkedin.com/in/devanshpillai89",
+    "https://devanshpillai89.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "PhonePe Pvt. Ltd."
+    },
+    {
+      "text": "Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.",
+      "section": "Experience",
+      "entry": "PhonePe Pvt. Ltd."
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "PhonePe Pvt. Ltd."
+    },
+    {
+      "text": "Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.",
+      "section": "Projects",
+      "entry": "Peer-to-Peer File Transfer Protocol with NAT Traversal"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2023",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Computer Science & Engineering",
+      "institution": "Indian Institute of Technology Madras",
+      "cgpaOrPercent": "8.40/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [],
+  "layoutFamily": "a_single_col_plain",
+  "format": "pdf",
+  "fullGroundTruthText": "Devansh Pillai\ndevansh.pillai@example.com | +91 98593 82905 | https://github.com/devanshpillai89 | https://linkedin.com/in/devanshpillai89\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nBachelor of Technology in Computer Science & Engineering — Indian Institute of Technology Madras  2020 - 2024\nCumulative Grade Point Average: 8.40/10.0\nWORK EXPERIENCE\nSoftware Engineer - Core Services — PhonePe Pvt. Ltd., Bengaluru, India  Jun 2023 - Present\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\nTECHNICAL PROJECTS\nPeer-to-Peer File Transfer Protocol with NAT Traversal | Technologies: Rust, STUN/TURN, UDP, Tokio, Cryptography\n• Developed user-space P2P file synchronization tool implementing UDP hole-punching and ICE protocol to bypass restrictive symmetric NATs.\n• Utilized ChaCha20-Poly1305 authenticated encryption to guarantee confidentiality and packet integrity over public Wi-Fi networks.\n• Achieved wire-speed throughput of 940 Mbps over local gigabit connections using zero-copy memory-mapped file buffers.\nAutonomous Code Review Linter & Security Auditor | Technologies: Python, AST, Tree-sitter, Docker, FastAPI\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

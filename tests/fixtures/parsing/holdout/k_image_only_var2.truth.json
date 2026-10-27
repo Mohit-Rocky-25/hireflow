@@ -1,0 +1,19 @@
+{
+  "id": "k_image_only_var2",
+  "name": "Meera Iyer",
+  "email": "meera.iyer@example.com",
+  "phone": "+91 99207 72253",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "image-only"
+  ],
+  "layoutFamily": "k_image_only",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isImageOnly": true
+}

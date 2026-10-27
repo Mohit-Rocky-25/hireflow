@@ -1,0 +1,135 @@
+{
+  "id": "d_textbox_header_var1",
+  "name": "Meera Banerjee",
+  "email": "meera.banerjee@example.com",
+  "phone": "+91 98985 42969",
+  "links": [
+    "https://github.com/meerabanerjee51",
+    "https://linkedin.com/in/meerabanerjee51",
+    "https://meerabanerjee51.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Summary",
+      "startLine": 3,
+      "endLine": 4
+    },
+    {
+      "canonical": "Education",
+      "startLine": 5,
+      "endLine": 7
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 8,
+      "endLine": 12
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 13,
+      "endLine": 21
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 22,
+      "endLine": 26
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.",
+      "section": "Experience",
+      "entry": "Swiggy (Bundl Technologies)"
+    },
+    {
+      "text": "Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.",
+      "section": "Projects",
+      "entry": "Distributed Log-Structured Key-Value Store"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Information Technology",
+      "institution": "Delhi Technological University",
+      "cgpaOrPercent": "8.70/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [
+    "text-box"
+  ],
+  "layoutFamily": "d_textbox_header",
+  "format": "docx",
+  "fullGroundTruthText": "Meera Banerjee\nmeera.banerjee@example.com  |  +91 98985 42969  |  https://github.com/meerabanerjee51  |  https://linkedin.com/in/meerabanerjee51\nPROFESSIONAL SUMMARY\nResults-driven software engineer with strong foundation in distributed systems, high-concurrency backend services, and clean architecture. Experienced in designing fault-tolerant microservices, optimizing database throughput, and shipping production code with rigorous test coverage.\nEDUCATION\nB.Tech in Information Technology — Delhi Technological University (2021 - 2025)\nGrade: CGPA 8.70/10.0\nWORK EXPERIENCE\nPlatform Engineer — Swiggy (Bundl Technologies), Bengaluru, India | Jun 2024 - Present\n• Developed responsive internal operations dashboard in React and TypeScript with TanStack Query, accelerating merchant dispute resolution by 40%.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\n• Migrated monolithic checkout service to gRPC microservices, shrinking cloud compute costs by 32% and reducing deployment cycle times from 4 hours to 12 minutes.\nPROJECTS\nDistributed Log-Structured Key-Value Store [Go, Raft Consensus, gRPC, LSM-Tree, Docker]\n• Implemented distributed LSM-tree storage engine in Go with write-ahead logging (WAL), SSTable compaction, and bloom filters.\n• Embedded Raft consensus algorithm for distributed multi-node replication, surviving arbitrary node crashes without state divergence.\n• Benchmarked performance using custom concurrent load generator, achieving 85,000 read operations/sec across a 5-node cluster.\nAutonomous Code Review Linter & Security Auditor [Python, AST, Tree-sitter, Docker, FastAPI]\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nTECHNICAL SKILLS\nLanguages: Go, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems: Spring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage: PostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps: Docker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines"
+}

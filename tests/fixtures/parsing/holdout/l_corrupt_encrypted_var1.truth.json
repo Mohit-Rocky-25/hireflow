@@ -1,0 +1,19 @@
+{
+  "id": "l_corrupt_encrypted_var1",
+  "name": "Rahul Rao",
+  "email": "rahul.rao@example.com",
+  "phone": "+91 99775 79229",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "encrypted"
+  ],
+  "layoutFamily": "l_corrupt_encrypted",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isCorruptOrEncrypted": true
+}

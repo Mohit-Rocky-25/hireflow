@@ -1,0 +1,130 @@
+{
+  "id": "b_two_col_sidebar_var3",
+  "name": "Anika Nair",
+  "email": "anika.nair@example.com",
+  "phone": "+91 98437 12775",
+  "links": [
+    "https://github.com/anikanair67",
+    "https://linkedin.com/in/anikanair67",
+    "https://anikanair67.dev"
+  ],
+  "sections": [
+    {
+      "canonical": "Contact",
+      "startLine": 1,
+      "endLine": 2
+    },
+    {
+      "canonical": "Education",
+      "startLine": 3,
+      "endLine": 6
+    },
+    {
+      "canonical": "Skills",
+      "startLine": 7,
+      "endLine": 15
+    },
+    {
+      "canonical": "Experience",
+      "startLine": 16,
+      "endLine": 20
+    },
+    {
+      "canonical": "Projects",
+      "startLine": 21,
+      "endLine": 29
+    }
+  ],
+  "bullets": [
+    {
+      "text": "Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Implemented automated circuit-breaker pattern with Resilience4j across 8 downstream microservices, preventing cascade outages during third-party gateway downtime.",
+      "section": "Experience",
+      "entry": "Zomato Limited"
+    },
+    {
+      "text": "Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.",
+      "section": "Projects",
+      "entry": "Autonomous Code Review Linter & Security Auditor"
+    },
+    {
+      "text": "Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    },
+    {
+      "text": "Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions.",
+      "section": "Projects",
+      "entry": "High-Concurrency Real-Time Collaboration Canvas"
+    }
+  ],
+  "dates": [
+    {
+      "start": "Jun 2024",
+      "end": "Present",
+      "isCurrent": true
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Tech in Electronics and Communication Engineering",
+      "institution": "International Institute of Information Technology",
+      "cgpaOrPercent": "8.40/10.0",
+      "scale": "cgpa10"
+    }
+  ],
+  "skillsText": [
+    "Go",
+    "Java",
+    "Python",
+    "TypeScript",
+    "C++",
+    "SQL",
+    "Spring Boot",
+    "Node.js",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "gRPC",
+    "PostgreSQL",
+    "Redis",
+    "MongoDB",
+    "Apache Kafka",
+    "Elasticsearch",
+    "Docker",
+    "Kubernetes",
+    "AWS (EC2, S3, RDS)",
+    "Git",
+    "CI/CD Pipelines"
+  ],
+  "expectedWarnings": [
+    "multi-column"
+  ],
+  "layoutFamily": "b_two_col_sidebar",
+  "format": "pdf",
+  "fullGroundTruthText": "Anika Nair\nanika.nair@example.com  |  +91 98437 12775  |  https://github.com/anikanair67\nEDUCATION\nB.Tech in Electronics and Communication Engineering\nInternational Institute of Information Technology\nCGPA: 8.40/10.0 (2021-2025)\nSKILLS\nLanguages\nGo, Java, Python, TypeScript, C++, SQL\nFrameworks & Systems\nSpring Boot, Node.js, FastAPI, React, Next.js, gRPC\nDatabases & Storage\nPostgreSQL, Redis, MongoDB, Apache Kafka, Elasticsearch\nCloud & DevOps\nDocker, Kubernetes, AWS (EC2, S3, RDS), Git, CI/CD Pipelines\nEXPERIENCE\nSoftware Engineer - Core Services — Zomato Limited Jun 2024 - Present\n• Optimized database queries and added composite b-tree indexes on partitioned ledger tables, lowering average query execution time from 420ms to 35ms.\n• Engineered distributed idempotency layer with Redis and PostgreSQL, eliminating 100% of double-debit anomalies during peak flash sales.\n• Implemented automated circuit-breaker pattern with Resilience4j across 8 downstream microservices, preventing cascade outages during third-party gateway downtime.\nPROJECTS\nAutonomous Code Review Linter & Security Auditor [Python, AST, Tree-sitter, Docker, FastAPI]\n• Engineered static analysis pipeline parsing abstract syntax trees (ASTs) to detect SQL injection, unvalidated deserialization, and memory leaks.\n• Built automated GitHub Action integration running checks across 200+ pull requests with an average scan duration under 3.5 seconds.\n• Containerized execution sandbox using gVisor and Docker to securely isolate untrusted student code submissions.\nHigh-Concurrency Real-Time Collaboration Canvas [TypeScript, WebSocket, CRDT, React, Node.js]\n• Built multi-user collaborative workspace using Conflict-free Replicated Data Types (CRDTs) to ensure convergence across disconnected edits.\n• Engineered WebSocket server in Node.js with delta-compression protocol, reducing network bandwidth consumption by 64% during intense cursor movements.\n• Authored comprehensive property-based test suite with fast-check verifying eventual consistency across simulated random network partitions."
+}

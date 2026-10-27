@@ -1,0 +1,19 @@
+{
+  "id": "l_corrupt_encrypted_var1",
+  "name": "Siddharth Agarwal",
+  "email": "siddharth.agarwal@example.com",
+  "phone": "+91 98004 22318",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "encrypted"
+  ],
+  "layoutFamily": "l_corrupt_encrypted",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isCorruptOrEncrypted": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "k_image_only_var1",
+  "name": "Karthik Pillai",
+  "email": "karthik.pillai@example.com",
+  "phone": "+91 98706 13661",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "image-only"
+  ],
+  "layoutFamily": "k_image_only",
+  "format": "pdf",
+  "fullGroundTruthText": "",
+  "isImageOnly": true
+}

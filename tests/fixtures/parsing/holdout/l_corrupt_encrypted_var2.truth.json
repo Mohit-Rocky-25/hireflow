@@ -1,0 +1,19 @@
+{
+  "id": "l_corrupt_encrypted_var2",
+  "name": "Meera Banerjee",
+  "email": "meera.banerjee@example.com",
+  "phone": "+91 98393 94718",
+  "links": [],
+  "sections": [],
+  "bullets": [],
+  "dates": [],
+  "education": [],
+  "skillsText": [],
+  "expectedWarnings": [
+    "corrupt"
+  ],
+  "layoutFamily": "l_corrupt_encrypted",
+  "format": "docx",
+  "fullGroundTruthText": "",
+  "isCorruptOrEncrypted": true
+}
