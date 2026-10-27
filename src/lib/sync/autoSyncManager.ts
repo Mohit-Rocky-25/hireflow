@@ -18,7 +18,7 @@ class AutoSyncManager {
   private isPulling = false;
 
   constructor() {
-    this.lastSyncedAt = localStorage.getItem('hireflo_last_cloud_sync_at');
+    this.lastSyncedAt = typeof localStorage !== 'undefined' ? localStorage.getItem('hireflo_last_cloud_sync_at') : null;
     // Listen to network status
     if (typeof window !== 'undefined') {
       window.addEventListener('online', () => this.handleNetworkChange(true));
@@ -179,6 +179,7 @@ class AutoSyncManager {
 
   private readLocalStorageJson(key: string): any {
     try {
+      if (typeof localStorage === 'undefined') return null;
       const val = localStorage.getItem(key);
       return val ? JSON.parse(val) : null;
     } catch {
@@ -187,7 +188,7 @@ class AutoSyncManager {
   }
 
   private applyPayloadToLocalStorage(payload: CloudPayload) {
-    if (!payload) return;
+    if (!payload || typeof localStorage === 'undefined') return;
     try {
       if (payload.profile && Object.keys(payload.profile).length > 0) {
         localStorage.setItem('hireflow:v4:profile', JSON.stringify(payload.profile));

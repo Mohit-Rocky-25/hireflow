@@ -875,105 +875,105 @@ export function StudentPlacementPathway({
           </h2>
 
           {/* 1. CAN I GET IN? (ELIGIBILITY & CUTOFFS) */}
-          <div className="bg-surface rounded-md p-7 sm:p-8 border border-border space-y-6">
+          <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
               <div>
-                <span className="text-xs font-mono font-black uppercase text-volt tracking-wider">
+                <span className="text-xs sm:text-sm font-bold uppercase text-volt tracking-wider">
                   Question 1 of 5
                 </span>
-                <h3 className="text-lg sm:text-xl font-black text-foreground mt-1 flex items-center gap-2.5">
+                <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
                   <ShieldCheck className="w-6 h-6 text-volt" />
                   Can I get in? (Eligibility &amp; Cutoffs)
                 </h3>
               </div>
-              <span className="px-3.5 py-1.5 rounded-full text-xs font-mono font-black bg-volt/10 text-volt border border-volt/30">
+              <span className="px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-volt/10 text-volt border border-volt/30">
                 {studentResult.probability.percentage}% Target Success Probability
               </span>
             </div>
 
             {/* Trajectory Scope */}
-            <div className="p-4 rounded bg-surface-2/60 border border-border flex flex-wrap items-center justify-between gap-3">
+            <div className="p-4 sm:p-5 rounded-lg bg-surface-2/60 border border-border flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span className="text-xs text-muted font-mono font-bold uppercase block">Target Pathway</span>
-                <p className="text-base font-black text-foreground mt-0.5">
+                <span className="text-xs text-neutral-400 font-bold uppercase block">Target Pathway</span>
+                <p className="text-base sm:text-lg font-black text-white mt-1">
                   Campus Entry at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) &rarr; Target Level {studentResult.targetLevel.levelCode} ({studentResult.targetLevel.title})
                 </p>
               </div>
-              <span className="text-xs font-mono font-bold text-secondary">
+              <span className="text-xs sm:text-sm font-semibold text-neutral-300">
                 {studentResult.studentProfile.collegeTier} • {studentResult.studentProfile.degreeAndBranch}
               </span>
             </div>
 
             {/* Eligibility Windows & Date-Driven Status */}
             {studentResult.eligibilityWindows && (
-              <div className="p-5 rounded bg-surface-2/40 border border-border space-y-2.5 text-sm">
+              <div className="p-5 rounded-lg bg-surface-2/40 border border-border space-y-3 text-sm">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono font-black text-foreground flex items-center gap-2 text-base">
+                  <span className="font-black text-white flex items-center gap-2 text-base">
                     <GraduationCap className="w-5 h-5 text-volt" />
                     Academic Status: {studentResult.eligibilityWindows.currentStatus}
                   </span>
-                  <span className="font-mono font-bold text-muted text-xs">
+                  <span className="font-semibold text-neutral-300 text-xs sm:text-sm">
                     {studentResult.eligibilityWindows.remainingSemesters} Semesters Remaining
                   </span>
                 </div>
-                <div className="grid sm:grid-cols-2 gap-4 pt-1 text-xs sm:text-sm">
+                <div className="grid sm:grid-cols-2 gap-4 pt-1 text-sm">
                   <div>
-                    <span className="font-mono font-bold text-muted block mb-0.5 uppercase text-[11px]">Internship Window:</span>
-                    <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.internshipWindow}</span>
+                    <span className="font-bold text-neutral-400 block mb-0.5 uppercase text-xs">Internship Window:</span>
+                    <span className="font-semibold text-white">{studentResult.eligibilityWindows.internshipWindow}</span>
                   </div>
                   <div>
-                    <span className="font-mono font-bold text-muted block mb-0.5 uppercase text-[11px]">Campus Placement Drive:</span>
-                    <span className="font-semibold text-foreground">{studentResult.eligibilityWindows.campusPlacementWindow}</span>
+                    <span className="font-bold text-neutral-400 block mb-0.5 uppercase text-xs">Campus Placement Drive:</span>
+                    <span className="font-semibold text-white">{studentResult.eligibilityWindows.campusPlacementWindow}</span>
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm text-secondary pt-2 border-t border-border">
-                  <strong className="text-foreground font-mono">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
+                <p className="text-sm text-neutral-300 pt-2 border-t border-border">
+                  <strong className="text-white font-bold">Recommended Focus:</strong> {studentResult.eligibilityWindows.recommendedFocus}
                 </p>
               </div>
             )}
 
             {/* Academic & Cutoff Summary Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm pt-1">
-              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono block">College Tier</span>
-                <span className="text-base font-mono font-black text-foreground mt-1 block">{studentResult.studentProfile.collegeTier}</span>
-                <span className="text-xs text-volt mt-1 block font-mono font-semibold">Campus hiring pool</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 text-sm pt-1">
+              <div className="p-4 bg-surface-2/40 rounded-lg border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase block">College Tier</span>
+                <span className="text-base sm:text-lg font-black text-white mt-1 block">{studentResult.studentProfile.collegeTier}</span>
+                <span className="text-xs text-volt mt-1 block font-semibold">Campus hiring pool</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono block">Branch Family</span>
-                <span className="text-base font-mono font-black text-foreground mt-1 block truncate" title={studentResult.studentProfile.degreeAndBranch}>
+              <div className="p-4 bg-surface-2/40 rounded-lg border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase block">Branch Family</span>
+                <span className="text-base sm:text-lg font-black text-white mt-1 block truncate" title={studentResult.studentProfile.degreeAndBranch}>
                   {studentResult.studentProfile.branchFamily}
                 </span>
-                <span className="text-xs text-volt mt-1 block font-mono font-semibold">Degree eligible</span>
+                <span className="text-xs text-volt mt-1 block font-semibold">Degree eligible</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono block">CGPA Cutoff Status</span>
-                <span className="text-base font-mono font-black text-foreground mt-1 block">
+              <div className="p-4 bg-surface-2/40 rounded-lg border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase block">CGPA Cutoff Status</span>
+                <span className="text-base sm:text-lg font-black text-white mt-1 block">
                   {studentResult.studentProfile.cgpaBracket === 'above_8' ? '> 8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '7_to_8' ? '7.0–8.0 CGPA' : studentResult.studentProfile.cgpaBracket === '6_to_7' ? '6.0–7.0 CGPA' : '< 6.0 CGPA'}
                 </span>
-                <span className="text-xs text-secondary mt-1 block font-medium">Meets prime cutoffs</span>
+                <span className="text-xs text-neutral-300 mt-1 block font-medium">Meets prime cutoffs</span>
               </div>
-              <div className="p-3.5 bg-surface-2/40 rounded border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono block">Internship Status</span>
-                <span className="text-base font-mono font-black text-foreground mt-1 block capitalize">
+              <div className="p-4 bg-surface-2/40 rounded-lg border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase block">Internship Status</span>
+                <span className="text-base sm:text-lg font-black text-white mt-1 block capitalize">
                   {studentResult.studentProfile.internshipStatus === 'ppo' ? 'Have PPO' : studentResult.studentProfile.internshipStatus === 'completed' ? 'Completed' : 'None yet'}
                 </span>
-                <span className="text-xs text-secondary mt-1 block font-medium">Pre-placement track</span>
+                <span className="text-xs text-neutral-300 mt-1 block font-medium">Pre-placement track</span>
               </div>
             </div>
           </div>
 
           {/* 2. HOW DO I GET IN? (RANKED ENTRY ROUTES) */}
-          <div className="bg-surface rounded-md p-7 sm:p-8 border border-border space-y-5">
+          <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-5">
             <div className="border-b border-border pb-4">
-              <span className="text-xs font-mono font-black uppercase text-volt tracking-wider">
+              <span className="text-xs sm:text-sm font-bold uppercase text-volt tracking-wider">
                 Question 2 of 5
               </span>
-              <h3 className="text-lg sm:text-xl font-black text-foreground mt-1 flex items-center gap-2.5">
+              <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
                 <Award className="w-6 h-6 text-volt" />
                 How do I get in? (Ranked Entry Routes)
               </h3>
-              <p className="text-sm text-secondary mt-1">
+              <p className="text-sm sm:text-base text-neutral-300 mt-1 leading-relaxed">
                 Real documented hiring pipelines for campus candidates into {studentResult.dreamCompany.name} based on your college tier ({studentResult.studentProfile.collegeTier}).
               </p>
             </div>
@@ -982,17 +982,17 @@ export function StudentPlacementPathway({
               {studentResult.entryRoutes.map((route, rIdx) => (
                 <div
                   key={rIdx}
-                  className="bg-surface-2/40 border border-border rounded p-5 space-y-3 flex flex-col justify-between"
+                  className="bg-surface-2/40 border border-border rounded-lg p-5 space-y-3 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-sm sm:text-base font-black text-foreground">{route.name}</span>
+                      <span className="text-base sm:text-lg font-bold text-white">{route.name}</span>
                       <span
-                        className={`px-2.5 py-1 rounded text-xs font-mono font-black uppercase ${
+                        className={`px-2.5 py-1 rounded text-xs font-bold uppercase ${
                           route.adjustedLikelihood === 'High'
                             ? 'bg-volt/10 text-volt border border-volt/30'
                             : route.adjustedLikelihood === 'Medium'
-                            ? 'bg-surface-2 text-muted border border-border'
+                            ? 'bg-surface-2 text-neutral-300 border border-border'
                             : 'bg-amber-500/10 text-amber-400 border border-amber-500/30'
                         }`}
                       >
@@ -1000,32 +1000,32 @@ export function StudentPlacementPathway({
                       </span>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-muted leading-relaxed">{route.likelihoodReason}</p>
+                    <p className="text-sm text-neutral-300 leading-relaxed">{route.likelihoodReason}</p>
 
-                    <div className="mt-2.5 pt-2.5 border-t border-border text-xs space-y-1.5">
-                      <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-muted font-bold font-mono uppercase">Typical CTC Offer:</span>
-                        <span className="font-mono font-black text-volt">
+                    <div className="mt-3 pt-3 border-t border-border text-xs sm:text-sm space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-neutral-400 font-bold uppercase text-xs">Typical CTC Offer:</span>
+                        <span className="font-bold text-volt text-sm">
                           {formatINR(route.expectedOfferINR)}
                         </span>
                       </div>
-                      <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-muted font-bold font-mono uppercase">Cutoff:</span>
-                        <span className="font-semibold text-foreground font-mono">
+                      <div className="flex items-center justify-between">
+                        <span className="text-neutral-400 font-bold uppercase text-xs">Cutoff:</span>
+                        <span className="font-semibold text-white">
                           {route.eligibility.cgpaMin}+ CGPA ({route.eligibility.allowedBranches[0]}...)
                         </span>
                       </div>
                     </div>
 
                     {/* Selection Rounds */}
-                    <div className="mt-3 pt-2.5 border-t border-border">
-                      <span className="text-[10px] font-mono font-black text-muted uppercase block mb-1">
+                    <div className="mt-3.5 pt-3 border-t border-border">
+                      <span className="text-xs font-bold text-neutral-400 uppercase block mb-1.5">
                         Selection Rounds ({route.selectionRounds.length})
                       </span>
-                      <ul className="space-y-1 text-[11px] text-secondary">
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-neutral-200">
                         {route.selectionRounds.map((rnd, rndIdx) => (
-                          <li key={rndIdx} className="flex items-start gap-1.5">
-                            <span className="text-volt font-bold font-mono">{rndIdx + 1}.</span>
+                          <li key={rndIdx} className="flex items-start gap-2">
+                            <span className="text-volt font-bold">{rndIdx + 1}.</span>
                             <span>{rnd}</span>
                           </li>
                         ))}
@@ -1038,51 +1038,51 @@ export function StudentPlacementPathway({
           </div>
 
           {/* 3. WHAT WILL I EARN? (FRESHER CTC & GROWTH TRAJECTORY) */}
-          <div className="bg-surface rounded-md p-6 border border-border space-y-5">
-            <div className="border-b border-border pb-3">
-              <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
+          <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-5">
+            <div className="border-b border-border pb-4">
+              <span className="text-xs sm:text-sm font-bold uppercase text-volt tracking-wider">
                 Question 3 of 5
               </span>
-              <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-volt" />
+              <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
+                <TrendingUp className="w-6 h-6 text-volt" />
                 What will I earn? (Fresher CTC in INR)
               </h3>
-              <p className="text-xs text-secondary mt-0.5">
+              <p className="text-sm sm:text-base text-neutral-300 mt-1 leading-relaxed">
                 Verified fresher entry package at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}) and multi-year trajectory to target level {studentResult.targetLevel.levelCode}.
               </p>
             </div>
 
             {/* Top Metrics Cards */}
             <div className="grid sm:grid-cols-3 gap-4">
-              <div className="bg-surface-2/40 rounded p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono">Fresher Entry Offer</span>
-                <span className="text-xl font-mono font-black text-volt block mt-1">
+              <div className="bg-surface-2/40 rounded-xl p-5 border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Fresher Entry Offer</span>
+                <span className="text-2xl sm:text-3xl font-black text-volt block mt-1.5">
                   {formatINRRange(
                     studentResult.entryRoutes[0]?.expectedOfferINR || studentResult.entryLevel.comp.total.p25,
                     studentResult.entryLevel.comp.total.p75
                   )}
                 </span>
-                <span className="text-xs text-secondary mt-1 block">
+                <span className="text-xs sm:text-sm text-neutral-300 mt-1.5 block">
                   At {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode})
                 </span>
               </div>
 
-              <div className="bg-surface-2/40 rounded p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono">Target Level Range</span>
-                <span className="text-xl font-mono font-black text-foreground block mt-1">
+              <div className="bg-surface-2/40 rounded-xl p-5 border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Target Level Range</span>
+                <span className="text-2xl sm:text-3xl font-black text-white block mt-1.5">
                   {formatINRRange(studentResult.targetLevel.comp.total.p25, studentResult.targetLevel.comp.total.p75)}
                 </span>
-                <span className="text-xs text-secondary mt-1 block">
+                <span className="text-xs sm:text-sm text-neutral-300 mt-1.5 block">
                   {studentResult.targetLevel.levelCode} • {studentResult.targetLevel.title}
                 </span>
               </div>
 
-              <div className="bg-surface-2/40 rounded p-4 border border-border">
-                <span className="text-xs font-bold text-muted uppercase font-mono">Estimated Time</span>
-                <span className="text-2xl font-mono font-black text-volt block mt-1">
+              <div className="bg-surface-2/40 rounded-xl p-5 border border-border">
+                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Estimated Time</span>
+                <span className="text-2xl sm:text-3xl font-black text-volt block mt-1.5">
                   {studentResult.totalTimeFromGraduation.likely} Years
                 </span>
-                <span className="text-xs text-muted mt-1 block font-mono">
+                <span className="text-xs sm:text-sm text-neutral-300 mt-1.5 block">
                   Range: {studentResult.totalTimeFromGraduation.min}–{studentResult.totalTimeFromGraduation.max} yrs (By ~{studentResult.studentProfile.expectedGraduationYear + Math.round(studentResult.totalTimeFromGraduation.likely)})
                 </span>
               </div>
@@ -1104,16 +1104,16 @@ export function StudentPlacementPathway({
 
           {/* 4. WHEN WILL IT HAPPEN? (CALENDAR TIMELINE) */}
           {studentResult.steps.length > 0 && (
-            <div className="bg-surface rounded-md p-6 border border-border space-y-6">
-              <div className="border-b border-border pb-3">
-                <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
+            <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-6">
+              <div className="border-b border-border pb-4">
+                <span className="text-xs sm:text-sm font-bold uppercase text-volt tracking-wider">
                   Question 4 of 5
                 </span>
-                <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-volt" />
+                <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
+                  <Clock className="w-6 h-6 text-volt" />
                   When will it happen? (Calendar Timeline)
                 </h3>
-                <p className="text-xs text-secondary mt-0.5">
+                <p className="text-sm sm:text-base text-neutral-300 mt-1 leading-relaxed">
                   Step-by-step career path from {studentResult.entryLevel.levelCode} to {studentResult.targetLevel.levelCode} anchored to your graduation calendar year.
                 </p>
               </div>
@@ -1122,40 +1122,40 @@ export function StudentPlacementPathway({
                 {studentResult.steps.map((step) => (
                   <div
                     key={step.stepIndex}
-                    className="p-5 rounded border border-border bg-surface-2/30 space-y-4"
+                    className="p-5 sm:p-6 rounded-lg border border-border bg-surface-2/30 space-y-4"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-volt text-black text-xs font-mono font-black flex items-center justify-center">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-7 h-7 rounded-full bg-volt text-black text-xs font-black flex items-center justify-center">
                           {step.stepIndex}
                         </span>
-                        <h4 className="text-sm font-black text-foreground">
+                        <h4 className="text-base font-bold text-white">
                           {step.fromLevel.levelCode} ({step.fromLevel.title}) &rarr; {step.toLevel.levelCode} ({step.toLevel.title})
                         </h4>
                       </div>
                       <div className="text-right">
-                        <span className="text-xs font-mono font-black text-volt block">
+                        <span className="text-sm font-bold text-volt block">
                           {step.calendarYearWindow}
                         </span>
-                        <span className="text-[10px] text-muted font-mono">
+                        <span className="text-xs text-neutral-400">
                           Duration: ~{step.durationYears.likely} yrs (range: {step.durationYears.min}–{step.durationYears.max} yrs)
                         </span>
                       </div>
                     </div>
 
                     {/* Requirements Grid */}
-                    <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                      <div className="bg-surface p-3 rounded border border-border space-y-1">
-                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Scope Required</span>
-                        <p className="text-secondary leading-relaxed">{step.requirements.scope}</p>
+                    <div className="grid sm:grid-cols-3 gap-3.5 text-xs sm:text-sm">
+                      <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                        <span className="font-bold uppercase text-xs text-neutral-300 block">Scope Required</span>
+                        <p className="text-neutral-200 leading-relaxed">{step.requirements.scope}</p>
                       </div>
-                      <div className="bg-surface p-3 rounded border border-border space-y-1">
-                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Measurable Impact</span>
-                        <p className="text-secondary leading-relaxed">{step.requirements.impact}</p>
+                      <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                        <span className="font-bold uppercase text-xs text-neutral-300 block">Measurable Impact</span>
+                        <p className="text-neutral-200 leading-relaxed">{step.requirements.impact}</p>
                       </div>
-                      <div className="bg-surface p-3 rounded border border-border space-y-1">
-                        <span className="font-mono font-bold uppercase text-[11px] text-foreground block">Leadership &amp; Mentorship</span>
-                        <p className="text-secondary leading-relaxed">{step.requirements.influence}</p>
+                      <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                        <span className="font-bold uppercase text-xs text-neutral-300 block">Leadership &amp; Mentorship</span>
+                        <p className="text-neutral-200 leading-relaxed">{step.requirements.influence}</p>
                       </div>
                     </div>
 
@@ -1173,60 +1173,60 @@ export function StudentPlacementPathway({
           )}
 
           {/* 4.1 FIRST TWO YEARS FRESHER MILESTONES */}
-          <div className="bg-surface rounded-md p-6 border border-border space-y-5">
-            <div className="border-b border-border pb-3">
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider bg-volt/10 text-volt border border-volt/30 inline-block mb-1">
+          <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-5">
+            <div className="border-b border-border pb-4">
+              <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-volt/10 text-volt border border-volt/30 inline-block mb-1.5">
                 Early Career Core Focus
               </span>
-              <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <Target className="w-5 h-5 text-volt" />
+              <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
+                <Target className="w-6 h-6 text-volt" />
                 First Two Years: Critical Engineering Milestones
               </h3>
-              <p className="text-xs text-secondary mt-0.5">
+              <p className="text-sm sm:text-base text-neutral-300 mt-1 leading-relaxed">
                 Clear operational milestones for your first 24 months at {studentResult.dreamCompany.name} ({studentResult.entryLevel.levelCode}), derived from verified promotion criteria.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               {/* Year 1 */}
-              <div className="p-4 rounded border border-border bg-surface-2/40 space-y-3">
-                <div className="flex items-center justify-between border-b border-border pb-2">
-                  <span className="font-black text-foreground text-sm flex items-center gap-1.5">
+              <div className="p-5 rounded-lg border border-border bg-surface-2/40 space-y-3.5">
+                <div className="flex items-center justify-between border-b border-border pb-2.5">
+                  <span className="font-bold text-white text-base flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-volt" /> Year 1: Onboarding &amp; Delivery Execution
                   </span>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-volt/10 text-volt">
+                  <span className="text-xs font-bold px-2.5 py-1 rounded bg-volt/10 text-volt">
                     Months 1–12
                   </span>
                 </div>
-                <div className="space-y-2 text-xs text-secondary">
-                  <div className="bg-surface p-2.5 rounded border border-border">
-                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Production Ownership:</strong>
+                <div className="space-y-2.5 text-sm text-neutral-200">
+                  <div className="bg-surface p-3.5 rounded-lg border border-border">
+                    <strong className="text-white block text-xs font-bold mb-1 uppercase tracking-wider">Production Ownership:</strong>
                     Ship first feature PR within 30 days; master CI/CD deployment pipelines, unit testing, and team code review SLA standards.
                   </div>
-                  <div className="bg-surface p-2.5 rounded border border-border">
-                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Operational Reliability:</strong>
+                  <div className="bg-surface p-3.5 rounded-lg border border-border">
+                    <strong className="text-white block text-xs font-bold mb-1 uppercase tracking-wider">Operational Reliability:</strong>
                     Shadow team on-call rotation by month 6; write comprehensive runbooks for handled production incidents.
                   </div>
                 </div>
               </div>
 
               {/* Year 2 */}
-              <div className="p-4 rounded border border-border bg-surface-2/40 space-y-3">
-                <div className="flex items-center justify-between border-b border-border pb-2">
-                  <span className="font-black text-foreground text-sm flex items-center gap-1.5">
+              <div className="p-5 rounded-lg border border-border bg-surface-2/40 space-y-3.5">
+                <div className="flex items-center justify-between border-b border-border pb-2.5">
+                  <span className="font-bold text-white text-base flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-volt" /> Year 2: Independent Subsystem Scope
                   </span>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-volt/10 text-volt">
+                  <span className="text-xs font-bold px-2.5 py-1 rounded bg-volt/10 text-volt">
                     Months 13–24
                   </span>
                 </div>
-                <div className="space-y-2 text-xs text-secondary">
-                  <div className="bg-surface p-2.5 rounded border border-border">
-                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">End-to-End Design:</strong>
+                <div className="space-y-2.5 text-sm text-neutral-200">
+                  <div className="bg-surface p-3.5 rounded-lg border border-border">
+                    <strong className="text-white block text-xs font-bold mb-1 uppercase tracking-wider">End-to-End Design:</strong>
                     Author RFC/technical design doc for a service integration or performance optimization; drive implementation end-to-end.
                   </div>
-                  <div className="bg-surface p-2.5 rounded border border-border">
-                    <strong className="text-foreground block text-[11px] font-mono mb-0.5 uppercase">Promotion Packet Evidence:</strong>
+                  <div className="bg-surface p-3.5 rounded-lg border border-border">
+                    <strong className="text-white block text-xs font-bold mb-1 uppercase tracking-wider">Promotion Packet Evidence:</strong>
                     Deliver measurable business metric (latency reduction, cost savings, or error rate drop) required for advancement to {studentResult.targetLevel.levelCode}.
                   </div>
                 </div>
@@ -1235,42 +1235,42 @@ export function StudentPlacementPathway({
           </div>
 
           {/* 5. WHAT SHOULD I DO NEXT? (ACTION STEPS & STEPPING STONES) */}
-          <div className="bg-surface rounded-md p-6 border border-border space-y-6">
-            <div className="border-b border-border pb-3">
-              <span className="text-[10px] font-mono font-black uppercase text-volt tracking-wider">
+          <div className="bg-surface rounded-xl p-6 sm:p-8 border border-border space-y-6">
+            <div className="border-b border-border pb-4">
+              <span className="text-xs sm:text-sm font-bold uppercase text-volt tracking-wider">
                 Question 5 of 5
               </span>
-              <h3 className="text-base sm:text-lg font-black text-foreground mt-0.5 flex items-center gap-2">
-                <Compass className="w-5 h-5 text-volt" />
+              <h3 className="text-xl sm:text-2xl font-black text-white mt-1 flex items-center gap-2.5">
+                <Compass className="w-6 h-6 text-volt" />
                 What should I do next? (Action Steps &amp; Stepping Stones)
               </h3>
-              <p className="text-xs text-secondary mt-0.5">
+              <p className="text-sm sm:text-base text-neutral-300 mt-1 leading-relaxed">
                 Immediate tactical actions for your current college semester plus high-probability stepping stone companies.
               </p>
             </div>
 
             {/* Immediate Semester Action Plan */}
-            <div className="p-4 rounded bg-surface-2/40 border border-border space-y-2.5 text-xs">
-              <span className="font-mono font-black text-volt flex items-center gap-2 text-sm uppercase">
+            <div className="p-5 rounded-lg bg-surface-2/40 border border-border space-y-3 text-sm">
+              <span className="font-black text-volt flex items-center gap-2 text-sm sm:text-base uppercase tracking-wider">
                 <Sparkles className="w-4 h-4 text-volt" />
                 Your Recommended Tactical Next Steps
               </span>
-              <div className="grid sm:grid-cols-3 gap-3 pt-1">
-                <div className="bg-surface p-3 rounded border border-border space-y-1">
-                  <span className="font-mono font-bold text-foreground block text-xs uppercase">1. Immediate Target</span>
-                  <p className="text-secondary text-[11px] leading-relaxed">
+              <div className="grid sm:grid-cols-3 gap-3.5 pt-1">
+                <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                  <span className="font-bold text-white block text-xs sm:text-sm uppercase tracking-wide">1. Immediate Target</span>
+                  <p className="text-neutral-200 text-sm leading-relaxed">
                     {studentResult.eligibilityWindows?.recommendedFocus || 'Strengthen Data Structures and core Computer Science fundamentals for campus placement rounds.'}
                   </p>
                 </div>
-                <div className="bg-surface p-3 rounded border border-border space-y-1">
-                  <span className="font-mono font-bold text-foreground block text-xs uppercase">2. Drive Preparation</span>
-                  <p className="text-secondary text-[11px] leading-relaxed">
+                <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                  <span className="font-bold text-white block text-xs sm:text-sm uppercase tracking-wide">2. Drive Preparation</span>
+                  <p className="text-neutral-200 text-sm leading-relaxed">
                     Prepare for {studentResult.entryRoutes[0]?.name || 'campus online assessments'} with target company question patterns and mock coding tests.
                   </p>
                 </div>
-                <div className="bg-surface p-3 rounded border border-border space-y-1">
-                  <span className="font-mono font-bold text-foreground block text-xs uppercase">3. Resume &amp; Portfolio</span>
-                  <p className="text-secondary text-[11px] leading-relaxed">
+                <div className="bg-surface p-4 rounded-lg border border-border space-y-1.5">
+                  <span className="font-bold text-white block text-xs sm:text-sm uppercase tracking-wide">3. Resume &amp; Portfolio</span>
+                  <p className="text-neutral-200 text-sm leading-relaxed">
                     Build 2 production-grade full-stack / backend projects showcasing concurrency, clean architecture, and deployment evidence.
                   </p>
                 </div>
@@ -1279,27 +1279,27 @@ export function StudentPlacementPathway({
 
             {/* Alternate Stepping Stones */}
             {studentResult.alternateSteppingStones.length > 0 && (
-              <div className="space-y-3 pt-2">
+              <div className="space-y-3.5 pt-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-black text-foreground uppercase tracking-wider">
+                  <span className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
                     Stepping-Stone Backup Offers ({studentResult.alternateSteppingStones.length})
                   </span>
-                  <span className="text-[11px] text-muted font-mono">
+                  <span className="text-xs text-neutral-400">
                     Alternative routes into {studentResult.dreamCompany.name}
                   </span>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
                   {studentResult.alternateSteppingStones.map((stone, sIdx) => (
-                    <div key={sIdx} className="bg-surface-2/40 border border-border rounded p-4 space-y-2 text-xs">
+                    <div key={sIdx} className="bg-surface-2/40 border border-border rounded-lg p-5 space-y-2.5 text-sm">
                       <div className="flex items-center justify-between">
-                        <span className="font-black text-foreground text-sm">{stone.company.name}</span>
-                        <span className="px-2 py-0.5 rounded bg-surface text-[10px] font-mono font-bold text-muted border border-border">
+                        <span className="font-bold text-white text-base">{stone.company.name}</span>
+                        <span className="px-2.5 py-1 rounded bg-surface text-xs font-bold text-neutral-300 border border-border">
                           {stone.typicalDurationYears} yrs stepping stone
                         </span>
                       </div>
-                      <p className="text-volt font-mono font-bold">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
-                      <p className="text-secondary leading-relaxed pt-1">{stone.rationale}</p>
+                      <p className="text-volt font-bold text-sm">{stone.entryRole} ({formatINR(stone.entryOfferINR)})</p>
+                      <p className="text-neutral-300 text-sm leading-relaxed pt-1">{stone.rationale}</p>
                     </div>
                   ))}
                 </div>

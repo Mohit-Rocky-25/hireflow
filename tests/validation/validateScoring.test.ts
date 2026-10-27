@@ -494,5 +494,5 @@ Bonus: Next.js, TypeScript.`,
     const reportContent = reportLines.join('\n');
     const reportPath = path.resolve(process.cwd(), 'docs/validation-report.md');
     fs.writeFileSync(reportPath, reportContent, 'utf-8');
-  });
+  }, 30000);
 });

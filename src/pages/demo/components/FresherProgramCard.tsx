@@ -57,10 +57,10 @@ export function FresherProgramCard({
           <div className="space-y-1.5 flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <CompanyLogo company={company} size="xs" showBorder={false} interactive={false} />
-              <h3 className="text-[17px] sm:text-[18px] font-bold text-white tracking-tight leading-snug group-hover:text-volt transition-colors uppercase">
+              <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-volt transition-colors">
                 {prog.programName}
               </h3>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[1px]">
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-black text-neutral-300 border border-charcoal uppercase tracking-wider">
                 {prog.campusCategory.toUpperCase()}
               </span>
               <DataBadge entity={prog} />
@@ -69,8 +69,8 @@ export function FresherProgramCard({
                 facts={candidateFacts}
               />
             </div>
-            <div className="text-xs font-semibold text-silver font-mono">
-              {prog.roleTitle} · <span className="text-silver/80 font-normal">{prog.roleFamily}</span>
+            <div className="text-sm font-semibold text-neutral-300">
+              {prog.roleTitle} · <span className="text-neutral-400 font-normal">{prog.roleFamily}</span>
             </div>
           </div>
 
@@ -80,7 +80,7 @@ export function FresherProgramCard({
               e.stopPropagation();
               onSelect();
             }}
-            className={`shrink-0 px-3.5 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`shrink-0 px-4 py-2 rounded text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer ${
               isSelected
                 ? 'bg-black text-volt border border-volt/60 shadow-level-4'
                 : 'bg-black border border-charcoal text-white hover:border-volt hover:text-volt'
@@ -88,7 +88,7 @@ export function FresherProgramCard({
           >
             {isSelected ? (
               <>
-                <span className="font-mono text-volt font-bold text-xs">[✓]</span>
+                <span className="text-volt font-bold text-xs">[✓]</span>
                 <span>Selected</span>
               </>
             ) : (
@@ -98,48 +98,48 @@ export function FresherProgramCard({
         </div>
 
         {/* Compensation & Criteria Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs py-1">
-          <div className="p-2.5 rounded bg-black border border-charcoal">
-            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-sm py-1">
+          <div className="p-3 rounded-lg bg-black border border-charcoal">
+            <span className="text-xs text-neutral-400 uppercase font-bold tracking-wider block mb-1">
               Compensation
             </span>
-            <span className="font-bold text-[13px] text-volt font-mono">{ctcStr}</span>
+            <span className="font-bold text-sm sm:text-base text-volt font-mono">{ctcStr}</span>
           </div>
-          <div className="p-2.5 rounded bg-black border border-charcoal">
-            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
+          <div className="p-3 rounded-lg bg-black border border-charcoal">
+            <span className="text-xs text-neutral-400 uppercase font-bold tracking-wider block mb-1">
               Cutoffs &amp; Backlogs
             </span>
-            <span className="font-semibold text-white">
+            <span className="font-semibold text-white text-sm">
               {prog.eligibility.minCgpa ? `≥ ${prog.eligibility.minCgpa} CGPA` : 'No CGPA cutoff'} · {prog.eligibility.backlogPolicy || '0 backlogs'}
             </span>
           </div>
-          <div className="p-2.5 rounded bg-black border border-charcoal">
-            <span className="text-[10px] text-silver uppercase font-bold tracking-[1.4px] block">
+          <div className="p-3 rounded-lg bg-black border border-charcoal">
+            <span className="text-xs text-neutral-400 uppercase font-bold tracking-wider block mb-1">
               Eligible Branches
             </span>
-            <span className="font-semibold text-white truncate block" title={prog.eligibility.branchCodes.join(', ')}>
+            <span className="font-semibold text-white text-sm truncate block" title={prog.eligibility.branchCodes.join(', ')}>
               {prog.eligibility.branchCodes.join(', ') || 'Engineering'}
             </span>
           </div>
         </div>
 
         {/* Selection Stages Stepper */}
-        <div className="pt-2 border-t border-charcoal">
-          <span className="text-[10px] font-bold uppercase tracking-[1.4px] text-silver block mb-1.5">
+        <div className="pt-2.5 border-t border-charcoal">
+          <span className="text-xs font-bold uppercase tracking-wider text-neutral-400 block mb-2">
             Selection Funnel ({prog.selectionProcess.length} Stages):
           </span>
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             {prog.selectionProcess.map((stage, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-1 px-2.5 py-1 rounded bg-black border border-charcoal text-[11px] font-medium text-silver"
+                className="flex items-center gap-1.5 px-3 py-1 rounded bg-black border border-charcoal text-xs font-medium text-neutral-200"
               >
-                <span className="font-mono text-[10px] text-volt font-bold">
+                <span className="text-volt font-bold">
                   {idx + 1}.
                 </span>
                 <span className="font-semibold text-white">{stage.stage}</span>
                 {stage.topics.length > 0 && (
-                  <span className="text-[10px] text-silver">
+                  <span className="text-xs text-neutral-400">
                     ({stage.topics.slice(0, 2).join(', ')})
                   </span>
                 )}
@@ -149,15 +149,15 @@ export function FresherProgramCard({
         </div>
 
         {/* Competency tags & Actions */}
-        <div className="flex items-center justify-between gap-2 flex-wrap pt-2 border-t border-charcoal">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[10px] font-bold text-silver uppercase tracking-[1.4px]">
+        <div className="flex items-center justify-between gap-3 flex-wrap pt-2.5 border-t border-charcoal">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">
               Skills:
             </span>
             {Object.keys(prog.competencyProfile).map((c) => (
               <span
                 key={c}
-                className="text-[10px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[0.5px]"
+                className="text-xs font-semibold px-2.5 py-0.5 rounded bg-black text-neutral-200 border border-charcoal uppercase tracking-wide"
               >
                 {c}
               </span>
@@ -167,7 +167,7 @@ export function FresherProgramCard({
           <Link
             to={`/tools/resume-checker?company=${company.id}&role=${encodeURIComponent(prog.roleTitle)}&program=${encodeURIComponent(prog.id)}`}
             onClick={(e) => e.stopPropagation()}
-            className="text-xs font-bold text-white hover:text-volt uppercase tracking-[1px] inline-flex items-center gap-1 transition-colors"
+            className="text-xs font-bold text-volt hover:text-white uppercase tracking-wider inline-flex items-center gap-1 transition-colors"
           >
             Scan in ATS Roaster →
           </Link>

@@ -432,3 +432,83 @@ a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([c
     print-color-adjust: exact !important;
   }
 }
+
+/* ============================================================
+   Universal Typography Readability & Scale Upgrade
+   Replaces microscopic, harsh monospace with high-legibility Inter,
+   enforces readable font sizes, bold weights, and high-contrast silver.
+   ============================================================ */
+.font-mono {
+  font-family: var(--font-sans) !important;
+  letter-spacing: 0.01em !important;
+}
+
+code, pre, kbd, samp, .font-code {
+  font-family: 'Inconsolata', ui-monospace, monospace !important;
+}
+
+/* Eliminate unreadable micro-fonts across the entire website */
+.text-\[8px\],
+.text-\[9px\] {
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+}
+
+.text-\[10px\] {
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  font-weight: 600 !important;
+}
+
+.text-\[11px\] {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+}
+
+.text-\[12px\] {
+  font-size: 14.5px !important;
+  line-height: 1.5 !important;
+}
+
+.text-xs {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.text-sm {
+  font-size: 15.5px !important;
+  line-height: 1.55 !important;
+}
+
+/* Clean spacing on uppercase badges & labels */
+.uppercase {
+  letter-spacing: 0.04em !important;
+}
+
+/* Crisp, high-readability text contrast */
+.text-silver {
+  color: #c8c8c8 !important;
+}
+
+.text-silver\/60,
+.text-silver\/70 {
+  color: #a8a8a8 !important;
+}
+
+/* Prevent cramped micro-badges */
+span.font-mono[class*="text-[10px]"],
+span.font-mono[class*="text-[9px]"],
+span.font-mono[class*="text-xs"],
+span[class*="rounded"][class*="border"][class*="px-2"],
+span[class*="rounded"][class*="border"][class*="px-1.5"] {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600 !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+

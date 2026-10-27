@@ -605,12 +605,12 @@ export function ResumeChecker() {
                         </h3>
                         <div className="space-y-3">
                           {canonical.quickRoast.strengths.length === 0 ? (
-                            <p className="text-xs text-silver">No strong verified strengths detected.</p>
+                            <p className="text-sm text-neutral-400">No strong verified strengths detected.</p>
                           ) : (
                             canonical.quickRoast.strengths.map((s, i) => (
-                              <div key={i} className="p-3 bg-black rounded border border-charcoal text-xs">
-                                <div className="font-bold text-white">{s.title}</div>
-                                <div className="text-silver mt-1 italic">&ldquo;{s.evidenceQuote}&rdquo;</div>
+                              <div key={i} className="p-4 bg-black rounded-lg border border-charcoal text-sm">
+                                <div className="font-bold text-white text-base">{s.title}</div>
+                                <div className="text-neutral-300 mt-1.5 italic leading-relaxed">&ldquo;{s.evidenceQuote}&rdquo;</div>
                               </div>
                             ))
                           )}
@@ -624,12 +624,12 @@ export function ResumeChecker() {
                         </h3>
                         <div className="space-y-3">
                           {canonical.quickRoast.gaps.length === 0 ? (
-                            <p className="text-xs text-silver">No critical skill gaps found.</p>
+                            <p className="text-sm text-neutral-400">No critical skill gaps found.</p>
                           ) : (
                             canonical.quickRoast.gaps.map((g, i) => (
-                              <div key={i} className="p-3 bg-black rounded border border-danger/40 text-xs">
-                                <div className="font-bold text-white">{g.title}</div>
-                                <div className="text-danger mt-0.5 uppercase tracking-[1px] text-[10px]">Gap type: {g.gapType.replace('_', ' ')}</div>
+                              <div key={i} className="p-4 bg-black rounded-lg border border-danger/40 text-sm">
+                                <div className="font-bold text-white text-base">{g.title}</div>
+                                <div className="text-danger mt-1 uppercase tracking-wider text-xs font-bold">Gap type: {g.gapType.replace('_', ' ')}</div>
                               </div>
                             ))
                           )}
@@ -644,13 +644,13 @@ export function ResumeChecker() {
                       </h3>
                       <div className="space-y-3">
                         {canonical.quickRoast.prioritizedActions.map((act, i) => (
-                          <div key={i} className="p-4 bg-black rounded border border-charcoal text-xs flex items-start gap-3">
-                            <span className="w-6 h-6 rounded bg-near-black border border-charcoal text-volt font-mono font-bold flex items-center justify-center shrink-0">
+                          <div key={i} className="p-4 sm:p-5 bg-black rounded-lg border border-charcoal text-sm flex items-start gap-3.5">
+                            <span className="w-7 h-7 rounded-full bg-near-black border border-charcoal text-volt font-bold text-sm flex items-center justify-center shrink-0">
                               {i + 1}
                             </span>
                             <div>
-                              <div className="font-bold text-white text-sm">{act.title}</div>
-                              <div className="text-silver mt-1">{act.action}</div>
+                              <div className="font-bold text-white text-base">{act.title}</div>
+                              <div className="text-neutral-300 text-sm mt-1 leading-relaxed">{act.action}</div>
                             </div>
                           </div>
                         ))}

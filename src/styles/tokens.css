@@ -118,7 +118,8 @@
 
   /* ── Typography & Self-hosted Fonts (§3) ── */
   --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
-  --font-mono: 'Inconsolata', ui-monospace, Consolas, monospace;
+  --font-mono: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+  --font-code: 'Inconsolata', ui-monospace, Consolas, monospace;
 
   /* ── Transitions & Motion: 120–180ms ease-out (§5) ── */
   --animate-fade-in: fadeIn 0.15s ease-out;
