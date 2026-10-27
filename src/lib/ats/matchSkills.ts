@@ -3,7 +3,7 @@
 // Context-aware, token-boundary skill matcher with special token support
 // ============================================================
 
-import { SkillMatchResult, SkillMatchStatus, TaxonomySkill, EvidenceTier } from './types';
+import { SkillMatchResult, SkillMatchStatus, TaxonomySkill, EvidenceTier, RequirementGroup } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 import implicationGraphData from '../../data/ats/implication-graph.json';
 import { extractSkills, getDeduplicatedSkills } from './extractSkills';
@@ -227,7 +227,8 @@ export function matchSkills(
   resumeSkills: string[],
   jdMustHaves: string[],
   jdNiceToHaves: string[],
-  resumeRawText: string
+  resumeRawText: string,
+  anyOfGroups?: RequirementGroup[]
 ): SkillMatchResult[] {
   const extractedCandidateMentions = extractSkills(resumeRawText);
   const candidateMentionMap = getDeduplicatedSkills(extractedCandidateMentions);
@@ -407,6 +408,52 @@ export function matchSkills(
       evidenceTier,
       earnedCredit,
     });
+  }
+
+  // Any-Of / OR Group Consolidation (Rule C4 invariant)
+  if (anyOfGroups && anyOfGroups.length > 0) {
+    const statusRank: Record<SkillMatchStatus, number> = {
+      exact: 4,
+      alias: 4,
+      implied: 3,
+      related: 2,
+      missing: 1,
+    };
+
+    for (const group of anyOfGroups) {
+      const altSet = new Set(group.alternatives.map((a) => a.toLowerCase()));
+      const matchingResults = results.filter((r) => altSet.has(r.skill.toLowerCase()));
+
+      if (matchingResults.length > 0) {
+        matchingResults.sort((a, b) => statusRank[b.status] - statusRank[a.status]);
+        const best = matchingResults[0];
+
+        // Remove the separate alternative results
+        for (let i = results.length - 1; i >= 0; i--) {
+          if (altSet.has(results[i].skill.toLowerCase())) {
+            results.splice(i, 1);
+          }
+        }
+
+        // Add unified single requirement unit
+        results.push({
+          skill: group.label,
+          category: best.category,
+          status: best.status,
+          weight: best.weight,
+          importance: group.priority === 'mandatory' ? 'must_have' : 'nice_to_have',
+          matchedAs: best.matchedAs,
+          evidenceSnippet: best.evidenceSnippet,
+          gapType: best.gapType,
+          isClaimedOnly: best.isClaimedOnly,
+          evidenceTier: best.evidenceTier,
+          earnedCredit: best.earnedCredit,
+          isAnyOfGroup: true,
+          anyOfAlternatives: group.alternatives,
+          bestMatchingAlternative: best.skill,
+        });
+      }
+    }
   }
 
   return results;

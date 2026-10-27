@@ -122,28 +122,62 @@ function extractSnippet(text: string, start: number, end: number): string {
 }
 
 /**
- * Detects section by line position in resume text
+ * Section boundary structure
  */
-function detectSectionAtOffset(text: string, offset: number): 'skills' | 'experience' | 'projects' | 'education' | 'summary' | 'other' {
-  const lines = text.slice(0, offset).split(/\r?\n/);
-  let currentSection: 'skills' | 'experience' | 'projects' | 'education' | 'summary' | 'other' = 'other';
+interface SectionHeader {
+  offset: number;
+  section: 'skills' | 'experience' | 'projects' | 'education' | 'summary' | 'other';
+}
 
-  for (const line of lines) {
-    const trimmed = line.trim().toUpperCase();
-    if (/^(?:TECHNICAL\s+)?SKILLS(?:\s+AND\s+TOOLS)?\b/.test(trimmed)) {
-      currentSection = 'skills';
-    } else if (/^(?:WORK\s+)?EXPERIENCE|EMPLOYMENT|WORK\s+HISTORY\b/.test(trimmed)) {
-      currentSection = 'experience';
-    } else if (/^PROJECTS|ACADEMIC\s+PROJECTS|PERSONAL\s+PROJECTS\b/.test(trimmed)) {
-      currentSection = 'projects';
-    } else if (/^EDUCATION|ACADEMICS|DEGREES\b/.test(trimmed)) {
-      currentSection = 'education';
-    } else if (/^SUMMARY|PROFESSIONAL\s+SUMMARY|OBJECTIVE\b/.test(trimmed)) {
-      currentSection = 'summary';
+function precomputeSectionHeaders(text: string): SectionHeader[] {
+  const headers: SectionHeader[] = [];
+
+  const headerPatterns: { regex: RegExp; section: SectionHeader['section'] }[] = [
+    { regex: /(?:^|[\r\n]|\.\s+)(?:TECHNICAL\s+)?SKILLS(?:\s+AND\s+TOOLS)?\s*[:\n]/gi, section: 'skills' },
+    { regex: /(?:^|[\r\n]|\.\s+)(?:WORK\s+)?EXPERIENCE|EMPLOYMENT|WORK\s+HISTORY\s*[:\n]/gi, section: 'experience' },
+    { regex: /(?:^|[\r\n]|\.\s+)PROJECTS|ACADEMIC\s+PROJECTS|PERSONAL\s+PROJECTS\s*[:\n]/gi, section: 'projects' },
+    { regex: /(?:^|[\r\n]|\.\s+)EDUCATION|ACADEMICS|DEGREES\s*[:\n]/gi, section: 'education' },
+    { regex: /(?:^|[\r\n]|\.\s+)SUMMARY|PROFESSIONAL\s+SUMMARY|OBJECTIVE\s*[:\n]/gi, section: 'summary' },
+  ];
+
+  for (const { regex, section } of headerPatterns) {
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(text)) !== null) {
+      headers.push({ offset: match.index, section });
     }
   }
 
-  return currentSection;
+  // Also check newline-delimited capitalized section lines
+  const lineRegex = /(?:^|\n)\s*([A-Z\s]{4,30})\s*(?:\n|$)/g;
+  let lineMatch: RegExpExecArray | null;
+  while ((lineMatch = lineRegex.exec(text)) !== null) {
+    const title = lineMatch[1].trim().toUpperCase();
+    let sec: SectionHeader['section'] | null = null;
+    if (/^(?:TECHNICAL\s+)?SKILLS(?:\s+AND\s+TOOLS)?$/.test(title)) sec = 'skills';
+    else if (/^(?:WORK\s+)?EXPERIENCE|EMPLOYMENT|WORK\s+HISTORY$/.test(title)) sec = 'experience';
+    else if (/^PROJECTS|ACADEMIC\s+PROJECTS|PERSONAL\s+PROJECTS$/.test(title)) sec = 'projects';
+    else if (/^EDUCATION|ACADEMICS|DEGREES$/.test(title)) sec = 'education';
+    else if (/^SUMMARY|PROFESSIONAL\s+SUMMARY|OBJECTIVE$/.test(title)) sec = 'summary';
+
+    if (sec) {
+      headers.push({ offset: lineMatch.index, section: sec });
+    }
+  }
+
+  headers.sort((a, b) => a.offset - b.offset);
+  return headers;
+}
+
+function getSectionForOffset(headers: SectionHeader[], offset: number): SectionHeader['section'] {
+  let activeSection: SectionHeader['section'] = 'other';
+  for (const h of headers) {
+    if (h.offset <= offset) {
+      activeSection = h.section;
+    } else {
+      break;
+    }
+  }
+  return activeSection;
 }
 
 /**
@@ -202,7 +236,7 @@ function determineEvidenceTier(
     return 'listed';
   }
 
-  // In experience or projects, check for action verbs or metrics
+  // In non-skills section (experience, projects, summary, other)
   const sentenceStart = Math.max(0, start - 80);
   const sentenceEnd = Math.min(text.length, end + 80);
   const localSentence = text.slice(sentenceStart, sentenceEnd).toLowerCase();
@@ -238,12 +272,11 @@ export function extractSkills(
   const rawLower = maskedText.toLowerCase();
   const rawLength = rawText.length;
 
-  // Track occupied character spans to prevent substrings from stealing characters
-  const occupiedSpans: { start: number; end: number }[] = [];
+  // High-performance byte mask for overlapping spans (O(1) checks and fills)
+  const occupiedMask = new Uint8Array(rawLength);
 
-  function isOverlapping(start: number, end: number): boolean {
-    return occupiedSpans.some((span) => Math.max(start, span.start) < Math.min(end, span.end));
-  }
+  // Pre-calculate document sections
+  const sectionHeaders = options?.isSkillsSectionOnly ? [] : precomputeSectionHeaders(rawText);
 
   const rawMentions: SkillMention[] = [];
 
@@ -265,8 +298,15 @@ export function extractSkills(
         continue;
       }
 
-      // Check overlapping spans (longest match already claimed)
-      if (isOverlapping(idx, endIdx)) {
+      // Check overlapping spans using Uint8Array
+      let isOverlapping = false;
+      for (let i = idx; i < endIdx; i++) {
+        if (occupiedMask[i] === 1) {
+          isOverlapping = true;
+          break;
+        }
+      }
+      if (isOverlapping) {
         continue;
       }
 
@@ -283,7 +323,7 @@ export function extractSkills(
 
       const section = options?.isSkillsSectionOnly
         ? 'skills'
-        : detectSectionAtOffset(rawText, idx);
+        : getSectionForOffset(sectionHeaders, idx);
 
       // Disambiguation: Needs Context
       if (
@@ -324,7 +364,7 @@ export function extractSkills(
       const matchedToken = rawText.slice(idx, endIdx);
       const snippet = extractSnippet(rawText, idx, endIdx);
 
-      occupiedSpans.push({ start: idx, end: endIdx });
+      occupiedMask.fill(1, idx, endIdx);
 
       rawMentions.push({
         canonicalId: entry.canonicalId,

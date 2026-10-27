@@ -5,7 +5,8 @@
 // requirements, detects 'or' alternatives, and strips boilerplate.
 // ============================================================
 
-import { ParsedJD, ExtractedRequirement } from './types';
+import { ParsedJD, ExtractedRequirement, RequirementGroup } from './types';
+import { extractSkills } from './extractSkills';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 
 // Deterministic ID generator (Zero Math.random)
@@ -19,7 +20,7 @@ function deterministicId(prefix: string, seed: string): string {
   return `${prefix}_${hex}`;
 }
 
-const MUST_HAVE_HEADERS = /^(?:must[\s-]have|key requirements|requirements|mandatory requirements|qualifications|technical requirements|core skills|core requirements|mandatory|basic qualifications|what you'?ll need|minimum qualifications|required skills|eligibility|minimum requirements)\b/i;
+const MUST_HAVE_HEADERS = /^(?:(?:key\s+|mandatory\s+|technical\s+|core\s+|minimum\s+|basic\s+|required\s+)?(?:requirements|qualifications|skills|competencies)|must[\s-]haves?|what you'?ll need|eligibility)(?:\s*(?:&|and)\s*(?:must[\s-]haves?|requirements|qualifications))?\b/i;
 const NICE_TO_HAVE_HEADERS = /^(?:nice[\s-]to[\s-]have|bonus|preferred|good to have|plus|desirable|what sets you apart|bonus points|preferred qualifications|good-to-have|nice to have|bonus qualifications)\b/i;
 const RESPONSIBILITIES_HEADERS = /^(?:responsibilities|what you'?ll do|the role|duties|key responsibilities|role responsibilities|what you will do|role focus)\b/i;
 const BENEFITS_HEADERS = /^(?:benefits|perks|what we offer|compensation|benefits & perks|annual base salary)\b/i;
@@ -31,6 +32,54 @@ const EEO_BOILERPLATE_PATTERNS = [
   /qualified\s+applicants\s+will\s+receive\s+consideration/i,
   /all\s+qualified\s+applicants/i,
 ];
+
+function extractAnyOfInLine(line: string): string[][] {
+  // Strip parenthetical examples: (e.g. ...), (for example ...), (such as ...)
+  const cleanLine = line.replace(/\((?:e\.g\.|for example|such as)[^)]*\)/gi, '');
+
+  // Mask CI/CD so its slash doesn't trigger an OR split
+  const maskedForOr = cleanLine.replace(/\bCI[\s/-]?CD\b/gi, 'CICD_TOKEN');
+
+  // Must contain genuine "or" or "/"
+  if (!/\b(?:or)\b|(?<![a-zA-Z0-9])\/(?![a-zA-Z0-9])|\s\/\s/i.test(maskedForOr)) {
+    return [];
+  }
+
+  // Extract skills from cleanLine
+  const mentions = extractSkills(cleanLine, { isSkillsSectionOnly: false });
+  if (mentions.length < 2) return [];
+
+  // Group skills that are syntactically connected by "or", "/", or comma-chain ending in "or"
+  const groups: string[][] = [];
+  let currentGroup: string[] = [mentions[0].canonicalId];
+
+  for (let i = 0; i < mentions.length - 1; i++) {
+    const m1 = mentions[i];
+    const m2 = mentions[i + 1];
+    const between = cleanLine.slice(m1.endIndex, m2.startIndex);
+
+    // Connector between m1 and m2 must be an OR connector: e.g. " or ", " / ", ", ", ", or "
+    // and must NOT be " and " or ";" or sentence break
+    const isOrConnector = /\b(?:or)\b|\/|\s*,\s*(?:or\b)?/i.test(between) && !/\band\b|;/i.test(between);
+
+    if (isOrConnector) {
+      if (!currentGroup.includes(m2.canonicalId)) {
+        currentGroup.push(m2.canonicalId);
+      }
+    } else {
+      if (currentGroup.length >= 2) {
+        groups.push([...currentGroup]);
+      }
+      currentGroup = [m2.canonicalId];
+    }
+  }
+
+  if (currentGroup.length >= 2) {
+    groups.push([...currentGroup]);
+  }
+
+  return groups;
+}
 
 export function parseJD(
   rawText: string,
@@ -135,7 +184,7 @@ export function parseJD(
     const isBullet = line.trim().startsWith('-') || line.trim().startsWith('•') || line.trim().startsWith('*');
 
     // Inline headers: "Requirements: Java, Python"
-    const mustInline = line.match(/^(?:must[\s-]have|key requirements|requirements|mandatory requirements|qualifications|technical requirements|core skills|mandatory|basic qualifications|minimum qualifications|minimum requirements)\s*[:\-]\s*(.*)$/i);
+    const mustInline = line.match(/^(?:(?:key\s+|mandatory\s+|technical\s+|core\s+|minimum\s+|basic\s+|required\s+)?(?:requirements|qualifications|skills|competencies)|must[\s-]haves?|what you'?ll need|eligibility)(?:\s*(?:&|and)\s*(?:must[\s-]haves?|requirements|qualifications))?\s*[:\-]\s*(.*)$/i);
     if (mustInline) {
       currentBucket = 'must';
       if (mustInline[1] && mustInline[1].trim()) {
@@ -265,15 +314,37 @@ export function parseJD(
     niceToHavesSet.delete(m);
   }
 
-  // 5. Detect "Or" Alternatives (e.g. "React or Vue.js", "PostgreSQL or MySQL")
+  // 5. Detect "Or" Alternatives (e.g. "React or Vue.js", "PostgreSQL or MySQL", "Python or Go")
   const dealbreakers: string[] = [];
+  const anyOfGroups: RequirementGroup[] = [];
+
+  for (const line of rawLines) {
+    const detectedGroups = extractAnyOfInLine(line);
+    for (const group of detectedGroups) {
+      const priority: 'mandatory' | 'preferred' =
+        group.some((c) => mustHavesSet.has(c)) ? 'mandatory' : 'preferred';
+
+      anyOfGroups.push({
+        id: deterministicId('group_anyof', [...group].sort().join('_')),
+        label: group.join(' or '),
+        alternatives: group,
+        priority,
+      });
+
+      dealbreakers.push(`alternative:${group.join('|')}`);
+    }
+  }
+
   const orRegex = /\b([a-zA-Z0-9+#.-]+)\s+(?:or|\/)\s+([a-zA-Z0-9+#.-]+)\b/gi;
   let orMatch: RegExpExecArray | null;
   while ((orMatch = orRegex.exec(cleanText)) !== null) {
     const opt1 = orMatch[1].trim();
     const opt2 = orMatch[2].trim();
     if (opt1.length >= 2 && opt2.length >= 2 && opt1.toLowerCase() !== opt2.toLowerCase()) {
-      dealbreakers.push(`alternative:${opt1}|${opt2}`);
+      const legacyKey = `alternative:${opt1}|${opt2}`;
+      if (!dealbreakers.includes(legacyKey)) {
+        dealbreakers.push(legacyKey);
+      }
     }
   }
 
@@ -376,6 +447,7 @@ export function parseJD(
     domainKeywords,
     extractedRequirements,
     unrecognizedRequirements,
+    anyOfGroups: anyOfGroups.length > 0 ? anyOfGroups : undefined,
     dealbreakers: dealbreakers.length > 0 ? dealbreakers : undefined,
   };
 }

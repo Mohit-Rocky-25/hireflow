@@ -64,6 +64,9 @@ export interface SkillMatchResult {
   isClaimedOnly?: boolean;
   evidenceTier?: EvidenceTier;
   earnedCredit?: number; // 1.0 (evidenced), 0.5 (listed only or strong implied), 0.0 (weak/missing)
+  isAnyOfGroup?: boolean;
+  anyOfAlternatives?: string[];
+  bestMatchingAlternative?: string;
 }
 
 export interface BulletAnalysis {
@@ -168,6 +171,13 @@ export interface ExtractedRequirement {
   inTaxonomy: boolean;
 }
 
+export interface RequirementGroup {
+  id: string;
+  label: string;
+  alternatives: string[];
+  priority: 'mandatory' | 'preferred';
+}
+
 export interface ParsedJD {
   rawText: string;
   roleTitle: string;
@@ -181,6 +191,7 @@ export interface ParsedJD {
   extractedRequirements?: ExtractedRequirement[];
   unrecognizedRequirements?: ExtractedRequirement[];
   requirements?: JDRequirement[];
+  anyOfGroups?: RequirementGroup[];
   dealbreakers?: string[];
 }
 

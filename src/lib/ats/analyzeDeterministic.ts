@@ -39,7 +39,8 @@ export function analyzeDeterministic(
     parsedResume.skillsExtracted,
     parsedJD.mustHaves,
     parsedJD.niceToHaves,
-    parsedResume.rawText
+    parsedResume.rawText,
+    parsedJD.anyOfGroups
   );
 
   // 4. Audit Format Safety
@@ -64,11 +65,11 @@ export function analyzeDeterministic(
   // 8. Segregate Matched vs Missing Keywords
   const matchedKeywords = skillMatches
     .filter((s) => s.status === 'exact' || s.status === 'alias' || s.status === 'implied')
-    .map((s) => s.skill);
+    .flatMap((s) => (s.isAnyOfGroup && s.bestMatchingAlternative ? [s.skill, s.bestMatchingAlternative] : [s.skill]));
 
   const missingKeywords = skillMatches
     .filter((s) => s.status === 'missing' || s.status === 'related')
-    .map((s) => s.skill);
+    .flatMap((s) => (s.isAnyOfGroup && s.anyOfAlternatives ? [s.skill, ...s.anyOfAlternatives] : [s.skill]));
 
   const wordingFixSkills = skillMatches
     .filter((s) => s.gapType === 'wording_fix')
