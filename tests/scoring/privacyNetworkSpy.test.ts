@@ -13,6 +13,7 @@ import { buildZeroPiiReportPayload } from '../../src/scoring/core/reportPayload'
 import { evaluateEligibilityGate } from '../../src/scoring/core/eligibility';
 import { MARKET_ENTRIES } from '../../src/data/market';
 import { analyzeRoleMatch, Company, Role } from '../../src/pages/demo/talentLensEngine';
+import { analyzeDeterministic } from '../../src/lib/ats/analyzeDeterministic';
 
 describe('Stage 7.6: Privacy & Network Spy Tests (Zero Network Egress)', () => {
   let fetchSpy: any;
@@ -151,5 +152,16 @@ describe('Stage 7.6: Privacy & Network Spy Tests (Zero Network Egress)', () => {
     expect(serialized).not.toContain('560001');
     expect(serialized).not.toContain('rohan-dev');
     expect(serialized).not.toContain('rohan-patel');
+  });
+
+  it('evaluates ATS Roaster (analyzeDeterministic) with ZERO network egress', () => {
+    const facts = analyzeDeterministic(sampleResumeText, sampleJdText);
+
+    if (fetchSpy) expect(fetchSpy).not.toHaveBeenCalled();
+    if (beaconSpy) expect(beaconSpy).not.toHaveBeenCalled();
+
+    expect(facts.scoreBreakdown.finalScore).toBeGreaterThan(0);
+    expect(facts.scoreBreakdown.scoreBand).toBeDefined();
+    expect(facts.scoreBreakdown.uncertaintyInterval).toBeDefined();
   });
 });
