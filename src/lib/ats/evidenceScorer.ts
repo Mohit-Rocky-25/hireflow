@@ -4,15 +4,12 @@
 // ============================================================
 
 import { BulletAnalysis } from './types';
+import { extractSkills } from './extractSkills';
 import writingQualityData from '../../data/ats/writing-quality.json';
-import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 
 const strongVerbsSet = new Set(writingQualityData.strongActionVerbs.map((v) => v.toLowerCase()));
 const metricRegexes = writingQualityData.metricPatterns.map((p) => new RegExp(p, 'i'));
 const weakPhrases = writingQualityData.weakPhrases.map((p) => p.toLowerCase());
-
-// Build quick lookup for common tech keywords
-const techNames = skillsTaxonomyData.map((t) => t.canonical.toLowerCase());
 
 export function scoreBullet(rawBullet: string): BulletAnalysis {
   const text = rawBullet.trim();
@@ -50,16 +47,11 @@ export function scoreBullet(rawBullet: string): BulletAnalysis {
     }
   }
 
-  // 3. Check Technologies Mentioned
-  const technologiesFound: string[] = [];
-  for (const tech of techNames) {
-    const escaped = tech.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(?:^|[^a-zA-Z0-9+#.-])${escaped}(?:$|[^a-zA-Z0-9+#.-])`, 'i');
-    if (regex.test(text)) {
-      technologiesFound.push(tech);
-      if (technologiesFound.length >= 4) break;
-    }
-  }
+  // 3. Check Technologies Mentioned using token-boundary extraction
+  const bulletMentions = extractSkills(text);
+  const technologiesFound: string[] = Array.from(
+    new Set(bulletMentions.map((m) => m.canonicalId))
+  ).slice(0, 4);
   const hasTechnology = technologiesFound.length > 0;
 
   // 4. Check Weak Phrases
