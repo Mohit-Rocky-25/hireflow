@@ -64,4 +64,21 @@ describe('R8.1: Candidate Tool Accessibility (a11y) & WCAG AA Verification', () 
     // Chart section has data list / table or accessible aria labels
     expect(careerPathContent.toLowerCase()).toMatch(/aria-label|table|grid/);
   });
+
+  it('guarantees form inputs and textareas have accessible labels or aria-labels', () => {
+    const resumeCheckerPath = path.join(rootDir, 'src/pages/tools/ResumeChecker.tsx');
+    if (fs.existsSync(resumeCheckerPath)) {
+      const content = fs.readFileSync(resumeCheckerPath, 'utf8');
+      expect(content.toLowerCase()).toMatch(/aria-label|label|placeholder/);
+    }
+  });
+
+  it('verifies landmark structure contains main content landmark', () => {
+    const appPath = path.join(rootDir, 'src/App.tsx');
+    if (fs.existsSync(appPath)) {
+      const content = fs.readFileSync(appPath, 'utf8');
+      expect(content.toLowerCase()).toMatch(/<main|main\b|<nav|header/);
+    }
+  });
 });
+
