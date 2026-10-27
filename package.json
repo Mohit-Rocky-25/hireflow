@@ -30,6 +30,7 @@
     "taxonomy:audit": "npx tsx scripts/taxonomy-audit.ts",
     "graph:audit": "npx tsx scripts/graph-audit.ts",
     "skills:gate": "npx tsx scripts/skills-gate.ts",
+    "bundle:check": "npx tsx scripts/check-bundle-size.ts",
     "verify": "npm run typecheck && npm run test && npm run privacy:check && npm run build",
     "security:secrets": "node scripts/security/scan-secrets.mjs",
     "security:audit": "node scripts/security/audit-deps.mjs",

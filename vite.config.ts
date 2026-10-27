@@ -242,6 +242,29 @@ export default defineConfig({
   build: {
     sourcemap: false, // Security: Never leak TypeScript source maps in production build
     chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor-react';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('docx') || id.includes('mammoth') || id.includes('jszip')) {
+              return 'vendor-docutils';
+            }
+            if (id.includes('pdf-lib') || id.includes('pdfjs-dist')) {
+              return 'vendor-pdf';
+            }
+            if (id.includes('recharts')) {
+              return 'vendor-charts';
+            }
+          }
+        },
+      },
+    },
   },
   preview: {
     port: 4173,
