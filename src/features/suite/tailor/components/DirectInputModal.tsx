@@ -18,7 +18,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { useTailorStore } from '../../../../lib/tailor/store/tailorStore';
-import { extractTextFromFile } from '../../../../lib/ats/fileExtractor';
+import { extractFromFile } from '../../../../lib/ats/fileExtractor';
 
 interface DirectInputModalProps {
   isOpen: boolean;
@@ -40,11 +40,13 @@ export function DirectInputModal({ isOpen, onClose }: DirectInputModalProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isExtracting, setIsExtracting] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [extractionError, setExtractionError] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
 
   if (!isOpen) return null;
 
   const handleApply = () => {
+    if (extractionError) return;
     setIsProcessing(true);
     if (resumeText.trim()) {
       uploadResumeText(resumeText, uploadedFileName || 'Candidate_Resume.txt');
@@ -62,14 +64,22 @@ export function DirectInputModal({ isOpen, onClose }: DirectInputModalProps) {
     setIsExtracting(true);
     setUploadedFileName(file.name);
     try {
-      const extracted = await extractTextFromFile(file);
+      const outcome = await extractFromFile(file);
+      if (!outcome.ok) {
+        setExtractionError(outcome.message);
+        if (target === 'resume') setResumeText('');
+        else setJobText('');
+        return;
+      }
+      setExtractionError(null);
       if (target === 'resume') {
-        setResumeText(extracted);
+        setResumeText(outcome.data.text);
       } else {
-        setJobText(extracted);
+        setJobText(outcome.data.text);
       }
     } catch (err) {
       console.error('File extraction error:', err);
+      setExtractionError('An unexpected error occurred during extraction.');
     } finally {
       setIsExtracting(false);
     }
@@ -206,8 +216,19 @@ export function DirectInputModal({ isOpen, onClose }: DirectInputModalProps) {
                 )}
               </div>
 
+              {/* Extraction Error banner */}
+              {extractionError && (
+                <div className="flex items-start gap-2.5 text-xs p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <span className="font-semibold block text-red-300">File Cannot Be Analyzed</span>
+                    <span>{extractionError}</span>
+                  </div>
+                </div>
+              )}
+
               {/* Status banner if file uploaded */}
-              {uploadedFileName && !isExtracting && (
+              {uploadedFileName && !isExtracting && !extractionError && (
                 <div className="flex items-center justify-between text-xs px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400">
                   <span className="flex items-center gap-1.5 font-medium">
                     <CheckCircle2 className="w-3.5 h-3.5" />
@@ -299,7 +320,7 @@ export function DirectInputModal({ isOpen, onClose }: DirectInputModalProps) {
             </button>
             <button
               onClick={handleApply}
-              disabled={isProcessing}
+              disabled={isProcessing || Boolean(extractionError)}
               className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-lg shadow-blue-600/25 disabled:opacity-50"
             >
               <Sparkles className="w-3.5 h-3.5" />

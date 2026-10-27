@@ -511,9 +511,18 @@ async function extractFromPdfBuffer(
   const rawJoined = allLines.map((l) => l.text).join('\n');
   const normalizedText = normalizeExtractedText(rawJoined);
 
-  // Check for image-only PDF (chars < 50)
-  if (normalizedText.length < 50) {
-    warnings.push('image-only');
+  const garbledRatio = nonPrintableCount / Math.max(1, totalRawChars);
+  const avgCharsPerPage = normalizedText.length / Math.max(1, totalPages);
+
+  // Stage 3 Task 1 & Criterion D1:
+  // Detect image-only PDFs reliably: characters per page < minCharsPerPage OR garbledRatio > maxGarbledGlyphRatio
+  if (avgCharsPerPage < PARSING_THRESHOLDS.minCharsPerPage || garbledRatio > PARSING_THRESHOLDS.maxGarbledGlyphRatio) {
+    return {
+      ok: false,
+      reason: 'image-only',
+      message:
+        'This PDF has no selectable text layer (scanned or image-only). Please export again from Word, Google Docs, or LaTeX to use a text-based PDF.',
+    };
   }
 
   // Extract URLs from text to supplement annotations
@@ -524,7 +533,6 @@ async function extractFromPdfBuffer(
     linksSet.add(m[0]);
   }
 
-  const garbledRatio = nonPrintableCount / Math.max(1, totalRawChars);
   const confidence = computeExtractionConfidence(
     normalizedText.length,
     totalPages,
@@ -749,9 +757,14 @@ async function extractFromDocxBuffer(
           }
         }
 
-        // 5. Image-only check
+        // 5. Image-only check (Stage 3 Criterion D1)
         if (totalNonDrawingTextChars < 50 && foundDrawing) {
-          warnings.push('image-only-docx');
+          return {
+            ok: false as const,
+            reason: 'image-only' as const,
+            message:
+              'This DOCX document contains only embedded images with no selectable text. Please provide a document with editable text.',
+          };
         }
 
         const rawJoined = lines.join('\n');

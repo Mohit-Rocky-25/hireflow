@@ -1,6 +1,6 @@
 # HireFlow ATS Parser Baseline Benchmark (Stage 0)
 
-> **Date**: 2026-10-27T19:01:40.811Z  
+> **Date**: 2026-10-27T19:08:37.544Z  
 > **Environment**: Node v24.18.0 (Windows_NT 10.0.26200 - x64)  
 > **Evaluation Scope**: DEV (36), HOLDOUT (24), FUZZ (200)
 
@@ -21,11 +21,11 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 | **Section Detection F1** | 74.4% | 74.4% | **74.4%** | $\ge 90\%$ |
 | **Bullet Recall** | 80% | 80.4% | **80.2%** | $\ge 90\%$ |
 | **Education Extraction** | 100% | 100% | **100%** | $\ge 95\%$ |
-| **Mean Edit Distance (0 = perfect)** | 0.127 | 0.131 | **0.129** | $\le 0.150$ |
+| **Mean Edit Distance (0 = perfect)** | 0.211 | 0.214 | **0.212** | $\le 0.150$ |
 | **Expected Warning Recall** | 100% | 100% | **100%** | $\ge 95\%$ |
 | **Unhandled Crashes** | 0 | 0 | **0** | $0$ |
-| **p50 Latency** | 19.4ms | 15.2ms | **18.4ms** | $\le 50\text{ms}$ |
-| **p95 Latency** | 38.2ms | 32.5ms | **33.9ms** | $\le 200\text{ms}$ |
+| **p50 Latency** | 17.1ms | 11.3ms | **15.1ms** | $\le 50\text{ms}$ |
+| **p95 Latency** | 37.7ms | 21.1ms | **25.7ms** | $\le 200\text{ms}$ |
 
 ---
 
@@ -35,18 +35,18 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 
 | Layout Family | Count | Name Acc | Email Acc | Phone Acc | Section F1 | Bullet Recall | Edit Dist | p50 Latency | Primary Failure Mode / Observed Deficiency |
 |---|---|---|---|---|---|---|---|---|---|
-| `a_single_col_plain` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.053 | 25.6ms | None observed |
-| `b_two_col_sidebar` | 5 | 100% | 100% | 100% | 88.9% | 100% | 0.057 | 22.1ms | None observed |
-| `c_table_skills` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.087 | 15.6ms | None observed |
+| `a_single_col_plain` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.053 | 25.2ms | None observed |
+| `b_two_col_sidebar` | 5 | 100% | 100% | 100% | 88.9% | 100% | 0.057 | 21.5ms | None observed |
+| `c_table_skills` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.087 | 15.1ms | None observed |
 | `d_textbox_header` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.09 | 13.7ms | None observed |
-| `e_latex_dense` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.029 | 18.6ms | None observed |
-| `f_decorative_bullets` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.039 | 19.2ms | None observed |
-| `g_ligatures_hyphens` | 5 | 100% | 100% | 100% | 90.9% | 97.8% | 0.055 | 19.7ms | None observed |
-| `h_multipage_header_footer` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.053 | 21.9ms | Running headers/footers bleed into body text stream |
-| `i_annotated_links` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.029 | 32.5ms | None observed |
-| `j_indian_fresher` | 5 | 100% | 100% | 100% | 76.9% | 64.3% | 0.052 | 18ms | None observed |
-| `k_image_only` | 5 | 0% | 0% | 0% | 0% | 0% | 0 | 2.9ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Scanned image PDF has 0 extracted text; requires OCR / clear warning |
-| `l_corrupt_encrypted` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 4.1ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Corrupt / encrypted stream yields fallback string instead of error state |
+| `e_latex_dense` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.029 | 18.2ms | None observed |
+| `f_decorative_bullets` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.039 | 16.2ms | None observed |
+| `g_ligatures_hyphens` | 5 | 100% | 100% | 100% | 90.9% | 97.8% | 0.055 | 17.1ms | None observed |
+| `h_multipage_header_footer` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.053 | 15.4ms | Running headers/footers bleed into body text stream |
+| `i_annotated_links` | 5 | 100% | 100% | 100% | 90.9% | 100% | 0.029 | 21.1ms | None observed |
+| `j_indian_fresher` | 5 | 100% | 100% | 100% | 76.9% | 64.3% | 0.052 | 13.8ms | None observed |
+| `k_image_only` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 4.3ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Scanned image PDF has 0 extracted text; requires OCR / clear warning |
+| `l_corrupt_encrypted` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 3.3ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Corrupt / encrypted stream yields fallback string instead of error state |
 
 
 ---
@@ -75,4 +75,4 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 - **Hangs / Timeouts**: 0
 - **Graceful Fallbacks / Handled Errors**: 200
 - **Empty Text Handled**: 0
-- **p95 Latency**: 4.6ms
+- **p95 Latency**: 3ms
