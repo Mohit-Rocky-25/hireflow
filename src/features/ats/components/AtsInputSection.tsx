@@ -6,11 +6,11 @@
 import React, { useMemo } from 'react';
 import { FileText, Search, ScanLine, AlertCircle, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
 import { SegmentedSelectors, TargetTier, ExperienceLevel } from './SegmentedSelectors';
-import { FileDropzone } from './FileDropzone';
+import { FileDropzone, ExtractionMetaInfo } from './FileDropzone';
 import { useTalentLensStore } from '../../../pages/demo/useTalentLensStore';
 import { validateAtsInputs, WordLimitSource } from '../../../lib/config/limits';
 
-export type { TargetTier, ExperienceLevel };
+export type { TargetTier, ExperienceLevel, ExtractionMetaInfo };
 
 // Verified sample presets for instant 1-click testing
 const SAMPLE_RESUME_TEXT = `Aman Gupta
@@ -110,6 +110,8 @@ interface Props {
   fileError: string | null;
   resumeSource?: WordLimitSource;
   jobSource?: WordLimitSource;
+  resumeExtractionMeta?: ExtractionMetaInfo;
+  jobExtractionMeta?: ExtractionMetaInfo;
   onResumeTextChange: (text: string) => void;
   onJobTextChange: (text: string) => void;
   onTargetTierChange: (tier: TargetTier) => void;
@@ -137,6 +139,8 @@ export const AtsInputSection: React.FC<Props> = ({
   fileError,
   resumeSource,
   jobSource,
+  resumeExtractionMeta,
+  jobExtractionMeta,
   onResumeTextChange,
   onJobTextChange,
   onTargetTierChange,
@@ -236,6 +240,7 @@ export const AtsInputSection: React.FC<Props> = ({
           minWords={resumeMin}
           maxWords={resumeMax}
           placeholder="Paste your complete resume here, or switch to Upload File to import your PDF / DOCX..."
+          extractionMeta={resumeExtractionMeta}
           onFileUpload={(file) => onFileUpload(file, 'resume')}
           onClear={onClearResume}
           onTextChange={onResumeTextChange}
@@ -264,6 +269,7 @@ export const AtsInputSection: React.FC<Props> = ({
           minWords={jdMin}
           maxWords={jdMax}
           placeholder="Paste the target job description or requirements here, or pick a sample preset above..."
+          extractionMeta={jobExtractionMeta}
           onFileUpload={(file) => onFileUpload(file, 'job')}
           onClear={onClearJob}
           onTextChange={onJobTextChange}

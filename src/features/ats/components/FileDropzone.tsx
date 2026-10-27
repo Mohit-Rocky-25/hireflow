@@ -20,6 +20,12 @@ import {
   AlertCircle
 } from 'lucide-react';
 
+export interface ExtractionMetaInfo {
+  confidencePct: number;
+  methodLabel: string;
+  warnings: string[];
+}
+
 export interface FileDropzoneProps {
   type: 'resume' | 'job';
   title: string;
@@ -32,6 +38,7 @@ export interface FileDropzoneProps {
   minWords: number;
   maxWords?: number;
   placeholder: string;
+  extractionMeta?: ExtractionMetaInfo;
   onFileUpload: (file: File) => void;
   onClear: () => void;
   onTextChange: (text: string) => void;
@@ -41,6 +48,23 @@ export interface FileDropzoneProps {
   } | null;
   onImportTalentLens?: () => void;
   onLoadSample?: (text: string, title?: string) => void;
+}
+
+function formatWarningPill(w: string): string {
+  switch (w) {
+    case 'multi-column':
+      return '2-Column Reading Order';
+    case 'text-box':
+      return 'Word Textboxes Recovered';
+    case 'table-layout':
+      return 'Table Grid Cells Parsed';
+    case 'repeating-header-stripped':
+      return 'Running Headers Cleaned';
+    case 'image-only':
+      return 'Scanned Content Flagged';
+    default:
+      return w.replace(/-/g, ' ');
+  }
 }
 
 export const FileDropzone: React.FC<FileDropzoneProps> = ({
@@ -55,6 +79,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
   minWords,
   maxWords,
   placeholder,
+  extractionMeta,
   onFileUpload,
   onClear,
   onTextChange,
@@ -373,10 +398,32 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-black text-volt border border-volt/60 text-[11px] font-semibold uppercase tracking-[1px] shrink-0">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Parsed
-                  </span>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-black text-volt border border-volt/60 text-[11px] font-semibold uppercase tracking-[1px] shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Parsed
+                    </span>
+                    {extractionMeta && (
+                      <span className="text-[10px] text-silver font-mono">
+                        {extractionMeta.confidencePct}% · {extractionMeta.methodLabel}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                {/* Extractor Layout Warnings / Recovery Cues */}
+                {extractionMeta && extractionMeta.warnings && extractionMeta.warnings.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-0.5">
+                    {extractionMeta.warnings.map((w, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono bg-near-black border border-charcoal text-silver"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-volt" />
+                        {formatWarningPill(w)}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
                 {/* Collapsible Text Preview */}
                 <div className="border border-charcoal bg-near-black rounded overflow-hidden">

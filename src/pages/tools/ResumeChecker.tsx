@@ -28,12 +28,13 @@ import { useProfile } from '../../features/suite/profile/ProfileContext';
 import { QuickSummaryCard } from '../../features/suite/components/QuickSummaryCard';
 import { buildQuickSummary } from '../../features/suite/engine/quickSummary';
 import { SimulationFacts } from '../../features/suite/engine/simulateFix';
-import { parseResumeFile } from '../../features/ats/fileParser';
+import { extractFromFile } from '../../lib/ats/fileExtractor';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import {
   AtsInputSection,
   TargetTier,
   ExperienceLevel,
+  ExtractionMetaInfo,
 } from '../../features/ats/components/AtsInputSection';
 import { runAtsEngine, AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../features/ats/engine';
 import { ScoreHeader } from '../../features/ats/components/ScoreHeader';
@@ -115,6 +116,8 @@ export function ResumeChecker() {
 
   const [resumePageCount, setResumePageCount] = useState<number | undefined>();
   const [jobPageCount, setJobPageCount] = useState<number | undefined>();
+  const [resumeExtractionMeta, setResumeExtractionMeta] = useState<ExtractionMetaInfo | undefined>();
+  const [jobExtractionMeta, setJobExtractionMeta] = useState<ExtractionMetaInfo | undefined>();
   const [targetTier, setTargetTier] = useState<TargetTier>('Auto');
   const [experienceLevel, setExperienceLevel] = useState<ExperienceLevel>('Auto');
   const [fileError, setFileError] = useState<string | null>(null);
@@ -181,27 +184,53 @@ export function ResumeChecker() {
     setIsFileExtracting(true);
     setFileError(null);
     try {
-      const res = await parseResumeFile(file);
-      if (!res.success) {
-        setFileError(res.error || 'Failed to read document.');
+      const outcome = await extractFromFile(file);
+      if (!outcome.ok) {
+        let msg = outcome.message;
+        if (outcome.reason === 'image-only') {
+          msg =
+            'Scanned / Image-Only Document: This file contains raster images without selectable text. ATS engines require digital text. Please export your resume directly as a text PDF from Google Docs / Microsoft Word, or switch to the Paste Text tab.';
+        } else if (outcome.reason === 'encrypted') {
+          msg = 'Password Protected File: This document is encrypted and cannot be processed without a password.';
+        } else if (outcome.reason === 'corrupt') {
+          msg = 'Corrupt File Signature: File structure is damaged or invalid. Please re-export or re-save the document.';
+        }
+        setFileError(msg);
         return;
       }
+
+      const meta: ExtractionMetaInfo = {
+        confidencePct: Math.round(outcome.data.confidence * 100),
+        methodLabel:
+          outcome.data.method === 'pdf-text'
+            ? 'PDF Text'
+            : outcome.data.method === 'docx'
+            ? 'DOCX XML'
+            : 'Local Text',
+        warnings: outcome.data.warnings || [],
+      };
+
       if (type === 'resume') {
-        const validity = validateResumeAuthenticity(res.text);
+        const validity = validateResumeAuthenticity(outcome.data.text);
         if (!validity.isValid) {
-          setFileError(validity.reason || 'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).');
+          setFileError(
+            validity.reason ||
+              'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).'
+          );
           return;
         }
         userClearedResumeRef.current = false;
-        setResumeText(res.text);
-        setResumeFileName(res.fileName);
-        setResumePageCount(res.pageCount);
+        setResumeText(outcome.data.text);
+        setResumeFileName(file.name);
+        setResumePageCount(outcome.data.pages);
+        setResumeExtractionMeta(meta);
         setResumeSource('upload');
       } else {
         userClearedJobRef.current = false;
-        setJobText(res.text);
-        setJobFileName(res.fileName);
-        setJobPageCount(res.pageCount);
+        setJobText(outcome.data.text);
+        setJobFileName(file.name);
+        setJobPageCount(outcome.data.pages);
+        setJobExtractionMeta(meta);
         setJobSource('upload');
       }
     } catch (err: any) {
@@ -216,6 +245,7 @@ export function ResumeChecker() {
     setResumeText('');
     setResumeFileName(null);
     setResumePageCount(undefined);
+    setResumeExtractionMeta(undefined);
     setResumeSource(undefined);
     setFileError(null);
   };
@@ -225,6 +255,7 @@ export function ResumeChecker() {
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
+    setJobExtractionMeta(undefined);
     setJobSource(undefined);
     setFileError(null);
     setConfirmedRequirements(null);
@@ -422,6 +453,8 @@ export function ResumeChecker() {
               fileError={fileError}
               resumeSource={resumeSource}
               jobSource={jobSource}
+              resumeExtractionMeta={resumeExtractionMeta}
+              jobExtractionMeta={jobExtractionMeta}
               onResumeTextChange={(txt) => {
                 userClearedResumeRef.current = false;
                 setResumeText(txt);

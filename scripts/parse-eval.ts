@@ -207,7 +207,7 @@ function calculateOverall(results: SingleEvalResult[]): OverallMetrics {
   };
 }
 
-async function evalFixture(
+export async function evalFixture(
   filePath: string,
   truthPath: string,
   isHoldout: boolean

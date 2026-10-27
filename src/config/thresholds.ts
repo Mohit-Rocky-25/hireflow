@@ -144,3 +144,31 @@ export const PARSING_THRESHOLDS = {
   /** Ambiguous column detection penalty on layout confidence */
   columnAmbiguityPenalty: 0.2,
 } as const;
+
+/** Regression gate thresholds for ATS parser validation (Stage 6) */
+export const PARSE_GATE_THRESHOLDS = {
+  /** Unhandled crashes allowed (strictly 0) */
+  maxCrashes: 0,
+  /** Minimum Section Detection F1 score on parseable text documents (%) */
+  minSectionF1: 90.0,
+  /** Minimum Bullet Point Recall on parseable text documents (%) */
+  minBulletRecall: 90.0,
+  /** Minimum Candidate Name extraction accuracy (%) */
+  minNameAccuracy: 90.0,
+  /** Minimum Email extraction accuracy (%) */
+  minEmailAccuracy: 90.0,
+  /** Minimum Phone extraction accuracy (%) */
+  minPhoneAccuracy: 90.0,
+  /** Minimum Education extraction accuracy (%) */
+  minEducationAccuracy: 95.0,
+  /** Minimum Warning Recall across all fixtures including scanned / corrupt (%) */
+  minWarningRecall: 95.0,
+  /** Maximum p50 parsing latency in milliseconds */
+  maxP50LatencyMs: 50.0,
+  /** Maximum p95 parsing latency in milliseconds */
+  maxP95LatencyMs: 200.0,
+  /** Minimum JD Seniority Classification accuracy (%) */
+  minJdSeniorityAccuracy: 100.0,
+  /** Minimum JD Must-Haves Requirements Recall (%) */
+  minJdMustHavesRecall: 90.0,
+} as const;

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T19:22:19.804Z",
+  "timestamp": "2026-10-27T19:52:33.421Z",
   "environment": {
     "nodeVersion": "v24.18.0",
     "os": "Windows_NT 10.0.26200",
@@ -26,8 +26,8 @@
       "meanEditDistance": 0.211,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 24.8,
-      "p95LatencyMs": 45.8
+      "p50LatencyMs": 23.4,
+      "p95LatencyMs": 43.6
     },
     "holdout": {
       "count": 24,
@@ -44,8 +44,8 @@
       "meanEditDistance": 0.214,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 20,
-      "p95LatencyMs": 35.4
+      "p50LatencyMs": 15.6,
+      "p95LatencyMs": 25.9
     },
     "combined": {
       "count": 60,
@@ -62,8 +62,8 @@
       "meanEditDistance": 0.212,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 21.3,
-      "p95LatencyMs": 40.7
+      "p50LatencyMs": 20.1,
+      "p95LatencyMs": 41.9
     }
   },
   "byFamily": {
@@ -83,8 +83,8 @@
       "editDistance": 0.053,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 31.1,
-      "p95LatencyMs": 2093.9,
+      "p50LatencyMs": 30.2,
+      "p95LatencyMs": 2589.2,
       "observedDeficiencies": []
     },
     "b_two_col_sidebar": {
@@ -103,8 +103,8 @@
       "editDistance": 0.057,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 26.9,
-      "p95LatencyMs": 35.4,
+      "p50LatencyMs": 26.6,
+      "p95LatencyMs": 29.6,
       "observedDeficiencies": []
     },
     "c_table_skills": {
@@ -123,8 +123,8 @@
       "editDistance": 0.087,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 19.4,
-      "p95LatencyMs": 30,
+      "p50LatencyMs": 22.2,
+      "p95LatencyMs": 32,
       "observedDeficiencies": []
     },
     "d_textbox_header": {
@@ -143,8 +143,8 @@
       "editDistance": 0.09,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 16.3,
-      "p95LatencyMs": 19,
+      "p50LatencyMs": 18.3,
+      "p95LatencyMs": 23.1,
       "observedDeficiencies": []
     },
     "e_latex_dense": {
@@ -163,8 +163,8 @@
       "editDistance": 0.029,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 23.8,
-      "p95LatencyMs": 28.4,
+      "p50LatencyMs": 24,
+      "p95LatencyMs": 28.5,
       "observedDeficiencies": []
     },
     "f_decorative_bullets": {
@@ -183,8 +183,8 @@
       "editDistance": 0.039,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 24.8,
-      "p95LatencyMs": 31.6,
+      "p50LatencyMs": 20.7,
+      "p95LatencyMs": 41.9,
       "observedDeficiencies": []
     },
     "g_ligatures_hyphens": {
@@ -203,8 +203,8 @@
       "editDistance": 0.055,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 21.3,
-      "p95LatencyMs": 35.7,
+      "p50LatencyMs": 23.4,
+      "p95LatencyMs": 34.9,
       "observedDeficiencies": []
     },
     "h_multipage_header_footer": {
@@ -223,8 +223,8 @@
       "editDistance": 0.053,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 23,
-      "p95LatencyMs": 30.3,
+      "p50LatencyMs": 18.7,
+      "p95LatencyMs": 22.9,
       "observedDeficiencies": [
         "Running headers/footers bleed into body text stream"
       ]
@@ -245,8 +245,8 @@
       "editDistance": 0.029,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 35.4,
-      "p95LatencyMs": 40.7,
+      "p50LatencyMs": 25.9,
+      "p95LatencyMs": 33.2,
       "observedDeficiencies": []
     },
     "j_indian_fresher": {
@@ -265,8 +265,8 @@
       "editDistance": 0.052,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 20.9,
-      "p95LatencyMs": 32.6,
+      "p50LatencyMs": 20,
+      "p95LatencyMs": 26.6,
       "observedDeficiencies": []
     },
     "k_image_only": {
@@ -285,8 +285,8 @@
       "editDistance": 1,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 6,
-      "p95LatencyMs": 23.7,
+      "p50LatencyMs": 4.2,
+      "p95LatencyMs": 20.1,
       "observedDeficiencies": [
         "Phone regex fails on Indian mobile formatting (+91 with spaces)",
         "Candidate name missed due to sidebar/header displacement",
@@ -309,8 +309,8 @@
       "editDistance": 1,
       "warningRecall": 100,
       "crashes": 0,
-      "p50LatencyMs": 4.1,
-      "p95LatencyMs": 10.2,
+      "p50LatencyMs": 3.7,
+      "p95LatencyMs": 8.3,
       "observedDeficiencies": [
         "Phone regex fails on Indian mobile formatting (+91 with spaces)",
         "Candidate name missed due to sidebar/header displacement",
@@ -325,6 +325,6 @@
     "gracefulFallbackCount": 400,
     "emptyTextCount": 0,
     "errorHandledCount": 200,
-    "p95LatencyMs": 4.4
+    "p95LatencyMs": 3
   }
 }

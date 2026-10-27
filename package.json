@@ -20,6 +20,7 @@
     "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
     "privacy:check": "npx tsx scripts/check-privacy.ts",
     "parse:eval": "npx tsx scripts/parse-eval.ts",
+    "parse:gate": "npx tsx scripts/parse-gate.ts",
     "parse:fixtures": "npx tsx scripts/parse-fixtures/generateAllFixtures.ts",
     "verify": "npm run typecheck && npm run test && npm run privacy:check && npm run build",
     "security:secrets": "node scripts/security/scan-secrets.mjs",

@@ -1,6 +1,6 @@
 # HireFlow ATS Parser Baseline Benchmark (Stage 0)
 
-> **Date**: 2026-10-27T19:22:19.804Z  
+> **Date**: 2026-10-27T19:52:33.421Z  
 > **Environment**: Node v24.18.0 (Windows_NT 10.0.26200 - x64)  
 > **Evaluation Scope**: DEV (36), HOLDOUT (24), FUZZ (200)
 
@@ -24,8 +24,8 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 | **Mean Edit Distance (0 = perfect)** | 0.211 | 0.214 | **0.212** | $\le 0.150$ |
 | **Expected Warning Recall** | 100% | 100% | **100%** | $\ge 95\%$ |
 | **Unhandled Crashes** | 0 | 0 | **0** | $0$ |
-| **p50 Latency** | 24.8ms | 20ms | **21.3ms** | $\le 50\text{ms}$ |
-| **p95 Latency** | 45.8ms | 35.4ms | **40.7ms** | $\le 200\text{ms}$ |
+| **p50 Latency** | 23.4ms | 15.6ms | **20.1ms** | $\le 50\text{ms}$ |
+| **p95 Latency** | 43.6ms | 25.9ms | **41.9ms** | $\le 200\text{ms}$ |
 
 ---
 
@@ -35,18 +35,18 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 
 | Layout Family | Count | Name Acc | Email Acc | Phone Acc | Section F1 | Bullet Recall | Edit Dist | p50 Latency | Primary Failure Mode / Observed Deficiency |
 |---|---|---|---|---|---|---|---|---|---|
-| `a_single_col_plain` | 5 | 100% | 100% | 100% | 100% | 100% | 0.053 | 31.1ms | None observed |
-| `b_two_col_sidebar` | 5 | 100% | 100% | 100% | 100% | 100% | 0.057 | 26.9ms | None observed |
-| `c_table_skills` | 5 | 100% | 100% | 100% | 100% | 100% | 0.087 | 19.4ms | None observed |
-| `d_textbox_header` | 5 | 100% | 100% | 100% | 100% | 100% | 0.09 | 16.3ms | None observed |
-| `e_latex_dense` | 5 | 100% | 100% | 100% | 100% | 100% | 0.029 | 23.8ms | None observed |
-| `f_decorative_bullets` | 5 | 100% | 100% | 100% | 100% | 100% | 0.039 | 24.8ms | None observed |
-| `g_ligatures_hyphens` | 5 | 100% | 100% | 100% | 100% | 97.8% | 0.055 | 21.3ms | None observed |
-| `h_multipage_header_footer` | 5 | 100% | 100% | 100% | 100% | 100% | 0.053 | 23ms | Running headers/footers bleed into body text stream |
-| `i_annotated_links` | 5 | 100% | 100% | 100% | 100% | 100% | 0.029 | 35.4ms | None observed |
-| `j_indian_fresher` | 5 | 100% | 100% | 100% | 100% | 100% | 0.052 | 20.9ms | None observed |
-| `k_image_only` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 6ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Scanned image PDF has 0 extracted text; requires OCR / clear warning |
-| `l_corrupt_encrypted` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 4.1ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Corrupt / encrypted stream yields fallback string instead of error state |
+| `a_single_col_plain` | 5 | 100% | 100% | 100% | 100% | 100% | 0.053 | 30.2ms | None observed |
+| `b_two_col_sidebar` | 5 | 100% | 100% | 100% | 100% | 100% | 0.057 | 26.6ms | None observed |
+| `c_table_skills` | 5 | 100% | 100% | 100% | 100% | 100% | 0.087 | 22.2ms | None observed |
+| `d_textbox_header` | 5 | 100% | 100% | 100% | 100% | 100% | 0.09 | 18.3ms | None observed |
+| `e_latex_dense` | 5 | 100% | 100% | 100% | 100% | 100% | 0.029 | 24ms | None observed |
+| `f_decorative_bullets` | 5 | 100% | 100% | 100% | 100% | 100% | 0.039 | 20.7ms | None observed |
+| `g_ligatures_hyphens` | 5 | 100% | 100% | 100% | 100% | 97.8% | 0.055 | 23.4ms | None observed |
+| `h_multipage_header_footer` | 5 | 100% | 100% | 100% | 100% | 100% | 0.053 | 18.7ms | Running headers/footers bleed into body text stream |
+| `i_annotated_links` | 5 | 100% | 100% | 100% | 100% | 100% | 0.029 | 25.9ms | None observed |
+| `j_indian_fresher` | 5 | 100% | 100% | 100% | 100% | 100% | 0.052 | 20ms | None observed |
+| `k_image_only` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 4.2ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Scanned image PDF has 0 extracted text; requires OCR / clear warning |
+| `l_corrupt_encrypted` | 5 | 0% | 0% | 0% | 0% | 0% | 1 | 3.7ms | Phone regex fails on Indian mobile formatting (+91 with spaces); Candidate name missed due to sidebar/header displacement; Corrupt / encrypted stream yields fallback string instead of error state |
 
 
 ---
@@ -75,4 +75,4 @@ This report establishes the ground-truth baseline measurements for the HireFlow 
 - **Hangs / Timeouts**: 0
 - **Graceful Fallbacks / Handled Errors**: 200
 - **Empty Text Handled**: 0
-- **p95 Latency**: 4.4ms
+- **p95 Latency**: 3ms
