@@ -151,7 +151,7 @@ export function BuildBriefsPage() {
           </div>
           <div className="flex items-center gap-3 flex-wrap">
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-              Project Briefs & Set-Cover Bundler
+              Project Build Briefs
             </h1>
             <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-near-black text-volt border border-charcoal">
               {ALL_PROJECT_BRIEFS.length} Projects

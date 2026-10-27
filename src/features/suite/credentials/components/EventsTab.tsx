@@ -608,249 +608,110 @@ export function EventsTab({
             <div
               key={event.id}
               onClick={() => onSelectOpportunity(event)}
-              title={`Click to open full competition brief for ${event.name}`}
-              className="group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between hover:border-orange-500/50 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden"
+              className="shiny-edge-card group relative bg-black border border-charcoal rounded-lg p-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer space-y-4"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectOpportunity(event); }}
             >
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 via-amber-400 to-transparent" />
-
-              <div className="space-y-4">
-                {/* Header row */}
-                <div className="flex items-start justify-between gap-3">
+              {/* Top Section */}
+              <div>
+                <div className="flex items-start justify-between gap-2 mb-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2 py-0.5 text-[10px] font-mono font-black rounded-md bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 capitalize">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-near-black text-volt border border-charcoal">
                       {event.type.replace('_', ' ')}
                     </span>
                     {event.scope && (
-                      <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-surface-2 text-text-secondary border border-border capitalize">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border bg-near-black text-silver border-charcoal capitalize">
                         {event.scope}
                       </span>
                     )}
+                    {isPPO && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                        <Briefcase className="w-3 h-3" />
+                        <span className="truncate max-w-[130px]">{event.ppoOffered || 'PPI / PPO'}</span>
+                      </span>
+                    )}
                     {renderTrustBadge(event)}
-                    <FreshnessBadge opportunity={event} />
                   </div>
 
                   <button
-                    onClick={(e) => handleTogglePlan(e, event.id)}
-                    className={`p-2 rounded-xl border transition-all shrink-0 ${
-                      isSaved
-                        ? 'bg-orange-500 text-white border-orange-500 shadow-sm shadow-orange-500/30'
-                        : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
-                    }`}
+                    onClick={(e) => { e.stopPropagation(); handleTogglePlan(e, event.id); }}
+                    className="text-silver hover:text-volt transition-colors p-1 shrink-0 z-10 cursor-pointer"
                     title={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                     aria-label={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                   >
-                    {isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+                    {isSaved ? <BookmarkCheck className="w-4 h-4 text-volt" /> : <Bookmark className="w-4 h-4" />}
                   </button>
                 </div>
 
-                {/* Title & Organizer */}
-                <div>
-                  <h3 className="text-lg font-black text-foreground group-hover:text-orange-500 transition-colors leading-snug tracking-tight">
-                    {event.name}
-                  </h3>
-                  <p className="text-xs text-text-secondary font-medium mt-1 flex items-center gap-1.5">
-                    <CompanyLogo company={event.organizer} size="xs" showBorder={false} interactive={false} />
-                    <span>{event.organizer}</span>
-                  </p>
-                </div>
-
-                {/* Yearly dates change notice */}
-                {event.datesChangeYearly && (
-                  <DatesChangeNotice datesChangeYearly={event.datesChangeYearly} />
-                )}
-
-                {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
-                {event.feeWaiverNote && (
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-700 dark:text-emerald-300">
-                    <span className="font-bold">Fee Waiver / Aid: </span>{event.feeWaiverNote}
-                  </div>
-                )}
-                {event.eligibility && (
-                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary">
-                    <span className="font-bold text-foreground">Eligibility: </span>{event.eligibility}
-                  </div>
-                )}
-
-                {/* Badges: PPO, Branch Edge, Flags */}
-                <div className="flex flex-wrap items-center gap-1.5">
-                  {isPPO && (
-                    <span className="px-2 py-0.5 text-[10px] font-black rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                      <Briefcase className="w-3 h-3" />
-                      <span>{event.ppoOffered || event.rewardDisplay?.headline || 'Direct PPO Route'}</span>
-                    </span>
-                  )}
-                  {event.flags?.includes('college_route') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
-                      College SPOC Route
-                    </span>
-                  )}
-                  {event.flags?.includes('women_track') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-pink-500/10 text-pink-600 dark:text-pink-400 border border-pink-500/25">
-                      Women in Tech Track
-                    </span>
-                  )}
-                  {event.flags?.includes('branch_edge_ece') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/25">
-                      ⚡ ECE / Hardware Edge
-                    </span>
-                  )}
-                  {event.flags?.includes('core_industry') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25">
-                      Core Industry Track
-                    </span>
-                  )}
-                  {event.flags?.includes('closed_this_year') && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-500/10 text-slate-400 border border-slate-500/25">
-                      Next Cycle Expected
-                    </span>
-                  )}
-                </div>
-
-                {/* What it proves */}
-                <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">
+                <h3 className="text-base font-black text-white leading-snug mb-1.5 group-hover:text-volt transition-colors line-clamp-2">
+                  {event.name}
+                </h3>
+                <p className="text-xs font-semibold text-silver flex items-center gap-1.5 mb-2.5">
+                  <CompanyLogo company={event.organizer} size="xs" showBorder={false} interactive={false} />
+                  <span>{event.organizer}</span>
+                </p>
+                <p className="text-xs text-silver leading-relaxed line-clamp-2">
                   {event.whatItProves}
                 </p>
+              </div>
 
-                {/* Team & Verified Interactive Window Quick Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                  <div className="bg-surface-2/70 border border-border/80 rounded-xl p-2.5 flex flex-col justify-between">
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
-                      Team Format
-                    </p>
-                    <p className="text-xs font-bold text-foreground flex items-center gap-1 truncate">
-                      <Users className="w-3.5 h-3.5 text-orange-500 shrink-0" />
-                      <span>{event.teamSize || 'Individual or Team'}</span>
-                    </p>
-                  </div>
-
-                  {/* Clickable Verified Timeline Box */}
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectOpportunity(event, 'timeline');
-                    }}
-                    className="bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 rounded-xl p-2.5 transition-all cursor-pointer group/win"
-                    title="Click to view verified timeline schedule, phases, and official data sources"
-                  >
-                    <div className="flex items-center justify-between gap-1 mb-1">
-                      <p className="text-[10px] font-black text-orange-600 dark:text-orange-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        <span>Verified Schedule ↗</span>
-                      </p>
-                      <ChevronRight className="w-3 h-3 text-orange-500 group-hover/win:translate-x-0.5 transition-transform" />
-                    </div>
-                    <p className="text-xs font-black text-foreground flex items-center gap-1.5 truncate" title={timeline.seasonLabel}>
-                      <Calendar className="w-3.5 h-3.5 text-orange-500 shrink-0" />
-                      <span>{timeline.seasonLabel}</span>
-                    </p>
-                    <p className="text-[10px] text-text-secondary font-medium truncate mt-0.5">
-                      {timeline.academicYearFit}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Reward / Prize Notice */}
-                {(event.rewardDisplay?.headline || event.rewardDisplay?.note || event.costInr) && (
-                  <div className="p-2.5 rounded-xl bg-surface-2/80 border border-border flex items-center gap-2 text-xs">
-                    <Gift className="w-4 h-4 text-orange-500 shrink-0" />
-                    <p className="text-[11px] text-text-secondary truncate">
-                      <strong className="text-foreground">Prizes: </strong>
-                      {event.rewardDisplay?.headline || event.rewardDisplay?.note || 'Prizes, recognition & PPI routes'}
-                    </p>
-                  </div>
-                )}
-
-                {/* Data Provenance Footnote */}
-                <div className="flex items-center justify-between text-[10px] text-text-muted px-1 pt-0.5 border-t border-border/40 gap-2">
-                  <div className="flex items-center gap-2 truncate">
-                    <span className="truncate">
-                      Source: <strong className="text-foreground/80">{timeline.sources[0]?.name || event.organizer}</strong>
-                    </span>
-                    <OfficialSourceLink sourceUrl={event.sourceUrl} />
-                  </div>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
-                    <ShieldCheck className="w-3 h-3" />
-                    Audited {timeline.verifiedAuditDate}
+              {/* Highlights 2-column strip */}
+              <div className="bg-near-black p-2.5 rounded border border-charcoal grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-silver/70 block mb-0.5">Team Format</span>
+                  <span className="font-bold text-white truncate block flex items-center gap-1">
+                    <Users className="w-3 h-3 text-volt shrink-0" />
+                    <span className="truncate">{event.teamSize || 'Individual / Team'}</span>
                   </span>
                 </div>
-
-                {/* Target Roles */}
-                <div className="flex flex-wrap gap-1.5 pt-0.5">
-                  {event.targetRoles.slice(0, 2).map((role, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[11px] font-bold px-2.5 py-1 rounded-md bg-surface-2 text-foreground/80 border border-border"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                  {event.targetRoles.length > 2 && (
-                    <span className="text-[10px] text-muted self-center font-bold">
-                      +{event.targetRoles.length - 2} more
-                    </span>
-                  )}
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-silver/70 block mb-0.5">Verified Schedule</span>
+                  <span className="font-bold text-white truncate block flex items-center gap-1">
+                    <Calendar className="w-3 h-3 text-volt shrink-0" />
+                    <span className="truncate">{timeline.seasonLabel}</span>
+                  </span>
                 </div>
               </div>
 
-              {/* Bottom Dual Action Bar */}
-              <div className="mt-5 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div className="flex items-center gap-2">
-                  {/* Working Direct Website Portal Link */}
+              {/* Target Roles Pills */}
+              <div className="flex flex-wrap gap-1">
+                {event.targetRoles.slice(0, 3).map((role, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] font-medium px-2 py-0.5 rounded bg-black border border-charcoal text-silver"
+                  >
+                    {role}
+                  </span>
+                ))}
+                {event.targetRoles.length > 3 && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded border bg-black border-charcoal text-silver/60">
+                    +{event.targetRoles.length - 3}
+                  </span>
+                )}
+              </div>
+
+              {/* Bottom Actions Footer */}
+              <div className="pt-2 border-t border-charcoal flex items-center gap-2">
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSelectOpportunity(event, 'overview'); }}
+                  className="flex-1 py-2 text-xs font-bold rounded bg-near-black hover:bg-hover-gray text-white hover:text-volt border border-charcoal transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  View Full Brief <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+                {portalUrl && (
                   <a
                     href={portalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-surface-2 hover:bg-orange-500 hover:text-white border border-border hover:border-orange-500 font-bold text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
-                    title={`Open portal (${getDomainFromUrl(portalUrl)})`}
+                    className="p-2 rounded bg-near-black hover:bg-hover-gray text-silver hover:text-white border border-charcoal transition-colors flex items-center gap-1 text-xs font-semibold cursor-pointer shrink-0"
+                    title="Open official portal"
                   >
                     <span>Portal</span>
-                    <ExternalLink className="w-3 h-3 text-orange-500 group-hover/btn:text-white shrink-0" />
+                    <ExternalLink className="w-3.5 h-3.5 text-volt" />
                   </a>
-
-                  {/* Operable Syllabus / Problem Statements Link */}
-                  {syllabusUrl && (
-                    <a
-                      href={syllabusUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => handleExternalRedirect(e, syllabusUrl)}
-                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border font-medium text-text-secondary hover:text-foreground transition-all cursor-pointer"
-                      title="Open problem statements, syllabus, or challenge rules"
-                    >
-                      <FileText className="w-3 h-3 text-primary" />
-                      <span>Syllabus</span>
-                    </a>
-                  )}
-
-                  {/* Interactive Timeline Tab Shortcut */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectOpportunity(event, 'timeline');
-                    }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/30 font-bold text-orange-600 dark:text-orange-400 text-xs transition-all cursor-pointer"
-                    title="View full verified schedule, phases, and official citations"
-                  >
-                    <Calendar className="w-3 h-3 text-orange-500" />
-                    <span>Timeline</span>
-                  </button>
-                </div>
-
-                {/* Modal View Brief Trigger */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectOpportunity(event, 'overview');
-                  }}
-                  className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-orange-500 hover:text-orange-600 dark:hover:text-orange-400 group-hover:translate-x-0.5 transition-all cursor-pointer hover:underline"
-                  title="Open in-depth competition rules, dates & breakdown brief"
-                >
-                  <span>View Brief</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                )}
               </div>
             </div>
           );

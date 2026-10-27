@@ -722,288 +722,105 @@ export function CertificationsTab({
             <div
               key={cert.id}
               onClick={() => onSelectOpportunity(cert)}
-              className={`group bg-surface rounded-2xl border-2 border-border/80 p-6 flex flex-col justify-between ${theme.border} transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-1 relative overflow-hidden`}
-              title={`Click to open full preparation brief for ${cert.name}`}
+              className="shiny-edge-card group relative bg-black border border-charcoal rounded-lg p-5 flex flex-col justify-between hover:border-volt transition-colors cursor-pointer space-y-4"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelectOpportunity(cert); }}
             >
-              {/* Radiant top accent bar */}
-              <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accent}`} />
-
-              <div className="space-y-4">
-                {/* Header row */}
-                <div className="flex items-start justify-between gap-3">
+              {/* Top Section */}
+              <div>
+                <div className="flex items-start justify-between gap-2 mb-3">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="px-2.5 py-1 text-xs font-mono font-black rounded-lg bg-primary/10 text-primary border border-primary/25">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-near-black text-volt border border-charcoal">
                       #{cert.rank}
                     </span>
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-surface-2 text-foreground border border-border capitalize">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border bg-near-black text-silver border-charcoal capitalize">
                       {cert.level}
                     </span>
-                    {cert.releaseTier === 'tier1' && (
-                      <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                        Tier 1 Core
-                      </span>
-                    )}
-                    <span className={`px-2.5 py-1 text-xs font-black rounded-lg border ${theme.badge}`}>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${theme.badge}`}>
                       {theme.brand}
                     </span>
                     {renderTrustBadge(cert)}
-                    <FreshnessBadge opportunity={cert} />
                   </div>
 
                   <button
-                    onClick={(e) => handleTogglePlan(e, cert.id)}
-                    className={`p-2.5 rounded-xl border-2 transition-all shrink-0 cursor-pointer ${
-                      isSaved
-                        ? 'bg-primary !text-black border-primary shadow-sm shadow-primary/30'
-                        : 'bg-surface-2 border-border text-text-secondary hover:text-foreground hover:bg-surface-2/80'
-                    }`}
+                    onClick={(e) => { e.stopPropagation(); handleTogglePlan(e, cert.id); }}
+                    className="text-silver hover:text-volt transition-colors p-1 shrink-0 z-10 cursor-pointer"
                     title={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                     aria-label={isSaved ? 'Saved in My Opportunity Plan' : 'Save to Opportunity Plan'}
                   >
-                    {isSaved ? <BookmarkCheck className="w-4 h-4 !text-black stroke-[2px]" /> : <Bookmark className="w-4 h-4" />}
+                    {isSaved ? <BookmarkCheck className="w-4 h-4 text-volt" /> : <Bookmark className="w-4 h-4" />}
                   </button>
                 </div>
 
-                {/* Title & Issuer */}
-                <div>
-                  <h3 className="text-lg sm:text-xl font-black text-foreground group-hover:text-primary transition-colors leading-snug tracking-tight">
-                    {cert.name}
-                  </h3>
-                  <p className="text-sm font-bold text-text-secondary mt-1 flex items-center gap-1.5">
-                    <Award className="w-4 h-4 text-primary shrink-0" />
-                    <span>{cert.issuer || cert.organizer}</span>
-                  </p>
-                </div>
-
-                {/* Notice for yearly changing dates */}
-                {cert.datesChangeYearly && (
-                  <DatesChangeNotice datesChangeYearly={cert.datesChangeYearly} />
-                )}
-
-                {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
-                {cert.feeWaiverNote && (
-                  <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-700 dark:text-emerald-300">
-                    <span className="font-bold">Fee Waiver / Discount: </span>{cert.feeWaiverNote}
-                  </div>
-                )}
-                {cert.eligibility && (
-                  <div className="p-2.5 rounded-xl bg-surface-2 border border-border text-xs text-text-secondary">
-                    <span className="font-bold text-foreground">Eligibility: </span>{cert.eligibility}
-                  </div>
-                )}
-
-                {/* Branch and Special Attribute Badges */}
-                <div className="flex flex-wrap items-center gap-1.5">
-                  {cert.flags?.includes('branch_edge_ece') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
-                      ⚡ High ECE/EEE Fit
-                    </span>
-                  )}
-                  {cert.flags?.includes('branch_edge_mech') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                      ⚙ Mech/Civil Core
-                    </span>
-                  )}
-                  {cert.flags?.includes('branch_edge_noncs') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-teal-500/15 text-teal-600 dark:text-teal-400 border border-teal-500/30">
-                      🌐 Non-CS Edge
-                    </span>
-                  )}
-                  {cert.flags?.includes('best_value') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
-                      <Sparkles className="w-3 h-3" /> Best Value
-                    </span>
-                  )}
-                  {cert.flags?.includes('hands_on') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">
-                      Hands-On Practical
-                    </span>
-                  )}
-                  {cert.flags?.includes('changed_2026') && (
-                    <span className="px-2.5 py-1 text-xs font-black rounded-lg bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30">
-                      2026 Terms Updated
-                    </span>
-                  )}
-                </div>
-
-                {/* What it proves */}
-                <p className="text-sm font-medium text-foreground/90 leading-relaxed">
+                <h3 className="text-base font-black text-white leading-snug mb-1.5 group-hover:text-volt transition-colors line-clamp-2">
+                  {cert.name}
+                </h3>
+                <p className="text-xs font-semibold text-silver flex items-center gap-1.5 mb-2.5">
+                  <Award className="w-3.5 h-3.5 text-volt shrink-0" />
+                  <span>{cert.issuer || cert.organizer}</span>
+                </p>
+                <p className="text-xs text-silver leading-relaxed line-clamp-2">
                   {cert.whatItProves}
                 </p>
+              </div>
 
-                {/* Fee & Prep Duration Grid */}
-                <div className="grid grid-cols-2 gap-2.5 pt-1">
-                  <div className="bg-surface-2/80 border-2 border-border/80 rounded-xl p-3">
-                    <p className="text-xs font-black text-text-secondary uppercase tracking-wider mb-1">
-                      Fee / Student Aid
-                    </p>
-                    <p className="text-sm sm:text-base font-black text-emerald-600 dark:text-emerald-400 flex items-center gap-1 truncate" title={priceDisplay}>
-                      <IndianRupee className="w-4 h-4 shrink-0" />
-                      <span>{priceDisplay}</span>
-                    </p>
-                  </div>
-
-                  <div className="bg-surface-2/80 border-2 border-border/80 rounded-xl p-3">
-                    <p className="text-xs font-black text-text-secondary uppercase tracking-wider mb-1">
-                      Prep Duration
-                    </p>
-                    <p className="text-sm font-bold text-foreground flex items-center gap-1.5 truncate">
-                      <Clock className="w-4 h-4 text-primary shrink-0" />
-                      <span>{cert.estimatedPreparationTime}</span>
-                    </p>
-                  </div>
-                </div>
-
-                {/* Clickable Verified Exam Schedule & Provenance */}
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectOpportunity(cert, 'timeline');
-                  }}
-                  className="p-3 rounded-xl bg-primary/10 hover:bg-primary/20 border-2 border-primary/30 transition-all cursor-pointer group/sched shadow-2xs"
-                  title="Click to view verified exam schedule, academic year targeting, and official data sources"
-                >
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="text-[11px] font-black uppercase tracking-wider text-primary flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Verified Exam Schedule ↗</span>
-                    </span>
-                    <span className="text-xs font-black text-primary flex items-center group-hover/sched:translate-x-0.5 transition-transform">
-                      Schedule Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                    </span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
-                    <div className="flex items-center gap-1.5 font-black text-foreground">
-                      <Calendar className="w-4 h-4 text-primary shrink-0" />
-                      <span>{timeline.seasonLabel}</span>
-                    </div>
-                    <div className="text-text-secondary font-bold text-[11px]">
-                      Target: {timeline.academicYearFit}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Student Aid Callout */}
-                {(cert.studentDiscountNote || cert.studentAid?.summary) && (
-                  <div
-                    className="group/waiver p-3 rounded-xl bg-surface-2/90 hover:bg-primary/10 border-2 border-border hover:border-primary/50 flex items-center justify-between text-xs transition-colors shadow-2xs"
-                    title={cert.studentDiscountNote || cert.studentAid?.summary || ''}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-2 rounded-lg bg-primary/15 text-primary group-hover/waiver:bg-primary group-hover/waiver:text-black transition-colors shrink-0">
-                        <GraduationCap className="w-4 h-4" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <p className="text-xs font-black text-foreground truncate">
-                            Student Aid & Waiver Pathway
-                          </p>
-                          <span className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
-                            Playbook
-                          </span>
-                        </div>
-                        <p className="text-xs font-medium text-text-secondary truncate mt-0.5">
-                          {cert.studentAid?.summary || cert.studentDiscountNote}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs font-black text-primary flex items-center shrink-0 ml-2 group-hover/waiver:translate-x-0.5 transition-transform">
-                      Details <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
-                    </span>
-                  </div>
-                )}
-
-                {/* Data Provenance Footnote */}
-                <div className="flex items-center justify-between text-[11px] text-text-muted px-1 pt-1 border-t border-border/50 gap-2">
-                  <div className="flex items-center gap-2 truncate">
-                    <span className="truncate">
-                      Official Blueprint: <strong className="text-foreground">{timeline.sources[0]?.name || cert.issuer}</strong>
-                    </span>
-                    <OfficialSourceLink sourceUrl={cert.sourceUrl} />
-                  </div>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 ml-2">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    Audited {timeline.verifiedAuditDate}
+              {/* Highlights 2-column strip */}
+              <div className="bg-near-black p-2.5 rounded border border-charcoal grid grid-cols-2 gap-2 text-xs">
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-silver/70 block mb-0.5">Fee / Student Aid</span>
+                  <span className="font-bold text-emerald-400 truncate block flex items-center gap-1" title={priceDisplay}>
+                    <IndianRupee className="w-3 h-3 shrink-0" />
+                    <span className="truncate">{priceDisplay}</span>
                   </span>
                 </div>
-
-                {/* Target Roles */}
-                <div className="flex flex-wrap gap-1.5 pt-0.5">
-                  {cert.targetRoles.slice(0, 3).map((role, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs font-bold px-3 py-1 rounded-lg bg-surface-2 text-foreground border border-border"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                  {cert.targetRoles.length > 3 && (
-                    <span className="text-xs text-text-muted self-center font-black">
-                      +{cert.targetRoles.length - 3} more
-                    </span>
-                  )}
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-silver/70 block mb-0.5">Prep Duration</span>
+                  <span className="font-bold text-white truncate block flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-volt shrink-0" />
+                    <span className="truncate">{cert.estimatedPreparationTime}</span>
+                  </span>
                 </div>
               </div>
 
-              {/* Bottom Dual Action Bar */}
-              <div className="mt-5 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div className="flex items-center gap-2">
-                  {/* Working Direct Website Portal Link */}
+              {/* Target Roles Pills */}
+              <div className="flex flex-wrap gap-1">
+                {cert.targetRoles.slice(0, 3).map((role, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] font-medium px-2 py-0.5 rounded bg-black border border-charcoal text-silver"
+                  >
+                    {role}
+                  </span>
+                ))}
+                {cert.targetRoles.length > 3 && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded border bg-black border-charcoal text-silver/60">
+                    +{cert.targetRoles.length - 3}
+                  </span>
+                )}
+              </div>
+
+              {/* Bottom Actions Footer */}
+              <div className="pt-2 border-t border-charcoal flex items-center gap-2">
+                <button
+                  onClick={(e) => { e.stopPropagation(); onSelectOpportunity(cert, 'overview'); }}
+                  className="flex-1 py-2 text-xs font-bold rounded bg-near-black hover:bg-hover-gray text-white hover:text-volt border border-charcoal transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  View Full Brief <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+                {portalUrl && (
                   <a
                     href={portalUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => handleExternalRedirect(e, portalUrl)}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-primary hover:text-black border border-border hover:border-primary font-black text-xs sm:text-sm text-foreground transition-all duration-200 group/btn shadow-xs cursor-pointer"
-                    title={`Open official portal (${getDomainFromUrl(portalUrl)})`}
+                    className="p-2 rounded bg-near-black hover:bg-hover-gray text-silver hover:text-white border border-charcoal transition-colors flex items-center gap-1 text-xs font-semibold cursor-pointer shrink-0"
+                    title="Open official portal"
                   >
                     <span>Portal</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-primary group-hover/btn:text-black shrink-0" />
+                    <ExternalLink className="w-3.5 h-3.5 text-volt" />
                   </a>
-
-                  {/* Direct Operable Syllabus Link */}
-                  {cert.syllabusUrl && (
-                    <a
-                      href={cert.syllabusUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => handleExternalRedirect(e, cert.syllabusUrl)}
-                      className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-surface-2 hover:bg-surface-3 border border-border font-bold text-xs sm:text-sm text-text-secondary hover:text-foreground transition-all cursor-pointer"
-                      title="Open official examination syllabus and objectives"
-                    >
-                      <FileText className="w-3.5 h-3.5 text-primary" />
-                      <span>Syllabus</span>
-                    </a>
-                  )}
-
-                  {/* Interactive Timeline Tab Shortcut */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectOpportunity(cert, 'timeline');
-                    }}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 border border-primary/30 font-bold text-xs sm:text-sm text-primary transition-all cursor-pointer"
-                    title="View verified exam cycle, phases, and official citations"
-                  >
-                    <Calendar className="w-3.5 h-3.5 text-primary" />
-                    <span>Timeline</span>
-                  </button>
-                </div>
-
-                {/* Modal View Brief Trigger */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectOpportunity(cert, 'overview');
-                  }}
-                  className="inline-flex items-center gap-1 font-black text-xs sm:text-sm text-primary hover:underline group-hover:translate-x-1 transition-transform cursor-pointer"
-                  title="Open preparation brief, curriculum & financial aid roadmap"
-                >
-                  <span>View Brief</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
+                )}
               </div>
             </div>
           );
