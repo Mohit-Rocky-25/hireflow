@@ -1,0 +1,20 @@
+{
+  "id": "jd_security_engineer",
+  "roleTitle": "Senior Application Security Engineer",
+  "seniority": "senior",
+  "yearsRequired": 5,
+  "mustHaves": [
+    "Web Security & OWASP",
+    "Python"
+  ],
+  "niceToHaves": [
+    "Kubernetes",
+    "Docker"
+  ],
+  "toolsMentioned": [
+    "Kubernetes",
+    "Docker"
+  ],
+  "isHoldout": false,
+  "rawText": "Title: Senior Application Security Engineer\nExperience: 5+ Years\nLocation: Chennai, India\n\nRole Overview:\nHelp safeguard our fintech infrastructure from sophisticated threat vectors.\n\nKey Requirements:\n- 5+ years of dedicated Application Security and threat modeling experience.\n- In-depth understanding of OWASP Top 10 vulnerabilities and modern mitigation strategies.\n- Hands-on expertise conducting Penetration Testing and code audits.\n- Scripting and automation proficiency using Python.\n\nPreferred Qualifications:\n- Experience securing containerized environments including Kubernetes and Docker.\n- Relevant certifications (OSCP, CISSP, CEH) are a distinct plus.\n"
+}

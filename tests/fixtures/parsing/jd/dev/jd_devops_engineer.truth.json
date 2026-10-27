@@ -1,0 +1,26 @@
+{
+  "id": "jd_devops_engineer",
+  "roleTitle": "DevOps & Cloud Engineer",
+  "seniority": "mid",
+  "yearsRequired": 3,
+  "mustHaves": [
+    "Docker",
+    "Kubernetes",
+    "CI/CD Pipelines",
+    "Linux"
+  ],
+  "niceToHaves": [
+    "Terraform",
+    "Prometheus",
+    "AWS"
+  ],
+  "toolsMentioned": [
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "Prometheus",
+    "AWS"
+  ],
+  "isHoldout": false,
+  "rawText": "Job Title: DevOps & Cloud Engineer\nExperience: 3-5 Years\nLocation: Pune, India\n\nResponsibilities:\n- Maintain continuous integration and continuous deployment pipelines.\n- Automate container builds and manage Kubernetes clusters.\n- Administer Linux production environments with zero downtime.\n\nMandatory Qualifications:\n- 3+ years in a dedicated DevOps, SRE, or Cloud Infrastructure role.\n- Hands-on mastery of Docker containerization and Kubernetes cluster management.\n- Deep experience establishing CI/CD Pipelines with automated gating.\n- Strong Linux systems administration and shell scripting skills.\n\nNice-to-Have:\n- Infrastructure-as-code automation using Terraform.\n- Telemetry, logging, and metrics gathering using Prometheus and Grafana.\n- AWS cloud certifications are an added advantage.\n"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "jd_holdout_android_kotlin",
+  "roleTitle": "Senior Android Engineer",
+  "seniority": "senior",
+  "yearsRequired": 6,
+  "mustHaves": [
+    "Kotlin",
+    "Android Development"
+  ],
+  "niceToHaves": [
+    "CI/CD Pipelines"
+  ],
+  "toolsMentioned": [
+    "CI/CD Pipelines"
+  ],
+  "isHoldout": true,
+  "rawText": "Job: Senior Android Engineer\nExperience: 5-7 Years (Minimum 5 Years)\n\nSummary:\nLead the engineering and architecture of our flagship consumer Android application.\n\nMandatory Requirements:\n- 5+ years of dedicated Android application development experience.\n- Masterful command of Kotlin and modern Android SDK architecture.\n- Deep expertise in Mobile UI components, reactive state, and background processing.\n\nNice-to-Have:\n- Continuous integration and deployment with automated CI/CD Pipelines.\n"
+}

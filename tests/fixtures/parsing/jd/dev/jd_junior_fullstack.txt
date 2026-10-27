@@ -1,0 +1,23 @@
+Position: Junior Full-Stack Developer
+Department: Engineering
+Experience Required: 1-2 years of software engineering experience
+
+Job Overview:
+As a Junior Full-Stack Developer, you will collaborate with cross-functional product teams to deliver robust features across the entire web stack.
+
+Responsibilities:
+- Develop and maintain scalable backend services using Node.js.
+- Create user-friendly frontend interfaces in React.
+- Design relational database schemas and optimize queries in PostgreSQL.
+- Build and consume REST APIs following industry best practices.
+
+Requirements:
+- 1 to 2 years of proven professional development experience.
+- Hands-on experience building backend APIs in Node.js.
+- Strong skills in React for component-driven UI development.
+- Solid working knowledge of SQL databases, specifically PostgreSQL.
+- Understanding of HTTP protocols and RESTful API architecture.
+
+Nice to Have:
+- Containerization experience with Docker is a bonus.
+- Exposure to Amazon Web Services (AWS) cloud infrastructure is preferred.

@@ -1,0 +1,16 @@
+Position: Lead Site Reliability Engineer
+Seniority: Lead (8+ Years Experience)
+
+Role Focus:
+Drive platform availability, telemetry, and automated disaster recovery.
+
+Must-Have Qualifications:
+- 8+ years experience operating high-scale cloud platforms.
+- Deep Kubernetes cluster operations and networking experience.
+- Expert Linux systems administration, kernel tuning, and troubleshooting.
+- Infrastructure as code with Terraform.
+- Architectural mastery of Distributed Systems resilience patterns.
+
+Preferred:
+- Systems scripting and automation in Go or Python.
+- Observability and alerting using Prometheus and Grafana.

@@ -1,0 +1,24 @@
+{
+  "id": "jd_fresher_frontend",
+  "roleTitle": "Graduate Frontend Engineer",
+  "seniority": "fresher",
+  "yearsRequired": 0,
+  "mustHaves": [
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "HTML5",
+    "CSS3"
+  ],
+  "niceToHaves": [
+    "Next.js",
+    "Redux",
+    "Git"
+  ],
+  "toolsMentioned": [
+    "Git"
+  ],
+  "degreeRequired": "Bachelor's degree in Computer Science or related field",
+  "isHoldout": false,
+  "rawText": "Role: Graduate Frontend Engineer\nCompany: WebCraft Technologies\nLocation: Bangalore, India (Hybrid)\nExperience: 0-1 Years (Freshers welcome)\n\nAbout the Role:\nWe are looking for an enthusiastic Graduate Frontend Engineer to join our core UI team. You will build dynamic, accessible web applications.\n\nBasic Qualifications:\n- Bachelor's degree in Computer Science or related field (2024 / 2025 batch).\n- Strong proficiency in React and modern TypeScript / JavaScript.\n- Solid foundational knowledge of HTML5 and CSS3 semantics.\n- Passion for writing clean, modular component code.\n\nPreferred Qualifications (Nice to Have):\n- Familiarity with Next.js or server-side rendering is a strong plus.\n- Hands-on experience with Redux or state management libraries is desirable.\n- Basic understanding of version control with Git.\n\nWhat We Offer:\n- Mentorship from senior staff engineers.\n- Competitive fresher stipend and health benefits.\n"
+}

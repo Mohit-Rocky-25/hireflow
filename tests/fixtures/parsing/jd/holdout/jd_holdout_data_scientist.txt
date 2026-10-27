@@ -1,0 +1,12 @@
+Title: Machine Learning Engineer
+Experience: 3-5 Years
+
+Key Requirements:
+- 3 to 5 years building and deploying Machine Learning models.
+- Expert programming skills in Python.
+- Advanced SQL for feature store extractions and dataset generation.
+- Strong hands-on experience with either PyTorch or TensorFlow frameworks.
+
+Bonus:
+- Containerized model deployment with Docker.
+- Experience with MLOps pipelines.

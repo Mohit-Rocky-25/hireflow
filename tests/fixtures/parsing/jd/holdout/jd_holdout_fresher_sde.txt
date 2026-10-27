@@ -1,0 +1,16 @@
+Role: Software Development Engineer - Fresher (Campus 2025)
+Company: Infosys Technologies
+Location: Mysore / Bangalore
+
+Eligibility:
+- B.Tech / B.E. in Computer Science, Information Technology, or related disciplines.
+- 0 years of prior experience required (Freshers).
+
+Key Requirements:
+- Solid grounding in Java programming and Object-Oriented Design.
+- Strong problem-solving skills in Data Structures & Algorithms.
+- Working knowledge of relational databases and SQL queries.
+
+Bonus Points:
+- Practical knowledge of Git version control.
+- Basic familiarity with Linux command-line environments.

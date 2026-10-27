@@ -103,3 +103,18 @@ export interface CandidateProfileData {
   responsibilities?: string[];
   declaration?: string;
 }
+
+export interface JDFixtureTruth {
+  id: string;
+  roleTitle: string;
+  seniority: 'fresher' | 'junior' | 'mid' | 'senior' | 'lead';
+  yearsRequired: number;
+  mustHaves: string[];
+  niceToHaves: string[];
+  toolsMentioned: string[];
+  orAlternatives?: { group: string; options: string[] }[];
+  degreeRequired?: string;
+  isHoldout: boolean;
+  rawText: string;
+}
+

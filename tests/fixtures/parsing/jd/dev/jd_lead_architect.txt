@@ -1,0 +1,16 @@
+Position: Principal Systems Architect
+Seniority: Staff / Principal / Lead (8+ Years)
+
+Position Description:
+We are seeking a Principal Systems Architect to guide the architectural evolution of our multi-region financial platform.
+
+Must-Have Requirements:
+- 8+ years of software architecture and engineering experience.
+- Masterful expertise in System Design and complex Distributed Systems.
+- Production mastery of Kubernetes orchestration at high scale.
+- Proven background engineering for High Availability (99.999% SLA) and disaster recovery.
+
+Good-to-Have Skills:
+- Systems programming proficiency in Go (Golang).
+- Infrastructure as code with Terraform.
+- Enterprise streaming with Kafka.

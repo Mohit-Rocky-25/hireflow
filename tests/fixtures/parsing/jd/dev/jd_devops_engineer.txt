@@ -1,0 +1,19 @@
+Job Title: DevOps & Cloud Engineer
+Experience: 3-5 Years
+Location: Pune, India
+
+Responsibilities:
+- Maintain continuous integration and continuous deployment pipelines.
+- Automate container builds and manage Kubernetes clusters.
+- Administer Linux production environments with zero downtime.
+
+Mandatory Qualifications:
+- 3+ years in a dedicated DevOps, SRE, or Cloud Infrastructure role.
+- Hands-on mastery of Docker containerization and Kubernetes cluster management.
+- Deep experience establishing CI/CD Pipelines with automated gating.
+- Strong Linux systems administration and shell scripting skills.
+
+Nice-to-Have:
+- Infrastructure-as-code automation using Terraform.
+- Telemetry, logging, and metrics gathering using Prometheus and Grafana.
+- AWS cloud certifications are an added advantage.

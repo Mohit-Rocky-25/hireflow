@@ -1,0 +1,17 @@
+Position: React Native Mobile Developer
+Experience: 3-5 Years
+Location: Noida, India
+
+What You Will Do:
+- Architect cross-platform mobile apps for iOS and Android devices.
+- Deliver pixel-perfect user experiences with smooth 60 FPS transitions.
+
+Requirements:
+- 3-5 years of mobile app development experience.
+- Deep expertise in React Native and TypeScript.
+- Strong familiarity with native iOS (Swift/Obj-C) and Android (Kotlin/Java) platform APIs.
+- Experience publishing applications to the Apple App Store and Google Play Store.
+
+Nice to Have:
+- Integration with GraphQL APIs.
+- Push notification workflows and authentication using Firebase.

@@ -1,0 +1,28 @@
+{
+  "id": "jd_holdout_data_scientist",
+  "roleTitle": "Machine Learning Engineer",
+  "seniority": "mid",
+  "yearsRequired": 4,
+  "mustHaves": [
+    "Python",
+    "SQL",
+    "Machine Learning"
+  ],
+  "niceToHaves": [
+    "Docker"
+  ],
+  "toolsMentioned": [
+    "Docker"
+  ],
+  "orAlternatives": [
+    {
+      "group": "deeplearning",
+      "options": [
+        "PyTorch",
+        "TensorFlow"
+      ]
+    }
+  ],
+  "isHoldout": true,
+  "rawText": "Title: Machine Learning Engineer\nExperience: 3-5 Years\n\nKey Requirements:\n- 3 to 5 years building and deploying Machine Learning models.\n- Expert programming skills in Python.\n- Advanced SQL for feature store extractions and dataset generation.\n- Strong hands-on experience with either PyTorch or TensorFlow frameworks.\n\nBonus:\n- Containerized model deployment with Docker.\n- Experience with MLOps pipelines.\n"
+}

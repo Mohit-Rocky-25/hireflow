@@ -1,0 +1,23 @@
+{
+  "id": "jd_holdout_lead_sre",
+  "roleTitle": "Lead Site Reliability Engineer",
+  "seniority": "lead",
+  "yearsRequired": 8,
+  "mustHaves": [
+    "Kubernetes",
+    "Linux",
+    "Terraform",
+    "Distributed Systems"
+  ],
+  "niceToHaves": [
+    "Go",
+    "Prometheus"
+  ],
+  "toolsMentioned": [
+    "Kubernetes",
+    "Terraform",
+    "Prometheus"
+  ],
+  "isHoldout": true,
+  "rawText": "Position: Lead Site Reliability Engineer\nSeniority: Lead (8+ Years Experience)\n\nRole Focus:\nDrive platform availability, telemetry, and automated disaster recovery.\n\nMust-Have Qualifications:\n- 8+ years experience operating high-scale cloud platforms.\n- Deep Kubernetes cluster operations and networking experience.\n- Expert Linux systems administration, kernel tuning, and troubleshooting.\n- Infrastructure as code with Terraform.\n- Architectural mastery of Distributed Systems resilience patterns.\n\nPreferred:\n- Systems scripting and automation in Go or Python.\n- Observability and alerting using Prometheus and Grafana.\n"
+}

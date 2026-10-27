@@ -1,0 +1,16 @@
+Title: Senior Application Security Engineer
+Experience: 5+ Years
+Location: Chennai, India
+
+Role Overview:
+Help safeguard our fintech infrastructure from sophisticated threat vectors.
+
+Key Requirements:
+- 5+ years of dedicated Application Security and threat modeling experience.
+- In-depth understanding of OWASP Top 10 vulnerabilities and modern mitigation strategies.
+- Hands-on expertise conducting Penetration Testing and code audits.
+- Scripting and automation proficiency using Python.
+
+Preferred Qualifications:
+- Experience securing containerized environments including Kubernetes and Docker.
+- Relevant certifications (OSCP, CISSP, CEH) are a distinct plus.

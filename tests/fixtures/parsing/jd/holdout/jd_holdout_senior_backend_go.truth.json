@@ -1,0 +1,22 @@
+{
+  "id": "jd_holdout_senior_backend_go",
+  "roleTitle": "Senior Go Backend Developer",
+  "seniority": "senior",
+  "yearsRequired": 5,
+  "mustHaves": [
+    "Go",
+    "PostgreSQL",
+    "Docker"
+  ],
+  "niceToHaves": [
+    "Kubernetes",
+    "Kafka"
+  ],
+  "toolsMentioned": [
+    "Docker",
+    "Kubernetes",
+    "Kafka"
+  ],
+  "isHoldout": true,
+  "rawText": "Role: Senior Go Backend Developer\nExperience: 5+ Years Required\n\nJob Overview:\nDevelop ultra-low latency transaction routing engines in Go.\n\nMinimum Requirements:\n- Minimum 5 years of backend development experience.\n- Expert proficiency in Go (Golang) and concurrent programming routines.\n- Production experience with PostgreSQL schema design and index optimization.\n- Containerization proficiency with Docker.\n\nNice to Have:\n- Kubernetes deployment and container orchestration.\n- Distributed event streaming with Apache Kafka.\n"
+}

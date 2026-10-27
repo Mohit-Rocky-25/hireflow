@@ -1,0 +1,24 @@
+{
+  "id": "jd_lead_architect",
+  "roleTitle": "Principal Systems Architect",
+  "seniority": "lead",
+  "yearsRequired": 9,
+  "mustHaves": [
+    "System Design",
+    "Distributed Systems",
+    "Kubernetes",
+    "High Availability & Fault Tolerance"
+  ],
+  "niceToHaves": [
+    "Go",
+    "Terraform",
+    "Kafka"
+  ],
+  "toolsMentioned": [
+    "Kubernetes",
+    "Terraform",
+    "Kafka"
+  ],
+  "isHoldout": false,
+  "rawText": "Position: Principal Systems Architect\nSeniority: Staff / Principal / Lead (8+ Years)\n\nPosition Description:\nWe are seeking a Principal Systems Architect to guide the architectural evolution of our multi-region financial platform.\n\nMust-Have Requirements:\n- 8+ years of software architecture and engineering experience.\n- Masterful expertise in System Design and complex Distributed Systems.\n- Production mastery of Kubernetes orchestration at high scale.\n- Proven background engineering for High Availability (99.999% SLA) and disaster recovery.\n\nGood-to-Have Skills:\n- Systems programming proficiency in Go (Golang).\n- Infrastructure as code with Terraform.\n- Enterprise streaming with Kafka.\n"
+}

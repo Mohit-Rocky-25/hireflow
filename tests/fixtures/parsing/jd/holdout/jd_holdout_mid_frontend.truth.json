@@ -1,0 +1,29 @@
+{
+  "id": "jd_holdout_mid_frontend",
+  "roleTitle": "Frontend Engineer (React / Vue)",
+  "seniority": "mid",
+  "yearsRequired": 3,
+  "mustHaves": [
+    "TypeScript",
+    "Tailwind CSS"
+  ],
+  "niceToHaves": [
+    "Vitest",
+    "Webpack"
+  ],
+  "toolsMentioned": [
+    "Vitest",
+    "Webpack"
+  ],
+  "orAlternatives": [
+    {
+      "group": "framework",
+      "options": [
+        "React",
+        "Vue.js"
+      ]
+    }
+  ],
+  "isHoldout": true,
+  "rawText": "Title: Frontend Engineer (React / Vue)\nExperience: 3-5 Years\n\nRequirements:\n- 3+ years of production experience crafting modern web frontends.\n- Solid proficiency in either React or Vue.js framework ecosystems.\n- Production mastery of TypeScript and strong typing patterns.\n- Experience with modern styling systems such as Tailwind CSS.\n\nGood to Have:\n- Unit testing experience using Vitest or Jest.\n- Deep familiarity with bundlers such as Webpack or Vite.\n"
+}

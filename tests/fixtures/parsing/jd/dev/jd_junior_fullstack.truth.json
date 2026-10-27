@@ -1,0 +1,23 @@
+{
+  "id": "jd_junior_fullstack",
+  "roleTitle": "Junior Full-Stack Developer",
+  "seniority": "junior",
+  "yearsRequired": 2,
+  "mustHaves": [
+    "Node.js",
+    "React",
+    "PostgreSQL",
+    "REST APIs"
+  ],
+  "niceToHaves": [
+    "Docker",
+    "AWS"
+  ],
+  "toolsMentioned": [
+    "Docker",
+    "AWS"
+  ],
+  "degreeRequired": "Bachelor's in Engineering or equivalent",
+  "isHoldout": false,
+  "rawText": "Position: Junior Full-Stack Developer\nDepartment: Engineering\nExperience Required: 1-2 years of software engineering experience\n\nJob Overview:\nAs a Junior Full-Stack Developer, you will collaborate with cross-functional product teams to deliver robust features across the entire web stack.\n\nResponsibilities:\n- Develop and maintain scalable backend services using Node.js.\n- Create user-friendly frontend interfaces in React.\n- Design relational database schemas and optimize queries in PostgreSQL.\n- Build and consume REST APIs following industry best practices.\n\nRequirements:\n- 1 to 2 years of proven professional development experience.\n- Hands-on experience building backend APIs in Node.js.\n- Strong skills in React for component-driven UI development.\n- Solid working knowledge of SQL databases, specifically PostgreSQL.\n- Understanding of HTTP protocols and RESTful API architecture.\n\nNice to Have:\n- Containerization experience with Docker is a bonus.\n- Exposure to Amazon Web Services (AWS) cloud infrastructure is preferred.\n"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "jd_qa_automation",
+  "roleTitle": "QA Automation Engineer",
+  "seniority": "junior",
+  "yearsRequired": 2,
+  "mustHaves": [
+    "JavaScript",
+    "End-to-End Testing"
+  ],
+  "niceToHaves": [
+    "CI/CD Pipelines",
+    "Postman",
+    "Git"
+  ],
+  "toolsMentioned": [
+    "Jenkins",
+    "Postman",
+    "Git"
+  ],
+  "isHoldout": false,
+  "rawText": "Role: QA Automation Engineer\nExperience: 2+ Years\n\nJob Summary:\nJoin our Quality Engineering team to build robust automated test suites.\n\nRequired Skills:\n- 2+ years of software quality engineering and Test Automation experience.\n- Proven experience with modern UI test frameworks including Selenium and Cypress.\n- Solid programming proficiency in JavaScript or TypeScript.\n- Strong ability to design comprehensive end-to-end test plans.\n\nPreferred:\n- Experience integrating test suites into Jenkins CI/CD pipelines is a plus.\n- API testing experience using Postman.\n- Version control with Git.\n"
+}

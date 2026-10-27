@@ -1,0 +1,19 @@
+{
+  "id": "jd_mobile_react_native",
+  "roleTitle": "React Native Mobile Developer",
+  "seniority": "mid",
+  "yearsRequired": 4,
+  "mustHaves": [
+    "React Native",
+    "TypeScript",
+    "iOS Development",
+    "Android Development"
+  ],
+  "niceToHaves": [
+    "GraphQL",
+    "OAuth2 & JWT"
+  ],
+  "toolsMentioned": [],
+  "isHoldout": false,
+  "rawText": "Position: React Native Mobile Developer\nExperience: 3-5 Years\nLocation: Noida, India\n\nWhat You Will Do:\n- Architect cross-platform mobile apps for iOS and Android devices.\n- Deliver pixel-perfect user experiences with smooth 60 FPS transitions.\n\nRequirements:\n- 3-5 years of mobile app development experience.\n- Deep expertise in React Native and TypeScript.\n- Strong familiarity with native iOS (Swift/Obj-C) and Android (Kotlin/Java) platform APIs.\n- Experience publishing applications to the Apple App Store and Google Play Store.\n\nNice to Have:\n- Integration with GraphQL APIs.\n- Push notification workflows and authentication using Firebase.\n"
+}

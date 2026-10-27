@@ -1,0 +1,22 @@
+{
+  "id": "jd_senior_data_engineer",
+  "roleTitle": "Senior Data Engineer",
+  "seniority": "senior",
+  "yearsRequired": 6,
+  "mustHaves": [
+    "Python",
+    "SQL",
+    "Apache Spark"
+  ],
+  "niceToHaves": [
+    "Airflow",
+    "Data Warehousing",
+    "AWS"
+  ],
+  "toolsMentioned": [
+    "Airflow",
+    "AWS"
+  ],
+  "isHoldout": false,
+  "rawText": "Role: Senior Data Engineer\nLevel: Senior (5+ Years of Experience)\nLocation: Hyderabad, India\n\nAbout Us:\nWe empower enterprises with real-time analytics and predictive insights.\n\nRequirements:\n- 5+ years of specialized experience in data engineering and data pipeline architecture.\n- Advanced programming skills in Python and complex SQL.\n- Strong production experience with Apache Spark for large-scale distributed data processing.\n- Proven track record designing dimensional models and ETL workflows.\n\nBonus Qualifications:\n- Experience orchestrating directed acyclic graphs (DAGs) with Apache Airflow.\n- Hands-on experience with modern cloud data warehouses like Snowflake.\n- Familiarity with AWS data infrastructure (S3, EMR, Redshift) is preferred.\n"
+}

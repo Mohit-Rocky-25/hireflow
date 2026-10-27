@@ -1,0 +1,12 @@
+Title: Frontend Engineer (React / Vue)
+Experience: 3-5 Years
+
+Requirements:
+- 3+ years of production experience crafting modern web frontends.
+- Solid proficiency in either React or Vue.js framework ecosystems.
+- Production mastery of TypeScript and strong typing patterns.
+- Experience with modern styling systems such as Tailwind CSS.
+
+Good to Have:
+- Unit testing experience using Vitest or Jest.
+- Deep familiarity with bundlers such as Webpack or Vite.

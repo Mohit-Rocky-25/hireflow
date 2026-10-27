@@ -1,0 +1,21 @@
+Title: Backend Software Engineer
+Level: Mid-Level (3-5 Years)
+Location: Remote, India
+
+Role Summary:
+Our platform processes millions of daily transactions. We need an experienced Backend Engineer to scale our services.
+
+Key Responsibilities:
+- Design and implement resilient microservices using Java and Spring Boot.
+- Manage persistent state across PostgreSQL or MySQL clusters.
+- Collaborate with infrastructure teams on high-throughput distributed systems.
+
+Minimum Requirements:
+- 3 to 5 years of backend engineering experience (minimum 3 years).
+- Deep expertise with Java and the Spring Boot framework.
+- Practical experience designing and operating Microservices in production.
+- Strong relational database experience with PostgreSQL or MySQL.
+
+Preferred Qualifications:
+- Experience with event-driven architecture using Apache Kafka is highly desirable.
+- In-memory caching expertise with Redis is a plus.

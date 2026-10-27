@@ -1,0 +1,13 @@
+Job: Senior Android Engineer
+Experience: 5-7 Years (Minimum 5 Years)
+
+Summary:
+Lead the engineering and architecture of our flagship consumer Android application.
+
+Mandatory Requirements:
+- 5+ years of dedicated Android application development experience.
+- Masterful command of Kotlin and modern Android SDK architecture.
+- Deep expertise in Mobile UI components, reactive state, and background processing.
+
+Nice-to-Have:
+- Continuous integration and deployment with automated CI/CD Pipelines.

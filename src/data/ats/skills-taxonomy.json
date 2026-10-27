@@ -615,14 +615,14 @@
   {
     "canonical": "Android Development",
     "category": "Mobile",
-    "aliases": ["Android SDK", "Android Studio", "Jetpack Compose"],
+    "aliases": ["Android", "Android SDK", "Android Studio", "Jetpack Compose"],
     "related": ["Kotlin", "Java", "Mobile Apps"],
     "weight": 4
   },
   {
     "canonical": "iOS Development",
     "category": "Mobile",
-    "aliases": ["iOS SDK", "SwiftUI", "UIKit", "Xcode"],
+    "aliases": ["iOS", "iOS SDK", "SwiftUI", "UIKit", "Xcode"],
     "related": ["Swift", "Mobile Apps"],
     "weight": 4
   },
@@ -651,7 +651,7 @@
   {
     "canonical": "Web Security & OWASP",
     "category": "Security",
-    "aliases": ["OWASP Top 10", "XSS", "CSRF", "SQL Injection", "CORS", "Penetration Testing", "Security Auditing"],
+    "aliases": ["Application Security", "OWASP", "OWASP Top 10", "XSS", "CSRF", "SQL Injection", "CORS", "Penetration Testing", "Security Auditing"],
     "related": ["Backend", "Frontend", "Security"],
     "weight": 5
   },
@@ -1038,7 +1038,7 @@
   {
     "canonical": "High Availability & Fault Tolerance",
     "category": "Architecture/System Design",
-    "aliases": ["Circuit Breaker", "Bulkhead Pattern", "Disaster Recovery", "Failover", "SLA 99.99%"],
+    "aliases": ["High Availability", "Fault Tolerance", "Circuit Breaker", "Bulkhead Pattern", "Disaster Recovery", "Failover", "SLA 99.99%"],
     "related": ["System Design", "Distributed Systems"],
     "weight": 5
   },

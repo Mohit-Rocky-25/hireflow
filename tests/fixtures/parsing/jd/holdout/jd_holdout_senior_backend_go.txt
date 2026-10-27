@@ -1,0 +1,15 @@
+Role: Senior Go Backend Developer
+Experience: 5+ Years Required
+
+Job Overview:
+Develop ultra-low latency transaction routing engines in Go.
+
+Minimum Requirements:
+- Minimum 5 years of backend development experience.
+- Expert proficiency in Go (Golang) and concurrent programming routines.
+- Production experience with PostgreSQL schema design and index optimization.
+- Containerization proficiency with Docker.
+
+Nice to Have:
+- Kubernetes deployment and container orchestration.
+- Distributed event streaming with Apache Kafka.

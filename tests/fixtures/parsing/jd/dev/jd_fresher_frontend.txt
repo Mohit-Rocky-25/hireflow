@@ -1,0 +1,22 @@
+Role: Graduate Frontend Engineer
+Company: WebCraft Technologies
+Location: Bangalore, India (Hybrid)
+Experience: 0-1 Years (Freshers welcome)
+
+About the Role:
+We are looking for an enthusiastic Graduate Frontend Engineer to join our core UI team. You will build dynamic, accessible web applications.
+
+Basic Qualifications:
+- Bachelor's degree in Computer Science or related field (2024 / 2025 batch).
+- Strong proficiency in React and modern TypeScript / JavaScript.
+- Solid foundational knowledge of HTML5 and CSS3 semantics.
+- Passion for writing clean, modular component code.
+
+Preferred Qualifications (Nice to Have):
+- Familiarity with Next.js or server-side rendering is a strong plus.
+- Hands-on experience with Redux or state management libraries is desirable.
+- Basic understanding of version control with Git.
+
+What We Offer:
+- Mentorship from senior staff engineers.
+- Competitive fresher stipend and health benefits.

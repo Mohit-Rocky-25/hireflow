@@ -1,0 +1,16 @@
+Role: QA Automation Engineer
+Experience: 2+ Years
+
+Job Summary:
+Join our Quality Engineering team to build robust automated test suites.
+
+Required Skills:
+- 2+ years of software quality engineering and Test Automation experience.
+- Proven experience with modern UI test frameworks including Selenium and Cypress.
+- Solid programming proficiency in JavaScript or TypeScript.
+- Strong ability to design comprehensive end-to-end test plans.
+
+Preferred:
+- Experience integrating test suites into Jenkins CI/CD pipelines is a plus.
+- API testing experience using Postman.
+- Version control with Git.

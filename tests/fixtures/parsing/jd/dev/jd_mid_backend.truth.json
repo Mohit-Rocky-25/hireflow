@@ -1,0 +1,31 @@
+{
+  "id": "jd_mid_backend",
+  "roleTitle": "Backend Software Engineer",
+  "seniority": "mid",
+  "yearsRequired": 4,
+  "mustHaves": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL",
+    "Microservices"
+  ],
+  "niceToHaves": [
+    "Kafka",
+    "Redis"
+  ],
+  "toolsMentioned": [
+    "Kafka",
+    "Redis"
+  ],
+  "orAlternatives": [
+    {
+      "group": "database",
+      "options": [
+        "PostgreSQL",
+        "MySQL"
+      ]
+    }
+  ],
+  "isHoldout": false,
+  "rawText": "Title: Backend Software Engineer\nLevel: Mid-Level (3-5 Years)\nLocation: Remote, India\n\nRole Summary:\nOur platform processes millions of daily transactions. We need an experienced Backend Engineer to scale our services.\n\nKey Responsibilities:\n- Design and implement resilient microservices using Java and Spring Boot.\n- Manage persistent state across PostgreSQL or MySQL clusters.\n- Collaborate with infrastructure teams on high-throughput distributed systems.\n\nMinimum Requirements:\n- 3 to 5 years of backend engineering experience (minimum 3 years).\n- Deep expertise with Java and the Spring Boot framework.\n- Practical experience designing and operating Microservices in production.\n- Strong relational database experience with PostgreSQL or MySQL.\n\nPreferred Qualifications:\n- Experience with event-driven architecture using Apache Kafka is highly desirable.\n- In-memory caching expertise with Redis is a plus.\n"
+}

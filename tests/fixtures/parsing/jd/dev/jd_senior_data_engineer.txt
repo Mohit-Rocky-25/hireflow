@@ -1,0 +1,17 @@
+Role: Senior Data Engineer
+Level: Senior (5+ Years of Experience)
+Location: Hyderabad, India
+
+About Us:
+We empower enterprises with real-time analytics and predictive insights.
+
+Requirements:
+- 5+ years of specialized experience in data engineering and data pipeline architecture.
+- Advanced programming skills in Python and complex SQL.
+- Strong production experience with Apache Spark for large-scale distributed data processing.
+- Proven track record designing dimensional models and ETL workflows.
+
+Bonus Qualifications:
+- Experience orchestrating directed acyclic graphs (DAGs) with Apache Airflow.
+- Hands-on experience with modern cloud data warehouses like Snowflake.
+- Familiarity with AWS data infrastructure (S3, EMR, Redshift) is preferred.

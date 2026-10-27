@@ -1,0 +1,21 @@
+{
+  "id": "jd_holdout_fresher_sde",
+  "roleTitle": "Software Development Engineer - Fresher",
+  "seniority": "fresher",
+  "yearsRequired": 0,
+  "mustHaves": [
+    "Java",
+    "Data Structures & Algorithms",
+    "SQL"
+  ],
+  "niceToHaves": [
+    "Git",
+    "Linux"
+  ],
+  "toolsMentioned": [
+    "Git"
+  ],
+  "degreeRequired": "B.Tech / B.E. in Computer Science",
+  "isHoldout": true,
+  "rawText": "Role: Software Development Engineer - Fresher (Campus 2025)\nCompany: Infosys Technologies\nLocation: Mysore / Bangalore\n\nEligibility:\n- B.Tech / B.E. in Computer Science, Information Technology, or related disciplines.\n- 0 years of prior experience required (Freshers).\n\nKey Requirements:\n- Solid grounding in Java programming and Object-Oriented Design.\n- Strong problem-solving skills in Data Structures & Algorithms.\n- Working knowledge of relational databases and SQL queries.\n\nBonus Points:\n- Practical knowledge of Git version control.\n- Basic familiarity with Linux command-line environments.\n"
+}

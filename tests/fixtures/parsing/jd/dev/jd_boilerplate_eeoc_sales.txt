@@ -1,0 +1,26 @@
+Job Title: Full-Stack Web Engineer
+Department: Product Engineering
+Annual Base Salary: $110,000 - $145,000 / year + Equity
+
+About Our Company:
+We are an industry-leading SaaS organization serving global enterprise customers.
+
+Core Requirements:
+- At least 3 years of web application development experience.
+- Strong mastery of Python and the Django framework.
+- Proven experience designing and implementing scalable REST APIs.
+
+Preferred Skills:
+- In-memory caching with Redis.
+- Containerization with Docker.
+- Database query tuning in PostgreSQL.
+
+Equal Employment Opportunity (EEO) Statement:
+Acme Global Inc. is an Equal Opportunity / Affirmative Action Employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or protected veteran status. We are committed to fostering an inclusive, welcoming work environment.
+
+Benefits & Perks:
+- Comprehensive medical, dental, and vision insurance.
+- 401(k) matching program up to 5%.
+- Unlimited paid time off (PTO) and paid parental leave.
+- Annual learning and professional development stipend ($2,500).
+- Remote home office setup allowance.
