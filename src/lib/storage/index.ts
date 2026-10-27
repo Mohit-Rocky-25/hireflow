@@ -258,9 +258,14 @@ export class HireFlowStorageAdapter {
       if (this.isAvailable()) {
         try {
           rawOld = window.localStorage.getItem(oldKey);
+          if (rawOld === null) {
+            rawOld = this.inMemoryFallback.get(oldKey) || null;
+          }
         } catch {
-          rawOld = null;
+          rawOld = this.inMemoryFallback.get(oldKey) || null;
         }
+      } else {
+        rawOld = this.inMemoryFallback.get(oldKey) || null;
       }
       if (!rawOld) continue;
 
@@ -280,6 +285,7 @@ export class HireFlowStorageAdapter {
             } catch {
               // ignore
             }
+            this.inMemoryFallback.delete(oldKey);
             return true;
           }
         }
