@@ -234,7 +234,16 @@ export function matchSkills(
   const candidateMentionMap = getDeduplicatedSkills(extractedCandidateMentions);
 
   // Pre-calculate implications strictly from verified STRONG edges in the implication graph
-  const candidateImpliedMap = new Map<string, { source: string; quote: string }>();
+  // Depth-capped transitive walk up to depth 2 with 0.7 transferable decay (Stage 4)
+  interface ImpliedTarget {
+    source: string;
+    path: string[];
+    depth: number;
+    quote: string;
+    credit: number;
+  }
+
+  const candidateImpliedMap = new Map<string, ImpliedTarget>();
 
   const allCandidateSkillNames = new Set<string>();
   for (const s of resumeSkills) allCandidateSkillNames.add(s.toLowerCase());
@@ -245,13 +254,36 @@ export function matchSkills(
   }
 
   for (const skill of allCandidateSkillNames) {
-    const strongImplications = STRONG_IMPLICATION_MAP.get(skill) || [];
-    for (const imp of strongImplications) {
-      if (!candidateImpliedMap.has(imp.target.toLowerCase())) {
-        candidateImpliedMap.set(imp.target.toLowerCase(), {
+    const directNeighbors = STRONG_IMPLICATION_MAP.get(skill) || [];
+    for (const edge of directNeighbors) {
+      const targetLower = edge.target.toLowerCase();
+      if (allCandidateSkillNames.has(targetLower)) continue;
+
+      if (!candidateImpliedMap.has(targetLower)) {
+        candidateImpliedMap.set(targetLower, {
           source: skill,
-          quote: `Implied by candidate proficiency in ${skill}: ${imp.rationale}`,
+          path: [skill, edge.target],
+          depth: 1,
+          quote: `Implied by candidate proficiency in ${skill}: ${edge.rationale}`,
+          credit: 0.5,
         });
+      }
+
+      // Transitive step (depth 2) with 0.7 transferable decay
+      const secondNeighbors = STRONG_IMPLICATION_MAP.get(targetLower) || [];
+      for (const edge2 of secondNeighbors) {
+        const secondTargetLower = edge2.target.toLowerCase();
+        if (allCandidateSkillNames.has(secondTargetLower)) continue;
+
+        if (!candidateImpliedMap.has(secondTargetLower)) {
+          candidateImpliedMap.set(secondTargetLower, {
+            source: skill,
+            path: [skill, edge.target, edge2.target],
+            depth: 2,
+            quote: `Transitively implied by ${skill} via ${edge.target} (depth 2): ${edge.rationale} -> ${edge2.rationale}`,
+            credit: Math.round(0.5 * 0.7 * 100) / 100, // 0.35
+          });
+        }
       }
     }
   }
@@ -386,7 +418,7 @@ export function matchSkills(
       }
     } else if (status === 'implied') {
       evidenceTier = 'implied_strong';
-      earnedCredit = 0.5; // Implied via STRONG edge gets 0.5 credit
+      earnedCredit = candidateImpliedMap.get(skillLower)?.credit ?? 0.5; // Implied via STRONG edge gets 0.5 (depth 1) or 0.35 (depth 2)
     } else if (status === 'related') {
       evidenceTier = 'not_demonstrated';
       earnedCredit = 0.25; // spec-exempt: legacy credit awaiting Stage 3
