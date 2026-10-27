@@ -322,7 +322,10 @@ async function evalFixture(
   if (parsed.sections.projects && parsed.sections.projects.length > 0) detectedSections.add('projects');
   if (parsed.sections.education && parsed.sections.education.length > 0) detectedSections.add('education');
   for (const k of Object.keys(parsed.sections.rawSections || {})) {
-    detectedSections.add(k.toLowerCase());
+    const normK = k.toLowerCase();
+    if (!['header', 'contact', 'declaration'].includes(normK)) {
+      detectedSections.add(normK);
+    }
   }
 
   let tpSections = 0;

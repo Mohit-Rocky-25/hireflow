@@ -122,5 +122,37 @@ export function formatAuditor(resume: ParsedResume): FormatRiskItem[] {
     });
   }
 
+  // 8. Extraction Warnings (Text boxes, tables, multi-column layouts)
+  const warnings = (resume.parseWarnings || []).map((w) => w.toLowerCase());
+  if (warnings.some((w) => w.includes('text-box'))) {
+    risks.push({
+      id: 'drawing_text_box',
+      name: 'Text Box / Floating Element Detected',
+      severity: 'high',
+      description: 'Resume contains text positioned inside Microsoft Word drawing text boxes. Older ATS systems often skip floating shapes completely.',
+      evidence: 'Detected "text-box" layout warning',
+    });
+  }
+
+  if (warnings.some((w) => w.includes('table-layout') || w.includes('table structure'))) {
+    risks.push({
+      id: 'table_structure',
+      name: 'Table Structure Detected',
+      severity: 'medium',
+      description: 'Resume uses multi-column tables for content layout. In complex tables, ATS parsers can read across columns horizontally, scrambling your experience.',
+      evidence: 'Detected "table-layout" warning',
+    });
+  }
+
+  if (warnings.some((w) => w.includes('two-column') || w.includes('multi-column') || w.includes('column'))) {
+    risks.push({
+      id: 'multi_column_layout',
+      name: 'Multi-Column Layout Detected',
+      severity: 'medium',
+      description: 'Resume uses multi-column layout. Ensure sections are ordered so that sequential parsing reads down columns rather than across gutters.',
+      evidence: 'Detected multi-column warning',
+    });
+  }
+
   return risks;
 }

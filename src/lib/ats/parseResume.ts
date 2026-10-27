@@ -1,24 +1,96 @@
 // ============================================================
-// HireFlow ATS Engine — parseResume
+// HireFlow ATS Engine — parseResume (Stage 4)
 // Robust extraction of contact, sections, bullets, and skills
 // ============================================================
 
-import { ParsedResume, ExtractionResult } from './types';
+import { ParsedResume, ExtractionResult, BulletAnalysis } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
+import sectionSynonymsData from '../../data/ats/section-synonyms.json';
 import { findTokenInText } from './matchSkills';
+import { scoreBullet } from './evidenceScorer';
 
-const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-const PHONE_REGEX = /(?:\+?\d{1,3}[-.\s]?)?\(?\d{3,5}\)?[-.\s]?\d{3,5}(?:[-.\s]?\d{3,5})?/;
+// Email regular expressions (Standard + Obfuscated)
+const EMAIL_REGEX = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/i;
+const OBFUSCATED_EMAIL_REGEX = /([a-zA-Z0-9._%+-]+)\s*(?:\[at\]|\(at\)|\bat\b)\s*([a-zA-Z0-9.-]+)\s*(?:\[dot\]|\(dot\)|\bdot\b)\s*([a-zA-Z]{2,})/i;
+
+// Phone regular expressions (Indian mobile + US/International)
+const PHONE_PATTERNS = [
+  // Indian mobile: +91 98425 66321, +91-9842566321, 9842566321
+  /(?:\+91[\s.-]?)?[6-9]\d{4}[\s.-]?\d{5}\b/,
+  // US / North America: +1 (555) 123-4567, (555) 123-4567, 555-123-4567
+  /(?:\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\b/,
+  // General international formatted phone number
+  /(?:\+\d{1,3}[\s.-]?)?\(?\d{2,5}\)?[\s.-]?\d{3,5}[\s.-]?\d{3,5}\b/,
+];
+
 const URL_REGEX = /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
 
-const SECTION_HEADERS: Record<string, RegExp> = {
-  summary: /^(?:summary|professional summary|about me|career objective|profile|overview|executive summary|personal profile)\b/i,
-  skills: /^(?:technical skills|core skills|key skills|skills\s*(?:&|and)\s*technologies|skills\s*(?:&|and)\s*tools|core competencies|skills summary|skills|technologies|tools\s*(?:&|and)\s*technologies|tech stack|programming languages|technical strengths|areas of expertise|skills dump)\b/i,
-  experience: /^(?:work experience|professional experience|employment history|career history|work history|relevant experience|experience|internships|internship experience|industrial experience|employment|professional background)\b/i,
-  projects: /^(?:technical projects|academic projects|featured projects|key projects|personal projects|software projects|projects|selected projects|notable projects|open source projects|capstone projects?)\b/i,
-  education: /^(?:education|academic background|educational qualifications|academic qualifications|academics|qualifications|academic credentials|academic profile|degrees|university education|educational background)\b/i,
-  certifications: /^(?:certifications|licenses & certifications|credentials|professional certifications|licenses|courses & certifications|courses)\b/i,
-};
+// Bullet markers
+const BULLET_START_REGEX = /^[\s•▪●○◆◇►▸–—\-*]+|^\d+[\.\)]\s+|^[a-zA-Z][\.\)]\s+/;
+
+// Compile section synonym matchers
+interface SectionMatcher {
+  canonical: string;
+  normalizedSynonyms: string[];
+}
+
+const SECTION_MATCHERS: SectionMatcher[] = Object.entries(sectionSynonymsData).map(
+  ([canonical, synonyms]) => ({
+    canonical,
+    normalizedSynonyms: synonyms.map((s) => s.toLowerCase().replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim()),
+  })
+);
+
+function normalizeHeadingCandidate(line: string): string {
+  // Strip markdown, bullets, decorative punctuation
+  let clean = line
+    .replace(/^[#*•▪●○◆◇►▸–—\-=_~|\s]+/, '')
+    .replace(/[:#*•▪●○◆◇►▸–—\-=_~|\s]+$/, '')
+    .trim();
+
+  // Handle spaced uppercase letters ("E D U C A T I O N" -> "EDUCATION")
+  if (/^[A-Z](?:\s+[A-Z]){2,}$/.test(clean)) {
+    clean = clean.replace(/\s+/g, '');
+  }
+
+  // Remove leading numbers / Roman numerals ("1.", "I.", "Section 2.")
+  clean = clean
+    .replace(/^(?:section\s+)?(?:\d+|[IVXLCDMivxlcdm]+)[.:\-)\]]\s*/i, '')
+    .replace(/^\d+\s+/, '')
+    .trim();
+
+  return clean;
+}
+
+function matchSectionHeader(line: string): string | null {
+  const cleanLine = normalizeHeadingCandidate(line);
+  if (!cleanLine || cleanLine.length < 3 || cleanLine.length > 65) return null;
+
+  // Lines that look like email/phone/urls are not section headers
+  if (cleanLine.includes('@') || cleanLine.startsWith('http') || cleanLine.includes('www.')) return null;
+
+  const normalizedLine = cleanLine
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  for (const matcher of SECTION_MATCHERS) {
+    for (const syn of matcher.normalizedSynonyms) {
+      if (
+        normalizedLine === syn ||
+        normalizedLine.startsWith(syn + ' ') ||
+        normalizedLine.startsWith(syn + ':') ||
+        normalizedLine.startsWith(syn + '-') ||
+        normalizedLine.startsWith(syn + '(')
+      ) {
+        return matcher.canonical;
+      }
+    }
+  }
+
+  return null;
+}
 
 export function parseResume(
   rawTextOrExtraction: string | ExtractionResult,
@@ -31,37 +103,74 @@ export function parseResume(
   const parseWarnings: string[] = isExtractionResult ? [...(rawTextOrExtraction.warnings || [])] : [];
 
   // 1. Contact Information Extraction
+  // Email
+  let email: string | undefined;
   const emailMatch = cleanText.match(EMAIL_REGEX);
-  const email = emailMatch ? emailMatch[0] : undefined;
+  if (emailMatch) {
+    email = emailMatch[0].toLowerCase();
+  } else {
+    const obfMatch = cleanText.match(OBFUSCATED_EMAIL_REGEX);
+    if (obfMatch) {
+      email = `${obfMatch[1]}@${obfMatch[2]}.${obfMatch[3]}`.toLowerCase();
+    }
+  }
 
-  const phoneMatch = cleanText.match(PHONE_REGEX);
-  const phone = phoneMatch ? phoneMatch[0].trim() : undefined;
+  // Phone
+  let phone: string | undefined;
+  for (const pattern of PHONE_PATTERNS) {
+    const pMatch = cleanText.match(pattern);
+    if (pMatch) {
+      phone = pMatch[0].trim();
+      break;
+    }
+  }
 
+  // Links
   const linksSet = new Set<string>();
   if (isExtractionResult && rawTextOrExtraction.links) {
-    for (const l of rawTextOrExtraction.links) linksSet.add(l);
+    for (const l of rawTextOrExtraction.links) {
+      if (l && l.trim()) linksSet.add(l.trim());
+    }
   }
-  const localUrlRegex = /(?:https?:\/\/)?(?:www\.)?(?:github\.com\/[a-zA-Z0-9_-]+|linkedin\.com\/in\/[a-zA-Z0-9_-]+|[a-zA-Z0-9_-]+\.(?:io|dev|app|me|com)(?:\/[^\s,]+)?)/gi;
-  const urlMatches = cleanText.match(localUrlRegex) || [];
+  const urlMatches = cleanText.match(URL_REGEX) || [];
   for (const u of urlMatches) {
-    linksSet.add(u);
+    linksSet.add(u.trim());
   }
   const links: string[] = Array.from(linksSet);
 
-  // Name heuristic: usually in the first 3 non-empty lines that don't look like contact/skills
+  // Candidate Name Heuristic: Check first 5 lines
   let name: string | undefined;
   for (let i = 0; i < Math.min(lines.length, 5); i++) {
-    const line = lines[i];
+    const rawLine = lines[i];
+    if (!rawLine) continue;
+
+    // Filter out email, phone, links, resume keyword lines
     if (
-      line.length > 2 &&
-      line.length < 50 &&
-      !line.includes('@') &&
-      !line.match(PHONE_REGEX) &&
-      !line.match(URL_REGEX) &&
-      !line.toLowerCase().includes('resume') &&
-      !line.toLowerCase().includes('curriculum vitae')
+      rawLine.includes('@') ||
+      rawLine.match(/(?:github|linkedin|\.com|\.dev|\.io)/i) ||
+      rawLine.toLowerCase().includes('curriculum vitae') ||
+      rawLine.toLowerCase().includes('resume') ||
+      rawLine.toLowerCase().includes('biodata') ||
+      rawLine.toLowerCase().includes('page ') ||
+      rawLine.length > 55
     ) {
-      name = line.replace(/^(?:name|candidate name)\s*[:\-]\s*/i, '').trim();
+      continue;
+    }
+
+    let candidate = rawLine.replace(/^(?:name|candidate name)\s*[:\-]\s*/i, '').trim();
+
+    // If line has title delimiter ("Arjun Pillai | Software Engineer"), take first part
+    if (candidate.includes('|')) {
+      candidate = candidate.split('|')[0].trim();
+    } else if (candidate.includes('—')) {
+      candidate = candidate.split('—')[0].trim();
+    } else if (candidate.includes(' - ') && !candidate.match(/\b(?:19|20)\d{2}\b/)) {
+      candidate = candidate.split(' - ')[0].trim();
+    }
+
+    // Name should be between 2 and 40 characters and contain letters
+    if (candidate.length >= 2 && candidate.length <= 40 && /[a-zA-Z]/.test(candidate)) {
+      name = candidate;
       break;
     }
   }
@@ -74,36 +183,13 @@ export function parseResume(
   for (const line of lines) {
     if (!line) continue;
 
-    // Check if line is a section header (strip markdown, numbers, bullets, roman numerals)
-    let matchedHeader = false;
-    const cleanLine = line
-      .replace(/^[#*•▪●\-=_~\s]+/, '')
-      .replace(/^(?:\d+|[IVXLCDMivxlcdm]+)[.:\-)\]]\s*/, '')
-      .replace(/^\d+\s+/, '')
-      .replace(/[:#*•▪●\-=_~\s]+$/, '')
-      .trim();
-
-    if (
-      cleanLine.length >= 3 &&
-      cleanLine.length < 50 &&
-      !cleanLine.includes('|') &&
-      !cleanLine.startsWith('-') &&
-      !cleanLine.startsWith('•') &&
-      !cleanLine.startsWith('*')
-    ) {
-      for (const [secKey, regex] of Object.entries(SECTION_HEADERS)) {
-        if (regex.test(cleanLine)) {
-          currentSection = secKey;
-          if (!rawSections[currentSection]) {
-            rawSections[currentSection] = [];
-          }
-          matchedHeader = true;
-          break;
-        }
+    const matchedCanonical = matchSectionHeader(line);
+    if (matchedCanonical) {
+      currentSection = matchedCanonical.toLowerCase();
+      if (!rawSections[currentSection]) {
+        rawSections[currentSection] = [];
       }
-    }
-
-    if (!matchedHeader) {
+    } else {
       if (!rawSections[currentSection]) {
         rawSections[currentSection] = [];
       }
@@ -116,47 +202,93 @@ export function parseResume(
     sectionSummaries[k] = v.join('\n');
   }
 
-  // 3. Extract bullets from Experience and Projects
+  // 3. Bullets Extraction across relevant sections with continuation line merging
   const bulletLines: string[] = [];
-  const experienceLines = rawSections.experience || [];
-  const projectLines = rawSections.projects || [];
-  const bulletCandidates =
-    experienceLines.length > 0 || projectLines.length > 0
-      ? [...experienceLines, ...projectLines]
-      : Object.entries(rawSections)
-          .filter(([sec]) => sec !== 'header' && sec !== 'summary' && sec !== 'education' && sec !== 'skills')
-          .flatMap(([, l]) => l);
 
-  for (const line of bulletCandidates) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;
+  // Sections that legitimately hold bullet points
+  const candidateSectionKeys = [
+    'experience',
+    'projects',
+    'achievements',
+    'positions of responsibility',
+    'certifications',
+    'publications',
+    'extracurricular',
+  ];
 
-    // Direct bullet marker match
-    if (
-      trimmed.startsWith('•') ||
-      trimmed.startsWith('-') ||
-      trimmed.startsWith('*') ||
-      trimmed.startsWith('—') ||
-      trimmed.match(/^\d+[\.\)]\s+/)
-    ) {
-      const cleanBullet = trimmed.replace(/^[\s•\-*—\d\.\)]+/, '').trim();
-      if (cleanBullet.length > 15) {
-        bulletLines.push(cleanBullet);
-      }
-    } else if (
-      trimmed.length > 25 &&
-      !trimmed.includes('|') &&
-      !trimmed.match(/^(?:company|role|title|january|february|march|april|may|june|july|august|september|october|november|december)\b/i) &&
-      !Object.keys(SECTION_HEADERS).some((k) => trimmed.toLowerCase().startsWith(k))
-    ) {
-      // Unbulleted achievement line
-      bulletLines.push(trimmed);
+  const candidateSectionsToProcess: string[][] = [];
+  for (const secKey of candidateSectionKeys) {
+    if (rawSections[secKey] && rawSections[secKey].length > 0) {
+      candidateSectionsToProcess.push(rawSections[secKey]);
     }
   }
 
-  // If still no bullets found, attempt sentence splitting on experience text
-  if (bulletLines.length === 0 && experienceLines.length > 0) {
-    const expText = experienceLines.join(' ');
+  // If none of the specific bullet sections were populated, check other non-header/non-contact sections
+  if (candidateSectionsToProcess.length === 0) {
+    for (const [secKey, secLines] of Object.entries(rawSections)) {
+      if (!['header', 'summary', 'skills', 'education', 'declaration'].includes(secKey)) {
+        if (secLines && secLines.length > 0) {
+          candidateSectionsToProcess.push(secLines);
+        }
+      }
+    }
+  }
+
+  for (const secLines of candidateSectionsToProcess) {
+    let activeBullet: string | null = null;
+
+    for (const rawLine of secLines) {
+      const trimmed = rawLine.trim();
+      if (!trimmed) continue;
+
+      const startsWithBullet = BULLET_START_REGEX.test(trimmed);
+
+      if (startsWithBullet) {
+        // Flush previous bullet
+        if (activeBullet && activeBullet.length >= 15) {
+          bulletLines.push(activeBullet);
+        }
+        // Start new bullet
+        activeBullet = trimmed.replace(BULLET_START_REGEX, '').trim();
+      } else if (activeBullet) {
+        // Check if this line is a continuation line or a new structural block (e.g., job title/company)
+        const isStructuralEntry =
+          trimmed.includes('|') ||
+          /\b(?:19|20)\d{2}\s*(?:-|–|to)\s*(?:19|20|present|current)\b/i.test(trimmed) ||
+          /^(?:company|organization|role|title|internship|project)\s*[:\-]/i.test(trimmed);
+
+        if (!isStructuralEntry && trimmed.length > 0) {
+          // Merge continuation line
+          activeBullet = `${activeBullet} ${trimmed}`;
+        } else {
+          // Flush active bullet and close
+          if (activeBullet.length >= 15) {
+            bulletLines.push(activeBullet);
+          }
+          activeBullet = null;
+        }
+      } else {
+        // Unbulleted achievement line detection
+        const isStructuralEntry =
+          trimmed.includes('|') ||
+          /\b(?:19|20)\d{2}\s*(?:-|–|to)\s*(?:19|20|present|current)\b/i.test(trimmed) ||
+          /^(?:company|organization|role|title|internship|project)\s*[:\-]/i.test(trimmed);
+
+        if (!isStructuralEntry && trimmed.length >= 25) {
+          bulletLines.push(trimmed);
+        }
+      }
+    }
+
+    // Flush final bullet of section
+    if (activeBullet && activeBullet.length >= 15) {
+      bulletLines.push(activeBullet);
+    }
+  }
+
+  // Fallback sentence splitting if zero bullets found
+  if (bulletLines.length === 0 && rawSections.experience && rawSections.experience.length > 0) {
+    const expText = rawSections.experience.join(' ');
     const sentences = expText.split(/(?<=[.!?])\s+/);
     for (const sent of sentences) {
       const s = sent.trim();
@@ -166,34 +298,7 @@ export function parseResume(
     }
   }
 
-  // Determine parseStatus
-  let parseStatus: 'success' | 'warning' | 'failed' = 'success';
-  if (cleanText.split(/\s+/).filter(Boolean).length < 30) {
-    parseStatus = 'failed';
-    parseWarnings.push('Resume text is too short (< 30 words) to evaluate accurately.');
-  } else if (bulletLines.length === 0 && experienceLines.length === 0 && projectLines.length === 0) {
-    parseStatus = 'failed';
-    parseWarnings.push('No work experience, projects, or achievements could be extracted from resume.');
-  } else if (bulletLines.length === 0) {
-    parseStatus = 'warning';
-    parseWarnings.push('No bullet points found in experience section. Evaluation confidence is low.');
-  }
-
-  if (!email && !phone) {
-    parseWarnings.push('No contact email or phone number detected.');
-  }
-  if (!rawSections.skills || rawSections.skills.length === 0) {
-    parseWarnings.push('No dedicated Technical Skills section identified.');
-  }
-  if (!rawSections.education || rawSections.education.length === 0) {
-    parseWarnings.push('No dedicated Education section identified.');
-  }
-  const cleanWordCount = cleanText.split(/\s+/).filter(Boolean).length;
-  if (cleanWordCount < 180 && parseStatus === 'success') {
-    parseWarnings.push(`Resume text is unusually brief (${cleanWordCount} words). Comprehensive scoring requires 300–800 words.`);
-  }
-
-  // 4. Skills extraction against skills-taxonomy using token-boundary precision
+  // 4. Skills extraction against taxonomy
   const skillsExtractedSet = new Set<string>();
   const isSkillsSectionPresent = Boolean(rawSections.skills && rawSections.skills.length > 0);
 
@@ -221,7 +326,7 @@ export function parseResume(
   if (explicitYearsMatch) {
     totalYearsEstimate = parseFloat(explicitYearsMatch[1]);
   } else {
-    const experienceText = experienceLines.join('\n');
+    const experienceText = (rawSections.experience || []).join('\n');
     const targetDateText = experienceText.length > 50 ? experienceText : cleanText;
 
     const yearRanges = [...targetDateText.matchAll(/\b(20\d{2}|19\d{2})\s*(?:-|–|to)\s*(20\d{2}|present|current)\b/gi)];
@@ -267,8 +372,37 @@ export function parseResume(
     careerLevel = 'senior';
   }
 
+  // Parse status & warnings
   const wordCount = cleanText.split(/\s+/).filter(Boolean).length;
   const estimatedPages = Math.max(1, Math.ceil(wordCount / 450));
+
+  let parseStatus: 'success' | 'warning' | 'failed' = 'success';
+  if (wordCount < 30) {
+    parseStatus = 'failed';
+    parseWarnings.push('Resume text is too short (< 30 words) to evaluate accurately.');
+  } else if (bulletLines.length === 0 && (!rawSections.experience || rawSections.experience.length === 0) && (!rawSections.projects || rawSections.projects.length === 0)) {
+    parseStatus = 'failed';
+    parseWarnings.push('No work experience, projects, or achievements could be extracted from resume.');
+  } else if (bulletLines.length === 0) {
+    parseStatus = 'warning';
+    parseWarnings.push('No bullet points found in experience section. Evaluation confidence is low.');
+  }
+
+  if (!email && !phone) {
+    parseWarnings.push('No contact email or phone number detected.');
+  }
+  if (!rawSections.skills || rawSections.skills.length === 0) {
+    parseWarnings.push('No dedicated Technical Skills section identified.');
+  }
+  if (!rawSections.education || rawSections.education.length === 0) {
+    parseWarnings.push('No dedicated Education section identified.');
+  }
+  if (wordCount < 180 && parseStatus === 'success') {
+    parseWarnings.push(`Resume text is unusually brief (${wordCount} words). Comprehensive scoring requires 300–800 words.`);
+  }
+
+  // Score extracted bullets with evidenceScorer
+  const bullets: BulletAnalysis[] = bulletLines.map((b) => scoreBullet(b));
 
   return {
     rawText,
@@ -287,17 +421,7 @@ export function parseResume(
       rawSections: sectionSummaries,
     },
     skillsExtracted: Array.from(skillsExtractedSet),
-    bullets: bulletLines.map((t) => ({
-      rawText: t,
-      score: 50,
-      hasActionVerb: false,
-      hasMetric: false,
-      hasTechnology: false,
-      technologiesFound: [],
-      hasOutcome: false,
-      weakPhrases: [],
-      isJobDescriptionStyle: false,
-    })),
+    bullets,
     totalYearsEstimate,
     wordCount,
     estimatedPages,
