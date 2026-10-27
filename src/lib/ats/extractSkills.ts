@@ -53,7 +53,7 @@ const ACTION_VERBS = new Set([
 
 const NEGATION_PATTERNS = [
   /\b(?:no|zero|little\s+to\s+no|without|lack\s+of|lacking)\s+(?:prior\s+|hands-on\s+)?(?:experience\s+with|knowledge\s+of|exposure\s+to)\b/i,
-  /\b(?:not\s+proficient\s+in|not\s+familiar\s+with|never\s+worked\s+with|never\s+used|haven't\s+worked\s+with|haven't\s+used|have\s+not\s+used|did\s+not\s+use|didn't\s+use)\b/i,
+  /\b(?:not\s+proficient\s+in|not\s+familiar\s+with|unfamiliar\s+with|never\s+worked\s+with|never\s+used|haven't\s+worked\s+with|haven't\s+used|have\s+not\s+used|did\s+not\s+use|didn't\s+use)\b/i,
   /\b(?:seeking\s+to\s+learn|looking\s+to\s+learn|want\s+to\s+learn|eager\s+to\s+learn|interested\s+in\s+learning)\b/i,
   /\b(?:without|excluding)\b/i,
 ];
