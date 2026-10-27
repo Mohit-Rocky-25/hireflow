@@ -6,6 +6,9 @@
 import { SkillMatchResult, SkillMatchStatus, TaxonomySkill, EvidenceTier } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 import implicationGraphData from '../../data/ats/implication-graph.json';
+import { extractSkills, getDeduplicatedSkills } from './extractSkills';
+
+export { extractSkills, getDeduplicatedSkills };
 
 export const SKILL_TAXONOMY = skillsTaxonomyData as TaxonomySkill[];
 const taxonomyList = SKILL_TAXONOMY;
@@ -226,12 +229,22 @@ export function matchSkills(
   jdNiceToHaves: string[],
   resumeRawText: string
 ): SkillMatchResult[] {
+  const extractedCandidateMentions = extractSkills(resumeRawText);
+  const candidateMentionMap = getDeduplicatedSkills(extractedCandidateMentions);
+
   // Pre-calculate implications strictly from verified STRONG edges in the implication graph
   const candidateImpliedMap = new Map<string, { source: string; quote: string }>();
 
-  for (const skill of resumeSkills) {
-    const sLower = skill.toLowerCase();
-    const strongImplications = STRONG_IMPLICATION_MAP.get(sLower) || [];
+  const allCandidateSkillNames = new Set<string>();
+  for (const s of resumeSkills) allCandidateSkillNames.add(s.toLowerCase());
+  for (const m of extractedCandidateMentions) {
+    if (m.evidenceTier !== 'negated') {
+      allCandidateSkillNames.add(m.canonicalId.toLowerCase());
+    }
+  }
+
+  for (const skill of allCandidateSkillNames) {
+    const strongImplications = STRONG_IMPLICATION_MAP.get(skill) || [];
     for (const imp of strongImplications) {
       if (!candidateImpliedMap.has(imp.target.toLowerCase())) {
         candidateImpliedMap.set(imp.target.toLowerCase(), {
@@ -274,44 +287,44 @@ export function matchSkills(
     let evidenceSnippet: string | undefined;
     let isClaimedOnly = false;
 
-    // 1. Direct match in candidate's extracted skills list
-    const exactInSkills = resumeSkills.find((s) => s.toLowerCase() === skillLower);
-    if (exactInSkills) {
-      status = 'exact';
-      matchedAs = exactInSkills;
-      const directMatch = findTokenInText(skill, resumeRawText);
-      evidenceSnippet = directMatch.found
-        ? directMatch.verbatimQuote
-        : `Found in candidate skills list as "${exactInSkills}"`;
-      isClaimedOnly = !isFoundInWorkOrProjects(exactInSkills);
+    // 1. Direct match in candidate extracted mentions
+    const directMention = candidateMentionMap.get(skillLower);
+    if (directMention && directMention.evidenceTier === 'negated') {
+      // Explicitly negated by candidate — must not be matched!
+      status = 'missing';
+    } else if (directMention) {
+      const isExact = directMention.matchedToken.toLowerCase() === skillLower || directMention.canonicalId.toLowerCase() === skillLower;
+      status = isExact ? 'exact' : 'alias';
+      matchedAs = directMention.matchedToken;
+      evidenceSnippet = directMention.snippet;
+      isClaimedOnly = directMention.evidenceTier === 'listed';
     } else {
-      // Direct Search in Resume Text with Token-Boundary Precision
-      const directMatch = findTokenInText(skill, resumeRawText);
-      if (directMatch.found) {
+      const exactInSkills = resumeSkills.find((s) => s.toLowerCase() === skillLower);
+      if (exactInSkills) {
         status = 'exact';
-        matchedAs = skill;
-        evidenceSnippet = directMatch.verbatimQuote;
-        isClaimedOnly = !isFoundInWorkOrProjects(skill);
+        matchedAs = exactInSkills;
+        evidenceSnippet = `Found in candidate skills list as "${exactInSkills}"`;
+        isClaimedOnly = true;
       }
     }
 
-    // 2. Check Aliases (if not already matched)
-    if (status === 'missing' && tax?.aliases) {
+    // 2. Check Aliases (if not already matched and not negated)
+    if (status === 'missing' && tax?.aliases && (!directMention || directMention.evidenceTier !== 'negated')) {
       for (const alias of tax.aliases) {
+        const aliasMention = candidateMentionMap.get(alias.toLowerCase());
+        if (aliasMention && aliasMention.evidenceTier !== 'negated') {
+          status = 'alias';
+          matchedAs = aliasMention.matchedToken;
+          evidenceSnippet = aliasMention.snippet;
+          isClaimedOnly = aliasMention.evidenceTier === 'listed';
+          break;
+        }
         const aliasInSkills = resumeSkills.find((s) => s.toLowerCase() === alias.toLowerCase());
         if (aliasInSkills) {
           status = 'alias';
           matchedAs = aliasInSkills;
           evidenceSnippet = `Found in skills list as "${aliasInSkills}"`;
-          isClaimedOnly = !isFoundInWorkOrProjects(aliasInSkills);
-          break;
-        }
-        const aliasMatch = findTokenInText(alias, resumeRawText);
-        if (aliasMatch.found) {
-          status = 'alias';
-          matchedAs = alias;
-          evidenceSnippet = aliasMatch.verbatimQuote;
-          isClaimedOnly = !isFoundInWorkOrProjects(alias);
+          isClaimedOnly = true;
           break;
         }
       }
@@ -329,20 +342,20 @@ export function matchSkills(
     }
 
     // 4. Check Related Skills (Partial credit, e.g. Docker for Kubernetes)
-    if (status === 'missing' && tax?.related) {
+    if (status === 'missing' && tax?.related && (!directMention || directMention.evidenceTier !== 'negated')) {
       for (const rel of tax.related) {
+        const relMention = candidateMentionMap.get(rel.toLowerCase());
+        if (relMention && relMention.evidenceTier !== 'negated') {
+          status = 'related';
+          matchedAs = `Related: ${relMention.matchedToken}`;
+          evidenceSnippet = `Candidate has adjacent background in ${relMention.matchedToken}: ${relMention.snippet}`;
+          break;
+        }
         const relInSkills = resumeSkills.find((s) => s.toLowerCase() === rel.toLowerCase());
         if (relInSkills) {
           status = 'related';
           matchedAs = `Related: ${relInSkills}`;
           evidenceSnippet = `Candidate has adjacent background in ${relInSkills}`;
-          break;
-        }
-        const relMatch = findTokenInText(rel, resumeRawText);
-        if (relMatch.found) {
-          status = 'related';
-          matchedAs = `Related: ${rel}`;
-          evidenceSnippet = `Candidate has adjacent background in ${rel}: ${relMatch.verbatimQuote}`;
           break;
         }
       }

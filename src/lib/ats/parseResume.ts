@@ -7,6 +7,7 @@ import { ParsedResume, ExtractionResult, BulletAnalysis } from './types';
 import skillsTaxonomyData from '../../data/ats/skills-taxonomy.json';
 import sectionSynonymsData from '../../data/ats/section-synonyms.json';
 import { findTokenInText } from './matchSkills';
+import { extractSkills } from './extractSkills';
 import { scoreBullet } from './evidenceScorer';
 
 // Email regular expressions (Standard + Obfuscated)
@@ -301,22 +302,11 @@ export function parseResume(
   // 4. Skills extraction against taxonomy
   const skillsExtractedSet = new Set<string>();
   const isSkillsSectionPresent = Boolean(rawSections.skills && rawSections.skills.length > 0);
+  const extractedMentions = extractSkills(cleanText, { isSkillsSectionOnly: false });
 
-  for (const item of skillsTaxonomyData) {
-    const canonical = item.canonical;
-    const directMatch = findTokenInText(canonical, cleanText, isSkillsSectionPresent);
-    if (directMatch.found) {
-      skillsExtractedSet.add(canonical);
-      continue;
-    }
-
-    // Check aliases
-    for (const alias of item.aliases) {
-      const aliasMatch = findTokenInText(alias, cleanText, isSkillsSectionPresent);
-      if (aliasMatch.found) {
-        skillsExtractedSet.add(canonical);
-        break;
-      }
+  for (const mention of extractedMentions) {
+    if (mention.evidenceTier !== 'negated') {
+      skillsExtractedSet.add(mention.canonicalId);
     }
   }
 

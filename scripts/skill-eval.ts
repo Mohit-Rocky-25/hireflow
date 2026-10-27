@@ -96,6 +96,17 @@ export interface BaselineReport {
   holdout: SkillEvalSummary;
 }
 
+function normalizeToCanonical(name: string): string {
+  const lower = name.toLowerCase();
+  for (const item of skillsTaxonomyData as any[]) {
+    if (item.canonical.toLowerCase() === lower) return item.canonical;
+    for (const alias of item.aliases || []) {
+      if (alias.toLowerCase() === lower) return item.canonical;
+    }
+  }
+  return name;
+}
+
 function getSkillCategory(canonical: string): string {
   const tax = (skillsTaxonomyData as any[]).find(
     (s) => s.canonical.toLowerCase() === canonical.toLowerCase()
@@ -169,12 +180,12 @@ export function evaluateDataset(
 
     // 1. Run Current Pipeline
     const parsedResume = parseResume(fix.resumeText);
-    const candidateSkills = parsedResume.sections.skills || [];
+    const candidateSkills = parsedResume.skillsExtracted;
     const parsedJd = parseJD(fix.jdText);
     const matchResults = matchSkills(
+      candidateSkills,
       parsedJd.mustHaves,
       parsedJd.niceToHaves,
-      candidateSkills,
       fix.resumeText
     );
 
@@ -231,8 +242,11 @@ export function evaluateDataset(
 
     // 3. Match Classification Confusion Matrix & Error Profiling
     for (const exp of fix.expectedMatches) {
+      const expCanonical = normalizeToCanonical(exp.jdSkill).toLowerCase();
       const actualMatch = matchResults.find(
-        (m) => m.skill.toLowerCase() === exp.jdSkill.toLowerCase()
+        (m) =>
+          m.skill.toLowerCase() === exp.jdSkill.toLowerCase() ||
+          normalizeToCanonical(m.skill).toLowerCase() === expCanonical
       );
       const predictedClassification = actualMatch
         ? mapStatusToClassification(actualMatch.status)

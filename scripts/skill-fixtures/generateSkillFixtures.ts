@@ -668,11 +668,37 @@ function generateStandardCase(
   const jdText = `Role: ${roleCat} Engineer\nCompany: ScaleTech\n\nMust-Have Requirements:\n${jdMust.map((m) => `- Proficiency in ${m}.`).join('\n')}\n\nNice-to-Have Skills:\n${jdNice.map((n) => `- Experience with ${n}.`).join('\n')}\n\nResponsibilities:\n- Build scalable services.\n- Write clean, maintainable code.`;
 
   const resumeMentions: MentionTruth[] = [];
+  const mentionedCanonicals = new Set<string>();
+
   for (const s of resumeSkills) {
+    mentionedCanonicals.add(s.toLowerCase());
     resumeMentions.push({
       canonicalId: s,
       tokenFound: s,
       location: 'skills-list',
+      evidenceTier: 'direct-use',
+    });
+  }
+
+  for (const bs of ['CI/CD Pipelines', 'Unit Testing', 'Microservices']) {
+    if (!mentionedCanonicals.has(bs.toLowerCase())) {
+      mentionedCanonicals.add(bs.toLowerCase());
+      resumeMentions.push({
+        canonicalId: bs,
+        tokenFound: bs,
+        location: 'experience-bullet',
+        evidenceTier: 'direct-use',
+      });
+    }
+  }
+
+  const thirdSkill = resumeSkills[2] || 'PostgreSQL';
+  if (!mentionedCanonicals.has(thirdSkill.toLowerCase())) {
+    mentionedCanonicals.add(thirdSkill.toLowerCase());
+    resumeMentions.push({
+      canonicalId: thirdSkill,
+      tokenFound: thirdSkill,
+      location: 'experience-bullet',
       evidenceTier: 'direct-use',
     });
   }

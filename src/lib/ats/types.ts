@@ -35,6 +35,19 @@ export interface TaxonomySkill {
   ambiguity?: TaxonomyAmbiguity;
 }
 
+export type MentionEvidenceTier = 'used' | 'listed' | 'familiar' | 'negated';
+
+export interface SkillMention {
+  canonicalId: string;
+  matchedToken: string;
+  startIndex: number;
+  endIndex: number;
+  section: 'skills' | 'experience' | 'projects' | 'education' | 'summary' | 'other';
+  evidenceTier: MentionEvidenceTier;
+  snippet: string;
+  contextScore: number;
+}
+
 export type SkillMatchStatus = 'exact' | 'alias' | 'implied' | 'related' | 'missing';
 
 export type EvidenceTier = 'evidenced' | 'listed_only' | 'implied_strong' | 'not_demonstrated';

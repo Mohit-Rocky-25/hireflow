@@ -40,6 +40,24 @@
       "tokenFound": "Airflow",
       "location": "skills-list",
       "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "CI/CD Pipelines",
+      "tokenFound": "CI/CD Pipelines",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Unit Testing",
+      "tokenFound": "Unit Testing",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
+    },
+    {
+      "canonicalId": "Microservices",
+      "tokenFound": "Microservices",
+      "location": "experience-bullet",
+      "evidenceTier": "direct-use"
     }
   ],
   "jdRequirements": [

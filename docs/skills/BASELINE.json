@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T20:29:48.855Z",
+  "timestamp": "2026-10-27T20:57:37.036Z",
   "environment": {
     "nodeVersion": "v24.18.0",
     "os": "Windows_NT 10.0.26200",
@@ -14,83 +14,105 @@
     "dataset": "dev",
     "count": 210,
     "trapsCount": 60,
-    "extractionPrecision": 0,
-    "extractionRecall": 0,
-    "extractionF1": 0,
+    "extractionPrecision": 74.2,
+    "extractionRecall": 85.7,
+    "extractionF1": 79.5,
     "categories": {
       "Languages": {
         "category": "Languages",
-        "totalTruth": 227,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 227,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "totalTruth": 231,
+        "extracted": 235,
+        "truePositives": 231,
+        "falsePositives": 18,
+        "falseNegatives": 0,
+        "precision": 98.3,
+        "recall": 100,
+        "f1": 99.1
       },
       "Backend": {
         "category": "Backend",
-        "totalTruth": 131,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 131,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "totalTruth": 271,
+        "extracted": 159,
+        "truePositives": 127,
+        "falsePositives": 32,
+        "falseNegatives": 144,
+        "precision": 79.9,
+        "recall": 46.9,
+        "f1": 59.1
       },
       "Databases": {
         "category": "Databases",
         "totalTruth": 123,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 123,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "extracted": 281,
+        "truePositives": 119,
+        "falsePositives": 162,
+        "falseNegatives": 4,
+        "precision": 42.3,
+        "recall": 96.7,
+        "f1": 58.9
       },
       "Tools": {
         "category": "Tools",
         "totalTruth": 20,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 20,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "extracted": 24,
+        "truePositives": 20,
+        "falsePositives": 4,
+        "falseNegatives": 0,
+        "precision": 83.3,
+        "recall": 100,
+        "f1": 90.9
       },
-      "Other": {
-        "category": "Other",
-        "totalTruth": 87,
-        "extracted": 210,
-        "truePositives": 0,
-        "falsePositives": 210,
-        "falseNegatives": 87,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+      "Testing": {
+        "category": "Testing",
+        "totalTruth": 150,
+        "extracted": 152,
+        "truePositives": 150,
+        "falsePositives": 2,
+        "falseNegatives": 0,
+        "precision": 98.7,
+        "recall": 100,
+        "f1": 99.3
       },
       "DevOps/CI-CD": {
         "category": "DevOps/CI-CD",
-        "totalTruth": 172,
-        "extracted": 0,
+        "totalTruth": 312,
+        "extracted": 319,
+        "truePositives": 308,
+        "falsePositives": 11,
+        "falseNegatives": 4,
+        "precision": 96.6,
+        "recall": 98.7,
+        "f1": 97.6
+      },
+      "Architecture/System Design": {
+        "category": "Architecture/System Design",
+        "totalTruth": 0,
+        "extracted": 177,
         "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 172,
+        "falsePositives": 177,
+        "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
         "f1": 0
       },
       "Data/ML": {
         "category": "Data/ML",
-        "totalTruth": 82,
+        "totalTruth": 110,
+        "extracted": 118,
+        "truePositives": 110,
+        "falsePositives": 11,
+        "falseNegatives": 0,
+        "precision": 93.2,
+        "recall": 100,
+        "f1": 96.5
+      },
+      "Other": {
+        "category": "Other",
+        "totalTruth": 55,
         "extracted": 0,
         "truePositives": 0,
         "falsePositives": 0,
-        "falseNegatives": 82,
+        "falseNegatives": 55,
         "precision": 0,
         "recall": 0,
         "f1": 0
@@ -98,10 +120,21 @@
       "Frontend": {
         "category": "Frontend",
         "totalTruth": 158,
-        "extracted": 0,
+        "extracted": 176,
+        "truePositives": 158,
+        "falsePositives": 18,
+        "falseNegatives": 0,
+        "precision": 89.8,
+        "recall": 100,
+        "f1": 94.6
+      },
+      "Soft/Leadership": {
+        "category": "Soft/Leadership",
+        "totalTruth": 0,
+        "extracted": 1,
         "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 158,
+        "falsePositives": 1,
+        "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
         "f1": 0
@@ -109,10 +142,21 @@
       "Mobile": {
         "category": "Mobile",
         "totalTruth": 3,
-        "extracted": 0,
+        "extracted": 12,
+        "truePositives": 3,
+        "falsePositives": 9,
+        "falseNegatives": 0,
+        "precision": 25,
+        "recall": 100,
+        "f1": 40
+      },
+      "Security": {
+        "category": "Security",
+        "totalTruth": 0,
+        "extracted": 1,
         "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 3,
+        "falsePositives": 1,
+        "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
         "f1": 0
@@ -120,44 +164,44 @@
       "Cloud": {
         "category": "Cloud",
         "totalTruth": 10,
-        "extracted": 0,
-        "truePositives": 0,
+        "extracted": 10,
+        "truePositives": 10,
         "falsePositives": 0,
-        "falseNegatives": 10,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "falseNegatives": 0,
+        "precision": 100,
+        "recall": 100,
+        "f1": 100
       }
     },
-    "priorityAccuracy": 85.4,
+    "priorityAccuracy": 91.7,
     "confusionMatrix": {
       "DIRECT": {
-        "DIRECT": 136,
+        "DIRECT": 673,
         "TRANSFERABLE": 0,
         "PARTIAL": 0,
-        "MISSING": 537
+        "MISSING": 0
       },
       "TRANSFERABLE": {
         "DIRECT": 0,
         "TRANSFERABLE": 0,
-        "PARTIAL": 0,
-        "MISSING": 6
+        "PARTIAL": 6,
+        "MISSING": 0
       },
       "PARTIAL": {
-        "DIRECT": 0,
+        "DIRECT": 16,
         "TRANSFERABLE": 0,
         "PARTIAL": 0,
-        "MISSING": 16
+        "MISSING": 0
       },
       "MISSING": {
-        "DIRECT": 0,
+        "DIRECT": 39,
         "TRANSFERABLE": 0,
-        "PARTIAL": 52,
-        "MISSING": 136
+        "PARTIAL": 82,
+        "MISSING": 67
       }
     },
     "trapsFPR": 0,
-    "trapsFNR": 136.7,
+    "trapsFNR": 0,
     "trapsBreakdown": {
       "java_vs_javascript": {
         "trapType": "java_vs_javascript",
@@ -177,57 +221,57 @@
         "trapType": "go_vs_prose",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 6,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "r_vs_rnd": {
         "trapType": "r_vs_rnd",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 2,
-        "accuracy": 50
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "swift_vs_prose": {
         "trapType": "swift_vs_prose",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 3,
-        "accuracy": 25
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "spark_vs_prose": {
         "trapType": "spark_vs_prose",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 3,
-        "accuracy": 25
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "react_vs_reactive": {
         "trapType": "react_vs_reactive",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 3,
-        "accuracy": 25
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "node_vs_datastructure": {
         "trapType": "node_vs_datastructure",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 1,
-        "accuracy": 75
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "negations": {
         "trapType": "negations",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 8,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "hedges": {
         "trapType": "hedges",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 12,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "urls_emails": {
         "trapType": "urls_emails",
@@ -240,197 +284,57 @@
         "trapType": "listed_only_vs_used",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 12,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "sql_dialects": {
         "trapType": "sql_dialects",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 8,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "cs_fundamentals": {
         "trapType": "cs_fundamentals",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 12,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "nextjs_variants": {
         "trapType": "nextjs_variants",
         "count": 4,
         "falsePositives": 0,
-        "falseNegatives": 12,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       }
     },
     "topErrors": [
       {
-        "pattern": "DIRECT -> MISSING (React)",
-        "count": 64,
-        "description": "Expected DIRECT for \"React\" but current matcher yielded MISSING",
+        "pattern": "MISSING -> DIRECT (Jest)",
+        "count": 28,
+        "description": "Expected MISSING for \"Jest\" but current matcher yielded DIRECT",
         "examples": [
           {
-            "fixtureId": "skill_dev_012",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_061",
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 10k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
-            "fixtureId": "skill_dev_015",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_063",
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 97k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
-            "fixtureId": "skill_dev_027",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Python)",
-        "count": 59,
-        "description": "Expected DIRECT for \"Python\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_010",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_025",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_040",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (PostgreSQL)",
-        "count": 36,
-        "description": "Expected DIRECT for \"PostgreSQL\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_058",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_062",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_064",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Docker)",
-        "count": 31,
-        "description": "Expected DIRECT for \"Docker\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_003",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_033",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_048",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (TypeScript)",
-        "count": 31,
-        "description": "Expected DIRECT for \"TypeScript\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_015",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_030",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_045",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (JavaScript)",
-        "count": 30,
-        "description": "Expected DIRECT for \"JavaScript\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_073",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_074",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_078",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_071",
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 11k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           }
         ]
       },
@@ -444,105 +348,21 @@
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software En..."
+            "snippet": "Candidate has adjacent background in Docker: ...TECHNICAL SKILLS: TypeScript, React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software Engineer | TechVentures (2020 -..."
           },
           {
             "fixtureId": "skill_dev_067",
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software En..."
+            "snippet": "Candidate has adjacent background in Docker: ...TECHNICAL SKILLS: TypeScript, React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software Engineer | TechVentures (2020 -..."
           },
           {
             "fixtureId": "skill_dev_070",
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., FastAPI, PostgreSQL, Redis, Docker EXPERIENCE: Software Enginee..."
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (SQL)",
-        "count": 20,
-        "description": "Expected DIRECT for \"SQL\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_013",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_028",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_043",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Apache Spark)",
-        "count": 19,
-        "description": "Expected DIRECT for \"Apache Spark\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_006",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_021",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_036",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Kubernetes)",
-        "count": 17,
-        "description": "Expected DIRECT for \"Kubernetes\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_068",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_088",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_095",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "snippet": "Candidate has adjacent background in Docker: ...test TECHNICAL SKILLS: Python, FastAPI, PostgreSQL, Redis, Docker EXPERIENCE: Software Engineer | TechVentures (2021 - Prese..."
           }
         ]
       },
@@ -556,413 +376,105 @@
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ..._dev_068@hireflow.test TECHNICAL SKILLS: Go, gRPC, Docker, Kubernetes, PostgreSQL, Redis EXPERIENCE: Software Engineer | TechVen..."
           },
           {
             "fixtureId": "skill_dev_088",
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ...0 - Present) - Architected and deployed scalable Docker and Kubernetes services, reducing latency by 46%. - Engineered database in..."
           },
           {
             "fixtureId": "skill_dev_095",
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ..._dev_095@hireflow.test TECHNICAL SKILLS: Go, gRPC, Docker, Kubernetes, PostgreSQL, Redis EXPERIENCE: Software Engineer | TechVen..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Node.js)",
-        "count": 15,
-        "description": "Expected DIRECT for \"Node.js\" but current matcher yielded MISSING",
+        "pattern": "MISSING -> PARTIAL (Snowflake)",
+        "count": 16,
+        "description": "Expected MISSING for \"Snowflake\" but current matcher yielded PARTIAL",
         "examples": [
           {
-            "fixtureId": "skill_dev_038",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_069",
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...0 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 46%. - Engineered database in..."
           },
           {
-            "fixtureId": "skill_dev_064",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_079",
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...2 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 26%. - Engineered database in..."
           },
           {
-            "fixtureId": "skill_dev_067",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_dev_080",
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...1 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 46%. - Engineered database in..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Express.js)",
-        "count": 15,
-        "description": "Expected DIRECT for \"Express.js\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_073",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_074",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_083",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (HTML5)",
-        "count": 15,
-        "description": "Expected DIRECT for \"HTML5\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_078",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_090",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_094",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (CSS3)",
-        "count": 15,
-        "description": "Expected DIRECT for \"CSS3\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_078",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_090",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_094",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Java)",
+        "pattern": "MISSING -> PARTIAL (PyTorch)",
         "count": 14,
-        "description": "Expected DIRECT for \"Java\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_009",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_024",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_039",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Spring Boot)",
-        "count": 14,
-        "description": "Expected DIRECT for \"Spring Boot\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_009",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_024",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_039",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Django)",
-        "count": 14,
-        "description": "Expected DIRECT for \"Django\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_076",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_084",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_133",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Machine Learning)",
-        "count": 14,
-        "description": "Expected DIRECT for \"Machine Learning\" but current matcher yielded MISSING",
+        "description": "Expected MISSING for \"PyTorch\" but current matcher yielded PARTIAL",
         "examples": [
           {
             "fixtureId": "skill_dev_081",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2021 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 31%. - E..."
           },
           {
             "fixtureId": "skill_dev_102",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2022 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 48%. - E..."
           },
           {
             "fixtureId": "skill_dev_138",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2022 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 48%. - E..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (TensorFlow)",
-        "count": 14,
-        "description": "Expected DIRECT for \"TensorFlow\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_081",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_102",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_138",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Scikit-Learn)",
-        "count": 14,
-        "description": "Expected DIRECT for \"Scikit-Learn\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_081",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_102",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_138",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Tailwind CSS)",
-        "count": 13,
-        "description": "Expected DIRECT for \"Tailwind CSS\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_061",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_063",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_071",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Linux)",
+        "pattern": "MISSING -> DIRECT (CI/CD Pipelines)",
         "count": 11,
-        "description": "Expected DIRECT for \"Linux\" but current matcher yielded MISSING",
+        "description": "Expected MISSING for \"CI/CD Pipelines\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_dev_066",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 64k daily active users. - Integrated CI/CD auto..."
           },
           {
             "fixtureId": "skill_dev_072",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 65k daily active users. - Integrated CI/CD auto..."
           },
           {
             "fixtureId": "skill_dev_077",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (FastAPI)",
-        "count": 11,
-        "description": "Expected DIRECT for \"FastAPI\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_070",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_075",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_086",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Go)",
-        "count": 10,
-        "description": "Expected DIRECT for \"Go\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_003",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_033",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_048",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 24k daily active users. - Integrated CI/CD auto..."
           }
         ]
       },
@@ -976,133 +488,189 @@
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2021 - Prese..."
           },
           {
             "fixtureId": "skill_dev_065",
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2020 - Prese..."
           },
           {
             "fixtureId": "skill_dev_085",
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2022 - Prese..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Terraform)",
-        "count": 10,
-        "description": "Expected DIRECT for \"Terraform\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_088",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_113",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_121",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (AWS)",
-        "count": 10,
-        "description": "Expected DIRECT for \"AWS\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_dev_088",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_113",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_dev_121",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "PARTIAL -> MISSING (Rust)",
+        "pattern": "PARTIAL -> DIRECT (Rust)",
         "count": 4,
-        "description": "Expected PARTIAL for \"Rust\" but current matcher yielded MISSING",
+        "description": "Expected PARTIAL for \"Rust\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_dev_010",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           },
           {
             "fixtureId": "skill_dev_025",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           },
           {
             "fixtureId": "skill_dev_040",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           }
         ]
       },
       {
-        "pattern": "PARTIAL -> MISSING (Docker)",
+        "pattern": "PARTIAL -> DIRECT (Docker)",
         "count": 4,
-        "description": "Expected PARTIAL for \"Docker\" but current matcher yielded MISSING",
+        "description": "Expected PARTIAL for \"Docker\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_dev_010",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
           },
           {
             "fixtureId": "skill_dev_025",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
           },
           {
             "fixtureId": "skill_dev_040",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
+          }
+        ]
+      },
+      {
+        "pattern": "PARTIAL -> DIRECT (Kubernetes)",
+        "count": 4,
+        "description": "Expected PARTIAL for \"Kubernetes\" but current matcher yielded DIRECT",
+        "examples": [
+          {
+            "fixtureId": "skill_dev_012",
+            "jdSkill": "Kubernetes",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...@fullstack.io SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppS..."
+          },
+          {
+            "fixtureId": "skill_dev_027",
+            "jdSkill": "Kubernetes",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...@fullstack.io SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppS..."
+          },
+          {
+            "fixtureId": "skill_dev_042",
+            "jdSkill": "Kubernetes",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...@fullstack.io SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppS..."
+          }
+        ]
+      },
+      {
+        "pattern": "PARTIAL -> DIRECT (Terraform)",
+        "count": 4,
+        "description": "Expected PARTIAL for \"Terraform\" but current matcher yielded DIRECT",
+        "examples": [
+          {
+            "fixtureId": "skill_dev_012",
+            "jdSkill": "Terraform",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...o SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppStudio (2022..."
+          },
+          {
+            "fixtureId": "skill_dev_027",
+            "jdSkill": "Terraform",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...o SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppStudio (2022..."
+          },
+          {
+            "fixtureId": "skill_dev_042",
+            "jdSkill": "Terraform",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...o SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppStudio (2022..."
+          }
+        ]
+      },
+      {
+        "pattern": "TRANSFERABLE -> PARTIAL (PostgreSQL)",
+        "count": 3,
+        "description": "Expected TRANSFERABLE for \"PostgreSQL\" but current matcher yielded PARTIAL",
+        "examples": [
+          {
+            "fixtureId": "skill_dev_013",
+            "jdSkill": "PostgreSQL",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...ackend Engineer | DataCorp (2022 - Present) - Wrote complex SQL queries and window functions against MySQL database. - Inde..."
+          },
+          {
+            "fixtureId": "skill_dev_028",
+            "jdSkill": "PostgreSQL",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...ackend Engineer | DataCorp (2022 - Present) - Wrote complex SQL queries and window functions against MySQL database. - Inde..."
+          },
+          {
+            "fixtureId": "skill_dev_043",
+            "jdSkill": "PostgreSQL",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...ackend Engineer | DataCorp (2022 - Present) - Wrote complex SQL queries and window functions against SQL Server database. -..."
+          }
+        ]
+      },
+      {
+        "pattern": "TRANSFERABLE -> PARTIAL (React)",
+        "count": 3,
+        "description": "Expected TRANSFERABLE for \"React\" but current matcher yielded PARTIAL",
+        "examples": [
+          {
+            "fixtureId": "skill_dev_022",
+            "jdSkill": "React",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in TypeScript: ...SKILLS: React Native, Mobile App Development, iOS, Android, TypeScript EXPERIENCE: Mobile Engineer | AppFoundry (2022 - Present)..."
+          },
+          {
+            "fixtureId": "skill_dev_037",
+            "jdSkill": "React",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in TypeScript: ...SKILLS: React Native, Mobile App Development, iOS, Android, TypeScript EXPERIENCE: Mobile Engineer | AppFoundry (2022 - Present)..."
+          },
+          {
+            "fixtureId": "skill_dev_052",
+            "jdSkill": "React",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in TypeScript: ...SKILLS: React Native, Mobile App Development, iOS, Android, TypeScript EXPERIENCE: Mobile Engineer | AppFoundry (2022 - Present)..."
           }
         ]
       }
@@ -1112,61 +680,105 @@
     "dataset": "holdout",
     "count": 130,
     "trapsCount": 40,
-    "extractionPrecision": 0,
-    "extractionRecall": 0,
-    "extractionF1": 0,
+    "extractionPrecision": 74.2,
+    "extractionRecall": 86.1,
+    "extractionF1": 79.7,
     "categories": {
       "Languages": {
         "category": "Languages",
-        "totalTruth": 128,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 128,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "totalTruth": 130,
+        "extracted": 135,
+        "truePositives": 130,
+        "falsePositives": 12,
+        "falseNegatives": 0,
+        "precision": 96.3,
+        "recall": 100,
+        "f1": 98.1
       },
       "Frontend": {
         "category": "Frontend",
         "totalTruth": 98,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 98,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
-      },
-      "Other": {
-        "category": "Other",
-        "totalTruth": 45,
-        "extracted": 130,
-        "truePositives": 0,
-        "falsePositives": 130,
-        "falseNegatives": 45,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "extracted": 111,
+        "truePositives": 98,
+        "falsePositives": 13,
+        "falseNegatives": 0,
+        "precision": 88.3,
+        "recall": 100,
+        "f1": 93.8
       },
       "DevOps/CI-CD": {
         "category": "DevOps/CI-CD",
-        "totalTruth": 141,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 141,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "totalTruth": 218,
+        "extracted": 220,
+        "truePositives": 215,
+        "falsePositives": 5,
+        "falseNegatives": 3,
+        "precision": 97.7,
+        "recall": 98.6,
+        "f1": 98.2
       },
       "Tools": {
         "category": "Tools",
         "totalTruth": 5,
+        "extracted": 8,
+        "truePositives": 5,
+        "falsePositives": 3,
+        "falseNegatives": 0,
+        "precision": 62.5,
+        "recall": 100,
+        "f1": 76.9
+      },
+      "Architecture/System Design": {
+        "category": "Architecture/System Design",
+        "totalTruth": 0,
+        "extracted": 105,
+        "truePositives": 0,
+        "falsePositives": 105,
+        "falseNegatives": 0,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      "Backend": {
+        "category": "Backend",
+        "totalTruth": 157,
+        "extracted": 91,
+        "truePositives": 71,
+        "falsePositives": 20,
+        "falseNegatives": 86,
+        "precision": 78,
+        "recall": 45.2,
+        "f1": 57.3
+      },
+      "Databases": {
+        "category": "Databases",
+        "totalTruth": 70,
+        "extracted": 165,
+        "truePositives": 67,
+        "falsePositives": 98,
+        "falseNegatives": 3,
+        "precision": 40.6,
+        "recall": 95.7,
+        "f1": 57
+      },
+      "Data/ML": {
+        "category": "Data/ML",
+        "totalTruth": 60,
+        "extracted": 64,
+        "truePositives": 60,
+        "falsePositives": 5,
+        "falseNegatives": 0,
+        "precision": 93.8,
+        "recall": 100,
+        "f1": 96.8
+      },
+      "Other": {
+        "category": "Other",
+        "totalTruth": 29,
         "extracted": 0,
         "truePositives": 0,
         "falsePositives": 0,
-        "falseNegatives": 5,
+        "falseNegatives": 29,
         "precision": 0,
         "recall": 0,
         "f1": 0
@@ -1174,88 +786,88 @@
       "Mobile": {
         "category": "Mobile",
         "totalTruth": 2,
-        "extracted": 0,
+        "extracted": 7,
+        "truePositives": 2,
+        "falsePositives": 5,
+        "falseNegatives": 0,
+        "precision": 28.6,
+        "recall": 100,
+        "f1": 44.4
+      },
+      "Security": {
+        "category": "Security",
+        "totalTruth": 0,
+        "extracted": 2,
         "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 2,
+        "falsePositives": 2,
+        "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
         "f1": 0
       },
-      "Backend": {
-        "category": "Backend",
-        "totalTruth": 74,
-        "extracted": 0,
+      "Soft/Leadership": {
+        "category": "Soft/Leadership",
+        "totalTruth": 0,
+        "extracted": 1,
         "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 74,
+        "falsePositives": 1,
+        "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
         "f1": 0
       },
-      "Databases": {
-        "category": "Databases",
-        "totalTruth": 70,
-        "extracted": 0,
-        "truePositives": 0,
+      "Testing": {
+        "category": "Testing",
+        "totalTruth": 90,
+        "extracted": 90,
+        "truePositives": 90,
         "falsePositives": 0,
-        "falseNegatives": 70,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
-      },
-      "Data/ML": {
-        "category": "Data/ML",
-        "totalTruth": 46,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 46,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "falseNegatives": 0,
+        "precision": 100,
+        "recall": 100,
+        "f1": 100
       },
       "Cloud": {
         "category": "Cloud",
         "totalTruth": 13,
-        "extracted": 0,
-        "truePositives": 0,
+        "extracted": 13,
+        "truePositives": 13,
         "falsePositives": 0,
-        "falseNegatives": 13,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "falseNegatives": 0,
+        "precision": 100,
+        "recall": 100,
+        "f1": 100
       }
     },
-    "priorityAccuracy": 84.4,
+    "priorityAccuracy": 91,
     "confusionMatrix": {
       "DIRECT": {
-        "DIRECT": 83,
+        "DIRECT": 402,
         "TRANSFERABLE": 0,
         "PARTIAL": 0,
-        "MISSING": 319
+        "MISSING": 0
       },
       "TRANSFERABLE": {
         "DIRECT": 0,
         "TRANSFERABLE": 0,
-        "PARTIAL": 0,
-        "MISSING": 4
+        "PARTIAL": 4,
+        "MISSING": 0
       },
       "PARTIAL": {
-        "DIRECT": 0,
+        "DIRECT": 10,
         "TRANSFERABLE": 0,
         "PARTIAL": 0,
-        "MISSING": 10
+        "MISSING": 0
       },
       "MISSING": {
-        "DIRECT": 0,
+        "DIRECT": 28,
         "TRANSFERABLE": 0,
-        "PARTIAL": 35,
-        "MISSING": 87
+        "PARTIAL": 52,
+        "MISSING": 42
       }
     },
     "trapsFPR": 0,
-    "trapsFNR": 120,
+    "trapsFNR": 0,
     "trapsBreakdown": {
       "java_vs_javascript": {
         "trapType": "java_vs_javascript",
@@ -1275,57 +887,57 @@
         "trapType": "go_vs_prose",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 4,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "r_vs_rnd": {
         "trapType": "r_vs_rnd",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 1,
-        "accuracy": 66.7
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "swift_vs_prose": {
         "trapType": "swift_vs_prose",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 1,
-        "accuracy": 66.7
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "spark_vs_prose": {
         "trapType": "spark_vs_prose",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 1,
-        "accuracy": 66.7
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "react_vs_reactive": {
         "trapType": "react_vs_reactive",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 2,
-        "accuracy": 33.3
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "node_vs_datastructure": {
         "trapType": "node_vs_datastructure",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 2,
-        "accuracy": 33.3
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "negations": {
         "trapType": "negations",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 6,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "hedges": {
         "trapType": "hedges",
         "count": 3,
         "falsePositives": 0,
-        "falseNegatives": 9,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "urls_emails": {
         "trapType": "urls_emails",
@@ -1338,144 +950,32 @@
         "trapType": "listed_only_vs_used",
         "count": 2,
         "falsePositives": 0,
-        "falseNegatives": 6,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "sql_dialects": {
         "trapType": "sql_dialects",
         "count": 2,
         "falsePositives": 0,
-        "falseNegatives": 4,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "cs_fundamentals": {
         "trapType": "cs_fundamentals",
         "count": 2,
         "falsePositives": 0,
-        "falseNegatives": 6,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       },
       "nextjs_variants": {
         "trapType": "nextjs_variants",
         "count": 2,
         "falsePositives": 0,
-        "falseNegatives": 6,
-        "accuracy": 0
+        "falseNegatives": 0,
+        "accuracy": 100
       }
     },
     "topErrors": [
-      {
-        "pattern": "DIRECT -> MISSING (React)",
-        "count": 33,
-        "description": "Expected DIRECT for \"React\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_012",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_015",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_027",
-            "jdSkill": "React",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Docker)",
-        "count": 32,
-        "description": "Expected DIRECT for \"Docker\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_003",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_033",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_043",
-            "jdSkill": "Docker",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Python)",
-        "count": 29,
-        "description": "Expected DIRECT for \"Python\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_010",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_025",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_040",
-            "jdSkill": "Python",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Kubernetes)",
-        "count": 23,
-        "description": "Expected DIRECT for \"Kubernetes\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_051",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_055",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_061",
-            "jdSkill": "Kubernetes",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
       {
         "pattern": "MISSING -> PARTIAL (Prometheus)",
         "count": 23,
@@ -1486,469 +986,133 @@
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ...1 - Present) - Architected and deployed scalable Docker and Kubernetes services, reducing latency by 45%. - Engineered database in..."
           },
           {
             "fixtureId": "skill_holdout_055",
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ...2 - Present) - Architected and deployed scalable Docker and Kubernetes services, reducing latency by 39%. - Engineered database in..."
           },
           {
             "fixtureId": "skill_holdout_061",
             "jdSkill": "Prometheus",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Kubernetes"
+            "snippet": "Candidate has adjacent background in Kubernetes: ...dout_061@hireflow.test TECHNICAL SKILLS: Go, gRPC, Docker, Kubernetes, PostgreSQL, Redis EXPERIENCE: Software Engineer | TechVen..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (TypeScript)",
-        "count": 18,
-        "description": "Expected DIRECT for \"TypeScript\" but current matcher yielded MISSING",
+        "pattern": "MISSING -> DIRECT (Jest)",
+        "count": 21,
+        "description": "Expected MISSING for \"Jest\" but current matcher yielded DIRECT",
         "examples": [
           {
-            "fixtureId": "skill_holdout_015",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_030",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_holdout_041",
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_holdout_053",
-            "jdSkill": "TypeScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Tailwind CSS)",
-        "count": 14,
-        "description": "Expected DIRECT for \"Tailwind CSS\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_053",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_holdout_057",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_059",
-            "jdSkill": "Tailwind CSS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "Jest",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...g 49k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Terraform)",
-        "count": 13,
-        "description": "Expected DIRECT for \"Terraform\" but current matcher yielded MISSING",
+        "pattern": "MISSING -> PARTIAL (Snowflake)",
+        "count": 10,
+        "description": "Expected MISSING for \"Snowflake\" but current matcher yielded PARTIAL",
         "examples": [
-          {
-            "fixtureId": "skill_holdout_051",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_055",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_069",
-            "jdSkill": "Terraform",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (AWS)",
-        "count": 13,
-        "description": "Expected DIRECT for \"AWS\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_051",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_055",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_069",
-            "jdSkill": "AWS",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Go)",
-        "count": 12,
-        "description": "Expected DIRECT for \"Go\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_003",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_033",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_061",
-            "jdSkill": "Go",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (SQL)",
-        "count": 12,
-        "description": "Expected DIRECT for \"SQL\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_013",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_028",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
           {
             "fixtureId": "skill_holdout_042",
-            "jdSkill": "SQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (PostgreSQL)",
-        "count": 12,
-        "description": "Expected DIRECT for \"PostgreSQL\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_060",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_062",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_065",
-            "jdSkill": "PostgreSQL",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Apache Spark)",
-        "count": 11,
-        "description": "Expected DIRECT for \"Apache Spark\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_036",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_042",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...0 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 23%. - Engineered database in..."
           },
           {
             "fixtureId": "skill_holdout_044",
-            "jdSkill": "Apache Spark",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...2 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 35%. - Engineered database in..."
+          },
+          {
+            "fixtureId": "skill_holdout_073",
+            "jdSkill": "Snowflake",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...2 - Present) - Architected and deployed scalable Python and SQL services, reducing latency by 24%. - Engineered database in..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (JavaScript)",
-        "count": 11,
-        "description": "Expected DIRECT for \"JavaScript\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_041",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_045",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_063",
-            "jdSkill": "JavaScript",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Java)",
-        "count": 10,
-        "description": "Expected DIRECT for \"Java\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_009",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_024",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_039",
-            "jdSkill": "Java",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Spring Boot)",
-        "count": 10,
-        "description": "Expected DIRECT for \"Spring Boot\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_009",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_024",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_039",
-            "jdSkill": "Spring Boot",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Express.js)",
+        "pattern": "MISSING -> DIRECT (CI/CD Pipelines)",
         "count": 7,
-        "description": "Expected DIRECT for \"Express.js\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_041",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_063",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_072",
-            "jdSkill": "Express.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Linux)",
-        "count": 7,
-        "description": "Expected DIRECT for \"Linux\" but current matcher yielded MISSING",
+        "description": "Expected MISSING for \"CI/CD Pipelines\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_holdout_043",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 87k daily active users. - Integrated CI/CD auto..."
           },
           {
             "fixtureId": "skill_holdout_049",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 88k daily active users. - Integrated CI/CD auto..."
           },
           {
             "fixtureId": "skill_holdout_052",
-            "jdSkill": "Linux",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "CI/CD Pipelines",
+            "expected": "MISSING",
+            "predicted": "DIRECT",
+            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 48k daily active users. - Integrated CI/CD auto..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Machine Learning)",
+        "pattern": "MISSING -> PARTIAL (PyTorch)",
         "count": 7,
-        "description": "Expected DIRECT for \"Machine Learning\" but current matcher yielded MISSING",
+        "description": "Expected MISSING for \"PyTorch\" but current matcher yielded PARTIAL",
         "examples": [
           {
             "fixtureId": "skill_holdout_046",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2022 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 22%. - E..."
           },
           {
             "fixtureId": "skill_holdout_048",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2020 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 43%. - E..."
           },
           {
             "fixtureId": "skill_holdout_058",
-            "jdSkill": "Machine Learning",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (TensorFlow)",
-        "count": 7,
-        "description": "Expected DIRECT for \"TensorFlow\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_046",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_048",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_058",
-            "jdSkill": "TensorFlow",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Scikit-Learn)",
-        "count": 7,
-        "description": "Expected DIRECT for \"Scikit-Learn\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_046",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_048",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_058",
-            "jdSkill": "Scikit-Learn",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "jdSkill": "PyTorch",
+            "expected": "MISSING",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in Python: ...ntures (2020 - Present) - Architected and deployed scalable Python and Machine Learning services, reducing latency by 49%. - E..."
           }
         ]
       },
@@ -1962,49 +1126,21 @@
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2020 - Prese..."
           },
           {
             "fixtureId": "skill_holdout_065",
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2021 - Prese..."
           },
           {
             "fixtureId": "skill_holdout_066",
             "jdSkill": "Kubernetes",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ...oservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Enginee..."
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (Django)",
-        "count": 6,
-        "description": "Expected DIRECT for \"Django\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_047",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_050",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_056",
-            "jdSkill": "Django",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "snippet": "Candidate has adjacent background in Docker: ...KILLS: Java, Spring Boot, Microservices, PostgreSQL, Kafka, Docker EXPERIENCE: Software Engineer | TechVentures (2021 - Prese..."
           }
         ]
       },
@@ -2018,189 +1154,161 @@
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software En..."
+            "snippet": "Candidate has adjacent background in Docker: ...TECHNICAL SKILLS: TypeScript, React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software Engineer | TechVentures (2020 -..."
           },
           {
             "fixtureId": "skill_holdout_075",
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., FastAPI, PostgreSQL, Redis, Docker EXPERIENCE: Software Enginee..."
+            "snippet": "Candidate has adjacent background in Docker: ...test TECHNICAL SKILLS: Python, FastAPI, PostgreSQL, Redis, Docker EXPERIENCE: Software Engineer | TechVentures (2021 - Prese..."
           },
           {
             "fixtureId": "skill_holdout_098",
             "jdSkill": "AWS",
             "expected": "MISSING",
             "predicted": "PARTIAL",
-            "snippet": "Candidate has adjacent background in Docker: ..., React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software En..."
+            "snippet": "Candidate has adjacent background in Docker: ...TECHNICAL SKILLS: TypeScript, React, Node.js, PostgreSQL, Docker, Git EXPERIENCE: Software Engineer | TechVentures (2021 -..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (Node.js)",
-        "count": 4,
-        "description": "Expected DIRECT for \"Node.js\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_008",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_038",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_062",
-            "jdSkill": "Node.js",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (HTML5)",
-        "count": 4,
-        "description": "Expected DIRECT for \"HTML5\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_045",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_067",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_087",
-            "jdSkill": "HTML5",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "DIRECT -> MISSING (CSS3)",
-        "count": 4,
-        "description": "Expected DIRECT for \"CSS3\" but current matcher yielded MISSING",
-        "examples": [
-          {
-            "fixtureId": "skill_holdout_045",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_067",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          },
-          {
-            "fixtureId": "skill_holdout_087",
-            "jdSkill": "CSS3",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
-          }
-        ]
-      },
-      {
-        "pattern": "PARTIAL -> MISSING (Rust)",
+        "pattern": "PARTIAL -> DIRECT (Rust)",
         "count": 3,
-        "description": "Expected PARTIAL for \"Rust\" but current matcher yielded MISSING",
+        "description": "Expected PARTIAL for \"Rust\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_holdout_010",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           },
           {
             "fixtureId": "skill_holdout_025",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           },
           {
             "fixtureId": "skill_holdout_040",
             "jdSkill": "Rust",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...rs and local development environments. - Currently learning Rust programming language in personal open-source projects. EDU..."
           }
         ]
       },
       {
-        "pattern": "PARTIAL -> MISSING (Docker)",
+        "pattern": "PARTIAL -> DIRECT (Docker)",
         "count": 3,
-        "description": "Expected PARTIAL for \"Docker\" but current matcher yielded MISSING",
+        "description": "Expected PARTIAL for \"Docker\" but current matcher yielded DIRECT",
         "examples": [
           {
             "fixtureId": "skill_holdout_010",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
           },
           {
             "fixtureId": "skill_holdout_025",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
           },
           {
             "fixtureId": "skill_holdout_040",
             "jdSkill": "Docker",
             "expected": "PARTIAL",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "predicted": "DIRECT",
+            "snippet": "...nd Django with PostgreSQL database. - Has basic exposure to Docker containers and local development environments. - Currently..."
           }
         ]
       },
       {
-        "pattern": "DIRECT -> MISSING (FastAPI)",
-        "count": 3,
-        "description": "Expected DIRECT for \"FastAPI\" but current matcher yielded MISSING",
+        "pattern": "TRANSFERABLE -> PARTIAL (React)",
+        "count": 2,
+        "description": "Expected TRANSFERABLE for \"React\" but current matcher yielded PARTIAL",
         "examples": [
           {
-            "fixtureId": "skill_holdout_075",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_holdout_007",
+            "jdSkill": "React",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in TypeScript: ...SKILLS: React Native, Mobile App Development, iOS, Android, TypeScript EXPERIENCE: Mobile Engineer | AppFoundry (2022 - Present)..."
           },
           {
-            "fixtureId": "skill_holdout_108",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_holdout_037",
+            "jdSkill": "React",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in TypeScript: ...SKILLS: React Native, Mobile App Development, iOS, Android, TypeScript EXPERIENCE: Mobile Engineer | AppFoundry (2022 - Present)..."
+          }
+        ]
+      },
+      {
+        "pattern": "PARTIAL -> DIRECT (Kubernetes)",
+        "count": 2,
+        "description": "Expected PARTIAL for \"Kubernetes\" but current matcher yielded DIRECT",
+        "examples": [
+          {
+            "fixtureId": "skill_holdout_012",
+            "jdSkill": "Kubernetes",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...@fullstack.io SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppS..."
           },
           {
-            "fixtureId": "skill_holdout_117",
-            "jdSkill": "FastAPI",
-            "expected": "DIRECT",
-            "predicted": "MISSING",
-            "snippet": "No snippet / missing"
+            "fixtureId": "skill_holdout_027",
+            "jdSkill": "Kubernetes",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...@fullstack.io SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppS..."
+          }
+        ]
+      },
+      {
+        "pattern": "PARTIAL -> DIRECT (Terraform)",
+        "count": 2,
+        "description": "Expected PARTIAL for \"Terraform\" but current matcher yielded DIRECT",
+        "examples": [
+          {
+            "fixtureId": "skill_holdout_012",
+            "jdSkill": "Terraform",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...o SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppStudio (2022..."
+          },
+          {
+            "fixtureId": "skill_holdout_027",
+            "jdSkill": "Terraform",
+            "expected": "PARTIAL",
+            "predicted": "DIRECT",
+            "snippet": "...o SKILLS: JavaScript, React, Node.js, MongoDB, Kubernetes, Terraform, Rust, Go EXPERIENCE: Frontend Developer | AppStudio (2022..."
+          }
+        ]
+      },
+      {
+        "pattern": "TRANSFERABLE -> PARTIAL (PostgreSQL)",
+        "count": 2,
+        "description": "Expected TRANSFERABLE for \"PostgreSQL\" but current matcher yielded PARTIAL",
+        "examples": [
+          {
+            "fixtureId": "skill_holdout_013",
+            "jdSkill": "PostgreSQL",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...ackend Engineer | DataCorp (2022 - Present) - Wrote complex SQL queries and window functions against MySQL database. - Inde..."
+          },
+          {
+            "fixtureId": "skill_holdout_028",
+            "jdSkill": "PostgreSQL",
+            "expected": "TRANSFERABLE",
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in SQL: ...ackend Engineer | DataCorp (2022 - Present) - Wrote complex SQL queries and window functions against SQL Server database. -..."
           }
         ]
       }

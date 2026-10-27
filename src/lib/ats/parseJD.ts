@@ -196,10 +196,11 @@ export function parseJD(
   const toolsMentionedSet = new Set<string>();
 
   const matchesSkill = (text: string, term: string): boolean => {
-    const norm = ` ${text.replace(/[^\w+#./-]/g, ' ')} `;
+    const prepped = text.replace(/\.(?=\s|$)/g, ' ');
+    const norm = ` ${prepped.replace(/[^\w+#./-]/g, ' ')} `;
     const lt = term.toLowerCase();
     if (lt === 'c') return /\sC\s(?!\+\+|#)/.test(norm);
-    if (lt === 'go') return /\s(?:Go|Golang)\s/i.test(norm);
+    if (lt === 'go') return /\s(?:Go|Golang)\s/.test(norm);
     if (lt === 'ci/cd' || lt === 'ci/cd pipelines') {
       return /\bCI[\s/-]?CD\b/i.test(text);
     }
