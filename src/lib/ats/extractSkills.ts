@@ -236,16 +236,20 @@ function determineEvidenceTier(
     return 'listed';
   }
 
-  // In non-skills section (experience, projects, summary, other)
+  if (section === 'experience' || section === 'projects') {
+    return 'used';
+  }
+
+  // In non-skills section (summary, other)
   const sentenceStart = Math.max(0, start - 80);
   const sentenceEnd = Math.min(text.length, end + 80);
   const localSentence = text.slice(sentenceStart, sentenceEnd).toLowerCase();
 
-  const words = localSentence.split(/[^a-zA-Z0-9%]/);
-  const hasVerb = words.some((w) => ACTION_VERBS.has(w));
   const hasMetric = /[\d]+%|[\d]+k|\$[\d]+|\bms\b|\bseconds\b|\bmillion\b|\bthousand\b/i.test(localSentence);
+  if (hasMetric) return 'used';
 
-  if (section === 'experience' || section === 'projects' || hasVerb || hasMetric) {
+  const words = localSentence.split(/[^a-zA-Z0-9%]/);
+  if (words.some((w) => ACTION_VERBS.has(w))) {
     return 'used';
   }
 
@@ -264,10 +268,13 @@ export function extractSkills(
   if (!rawText || rawText.trim().length === 0) return [];
 
   // Mask URLs and email addresses with equal length spaces to avoid false positive matching inside URLs/emails
-  const maskedText = rawText
-    .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, (m) => ' '.repeat(m.length))
-    .replace(/https?:\/\/[^\s),]+/gi, (m) => ' '.repeat(m.length))
-    .replace(/(?:www\.|github\.com\/|linkedin\.com\/|docker\.io\/|[a-zA-Z0-9-]+\.(?:io|com|dev|org|net|app|me)\/)[^\s),]+/gi, (m) => ' '.repeat(m.length));
+  let maskedText = rawText;
+  if (/[@:/]|\.com|\.org|\.net|\.io/i.test(rawText)) {
+    maskedText = rawText
+      .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, (m) => ' '.repeat(m.length))
+      .replace(/https?:\/\/[^\s),]+/gi, (m) => ' '.repeat(m.length))
+      .replace(/(?:www\.|github\.com\/|linkedin\.com\/|docker\.io\/|[a-zA-Z0-9-]+\.(?:io|com|dev|org|net|app|me)\/)[^\s),]+/gi, (m) => ' '.repeat(m.length));
+  }
 
   const rawLower = maskedText.toLowerCase();
   const rawLength = rawText.length;
@@ -279,8 +286,12 @@ export function extractSkills(
   const sectionHeaders = options?.isSkillsSectionOnly ? [] : precomputeSectionHeaders(rawText);
 
   const rawMentions: SkillMention[] = [];
+  const canonicalMentionCounts = new Map<string, number>();
 
   for (const entry of SEARCH_ENTRIES) {
+    if ((canonicalMentionCounts.get(entry.canonicalId) || 0) >= 5) {
+      continue;
+    }
     const isCaseSens = Boolean(entry.ambiguity?.caseSensitive);
     const searchTarget = isCaseSens ? maskedText : rawLower;
     const query = isCaseSens ? entry.token : entry.lowerToken;
@@ -357,6 +368,17 @@ export function extractSkills(
         }
       }
 
+      // Check special guard: Computer Science degree vs standalone skill
+      if (entry.canonicalId === 'Computer Science Fundamentals' || entry.lowerToken === 'computer science') {
+        const localBefore = rawText.slice(Math.max(0, idx - 40), idx).toLowerCase();
+        if (
+          section === 'education' ||
+          /(?:b\.?tech|b\.?e|b\.?s|m\.?s|m\.?tech|bachelor|master|ph\.?d|degree|major|minor|curriculum|department|graduate)\s+(?:in|of)\s*$/i.test(localBefore)
+        ) {
+          continue;
+        }
+      }
+
       // Determine evidence tier
       const evidenceTier = determineEvidenceTier(rawText, idx, endIdx, section);
 
@@ -376,6 +398,12 @@ export function extractSkills(
         snippet,
         contextScore: evidenceTier === 'used' ? 1.0 : evidenceTier === 'listed' ? 0.7 : 0.4,
       });
+
+      const updatedCount = (canonicalMentionCounts.get(entry.canonicalId) || 0) + 1;
+      canonicalMentionCounts.set(entry.canonicalId, updatedCount);
+      if (updatedCount >= 5) {
+        break; // Stop scanning this token once 5 occurrences have been captured
+      }
     }
   }
 

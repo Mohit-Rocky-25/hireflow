@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-27T21:19:05.559Z",
+  "timestamp": "2026-10-27T21:52:02.652Z",
   "environment": {
     "nodeVersion": "v24.18.0",
     "os": "Windows_NT 10.0.26200",
@@ -14,9 +14,9 @@
     "dataset": "dev",
     "count": 210,
     "trapsCount": 60,
-    "extractionPrecision": 74.2,
-    "extractionRecall": 85.7,
-    "extractionF1": 79.5,
+    "extractionPrecision": 92.1,
+    "extractionRecall": 99.1,
+    "extractionF1": 95.5,
     "categories": {
       "Languages": {
         "category": "Languages",
@@ -32,68 +32,57 @@
       "Backend": {
         "category": "Backend",
         "totalTruth": 271,
-        "extracted": 159,
-        "truePositives": 127,
+        "extracted": 299,
+        "truePositives": 267,
         "falsePositives": 32,
-        "falseNegatives": 144,
-        "precision": 79.9,
-        "recall": 46.9,
-        "f1": 59.1
+        "falseNegatives": 4,
+        "precision": 89.3,
+        "recall": 98.5,
+        "f1": 93.7
       },
       "Databases": {
         "category": "Databases",
-        "totalTruth": 123,
-        "extracted": 281,
-        "truePositives": 119,
-        "falsePositives": 162,
+        "totalTruth": 128,
+        "extracted": 136,
+        "truePositives": 124,
+        "falsePositives": 12,
         "falseNegatives": 4,
-        "precision": 42.3,
-        "recall": 96.7,
-        "f1": 58.9
+        "precision": 91.2,
+        "recall": 96.9,
+        "f1": 93.9
       },
       "Tools": {
         "category": "Tools",
-        "totalTruth": 20,
-        "extracted": 24,
-        "truePositives": 20,
+        "totalTruth": 21,
+        "extracted": 25,
+        "truePositives": 21,
         "falsePositives": 4,
         "falseNegatives": 0,
-        "precision": 83.3,
+        "precision": 84,
         "recall": 100,
-        "f1": 90.9
-      },
-      "Testing": {
-        "category": "Testing",
-        "totalTruth": 150,
-        "extracted": 152,
-        "truePositives": 150,
-        "falsePositives": 2,
-        "falseNegatives": 0,
-        "precision": 98.7,
-        "recall": 100,
-        "f1": 99.3
+        "f1": 91.3
       },
       "DevOps/CI-CD": {
         "category": "DevOps/CI-CD",
-        "totalTruth": 312,
-        "extracted": 319,
-        "truePositives": 308,
+        "totalTruth": 334,
+        "extracted": 341,
+        "truePositives": 330,
         "falsePositives": 11,
         "falseNegatives": 4,
-        "precision": 96.6,
-        "recall": 98.7,
-        "f1": 97.6
+        "precision": 96.8,
+        "recall": 98.8,
+        "f1": 97.8
       },
       "Architecture/System Design": {
         "category": "Architecture/System Design",
-        "totalTruth": 0,
-        "extracted": 177,
-        "truePositives": 0,
-        "falsePositives": 177,
+        "totalTruth": 11,
+        "extracted": 34,
+        "truePositives": 11,
+        "falsePositives": 23,
         "falseNegatives": 0,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "precision": 32.4,
+        "recall": 100,
+        "f1": 48.9
       },
       "Data/ML": {
         "category": "Data/ML",
@@ -106,38 +95,16 @@
         "recall": 100,
         "f1": 96.5
       },
-      "Other": {
-        "category": "Other",
-        "totalTruth": 55,
-        "extracted": 0,
-        "truePositives": 0,
-        "falsePositives": 0,
-        "falseNegatives": 55,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
-      },
       "Frontend": {
         "category": "Frontend",
-        "totalTruth": 158,
-        "extracted": 176,
-        "truePositives": 158,
-        "falsePositives": 18,
+        "totalTruth": 173,
+        "extracted": 192,
+        "truePositives": 173,
+        "falsePositives": 19,
         "falseNegatives": 0,
-        "precision": 89.8,
+        "precision": 90.1,
         "recall": 100,
-        "f1": 94.6
-      },
-      "Soft/Leadership": {
-        "category": "Soft/Leadership",
-        "totalTruth": 0,
-        "extracted": 1,
-        "truePositives": 0,
-        "falsePositives": 1,
-        "falseNegatives": 0,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "f1": 94.8
       },
       "Mobile": {
         "category": "Mobile",
@@ -161,6 +128,28 @@
         "recall": 0,
         "f1": 0
       },
+      "Other": {
+        "category": "Other",
+        "totalTruth": 1,
+        "extracted": 0,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 1,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      "Testing": {
+        "category": "Testing",
+        "totalTruth": 150,
+        "extracted": 150,
+        "truePositives": 150,
+        "falsePositives": 0,
+        "falseNegatives": 0,
+        "precision": 100,
+        "recall": 100,
+        "f1": 100
+      },
       "Cloud": {
         "category": "Cloud",
         "totalTruth": 10,
@@ -173,7 +162,7 @@
         "f1": 100
       }
     },
-    "priorityAccuracy": 91.7,
+    "priorityAccuracy": 97.5,
     "confusionMatrix": {
       "DIRECT": {
         "DIRECT": 673,
@@ -194,9 +183,9 @@
         "MISSING": 0
       },
       "MISSING": {
-        "DIRECT": 39,
+        "DIRECT": 11,
         "TRANSFERABLE": 0,
-        "PARTIAL": 82,
+        "PARTIAL": 110,
         "MISSING": 67
       }
     },
@@ -311,30 +300,30 @@
     },
     "topErrors": [
       {
-        "pattern": "MISSING -> DIRECT (Jest)",
+        "pattern": "MISSING -> PARTIAL (Jest)",
         "count": 28,
-        "description": "Expected MISSING for \"Jest\" but current matcher yielded DIRECT",
+        "description": "Expected MISSING for \"Jest\" but current matcher yielded PARTIAL",
         "examples": [
           {
             "fixtureId": "skill_dev_061",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 10k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 10k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_dev_063",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 97k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 97k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_dev_071",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 11k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 11k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           }
         ]
       },
@@ -460,21 +449,21 @@
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 64k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 64k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           },
           {
             "fixtureId": "skill_dev_072",
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 65k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 65k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           },
           {
             "fixtureId": "skill_dev_077",
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 24k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 24k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           }
         ]
       },
@@ -680,9 +669,9 @@
     "dataset": "holdout",
     "count": 130,
     "trapsCount": 40,
-    "extractionPrecision": 74.2,
-    "extractionRecall": 86.1,
-    "extractionF1": 79.7,
+    "extractionPrecision": 91.6,
+    "extractionRecall": 98.7,
+    "extractionF1": 95,
     "categories": {
       "Languages": {
         "category": "Languages",
@@ -697,69 +686,69 @@
       },
       "Frontend": {
         "category": "Frontend",
-        "totalTruth": 98,
-        "extracted": 111,
-        "truePositives": 98,
-        "falsePositives": 13,
+        "totalTruth": 102,
+        "extracted": 117,
+        "truePositives": 102,
+        "falsePositives": 15,
         "falseNegatives": 0,
-        "precision": 88.3,
+        "precision": 87.2,
         "recall": 100,
-        "f1": 93.8
+        "f1": 93.2
       },
       "DevOps/CI-CD": {
         "category": "DevOps/CI-CD",
-        "totalTruth": 218,
-        "extracted": 220,
-        "truePositives": 215,
+        "totalTruth": 232,
+        "extracted": 234,
+        "truePositives": 229,
         "falsePositives": 5,
         "falseNegatives": 3,
-        "precision": 97.7,
-        "recall": 98.6,
-        "f1": 98.2
+        "precision": 97.9,
+        "recall": 98.7,
+        "f1": 98.3
       },
       "Tools": {
         "category": "Tools",
-        "totalTruth": 5,
-        "extracted": 8,
-        "truePositives": 5,
+        "totalTruth": 6,
+        "extracted": 9,
+        "truePositives": 6,
         "falsePositives": 3,
         "falseNegatives": 0,
-        "precision": 62.5,
+        "precision": 66.7,
         "recall": 100,
-        "f1": 76.9
+        "f1": 80
       },
       "Architecture/System Design": {
         "category": "Architecture/System Design",
-        "totalTruth": 0,
-        "extracted": 105,
-        "truePositives": 0,
-        "falsePositives": 105,
+        "totalTruth": 5,
+        "extracted": 17,
+        "truePositives": 5,
+        "falsePositives": 12,
         "falseNegatives": 0,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
+        "precision": 29.4,
+        "recall": 100,
+        "f1": 45.5
       },
       "Backend": {
         "category": "Backend",
         "totalTruth": 157,
-        "extracted": 91,
-        "truePositives": 71,
+        "extracted": 174,
+        "truePositives": 154,
         "falsePositives": 20,
-        "falseNegatives": 86,
-        "precision": 78,
-        "recall": 45.2,
-        "f1": 57.3
+        "falseNegatives": 3,
+        "precision": 88.5,
+        "recall": 98.1,
+        "f1": 93.1
       },
       "Databases": {
         "category": "Databases",
-        "totalTruth": 70,
-        "extracted": 165,
-        "truePositives": 67,
-        "falsePositives": 98,
+        "totalTruth": 73,
+        "extracted": 78,
+        "truePositives": 70,
+        "falsePositives": 8,
         "falseNegatives": 3,
-        "precision": 40.6,
-        "recall": 95.7,
-        "f1": 57
+        "precision": 89.7,
+        "recall": 95.9,
+        "f1": 92.7
       },
       "Data/ML": {
         "category": "Data/ML",
@@ -774,11 +763,11 @@
       },
       "Other": {
         "category": "Other",
-        "totalTruth": 29,
+        "totalTruth": 2,
         "extracted": 0,
         "truePositives": 0,
         "falsePositives": 0,
-        "falseNegatives": 29,
+        "falseNegatives": 2,
         "precision": 0,
         "recall": 0,
         "f1": 0
@@ -800,17 +789,6 @@
         "extracted": 2,
         "truePositives": 0,
         "falsePositives": 2,
-        "falseNegatives": 0,
-        "precision": 0,
-        "recall": 0,
-        "f1": 0
-      },
-      "Soft/Leadership": {
-        "category": "Soft/Leadership",
-        "totalTruth": 0,
-        "extracted": 1,
-        "truePositives": 0,
-        "falsePositives": 1,
         "falseNegatives": 0,
         "precision": 0,
         "recall": 0,
@@ -839,7 +817,7 @@
         "f1": 100
       }
     },
-    "priorityAccuracy": 91,
+    "priorityAccuracy": 97.6,
     "confusionMatrix": {
       "DIRECT": {
         "DIRECT": 402,
@@ -860,9 +838,9 @@
         "MISSING": 0
       },
       "MISSING": {
-        "DIRECT": 28,
+        "DIRECT": 7,
         "TRANSFERABLE": 0,
-        "PARTIAL": 52,
+        "PARTIAL": 73,
         "MISSING": 42
       }
     },
@@ -1005,30 +983,30 @@
         ]
       },
       {
-        "pattern": "MISSING -> DIRECT (Jest)",
+        "pattern": "MISSING -> PARTIAL (Jest)",
         "count": 21,
-        "description": "Expected MISSING for \"Jest\" but current matcher yielded DIRECT",
+        "description": "Expected MISSING for \"Jest\" but current matcher yielded PARTIAL",
         "examples": [
           {
             "fixtureId": "skill_holdout_041",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_holdout_053",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 61k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           },
           {
             "fixtureId": "skill_holdout_057",
             "jdSkill": "Jest",
             "expected": "MISSING",
-            "predicted": "DIRECT",
-            "snippet": "...g 49k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
+            "predicted": "PARTIAL",
+            "snippet": "Candidate has adjacent background in unit testing: ...g 49k daily active users. - Integrated CI/CD automation and unit testing across core microservice repositories. EDUCATION: B.Tech i..."
           }
         ]
       },
@@ -1070,21 +1048,21 @@
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 87k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 87k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           },
           {
             "fixtureId": "skill_holdout_049",
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 88k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 88k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           },
           {
             "fixtureId": "skill_holdout_052",
             "jdSkill": "CI/CD Pipelines",
             "expected": "MISSING",
             "predicted": "DIRECT",
-            "snippet": "...%. - Engineered database indexing and query optimization on Jenkins, supporting 48k daily active users. - Integrated CI/CD auto..."
+            "snippet": "...on Jenkins, supporting 48k daily active users. - Integrated CI/CD automation and unit testing across core microservice reposi..."
           }
         ]
       },

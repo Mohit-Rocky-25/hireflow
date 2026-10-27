@@ -1,6 +1,6 @@
 # HireFlow Scoring Validation Report
 
-Generated on: 2026-10-27T21:06:52.850Z
+Generated on: 2026-10-27T21:46:09.236Z
 Spec Version: 2.4.0 | Engine Version: 4.0.0 | Spec Fingerprint: ef9032360b87a2a7107578329df77c1f99eda2398e523d15d80d80b64eef8315
 
 > [!IMPORTANT]
@@ -26,7 +26,7 @@ Failed: 0
 | C. Adversarial | Metric Plausibility Diagnostics | PASSED | Captured metrics while flagging extreme numbers for candidate interview justification. |
 | D. Sensitivity | Rank Stability (Kendall's Tau under +/-20% weight perturbation) | PASSED | Kendall's Tau = 1.000 across 10 candidate profiles. Required: >= 0.80. |
 | E. Gold-Set Agreement | Spearman Rank Agreement (Synthetic Seed Framework) | PASSED | Spearman Rho = 0.843 on 15 synthetic seed examples. Notice: Synthetic seed only; no validation against real hiring outcomes has been performed until real labelled employer data is provided. |
-| F. JD Extraction | Deterministic JD Must-Have Extraction (Indian Styles Seed) | PASSED | Precision: 87.5%, Recall: 93.3%, F1: 0.903. Internal benchmark only, never claimed in UI. |
+| F. JD Extraction | Deterministic JD Must-Have Extraction (Indian Styles Seed) | PASSED | Precision: 88.2%, Recall: 100.0%, F1: 0.938. Internal benchmark only, never claimed in UI. |
 
 ## 2. Invariance & Metamorphic Test Details
 - **Test-Retest Stability:** Evaluated over 20 consecutive executions across identical raw text inputs. Both `runAtsEngine` and `analyzeCanonical` maintain complete determinism with zero non-deterministic float drift or random ordering.
@@ -49,9 +49,9 @@ Failed: 0
 - **Dataset Notice:** Marked as `synthetic seed, replace with real data`. Accuracy or outcome numbers must NEVER be published from synthetic seeds.
 
 ## 6. JD Extraction Performance (Indian Tech Styles)
-- **Precision:** 87.5%
-- **Recall:** 93.3%
-- **F1 Score:** 0.903
+- **Precision:** 88.2%
+- **Recall:** 100.0%
+- **F1 Score:** 0.938
 - Tested across campus drives (TCS Digital/Prime), service tracks (Infosys Power Programmer), and Bengaluru product startups.
 - Internal engineering benchmark only; never displayed as a product marketing claim.
 

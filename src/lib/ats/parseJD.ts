@@ -236,8 +236,9 @@ export function parseJD(
     else if (currentBucket === 'resp') respLines.push(line);
   }
 
-  const mustText = mustLines.join(' ');
-  const niceText = niceLines.join(' ');
+  const stripEg = (text: string) => text.replace(/\((?:e\.g\.|for example|such as)[^)]*\)/gi, ' ');
+  const mustText = stripEg(mustLines.join(' '));
+  const niceText = stripEg(niceLines.join(' '));
 
   // 4. Priority Cues & Skill Extraction
   const mustHavesSet = new Set<string>();
