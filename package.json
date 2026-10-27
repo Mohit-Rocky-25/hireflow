@@ -19,6 +19,7 @@
     "calibrate": "npx tsx scripts/calibrate.ts",
     "scoring:rating-sheet": "npx tsx scripts/scoring-rating-sheet.ts",
     "scoring:sensitivity": "npx tsx scripts/scoring-sensitivity.ts",
+    "validity:gate": "npx tsx scripts/validity-gate.ts",
     "validate:data": "vitest run src/data/__tests__/validateData.test.ts",
     "privacy:check": "npx tsx scripts/check-privacy.ts",
     "parse:eval": "npx tsx scripts/parse-eval.ts",
