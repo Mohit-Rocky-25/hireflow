@@ -1,0 +1,164 @@
+[
+  {
+    "id": "brief-oidc-pkce-server",
+    "title": "OAuth 2.0 & OpenID Connect Authorization Server with PKCE Support",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "OAuth 2.0", "OIDC", "PKCE (RFC 7636)", "JWT / RS256", "Cybersecurity"],
+    "problemStatement": "Single-page applications (React/Vue) and mobile apps cannot safely store client secrets, making traditional OAuth 2.0 Authorization Code flow vulnerable to authorization code interception attacks. RFC 7636 Proof Key for Code Exchange (PKCE) secures public clients by dynamically generating cryptographic code verifiers and code challenges. Building an RFC-compliant OIDC/OAuth 2.0 server requires implementing authorization endpoints, token issuance (RS256 JWTs), PKCE validation, refresh token rotation, and OIDC discovery endpoints.",
+    "useCases": "Centralized single sign-on (SSO) identity provider for enterprise microservices | Secure authentication backend for mobile applications and single-page apps (SPAs) | Identity broker issuing standard OpenID Connect ID and Access tokens",
+    "problemItSolves": "Mitigating authorization code interception attacks in public clients via SHA-256 PKCE challenges | Preventing token theft and replay attacks through single-use refresh token rotation with family revocation | Exposing standardized `/.well-known/openid-configuration` and `/.well-known/jwks.json` endpoints",
+    "recruiterSignal": "Strict compliance with OAuth 2.0 and OpenID Connect specifications | Security test suite testing PKCE challenge verification, replay protection, and signature tampering | Production RSA/ECDSA key pair management with dynamic public key rotation",
+    "architecture": "Client redirects user to /oauth/authorize with code_challenge (S256) and challenge_method; Server authenticates user, issues short-lived authorization code tied to hash; Client exchanges code + code_verifier at /oauth/token; Server hashes verifier with SHA-256 and compares to stored challenge; on match, signs and issues RS256 JWT Access Token and ID Token; issues rolling Refresh Token.",
+    "scaleTargets": "Token Issuance Latency: < 15ms per token exchange request | Concurrency: Sustain > 2,500 token verifications/sec | Security: 100% rejection of mismatched PKCE verifiers and tampered JWT signatures",
+    "techStack": ["Go", "crypto/rsa", "golang-jwt", "PostgreSQL", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run curl http://localhost:8080/.well-known/openid-configuration: Fetches OIDC discovery document [Returns valid JSON with issuer, endpoints, and supported response types]",
+      "2. Execute go test -v -run TestPkceValidFlow: Runs complete authorization flow with valid code_verifier [Token endpoint validates SHA-256 hash and returns 200 OK with access_token and id_token]",
+      "3. Run go test -v -run TestPkceInvalidVerifierRejection: Sends mismatched code_verifier at token exchange [Server immediately rejects with HTTP 400 Bad Request and error: invalid_grant]",
+      "4. Execute go test -v -run TestRefreshTokenRotation: Uses refresh token to obtain new access token [Server issues new refresh token and immediately invalidates old token]",
+      "5. Run go test -v -run TestRefreshTokenReplayRevocation: Deliberately attempts to reuse already-invalidated refresh token [Server detects token family replay and revokes entire token lineage for security]"
+    ],
+    "portfolioBulletFormula": "Engineered RFC 7636 compliant OAuth 2.0 & OpenID Connect identity provider in Go with PKCE and JWT RS256 token signing; secured public client authorization flows, implementing refresh token rotation and automated replay attack mitigation."
+  },
+  {
+    "id": "brief-shamir-secret-vault",
+    "title": "Shamir's Secret Sharing Threshold Key Custody Vault",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 21,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "Cryptography", "Finite Field Arithmetic", "Key Custody", "CLI", "Testing"],
+    "problemStatement": "In high-security environments (root CA master keys, cryptocurrency multi-sig vaults, database master encryption keys), storing a master secret on a single server or with a single individual creates a catastrophic single point of failure and insider theft vulnerability. Conversely, requiring all executives to be present for recovery risks total data loss if one person is unavailable. Shamir's Secret Sharing (SSS) mathematically splits a secret into $N$ unique shares such that any $M$ of them (e.g. 3 of 5) can reconstruct the secret, while any $M-1$ shares reveal zero mathematical information.",
+    "useCases": "Disaster recovery key custody for institutional cryptocurrency wallets | Root Certificate Authority (CA) private key splitting and air-gapped recovery | Quorum-based authorization for high-value corporate treasury transfers",
+    "problemItSolves": "Eliminating single points of failure in master cryptographic key storage | Implementing Lagrange interpolation over Galois Fields $GF(256)$ / $GF(2^8)$ to avoid floating-point errors | Enforcing threshold quorum: $M$ shares reconstruct 100% of the secret, while $M-1$ shares yield zero information",
+    "recruiterSignal": "Deep understanding of abstract algebra, finite field arithmetic, and information-theoretic security | Mathematical test suite verifying zero information leakage under subset attacks | CLI tool generating printable QR code backup slips and encrypted share files",
+    "architecture": "Master secret bytes ingested; SSS Engine treats each byte as secret $S$; generates random polynomial of degree $M-1$ over finite field $GF(256)$ where $f(0) = S$; evaluates polynomial at $N$ distinct non-zero coordinates to generate $N$ unique share pieces; Reconstruction module takes any $K \\ge M$ shares, computes Lagrange basis polynomials at $x=0$, and reconstructs original secret bytes.",
+    "scaleTargets": "Splitting / Reconstruction Speed: Process 4KB RSA private key in < 25ms | Share Quorum: Support any $M$-of-$N$ threshold combination up to $N=255$ | Security Invariant: Any combination of $M-1$ shares provides zero cryptographic leakage",
+    "techStack": ["Go", "Finite Field Math", "Cryptography", "CLI (Cobra)", "Testing"],
+    "verificationRubric": [
+      "1. Run ./vault split --secret \"MySuperSecretMasterKey!\" -n 5 -m 3: Splits secret into 5 shares with threshold of 3 [Outputs 5 unique hexadecimal share strings]",
+      "2. Execute ./vault combine share1.txt share2.txt share3.txt: Reconstructs secret using exact threshold quorum of 3 shares [Outputs recovered secret exactly matching original text]",
+      "3. Run go test -v -run TestInsufficientSharesFailure: Attempts reconstruction using only 2 shares when threshold is 3 [Engine rejects reconstruction and fails to produce valid secret]",
+      "4. Execute go test -v -run TestGaloisFieldArithmetic: Tests addition, multiplication, and inverse operations in $GF(256)$ [All 10 finite field algebraic identity tests pass cleanly]",
+      "5. Run go test -v -run TestBinaryKeySplitting: Splits and recovers a 4096-bit RSA private key [Reconstructed PEM key matches byte-for-byte with 0 bits divergence]"
+    ],
+    "portfolioBulletFormula": "Implemented Shamir's Secret Sharing threshold key custody vault in Go using $GF(256)$ finite field arithmetic; enabled secure $M$-of-$N$ quorum recovery for master private keys, ensuring information-theoretic security with zero single points of failure."
+  },
+  {
+    "id": "brief-ast-sast-scanner",
+    "title": "Static Application Security Testing (SAST) Scanner with AST Pattern Matching",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Python", "AST Analysis", "Security Rules (CWE)", "Static Analysis", "CLI", "Pytest"],
+    "problemStatement": "Relying on simple regular expressions (grep) to detect security vulnerabilities in source code produces unacceptable false positives (e.g. matching harmless comments or docstrings) and completely misses subtle vulnerabilities (e.g. user input flowing into an unescaped SQL query across variable assignments). A Static Application Security Testing (SAST) scanner parses source code into an Abstract Syntax Tree (AST), performs taint tracking across variable assignments, and identifies CWE vulnerabilities with structural precision.",
+    "useCases": "Pre-commit security scanner blocking vulnerable code before Git push | Automated CI/CD security gatekeeper in GitHub Actions / GitLab CI | Compliance scanner auditing codebases for OWASP Top 10 vulnerabilities",
+    "problemItSolves": "Differentiating real code execution from strings, comments, and dead code via AST parsing | Tracking tainted user input from HTTP parameters through function calls to sensitive sink methods (e.g. `cursor.execute()`) | Detecting hardcoded secrets, weak cryptographic algorithms (MD5/SHA1), and shell injection risks",
+    "recruiterSignal": "Comprehensive understanding of compilers, Abstract Syntax Trees, and taint-tracking analysis | Reusable rule engine supporting declarative YAML rule definitions (similar to Semgrep) | Evaluation against the OWASP Benchmark dataset measuring true positive and false positive rates",
+    "architecture": "CLI scans target directory; Python ast parser parses files into syntax trees; Node visitor traverses AST; Taint engine marks inputs from request handlers as TAINTED; Tracks variable propagation across assignments; Flags when tainted variable reaches sensitive sink without passing through sanitization sanitizer; Generates SARIF formatted output for GitHub Security tab integration.",
+    "scaleTargets": "Scan Speed: > 35,000 lines of Python code scanned per second | Accuracy: Zero false positives triggered on comments or docstrings | Format Compliance: 100% valid SARIF v2.1.0 output for CI/CD integration",
+    "techStack": ["Python", "Python ast module", "SARIF JSON", "Pytest", "Click", "Rich"],
+    "verificationRubric": [
+      "1. Run python scan.py --target tests/fixtures/vulnerable_app.py --format text: Scans sample codebase with known vulnerabilities [Detects SQL Injection (CWE-89) and Command Injection (CWE-78) with exact line numbers]",
+      "2. Execute pytest tests/test_ast_visitors.py: Tests detection of hardcoded AWS keys, MD5 password hashing, and insecure temp files [All 18 AST visitor unit tests pass]",
+      "3. Run python scan.py --target tests/fixtures/false_positives.py: Scans code containing 'SELECT * FROM' inside comments and docstrings [Reports ZERO vulnerabilities found, proving comment immunity]",
+      "4. Execute python scan.py --target tests/fixtures/vulnerable_app.py --format sarif --output results.sarif: Exports SARIF report [Generates valid SARIF schema file validated via sarif-tools validate]",
+      "5. Run python benchmark_scan_speed.py --repo-dir ./large_sample_repo: Measures scanning performance over 50,000 lines of code [Completes full AST traversal and analysis in under 1.5 seconds]"
+    ],
+    "portfolioBulletFormula": "Developed AST-based Static Application Security Testing (SAST) scanner in Python with source-to-sink taint analysis; parsed [CODE_VOLUME] lines/sec, detecting OWASP vulnerabilities with [ACCURACY]% accuracy and exporting SARIF reports for CI/CD gating."
+  },
+  {
+    "id": "brief-pcap-network-detector",
+    "title": "Real-Time PCAP Packet Sniffer & Port Scan Intrusion Detection Engine",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 23,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "PCAP / libpcap", "Network Security", "TCP/IP Protocols", "Concurrency", "Linux"],
+    "problemStatement": "Enterprise networks are continuously probed by external attackers conducting reconnaissance scans (SYN stealth scans, FIN scans, UDP sweeps) to discover vulnerable exposed services prior to launching targeted exploits. Relying on host-based firewalls alone fails to detect stealth scans that terminate connections prematurely without completing a TCP handshake. An intrusion detection engine sniffs raw network packets from network interfaces or PCAP files, tracks TCP state machines, and flags reconnaissance scans in real time.",
+    "useCases": "Network intrusion detection system (NIDS) monitoring perimeter DMZ interfaces | Security operations center (SOC) automated alert generator for port sweep attacks | Forensics analysis tool replaying recorded PCAP packet dumps to detect lateral movement",
+    "problemItSolves": "Decoding raw Ethernet, IP, TCP, and UDP packet headers at line speed using gopacket | Detecting stealth SYN scans (half-open connections where client sends RST after SYN-ACK) | Tracking multi-port sweep attempts per source IP across sliding time windows",
+    "recruiterSignal": "Deep understanding of the TCP/IP stack, TCP flags (SYN, ACK, FIN, RST, PSH, URG), and raw sockets | High-performance packet decoding pipeline with zero packet drop during burst traffic | Automated integration test replaying Nmap scan PCAP files and verifying instant threat classification",
+    "architecture": "Daemon binds to network interface using libpcap or reads PCAP file; Worker pool decodes packet layers; Packet classifier inspects TCP flags; TCP Session Tracker records state transitions; Port Scan Detector evaluates sliding window matrix of distinct target ports hit per source IP; If > 15 distinct ports scanned in 3 seconds, triggers PORT_SCAN alert; logs structured JSON event.",
+    "scaleTargets": "Packet Ingestion: > 50,000 packets/sec decoded on standard commodity CPU | Detection Latency: Trigger alert in < 50ms upon detection of port sweep threshold | Memory Efficiency: Maintain sliding state for 100,000 active remote IPs in < 80MB RAM",
+    "techStack": ["Go", "gopacket", "libpcap", "TCP/IP", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestPacketHeaderDecoding: Decodes raw PCAP Ethernet, IPv4, IPv6, and TCP frames [Extracts source/dest IPs, ports, and TCP flags with 100% accuracy]",
+      "2. Execute go run cmd/nids/main.go --pcap samples/nmap_syn_scan.pcap: Replays synthetic Nmap -sS stealth scan [Engine flags SYN_STEALTH_SCAN from IP 192.168.1.50 scanning 100 ports]",
+      "3. Run go test -v -run TestXmasScanDetection: Injects TCP packet with FIN, PSH, and URG flags set simultaneously [Engine immediately flags anomalous XMAS_SCAN probe]",
+      "4. Execute go test -v -run TestLegitimateTrafficImmunity: Replays 20,000 packets of normal web browsing and HTTPS traffic [Reports ZERO false positive scan alerts]",
+      "5. Run go test -bench=. -benchmem: Benchmarks packet decoding and sliding state evaluation [Processes > 60,000 packets/sec with zero memory leaks]"
+    ],
+    "portfolioBulletFormula": "Engineered real-time network intrusion detection engine in Go using libpcap and packet layer decoding; detected stealth TCP port scans and reconnaissance probes across [PACKET_RATE] packets/sec with zero false positives on normal web traffic."
+  },
+  {
+    "id": "brief-merkle-airdrop-verifier",
+    "title": "Cryptographic Merkle Tree Whitelist & Proof Verification Engine",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 19,
+    "difficulty": "intermediate",
+    "coveredSkills": ["TypeScript", "Cryptography", "Merkle Trees", "Keccak-256", "Data Integrity", "Testing"],
+    "problemStatement": "Distributing token airdrops, whitelist memberships, or file integrity manifests to hundreds of thousands of users by storing entire address lists on-chain or in transactional databases costs enormous gas or storage overhead ($O(N)$ space complexity). A cryptographic Merkle Tree compresses a dataset of 1,000,000 entries into a single 32-byte Merkle Root. Users prove their entitlement by submitting a compact $O(\\log N)$ cryptographic proof containing only 20 hashes, which can be verified in microseconds with zero database lookups.",
+    "useCases": "Gas-efficient token airdrop and NFT whitelist claims in Web3 / Ethereum | File integrity verification in peer-to-peer file sharing protocols (BitTorrent / IPFS) | Tamper-evident certificate transparency logs",
+    "problemItSolves": "Compressing millions of whitelist entries into a single 32-byte Merkle Root hash | Generating compact cryptographic inclusion proofs of size $O(\\log N)$ | Verifying proof validity in sub-millisecond execution time while preventing double-spend claims via bitmasks",
+    "recruiterSignal": "Mastery of cryptographic data structures, Keccak-256 / SHA-256 hashing, and proof verification | Comprehensive test suite testing boundary conditions, odd leaf counts, and sorting order | Gas-optimized verification logic matching openzeppelin/merkle-proof standards",
+    "architecture": "Whitelist JSON ingested; Leaves computed as Keccak256(address, amount); Tree builder pairs and hashes sibling leaves iteratively up to single 32-byte Merkle Root; Proof generator produces sibling hash trail for target user; Verification module hashes user claim up the tree and checks if final hash matches published Root; Claim registry tracks claimed tokens using memory-efficient bitmasks.",
+    "scaleTargets": "Tree Generation Speed: Build Merkle Tree for 100,000 accounts in < 450ms | Proof Size: Proof contains <= 17 hashes (544 bytes) for 100,000 leaves ($O(\\log_2 N)$) | Verification Speed: Verify cryptographic proof in < 0.05ms",
+    "techStack": ["TypeScript", "Keccak-256", "Node.js", "Vitest", "Buffer"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/merkle_tree_construction.test.ts: Builds Merkle tree from 10,000 address-balance pairs [Constructs deterministic 32-byte root hash matching OpenZeppelin reference implementation]",
+      "2. Execute npm test -- tests/proof_generation_verification.test.ts: Generates proof for valid user and verifies against root [Proof validation evaluates to TRUE in < 0.02ms]",
+      "3. Run npm test -- tests/tampered_proof_rejection.test.ts: Submits proof with altered token amount or swapped hash byte [Verification returns FALSE, preventing unauthorized claims]",
+      "4. Execute npm test -- tests/double_claim_prevention.test.ts: Simulates user attempting to claim airdrop reward twice [Bitmask claim registry detects existing claim and rejects with ALREADY_CLAIMED]",
+      "5. Run node scripts/benchmark_scale.js --leaves 100000: Measures tree build time and proof sizes across 100,000 leaves [Tree builds in < 500ms; proof size verified at exactly 17 hashes]"
+    ],
+    "portfolioBulletFormula": "Built cryptographic Merkle Tree whitelist and proof verification engine in TypeScript using Keccak-256; compressed [WHITELIST_SIZE] beneficiary records into a 32-byte root hash, enabling $O(\\log N)$ claim proofs verified in under [VERIFY_TIME]ms."
+  },
+  {
+    "id": "brief-waf-reverse-proxy",
+    "title": "Web Application Firewall (WAF) Reverse Proxy with OWASP Inspection Rules",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Reverse Proxy", "OWASP Top 10", "Security Rules", "HTTP Protocols", "Testing"],
+    "problemStatement": "Web applications are constantly targeted by automated scanners probing for SQL injection, Cross-Site Scripting (XSS), path traversal, and remote code execution vulnerabilities. Relying on individual application developers to sanitize every endpoint leaves security holes. A Web Application Firewall (WAF) deployed as a reverse proxy inspects inbound HTTP requests (URLs, headers, query parameters, POST bodies), scores malicious patterns against OWASP Core Rule Sets, and blocks attacks before they reach backend applications.",
+    "useCases": "Edge security proxy protecting legacy internal web applications | Anti-exploit layer blocking zero-day web attacks and automated bot scanners | Centralized request sanitization and security audit logging gateway",
+    "problemItSolves": "Detecting and blocking SQL Injection (SQLi) patterns in URL parameters and JSON bodies | Neutralizing Cross-Site Scripting (XSS) payload tags (`<script>`, `onerror=`, `javascript:`) | Preventing Directory / Path Traversal attacks (`../../etc/passwd`) and null-byte poisonings",
+    "recruiterSignal": "Comprehensive understanding of the OWASP Top 10 web vulnerabilities and HTTP reverse proxies | High-performance Go implementation with regex optimization adding < 3ms latency overhead | Extensive security test suite testing adversarial evasion techniques (URL encoding, double encoding)",
+    "architecture": "Client sends HTTP request to WAF proxy; Request Pre-processor normalizes path and decodes URL encoding (including recursive decoding); Rule Engine inspects URI, headers, query params, and body against OWASP signature sets; Computes anomaly score; If score >= 5, logs security alert and returns HTTP 403 Forbidden with incident ID; If clean, proxies request to upstream service.",
+    "scaleTargets": "Inspection Overhead (p95): < 3.5ms added to incoming request | Throughput: > 8,000 inspected requests/sec per proxy instance | Evasion Immunity: 100% detection of double-URL-encoded and case-varied attack payloads",
+    "techStack": ["Go", "net/http/httputil", "OWASP Core Rules", "Docker", "Testing", "K6"],
+    "verificationRubric": [
+      "1. Run curl -i http://localhost:8080/search?q=\"1%20UNION%20SELECT%20*%20FROM%20users\": Tests SQL injection blocking [WAF blocks request returning HTTP 403 Forbidden with security violation header]",
+      "2. Execute curl -i http://localhost:8080/profile?bio=\"%3Cscript%3Ealert(1)%3C/script%3E\": Tests XSS blocking [WAF detects script tags and blocks request with HTTP 403 Forbidden]",
+      "3. Run curl -i http://localhost:8080/files?name=\"..%2F..%2Fetc%2Fpasswd\": Tests path traversal blocking [WAF normalizes path, catches directory traversal attempt, and returns HTTP 403]",
+      "4. Execute go test -v -run TestCleanTrafficPassThrough: Sends 500 legitimate API and HTML requests [WAF proxies 100% of clean requests to upstream server without false positives]",
+      "5. Run wrk -t4 -c100 -d10s http://localhost:8080/api/items: Measures throughput overhead [Sustains > 6,500 req/sec with p95 inspection latency < 4ms]"
+    ],
+    "portfolioBulletFormula": "Developed high-performance Web Application Firewall (WAF) reverse proxy in Go implementing OWASP security inspection rules; blocked SQL injection, XSS, and directory traversal exploits across [REQUEST_RATE] req/sec with under [LATENCY_OVERHEAD]ms latency overhead."
+  },
+  {
+    "id": "brief-mtls-internal-ca",
+    "title": "Mutual TLS (mTLS) Internal Certificate Authority & Automated Cert Rotator",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "mTLS", "X.509 Certificates", "PKI", "TLS Protocols", "Testing"],
+    "problemStatement": "Zero-trust network architectures mandate that all internal microservice-to-microservice communication must be authenticated and encrypted via Mutual TLS (mTLS) so that compromised network boundaries do not permit eavesdropping or spoofing. Managing mTLS certificates manually causes production outages when certificates expire unexpectedly. An automated internal Public Key Infrastructure (PKI) manages a Root and Intermediate CA, issues short-lived service certificates, and provides client agents that auto-rotate certificates without restarting applications.",
+    "useCases": "Zero-trust internal service mesh encryption and mutual identity verification | Securing database and queue connections with client certificate authentication | Automated short-lived TLS certificate provisioning for internal APIs",
+    "problemItSolves": "Eliminating hardcoded long-lived TLS certificates by issuing ephemeral 7-day certificates | Automating zero-downtime certificate rotation using dynamic TLS `GetCertificate` hooks in Go | Enforcing mutual client authentication: server verifies client certificate and client verifies server",
+    "recruiterSignal": "Comprehensive understanding of X.509 certificate chains, SAN extensions, and TLS handshakes | Integration test proving zero-downtime certificate rotation while traffic flows continuously | Automated test rejecting clients with expired, untrusted, or missing client certificates",
+    "architecture": "Internal CA daemon initializes Root CA (stored offline/encrypted) and Intermediate Issuing CA; Microservice sidecar daemon generates local private key, submits Certificate Signing Request (CSR) with Subject Alternative Name (SAN); CA signs and issues 7-day X.509 cert; Go microservice loads cert via dynamic tls.Config; Rotator checks cert expiry daily; auto-renews at 70% lifetime without service restart.",
+    "scaleTargets": "Issuance Speed: Sign and issue X.509 certificate in < 100ms | Rotation Reliability: 100% zero-downtime hot certificate reload without dropped TCP connections | Mutual Verification: 100% rejection of unauthorized or untrusted client certificates",
+    "techStack": ["Go", "crypto/x509", "crypto/tls", "PKI", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run go run cmd/ca/main.go --init: Generates internal Root CA and Intermediate CA certificate hierarchy [Outputs valid X.509 certificate PEM files with basicConstraints CA:TRUE]",
+      "2. Execute go test -v -run TestValidMtlsHandshake: Client connects to server presenting valid signed client certificate [TLS handshake completes successfully; server logs client SAN identity]",
+      "3. Run go test -v -run TestUntrustedClientCertificateRejection: Client attempts connection with self-signed certificate untrusted by CA [Server rejects connection during TLS handshake with bad certificate error]",
+      "4. Execute go test -v -run TestZeroDowntimeHotReload: Rotates active server certificate while wrk load test sends requests [Load test completes with 100% successful 2xx responses and zero dropped connections]",
+      "5. Run openssl verify -CAfile certs/root_ca.pem -untrusted certs/intermediate_ca.pem certs/service.pem: Verifies certificate chain [OpenSSL reports certs/service.pem: OK]"
+    ],
+    "portfolioBulletFormula": "Implemented internal PKI Certificate Authority and automated Mutual TLS (mTLS) rotator in Go; secured inter-service microservice communications with short-lived X.509 certificates and achieved zero-downtime automated certificate renewal."
+  }
+]
+

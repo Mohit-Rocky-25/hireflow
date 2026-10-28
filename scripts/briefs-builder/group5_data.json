@@ -1,0 +1,187 @@
+[
+  {
+    "id": "brief-clickstream-clickhouse",
+    "title": "Real-Time Clickstream Ingestion & Aggregation with ClickHouse & Kafka",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 23,
+    "difficulty": "advanced",
+    "coveredSkills": ["ClickHouse", "Kafka", "Data Engineering", "SQL", "Docker", "Go"],
+    "problemStatement": "Modern web applications generate billions of user clickstream events (page views, button clicks, impressions, conversions) daily. Storing individual unaggregated events in relational databases like PostgreSQL causes write exhaustion, sluggish queries, and ballooning storage costs. Operating a real-time event analytics platform requires streaming click events through Apache Kafka into ClickHouse using columnar compression, ReplacingMergeTree engines for deduplication, and Materialized Views for sub-second dashboard aggregations.",
+    "useCases": "High-volume web analytics dashboard (self-hosted Google Analytics / PostHog alternative) | Real-time advertising impression tracking and attribution modeling | In-app user journey funnel analysis and feature engagement tracking",
+    "problemItSolves": "Ingesting 50,000+ raw click events per second without dropping records or degrading query response times | Deduplicating retransmitted streaming events using ClickHouse ReplacingMergeTree engines | Precomputing rollups (hourly/daily active users, conversion funnels) via Materialized Views to enable sub-50ms dashboard queries",
+    "recruiterSignal": "Comprehensive understanding of columnar OLAP database design, sorting keys, and partition pruning | Benchmarks comparing PostgreSQL vs ClickHouse query speeds on 10,000,000 rows | Production Docker Compose environment with Kafka broker, ClickHouse cluster, and Grafana dashboard",
+    "architecture": "Client sends events to Go ingestion proxy; proxy validates schema and publishes to Kafka topic user-clicks; ClickHouse Kafka Engine table ingests stream directly; Materialized View transforms raw JSON, extracts fields, and inserts into partitioned events_raw (ReplacingMergeTree) table; Secondary Materialized View updates hourly rollup tables; Grafana queries ClickHouse via HTTP interface.",
+    "scaleTargets": "Ingestion Throughput: > 75,000 events/sec sustained ingestion rate | Query Response: < 35ms for aggregate queries across 10 million event rows | Storage Compression: Achieve > 5:1 data compression ratio using ZSTD codecs",
+    "techStack": ["ClickHouse", "Apache Kafka", "Go", "Docker Compose", "SQL", "Grafana"],
+    "verificationRubric": [
+      "1. Run docker-compose up -d and python generate_traffic.py --count 100000: Streams 100,000 synthetic click events into Kafka topic [Events flow through Kafka Engine and populate ClickHouse events_raw table within 5 seconds]",
+      "2. Execute clickhouse-client --query 'SELECT count() FROM analytics.events_raw': Verifies full row ingestion [Returns exactly 100,000 rows matching published event count]",
+      "3. Run clickhouse-client --query 'SELECT toStartOfHour(timestamp), event_name, count() FROM analytics.events_raw GROUP BY 1, 2': Tests aggregation performance [Executes in < 25ms scanning all 100,000 records]",
+      "4. Execute python test_deduplication.py: Publishes 500 duplicate event UUIDs into the stream [ReplacingMergeTree engine cleans duplicates during background merge, maintaining exact unique count]",
+      "5. Run clickhouse-client --query \"SELECT formatReadableSize(data_compressed_bytes), formatReadableSize(data_uncompressed_bytes) FROM system.columns WHERE table='events_raw'\": Inspects compression metrics [Confirms compression ratio exceeds 4.5x over raw JSON]"
+    ],
+    "portfolioBulletFormula": "Built real-time clickstream analytics platform using ClickHouse and Apache Kafka; sustained ingestion of [INGESTION_RATE] events/sec and compressed storage by [COMPRESSION_RATIO]x while delivering sub-[QUERY_LATENCY]ms OLAP query response times across millions of records."
+  },
+  {
+    "id": "brief-parquet-duckdb-server",
+    "title": "Serverless Analytical Query Engine over Parquet Data Lake with DuckDB",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["DuckDB", "Apache Parquet", "Python", "FastAPI", "Apache Arrow", "SQL"],
+    "problemStatement": "Setting up heavy cloud data warehouses (Snowflake, BigQuery) for ad-hoc analytical queries across partitioned S3 Parquet lakes introduces massive fixed infrastructure costs and complex cluster management. DuckDB enables high-performance vectorized analytical SQL queries directly against remote Parquet files without ingesting data into a dedicated database engine. A lightweight serverless query gateway exposes standard SQL APIs, converts complex analytical queries to vectorized Arrow buffers, and streams results as Parquet or JSON.",
+    "useCases": "Cost-effective analytical reporting engine querying multi-terabyte S3 data lakes | Internal BI reporting tool querying partitioned event files on object storage | High-speed data export and transformation API for data science teams",
+    "problemItSolves": "Eliminating expensive database cluster costs by querying Parquet files directly via HTTP Range requests | Utilizing vectorized SIMD columnar execution for blazing-fast aggregations and joins | Automatically pushing down projections and filters to read only the required Parquet byte ranges",
+    "recruiterSignal": "Solid understanding of columnar storage internals, dictionary encoding, and Parquet predicate pushdown | Benchmarks proving 10x faster query performance than Pandas on multi-gigabyte datasets | FastAPI service with query caching, authentication, and SQL injection sanitization",
+    "architecture": "Client submits analytical SQL query to FastAPI endpoint; query validator checks syntax and blocks destructive statements; DuckDB in-memory instance queries remote/local partitioned Parquet files (`data/year=*/month=*/*.parquet`); DuckDB utilizes projection pushdown to fetch only referenced columns; returns query results as Apache Arrow stream or JSON.",
+    "scaleTargets": "Query Latency: < 120ms for aggregate queries over 5,000,000 rows in partitioned Parquet files | Data Transfer Efficiency: Reduce network read volume by > 80% via column projection pushdown | Memory Footprint: Peak query memory < 250MB for multi-gigabyte datasets",
+    "techStack": ["Python", "DuckDB", "Apache Parquet", "FastAPI", "PyArrow", "Pytest"],
+    "verificationRubric": [
+      "1. Run python generate_parquet_lake.py: Generates 2GB partitioned Parquet dataset (10,000,000 rows) partitioned by year and region [Produces valid Parquet files with snappy compression]",
+      "2. Execute curl -X POST http://localhost:8000/query -d 'SELECT region, sum(revenue) FROM \"data/*/*.parquet\" GROUP BY 1': Executes analytical aggregation [Returns formatted JSON results in < 150ms]",
+      "3. Run pytest tests/test_predicate_pushdown.py: Asserts DuckDB reads only filtered partition folders when WHERE year=2026 is specified [File access logger confirms unreferenced partitions are completely skipped]",
+      "4. Execute pytest tests/test_security_sandbox.py: Attempts SQL injection and arbitrary filesystem read queries (ATTACH, COPY TO) [Gateway catches unauthorized statements and returns HTTP 403 Forbidden]",
+      "5. Run python benchmark_vs_pandas.py: Compares execution time and RAM usage between Pandas and DuckDB [DuckDB executes 12x faster while consuming 75% less RAM]"
+    ],
+    "portfolioBulletFormula": "Architected serverless analytical query gateway using DuckDB and Apache Parquet; queried multi-million row data lakes with columnar predicate pushdown, cutting analytical query latency by [LATENCY_REDUCTION]% and slashing cloud warehouse infrastructure costs."
+  },
+  {
+    "id": "brief-cdc-pg-elasticsearch",
+    "title": "Real-Time Change Data Capture (CDC) Sync from PostgreSQL to Elasticsearch",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 22,
+    "difficulty": "advanced",
+    "coveredSkills": ["PostgreSQL", "Elasticsearch", "CDC", "Go", "Docker", "Full-Text Search"],
+    "problemStatement": "PostgreSQL is optimized for transactional ACID queries but performs poorly on fuzzy multi-field full-text search, autocomplete, and faceted filtering across millions of catalog products. Synchronizing data from PostgreSQL to Elasticsearch using periodic batch re-indexing jobs leaves search indexes minutes or hours out of date and overloads the primary database. Implementing real-time Change Data Capture (CDC) streams row mutations directly from the PostgreSQL Write-Ahead Log (WAL) to Elasticsearch with sub-second replication lag.",
+    "useCases": "Real-time e-commerce product catalog search with instant price and stock updates | Enterprise employee directory full-text search with instant profile syncing | Customer support ticket search reflecting updates and comments instantaneously",
+    "problemItSolves": "Eliminating database-saturating batch sync queries (`SELECT * FROM products WHERE updated_at > ...`) | Syncing inserts, updates, and deletes to Elasticsearch indices in real-time with sub-500ms lag | Preserving delete mutations by capturing WAL tombstone records and removing Elasticsearch documents",
+    "recruiterSignal": "Deep understanding of database replication internals, WAL decoders, and Elasticsearch document versioning | End-to-end integration test executing database mutations and asserting Elasticsearch search parity | Benchmarks measuring replication lag under 2,000 database writes per second",
+    "architecture": "PostgreSQL configured with logical decoding plugin test_decoding; Go CDC daemon connects to replication slot; reads WAL mutation stream; maps relational columns into nested Elasticsearch JSON documents; flushes documents to Elasticsearch using bulk indexing API; records confirmed LSN checkpoint; handles document deletes using delete-by-id.",
+    "scaleTargets": "Replication Lag: < 400ms from PostgreSQL commit to Elasticsearch index availability | Sync Throughput: > 3,000 database mutations/sec synced without message drops | Consistency: 100% document parity across 100,000 inserted, updated, and deleted rows",
+    "techStack": ["Go", "PostgreSQL", "Elasticsearch", "Docker Compose", "pglogrepl", "Testing"],
+    "verificationRubric": [
+      "1. Run docker-compose up -d and go run cmd/cdc-sync/main.go: Starts PostgreSQL, Elasticsearch, and CDC synchronizer [Synchronizer connects to logical replication slot and logs STREAMING]",
+      "2. Execute psql -c \"INSERT INTO products (name, price) VALUES ('Noise Cancelling Headphones', 199.99);\": Inserts record into PostgreSQL [Elasticsearch index product_search reflects new document within 300ms]",
+      "3. Run psql -c \"UPDATE products SET price = 149.99 WHERE name = 'Noise Cancelling Headphones';\": Updates price in DB [Elasticsearch document price field updates to 149.99 with incremented _version]",
+      "4. Execute psql -c \"DELETE FROM products WHERE name = 'Noise Cancelling Headphones';\": Deletes record from DB [Elasticsearch document is cleanly deleted with 0 hits on subsequent query]",
+      "5. Run go test -v -run TestBulkCdcThroughput: Inserts 10,000 product rows in concurrent batches [All 10,000 documents indexed into Elasticsearch with zero dropped events and verify count matches 10,000]"
+    ],
+    "portfolioBulletFormula": "Implemented real-time PostgreSQL to Elasticsearch CDC replication engine in Go using WAL logical decoding; achieved sub-[REPLICATION_LAG]ms search index synchronization across [RECORD_VOLUME] database mutations/sec with zero data divergence."
+  },
+  {
+    "id": "brief-distributed-etl-scheduler",
+    "title": "Directed Acyclic Graph (DAG) Distributed ETL Orchestrator with Backfills",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["Python", "DAG", "Topological Sort", "Distributed Systems", "SQLite", "Testing"],
+    "problemStatement": "Complex data engineering workflows depend on multi-step pipelines where tasks must execute in strict dependency order (e.g., extract raw logs -> clean records -> aggregate metrics -> train model). Setting up heavy orchestration platforms like Apache Airflow is complex, resource-heavy, and difficult to test locally. Building a lightweight DAG workflow engine requires implementing topological sorting for dependency resolution, detecting cyclic dependencies, managing concurrent worker task execution, and supporting historical backfill execution.",
+    "useCases": "Lightweight workflow orchestrator for data transformation pipelines (Airflow/Prefect alternative) | Scheduled ML training and feature store preparation pipelines | Automated nightly business reporting and database snapshot generation",
+    "problemItSolves": "Detecting invalid pipeline definitions containing circular dependencies using cycle detection algorithms | Executing independent pipeline branches concurrently while blocking dependent downstream steps | Supporting date-partitioned historical backfills without rewriting task definitions",
+    "recruiterSignal": "Mastery of graph algorithms (Kahn's algorithm, cycle detection, topological sort) | Multi-process worker execution engine with task timeouts, retry policies, and state persistence | Pytest test suite asserting pipeline execution behavior across branching and diamond DAG topologies",
+    "architecture": "User defines DAG using Python DSL with task dependencies (task_a >> [task_b, task_c] >> task_d); Engine validates DAG structure with cycle detector; Scheduler determines runnable tasks whose upstream dependencies are SUCCESS; Worker pool executes tasks in separate processes; State manager records execution logs and task statuses in SQLite/PostgreSQL; Backfill CLI executes DAG over historical date ranges.",
+    "scaleTargets": "Scheduling Overhead: < 50ms scheduling loop evaluation for 100-node DAGs | Concurrency: Manage 30 concurrent task worker processes without scheduling deadlocks | Historical Backfill: Execute 30-day historical pipeline backfill with automated chunking",
+    "techStack": ["Python", "Multiprocessing", "SQLite", "Topological Sort", "Pytest", "Click"],
+    "verificationRubric": [
+      "1. Run python dag_runner.py --dag examples/diamond_dag.py: Executes diamond-shaped dependency graph [Step A runs first, Steps B and C execute concurrently in parallel, Step D runs only after B and C complete]",
+      "2. Execute pytest tests/test_cycle_detection.py: Feeds pipeline with circular dependency (A -> B -> C -> A) [Cycle detector catches circular loop and throws CyclicDependencyError with offending node path]",
+      "3. Run python dag_runner.py --dag examples/failing_dag.py: Simulates task failure with retry policy (retry=2, delay=1s) [Task retries twice, downstream dependent tasks marked UPSTREAM_FAILED, independent branches complete cleanly]",
+      "4. Execute python backfill.py --dag examples/daily_rollup.py --start 2026-10-01 --end 2026-10-10: Triggers historical backfill [Executes 10 daily pipeline runs sequentially with correct date execution contexts]",
+      "5. Run python dag_runner.py --export-dot examples/complex_pipeline.py: Exports DAG structure to Graphviz DOT format [Generates valid DOT file visualizing task dependency hierarchy]"
+    ],
+    "portfolioBulletFormula": "Created lightweight DAG workflow orchestrator in Python implementing topological sorting and parallel task execution; managed multi-branch data pipelines with automated retries and historical backfills, reducing scheduling overhead by [SCHEDULING_REDUCTION]%."
+  },
+  {
+    "id": "brief-stream-exact-dedup",
+    "title": "High-Throughput Streaming Exact Deduplication with RocksDB State Store",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "RocksDB", "Streaming Data", "Bloom Filters", "Data Deduplication", "Testing"],
+    "problemStatement": "In distributed event streams (Kafka/Pulsar), network retries and producer restarts cause duplicate messages. While approximate filters (Bloom/HyperLogLog) have false-positive rates that discard unique data, storing every observed event ID in RAM exhausts memory when processing billions of records over a 7-day retention window. An exact stream deduplicator combines a multi-tier architecture: an in-memory Bloom filter for fast negative lookups backed by an embedded LSM-tree key-value store (RocksDB) on SSD for 100% exact deduplication.",
+    "useCases": "Deduplication gateway for high-volume telemetry and IoT device metrics | Ensuring exactly-once message ingestion into downstream analytical databases | Preventing duplicate email or push notification dispatches from streaming triggers",
+    "problemItSolves": "Achieving 100% exact deduplication without false-positive discards of unique events | Bounding memory consumption while maintaining a rolling 7-day deduplication history across 500 million keys | Maintaining sub-millisecond deduplication checks at 30,000 events per second",
+    "recruiterSignal": "Deep understanding of streaming architectures, LSM-tree storage engines, and probabilistic data structures | Automated test asserting 0 false positives and 0 duplicate leaks across 1,000,000 simulated events | Performance benchmark comparing pure Redis vs RocksDB SSD storage costs and throughput",
+    "architecture": "Event arrives with UUID; Layer 1: In-memory Scalable Bloom Filter checks if UUID has been seen; if Bloom filter returns FALSE, event is guaranteed UNIQUE -> adds to Bloom filter, persists to RocksDB with expiration timestamp, and forwards event; if Bloom filter returns TRUE (possible duplicate or false positive), queries RocksDB: if found in RocksDB -> drops DUPLICATE; if not found -> processes UNIQUE; background thread prunes expired keys.",
+    "scaleTargets": "Throughput: > 35,000 event deduplication checks/sec per node | Accuracy: Exactly 0% false positives (never drops unique records) and 0% false negatives (never leaks duplicates) | State Capacity: Store 100 million active event keys in < 8GB local disk with < 500MB RAM",
+    "techStack": ["Go", "RocksDB", "Bloom Filter", "Docker", "Testing", "Benchmarking"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestExactDeduplication: Feeds 50,000 unique events and 10,000 duplicates in interleaved stream [Exactly 50,000 events forwarded; exactly 10,000 duplicate events dropped]",
+      "2. Execute go test -v -run TestZeroFalsePositives: Feeds 100,000 unique events through pipeline [Confirms 100% of unique events are processed without a single dropped unique record]",
+      "3. Run go test -v -run TestTtlPruning: Inserts keys with short TTL, advances mock clock past expiration threshold [RocksDB compaction cleaner removes expired keys, freeing disk storage]",
+      "4. Execute go test -bench=. -benchmem: Benchmarks deduplication check latency under continuous ingestion [Reports > 30,000 checks/sec with median latency < 0.25ms]",
+      "5. Run go test -v -run TestCrashRecovery: Writes 100,000 keys, abruptly stops process, reboots engine [RocksDB recovers on startup; subsequent duplicate checks correctly identify all pre-crash keys]"
+    ],
+    "portfolioBulletFormula": "Developed high-throughput exact stream deduplication engine in Go using RocksDB and Bloom filters; eliminated duplicate events across [STREAM_VOLUME] events/sec with 100% precision while reducing state memory overhead by [RAM_SAVINGS]%."
+  },
+  {
+    "id": "brief-data-quality-gate",
+    "title": "Automated CI/CD Data Quality Gatekeeper & Schema Drift Detector",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 18,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Python", "Data Quality", "Pandas", "JSON Schema", "CI/CD", "Testing"],
+    "problemStatement": "Silent data quality degradation (null value spikes, unexpected negative numbers, foreign key mismatches, and schema drift) corrupts production data pipelines and breaks downstream machine learning models and executive dashboards days before engineers notice. Implementing an automated data quality gatekeeper in CI/CD and ETL stages validates datasets against strict declarative assertion contracts (row counts, null bounds, uniqueness, regex formats, and statistical distributions) before data is committed to production tables.",
+    "useCases": "Pre-commit data validation gate preventing bad data imports into data warehouses | CI/CD testing of SQL transformation scripts against synthetic data fixtures | Real-time schema drift alerting when third-party API payload structures change",
+    "problemItSolves": "Preventing corrupted data from contaminating production databases and dashboards | Automatically catching breaking schema changes (dropped columns, altered data types) | Exporting standardized HTML and JSON data quality scorecards for engineering audit compliance",
+    "recruiterSignal": "Comprehensive understanding of modern data contracts and data reliability engineering | Suite of reusable assertion checks (null percentages, value ranges, uniqueness, categorical enums) | Integration with GitHub Actions failing builds when critical data assertion thresholds are breached",
+    "architecture": "Data file (CSV, Parquet, JSON) or database query ingested; Validator loads YAML data contract defining expectations (e.g. column 'user_id' must be unique and non-null, 'price' must be > 0); Runs evaluation suite; detects schema drift against baseline catalog; computes overall Quality Score (0-100%); generates HTML scorecard; exits with code 1 if critical assertions fail.",
+    "scaleTargets": "Validation Speed: Validate 1,000,000 rows across 25 assertions in < 12 seconds | Schema Drift Detection: 100% detection of column renames, type mutations, and missing keys | Memory Footprint: Process multi-gigabyte files in streaming chunks with < 150MB RAM",
+    "techStack": ["Python", "Pandas", "Pydantic", "PyArrow", "Pytest", "Jinja2"],
+    "verificationRubric": [
+      "1. Run python validate.py --data samples/clean_orders.parquet --contract contracts/orders.yaml: Validates clean dataset [All 15 assertions PASS; exits with code 0 and logs 100% Quality Score]",
+      "2. Execute python validate.py --data samples/corrupt_orders.csv --contract contracts/orders.yaml: Validates file with injected nulls and negative amounts [Fails assertion price > 0, outputs detailed violation row indices, exits with code 1]",
+      "3. Run pytest tests/test_schema_drift.py: Compares incoming schema with baseline catalog containing a mutated data type [Flags SCHEMA_DRIFT: column 'age' changed from INTEGER to STRING]",
+      "4. Execute python generate_report.py --run-id latest: Generates visual data quality scorecard [Produces clean HTML report with assertion breakdown, pass/fail badges, and distribution charts]",
+      "5. Run python -m pytest tests/test_assertion_library.py: Unit tests all custom assertion rules (regex format, set membership, standard deviation bounds) [All 20 assertion unit tests pass]"
+    ],
+    "portfolioBulletFormula": "Built automated data quality validation gatekeeper in Python for CI/CD data pipelines; prevented silent data corruption across [DATASET_SIZE] records by enforcing declarative schema contracts, null bounds, and distribution checks."
+  },
+  {
+    "id": "brief-geospatial-h3-aggregator",
+    "title": "Geospatial Ride Demand & Surge Heatmap Aggregator using Uber H3",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Uber H3", "Geospatial Indexing", "Redis", "WebSockets", "Testing"],
+    "problemStatement": "Ride-hailing and food delivery platforms (Uber, DoorDash, Swiggy) match drivers with rider demand dynamically based on real-time location. Computing geospatial proximity using raw latitude/longitude distance formulas (Haversine) requires expensive $O(N)$ trigonometric calculations that crash databases during peak hours. Partitioning the world into discrete hexagonal hierarchical spatial indexes (Uber H3) allows instant $O(1)$ spatial binning, neighbor lookups, and real-time demand surge pricing calculations.",
+    "useCases": "Real-time dynamic surge pricing engine for ride-hailing and delivery networks | Driver positioning heatmaps displaying real-time passenger pickup hotspots | Geospatial analytics dashboard aggregating pickup density across city zones",
+    "problemItSolves": "Converting continuous GPS coordinates into discrete hexagonal spatial cells (H3 indexes) in microseconds | Calculating demand-to-supply ratios per hexagonal cell to dynamically compute surge multipliers | Aggregating fine-grained cells (Resolution 9) into regional parent cells (Resolution 7) without re-scanning raw coordinates",
+    "recruiterSignal": "Comprehensive understanding of discrete global grid systems (H3 vs S2 vs Geohash) | High-performance spatial aggregation processing 20,000 GPS pings per second | Automated test suite verifying surge multiplier calculation across boundary zones and neighbor cells",
+    "architecture": "Rider and driver GPS pings stream into Go ingestion service; Service computes H3 cell index (resolution 8) in 0.5 microseconds; Increments rider demand and driver supply counters in Redis hashes; Periodic worker (every 10s) evaluates demand/supply ratio per cell; computes surge pricing multiplier (1.0x to 3.5x); broadcasts hexagonal GeoJSON heatmap deltas to client maps via WebSockets.",
+    "scaleTargets": "Ingestion Throughput: > 25,000 GPS coordinate updates/sec processed per node | H3 Indexing Speed: < 1 microsecond per lat/long to H3 index conversion | Surge Computation: Compute surge multipliers for 15,000 active city hexagons in < 80ms",
+    "techStack": ["Go", "Uber H3 (uber/h3-go)", "Redis", "GeoJSON", "WebSockets", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestH3CellMapping: Validates coordinate conversion to Resolution 8 H3 index against Uber reference tables [Outputs exact matching 64-bit hexadecimal H3 index]",
+      "2. Execute go test -v -run TestSurgeMultiplierCalculation: Feeds 500 rider requests and 50 available drivers in single H3 cell [Engine computes demand/supply ratio 10:1 and assigns surge multiplier 2.4x]",
+      "3. Run go test -v -run TestHexagonalNeighborSmoothing: Injects extreme surge in cell A, checks neighbor ring cells [Applies spatial smoothing algorithm so adjacent cells step up smoothly rather than creating cliff edges]",
+      "4. Execute go test -bench=. -benchmem: Benchmarks raw H3 indexing and Redis counter updates [Sustains > 30,000 coordinate conversions/sec with zero memory leaks]",
+      "5. Run curl http://localhost:8080/api/surge/geojson: Fetches real-time surge heatmap [Returns valid RFC 7946 GeoJSON FeatureCollection of hexagonal polygon geometries with surge properties]"
+    ],
+    "portfolioBulletFormula": "Architected real-time geospatial surge pricing and demand aggregation engine in Go using Uber H3 hexagonal indexing; processed [PING_VOLUME] GPS updates/sec, computing dynamic surge multipliers across [HEX_CELL_COUNT] spatial zones in under [COMPUTE_TIME]ms."
+  },
+  {
+    "id": "brief-columnar-compactor",
+    "title": "Append-Only Log to Columnar Parquet Compaction Worker",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Python", "Apache Arrow", "Parquet", "Snappy Compression", "Data Lakes", "Testing"],
+    "problemStatement": "Streaming ingestion pipelines frequently write thousands of tiny raw JSON or CSV files (e.g. 10KB every 5 seconds) to cloud object storage. This 'small files problem' ruins analytical query performance on Athena, Trino, or Spark because query engines spend 90% of their time opening connections and reading file metadata rather than scanning data. A compaction worker continuously bundles small append-only raw event files into large, partitioned, Snappy-compressed Parquet files (128MB-256MB) optimized for analytical reads.",
+    "useCases": "Data lake maintenance daemon resolving the small files problem in S3/MinIO | Log storage compaction converting raw server logs into queryable Parquet archives | CDC event compaction consolidating daily change streams into consolidated base snapshots",
+    "problemItSolves": "Eliminating catastrophic query slowdowns caused by millions of tiny files in cloud object storage | Converting uncompressed row-oriented JSON into columnar Parquet with dictionary and run-length encoding | Atomically swapping compacted files into the data lake without query downtime or duplicate reads",
+    "recruiterSignal": "Solid understanding of data lake file formats, Parquet row group sizing, and dictionary compression | Benchmark demonstrating 15x query speedup and 80% storage reduction after compaction | Automated test verifying atomic transaction safety during compaction replacement",
+    "architecture": "Worker monitors ingestion staging bucket; identifies partitions with > 50 small files or uncompacted data > 1 hour old; reads small JSON files into Apache Arrow Table batches; sorts rows by primary timestamp; writes consolidated Parquet file with Snappy compression and 128MB row groups; atomically commits new Parquet file to production partition; archives processed raw files.",
+    "scaleTargets": "Compaction Speed: Compact 10,000 small files (1GB total) into single 120MB Parquet file in < 18 seconds | Storage Reduction: > 75% reduction in disk storage space compared to raw JSON | Query Speedup: 10x-20x faster query execution time on compacted partitions",
+    "techStack": ["Python", "PyArrow", "Apache Parquet", "MinIO/S3", "Pytest", "Click"],
+    "verificationRubric": [
+      "1. Run python generate_small_files.py --count 500: Generates 500 small 15KB JSON files in staging directory [Creates 500 valid raw JSON event files]",
+      "2. Execute python compact.py --source staging/ --target lake/ --partition 2026-10-28: Executes compaction worker [Consolidates 500 files into a single optimized Parquet file; logs total rows processed]",
+      "3. Run pytest tests/test_data_integrity.py: Asserts total row count and column values in compacted Parquet exactly equal original JSON sum [Verifies 100% row and byte integrity with zero dropped records]",
+      "4. Execute python benchmark_query_speed.py: Measures query time scanning 500 small files vs 1 compacted Parquet file [Compacted Parquet queries execute > 12x faster]",
+      "5. Run parquet-tools inspect lake/2026-10-28/part-000.parquet: Inspects Parquet metadata [Verifies Snappy compression codec, dictionary encoding on categorical columns, and valid row group counts]"
+    ],
+    "portfolioBulletFormula": "Built automated data lake compaction worker in Python using Apache Arrow and Parquet; resolved the small files problem by consolidating thousands of streaming event files into partitioned Parquet files, slashing query times by [QUERY_SPEEDUP]% and storage costs by [STORAGE_SAVINGS]%."
+  }
+]
+

@@ -46,3 +46,5 @@
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-27T21:07:39.678Z","subjectId":"mock-portal"}
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-27T21:45:37.543Z","subjectId":"mock-portal"}
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-27T22:01:49.819Z","subjectId":"mock-portal"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-28T04:19:49.482Z","subjectId":"mock-portal"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-10-28T09:33:12.630Z","subjectId":"mock-portal"}

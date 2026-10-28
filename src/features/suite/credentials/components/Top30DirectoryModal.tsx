@@ -63,9 +63,8 @@ export function Top30DirectoryModal({
   }, [searchQuery, tierFilter, kindFilter, onlyIndian]);
 
   const handleExternalRedirect = (e: React.MouseEvent, url?: string) => {
-    e.preventDefault();
     e.stopPropagation();
-    if (url) {
+    if (url && !(e.currentTarget as HTMLAnchorElement)?.href) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
   };

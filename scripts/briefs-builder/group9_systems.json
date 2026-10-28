@@ -1,0 +1,141 @@
+[
+  {
+    "id": "brief-malloc-freelist-allocator",
+    "title": "Custom Free-List Memory Allocator (malloc/free) with Boundary-Tag Coalescing",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["C", "Memory Management", "Pointers", "Data Structures", "Systems Programming", "Valgrind"],
+    "problemStatement": "High-level language runtimes and operating systems provide standard memory allocators (`malloc`, `free`), but engineers who treat memory as an infinite abstraction struggle to diagnose memory fragmentation, cache locality penalties, and heap exhaustion in performance-critical systems. Implementing a custom heap memory allocator from raw OS virtual memory pages (`sbrk` / `mmap`) demonstrates how memory headers, boundary tags, explicit free lists, and immediate neighbor coalescing govern dynamic memory allocation.",
+    "useCases": "Custom arena/pool memory allocator for high-frequency trading engines | Embedded systems allocator operating under strict deterministic heap constraints | Foundation for understanding garbage collector and runtime allocator internals",
+    "problemItSolves": "Eliminating external heap fragmentation by coalescing adjacent free blocks using Knuth boundary tags | Implementing explicit segregated free lists to achieve $O(1)$ block search time for common allocation sizes | Enforcing strict 8-byte/16-byte CPU memory alignment constraints to prevent hardware bus faults",
+    "recruiterSignal": "Exceptional demonstration of low-level systems programming, pointer arithmetic, and heap internals | Valgrind and AddressSanitizer test runs verifying zero memory leaks or illegal pointer dereferences | Benchmark comparing allocation throughput and memory utilization against GNU libc malloc",
+    "architecture": "Allocator requests 4MB heap chunk from OS via mmap/sbrk; Divides heap into structured blocks: 8-byte Header (size + allocated bit), Payload, and 8-byte Footer; Free blocks link into an explicit doubly linked free list; my_malloc(size) finds best-fit or first-fit free block, splits block if excess size > 32 bytes, marks allocated, returns pointer; my_free(ptr) checks neighbor headers/footers, coalesces adjacent free blocks, and re-links to free list.",
+    "scaleTargets": "Allocation Throughput: > 1,500,000 malloc/free operations/sec on single core | Space Utilization: > 85% memory utilization ratio on synthetic trace benchmarks | Search Latency: $O(1)$ search latency for small size classes using segregated free lists",
+    "techStack": ["C (C11)", "Make", "Valgrind", "AddressSanitizer", "GCC/Clang"],
+    "verificationRubric": [
+      "1. Run make test: Executes comprehensive memory allocation unit test suite [All 15 allocation, boundary, and pointer alignment tests pass with exit code 0]",
+      "2. Execute valgrind --leak-check=full --error-exitcode=1 ./bin/test_allocator: Runs allocation test under Valgrind [Reports ZERO memory leaks and zero invalid reads/writes]",
+      "3. Run ./bin/test_coalescing: Allocates blocks A, B, C; frees A and C; then frees B [Engine coalesces A, B, and C into single contiguous free block matching combined byte size]",
+      "4. Execute ./bin/benchmark_allocator --trace traces/realloc.rep: Replays standard allocation trace against libc malloc [Achieves > 80% memory utilization and sustained allocation throughput]",
+      "5. Run ./bin/test_alignment: Asserts memory addresses returned by my_malloc across 1 to 1024 byte requests [100% of returned addresses are strictly aligned to 8-byte boundaries]"
+    ],
+    "portfolioBulletFormula": "Implemented custom dynamic memory allocator (malloc/free) in C using segregated free lists and boundary-tag coalescing; achieved [ALLOCATION_THROUGHPUT] ops/sec with [MEMORY_UTILIZATION]% heap space utilization and zero memory leaks under Valgrind."
+  },
+  {
+    "id": "brief-epoll-async-eventloop",
+    "title": "Async Single-Threaded Event Loop with Linux epoll from Scratch",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["C", "Linux epoll", "Networking", "Event Loop", "Non-blocking I/O", "Concurrency"],
+    "problemStatement": "Traditional thread-per-connection server models fail at the C10K (10,000 concurrent connections) mark because OS thread stack memory overhead and kernel context switching saturate system resources. High-performance servers (Node.js, Nginx, Redis) solve this via a single-threaded asynchronous event loop powered by OS I/O multiplexing primitives (`epoll` on Linux, `kqueue` on BSD/macOS). Building an event loop from scratch illuminates how non-blocking sockets, event readiness notifications, timer wheels, and callback queues enable a single thread to handle tens of thousands of concurrent connections.",
+    "useCases": "High-concurrency lightweight TCP reverse proxy or gateway | Understanding internal mechanics of Node.js libuv and Redis event loops | Embedded networking daemon operating under strict single-thread constraints",
+    "problemItSolves": "Overcoming thread-per-connection scaling limits by multiplexing thousands of TCP sockets over epoll file descriptors | Handling partial socket reads and non-blocking `EAGAIN` / `EWOULDBLOCK` status codes cleanly | Managing scheduled timers and timeouts using a minimum-heap timer wheel alongside socket events",
+    "recruiterSignal": "Mastery of Unix systems programming, file descriptors, non-blocking sockets, and epoll edge-triggered vs level-triggered modes | Load test demonstrating 10,000 concurrent connected sockets with single CPU core utilization | Clean modular C architecture separating event reactor from protocol handling",
+    "architecture": "Event loop initializes epoll instance via epoll_create1(); Sets server socket to O_NONBLOCK and registers EPOLLIN; Loop runs: computes timeout to next scheduled timer; calls epoll_wait(); for each ready file descriptor: if server socket, accepts new connections in loop until EAGAIN; if client socket, reads available bytes into per-connection ring buffer; invokes registered callback; processes expired timers.",
+    "scaleTargets": "Concurrent Sockets: > 20,000 concurrent idle TCP connections handled by a single thread | Latency (p99): < 1.2ms under 5,000 active concurrent connections | Memory Footprint: Steady state RSS < 25MB under 10,000 open connections",
+    "techStack": ["C (C11)", "Linux epoll", "POSIX Sockets", "Make", "Wrk"],
+    "verificationRubric": [
+      "1. Run make && ./bin/event_loop --port 9000 & and curl http://localhost:9000/ping: Verifies basic non-blocking HTTP echo [Returns HTTP/1.1 200 OK with PONG payload]",
+      "2. Execute python tests/simulate_c10k.py --connections 10000: Establishes 10,000 simultaneous TCP connections to event loop [All 10,000 connections established with zero socket drops or server crashes]",
+      "3. Run ./bin/test_timer_wheel: Schedules 50 timers with varying millisecond delays [Timers fire in exact chronological order within 2ms accuracy of deadline]",
+      "4. Execute wrk -t2 -c500 -d10s http://localhost:9000/echo: Measures throughput under high concurrent load [Sustains > 30,000 requests/sec on single CPU core with zero thread context switching]",
+      "5. Run ./bin/test_edge_triggered_drain: Sends large 1MB payload to edge-triggered socket [Event loop drains socket buffer completely across multiple read loops without truncation]"
+    ],
+    "portfolioBulletFormula": "Engineered single-threaded asynchronous event loop in C using Linux epoll and non-blocking sockets; handled [CONCURRENT_CONNECTIONS] concurrent TCP connections on a single CPU core with sub-[P99_LATENCY]ms p99 latency."
+  },
+  {
+    "id": "brief-zerocopy-tcp-proxy",
+    "title": "Zero-Copy High-Throughput TCP Proxy using Linux splice()",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 22,
+    "difficulty": "advanced",
+    "coveredSkills": ["C", "Linux splice()", "Zero-Copy Networking", "Performance", "TCP/IP", "Benchmarking"],
+    "problemStatement": "Traditional network proxies copy incoming network data from kernel space to user-space application memory (read), then copy it back from user space to kernel space (write). For high-bandwidth data transfers (video streaming, database proxying, file replication), these redundant user-kernel context switches and CPU data copies bottleneck throughput and saturate CPU memory bandwidth. Implementing a zero-copy TCP proxy leverages the Linux `splice()` system call to pipe data directly between socket file descriptors inside kernel space without touching user-space RAM.",
+    "useCases": "High-bandwidth TCP proxy for video streaming and media distribution | Internal database connection multiplexer and wire-protocol forwarder | Low-latency storage replication proxy for distributed storage nodes",
+    "problemItSolves": "Eliminating redundant kernel-to-user-space memory copies during network forwarding | Drastically reducing CPU utilization and memory bus saturation during multi-gigabit transfers | Achieving near line-rate forwarding speeds on 10Gbps/40Gbps network interfaces",
+    "recruiterSignal": "Deep understanding of Linux kernel memory buffers, page pipes, and zero-copy system calls (`splice`, `vmsplice`, `tee`) | Benchmarks comparing traditional read/write proxy CPU utilization vs zero-copy splice | Thorough error handling dealing with non-blocking pipe buffers and partial splices",
+    "architecture": "Client connects to proxy inbound socket; Proxy opens outbound connection to upstream target; Creates kernel pipe via pipe2(O_NONBLOCK); Enters event loop; When inbound socket has data, calls splice(in_fd, NULL, pipe_write_fd, NULL, len, SPLICE_F_NONBLOCK | SPLICE_F_MOVE); Immediately calls splice(pipe_read_fd, NULL, out_fd, NULL, len, ...); Data moves through kernel page frames with zero user-space memory copies.",
+    "scaleTargets": "Data Throughput: > 9.2 Gbps transfer rate on 10GbE network link | CPU Reduction: > 60% reduction in CPU utilization compared to traditional read/write buffering | Latency Impact: < 0.15ms added forwarding latency",
+    "techStack": ["C (C11)", "Linux splice()", "POSIX Sockets", "Make", "Iperf3"],
+    "verificationRubric": [
+      "1. Run make && ./bin/zero_copy_proxy --listen 8080 --target 127.0.0.1:9090: Starts zero-copy proxy [Proxy daemon initializes kernel pipes and begins listening on port 8080]",
+      "2. Execute iperf3 -s -p 9090 & and iperf3 -c 127.0.0.1 -p 8080 -t 10: Runs 10-second throughput benchmark through proxy [Throughput achieves near loopback line-rate with 0 packet drops]",
+      "3. Run top -b -n 1 -p $(pgrep zero_copy_proxy): Monitors proxy CPU utilization during multi-gigabit load [CPU usage remains < 12% due to zero-copy kernel page forwarding]",
+      "4. Execute ./bin/test_bidirectional_forwarding: Establishes bidirectional communication channel through proxy [Validates data flow in both directions with 100% byte-for-byte SHA-256 hash match]",
+      "5. Run ./bin/test_pipe_capacity_backpressure: Simulates slow consumer on downstream socket [Proxy safely handles full kernel pipe buffer without dropping data or deadlocking]"
+    ],
+    "portfolioBulletFormula": "Developed zero-copy TCP network proxy in C leveraging Linux kernel splice() system calls; reduced CPU utilization by [CPU_REDUCTION]% during high-bandwidth transfers while sustaining [FORWARDING_THROUGHPUT] Gbps throughput."
+  },
+  {
+    "id": "brief-fuse-virtual-filesystem",
+    "title": "User-Space Virtual Filesystem (FUSE) for Encrypted Cloud Storage",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "FUSE (Filesystem in Userspace)", "POSIX APIs", "AES-GCM", "Storage Systems", "Linux"],
+    "problemStatement": "Integrating cloud object storage (S3/MinIO) or custom encrypted archives into standard desktop environments requires translating POSIX filesystem operations (`open`, `read`, `write`, `readdir`, `stat`) into remote API calls. Operating system kernel modules are dangerous to write and crash the entire system on bugs. Filesystem in Userspace (FUSE) enables building production-grade, crash-safe virtual filesystems in user space, mounting remote or encrypted storage as a local native directory accessible by standard command-line tools.",
+    "useCases": "Mounting encrypted S3/MinIO object buckets as local native filesystem folders | Client-side transparent encryption filesystem for confidential document storage | Virtual synthetic filesystems exposing database tables as browseable directories",
+    "problemItSolves": "Implementing POSIX filesystem operations in user space without kernel code risk | Transparently encrypting file blocks with AES-256-GCM on disk while presenting plaintext to authorized users | Caching file directory metadata and small file chunks to minimize remote storage API latency",
+    "recruiterSignal": "Comprehensive understanding of POSIX filesystem semantics, inodes, file descriptors, and FUSE architecture | Automated test verifying transparent read/write, directory traversal, and AES encryption integrity | Passing standard POSIX filesystem conformance suites (pjdfstest)",
+    "architecture": "Go application uses bazil/fuse to mount virtual directory at /mnt/secure_vault; Kernel forwards VFS system calls to Go daemon; getattr/lookup reads inode metadata from in-memory cache; read operations decrypt AES-256-GCM encrypted chunks from underlying storage backend; write operations encrypt incoming byte buffers and flush to backing store; on unmount, flushes dirty blocks cleanly.",
+    "scaleTargets": "Read/Write Throughput: > 250MB/sec sequential read/write through virtual FUSE mount | Directory Traversal: List directory containing 10,000 files in < 180ms | Encryption Security: 100% AES-256-GCM authenticated encryption on all underlying stored blocks",
+    "techStack": ["Go", "bazil/fuse", "AES-256-GCM", "POSIX Filesystem", "Linux", "Testing"],
+    "verificationRubric": [
+      "1. Run go run cmd/fuse-vault/main.go --mount /tmp/myvault --backing /tmp/encrypted_store: Mounts virtual directory [Mount succeeds and /tmp/myvault becomes browseable via standard ls]",
+      "2. Execute echo \"Confidential Top Secret Data\" > /tmp/myvault/secret.txt: Writes file through FUSE mount [File appears in /tmp/myvault; underlying file in /tmp/encrypted_store is completely encrypted ciphertext]",
+      "3. Run cat /tmp/myvault/secret.txt: Reads file back through mount [Transparently decrypts and outputs exact original string 'Confidential Top Secret Data']",
+      "4. Execute go test -v -run TestPosixFileOperations: Executes standard file operations (mkdir, rmdir, rename, append) [All POSIX operations complete with expected error codes and directory tree consistency]",
+      "5. Run dd if=/dev/zero of=/tmp/myvault/test.bin bs=1M count=100: Measures write throughput through FUSE mount [Writes 100MB file at > 200MB/sec with clean cryptographic checksum verification]"
+    ],
+    "portfolioBulletFormula": "Built encrypted virtual filesystem in Go using FUSE and AES-256-GCM; enabled transparent POSIX file operations over encrypted storage, sustaining [IO_THROUGHPUT] MB/sec throughput with authenticated data security."
+  },
+  {
+    "id": "brief-work-stealing-pool",
+    "title": "Lock-Free Work-Stealing Thread Pool Scheduler (Chase-Lev Algorithm)",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 23,
+    "difficulty": "advanced",
+    "coveredSkills": ["C++", "Concurrency", "Lock-Free Data Structures", "Atomics", "Memory Model", "Benchmarking"],
+    "problemStatement": "Traditional thread pools utilize a single shared task queue protected by a global mutex. As the number of CPU cores increases (16, 32, 64+ cores), lock contention on the central queue destroys scalability, causing threads to spend 80% of their time waiting for locks rather than executing work. Modern high-performance runtimes (Go runtime, Tokio, Intel TBB) use lock-free work-stealing schedulers where each thread owns a local deque: workers push and pop tasks from their own queue without locks, and steal tasks from other threads' tails only when idle.",
+    "useCases": "High-throughput task scheduler for game engines and physics simulations | Core execution runtime for asynchronous task libraries (Tokio / C++ Coroutines) | Parallel divide-and-conquer algorithm execution (parallel merge sort, graph traversals)",
+    "problemItSolves": "Eliminating global mutex lock contention in multi-threaded CPU task execution | Implementing the lock-free Chase-Lev work-stealing deque using atomic memory orders (`acquire`/`release`) | Balancing CPU loads automatically across irregular parallel workloads with minimal cross-thread interference",
+    "recruiterSignal": "Deep mastery of the C++11 memory model, atomic operations, cache line padding, and false sharing prevention | Stress test running on 16 threads without deadlocks or race conditions under ThreadSanitizer (TSan) | Benchmark demonstrating 5x-10x throughput improvement over traditional mutex-locked thread pools",
+    "architecture": "ThreadPool initializes N worker threads, each with a local ChaseLevDeque; Worker pushes/pops tasks from bottom of its own deque using relaxed and acquire/release atomics (zero mutex contention); When worker deque is empty, enters Steal phase: chooses random victim thread and attempts atomic CAS to steal task from top of victim deque; if all queues empty, worker yields CPU safely.",
+    "scaleTargets": "Scheduling Throughput: > 25,000,000 tasks scheduled and executed per second on 16 cores | Mutex Contention: Exactly 0 mutex locks in the hot task execution path | Scaling Efficiency: Near-linear speedup (> 14x on 16 CPU cores) on fine-grained recursive workloads",
+    "techStack": ["C++ (C++17)", "std::atomic", "Chase-Lev Deque", "ThreadSanitizer", "CMake", "Google Benchmark"],
+    "verificationRubric": [
+      "1. Run cmake -B build && cmake --build build && ./build/test_pool: Executes unit test suite [All task scheduling, return value futures, and exception handling tests pass]",
+      "2. Execute ./build/test_pool_tsan (compiled with -fsanitize=thread): Runs stress test with 500,000 tasks across 16 threads [ThreadSanitizer reports ZERO data races or memory synchronization warnings]",
+      "3. Run ./build/benchmark_stealing: Executes parallel recursive Fibonacci (N=40) divide-and-conquer task [Achieves balanced core utilization across all 16 cores with > 12x speedup over single-threaded run]",
+      "4. Execute ./build/benchmark_vs_mutex_pool: Compares work-stealing against standard std::mutex task queue [Work-stealing demonstrates > 6x higher throughput under fine-grained task granularity]",
+      "5. Run ./build/test_cache_alignment: Asserts sizeof and alignof of per-thread deque structures [Confirms structures are padded to 64-byte cache lines to prevent false sharing]"
+    ],
+    "portfolioBulletFormula": "Designed lock-free work-stealing thread pool in C++ using the Chase-Lev deque algorithm and C++11 atomics; eliminated mutex contention on multi-core architectures, scheduling [TASK_THROUGHPUT] million tasks/sec with zero data races under ThreadSanitizer."
+  },
+  {
+    "id": "brief-btree-page-storage",
+    "title": "On-Disk B+ Tree Page-Based Storage Engine with Buffer Pool Manager",
+    "domain": "Systems Programming & Performance",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "B+ Tree", "Disk Paging", "Buffer Pool", "Binary Serialization", "Testing"],
+    "problemStatement": "Relational databases (PostgreSQL, MySQL InnoDB) and embedded stores (SQLite, BoltDB) store structured records on disk using page-based B+ Trees. Operating systems read disk in fixed-size blocks (typically 4KB), making in-memory binary search trees inefficient because pointer chasing requires random disk seeks. A production storage engine manages an on-disk B+ Tree layout, serializes nodes into binary 4KB disk pages, and coordinates an LRU Buffer Pool Manager to cache hot pages in memory and flush dirty pages to disk safely.",
+    "useCases": "Embedded storage engine for custom time-series or document databases | High-performance ordered key-value indexing layer | Educational reference implementation of database storage engine internals",
+    "problemItSolves": "Organizing key-value records into 4KB disk pages with binary slotted-page layouts | Managing leaf and interior node splits and merges during dynamic insertions and deletions | Minimizing random disk I/O through an LRU Buffer Pool Manager with dirty page tracking",
+    "recruiterSignal": "Deep understanding of database storage internals, slotted page binary layouts, and buffer replacement algorithms | Comprehensive test suite inserting 100,000 keys, performing range scans, and verifying index integrity | Crash recovery test validating dirty page flush consistency",
+    "architecture": "DiskStorageManager manages raw binary file in 4KB page frames; BufferPoolManager maintains pool of N memory frames with LRU replacement; B+ Tree engine executes Search/Insert/Delete: fetches page via Buffer Pool; leaf pages store ordered keys and slotted value offsets; interior pages store routing keys and child page IDs; when leaf exceeds 4KB capacity, splits page, allocates new page ID, and inserts parent separator key.",
+    "scaleTargets": "Point Lookup Speed: < 0.08ms per key lookup for cached pages | Range Query Speed: Scan 10,000 ordered records in < 3.5ms via sequential leaf page pointers | Space Utilization: > 70% average page fill factor under randomized insertions",
+    "techStack": ["Go", "Binary Serialization", "Disk Paging", "B+ Tree", "Testing", "Benchmarking"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestSlottedPageLayout: Tests binary serialization and deserialization of 4KB slotted page [Page header, slot array, and cell records pack and unpack with 100% byte fidelity]",
+      "2. Execute go test -v -run TestBPlusTreeInsertSplit: Inserts 20,000 random keys, triggering multi-level node splits [B+ Tree structure maintains invariants; all keys retrievable in O(log N) time]",
+      "3. Run go test -v -run TestBufferPoolEviction: Sets buffer pool size to 50 pages, queries 500 distinct pages [Buffer pool successfully evicts clean pages and flushes dirty pages using LRU policy]",
+      "4. Execute go test -v -run TestRangeScanTraversal: Performs range scan for keys between 1,000 and 5,000 [Scans directly across linked leaf page pointers in strict sorted order in < 2ms]",
+      "5. Run go test -bench=. -benchmem: Benchmarks concurrent random point reads and batch writes [Demonstrates > 45,000 ops/sec with bounded memory consumption]"
+    ],
+    "portfolioBulletFormula": "Implemented on-disk B+ Tree storage engine in Go with 4KB slotted-page binary layout and LRU buffer pool management; indexed [RECORD_COUNT] records with sub-[LOOKUP_LATENCY]ms point lookups and high-speed ordered range scanning."
+  }
+]
+

@@ -1,0 +1,187 @@
+[
+  {
+    "id": "brief-k8s-crd-operator",
+    "title": "Custom Kubernetes CRD & Controller Operator in Go",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "Kubernetes", "Controller-Runtime", "CRD", "Kubebuilder", "Docker"],
+    "problemStatement": "Deploying complex distributed applications (e.g., a clustered database with primary-replica replication, failover scripts, and backup cron jobs) on Kubernetes using static YAML manifests requires tedious manual intervention during scaling and failure recovery. Writing a custom Kubernetes Operator extends the Kubernetes API with Custom Resource Definitions (CRDs) and an active Reconciliation Loop that continuously observes actual cluster state and drives it toward the declared desired state.",
+    "useCases": "Automating deployment, scaling, and failover of stateful clustered databases on Kubernetes | Self-service developer database provisioning via declarative YAML specs | Automated lifecycle management for enterprise SaaS tenant instances",
+    "problemItSolves": "Extending Kubernetes with domain-specific Custom Resource Definitions (e.g. `DatabaseCluster`) | Implementing the level-triggered reconciliation loop to safely handle missed events and pod crashes | Managing dependent child resources (Deployments, Services, ConfigMaps, PersistentVolumeClaims) with owner references for automated cascading cleanup",
+    "recruiterSignal": "Deep understanding of Kubernetes control plane architecture, informers, workqueues, and status subresources | Controller-runtime test suite using envtest (real etcd and kube-apiserver without a full cluster) | Production-ready operator with leader election, Prometheus metrics, and RBAC manifests",
+    "architecture": "Developer creates CRD manifest DatabaseCluster; Operator controller runs inside cluster; Watcher listens for events on DatabaseCluster and child pods; Reconcile loop inspects desired replicas vs running pods; creates/updates child StatefulSets and Services; updates DatabaseCluster.Status with current phase (Pending, Ready, Error); re-queues reconciliation on drift.",
+    "scaleTargets": "Reconciliation Latency: Detect state drift and trigger corrective action in < 2.5 seconds | Scalability: Manage 500 active custom resource instances with < 60MB controller RAM | Resilience: Zero orphaned child resources upon custom resource deletion via OwnerReferences",
+    "techStack": ["Go", "Kubernetes", "Kubebuilder", "controller-runtime", "Docker", "envtest"],
+    "verificationRubric": [
+      "1. Run make test: Executes envtest suite against local API server and etcd [Controller reconciliation tests pass with zero errors]",
+      "2. Execute kubectl apply -f config/samples/database_cluster.yaml: Applies custom resource manifest [Operator detects new resource, provisions StatefulSet with specified replica count, and transitions status to READY]",
+      "3. Run kubectl delete pod database-cluster-0: Simulates pod failure by deleting running instance [Operator reconciliation loop immediately detects missing pod and recreates it within 2 seconds]",
+      "4. Execute kubectl patch databasecluster sample-db --type='merge' -p '{\"spec\":{\"replicas\":5}}': Triggers scaling update [Operator scales underlying StatefulSet from 3 to 5 replicas cleanly]",
+      "5. Run kubectl delete databasecluster sample-db: Deletes parent custom resource [Kubernetes garbage collection removes all associated Services and StatefulSets via OwnerReferences]"
+    ],
+    "portfolioBulletFormula": "Developed custom Kubernetes CRD Operator in Go using Kubebuilder and controller-runtime; automated lifecycle provisioning and self-healing for [RESOURCE_TYPE] clusters, cutting state recovery time to under [RECOVERY_TIME]s."
+  },
+  {
+    "id": "brief-bluegreen-envoy-router",
+    "title": "Automated Blue-Green & Canary Traffic Router with Envoy Proxy",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Envoy Proxy", "Go", "Canary Deployment", "Docker", "DevOps", "Testing"],
+    "problemStatement": "Deploying new application versions by replacing running containers all at once causes service disruptions and risks exposing 100% of users to critical production bugs. Zero-downtime releases require advanced traffic shifting: routing a small percentage of production traffic (1% -> 10% -> 50% -> 100%) to a canary version, continuously monitoring error rates and latency, and automatically rolling back traffic within seconds if errors spike, all orchestrated dynamically without restarting the edge proxy.",
+    "useCases": "Progressive canary delivery platform for high-traffic microservices | Zero-downtime blue-green production deployment pipeline | Header-based beta traffic routing for internal employee testing",
+    "problemItSolves": "Dynamically updating Envoy Proxy route weights in real-time using the Envoy Dynamic Discovery Service (xDS) API | Continuously evaluating Prometheus metric thresholds (HTTP 5xx rate, p99 latency) during canary rollout | Instantly reverting traffic weight to 0% on the canary cluster upon threshold breach in < 1 second",
+    "recruiterSignal": "Comprehensive understanding of Envoy Proxy architecture, xDS control planes, and progressive delivery | Automated integration test simulating a canary error spike and demonstrating automated instant rollback | Real-time traffic shifting visualization showing weighted request distribution",
+    "architecture": "Envoy Proxy receives incoming user traffic; Controller service runs lightweight xDS gRPC server; During deployment, controller incrementally updates RouteConfiguration weights between Blue (v1) and Green (v2) clusters; Evaluator polls Prometheus metrics every 5s; if error rate > 1%, sends xDS update shifting 100% traffic back to Blue; if metrics healthy across stages, promotes Green to primary.",
+    "scaleTargets": "Traffic Shift Propagation: Update Envoy routing weights in < 200ms via dynamic xDS gRPC push | Rollback Speed: Revert 100% traffic to stable version in < 1.2 seconds upon metric breach | Traffic Splitting Accuracy: Route request volume within 0.5% variance of configured weight",
+    "techStack": ["Envoy Proxy", "Go", "gRPC (xDS API)", "Prometheus", "Docker Compose", "K6"],
+    "verificationRubric": [
+      "1. Run docker-compose up -d and go run cmd/controlplane/main.go: Starts Envoy, sample Blue/Green services, and xDS control plane [Envoy establishes xDS stream and logs routes successfully synced]",
+      "2. Execute k6 run --vus 50 --duration 10s scripts/test_split.js with 80/20 weight config: Stresses endpoint [Response distribution confirms 80% Blue (+/- 1%) and 20% Green (+/- 1%)]",
+      "3. Run go run cmd/deployer/main.go --canary --service payment-api: Initiates automated progressive canary rollout [Rolls out 5% -> 25% -> 50% -> 100% with verification pauses between steps]",
+      "4. Execute python scripts/inject_canary_faults.py: Injects 500 internal server errors into Green canary service [Evaluator detects error rate > 2%, halts rollout, and shifts 100% traffic to Blue in < 1 second]",
+      "5. Run curl -H 'X-Beta-Tester: true' http://localhost:8080/v1/checkout: Tests header-based routing override [Directs request to Green version regardless of global percentage weights]"
+    ],
+    "portfolioBulletFormula": "Built progressive canary deployment traffic router using Envoy Proxy and dynamic xDS control plane in Go; automated metric-driven rollouts and sub-second rollbacks, eliminating downtime across [DEPLOYMENT_COUNT] production releases."
+  },
+  {
+    "id": "brief-ephemeral-dev-sandbox",
+    "title": "Ephemeral Preview Environment Provisioner with Docker & Reverse Proxy",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 23,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Docker API", "Reverse Proxy", "GitHub Webhooks", "DevOps", "Testing"],
+    "problemStatement": "Engineering teams reviewing pull requests struggle to test changes because staging environments are shared, constantly broken, and bottlenecked by merge conflicts. Developers and QA engineers need isolated, on-demand preview environments spun up automatically for every opened GitHub Pull Request with a dedicated sub-domain (e.g. `https://pr-142.preview.company.internal`), complete with isolated databases and automatic teardown upon PR closure.",
+    "useCases": "Automated pull request preview environments for web frontend and backend teams | QA staging sandboxes for feature branch testing before staging merge | Customer demo sandboxes provisioned on-demand for sales calls",
+    "problemItSolves": "Spinning up isolated full-stack application stacks (frontend + backend + Postgres) in under 30 seconds via Docker API | Routing dynamic subdomain traffic to ephemeral container ports using a dynamic reverse proxy | Automatically reaping idle or closed PR environments to prevent cloud compute cost waste",
+    "recruiterSignal": "Solid demonstration of systems automation, Docker SDK integration, and dynamic HTTP proxying | End-to-end webhook integration handling GitHub PR events (opened, synchronize, closed) | Strict resource quota enforcement (CPU, memory, max sandboxes) preventing host exhaustion",
+    "architecture": "GitHub webhook fires PR event to Go Provisioner daemon; Provisioner clones PR branch; builds images using BuildKit; assigns dynamic host ports; starts Docker network and container stack; generates unique subdomain (pr-{id}.domain); updates internal reverse proxy routing table; posts preview URL as GitHub PR comment; on PR close, reaps containers and volumes.",
+    "scaleTargets": "Provisioning Time: Full stack provisioned and healthy in < 35 seconds | Max Concurrent Sandboxes: Safely manage 25 active isolated PR environments on single host | Cleanup Guarantee: 100% teardown of containers, networks, and volumes upon PR close",
+    "techStack": ["Go", "Docker Engine API", "Traefik / Go Proxy", "GitHub Webhooks", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestWebhookIngestion: Simulates incoming GitHub pull_request.opened webhook with HMAC signature [Verifies signature and queues provisioning task]",
+      "2. Execute go run cmd/provisioner/main.go --test-pr 101: Executes end-to-end sandbox creation for sample PR [Builds containers, maps ports, and launches isolated preview stack within 30 seconds]",
+      "3. Run curl -H 'Host: pr-101.preview.local' http://localhost:8080/health: Tests dynamic reverse proxy routing [Routes request to internal container port and returns HTTP 200 OK]",
+      "4. Execute go test -v -run TestPullRequestClosedTeardown: Simulates pull_request.closed webhook [Provisioner stops and removes containers, prunes Docker network, and deletes mounted volumes cleanly]",
+      "5. Run go test -v -run TestResourceQuotaExceeded: Attempts to launch 26th sandbox when maximum quota is set to 25 [Provisioner safely rejects request and reports QUOTA_EXCEEDED without host crash]"
+    ],
+    "portfolioBulletFormula": "Created ephemeral preview environment provisioner in Go using the Docker Engine API and dynamic reverse proxying; automated on-demand sandbox creation for [PR_COUNT] pull requests, reducing QA review cycles by [CYCLE_REDUCTION]%."
+  },
+  {
+    "id": "brief-otel-apm-collector",
+    "title": "OpenTelemetry APM Collector & Custom Distributed Trace Exporter",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["OpenTelemetry", "Go", "Distributed Tracing", "gRPC", "Observability", "Testing"],
+    "problemStatement": "Debugging distributed microservice errors and latency bottlenecks across dozens of polyglot services requires distributed tracing. Proprietary APM vendors (Datadog, New Relic) charge exorbitant ingest fees per host and trace volume. Setting up an OpenTelemetry (OTel) observability pipeline requires building an OpenTelemetry Collector pipeline that receives OTLP trace data via gRPC, sanitizes sensitive tokens, applies tail-based sampling (retaining 100% of error traces and 5% of healthy traces), and exports to Jaeger/Prometheus.",
+    "useCases": "Vendor-agnostic application performance monitoring (APM) pipeline for microservices | Cost reduction via intelligent tail-based trace sampling | Scrubbing sensitive authentication tokens and PII from span attributes before storage",
+    "problemItSolves": "Correlating distributed RPC traces across multi-service call chains using W3C TraceContext headers | Reducing trace storage costs by up to 80% via tail-based sampling (always keeping slow or failed spans) | Redacting database passwords, API keys, and authorization headers from span attribute tags",
+    "recruiterSignal": "Comprehensive understanding of the OpenTelemetry standard, W3C trace propagation, and OTLP proto | Tail-based sampling processor retaining 100% of errors while down-sampling fast requests | Integration test validating trace continuity across 3 interconnected microservices",
+    "architecture": "Microservices instrumented with OpenTelemetry SDK export spans over gRPC OTLP port 4317; Custom Collector pipeline receives spans; Processor 1: Attribute scrubber redacts sensitive regex keys; Processor 2: Tail-based sampler waits for span completion: if status == ERROR or duration > 500ms, keep 100%; else sample 5%; Exporter pushes to Jaeger / OTLP backend.",
+    "scaleTargets": "Ingestion Throughput: > 40,000 trace spans/sec processed per collector instance | Memory Stability: Bounded memory usage (< 120MB) under burst trace traffic | Sampling Precision: Retain exactly 100% of spans with error status codes",
+    "techStack": ["Go", "OpenTelemetry Collector SDK", "gRPC", "Protocol Buffers", "Jaeger", "Docker"],
+    "verificationRubric": [
+      "1. Run docker-compose up -d and go run cmd/collector/main.go: Boots Jaeger backend and custom OTel collector [Collector binds to :4317 (gRPC) and :4318 (HTTP) with status READY]",
+      "2. Execute python send_otlp_traces.py --count 1000 --errors 50: Emits 1,000 trace spans with 50 deliberate errors [Collector receives all spans; tail sampler passes 100% of errors and 5% of normal spans]",
+      "3. Run pytest tests/test_span_redaction.py: Emits span with attribute `http.header.authorization: Bearer sec_xyz123` [Span exporter verifies attribute value is replaced with [REDACTED]]",
+      "4. Execute curl http://localhost:16686/api/traces?service=checkout-service: Queries Jaeger trace store [Confirms valid W3C trace parent-child span hierarchy across multi-tier calls]",
+      "5. Run go test -bench=. -benchmem: Benchmarks collector span ingestion and processing pipeline [Processes > 35,000 spans/sec with low GC allocation overhead]"
+    ],
+    "portfolioBulletFormula": "Implemented OpenTelemetry APM collector in Go with custom tail-based sampling and span redaction; processed [SPAN_THROUGHPUT] spans/sec, cutting observability storage costs by [STORAGE_SAVINGS]% while guaranteeing 100% error trace retention."
+  },
+  {
+    "id": "brief-k8s-secret-sync",
+    "title": "Kubernetes External Secrets Operator Syncing from HashiCorp Vault",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Kubernetes", "HashiCorp Vault", "Security", "DevOps", "Testing"],
+    "problemStatement": "Storing plaintext credentials or basic base64-encoded strings directly in Kubernetes Secret manifests risks exposing sensitive database passwords and API tokens in Git repositories and cluster backups. Centralized enterprise secret stores like HashiCorp Vault provide dynamic rotation, fine-grained access policies, and audit logging. A secret synchronization operator automatically bridges Vault secrets into native Kubernetes Secrets, refreshing values periodically and triggering rolling application restarts on rotation.",
+    "useCases": "Automating secret synchronization from HashiCorp Vault to Kubernetes clusters | Enforcing zero credentials stored in Git / GitOps repositories | Triggering zero-downtime rolling deployment restarts upon secret key rotation",
+    "problemItSolves": "Preventing secrets from leaking into Git version control via declarative ExternalSecret specs | Periodically polling Vault for secret updates and syncing changes to native Kubernetes Secret objects | Annotating dependent Deployments with secret SHA-256 hashes to trigger rolling pod updates",
+    "recruiterSignal": "Deep understanding of Kubernetes security best practices, RBAC service accounts, and Vault AppRole auth | Automated test rotating a Vault secret and observing the dependent application pod restart with new value | Robust error handling dealing with Vault downtime, token expiration, and permission denials",
+    "architecture": "ExternalSecret CRD specifies Vault secret path and target Kubernetes Secret name; Go Controller authenticates with Vault using Kubernetes Service Account token or AppRole; fetches key-value secrets; creates/updates native Kubernetes Secret; calculates SHA-256 checksum of secret payload; patches Deployment annotation `secret/checksum`; Kubernetes triggers rolling restart.",
+    "scaleTargets": "Sync Latency: Propagate rotated secret to Kubernetes within 30 seconds | Sync Capacity: Manage 2,000 synced secrets with < 50MB controller memory footprint | Security: Zero storage of Vault master tokens in controller state or disk",
+    "techStack": ["Go", "Kubernetes client-go", "HashiCorp Vault API", "Docker", "Testing", "Bcrypt"],
+    "verificationRubric": [
+      "1. Run docker-compose up -d and go run cmd/operator/main.go: Initializes Vault dev server and starts operator [Operator authenticates with Vault and begins reconciliation loop]",
+      "2. Execute kubectl apply -f config/samples/vault_secret_sync.yaml: Applies ExternalSecret targeting secret/data/database [Operator creates native Kubernetes Secret db-credentials with decoded values]",
+      "3. Run vault kv put secret/database password=\"NewUltraSecretPassword123!\": Rotates password in Vault [Operator detects change on next poll cycle and updates Kubernetes Secret cleanly]",
+      "4. Execute kubectl get deployment web-app -o jsonpath='{.spec.template.metadata.annotations}': Checks deployment annotations [Checksum annotation updates, triggering automatic rolling restart of web pods]",
+      "5. Run go test -v -run TestVaultAuthenticationExpiry: Simulates Vault token expiration [Operator automatically requests new auth token and resumes syncing without crashing]"
+    ],
+    "portfolioBulletFormula": "Architected Kubernetes secret synchronization operator in Go integrating HashiCorp Vault; automated secret lifecycle synchronization and rolling pod restarts for [SECRET_COUNT] application secrets with zero credentials stored in Git."
+  },
+  {
+    "id": "brief-cloud-cost-anomaly",
+    "title": "Real-Time Cloud Cost Anomaly Detector & Waste Reclamation Daemon",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 19,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Python", "AWS/Cloud APIs", "FinOps", "Anomaly Detection", "Cost Optimization", "Testing"],
+    "problemStatement": "Engineering teams regularly leave expensive test instances, unattached EBS storage volumes, idle NAT gateways, and abandoned load balancers running, resulting in shocking cloud billing spikes at month's end. Detecting cloud spend anomalies and identifying orphaned resources requires an automated FinOps daemon that pulls hourly billing data, runs statistical anomaly detection (Z-score / Bollinger bands), and identifies zombie infrastructure for automated termination.",
+    "useCases": "Automated FinOps cost control platform alerting engineering teams to spending surges | Identifying and deleting orphaned EBS volumes, elastic IPs, and unattached disks | Enforcing nightly shutdown schedules on non-production development environments",
+    "problemItSolves": "Detecting sudden cost spikes within hours rather than waiting for monthly invoices | Identifying orphaned cloud resources (unattached disks, idle load balancers, unassociated IPs) | Posting rich Slack/Teams alerts with direct owner attribution and one-click reclamation links",
+    "recruiterSignal": "Comprehensive understanding of cloud cost drivers, FinOps principles, and cloud provider pricing models | Statistical anomaly detection pipeline with tunable sensitivity to prevent alert fatigue | Automated dry-run mode ensuring safe operations before terminating any live infrastructure",
+    "architecture": "Daily/Hourly cron pulls cost telemetry via AWS Cost Explorer / GCP Billing API; Computes 14-day rolling mean and standard deviation per service; Evaluates Z-score: if current spend > mean + (2.5 * std_dev), flags anomaly; Resource scanner inspects AWS SDK for unattached EBS volumes (status == available) and idle dev instances; Posts Slack summary alert; schedules orphan cleanup.",
+    "scaleTargets": "Detection Speed: Flag anomalous spend spikes within 2 hours of billing metric availability | Anomaly Precision: > 92% true positive rate on billing spike alerts | Waste Reclamation: Identify 100% of unattached disks and unassociated static IPs",
+    "techStack": ["Python", "Boto3 (AWS SDK)", "NumPy", "Slack SDK", "Pytest", "Docker"],
+    "verificationRubric": [
+      "1. Run python cost_monitor.py --detect-anomalies --data test_billing.json: Ingests billing telemetry with an injected $500 EC2 spike [Statistical detector flags EC2 spend with Z-score 3.8 and generates alert payload]",
+      "2. Execute python waste_reclaimer.py --dry-run: Scans local/mock AWS environment for orphaned resources [Identifies 5 unattached EBS volumes and 2 idle Elastic IPs with total estimated monthly savings of $180]",
+      "3. Run pytest tests/test_zscore_algorithm.py: Tests anomaly scoring on volatile vs stable cost trends [Correctly suppresses alerts on predictable cyclical weekday spikes while catching irregular surges]",
+      "4. Execute python waste_reclaimer.py --execute --confirm-cleanup: Executes automated orphan reclamation [Safely deletes identified unattached resources and writes audit trail to DynamoDB/JSON]",
+      "5. Run python send_slack_alert.py --sample-alert: Sends test Slack webhook [Delivers formatted interactive Block Kit card with service breakdown, cost delta, and action buttons]"
+    ],
+    "portfolioBulletFormula": "Built cloud cost anomaly detection and waste reclamation daemon in Python; monitored cloud infrastructure spend, catching billing surges in under [DETECTION_HOURS] hours and saving $[MONTHLY_SAVINGS]/month by automating orphaned resource reclamation."
+  },
+  {
+    "id": "brief-dns-failover-daemon",
+    "title": "Distributed Health Check & Dynamic DNS Failover Daemon",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "DNS Protocols", "Health Probing", "Resilience", "Networking", "Testing"],
+    "problemStatement": "Multi-region and hybrid cloud architectures rely on DNS to route users to healthy data centers. When an entire region or cloud provider suffers an outage, static DNS configurations continue sending traffic to dead endpoints until engineers manually update DNS records, causing prolonged downtime. A dynamic DNS failover daemon continuously performs synthetic health probes from multiple vantage points and automatically updates DNS A/AAAA records via cloud DNS APIs upon sustained health probe failure.",
+    "useCases": "Automated multi-cloud and multi-region disaster failover routing | Health-checked DNS routing for private corporate intranet services | Automated zero-touch traffic migration during maintenance windows",
+    "problemItSolves": "Preventing single-region outages from taking down global web traffic | Eliminating false failovers by requiring multi-vantage quorum agreement (e.g. 2 of 3 probe nodes must agree) | Setting low DNS Time-To-Live (TTL) values (e.g. 30s) and updating records via Route53 / Cloudflare APIs",
+    "recruiterSignal": "Solid grasp of DNS protocols, TTL caching behavior, and distributed quorum voting | Integration test proving automated DNS record modification upon simulated server failure | Quorum test demonstrating immunity to single-probe network blips",
+    "architecture": "Probe daemons in 3 locations send HTTP/TCP probes to primary and secondary endpoints every 5s; Probes report status to coordinator; Coordinator evaluates state: if primary fails across >= 2 probe nodes for 3 consecutive cycles; coordinator calls DNS API (Cloudflare / Route53) to swap DNS A-record to secondary IP; publishes failover alert; when primary recovers, swaps back.",
+    "scaleTargets": "Failover Speed: Complete end-to-end failover within 45 seconds of primary site death | False Alarm Rate: 0 false failovers caused by single-node probe connectivity hiccups | Probing Throughput: Monitor 200 endpoint targets every 5 seconds per daemon node",
+    "techStack": ["Go", "DNS Protocols", "HTTP Probing", "Cloudflare/Route53 API", "Testing", "Docker"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestHealthProbeDetection: Starts mock HTTP server, shuts it down mid-probe [Probe accurately detects connection refusal and marks node UNHEALTHY within 5s]",
+      "2. Execute go test -v -run TestQuorumConsensus: Node 1 reports FAIL, Node 2 reports SUCCESS, Node 3 reports SUCCESS [Coordinator determines quorum healthy and suppresses failover action]",
+      "3. Run go test -v -run TestDnsApiUpdate: Simulates 3-node consensus failure on primary endpoint [Coordinator executes DNS record update API call, swapping A-record to standby IP]",
+      "4. Execute go test -v -run TestFailbackRecovery: Restores primary server health for 60 consecutive seconds [Coordinator executes failback, safely restoring primary DNS record]",
+      "5. Run dig @localhost -p 5354 api.company.internal: Queries local embedded DNS server after failover [Returns updated secondary IP with 30-second TTL]"
+    ],
+    "portfolioBulletFormula": "Developed distributed DNS failover daemon in Go with multi-vantage quorum health checking; automated zero-touch failover routing to secondary infrastructure in under [FAILOVER_TIME]s during simulated regional outages."
+  },
+  {
+    "id": "brief-disaster-recovery-harness",
+    "title": "Automated Database Disaster Recovery Drill & RPO/RTO Testing Harness",
+    "domain": "Cloud Native & DevOps Engineering",
+    "estimatedHours": 23,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "PostgreSQL", "Disaster Recovery", "S3", "DevOps", "Testing"],
+    "problemStatement": "Engineering teams write backup scripts, but almost never test restoring them until a catastrophic production database failure occurs, discovering corrupted backup archives, missing encryption keys, or unacceptably long restore times that violate contractual SLAs. Maintaining true disaster readiness requires an automated DR testing harness that periodically downloads real production backup snapshots, restores them into an isolated sandbox, validates data integrity, and records empirical RTO/RPO metrics.",
+    "useCases": "Automated weekly disaster recovery drill verifying compliance with SOC2 / ISO 27001 SLAs | Measuring empirical Recovery Time Objective (RTO) and Recovery Point Objective (RPO) | Validating database backup encryption and point-in-time recovery (PITR) WAL replays",
+    "problemItSolves": "Verifying that encrypted database backup files are non-corrupted and restorable without human intervention | Calculating true Recovery Point Objective (RPO) data loss in seconds by comparing latest restored transaction timestamp against backup snapshot time | Running automated database consistency assertions (e.g. checking user counts, checksum invariants) on restored data",
+    "recruiterSignal": "Deep understanding of enterprise disaster recovery standards (RTO, RPO, PITR, WAL archiving) | Fully automated execution lifecycle: provision isolated container, restore WAL, run integrity tests, export metrics, teardown | Comprehensive audit report generator for compliance auditors",
+    "architecture": "Scheduled runner triggers DR drill; downloads latest base backup and WAL archives from encrypted S3 storage; spins up isolated PostgreSQL container; executes pg_restore / WAL replay to target timestamp; executes data integrity validation suite (table row counts, foreign key checks, balance invariants); logs exact elapsed restore time (RTO) and data drift (RPO); generates signed PDF/JSON compliance certificate; destroys container.",
+    "scaleTargets": "RTO Measurement: Restore and verify 50GB database snapshot in < 15 minutes | RPO Accuracy: Compute transaction lag down to the millisecond | Automation: 100% hands-free execution from S3 fetch to report generation",
+    "techStack": ["Go", "PostgreSQL", "Docker Engine API", "AWS S3 / MinIO", "Testing", "CLI"],
+    "verificationRubric": [
+      "1. Run go run cmd/dr-harness/main.go --backup s3://backups/pg_base_latest.tar.gz: Executes automated restore drill [Spins up isolated container, extracts backup, replays WAL, and brings database to READ-WRITE]",
+      "2. Execute go test -v -run TestRestoredDataIntegrity: Queries restored database for row count parity and key foreign key constraints [All 25 data integrity checks PASS with 100% record match]",
+      "3. Run go test -v -run TestRpoRtoCalculation: Validates RTO calculation against wall-clock restore duration and RPO against last transaction LSN [Logs empirical RTO: 342s and RPO: 4.2s]",
+      "4. Execute go test -v -run TestCorruptedBackupDetection: Injects corrupted byte headers into test backup tarball [Harness detects archive corruption, halts restore safely, and triggers alert notification]",
+      "5. Run cat output/dr_report_latest.json: Inspects generated audit certificate [Contains machine-readable audit report with timestamps, checksums, RTO/RPO metrics, and pass status]"
+    ],
+    "portfolioBulletFormula": "Built automated disaster recovery drill harness in Go and PostgreSQL; automated weekly backup restore verification and WAL replay into isolated test containers, proving an empirical RTO of [EMPIRICAL_RTO]m and RPO under [EMPIRICAL_RPO]s."
+  }
+]
+

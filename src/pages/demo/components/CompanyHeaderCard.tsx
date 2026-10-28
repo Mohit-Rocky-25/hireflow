@@ -4,6 +4,7 @@ import type { Company } from '../talentLensData';
 import { TREND_ICON } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
+import { getVerifiedCompanyUrl } from '../../../data/market/verifiedCompanyUrls';
 import { SourceChip } from '../../../components/common/SourceChip';
 import { ReportErrorModal } from '../../../components/common/ReportErrorModal';
 
@@ -57,19 +58,23 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
               <span>{company.industry || 'Not available'}</span>
               <span>•</span>
               <span className="font-bold text-white">{company.avgPackage || 'Not available'}</span>
-              {company.officialSiteUrl && (
-                <>
-                  <span>•</span>
-                  <a
-                    href={company.officialSiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-volt hover:underline font-semibold"
-                  >
-                    Official Site
-                  </a>
-                </>
-              )}
+              {(() => {
+                const officialUrl = company.officialSiteUrl || getVerifiedCompanyUrl(company.id) || getVerifiedCompanyUrl(company.name);
+                if (!officialUrl) return null;
+                return (
+                  <>
+                    <span>•</span>
+                    <a
+                      href={officialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-volt hover:underline font-semibold"
+                    >
+                      Official Careers Site
+                    </a>
+                  </>
+                );
+              })()}
             </div>
 
             {/* Sourced evidence chips if present */}

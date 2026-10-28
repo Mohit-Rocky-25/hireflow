@@ -1,6 +1,6 @@
 # HireFlow ATS Skill Matcher Baseline Benchmark (Issue 2 — Stage 0)
 
-> **Date**: 2026-10-27T21:52:02.652Z  
+> **Date**: 2026-10-28T04:52:47.707Z  
 > **Environment**: Node v24.18.0 (Windows_NT 10.0.26200 - x64)  
 > **Scope**: DEV (210 cases), HOLDOUT (130 cases) | Traps Pack Total: 100 cases
 

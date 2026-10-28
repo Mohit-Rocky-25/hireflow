@@ -1,0 +1,141 @@
+[
+  {
+    "id": "brief-offline-crdt-notes",
+    "title": "Offline-First Collaborative Notes App with State-Based CRDTs",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["React Native", "TypeScript", "CRDTs", "SQLite", "Offline-First", "WebSockets"],
+    "problemStatement": "Mobile users frequently edit notes, documents, and task lists while travelling through tunnels, airplanes, or poor connectivity zones. Traditional client-server architectures fail offline because writes either block or cause conflicting edits to overwrite each other during synchronization (the 'last write wins' data loss bug). Implementing Conflict-Free Replicated Data Types (CRDTs) allows mobile devices to mutate documents completely offline without a centralized server, mathematically guaranteeing conflict-free convergence when devices reconnect.",
+    "useCases": "Offline-first collaborative note-taking and document editing apps | Mobile field inspection checklist tools for remote construction sites | Personal knowledge base apps syncing peer-to-peer across mobile and desktop",
+    "problemItSolves": "Enabling instantaneous local UI updates with zero network latency | Guaranteeing deterministic convergence of concurrent edits across multiple mobile devices without data loss | Storing CRDT delta logs locally in SQLite and efficiently syncing only unapplied deltas upon network reconnection",
+    "recruiterSignal": "Deep understanding of distributed consensus, causality vectors, and CRDT math (LWW-Element-Set or Yjs/Automerge) | Comprehensive test suite simulating multi-device offline concurrent edits and verifying identical convergence | Production React Native architecture with local SQLite storage and WebSocket synchronization",
+    "architecture": "User mutates note in React Native UI; Mutation immediately creates CRDT delta record in local SQLite database; UI updates optimistically in 1ms; Sync manager monitors network connectivity: when online, connects to sync relay over WebSockets; exchanges state vectors; sends local deltas; receives remote deltas and applies merge function to local state; updates UI without re-renders.",
+    "scaleTargets": "Local Write Latency: < 4ms to persist mutation and update local UI | Sync Overhead: Delta payloads compressed to < 5KB for typical offline editing sessions | Convergence Invariant: 100% convergence to identical document state across all devices regardless of sync arrival order",
+    "techStack": ["React Native", "TypeScript", "SQLite (WatermelonDB / op-sqlite)", "CRDT (Yjs / Automerge)", "WebSockets", "Vitest"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/crdt_offline_convergence.test.ts: Simulates Device A and Device B editing same note while disconnected, then syncing [Both devices converge to byte-for-byte identical text state]",
+      "2. Execute npm test -- tests/sqlite_persistence.test.ts: Writes 500 offline edits, force-kills app process, and relaunches [All 500 mutations recovered from local SQLite with correct vector timestamps]",
+      "3. Run npm test -- tests/delta_sync_efficiency.test.ts: Syncs device with 1 new sentence edit against 10,000-word document [Transmits only small incremental delta (< 1KB) rather than full document payload]",
+      "4. Execute npm test -- tests/network_reconnect_resilience.test.ts: Toggles network connection 20 times during continuous text typing [Zero duplicate characters, dropped strokes, or unhandled promise rejections]",
+      "5. Run npx react-native run-android (or run-ios) with test harness: Types in editor on two simultaneous emulator instances [Displays real-time two-way synchronization with sub-100ms sync latency on local network]"
+    ],
+    "portfolioBulletFormula": "Developed offline-first collaborative mobile note app in React Native using CRDTs and local SQLite storage; achieved sub-[WRITE_LATENCY]ms local UI mutations and guaranteed 100% conflict-free convergence across [DEVICE_COUNT] devices after prolonged offline periods."
+  },
+  {
+    "id": "brief-virtualized-media-feed",
+    "title": "60 FPS Infinite Virtualized Media Feed with Aggressive Memory Recycling",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 22,
+    "difficulty": "advanced",
+    "coveredSkills": ["React Native", "FlashList", "Performance Optimization", "Image Caching", "Memory Management", "TypeScript"],
+    "problemStatement": "Building infinite-scrolling social media feeds (Instagram, TikTok) on mobile devices causes severe performance degradation, frame drops (jank), and Out-Of-Memory (OOM) crashes on budget Android devices. Standard list components render hundreds of off-screen components into memory and fail to recycle views, while uncompressed image decoding exhausts mobile GPU memory. Achieving buttery-smooth 60 FPS scrolling requires aggressive view recycling, layout virtualization, predictive pre-fetching, and thumbnail memory caps.",
+    "useCases": "High-volume social media photo/video feeds | E-commerce product catalog infinite discovery grids | Real-time news and event browsing apps",
+    "problemItSolves": "Eliminating frame drops and maintaining consistent 60 FPS scrolling across budget devices | Capping native memory usage by recycling unmounted views and decoding downsampled image bitmaps | Pre-fetching upcoming media items 3 screens ahead based on scroll velocity",
+    "recruiterSignal": "Comprehensive understanding of native view recycling (RecyclerListView / FlashList internals) | Performance profiling reports measuring JS frame rate, UI frame rate, and native memory usage | Automated benchmark scrolling through 10,000 media cards with zero memory leaks",
+    "architecture": "React Native FlashList renders media items with predetermined cell heights; Image loader requests downsampled thumbnails matching exact screen pixel density; Disk cache caches decoded bitmaps; Recycler recycles unmounted native view containers rather than recreating DOM/native elements; Velocity tracker measures scroll speed to throttle heavy video previews during rapid flings.",
+    "scaleTargets": "Frame Rate: Constant 60 FPS (zero frames taking > 16.6ms) during continuous scrolling | Memory Ceiling: Native heap memory stays strictly < 180MB across 10,000 scrolled items | Initial Render Time: First screen of 6 items renders in < 120ms from cold start",
+    "techStack": ["React Native", "Shopify FlashList", "React Native Fast Image", "TypeScript", "Flipper / Reactotron"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/virtualization_window.test.ts: Simulates scrolling down 1,000 items in feed [Confirms active mounted native views capped at 12 views regardless of scroll depth]",
+      "2. Execute npm test -- tests/image_downsampling.test.ts: Passes 4K original image URL to media cell [Downsampler scales bitmap to exact target container dimensions (1080x720), reducing memory footprint by 85%]",
+      "3. Run npx react-native run-android --variant=release and run automated scroll script: Scrolls through 1,000 cards on Android emulator [Systrace / Perfetto reports zero dropped frames with JS thread running at 60 FPS]",
+      "4. Execute npm test -- tests/memory_leak_check.test.ts: Rapidly scrolls back and forth 50 times across 500 items [Native memory profile confirms RSS memory remains flat without incremental drift]",
+      "5. Run npm test -- tests/predictive_prefetch.test.ts: Simulates medium scroll velocity [Network manager verifies next 5 upcoming image assets are prefetched and cached before entering viewport]"
+    ],
+    "portfolioBulletFormula": "Architected high-performance virtualized mobile media feed in React Native using FlashList and bitmap recycling; achieved sustained 60 FPS scrolling across [ITEM_COUNT] infinite items while capping mobile native memory consumption under [MEMORY_LIMIT]MB."
+  },
+  {
+    "id": "brief-background-geofence-optimizer",
+    "title": "Battery-Optimized Background Geofencing & Location Telemetry Engine",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Kotlin", "Android", "Background Services", "Geofencing", "Battery Optimization", "SQLite"],
+    "problemStatement": "Location-aware mobile apps (logistics tracking, proximity notifications, delivery arrival alerts) require tracking when a user enters or exits geographic regions (geofences) even when the app is killed or running in the background. Continuous GPS polling drains a smartphone battery in less than 3 hours, causing users to uninstall the app. Building an enterprise location engine requires leveraging hardware geofencing APIs, adaptive sampling frequencies, motion-activity recognition, and opportunistic Wi-Fi/cell triangulation.",
+    "useCases": "Automated delivery driver arrival triggers when entering customer neighborhoods | Geofence-triggered loyalty rewards when customers walk into retail stores | Employee workplace attendance check-in based on office geofencing",
+    "problemItSolves": "Preventing smartphone battery drain by switching from continuous GPS to hardware-level geofencing | Detecting transitions (Enter, Dwell, Exit) accurately even when the application process is terminated | Buffering telemetry points offline in SQLite and batch uploading to reduce mobile cellular radio wakeups",
+    "recruiterSignal": "Deep understanding of Android background execution limits (Doze mode, WorkManager, Foreground Services) | Battery benchmark testing with Android Battery Historian proving < 2% battery drain over 12 hours | Automated test suite verifying transition triggers and handling GPS drift jitter",
+    "architecture": "App registers geofence coordinates with Android LocationServices GeofencingClient; Hardware baseband monitors boundary without waking application CPU; On transition event, OS fires BroadcastReceiver; Receiver logs event with timestamp and accuracy in local SQLite; WorkManager schedules batched compressed upload to backend API; Dynamic battery throttle adapts GPS accuracy based on accelerometer activity.",
+    "scaleTargets": "Battery Consumption: < 2.5% battery drain over a 12-hour continuous monitoring period | Transition Accuracy: > 98% detection of true geofence enter/exit events | Storage Efficiency: Buffer 10,000 GPS telemetry pings in < 5MB local SQLite database",
+    "techStack": ["Kotlin", "Android Jetpack", "WorkManager", "Geofencing API", "Room / SQLite", "JUnit"],
+    "verificationRubric": [
+      "1. Run ./gradlew testDebugUnitTest: Validates geofence boundary math, distance calculations, and drift jitter suppression [All 15 geometric calculation tests pass]",
+      "2. Execute adb shell am broadcast -a com.google.android.gms.location.GeofenceTransition: Injects mock geofence ENTER event [BroadcastReceiver wakes up, logs transition event in Room database within 50ms]",
+      "3. Run ./gradlew connectedAndroidTest: Executes test while device is in simulated Doze mode [WorkManager successfully schedules and batches telemetry upload during maintenance window]",
+      "4. Execute python analyze_battery_historian.py --bugreport bugreport.zip: Evaluates battery consumption logs [Confirms GPS radio active time < 1.2% over 8-hour benchmark cycle]",
+      "5. Run adb shell am force-stop com.example.geofence and inject EXIT event: Tests killed app state [OS successfully launches PendingIntent and records exit event despite terminated process]"
+    ],
+    "portfolioBulletFormula": "Developed battery-optimized background geofencing engine in Android/Kotlin using Google Play Services and WorkManager; maintained sub-[BATTERY_DRAIN]% 12-hour battery consumption while achieving [ACCURACY]% geofence transition reliability."
+  },
+  {
+    "id": "brief-secure-enclave-vault",
+    "title": "Mobile Secure Enclave & Biometric Keychain Storage Vault",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["React Native", "iOS Keychain", "Android Keystore", "Biometrics", "AES-GCM", "TypeScript"],
+    "problemStatement": "Storing authentication tokens, banking credentials, or private cryptographic keys in standard mobile storage (AsyncStorage, SharedPreferences) exposes them to extraction via root access, device backups, or malicious SDK inspection. Securing high-value secrets requires hardware-backed security: leveraging the Apple Secure Enclave / Android Keystore to generate cryptographic keys inside isolated hardware that never reveal private keys, requiring biometric user authentication (FaceID/Fingerprint) before decrypting secrets.",
+    "useCases": "Mobile banking app credential storage and biometric session unlock | Cryptocurrency mobile wallet private key storage | Enterprise single sign-on (SSO) refresh token vault",
+    "problemItSolves": "Preventing credential theft on rooted or jailbroken mobile devices | Enforcing hardware-level biometric authentication prompts (BiometricPrompt / LocalAuthentication) before decrypting data | Encrypting secrets with AES-256-GCM using hardware-generated keys that cannot be extracted",
+    "recruiterSignal": "Comprehensive understanding of mobile hardware security architectures (Secure Enclave, TEE, StrongBox) | Automated test verifying biometric enrollment checks, fallback passcodes, and key invalidation on new biometric enrollment | Clean TypeScript module exposing unified cross-platform API for secure storage",
+    "architecture": "TypeScript app invokes SecureVault.setItem(key, secret); Module requests Android Keystore / iOS Keychain to generate 256-bit AES key with UserAuthenticationRequired flag; Hardware encrypts secret and returns ciphertext; Stored in encrypted SQLite; On getItem, OS prompts hardware FaceID/Fingerprint; Upon hardware confirmation, Secure Enclave decrypts ciphertext and returns plaintext in memory.",
+    "scaleTargets": "Encryption / Decryption Latency: Hardware crypto operations complete in < 25ms | Security Guarantee: Private keys never touch application memory or persistent disk in plaintext | Cross-Platform Parity: Identical security semantics across iOS Keychain and Android Keystore",
+    "techStack": ["React Native", "TypeScript", "iOS Keychain", "Android Keystore", "BiometricPrompt", "Jest"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/secure_vault_api.test.ts: Tests cross-platform secure storage CRUD operations [All unit tests pass asserting proper key creation, encryption, and deletion]",
+      "2. Execute npm test -- tests/biometric_requirement.test.ts: Asserts decryption fails immediately if biometric authentication is not provided or cancelled [Throws UserBiometricCancelledException cleanly]",
+      "3. Run npm test -- tests/tamper_resistance.test.ts: Modifies ciphertext bytes in storage and attempts decryption [AES-GCM authentication tag verification fails, throwing CryptographicTamperException]",
+      "4. Execute npm test -- tests/key_invalidation_on_new_biometric.test.ts: Simulates user adding a new fingerprint to OS settings [Key is automatically invalidated by OS Keystore, preventing unauthorized access]",
+      "5. Run npx react-native run-android on emulator with biometric mock: Enrolls fingerprint and retrieves token [Prompts native biometric UI dialog and successfully decrypts token on fingerprint match]"
+    ],
+    "portfolioBulletFormula": "Built hardware-backed biometric security vault for React Native using iOS Keychain and Android Keystore; secured sensitive authentication tokens with AES-256-GCM and Secure Enclave isolation, mitigating credential theft on rooted devices."
+  },
+  {
+    "id": "brief-offline-chat-optimistic",
+    "title": "Offline-First Real-Time Chat Engine with Optimistic UI & Reconnect Sync",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["React Native", "WebSockets", "SQLite", "Optimistic UI", "State Machine", "TypeScript"],
+    "problemStatement": "In messaging applications (WhatsApp, Slack), users expect messages to appear in the conversation thread immediately when they press Send, even with poor or nonexistent cellular connectivity. If an app disables the send button or spins an infinite loading spinner, user experience suffers. Implementing an offline-first messaging engine requires managing an optimistic message lifecycle (Pending -> Sent -> Delivered -> Read), persisting an outbox queue in local SQLite, and syncing delivery receipts during network reconnects.",
+    "useCases": "Enterprise mobile team chat application | Customer support in-app messaging SDK | Telehealth doctor-patient messaging portal with intermittent connectivity",
+    "problemItSolves": "Providing instant zero-millisecond UI feedback when sending messages regardless of network status | Managing message state transitions (Pending, Sent, Delivered, Read, Failed) with visual status indicators | Handling WebSocket reconnections with exponential backoff and message deduplication via client-generated UUIDs",
+    "recruiterSignal": "Comprehensive understanding of optimistic UI patterns, message lifecycle state machines, and reconciliation | Automated test asserting message ordering consistency and delivery acknowledgment under network failure | Production-ready React Native chat list with auto-scroll and unread counter badges",
+    "architecture": "User sends message; Engine generates client UUID; Inserts message into local SQLite with status PENDING; Renders in chat thread immediately (optimistic UI); Background sync worker detects connection: sends message over WebSocket; Server responds with ACK + server timestamp; Worker updates local status to SENT; Remote user receives -> marks DELIVERED; Remote user reads -> marks READ.",
+    "scaleTargets": "UI Responsiveness: 0ms perceptible delay on message send in chat interface | Queue Capacity: Reliably queue and sync 2,000 pending offline messages upon reconnect | Reconnect Recovery: Re-establish WebSocket connection and flush outbox in < 1.5 seconds",
+    "techStack": ["React Native", "TypeScript", "SQLite", "WebSockets", "XState", "Vitest"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/optimistic_send.test.ts: Sends message while network is disabled [Message appears in local thread immediately with status PENDING within 2ms]",
+      "2. Execute npm test -- tests/reconnect_sync.test.ts: Reconnects network with 20 queued outbox messages [Sync manager flushes outbox in FIFO order; all 20 messages transition to SENT]",
+      "3. Run npm test -- tests/message_deduplication.test.ts: Simulates network drop right before receiving server ACK, triggering retry [Server deduplicates by client UUID; chat thread contains exactly 1 copy of message]",
+      "4. Execute npm test -- tests/read_receipt_propagation.test.ts: Receives delivery and read receipt WebSocket frames [Local database and UI update message status ticks to double blue checkmarks]",
+      "5. Run npm test -- tests/permanent_failure_retry.test.ts: Injects fatal payload error from server (e.g. user blocked) [Message transitions to FAILED status with user-clickable 'Tap to retry' action]"
+    ],
+    "portfolioBulletFormula": "Engineered offline-first mobile chat engine in React Native and SQLite with optimistic UI updates; delivered instantaneous sub-[UI_LATENCY]ms message dispatch and automated outbox synchronization across [RECONNECT_COUNT] intermittent connectivity drops."
+  },
+  {
+    "id": "brief-mobile-perf-tracer",
+    "title": "Mobile App Startup & Frame Jank Performance Profiling Harness",
+    "domain": "Mobile Engineering & Cross-Platform",
+    "estimatedHours": 19,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Android", "Kotlin", "Performance Profiling", "Perfetto", "Cold Start Optimization", "CI/CD"],
+    "problemStatement": "Mobile applications suffer from slow cold startup times (taking > 3 seconds to render the first interactive frame) and sporadic frame drops (jank) caused by running heavy JSON parsing, database migrations, or expensive layout inflations on the Main/UI thread. Engineers lack automated profiling tools to catch performance regressions before releases. A performance profiling harness instruments app startup phases, captures Android Perfetto traces, flags Main-thread blockages, and generates CI/CD performance reports.",
+    "useCases": "Automated performance regression gatekeeper in mobile CI/CD pipelines | Profiling and optimizing app cold, warm, and hot startup times | Identifying specific Main-thread function calls causing 16ms frame drops",
+    "problemItSolves": "Deconstructing app cold startup into granular measurable milestones (Application.onCreate, Activity.onCreate, First Draw) | Catching Main-thread disk I/O and lock contention using Android StrictMode and custom trace sections | Emitting automated pull request comments comparing startup times and frame rates against the baseline release",
+    "recruiterSignal": "Deep understanding of Android rendering pipelines, Choreographer frame callbacks, and Main-thread event loops | Practical usage of Android Jetpack App Startup, Baseline Profiles, and Perfetto system tracing | Automated CI/CD test failing builds if cold start exceeds 1,200ms or frame drops exceed 2%",
+    "architecture": "App Startup Tracer instruments Application and Activity initialization with androidx.tracing; FrameMetricsListener collects per-frame render durations (draw, layout, sync) from Window; StrictMode detects inadvertent disk reads on Main thread; Performance Runner runs automated UI automation test; Compiles Perfetto trace file; Analyzes metrics; Exports JSON benchmark report and fails CI if regression detected.",
+    "scaleTargets": "Measurement Precision: Nanosecond-level timestamp precision on startup milestones | Profiling Overhead: < 1.5% overhead added to application startup and rendering loops | Cold Start Optimization: Drive application cold start time from 2.8s down to < 950ms",
+    "techStack": ["Kotlin", "Android Jetpack", "Perfetto / Systrace", "StrictMode", "Gradle", "JUnit"],
+    "verificationRubric": [
+      "1. Run ./gradlew connectedCheck: Runs startup profiling harness on Android device [Captures cold startup trace and reports exact milliseconds for each startup phase]",
+      "2. Execute ./gradlew test -Dtest=StrictModeViolationTest: Injects disk read on Main thread during Activity onCreate [StrictMode catches violation, logs stack trace, and asserts build failure]",
+      "3. Run python analyze_perfetto_trace.py --trace trace.perfetto-trace: Analyzes system trace file [Extracts frame render durations, flags frames taking > 16.6ms, and categorizes slow frames]",
+      "4. Execute python compare_benchmarks.py --base baseline.json --new current.json: Compares pull request performance [Generates formatted markdown comparison table highlighting startup speedup or regression]",
+      "5. Run ./gradlew test -Dtest=ColdStartRegressionGateTest: Injects artificial 500ms delay in startup path [Test suite detects regression exceeding 200ms threshold and exits with non-zero failure code]"
+    ],
+    "portfolioBulletFormula": "Created automated mobile performance profiling harness in Kotlin using Android FrameMetrics and Perfetto; instrumented startup lifecycles and eliminated Main-thread jank, reducing application cold start time by [COLD_START_REDUCTION]%."
+  }
+]
+

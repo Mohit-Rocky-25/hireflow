@@ -5,6 +5,7 @@
 // ============================================================
 
 import { companies100Eligibility } from './companies100/generated/eligibility';
+import { getVerifiedCompanyUrl, VERIFIED_COMPANY_URLS } from './verifiedCompanyUrls';
 
 export interface CompanyEligibilityRule {
   companyId: string;
@@ -27,7 +28,7 @@ const KNOWN_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = {
     aggregatePercent: 70,
     cgpaEquivalent: 7.0,
     sourceName: 'Microsoft University Recruiting Standards',
-    sourceUrl: 'https://careers.microsoft.com/students',
+    sourceUrl: 'https://careers.microsoft.com/students/us/en',
     notes: 'Minimum 7.0 CGPA or 70% equivalent throughout academic records; zero active backlogs; B.Tech/M.Tech/MS/Dual Degree in CS, IT, ECE, or allied technical fields.',
     confidence: 'high',
     lastReviewed: '2026-09-22',
@@ -60,7 +61,7 @@ const KNOWN_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = {
     aggregatePercent: 70,
     cgpaEquivalent: 7.0,
     sourceName: 'Meta Careers — University Recruiting',
-    sourceUrl: 'https://www.metacareers.com/students',
+    sourceUrl: 'https://www.metacareers.com/',
     notes: 'B.S. or M.S. in Computer Science or related technical discipline; proficiency in general purpose programming languages.',
     confidence: 'high',
     lastReviewed: '2026-09-22',
@@ -71,7 +72,7 @@ const KNOWN_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = {
     aggregatePercent: 70,
     cgpaEquivalent: 7.0,
     sourceName: 'Apple University Talent Pipeline',
-    sourceUrl: 'https://www.apple.com/careers/us/students.html',
+    sourceUrl: 'https://www.apple.com/careers/in/',
     notes: 'Degree in CS, EE, or CE; proficiency in systems programming, performance optimization, and clean architectural design.',
     confidence: 'high',
     lastReviewed: '2026-09-22',
@@ -82,7 +83,7 @@ const KNOWN_RULES: Record<string, Omit<CompanyEligibilityRule, 'companyId'>> = {
     aggregatePercent: 60,
     cgpaEquivalent: 6.0,
     sourceName: 'TCS NextStep Official Portal',
-    sourceUrl: 'https://nextstep.tcs.com/',
+    sourceUrl: 'https://www.tcs.com/careers/india',
     notes: 'Minimum 60% or 6.0 CGPA throughout 10th, 12th, Diploma (if applicable), and Graduation. Maximum 1 active backlog permitted at registration.',
     confidence: 'high',
     lastReviewed: '2026-09-22',
@@ -237,18 +238,23 @@ export function getCompanyEligibilityRule(
   const resolvedKey = COMPANY_ALIASES[raw] || COMPANY_ALIASES[cleaned] || cleaned;
 
   if (MERGED_KNOWN_RULES[resolvedKey]) {
+    const existing = MERGED_KNOWN_RULES[resolvedKey];
+    const verifiedUrl = getVerifiedCompanyUrl(resolvedKey) || existing.sourceUrl;
     return {
       companyId: resolvedKey,
-      ...MERGED_KNOWN_RULES[resolvedKey],
+      ...existing,
+      sourceUrl: verifiedUrl,
     };
   }
 
   // Check partial key matches
   for (const [key, rule] of Object.entries(MERGED_KNOWN_RULES)) {
     if (cleaned.includes(key) || raw.includes(key)) {
+      const verifiedUrl = getVerifiedCompanyUrl(key) || rule.sourceUrl;
       return {
         companyId: key,
         ...rule,
+        sourceUrl: verifiedUrl,
       };
     }
   }
@@ -262,6 +268,13 @@ export function getCompanyEligibilityRule(
   const percent = isTier1 ? 65 : 60;
   const cgpa = isTier1 ? 6.5 : 6.0;
 
+  const verifiedUrl = getVerifiedCompanyUrl(resolvedKey) || getVerifiedCompanyUrl(cleaned) || getVerifiedCompanyUrl(companyIdOrName);
+  const fallbackSourceUrl = verifiedUrl 
+    ? verifiedUrl 
+    : companyIdOrName 
+    ? `https://www.google.com/search?q=${encodeURIComponent(`${friendlyName} careers official india`)}`
+    : undefined;
+
   return {
     companyId: cleaned || 'standard_campus',
     companyName: friendlyName,
@@ -269,7 +282,7 @@ export function getCompanyEligibilityRule(
     aggregatePercent: percent,
     cgpaEquivalent: cgpa,
     sourceName: `${friendlyName} University Recruiting Guidelines`,
-    sourceUrl: `https://${cleaned || 'careers'}.com/careers`,
+    sourceUrl: fallbackSourceUrl,
     notes: `Official baseline cutoff for entry-level engineering at ${friendlyName}. Minimum ${percent}% aggregate (~${cgpa} CGPA in 10th, 12th, and Degree). Always verify current criteria directly on the official portal.`,
     confidence: 'medium',
     lastReviewed: '2026-09-22',

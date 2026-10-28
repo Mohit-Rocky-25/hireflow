@@ -93,6 +93,13 @@ export function ResumeChecker() {
     return initialResolvedJob.text;
   });
 
+  const detectedTargetCompany = useMemo(() => {
+    if (queryCompanyId) return queryCompanyId;
+    const match = jobText.match(/(?:Company|Employer|Organization):\s*([^\r\n,]+)/i);
+    if (match && match[1]) return match[1].trim();
+    return undefined;
+  }, [queryCompanyId, jobText]);
+
   const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
     if (initialStoredResume) return initialStoredFileName || DEMO_TALENTLENS_RESUME.fileName;
     if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.fileName;
@@ -704,7 +711,7 @@ export function ResumeChecker() {
                 <RealityFactorsPanel className="mb-6" />
 
                 {/* Eligibility Card (Stage 4, Advisory) */}
-                <EligibilityCard className="mb-6" />
+                <EligibilityCard targetCompanyId={detectedTargetCompany} className="mb-6" />
 
                 {/* Fresher & Student Checks (Stage 4) */}
                 <FresherChecksPanel resumeText={resumeText} className="mb-6" />

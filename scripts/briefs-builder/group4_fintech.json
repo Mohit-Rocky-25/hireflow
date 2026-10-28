@@ -1,0 +1,187 @@
+[
+  {
+    "id": "brief-double-entry-ledger",
+    "title": "Immutable Double-Entry General Ledger with Multi-Currency Balance Invariants",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 24,
+    "difficulty": "advanced",
+    "coveredSkills": ["PostgreSQL", "Go", "Accounting", "ACID", "Database Constraints", "Testing"],
+    "problemStatement": "FinTech and banking platforms cannot use naive single-column account balance fields (e.g. `UPDATE accounts SET balance = balance + 100`) because network retries, race conditions, and unrecorded state changes create untraceable money leaks. Standard financial accounting mandates double-entry bookkeeping: every transaction consists of an immutable set of balanced debit and credit entries whose net sum equals zero. A financial ledger must enforce immutability, foreign currency exchange rates, and mathematical zero-sum constraints at the database engine level.",
+    "useCases": "Core banking engine for digital neobanks and wallet platforms | Multi-currency marketplace escrow account management | Regulatory compliance audit trails for payment service providers",
+    "problemItSolves": "Eliminating money creation out of thin air by enforcing `SUM(debits) - SUM(credits) = 0` via database constraints | Preventing fraudulent transaction tampering by maintaining append-only journal entries with cryptographic chain hashes | Ensuring account balance calculations are derived directly from the immutable transaction history",
+    "recruiterSignal": "Deep understanding of accounting fundamentals (assets, liabilities, equity, debits/credits) | Production PostgreSQL schema utilizing deferrable constraints and check invariants | Automated stress test running concurrent transfers between 100 accounts with zero invariant violations",
+    "architecture": "PostgreSQL schema defines accounts, transactions, and entries; Transactions write atomically in an ACID transaction with >= 2 entries; Check constraint ensures debit/credit balance; Trigger computes SHA-256 hash of previous transaction hash + current entry bytes, creating an append-only cryptographic ledger chain; Read queries calculate account balances via indexed aggregate sums.",
+    "scaleTargets": "Write Throughput: > 4,000 balanced ledger transactions/sec | Invariant Guarantee: 100% rejection of unbalanced debit/credit entries | Integrity Check: Verify audit chain across 1,000,000 entries in < 8 seconds",
+    "techStack": ["Go", "PostgreSQL", "SQL Constraints", "Docker", "pgx", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestUnbalancedTransactionRejection: Attempts to insert transaction where debit ($100) does not equal credit ($80) [Database rejects with constraint violation error code]",
+      "2. Execute go test -v -run TestConcurrentTransfers: Simulates 200 concurrent money transfers between 10 accounts [Final sum of all balances matches initial total deposits to the exact cent]",
+      "3. Run go test -v -run TestLedgerChainVerification: Traverses 10,000 historical transactions validating cryptographic SHA-256 chain links [Reports 100% chain integrity verified with zero tampered blocks]",
+      "4. Execute go test -v -run TestTamperDetection: Directly updates historical entry amount using privileged DB connection [Audit scanner immediately flags broken hash chain at altered block index]",
+      "5. Run go test -bench=. -benchmem: Measures transaction insertion rate under multi-threaded connection pool [Sustains > 3,500 transactions/sec with zero deadlocks]"
+    ],
+    "portfolioBulletFormula": "Architected immutable double-entry ledger in Go and PostgreSQL with cryptographic audit chaining; enforced mathematical balance invariants across [TRANSACTION_VOLUME] multi-currency transactions with zero balance discrepancies under heavy concurrency."
+  },
+  {
+    "id": "brief-pg-webhook-reconciliation",
+    "title": "Automated Payment Webhook Reconciliation & Discrepancy Detection Engine",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 21,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "PostgreSQL", "Payment Gateways", "Reconciliation", "Cron/Batch", "Testing"],
+    "problemStatement": "In production e-commerce and fintech platforms, payment gateway webhooks (Stripe, Razorpay, Adyen) frequently fail due to network drops, gateway outages, or customer browser closures before redirects complete. As a result, database order statuses diverge from actual payment provider settlement records, causing unpaid orders to ship or paid customers to be rejected. An automated reconciliation engine continuously matches internal order states against gateway settlement CSV/API reports, auto-resolving matches and flagging discrepancies.",
+    "useCases": "End-of-day financial settlement reconciliation for e-commerce platforms | Resolving customer chargeback disputes and charge status mismatches | Reconciling third-party payment provider fees against accounting ledger entries",
+    "problemItSolves": "Detecting phantom payments (order marked paid in gateway but pending in internal database) | Identifying overcharges, undercharges, or unexpected gateway currency conversion fees | Ingesting and parsing large multi-gigabyte daily bank settlement settlement reports with streaming parsers",
+    "recruiterSignal": "Comprehensive understanding of payment lifecycles (authorization, capture, settlement, refund) | Automated reconciliation engine handling edge cases like partial refunds and chargeback reversals | Detailed discrepancy reporting outputting actionable resolution suggestions for operations teams",
+    "architecture": "Daily cron pulls settlement CSV/API exports from payment gateway; Streaming CSV parser reads rows without high memory usage; Reconciliation matcher joins gateway transaction ID against internal database orders; classifies records: Matched, MissingInternal, MissingGateway, FeeDiscrepancy, StatusMismatch; auto-heals benign mismatches; generates discrepancy summary report.",
+    "scaleTargets": "Reconciliation Speed: Reconcile 250,000 daily settlement transactions in < 45 seconds | Memory Consumption: Constant memory footprint (< 40MB) using streaming CSV parsing | Accuracy: 100% detection of injected status, currency, and fee mismatches",
+    "techStack": ["Go", "PostgreSQL", "CSV Parser", "Docker", "Testing", "CLI"],
+    "verificationRubric": [
+      "1. Run go run cmd/reconcile/main.go --gateway stripe --date 2026-10-27: Processes daily Stripe settlement feed [Generates reconciliation summary table showing matched, mismatched, and missing transactions]",
+      "2. Execute go test -v -run TestMissingInternalOrder: Injects gateway settlement record with non-existent internal order ID [Matcher correctly flags transaction as MISSING_INTERNAL with gateway reference]",
+      "3. Run go test -v -run TestFeeDiscrepancyDetection: Injects transaction where gateway fee exceeds contractual rate by 0.5% [Engine flags FEE_DISCREPANCY and logs calculated overcharge amount]",
+      "4. Execute go test -v -run TestAutoHealing: Injects order stuck in PENDING status that gateway confirmed as CAPTURED [Engine auto-updates order to PAID, triggers fulfillment event, and logs audit record]",
+      "5. Run go test -bench=. -benchmem: Benchmarks reconciliation matching engine on 100,000 synthetic records [Completes matching in < 15 seconds with steady-state RAM < 35MB]"
+    ],
+    "portfolioBulletFormula": "Developed automated payment reconciliation engine in Go and PostgreSQL; matched [TRANSACTION_COUNT] daily transactions against payment gateway settlement feeds, identifying [DISCREPANCY_PERCENT]% financial discrepancies and auto-resolving pending order states."
+  },
+  {
+    "id": "brief-l2-orderbook-matcher",
+    "title": "Ultra-Fast Limit Order Book & Matching Engine with Price-Time Priority",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 25,
+    "difficulty": "advanced",
+    "coveredSkills": ["Go", "Data Structures", "Algorithms", "Concurrency", "Trading Systems", "Benchmarking"],
+    "problemStatement": "Financial exchanges and cryptocurrency platforms require matching buy (bid) and sell (ask) limit orders within microseconds according to strict Price-Time Priority (FIFO at each price level). Using standard relational database tables or linear list searches causes milliseconds of latency and catastrophic trade execution queues during market volatility. A high-performance matching engine employs specialized data structures (Red-Black Trees for price levels and doubly linked lists for order FIFO queues) with zero heap allocation in the hot path.",
+    "useCases": "Central limit order book (CLOB) for equities, commodities, or crypto exchanges | Internal crossing engine matching institutional client trades off-exchange | High-frequency trading market simulator for algorithmic trading backtests",
+    "problemItSolves": "Achieving sub-microsecond order insertion, cancellation, and execution matching | Maintaining strict price-time priority (best bid and best ask matched first, oldest order first) | Emitting atomic trade execution events and Level-2 market depth snapshots",
+    "recruiterSignal": "Deep mastery of low-latency algorithms, cache locality, and pointer manipulation | Comprehensive benchmark proving > 500,000 orders matched per second with zero memory allocations | Unit tests validating edge cases: partial fills, market orders, cancel orders, and self-trade prevention",
+    "architecture": "Order arrives via memory channel; Engine manages two sides: Bids (max-price prioritized) and Asks (min-price prioritized); Red-Black tree / B-Tree organizes discrete price levels; Each price level points to a doubly linked list of Limit Orders; If crossing occurs (Bid >= Ask), engine matches quantities, executes trade, decrements quantities, and emits trade execution event; updates Level-2 depth.",
+    "scaleTargets": "Matching Speed: > 600,000 order operations/sec on a single CPU core | Latency (p99): < 1.8 microseconds per limit order insertion | Memory Efficiency: Zero dynamic heap allocations in hot match execution loop",
+    "techStack": ["Go", "Data Structures", "Linked Lists", "Red-Black Tree", "Benchmarking", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestPriceTimePriority: Submits orders at same price with different timestamps [Oldest order fills completely before subsequent order receives partial fill]",
+      "2. Execute go test -v -run TestPartialFills: Submits Bid for 100 units against Ask of 40 units [Ask fills 40 units and closes; Bid retains 60 remaining units at specified price]",
+      "3. Run go test -v -run TestCancelOrder: Inserts limit order and cancels before matching [Order is pruned from linked list and price level tree in O(1) time]",
+      "4. Execute go test -bench=BenchmarkOrderBook_Match -benchmem: Runs sustained limit order matching benchmark [Reports > 500,000 ops/sec with 0 B/op heap allocation]",
+      "5. Run go test -v -run TestL2MarketDepthSnapshot: Queries top 5 bids and asks after 1,000 trades [Returns exact aggregate volume per price level matching ground truth]"
+    ],
+    "portfolioBulletFormula": "Engineered ultra-low latency Limit Order Book and matching engine in Go using Red-Black trees and intrusive doubly linked lists; sustained [MATCH_RATE] orders/sec with sub-[P99_LATENCY] microsecond p99 execution latency and zero hot-path memory allocations."
+  },
+  {
+    "id": "brief-velocity-fraud-detector",
+    "title": "Real-Time Velocity & Card Fraud Detection Engine with Sliding Windows",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "Redis", "Fraud Detection", "Algorithms", "Sliding Windows", "FastAPI"],
+    "problemStatement": "Card-not-present fraud, account takeovers, and card testing botnets cause millions in chargebacks and merchant processing penalties. Fraudsters execute bursts of rapid small transactions across multiple cards or IP addresses. Detecting these attacks in real time requires an in-line fraud rules engine that evaluates multidimensional velocity counters (e.g., number of cards used per IP in 10 minutes, transaction volume per user in 1 hour) over sliding time windows within 15 milliseconds.",
+    "useCases": "Real-time payment authorization fraud gatekeeper | Anti-bot card testing defense on payment checkout forms | Account takeover detection flagging rapid password resets and IP changes",
+    "problemItSolves": "Evaluating sliding window velocity counts (not brittle fixed buckets) using Redis Sorted Sets | Calculating composite fraud risk scores combining velocity, geolocation distance, and transaction amounts | Returning synchronous ACCEPT, REVIEW, or REJECT decisions before card processing authorization",
+    "recruiterSignal": "Comprehensive understanding of payment fraud vectors and sliding window algorithm complexity | Automated integration test firing simulated card testing attacks and proving instant IP blocking | Benchmark validating sub-10ms evaluation latency under 5,000 concurrent evaluation requests",
+    "architecture": "Payment authorization request hits Fraud Gateway; Gateway extracts user ID, card fingerprint, IP, and amount; Queries Redis using multi-key pipeline: evaluates sliding window Sorted Sets (ZADD + ZREMRANGEBYSCORE + ZCARD) for IP velocity, card velocity, and amount sum; Evaluates rule matrix; computes risk score (0-100); if score > 80, returns REJECT; if > 50, flags REVIEW; else APPROVE.",
+    "scaleTargets": "Evaluation Latency (p99): < 8ms per transaction evaluation | Throughput: > 6,000 fraud evaluations/sec | False Positive Target: < 1.5% false decline rate on benchmark transaction dataset",
+    "techStack": ["Go", "Redis", "Sorted Sets", "Docker", "Testing", "K6"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestSingleCardVelocity: Submits 6 rapid payments from same card within 60 seconds [Engine flags 6th transaction with CARD_VELOCITY_EXCEEDED and returns REJECT]",
+      "2. Execute go test -v -run TestDistributedCardTesting: Fires 10 payments using 10 different cards from single IP address [Engine detects card testing pattern on 5th card, auto-bans IP for 1 hour]",
+      "3. Run go test -v -run TestSlidingWindowExpiry: Submits transactions spaced across sliding window expiration [Counters naturally roll off without stale bucket boundary penalties]",
+      "4. Execute k6 run --vus 50 --duration 10s scripts/fraud_load_test.js: Stresses fraud evaluation gateway with concurrent transactions [Maintains p99 evaluation latency < 6ms with zero connection errors]",
+      "5. Run curl -X POST http://localhost:8080/v1/fraud/evaluate -d @samples/legitimate_tx.json: Evaluates normal consumer transaction [Returns HTTP 200 with decision: APPROVED and risk_score: 12]"
+    ],
+    "portfolioBulletFormula": "Built real-time transaction fraud detection engine in Go using Redis Sorted Set sliding windows; evaluated velocity and behavioral rules in under [EVAL_LATENCY]ms, blocking card-testing botnets and reducing fraud chargebacks by [CHARGEBACK_REDUCTION]%."
+  },
+  {
+    "id": "brief-market-ticker-websocket",
+    "title": "Low-Latency Real-Time Financial Market Ticker & Candlestick Aggregator",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "WebSockets", "Time Series", "Ring Buffers", "Financial Data", "Testing"],
+    "problemStatement": "Financial trading terminals require real-time updates for trade ticks and dynamic aggregation into standard OHLCV (Open, High, Low, Close, Volume) candlesticks across multiple timeframes (1s, 1m, 5m, 1h). Broadcasting every individual tick to thousands of connected browser charts saturates client network bandwidth and UI rendering threads. A specialized ticker aggregator ingests raw tick feeds, aggregates OHLCV candles in memory via fixed-size ring buffers, and broadcasts synchronized snapshot deltas.",
+    "useCases": "Trading UI backend powering real-time TradingView charts | Market analytics engine computing real-time VWAP (Volume Weighted Average Price) | Algorithmic trading feed generating multi-timeframe bar charts",
+    "problemItSolves": "Aggregating millions of raw trade ticks into clean time-bucketed OHLCV candles without missing trades | Preventing memory leaks during 24/7 continuous operation using circular ring buffers | Broadcasting candle delta updates to connected WebSocket clients at fixed 100ms throttle intervals",
+    "recruiterSignal": "Solid implementation of financial time-series aggregation and circular buffer memory management | Mathematical precision asserting VWAP and candle calculation against historical exchange data | Unit test suite verifying edge cases like zero-volume intervals and out-of-order tick arrival",
+    "architecture": "Trade tick ingested via UDP/WebSocket; Ticker engine pushes tick to Active Candlestick Builder; Builder updates high/low/close and volume counters; Periodically rolls completed candles into circular Ring Buffer; WebSocket broadcaster pushes bar updates and real-time tick deltas to subscribed client connections; REST endpoint serves historical candle archives.",
+    "scaleTargets": "Tick Ingestion: > 100,000 trade ticks/sec ingested and processed | Memory Stability: Fixed memory usage (< 50MB) regardless of market runtime duration | Candle Precision: 100% mathematical accuracy on Open, High, Low, Close, and VWAP metrics",
+    "techStack": ["Go", "WebSockets", "Ring Buffer", "Time Series", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestCandlestickAggregation: Feeds 1,000 simulated ticks over a 60-second window [Produces exact Open, High, Low, Close, and Volume matching manual calculations]",
+      "2. Execute go test -v -run TestZeroVolumeCandleCarryover: Simulates 2 minutes with zero trades [Candlestick generator creates flat candles maintaining prior Close price with zero Volume]",
+      "3. Run go test -v -run TestOutOfOrderTicks: Deliberately injects delayed tick timestamped 500ms in the past [Engine correctly updates prior candle High/Low bounds without crashing]",
+      "4. Execute go test -bench=. -benchmem: Benchmarks raw tick ingestion and candle update loop [Processes > 120,000 ticks/sec with zero heap allocations per tick]",
+      "5. Run python test_ws_client.py: Connects WebSocket client and listens for 1-minute candle broadcasts [Receives throttled updates and final closed candle bar with 100% packet integrity]"
+    ],
+    "portfolioBulletFormula": "Created low-latency market ticker and OHLCV candlestick aggregator in Go using memory-bounded ring buffers; ingested [TICK_RATE] ticks/sec and broadcast real-time multi-timeframe candles to [CLIENT_COUNT] concurrent trading clients."
+  },
+  {
+    "id": "brief-upi-settlement-engine",
+    "title": "Immediate Payment Settlement & Batch Clearing System",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 23,
+    "difficulty": "advanced",
+    "coveredSkills": ["Java", "Spring Boot", "ISO 20022", "PostgreSQL", "Batch Processing", "Testing"],
+    "problemStatement": "Modern national instant payment rails (UPI in India, Pix in Brazil, FedNow in the US) process retail payments in real time between banks 24/7, but interbank settlement of the net funds occurs in deferred batches (e.g. every 2 hours or End of Day) through the central bank. Building an interbank settlement engine requires parsing structured ISO 20022 XML messages (pacs.008, pacs.002), calculating bilateral and multilateral net settlement positions, and generating definitive clearing obligations.",
+    "useCases": "Core banking clearing module for immediate payment switches | Fintech payment aggregator managing settlement between acquiring and issuing banks | Corporate treasury netting system consolidating intra-company obligations",
+    "problemItSolves": "Calculating multilateral net settlement obligations where N banks settle millions of transactions with minimal central transfers | Validating and parsing ISO 20022 XML message formats without XML entity injection vulnerabilities | Reconciling disputed transactions and chargebacks prior to clearing cycle finality",
+    "recruiterSignal": "Deep domain expertise in banking payment standards (ISO 20022 pacs messages and clearing cycles) | Multilateral netting algorithm minimizing the total money transferred across participating institutions | Comprehensive test suite simulating multi-bank settlement batches with zero arithmetic drift",
+    "architecture": "Payment switch receives pacs.008 payment instruction; verifies bank participant routing; logs transaction to settlement staging; Clearing batch triggers every 2 hours; Netting engine computes multilateral matrix: for Bank i, Net = Total Inbound - Total Outbound; generates pacs.009 settlement advice messages for central bank debit/credit; marks cycle CLOSED.",
+    "scaleTargets": "Batch Clearing Speed: Settle 500,000 transactions across 50 banks in < 25 seconds | Netting Efficiency: Reduce gross payment obligations by > 85% via multilateral netting | Arithmetic Precision: Zero rupee/dollar rounding drift across billion-unit settlement batches",
+    "techStack": ["Java", "Spring Boot", "PostgreSQL", "JAXB", "JUnit 5", "Docker"],
+    "verificationRubric": [
+      "1. Run ./mvnw test -Dtest=Iso20022XmlParserTest: Parses pacs.008 credit transfer message into Java domain model [Validates schema compliance and extracts settlement amounts accurately]",
+      "2. Execute ./mvnw test -Dtest=MultilateralNettingTest: Runs netting algorithm across 10 participating banks with 50,000 transactions [Verifies SUM(All Net Balances) == 0 with zero rounding discrepancy]",
+      "3. Run ./mvnw test -Dtest=SettlementFinalityTest: Attempts to inject transaction into closed clearing cycle [Engine rejects late transaction, routing it safely to the next open settlement cycle]",
+      "4. Execute ./mvnw test -Dtest=BilateralDisputeExclusionTest: Flags 5 disputed transactions during clearing phase [Engine safely carves out disputed amounts and settles remaining clean volume]",
+      "5. Run ./mvnw test -Dtest=ClearingBatchBenchmarkTest: Measures batch settlement execution performance [Calculates clearing obligations for 200,000 transactions in under 12 seconds]"
+    ],
+    "portfolioBulletFormula": "Developed ISO 20022 immediate payment batch clearing and multilateral settlement engine in Java and PostgreSQL; reduced gross interbank obligations by [NETTING_PERCENT]% across [BATCH_VOLUME] transactions with zero rounding drift."
+  },
+  {
+    "id": "brief-subscription-dunning-billing",
+    "title": "Subscription Metered Billing & Automated Dunning Workflow Engine",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 22,
+    "difficulty": "intermediate",
+    "coveredSkills": ["TypeScript", "Node.js", "PostgreSQL", "State Machines", "Payment Processing", "Testing"],
+    "problemStatement": "B2B SaaS subscription billing involves complex lifecycle rules: mid-cycle upgrades, seat prorations, usage-based meter aggregation, and handling involuntary churn when credit cards fail. When a recurring invoice payment fails, immediately cancelling customer access destroys revenue, while ignoring failures causes revenue leakage. An automated dunning engine coordinates smart retries across optimal days, delivers customer warning emails, and gradually downgrades account access.",
+    "useCases": "Billing infrastructure for B2B SaaS platforms with seat and usage tiers | Automated recovery workflow for failed recurring subscription charges | Prorated invoice generation for mid-month plan upgrades and downgrades",
+    "problemItSolves": "Accurately calculating day-exact prorated credits and charges when customers upgrade mid-billing cycle | Automating dunning recovery schedules (Retry on Day 1, Day 3, Day 7, Day 14) with payment link emails | Managing subscription state machine transitions (Active, Past Due, Suspended, Canceled)",
+    "recruiterSignal": "Comprehensive understanding of subscription accounting, proration formulas, and state machines | Test suite testing leap years, mid-month plan changes, and concurrent usage meter updates | Dunning recovery simulation recovering > 65% of simulated failed recurring cards",
+    "architecture": "PostgreSQL stores subscriptions, plans, invoices, and usage_events; Hourly worker checks active subscriptions: aggregates metered usage, calculates prorations, generates draft invoice; Dispatches charge to payment gateway; on failure, transitions subscription to PAST_DUE and schedules Dunning State Machine (retries, notifications); after Day 14 without recovery, triggers SUSPENDED state.",
+    "scaleTargets": "Invoice Generation Speed: Generate 50,000 monthly subscription invoices in < 60 seconds | Proration Precision: 100% exact second-level proration math matching stripe-proration standards | Dunning Recovery Rate: Recover > 60% of transient failed card charges via automated schedule",
+    "techStack": ["TypeScript", "Node.js", "PostgreSQL", "Vitest", "XState", "Docker"],
+    "verificationRubric": [
+      "1. Run npm test -- tests/proration_math.test.ts: Tests mid-month upgrade from $50/mo plan to $150/mo plan on day 15 of a 30-day month [Calculates exact unused credit ($25.00) and new charge ($75.00) with net due $50.00]",
+      "2. Execute npm test -- tests/dunning_state_machine.test.ts: Simulates failed card charge and advances mock clock through dunning schedule [Verifies 4 retry attempts executed with customer emails dispatched at expected intervals]",
+      "3. Run npm test -- tests/successful_dunning_recovery.test.ts: Simulates customer updating payment method on Day 4 of dunning [Engine immediately captures invoice, transitions status from PAST_DUE back to ACTIVE]",
+      "4. Execute npm test -- tests/metered_usage_aggregation.test.ts: Ingests 10,000 API usage events for single tenant and computes tier billing [Calculates volume tiered pricing accurately with zero duplicate event counts]",
+      "5. Run npm test -- tests/subscription_suspension.test.ts: Simulates complete dunning failure past Day 14 [Engine revokes application tenant access tokens and transitions status to SUSPENDED]"
+    ],
+    "portfolioBulletFormula": "Engineered automated subscription billing and dunning workflow engine in TypeScript and PostgreSQL; handled complex mid-cycle prorations and automated dunning recovery, preventing [RECOVERED_REVENUE]% involuntary churn across [CUSTOMER_COUNT] subscriptions."
+  },
+  {
+    "id": "brief-eod-interest-batch",
+    "title": "High-Throughput End-of-Day (EOD) Accrual & Interest Calculation Batch Job",
+    "domain": "FinTech & High-Integrity Systems",
+    "estimatedHours": 20,
+    "difficulty": "intermediate",
+    "coveredSkills": ["Go", "PostgreSQL", "Financial Math", "Concurrency", "Batch Processing", "Testing"],
+    "problemStatement": "Commercial banking and lending platforms must calculate daily interest accruals for millions of deposit and loan accounts at the close of every business day. Using naive floating-point numbers (`float64`) introduces disastrous IEEE-754 binary rounding errors (e.g. 0.1 + 0.2 = 0.30000000000000004), leading to audit failures and regulatory fines. The End-of-Day (EOD) batch job must execute arbitrary-precision decimal mathematics, process accounts in parallel worker chunks, and commit accrued interest within a tight nightly batch window.",
+    "useCases": "Nightly interest calculation for savings, checking, and fixed deposit bank accounts | Daily compounding interest and penalty accrual for consumer loan portfolios | Margin lending interest calculations for brokerage accounts",
+    "problemItSolves": "Eliminating floating-point rounding errors by utilizing arbitrary-precision fixed-point decimal arithmetic (shopspring/decimal) | Chunking 1,000,000 accounts across concurrent worker pools with zero lock contention or deadlocks | Producing deterministic, reproducible audit logs verifying every penny of daily interest accrued",
+    "recruiterSignal": "Mastery of financial decimal arithmetic and day-count conventions (Actual/365, Actual/360, 30/360) | High-performance Go worker pool processing 50,000 accounts per second across multi-core CPU | Comprehensive test suite testing boundary dates, leap years, and negative account balances",
+    "architecture": "EOD Orchestrator acquires exclusive batch lock; selects accounts in keyset-paginated chunks of 5,000; distributes chunks across worker goroutines; workers compute daily interest: Balance * (AnnualRate / DayCountBasis) using arbitrary-precision decimal; stages accrual entries in temporary batch tables; performs bulk upsert into interest_accruals and general ledger; releases lock.",
+    "scaleTargets": "Batch Throughput: > 60,000 account interest calculations/sec | Processing Window: Calculate 1,000,000 accounts in < 20 seconds | Precision Guarantee: Zero penny rounding errors across 10,000,000 test calculations",
+    "techStack": ["Go", "PostgreSQL", "shopspring/decimal", "Worker Pools", "Docker", "Testing"],
+    "verificationRubric": [
+      "1. Run go test -v -run TestDayCountConventions: Computes accrual using Actual/365, Actual/360, and 30/360 conventions [Results match bank reference tables down to 6 decimal places]",
+      "2. Execute go test -v -run TestLeapYearAccrual: Computes interest on February 29th across regular vs leap year configurations [Accurately applies 366-day divisor without arithmetic drift]",
+      "3. Run go test -v -run TestDecimalPrecisionNoFloat: Asserts zero usage of native float32/float64 types in accounting math packages [Static code inspection asserts 100% adherence to decimal.Decimal types]",
+      "4. Execute go test -v -run TestBatchIdempotency: Re-runs EOD batch job twice for the same business date [Second execution detects prior completion and aborts without duplicate accrual posts]",
+      "5. Run go test -bench=. -benchmem: Benchmarks parallel EOD interest calculation on 500,000 synthetic accounts [Completes entire calculation in < 8.5 seconds with zero database deadlocks]"
+    ],
+    "portfolioBulletFormula": "Built high-throughput End-of-Day (EOD) interest accrual batch engine in Go with arbitrary-precision decimal math; processed [ACCOUNT_COUNT] banking accounts in under [BATCH_TIME] seconds with zero rounding discrepancies across diverse day-count conventions."
+  }
+]
+
