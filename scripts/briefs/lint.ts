@@ -276,6 +276,46 @@ export const LINT_RULES: LintRule[] = [
       return findings;
     },
   },
+
+  // 10. Brief currency staleness
+  {
+    id: 'RULE-BRIEF-STALENESS',
+    defectClass: 'C-STALE-BRIEF-CURRENCY',
+    severity: 'S2',
+    rationale: 'Briefs whose reviewBy date has passed require currency re-verification',
+    falsePositiveRisk: 'low',
+    check: (b) => {
+      const findings: LintFinding[] = [];
+      if (!b.reviewBy) {
+        findings.push({
+          briefId: b.id,
+          ruleId: 'RULE-BRIEF-STALENESS',
+          defectClass: 'C-STALE-BRIEF-CURRENCY',
+          severity: 'S2',
+          field: 'reviewBy',
+          quote: 'undefined',
+          message: 'Brief lacks mandatory reviewBy currency expiration date',
+          falsePositiveRisk: 'low',
+        });
+      } else {
+        const reviewDate = new Date(b.reviewBy);
+        const today = new Date('2026-10-28');
+        if (reviewDate < today) {
+          findings.push({
+          briefId: b.id,
+          ruleId: 'RULE-BRIEF-STALENESS',
+          defectClass: 'C-STALE-BRIEF-CURRENCY',
+          severity: 'S2',
+          field: 'reviewBy',
+          quote: b.reviewBy,
+          message: `Brief currency has expired on ${b.reviewBy}; requires review`,
+          falsePositiveRisk: 'low',
+        });
+        }
+      }
+      return findings;
+    },
+  },
 ];
 
 /**

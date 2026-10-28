@@ -24,10 +24,14 @@ const cleanBaseBrief = {
     'Run bin/verify_test [Exits with code 0 and all assertions passing]',
   ],
   portfolioBulletFormula: 'Engineered high-performance server in Go achieving [THROUGHPUT] req/sec with tail latency under [LATENCY].',
+  reviewBy: '2027-10-28',
 };
 
 // Mutation injectors for each defect class
 const mutationInjectors: Record<string, (b: any) => void> = {
+  'C-STALE-BRIEF-CURRENCY': (b) => {
+    b.reviewBy = '2024-01-01'; // Expired date
+  },
   'C-UNPINNED-VERSIONS': (b) => {
     b.techStack = ['Go', 'PostgreSQL', 'Redis']; // strips semver numbers
   },
