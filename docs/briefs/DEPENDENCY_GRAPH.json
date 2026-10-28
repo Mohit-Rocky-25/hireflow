@@ -1,0 +1,387 @@
+{
+  "isAcyclic": true,
+  "graph": {
+    "brief-ab-experimentation": [
+      "brief-fraud-detection-ml",
+      "brief-gpu-accelerated-inference"
+    ],
+    "brief-analytics-clickhouse": [
+      "brief-graph-analysis",
+      "brief-streaming-data-pipeline"
+    ],
+    "brief-api-gateway-scratch": [],
+    "brief-api-sdk-design": [
+      "brief-feature-flag-platform",
+      "brief-fullstack-ecommerce"
+    ],
+    "brief-blockchain-defi": [],
+    "brief-canary-deployment": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-cdc-pipeline": [
+      "brief-graph-analysis",
+      "brief-streaming-data-pipeline"
+    ],
+    "brief-ci-cd-from-scratch": [],
+    "brief-compiler-interpreter": [],
+    "brief-computer-vision-api": [
+      "brief-knowledge-graph",
+      "brief-vector-db-from-scratch"
+    ],
+    "brief-container-runtime": [],
+    "brief-credit-risk-model": [
+      "brief-event-recon",
+      "brief-upi-payment-gateway"
+    ],
+    "brief-data-quality-framework": [
+      "brief-graph-analysis",
+      "brief-streaming-data-pipeline"
+    ],
+    "brief-database-engine": [],
+    "brief-devsecops-pipeline": [
+      "brief-homomorphic-encryption",
+      "brief-realtime-code-execution"
+    ],
+    "brief-dist-cache-rust": [],
+    "brief-dist-rate-limiter": [
+      "brief-api-gateway-scratch",
+      "brief-event-sourcing"
+    ],
+    "brief-embedding-search-engine": [
+      "brief-knowledge-graph",
+      "brief-vector-db-from-scratch"
+    ],
+    "brief-event-driven-saas": [],
+    "brief-event-recon": [],
+    "brief-event-sourcing": [],
+    "brief-feature-flag-platform": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-fraud-detection-ml": [],
+    "brief-fullstack-ecommerce": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-genai-code-reviewer": [
+      "brief-llm-agent-workflow",
+      "brief-llm-finetuning-peft"
+    ],
+    "brief-gitignore-lsp": [],
+    "brief-gitops-registry": [],
+    "brief-gpu-accelerated-inference": [],
+    "brief-graph-analysis": [],
+    "brief-graphql-federation": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-graphql-to-sql-compiler": [],
+    "brief-high-throughput-logging": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-homomorphic-encryption": [],
+    "brief-interview-prep-ai": [
+      "brief-llm-agent-workflow",
+      "brief-llm-finetuning-peft"
+    ],
+    "brief-knowledge-graph": [],
+    "brief-kubernetes-operator": [],
+    "brief-llm-agent-workflow": [],
+    "brief-llm-evaluation-framework": [
+      "brief-llm-agent-workflow",
+      "brief-llm-finetuning-peft"
+    ],
+    "brief-llm-finetuning-peft": [],
+    "brief-llm-finetuning-rlhf": [],
+    "brief-llm-gateway": [
+      "brief-llm-agent-workflow",
+      "brief-llm-finetuning-peft"
+    ],
+    "brief-load-balancer": [
+      "brief-api-gateway-scratch",
+      "brief-event-sourcing"
+    ],
+    "brief-message-queue": [
+      "brief-api-gateway-scratch",
+      "brief-event-sourcing"
+    ],
+    "brief-micro-frontend-shell": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-mlops-platform": [],
+    "brief-mobile-flutter-prod": [],
+    "brief-multimodal-ai-app": [],
+    "brief-notification-service": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-observability-sdk": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-offline-first-sync": [],
+    "brief-opentelemetry-observability": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-osint-data-platform": [
+      "brief-graph-analysis",
+      "brief-streaming-data-pipeline"
+    ],
+    "brief-peer-to-peer": [],
+    "brief-personalization-engine": [
+      "brief-fraud-detection-ml",
+      "brief-gpu-accelerated-inference"
+    ],
+    "brief-privacy-preserving-ml": [],
+    "brief-progressive-web-app": [
+      "brief-mobile-flutter-prod",
+      "brief-react-native-offline"
+    ],
+    "brief-raft-consensus": [],
+    "brief-rag-vector-search": [
+      "brief-knowledge-graph",
+      "brief-vector-db-from-scratch"
+    ],
+    "brief-react-native-offline": [],
+    "brief-realtime-analytics-dashboard": [
+      "brief-event-driven-saas",
+      "brief-graphql-to-sql-compiler"
+    ],
+    "brief-realtime-code-execution": [],
+    "brief-realtime-collab": [],
+    "brief-realtime-stock-platform": [
+      "brief-event-recon",
+      "brief-upi-payment-gateway"
+    ],
+    "brief-recommendation-engine": [
+      "brief-fraud-detection-ml",
+      "brief-gpu-accelerated-inference"
+    ],
+    "brief-schema-registry": [
+      "brief-graph-analysis",
+      "brief-streaming-data-pipeline"
+    ],
+    "brief-search-engine": [],
+    "brief-semantic-kernel-agent": [],
+    "brief-serverless-backend": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-service-mesh": [],
+    "brief-streaming-data-pipeline": [],
+    "brief-supply-chain-optimization": [],
+    "brief-terraform-cloud-infra": [
+      "brief-ci-cd-from-scratch",
+      "brief-gitops-registry"
+    ],
+    "brief-time-series-forecasting": [
+      "brief-fraud-detection-ml",
+      "brief-gpu-accelerated-inference"
+    ],
+    "brief-tls-certificate-manager": [
+      "brief-homomorphic-encryption",
+      "brief-realtime-code-execution"
+    ],
+    "brief-upi-payment-gateway": [],
+    "brief-vector-db-from-scratch": [],
+    "brief-workflow-engine": [],
+    "brief-zero-trust-proxy": [
+      "brief-homomorphic-encryption",
+      "brief-realtime-code-execution"
+    ],
+    "cert-aws-ccp": [
+      "cert-aws-saa"
+    ],
+    "cert-aws-saa": [],
+    "cert-ckad": [],
+    "cert-comptia-sec": [],
+    "cert-gcp-ace": [],
+    "brief-http-socket-server": [],
+    "brief-kv-store-wal": [],
+    "brief-rate-limit-middleware": [],
+    "brief-bloom-filter-engine": [],
+    "brief-mini-sql-lexer": [],
+    "brief-git-internals-reader": [],
+    "brief-tar-gzip-decompressor": [],
+    "brief-redis-resp-server": [],
+    "brief-dag-task-runner": [],
+    "brief-threadsafe-lru-cache": [],
+    "brief-markdown-ast-ssg": [],
+    "brief-json-schema-validator": [],
+    "brief-multiagent-code-reviewer": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-hybrid-rag-reranker": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-llm-firewall-guardrail": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-self-reflective-retriever": [],
+    "brief-local-vllm-gateway": [],
+    "brief-semantic-vector-cache": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-lora-dataset-curator": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-geval-eval-harness": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-react-tool-gateway": [],
+    "brief-multimodal-invoice-parser": [
+      "brief-self-reflective-retriever",
+      "brief-local-vllm-gateway"
+    ],
+    "brief-idempotency-gateway": [
+      "brief-transactional-outbox-worker",
+      "brief-flash-sale-inventory"
+    ],
+    "brief-transactional-outbox-worker": [],
+    "brief-webhook-retry-engine": [
+      "brief-transactional-outbox-worker",
+      "brief-flash-sale-inventory"
+    ],
+    "brief-flash-sale-inventory": [],
+    "brief-multi-region-url-shortener": [
+      "brief-transactional-outbox-worker",
+      "brief-flash-sale-inventory"
+    ],
+    "brief-sse-websocket-broadcaster": [],
+    "brief-saga-orchestrator": [],
+    "brief-grpc-mesh-resilience": [],
+    "brief-dynamic-feature-gate": [
+      "brief-transactional-outbox-worker",
+      "brief-flash-sale-inventory"
+    ],
+    "brief-priority-job-scheduler": [
+      "brief-transactional-outbox-worker",
+      "brief-flash-sale-inventory"
+    ],
+    "brief-double-entry-ledger": [],
+    "brief-pg-webhook-reconciliation": [
+      "brief-double-entry-ledger",
+      "brief-l2-orderbook-matcher"
+    ],
+    "brief-l2-orderbook-matcher": [],
+    "brief-velocity-fraud-detector": [
+      "brief-double-entry-ledger",
+      "brief-l2-orderbook-matcher"
+    ],
+    "brief-market-ticker-websocket": [
+      "brief-double-entry-ledger",
+      "brief-l2-orderbook-matcher"
+    ],
+    "brief-upi-settlement-engine": [],
+    "brief-subscription-dunning-billing": [
+      "brief-double-entry-ledger",
+      "brief-l2-orderbook-matcher"
+    ],
+    "brief-eod-interest-batch": [
+      "brief-double-entry-ledger",
+      "brief-l2-orderbook-matcher"
+    ],
+    "brief-clickstream-clickhouse": [],
+    "brief-parquet-duckdb-server": [
+      "brief-clickstream-clickhouse",
+      "brief-cdc-pg-elasticsearch"
+    ],
+    "brief-cdc-pg-elasticsearch": [],
+    "brief-distributed-etl-scheduler": [],
+    "brief-stream-exact-dedup": [
+      "brief-clickstream-clickhouse",
+      "brief-cdc-pg-elasticsearch"
+    ],
+    "brief-data-quality-gate": [
+      "brief-clickstream-clickhouse",
+      "brief-cdc-pg-elasticsearch"
+    ],
+    "brief-geospatial-h3-aggregator": [
+      "brief-clickstream-clickhouse",
+      "brief-cdc-pg-elasticsearch"
+    ],
+    "brief-columnar-compactor": [
+      "brief-clickstream-clickhouse",
+      "brief-cdc-pg-elasticsearch"
+    ],
+    "brief-k8s-crd-operator": [],
+    "brief-bluegreen-envoy-router": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-ephemeral-dev-sandbox": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-otel-apm-collector": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-k8s-secret-sync": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-cloud-cost-anomaly": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-dns-failover-daemon": [
+      "brief-k8s-crd-operator",
+      "brief-disaster-recovery-harness"
+    ],
+    "brief-disaster-recovery-harness": [],
+    "brief-oidc-pkce-server": [],
+    "brief-shamir-secret-vault": [],
+    "brief-ast-sast-scanner": [
+      "brief-oidc-pkce-server",
+      "brief-shamir-secret-vault"
+    ],
+    "brief-pcap-network-detector": [],
+    "brief-merkle-airdrop-verifier": [
+      "brief-oidc-pkce-server",
+      "brief-shamir-secret-vault"
+    ],
+    "brief-waf-reverse-proxy": [
+      "brief-oidc-pkce-server",
+      "brief-shamir-secret-vault"
+    ],
+    "brief-mtls-internal-ca": [
+      "brief-oidc-pkce-server",
+      "brief-shamir-secret-vault"
+    ],
+    "brief-offline-crdt-notes": [],
+    "brief-virtualized-media-feed": [],
+    "brief-background-geofence-optimizer": [
+      "brief-offline-crdt-notes",
+      "brief-virtualized-media-feed"
+    ],
+    "brief-secure-enclave-vault": [
+      "brief-offline-crdt-notes",
+      "brief-virtualized-media-feed"
+    ],
+    "brief-offline-chat-optimistic": [
+      "brief-offline-crdt-notes",
+      "brief-virtualized-media-feed"
+    ],
+    "brief-mobile-perf-tracer": [
+      "brief-offline-crdt-notes",
+      "brief-virtualized-media-feed"
+    ],
+    "brief-malloc-freelist-allocator": [],
+    "brief-epoll-async-eventloop": [],
+    "brief-zerocopy-tcp-proxy": [],
+    "brief-fuse-virtual-filesystem": [],
+    "brief-work-stealing-pool": [],
+    "brief-btree-page-storage": []
+  }
+}
