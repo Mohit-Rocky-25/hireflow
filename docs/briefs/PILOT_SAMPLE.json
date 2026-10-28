@@ -1,0 +1,3325 @@
+[
+  {
+    "id": "brief-load-balancer",
+    "title": "Layer Seven HTTP Reverse Proxy & Load Balancer in Go with Active Health Checks, Least-Connections & Circuit Breaking",
+    "domain": "Distributed Systems",
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Go",
+      "HTTP",
+      "Concurrency",
+      "Docker",
+      "Prometheus",
+      "Networking",
+      "System Design",
+      "Linux"
+    ],
+    "techStack": [
+      "Go",
+      "HTTP",
+      "Concurrency",
+      "Docker",
+      "Prometheus"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "HTTP": "latest-stable (needs-pinning)",
+      "Concurrency": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)",
+      "Prometheus": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Relying on opaque cloud provider load balancers obscures proxy-level concurrency bottlenecks, connection pool starvation, and subtle routing misconfigurations. Naive round-robin reverse proxies route traffic into dead sockets during upstream server crashes, lack connection draining during deployments, and fail to balance heterogeneous backend workloads. This project builds a high-performance Layer Seven application load balancer and reverse proxy from scratch in Go. The system implements multiple load balancing algorithms (round-robin, weighted round-robin, least-connections, and IP-hash), conducts active health checks with circuit breaking, performs graceful upstream draining during rotation, and exports Prometheus metrics.",
+    "useCases": "Internal Microservice RPC Traffic Balancing: Platform engineering teams running private microservice meshes need lightweight, customizable L7 reverse proxies to distribute incoming traffic across backend service instances. The load balancer balances requests using least-connections to ensure long-running computational queries do not overwhelm individual backend pods. | Zero-Downtime Rolling Upstream Deployment Draining: Site reliability engineers require automated connection draining when deploying new application versions to prevent terminating active in-flight HTTP requests. The proxy marks graduating upstreams as draining, completing pending transactions while routing all new client requests to active backend nodes. | Session-Affinity E-Commerce Checkout Routing: E-commerce platforms maintaining in-memory shopping session state need deterministic client routing based on client IP addresses. The proxy implements consistent IP-hashing, mapping identical client IP addresses to dedicated backend instances while gracefully remapping upon backend changes.",
+    "problemItSolves": "Managing high-concurrency Go connection pools with mutex-free atomic counters for least-connections tracking Designing active asynchronous health check loops that rapidly detect upstream unresponsiveness without overwhelming backends Implementing graceful upstream draining that awaits in-flight request completions while rejecting new incoming connections Handling client HTTP keep-alive connection reuse and TCP socket timeouts cleanly under high throughput",
+    "recruiterSignal": "Clean idiomatic Go codebase using standard library net/http/httputil primitives, sync/atomic counters, and structured logging Comprehensive k6 or vegeta load benchmark report validating sub-millisecond proxy latency overhead under 5,000 requests per second Anti-fake verification script killing a backend upstream during active traffic load and verifying zero dropped requests and immediate route diversion",
+    "scope": {
+      "core": [
+        "Client HTTP requests connect to the Go proxy server; the algorithm selector determines the target up..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 22,
+      "maxHours": 33,
+      "complexityFactor": 2,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Client HTTP requests connect to the Go proxy server"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Client HTTP requests connect to the Go proxy server; the algorithm selector determines the target upstream server based on the configured strategy (e.g., least-connections); the proxy forwards the request over pooled TCP sockets; in parallel, background health checker goroutines poll each upstream's health endpoint every 2 seconds; if an upstream fails 3 consecutive probes, the circuit breaker removes it from the active pool; when an administrator signals a backend drain, the proxy ceases routing new traffic to that backend while waiting for in-flight requests to finish before closing connections; telemetry metrics update atomically and expose to Prometheus.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Proxy Latency Overhead at Concurrency",
+        "unit": "req/sec",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "p95 proxy latency overhead is < 0.85 milliseconds under 5,000 req/sec",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Unhealthy Upstream Detection & Removal Duration",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Average removal duration is < 1.2 seconds with 0 failed requests routed to dead node after removal",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Least-Connections Traffic Distribution Balance Ratio",
+        "unit": "%",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Traffic distribution balance ratio variance is < 6.0% across backends",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "go run ./cmd/benchmarker --rps 5000 --duration 30s: Proxy successfully routes traffic with p95 latency overhead < 2.0 milliseconds",
+        "expectedOutcome": "p95 proxy overhead < 2.0ms and error rate < 0.01% with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_2",
+        "command": "go test -v ./proxy/... -run TestUpstreamCrashDetection: Health checker removes terminated upstream within average duration < 3.0 seconds",
+        "expectedOutcome": "Average detection time < 3.0s with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_3",
+        "command": "go test -v ./proxy/... -run TestLeastConnectionsBalancing: Least-connections algorithm balances load with connection variance ratio < 15.0%",
+        "expectedOutcome": "Connection variance ratio < 15.0% with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_4",
+        "command": "curl http://localhost:9090/metrics: Endpoint returns standard Prometheus format metrics including proxy_requests_total and proxy_upstream_health",
+        "expectedOutcome": "Response status is 200 and metrics contain proxy_requests_total and proxy_upstream_health",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "go run ./scripts/verify_dynamic_failover.go --target-backend http://localhost:8081: Proxy immediately redirects in-flight and incoming traffic to remaining 3 healthy backends with 0 dropped requests",
+        "expectedOutcome": "Verification log confirms 0 failed requests (100% success rate) and backend 8081 marked down with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected Layer Seven HTTP load balancer in Go with active health checking; maintained sub-[PROXY_OVERHEAD] proxy latency overhead under [THROUGHPUT_RPS] sustained throughput, and removed crashed upstreams within [REMOVAL_TIME] seconds.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and HTTP to implement Layer Seven HTTP Reverse Proxy & Load Balancer in Go with Active Health Checks, Least-Connections & Circuit Breaking, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Proxy Latency Overhead at Concurrency: p95 proxy latency overhead is < 0.85 mill",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-dist-rate-limiter",
+    "title": "Distributed Sliding-Window Rate Limiting Gateway in Go & Redis",
+    "domain": "Distributed Systems",
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Go",
+      "Redis",
+      "Docker",
+      "Distributed Systems",
+      "Rate Limiting",
+      "API Gateway",
+      "Concurrency"
+    ],
+    "techStack": [
+      "Go",
+      "Redis",
+      "Docker"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "Redis": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Public APIs and multi-tenant cloud platforms frequently experience abusive traffic spikes, credential stuffing attacks, and noisy-neighbor service degradation. Simple in-memory rate limiting fails across horizontally autoscaled service instances because local nodes lack shared global state. This project builds a distributed, low-latency API rate limiting proxy gateway in Go coordinated via Redis. The system implements atomic sliding-window counter and token bucket algorithms via Lua scripts to eliminate race conditions, supports multi-tier tenant quotas, returns standard RFC 6585 rate limiting headers, and provides an in-memory circuit breaker that gracefully degrades to local limits during Redis cluster outages.",
+    "useCases": "API gateway ingress protecting backend microservices from denial-of-service traffic surges | Multi-tenant SaaS tier enforcement (free tier 60 req/min vs enterprise tier 5,000 req/min) | Authentication endpoint brute-force protection throttling failed login attempts per client IP",
+    "problemItSolves": "Writing atomic Redis Lua scripts for sliding-window log and token bucket algorithms with zero race conditions Achieving sub-3 millisecond gateway proxy overhead under heavy multi-tenant request loads Designing circuit-breaker fallback to localized in-memory token buckets when Redis nodes fail Accurately computing and propagating HTTP rate limit headers (X-RateLimit-Limit, Remaining, Reset)",
+    "recruiterSignal": "Clean Go implementation separating reverse proxy, Redis Lua scripts, configuration, and metrics High-concurrency benchmark demonstrating strict rate enforcement under 20,000 concurrent requests Anti-fake verification script sending dynamic client bursts across threshold and asserting exact 429 status transitions",
+    "scope": {
+      "core": [
+        "Inbound HTTP requests arrive at the Go reverse proxy; the Quota Matcher identifies client identity a..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 21,
+      "maxHours": 31,
+      "complexityFactor": 2,
+      "basis": "Estimated from 3 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Inbound HTTP requests arrive at the Go reverse proxy"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Inbound HTTP requests arrive at the Go reverse proxy; the Quota Matcher identifies client identity and rate quota rules; the proxy executes an atomic Lua script in Redis passing client key and time window; Redis calculates remaining capacity and updates sliding window counters atomically; if within quota, the proxy forwards the request to upstream backends with rate limit headers; if exceeded, the proxy terminates the request with HTTP 429 Too Many Requests; if Redis is unresponsive, the Circuit Breaker diverts evaluation to local in-memory buckets.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Gateway Processing Overhead Latency (p99)",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "p99 proxy overhead latency is < 1.2 milliseconds",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Sliding-Window Limit Enforcement Accuracy",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Gateway permits exactly 500 requests and rejects exactly 500 requests with HTTP 429",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Circuit Breaker Failover Availability",
+        "unit": "ms",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Gateway fails over to local in-memory limiting within 100ms with 0 unhandled 500 errors",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run go run ./cmd/bench --requests 1000 --limit 500: Proxy permits exactly 500 requests and returns HTTP 429 for remaining 500 requests",
+        "expectedOutcome": "Exactly 500 HTTP 200 and 500 HTTP 429 responses recorded with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Run go run ./cmd/bench --benchmark latency --requests 50000: Measured p99 latency overhead added by rate limiting proxy is < 3.0 milliseconds",
+        "expectedOutcome": "p99 latency overhead is < 3.0 milliseconds",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run ./scripts/test_redis_outage.sh: Circuit breaker trips to local in-memory token bucket; proxy returns 0 HTTP 500 errors",
+        "expectedOutcome": "Test passes with 0 HTTP 500 responses and circuit breaker state reported as OPEN",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "curl -i http://localhost:8080/api/data -H 'X-API-Key: test_key': Response contains HTTP 429 status and X-RateLimit-Limit, Remaining, and Retry-After headers",
+        "expectedOutcome": "Response status is 429 and Retry-After header is present with positive integer value",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "python scripts/verify_dynamic_quota.py --key DYNAMIC_KEY_99 --limit 10 --burst 15: Gateway allows first 10 requests and transitions to HTTP 429 on exactly the 11th request",
+        "expectedOutcome": "Request 10 returns 200, request 11 returns 429, and exit code is 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "python"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected distributed sliding-window rate limiting gateway in Go and Redis; enforced multi-tenant request quotas with sub-[P99_OVERHEAD] proxy overhead across [REQUEST_COUNT] requests, and ensured continuous availability through in-memory circuit breaker failover.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and Redis to implement Distributed Sliding-Window Rate Limiting Gateway in Go & Redis, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Gateway Processing Overhead Latency (p99): p99 proxy overhead latency is < 1.2 m",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-homomorphic-encryption",
+    "title": "Confidential Database Query Engine with Homomorphic Encryption",
+    "domain": "Security & Platform",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "Python",
+      "PostgreSQL",
+      "Cryptography",
+      "Docker",
+      "Homomorphic Encryption",
+      "Security Engineering",
+      "Systems Programming"
+    ],
+    "techStack": [
+      "Python",
+      "PostgreSQL",
+      "Cryptography",
+      "Docker"
+    ],
+    "versionsPinned": {
+      "Python": "latest-stable (needs-pinning)",
+      "PostgreSQL": "latest-stable (needs-pinning)",
+      "Cryptography": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Traditional database encryption-at-rest models protect files on disk but force database servers to decrypt data into plaintext memory during query execution, exposing sensitive financial and healthcare records to rogue database administrators, memory-scraping malware, and cloud hypervisor compromises. Homomorphic Encryption (HE) solves this by enabling mathematical operations directly on ciphertexts without decryption. This project builds a confidential database query prototype in Python, TenSEAL, PostgreSQL, and Cryptography. The system encrypts sensitive numerical records client-side using BFV and CKKS homomorphic schemes, stores encrypted vector blobs in PostgreSQL, executes homomorphic SUM and AVG aggregations entirely on the server without plaintext access, and monitors ciphertext noise budgets to guarantee mathematical correctness upon client decryption.",
+    "useCases": "Healthcare research platforms aggregating encrypted patient clinical metrics across hospitals without HIPAA disclosures | Financial banking compliance audits verifying aggregate capital reserves without viewing individual customer balances | Confidential cloud database services offering zero-knowledge query processing on untrusted cloud infrastructure",
+    "problemItSolves": "Selecting and parameterizing BFV and CKKS homomorphic encryption polynomial modulus degrees and coefficient sizes Tracking and managing ciphertext noise budget consumption across successive multiplication and addition operations Executing homomorphic arithmetic operations across PostgreSQL bytea ciphertext vectors without memory exhaustion Guaranteeing zero plaintext information leakage in database query logs, execution buffers, and temporary storage",
+    "recruiterSignal": "Clean Python codebase separating client cryptographic key managers, homomorphic arithmetic engines, and PostgreSQL storage handlers Zero-knowledge audit verifying that database query logs and server memory contain zero plaintext numerical records Anti-fake verification script inserting dynamic encrypted payroll records and verifying exact decrypted mathematical sum parity",
+    "scope": {
+      "core": [
+        "The client Key Manager initializes BFV/CKKS cryptographic context parameters; public evaluation keys..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 38,
+      "maxHours": 56,
+      "complexityFactor": 3,
+      "basis": "Estimated from 4 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "The client Key Manager initializes BFV/CKKS cryptographic context parameters"
+        ]
+      }
+    ],
+    "architectureDataFlow": "The client Key Manager initializes BFV/CKKS cryptographic context parameters; public evaluation keys serialize and transmit to the server while private secret keys remain on the client; the client encrypts numerical records (e.g. salaries) and uploads ciphertext bytes to PostgreSQL; when an analytical query (e.g. SUM or AVG) arrives, the Confidential Evaluation Engine loads ciphertext byte arrays into memory; the engine performs homomorphic additions directly on ciphertexts without decryption; the resulting aggregated ciphertext byte buffer returns to the client; the client decrypts the payload using its private secret key, verifying noise budget and recovering the exact mathematical result.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Zero-Knowledge Plaintext Confidentiality Rate",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "0 plaintext values discovered in database query logs or server memory buffers",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Homomorphic Vector Addition Execution Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Execution completes in < 0.8 milliseconds per record pair",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Decrypted Result Mathematical Precision Parity Rate",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "100 of 100 batch aggregations match plaintext mathematical sum within 1e-4 tolerance",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "python -m confidential_db.audit_leakage: Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps",
+        "expectedOutcome": "0 plaintext values discovered with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "python"
+      },
+      {
+        "id": "rubric_2",
+        "command": "python scripts/benchmark_he_speed.py --records 1000 --op add: Homomorphic addition execution completes in < 2.5 milliseconds per record pair",
+        "expectedOutcome": "Average operation latency is < 2.5 milliseconds",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "python"
+      },
+      {
+        "id": "rubric_3",
+        "command": "python -m confidential_db.test_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance",
+        "expectedOutcome": "100 of 100 batch precision tests pass within tolerance with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "python"
+      },
+      {
+        "id": "rubric_4",
+        "command": "curl http://localhost:8000/api/query/encrypted_sum?column=payroll: Server returns serialized ciphertext byte buffer without possessing decryption keys",
+        "expectedOutcome": "Response status is 200 and ciphertext bytes field is non-empty",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000: Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext",
+        "expectedOutcome": "Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "python"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Python",
+        "title": "Python Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Python and PostgreSQL to implement Confidential Database Query Engine with Homomorphic Encryption, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Python over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Zero-Knowledge Plaintext Confidentiality Rate: 0 plaintext values discovered in ",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Authorised testing only against local loopback ports and synthetic container environments.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-ab-experimentation",
+    "title": "Bayesian A/B Experimentation Engine",
+    "domain": "ML Engineering",
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Python",
+      "NumPy",
+      "SciPy",
+      "FastAPI",
+      "SQLite",
+      "Docker",
+      "Statistics",
+      "Bayesian Methods"
+    ],
+    "techStack": [
+      "Python",
+      "NumPy",
+      "SciPy",
+      "FastAPI",
+      "SQLite",
+      "Docker"
+    ],
+    "versionsPinned": {
+      "Python": "latest-stable (needs-pinning)",
+      "NumPy": "latest-stable (needs-pinning)",
+      "SciPy": "latest-stable (needs-pinning)",
+      "FastAPI": "latest-stable (needs-pinning)",
+      "SQLite": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Fixed-horizon frequentist experiment evaluation forces product teams to wait for arbitrary precalculated sample thresholds before taking business actions, prolonging exposure to inferior variants and encouraging ad-hoc peeking that inflates false discovery rates. Continuous inspection under frequentist methods invalidates standard p-values unless complex alpha-spending functions are maintained. A Bayesian sequential experimentation engine continuously models parameter posteriors, computing the exact probability of variant superiority and quantifying bounded expected loss to automate candidate variant promotion or termination while strictly controlling decision risk.",
+    "useCases": "Continuous feature-flag variant evaluation for web and mobile customer checkout workflows | Pricing tier optimization with automated risk-bounded stopping thresholds | Recommendation model candidate comparison without fixed sample horizon delays",
+    "problemItSolves": "Preventing discovery bias during small-sample cold starts where high variance can trigger premature stopping without minimum sample guards Computing two-dimensional numerical quadrature for expected loss integrals within sub-20ms HTTP API response constraints Handling concurrent atomic increment transactions on experiment arms under SQLite without database lock contention Calibrating sequential stopping boundaries via Monte Carlo simulations to maintain Type I error rates under null conditions",
+    "recruiterSignal": "Deterministic pytest test suite comparing closed-form posterior probabilities against SciPy numerical quadrature Automated Monte Carlo simulation script reproducing bounded false positive rates across 500 null experiment runs Standalone reproducible FastAPI service with SQLite transactional persistence and benchmark reports",
+    "scope": {
+      "core": [
+        "Client telemetry emits exposure and conversion events to FastAPI; API writes atomic increment transa..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 25,
+      "maxHours": 36,
+      "complexityFactor": 2,
+      "basis": "Estimated from 6 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Client telemetry emits exposure and conversion events to FastAPI"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Client telemetry emits exposure and conversion events to FastAPI; API writes atomic increment transactions to SQLite; Decision Gateway triggers Posterior Evaluation Engine; SciPy computes Beta conjugate updates and Expected Loss; engine returns continue, promote, or terminate status based on calibrated decision thresholds.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Expected Loss Quadrature Numerical Precision",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Absolute error < 1e-5 across 15 of 15 test parameter pairs",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Empirical Type I Error under Null Distribution",
+        "unit": "%",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Empirical false stopping rate <= 4.2% across 500 simulated null trials",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Decision Endpoint Latency (p95)",
+        "unit": "ms",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "p95 latency < 18ms under 100 requests per second",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run pytest tests/test_math.py: All test assertions pass with absolute difference between analytical and quadrature calculations < 1e-4",
+        "expectedOutcome": "Exit code 0 with 15 passing mathematical assertions and zero calculation errors",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute ingestion integration test script: All 100 events recorded in SQLite with correct aggregate arm counts and zero transaction collisions",
+        "expectedOutcome": "Database count equals 100 with zero dropped events and HTTP 200 responses",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run sequential experiment simulator: Engine transitions experiment status from RUNNING to STOPPED_WINNER once expected loss drops below 0.001 after minimum sample threshold",
+        "expectedOutcome": "Status correctly set to STOPPED_WINNER with winning variant identified as arm B",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute python scripts/simulate_null.py: Empirical false positive stopping rate measured across all 500 completed trajectories",
+        "expectedOutcome": "Reported empirical false positive rate is <= 5.0% across all 500 trials",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run python scripts/verify_reproducibility.py --seed 98765: Script dynamically computes posteriors for freshly generated data and matches mathematical invariants without using static fixture files",
+        "expectedOutcome": "Script completes with exit code 0 confirming dynamic evaluation matches mathematical bounds",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Python",
+        "title": "Python Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected Bayesian sequential A/B experimentation engine in Python and FastAPI backed by SQLite; implemented Beta conjugate updating and numerical expected loss quadrature to bound empirical false discoveries below [TYPE_I_ERROR] across [SIMULATION_TRIALS] simulated trials with tail decision latency under [P95_LATENCY].",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Python and NumPy to implement Bayesian A/B Experimentation Engine, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Python over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Expected Loss Quadrature Numerical Precision: Absolute error < 1e-5 across 15 of",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-realtime-code-execution",
+    "title": "Secure Remote Code Execution Sandbox in Go with Linux Namespaces, cgroups v2 & seccomp BPF Syscall Filtering",
+    "domain": "Security & Platform",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "Go",
+      "Linux Namespaces",
+      "cgroups",
+      "seccomp",
+      "Docker",
+      "Systems Programming",
+      "Security"
+    ],
+    "techStack": [
+      "Go",
+      "Linux Namespaces",
+      "cgroups",
+      "seccomp",
+      "Docker"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "Linux Namespaces": "latest-stable (needs-pinning)",
+      "cgroups": "latest-stable (needs-pinning)",
+      "seccomp": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Online code assessment platforms, interactive coding sandboxes, and continuous integration runners need to execute untrusted user-submitted code at high concurrency. Naive execution directly on host operating systems exposes servers to catastrophic remote code execution (RCE) attacks, denial-of-service fork bombs, network port scanning, and host filesystem tampering. Relying on heavy full-system virtual machines introduces multi-second boot latency and unsustainable compute costs. This project builds a production-grade secure remote code execution engine and judge sandbox from scratch in Go. The system enforces strict process containment using Linux Namespaces (Mount, PID, Network, IPC, UTS), restricts CPU time and memory quotas with cgroups v2, filters dangerous kernel syscalls using seccomp BPF profiles, and executes code in under 120ms with zero host escape vulnerabilities.",
+    "useCases": "Competitive Programming & Automated Assessment Judge: Online algorithmic evaluation platforms need to compile and execute thousands of untrusted Python, C++, and Go solutions submitted simultaneously by candidates. The engine runs each submission inside an isolated micro-sandbox, comparing standard output against test fixtures and enforcing strict execution time and memory limits. | AI Agent Sandboxed Tool Execution Environment: Autonomous LLM coding agents generating dynamic Python scripts require a secure runtime environment to test code without risking host machine deletion. The sandbox provides an ephemeral filesystem overlay, executing agent code with network isolation and returning execution outputs or stack traces safely. | Continuous Integration Micro-Build Container Runner: Developer platform teams need fast, lightweight sandboxes to run untrusted third-party pull request scripts and unit test suites. The sandbox isolates build tasks using cgroups v2 quotas, preventing runaway infinite loops or resource-hogging background crypto miners from degrading cluster nodes.",
+    "problemItSolves": "Configuring isolated Linux namespaces (unshare clone flags) and pivot_root filesystems with zero residual access to the host root filesystem Writing custom seccomp BPF filter rules blocking dangerous system calls (clone without flags, ptrace, reboot, mount) while permitting safe language runtime operations Enforcing precise cgroups v2 CPU quotas, memory limits, and pids.max thresholds to neutralize fork-bomb exploits and OOM panics Managing high-concurrency ephemeral execution worker pools in Go with context timeouts and clean resource reclamation in sub-120ms",
+    "recruiterSignal": "Clean Go codebase cleanly separating the sandbox supervisor, namespace isolation routines, cgroups v2 controllers, seccomp filters, and execution worker queues Security penetration report proving complete containment across 5 attack vectors: fork bomb, host file access, network socket creation, memory exhaustion, and privilege escalation Anti-fake verification script attempting to read `/etc/shadow` from the host filesystem inside the sandbox and asserting `PERMISSION_DENIED` / file not found",
+    "scope": {
+      "core": [
+        "A client submits source code and execution parameters to the Go supervisor; the supervisor pulls an ..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 36,
+      "maxHours": 53,
+      "complexityFactor": 3,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "linux"
+      ],
+      "privileges": "docker",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "A client submits source code and execution parameters to the Go supervisor"
+        ]
+      }
+    ],
+    "architectureDataFlow": "A client submits source code and execution parameters to the Go supervisor; the supervisor pulls an execution worker from the pool, writes the code to a temporary tmpfs directory, and creates a dedicated cgroup v2 slice setting memory limit to 128MB and pids limit to 20; the supervisor forks an isolated process with new PID, Mount, Network, and IPC namespaces; the child process executes pivot_root to bind a minimal read-only rootfs, applies the seccomp BPF filter to restrict syscalls, drops privileges to UID 65534 (nobody), and execs the compiler/interpreter; the supervisor monitors execution duration; upon completion or timeout, it captures stdout/stderr, records execution telemetry, destroys the cgroup slice, and returns the verdict JSON.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Sandboxed Code Execution Cold-Start Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "p95 execution cold-start latency is < 85 milliseconds",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Host Escape & Filesystem Containment Defense Rate",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "50 of 50 malicious exploit scripts successfully neutralized with 0 host compromise",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Fork-Bomb Process Quota Suppression Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Fork-bomb suppressed in < 4.5 milliseconds with 0 impact on host CPU responsiveness",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "go run ./cmd/bench_executor --jobs 1000 --concurrency 10: Sandbox executes code and captures outputs with p95 cold-start latency < 180ms",
+        "expectedOutcome": "p95 latency < 180ms with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_2",
+        "command": "go test -v ./sandbox/... -run TestForkBombSuppression: cgroups v2 blocks new process creation; fork bomb terminates in < 15ms with 0 host CPU freeze",
+        "expectedOutcome": "Process contained with exit code 0 and host CPU unaffected",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_3",
+        "command": "go test -v ./security/... -run TestNetworkNamespaceIsolation: Network namespace blocks socket creation; process receives network unreachable error",
+        "expectedOutcome": "Socket creation rejected with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_4",
+        "command": "go test -v ./sandbox/... -run TestOOMSuppression: cgroup OOM killer terminates process cleanly; supervisor reports exit status 'MEMORY_LIMIT_EXCEEDED'",
+        "expectedOutcome": "OOM handled cleanly with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_5",
+        "command": "go run ./scripts/verify_host_containment.go --target-file /etc/shadow: Sandbox pivot_root isolation blocks access; process receives file not found / access denied",
+        "expectedOutcome": "Console confirms access denied / file not found with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected secure remote code execution sandbox in Go using Linux namespaces and cgroups; achieved sub-[COLD_START_LATENCY] millisecond execution cold-start latency, and neutralized [EXPLOIT_COUNT] exploit attack vectors with seccomp BPF syscall filtering.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and Linux Namespaces to implement Secure Remote Code Execution Sandbox in Go with Linux Namespaces, cgroups v2 & seccomp BPF Syscall Filtering, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Sandboxed Code Execution Cold-Start Latency: p95 execution cold-start latency is",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Authorised testing only against local loopback ports and synthetic container environments.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-search-engine",
+    "title": "Full-Text Search Engine from Scratch in Go with Inverted Index, BM25 Scoring & Concurrent Segment Merging",
+    "domain": "Distributed Systems",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "Go",
+      "Concurrency",
+      "Algorithms",
+      "Data Structures",
+      "HTTP",
+      "Distributed Systems",
+      "Systems Programming"
+    ],
+    "techStack": [
+      "Go",
+      "Concurrency",
+      "Algorithms",
+      "Data Structures",
+      "HTTP"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "Concurrency": "latest-stable (needs-pinning)",
+      "Algorithms": "latest-stable (needs-pinning)",
+      "Data Structures": "latest-stable (needs-pinning)",
+      "HTTP": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Engineering teams building search interfaces often treat full-text search as an opaque black box provided by managed Elasticsearch or Solr clusters, leaving them unable to diagnose high heap memory churn, segment merge storm freezes, or unexpected relevance ranking degradation. Commercial search engines incur high infrastructure costs and severe memory overhead for small-to-medium embedded datasets. This project builds a production-grade full-text search engine from scratch in Go inspired by the Lucene architecture. The engine implements a custom text tokenizer with stop-word removal and Porter stemming, constructs memory-efficient inverted indexes with compressed posting lists using Roaring Bitmaps, executes the BM25 probabilistic relevance ranking algorithm, coordinates concurrent multi-segment memory flushes and background merges, and exposes a high-throughput HTTP search API delivering sub-15ms queries across 100,000 documents.",
+    "useCases": "Enterprise Knowledge Base Documentation Search: Internal developer portals hosting hundreds of thousands of engineering design docs and markdown pages need fast keyword and phrase search. The engine indexes markdown content into inverted posting lists, ranking documentation snippets with BM25 relevance scores and serving search queries in under 12 milliseconds. | E-Commerce Product Catalog Multi-Field Search: Online retail platforms require accurate product discovery across title, description, and brand attributes with boolean query operators. The search engine parses multi-field boolean queries (AND, OR, NOT), computes disjunctive union and conjunctive intersection over compressed bitmaps, and returns ranked product IDs. | High-Throughput Application Log Inspection Search: Site reliability engineers troubleshooting production incidents need to grep and filter through gigabytes of structured server log lines in real time. The engine streams incoming log lines into memory segments, flushing immutable disk segments and enabling instant sub-second text queries across millions of log events.",
+    "problemItSolves": "Implementing compressed posting lists using Roaring Bitmaps or Variable-Byte integer encoding to minimize RAM residency across high-cardinality vocabularies Implementing the Okapi BM25 relevance scoring formula with term frequency (TF), inverse document frequency (IDF), and document length normalization (k1=1.2, b=0.75) Designing a concurrent LSM-like segment architecture where mutable memory buffers flush to immutable on-disk segment files with background merge routines Constructing an Abstract Syntax Tree (AST) query parser supporting complex boolean expressions (AND, OR, NOT, phrase queries, and field prefixes)",
+    "recruiterSignal": "Clean Go codebase cleanly separating the text analysis pipeline, inverted index structures, BM25 scoring modules, segment merge workers, and HTTP query handlers Search performance benchmark proving sub-15ms p95 query latency across an indexed corpus of 100,000 documents with memory consumption under 250MB Anti-fake verification script indexing 3 documents with subtle term frequency differences and asserting the BM25 score ranking matches exact mathematical calculation",
+    "scope": {
+      "core": [
+        "Documents post to the `/api/v1/index` HTTP endpoint; the text analysis pipeline tokenizes, normalize..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 32,
+      "maxHours": 48,
+      "complexityFactor": 3,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Documents post to the `/api/v1/index` HTTP endpoint"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Documents post to the `/api/v1/index` HTTP endpoint; the text analysis pipeline tokenizes, normalizes, and stems the text; tokens and position offsets insert into the active in-memory index segment; when the memory buffer reaches 10MB, a background goroutine flushes the segment to an immutable disk file; when a search query arrives at `/api/v1/search`, the boolean parser tokenizes the query into an AST; the query engine fetches posting lists for each term across all active disk segments, computes set intersections/unions, evaluates the BM25 relevance score for each matching document, sorts top-K results, and returns the JSON payload; periodically, the merge controller merges disk segments.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "p95 Full-Text Search Query Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "p95 full-text query latency is < 9.5 milliseconds",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Document Ingestion & Indexing Throughput",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Sustained document indexing throughput is >= 12,000 documents per second",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "BM25 Scoring Mathematical Parity Rate",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "50 of 50 query evaluations match reference BM25 calculations exactly",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "go run ./cmd/bench_search --queries 10000 --concurrency 20: Search engine serves queries with p95 query latency < 25.0ms and 0 HTTP errors",
+        "expectedOutcome": "p95 latency < 25.0ms with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_2",
+        "command": "go run ./cmd/bench_indexing --docs 100000 --batch-size 1000: Engine indexes corpus with sustained throughput >= 4,000 docs/sec and memory < 250MB",
+        "expectedOutcome": "Throughput >= 4000 docs/sec with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_3",
+        "command": "go test -v ./query/... -run TestBooleanASTExecution: AST parser evaluates query correctly; all returned documents match boolean constraints",
+        "expectedOutcome": "All returned documents satisfy boolean logic with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_4",
+        "command": "go test -v ./segment/... -run TestConcurrentSegmentFlush: Buffer flushes to disk segment file cleanly without dropping in-flight search queries",
+        "expectedOutcome": "Flush completes without read errors and exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      },
+      {
+        "id": "rubric_5",
+        "command": "go run ./scripts/verify_bm25_ranking.go --query 'search' --expected-order 'DocA,DocB': Engine ranks DocA higher than DocB with BM25 score difference matching reference formula",
+        "expectedOutcome": "Console confirms DocA rank 1 and DocB rank 2 with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "go"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected full-text search engine from scratch in Go with inverted indexing and probabilistic relevance scoring; achieved sub-[QUERY_LATENCY] millisecond search latency across [DOC_COUNT] documents, and sustained [INDEX_THROUGHPUT] documents per second indexing throughput.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and Concurrency to implement Full-Text Search Engine from Scratch in Go with Inverted Index, BM25 Scoring & Concurrent Segment Merging, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "p95 Full-Text Search Query Latency: p95 full-text query latency is < 9.5 millise",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-api-sdk-design",
+    "title": "Developer-First API SDK with Type Safety & Auto-Generation",
+    "domain": "Full-Stack Web",
+    "difficulty": "beginner",
+    "coveredSkills": [
+      "TypeScript",
+      "Node.js",
+      "tsup",
+      "Vitest",
+      "MSW",
+      "REST APIs",
+      "Packaging"
+    ],
+    "techStack": [
+      "TypeScript",
+      "Node.js",
+      "tsup",
+      "Vitest",
+      "MSW"
+    ],
+    "versionsPinned": {
+      "TypeScript": "latest-stable (needs-pinning)",
+      "Node.js": "latest-stable (needs-pinning)",
+      "tsup": "latest-stable (needs-pinning)",
+      "Vitest": "latest-stable (needs-pinning)",
+      "MSW": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Integrating REST APIs without strongly-typed client libraries forces engineering teams to write repetitive HTTP boilerplate, maintain fragile interface declarations, and handle network failures in an ad-hoc manner. When backend API schemas evolve, unsynchronized frontend and backend codebases fail silently at runtime rather than at compile time. This project builds a code-generation pipeline and runtime SDK engine that parses OpenAPI 3.0 specifications into idiomatic TypeScript client packages, featuring request authentication, exponential retry logic with jitter, local sandbox mocking, and dual CommonJS and ECMAScript module distribution bundles.",
+    "useCases": "Enterprise developer platforms publishing typed client packages for public REST APIs | Internal microservice communication libraries ensuring synchronized API contract types | Offline-capable developer testing sandboxes using schema-compliant mock responses",
+    "problemItSolves": "Resolving recursive schema references and circular dependencies in OpenAPI documents without stack overflow errors Translating complex schema compositions into idiomatic TypeScript discriminated unions without falling back to any types Ensuring dual CommonJS and ECMAScript module compatibility with clean declaration maps across different bundlers Implementing exponential backoff with full jitter to avoid thundering herd retry storms against rate-limited backends",
+    "recruiterSignal": "Clean CLI tool parsing OpenAPI specifications and emitting modular TypeScript source files Zero compile-time errors under tsc strict mode with zero occurrences of the any type keyword Vitest test suite validating automated retries, mock interceptors, and dual-module resolution",
+    "scope": {
+      "core": [
+        "The CLI parses OpenAPI specifications into an intermediate model; the code generator emits TypeScrip..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 17,
+      "maxHours": 25,
+      "complexityFactor": 1,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "The CLI parses OpenAPI specifications into an intermediate model"
+        ]
+      }
+    ],
+    "architectureDataFlow": "The CLI parses OpenAPI specifications into an intermediate model; the code generator emits TypeScript interfaces and client classes; developers initialize the SDK client; runtime interceptors attach authorization headers and telemetry; native fetch executes HTTP requests; if a transient error occurs, exponential backoff retries the request; responses deserialize into validated typed objects.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "SDK Code Generation Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Generation completes in < 3.5 seconds",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Type System Strictness Verification",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Passes with 0 type diagnostics and 0 occurrences of any keyword",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Transient Fault Retry Recovery Rate",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Recovery rate >= 98% across 50 test requests with exponential backoff",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run npm run generate -- --input fixtures/petstore.json --output ./generated: CLI parses spec and writes complete TypeScript client files without error",
+        "expectedOutcome": "Exit code 0 and presence of generated index.ts and api.ts files",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Run npx tsc --noEmit --project ./generated/tsconfig.json: TypeScript compiler validates all declarations with zero errors",
+        "expectedOutcome": "Exit code 0 with zero type diagnostics reported",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run npm run test:retries: SDK executes retry loop with exponential backoff and succeeds on 3rd attempt",
+        "expectedOutcome": "Retry assertions pass confirming 3 attempts made before resolution",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Run npm run test:packaging: Both node require('./dist/index.cjs') and import('./dist/index.js') resolve correctly",
+        "expectedOutcome": "Both import methods instantiate client instance with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run npm run test:anti-fake -- --seed 7712: Generator parses dynamic spec, produces typed endpoint method, and executes successful mock call",
+        "expectedOutcome": "Dynamic method invocation compiles and returns expected mock data with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "TypeScript",
+        "title": "TypeScript Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected schema-driven TypeScript API SDK generator from OpenAPI specifications; achieved strict compile-time type safety across [OPERATION_COUNT] operations, sub-[GENERATION_TIME] generation speed, and resilient runtime client with jittered retries.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged TypeScript and Node.js to implement Developer-First API SDK with Type Safety & Auto-Generation, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select TypeScript over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "SDK Code Generation Latency: Generation completes in < 3.5 seconds | Type System",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-http-socket-server",
+    "title": "Multi-Threaded HTTP/1.1 Socket Server from Scratch",
+    "domain": "Computer Science Fundamentals",
+    "difficulty": "beginner",
+    "coveredSkills": [
+      "Python",
+      "Sockets",
+      "Concurrency",
+      "HTTP",
+      "Testing",
+      "Linux"
+    ],
+    "techStack": [
+      "Python",
+      "Socket",
+      "Threading",
+      "Pytest"
+    ],
+    "versionsPinned": {
+      "Python": "latest-stable (needs-pinning)",
+      "Socket": "latest-stable (needs-pinning)",
+      "Threading": "latest-stable (needs-pinning)",
+      "Pytest": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "High-level web frameworks like Express or FastAPI abstract away the underlying POSIX socket APIs, connection queues, and HTTP protocol framing, preventing junior engineers from diagnosing socket exhaustion, connection timeouts, and chunked transfer parsing issues in production. Building an RFC 9112 compliant HTTP/1.1 server from raw TCP sockets clarifies how OS kernel listen backlogs, non-blocking I/O multiplexing, and thread-pool concurrency govern request handling.",
+    "useCases": "Lightweight embedded API server for IoT and edge devices | Micro-benchmarking HTTP protocol overhead without framework middleware bloat | Foundation for understanding reverse proxies and load balancers",
+    "problemItSolves": "Parsing raw byte streams into structured HTTP headers, paths, and methods without buffer overflows | Enforcing keep-alive connection reuse and handling pipelined requests across persistent client connections | Preventing Slowloris denial-of-service vulnerabilities by implementing connection read timeouts",
+    "recruiterSignal": "Clear demonstration of low-level networking foundations without relying on high-level web frameworks | Pytest test suite asserting RFC-compliant status codes and header parsing | Benchmark report showing concurrency handling across 500 concurrent connections",
+    "scope": {
+      "core": [
+        "Client initiates TCP handshake; server socket accepts connection on port 8080 and delegates client f..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 15,
+      "maxHours": 23,
+      "complexityFactor": 1,
+      "basis": "Estimated from 4 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Client initiates TCP handshake"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Client initiates TCP handshake; server socket accepts connection on port 8080 and delegates client file descriptor to thread worker; worker reads stream into 4KB buffer; HTTP parser validates request line and headers; router dispatches to handler function; serializer formats HTTP/1.1 response bytes with Content-Length and flushes socket.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Throughput",
+        "unit": "req/sec",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 1,200 requests/sec on single core for static responses",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Latency (p95)",
+        "unit": "ms",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "< 4ms under 200 concurrent connections",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Memory Footprint",
+        "unit": "MB",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Steady state RSS < 35MB under continuous load",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run python server.py --port 8080 and curl -v http://localhost:8080/health: Server returns HTTP/1.1 200 OK with valid Date and Content-Length headers",
+        "expectedOutcome": "Valid HTTP status line with Content-Length matching payload byte count",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute pytest tests/test_http_parser.py: Validates correct parsing of GET, POST, query parameters, multi-line headers, and malformed requests",
+        "expectedOutcome": "All 12 unit tests pass with zero unhandled parsing exceptions",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run python tests/test_keep_alive.py: Sends 5 sequential HTTP requests over a single TCP socket connection without reconnecting",
+        "expectedOutcome": "Socket remains open across all 5 requests with connection reuse verified",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute wrk -t4 -c100 -d10s http://localhost:8080/plaintext: Measures throughput and latency under concurrent connection load",
+        "expectedOutcome": "Throughput exceeds 1,000 req/sec with zero dropped connections and 100% 2xx responses",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run python tests/test_timeout.py: Simulates slow-client attack by opening socket and sending 1 byte every 2 seconds",
+        "expectedOutcome": "Server forcefully closes connection after 5-second timeout with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Python",
+        "title": "Python Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Engineered multi-threaded HTTP/1.1 server from raw POSIX sockets in Python; implemented RFC-compliant request parsing, persistent keep-alive reuse, and worker-thread pool achieving [THROUGHPUT] req/sec with tail latency under [P95_LATENCY].",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Python and Socket to implement Multi-Threaded HTTP/1.1 Socket Server from Scratch, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Python over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Throughput: > 1,200 requests/sec on single core for static responses | Latency (",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-kv-store-wal",
+    "title": "In-Memory Key-Value Store with Write-Ahead Log (WAL) & Crash Recovery",
+    "domain": "Computer Science Fundamentals",
+    "difficulty": "beginner",
+    "coveredSkills": [
+      "Go",
+      "File I/O",
+      "Data Structures",
+      "Concurrency",
+      "Crash Recovery",
+      "Unit Testing"
+    ],
+    "techStack": [
+      "Go",
+      "OS File I/O",
+      "CRC32",
+      "Testing"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "OS File I/O": "latest-stable (needs-pinning)",
+      "CRC32": "latest-stable (needs-pinning)",
+      "Testing": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "In-memory caches provide sub-millisecond retrieval speeds but risk catastrophic data loss upon process crash or power interruption unless changes are durably persisted to disk. Synchronous random disk writes destroy in-memory throughput. A Write-Ahead Log (WAL) pattern reconciles these constraints by sequentially appending binary mutation records to disk before acknowledging memory updates, enabling deterministic state replay during node restart.",
+    "useCases": "Local transactional persistence layer for microservices | Durable embedded state store for session tracking | High-speed cache with disaster recovery guarantees",
+    "problemItSolves": "Achieving crash-safe persistence without blocking memory reads behind slow random disk seeks | Designing binary serialization protocol with CRC32 checksums to detect partially written torn frames | Implementing background log compaction and snapshotting to prevent unbounded WAL file growth",
+    "recruiterSignal": "Deep understanding of storage engine trade-offs, crash consistency, and durability guarantees | Automated fuzz test killing the process with SIGKILL and verifying 100% state recovery from WAL | Benchmarks proving sequential append performance compared to standard SQLite writes",
+    "scope": {
+      "core": [
+        "Client submits Set/Delete command; engine locks segment with RWMutex; serializes record with length,..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 16,
+      "maxHours": 24,
+      "complexityFactor": 1,
+      "basis": "Estimated from 4 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Client submits Set/Delete command"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Client submits Set/Delete command; engine locks segment with RWMutex; serializes record with length, opcode, key, value, and CRC32; appends record to append-only WAL file and calls fsync; updates in-memory hash map; background goroutine periodically snapshots memory to binary snapshot and truncates rotated WAL.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Write Throughput",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 8,000 writes/sec with batch fsync enabled",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Recovery Speed",
+        "unit": "ms",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Replay 100,000 WAL entries in < 150ms upon startup",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Checksum Integrity",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "100% detection of corrupted or truncated trailing log frames",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run go test -v -run TestBasicOperations: Asserts Set, Get, Delete, and non-existent key retrieval adhere to expected semantics",
+        "expectedOutcome": "All basic CRUD unit tests pass with zero memory leaks",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute go test -v -run TestCrashRecovery: Writes 5,000 keys, abruptly halts process, restarts engine, and asserts all 5,000 keys match original values",
+        "expectedOutcome": "All 5,000 keys verified byte-for-byte identical after recovery",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run go test -v -run TestCorruptWalDetection: Appends garbage bytes to the end of a WAL file and boots engine",
+        "expectedOutcome": "Engine recovers valid prefixes, halts at corrupted frame, logs warning, and returns exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute go test -bench=. -benchmem: Benchmarks concurrent read/write throughput under multi-threaded load",
+        "expectedOutcome": "Benchmark logs > 5,000 writes/sec and memory allocation < 150 bytes/op",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run go test -v -run TestSnapshotCompaction: Writes 20,000 updates to 100 distinct keys and triggers snapshot",
+        "expectedOutcome": "WAL file size reduces by > 90% while current values remain 100% correct",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Developed crash-resilient in-memory key-value database in Go featuring CRC32-checksummed Write-Ahead Logging (WAL); ensured zero data loss under SIGKILL crash tests while sustaining [WRITE_THROUGHPUT] writes/sec with sub-[RECOVERY_TIME] state recovery.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and OS File I/O to implement In-Memory Key-Value Store with Write-Ahead Log (WAL) & Crash Recovery, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Write Throughput: > 8,000 writes/sec with batch fsync enabled | Recovery Speed: ",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-multiagent-code-reviewer",
+    "title": "Multi-Agent Autonomous Code Review & Patch Generator",
+    "domain": "Generative AI & LLMOps",
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Python",
+      "LangGraph",
+      "Git",
+      "AST Analysis",
+      "LLM Prompting",
+      "Pytest"
+    ],
+    "techStack": [
+      "Python",
+      "LangGraph",
+      "GitPython",
+      "OpenAI API",
+      "Pytest"
+    ],
+    "versionsPinned": {
+      "Python": "latest-stable (needs-pinning)",
+      "LangGraph": "latest-stable (needs-pinning)",
+      "GitPython": "latest-stable (needs-pinning)",
+      "OpenAI API": "latest-stable (needs-pinning)",
+      "Pytest": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Engineering teams spend hundreds of hours reviewing routine PRs, identifying linting violations, security vulnerabilities, and missing edge-case test coverage. Monolithic LLM review prompts suffer from high false-positive rates and hallucinations because a single prompt attempts to simultaneously check style, logic, security, and testability. Orchestrating specialized agent roles (Security Auditor, Performance Analyst, Test Generator, and Patch Synthesizer) with iterative critique cycles dramatically increases precision and actionable patch suggestions.",
+    "useCases": "Automated GitHub Actions CI/CD pull request gatekeeper | Pre-commit developer assistant recommending concrete diff fixes | Automated regression test generator for legacy refactoring",
+    "problemItSolves": "Deconstructing code review into isolated specialist agent nodes with distinct system prompts and tools | Parsing unified diffs and AST trees to pin comments to exact file line numbers | Synthesizing valid git unified patch files that compile and pass test verification without human intervention",
+    "recruiterSignal": "Demonstrated mastery of multi-agent state machines with LangGraph and tool calling | Evaluation suite measuring false-positive rate across 30 real-world buggy PR samples | End-to-end integration running in local Git repositories with real diff application",
+    "scope": {
+      "core": [
+        "GitHub diff ingested by Coordinator agent; dispatches AST nodes in parallel to Security Agent (SAST ..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 20,
+      "maxHours": 30,
+      "complexityFactor": 2,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "GitHub diff ingested by Coordinator agent"
+        ]
+      }
+    ],
+    "architectureDataFlow": "GitHub diff ingested by Coordinator agent; dispatches AST nodes in parallel to Security Agent (SAST checks) and Performance Agent (time complexity); synthesis node consolidates findings; Test Agent generates reproducing unit tests; Patch Agent generates unified git diff; local sandbox runs tests to verify patch fixes failure; Coordinator comments formatted markdown review.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "PR Review Latency",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "< 45 seconds for diffs up to 500 lines",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "False Positive Rate",
+        "unit": "%",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "< 12% on benchmark bug dataset",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Patch Application Success",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 85% of suggested diffs apply cleanly via git apply",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run python review_pr.py --diff samples/sql_injection.diff: Analyzes diff and flags SQL vulnerability in auth_service.py with CWE-89 identification",
+        "expectedOutcome": "Security Auditor outputs severity HIGH finding with line number match",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute pytest tests/test_agent_workflow.py: Runs graph state machine through linting, security, and patch synthesis stages",
+        "expectedOutcome": "LangGraph execution terminates in FINISHED state across all test cases",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run python apply_patch.py --pr-id 101: Applies synthesized git diff to test workspace and triggers local test suite",
+        "expectedOutcome": "Workspace tests pass with exit code 0 and zero git merge conflicts",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute python eval_benchmark.py --benchmark dataset/cwe_benchmark.json: Evaluates precision and recall on 25 synthetic vulnerable codebases",
+        "expectedOutcome": "Precision exceeds 85% and Recall exceeds 80%",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run python review_pr.py --clean-diff samples/clean_feature.diff: Reviews defect-free diff and approves without spurious blocker comments",
+        "expectedOutcome": "Returns APPROVED status with zero blocking findings",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Python",
+        "title": "Python Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Built multi-agent code review system with LangGraph and AST parsing; orchestrated security, performance, and patch synthesis agents to reduce review turnaround by [LATENCY_REDUCTION]% while delivering [PATCH_SUCCESS_RATE]% clean patch application on production pull requests.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Python and LangGraph to implement Multi-Agent Autonomous Code Review & Patch Generator, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Python over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "PR Review Latency: < 45 seconds for diffs up to 500 lines | False Positive Rate:",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-idempotency-gateway",
+    "title": "Distributed Idempotency Key Gateway with Redis & SHA-256 Fingerprinting",
+    "domain": "High-Scale Backend & Distributed Architecture",
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Go",
+      "Redis",
+      "HTTP Protocols",
+      "Distributed Systems",
+      "Concurrency",
+      "Testing"
+    ],
+    "techStack": [
+      "Go",
+      "Redis",
+      "HTTP",
+      "SHA-256",
+      "Docker",
+      "Testing"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "Redis": "latest-stable (needs-pinning)",
+      "HTTP": "latest-stable (needs-pinning)",
+      "SHA-256": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)",
+      "Testing": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "In distributed microservice environments, network timeouts and automatic client retries can cause non-idempotent HTTP POST endpoints (e.g., payment charges, order submissions) to be executed multiple times, resulting in duplicate billing or double fulfillment. A distributed idempotency middleware must safely intercept requests carrying an Idempotency-Key header, lock processing during in-flight execution, detect payload mutation via cryptographic hashing, and replay cached responses atomically.",
+    "useCases": "Payment gateway charge processing shielding merchant accounts from double-charges | Order processing pipeline preventing duplicate inventory deductions | Webhook dispatcher guaranteeing once-and-only-once execution of partner callbacks",
+    "problemItSolves": "Preventing duplicate database writes caused by network blips and automated HTTP retries | Detecting malicious or buggy payload tampering when a client reuses an idempotency key with conflicting bodies | Avoiding race conditions where two simultaneous identical requests arrive concurrently using atomic SETNX locks",
+    "recruiterSignal": "Deep understanding of HTTP RFC specifications (draft-ietf-httpapi-idempotency-key-header) | Robust concurrency test suite executing 50 concurrent identical requests with zero duplicate executions | Benchmarks proving less than 3ms overhead added to the request-response lifecycle",
+    "scope": {
+      "core": [
+        "Incoming request carries Idempotency-Key; middleware computes SHA-256 fingerprint of method + path +..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 17,
+      "maxHours": 25,
+      "complexityFactor": 2,
+      "basis": "Estimated from 6 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Incoming request carries Idempotency-Key"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Incoming request carries Idempotency-Key; middleware computes SHA-256 fingerprint of method + path + body; executes atomic Redis SETNX with key and IN_PROGRESS status with 120s TTL; if lock fails, checks stored hash: if matching, awaits completion and returns cached response; if hash differs, returns HTTP 422 Unprocessable Entity; upon upstream completion, updates Redis key to COMPLETED with serialized response bytes and 24h TTL.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Throughput",
+        "unit": "req/sec",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 12,000 requests/sec with Redis cluster backend",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Overhead Latency (p99)",
+        "unit": "ms",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "< 2.5ms added to incoming request",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Concurrency Safety",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "100% duplicate prevention under 100 simultaneous concurrent retries",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run go test -v -run TestSingleExecution: Sends single POST /v1/orders with Idempotency-Key",
+        "expectedOutcome": "Order processed successfully returning HTTP 201 Created with cached status in Redis",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute go test -v -run TestConcurrentRetries: Fires 50 simultaneous identical requests with identical Idempotency-Key in parallel goroutines",
+        "expectedOutcome": "Downstream handler executes exactly once; 49 requests receive identical replay response",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run go test -v -run TestMismatchedPayloadRejection: Sends duplicate Idempotency-Key with different payload body",
+        "expectedOutcome": "Gateway immediately rejects request with HTTP 422 Unprocessable Entity and mismatch error code",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute wrk -t4 -c100 -d15s http://localhost:8080/v1/orders -s scripts/idempotency_bench.lua: Stresses middleware under sustained concurrent load",
+        "expectedOutcome": "Throughput exceeds 8,000 req/sec with p99 latency < 4ms",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run go test -v -run TestTimeoutUnlock: Simulates downstream server crash during IN_PROGRESS state",
+        "expectedOutcome": "Lock expires safely according to TTL, allowing subsequent retry to proceed cleanly",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Engineered distributed HTTP idempotency gateway in Go using Redis and SHA-256 payload hashing; guaranteed exactly-once semantic execution across [CONCURRENT_REQUESTS] concurrent retries while adding under [LATENCY_OVERHEAD]ms p99 latency.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and Redis to implement Distributed Idempotency Key Gateway with Redis & SHA-256 Fingerprinting, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Throughput: > 12,000 requests/sec with Redis cluster backend | Overhead Latency ",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-double-entry-ledger",
+    "title": "Immutable Double-Entry General Ledger with Multi-Currency Balance Invariants",
+    "domain": "FinTech & High-Integrity Systems",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "PostgreSQL",
+      "Go",
+      "Accounting",
+      "ACID",
+      "Database Constraints",
+      "Testing"
+    ],
+    "techStack": [
+      "Go",
+      "PostgreSQL",
+      "SQL Constraints",
+      "Docker",
+      "pgx",
+      "Testing"
+    ],
+    "versionsPinned": {
+      "Go": "latest-stable (needs-pinning)",
+      "PostgreSQL": "latest-stable (needs-pinning)",
+      "SQL Constraints": "latest-stable (needs-pinning)",
+      "Docker": "latest-stable (needs-pinning)",
+      "pgx": "latest-stable (needs-pinning)",
+      "Testing": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "FinTech and banking platforms cannot use naive single-column account balance fields (e.g. `UPDATE accounts SET balance = balance + 100`) because network retries, race conditions, and unrecorded state changes create untraceable money leaks. Standard financial accounting mandates double-entry bookkeeping: every transaction consists of an immutable set of balanced debit and credit entries whose net sum equals zero. A financial ledger must enforce immutability, foreign currency exchange rates, and mathematical zero-sum constraints at the database engine level.",
+    "useCases": "Core banking engine for digital neobanks and wallet platforms | Multi-currency marketplace escrow account management | Regulatory compliance audit trails for payment service providers",
+    "problemItSolves": "Eliminating money creation out of thin air by enforcing `SUM(debits) - SUM(credits) = 0` via database constraints | Preventing fraudulent transaction tampering by maintaining append-only journal entries with cryptographic chain hashes | Ensuring account balance calculations are derived directly from the immutable transaction history",
+    "recruiterSignal": "Deep understanding of accounting fundamentals (assets, liabilities, equity, debits/credits) | Production PostgreSQL schema utilizing deferrable constraints and check invariants | Automated stress test running concurrent transfers between 100 accounts with zero invariant violations",
+    "scope": {
+      "core": [
+        "PostgreSQL schema defines accounts, transactions, and entries; Transactions write atomically in an A..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 20,
+      "maxHours": 30,
+      "complexityFactor": 3,
+      "basis": "Estimated from 6 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "PostgreSQL schema defines accounts, transactions, and entries"
+        ]
+      }
+    ],
+    "architectureDataFlow": "PostgreSQL schema defines accounts, transactions, and entries; Transactions write atomically in an ACID transaction with >= 2 entries; Check constraint ensures debit/credit balance; Trigger computes SHA-256 hash of previous transaction hash + current entry bytes, creating an append-only cryptographic ledger chain; Read queries calculate account balances via indexed aggregate sums.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Write Throughput",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 4,000 balanced ledger transactions/sec",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Invariant Guarantee",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "100% rejection of unbalanced debit/credit entries",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Integrity Check",
+        "unit": "units",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Verify audit chain across 1,000,000 entries in < 8 seconds",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run go test -v -run TestUnbalancedTransactionRejection: Attempts to insert transaction where debit ($100) does not equal credit ($80)",
+        "expectedOutcome": "Database rejects with constraint violation error code",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute go test -v -run TestConcurrentTransfers: Simulates 200 concurrent money transfers between 10 accounts",
+        "expectedOutcome": "Final sum of all balances matches initial total deposits to the exact cent",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run go test -v -run TestLedgerChainVerification: Traverses 10,000 historical transactions validating cryptographic SHA-256 chain links",
+        "expectedOutcome": "Reports 100% chain integrity verified with zero tampered blocks",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute go test -v -run TestTamperDetection: Directly updates historical entry amount using privileged DB connection",
+        "expectedOutcome": "Audit scanner immediately flags broken hash chain at altered block index",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run go test -bench=. -benchmem: Measures transaction insertion rate under multi-threaded connection pool",
+        "expectedOutcome": "Sustains > 3,500 transactions/sec with zero deadlocks",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "Go",
+        "title": "Go Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Architected immutable double-entry ledger in Go and PostgreSQL with cryptographic audit chaining; enforced mathematical balance invariants across [TRANSACTION_VOLUME] multi-currency transactions with zero balance discrepancies under heavy concurrency.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged Go and PostgreSQL to implement Immutable Double-Entry General Ledger with Multi-Currency Balance Invariants, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select Go over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Write Throughput: > 4,000 balanced ledger transactions/sec | Invariant Guarantee",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-clickstream-clickhouse",
+    "title": "Real-Time Clickstream Ingestion & Aggregation with ClickHouse & Kafka",
+    "domain": "Modern Data Engineering & Analytics Infra",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "ClickHouse",
+      "Kafka",
+      "Data Engineering",
+      "SQL",
+      "Docker",
+      "Go"
+    ],
+    "techStack": [
+      "ClickHouse",
+      "Apache Kafka",
+      "Go",
+      "Docker Compose",
+      "SQL",
+      "Grafana"
+    ],
+    "versionsPinned": {
+      "ClickHouse": "latest-stable (needs-pinning)",
+      "Apache Kafka": "latest-stable (needs-pinning)",
+      "Go": "latest-stable (needs-pinning)",
+      "Docker Compose": "latest-stable (needs-pinning)",
+      "SQL": "latest-stable (needs-pinning)",
+      "Grafana": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "Modern web applications generate billions of user clickstream events (page views, button clicks, impressions, conversions) daily. Storing individual unaggregated events in relational databases like PostgreSQL causes write exhaustion, sluggish queries, and ballooning storage costs. Operating a real-time event analytics platform requires streaming click events through Apache Kafka into ClickHouse using columnar compression, ReplacingMergeTree engines for deduplication, and Materialized Views for sub-second dashboard aggregations.",
+    "useCases": "High-volume web analytics dashboard (self-hosted Google Analytics / PostHog alternative) | Real-time advertising impression tracking and attribution modeling | In-app user journey funnel analysis and feature engagement tracking",
+    "problemItSolves": "Ingesting 50,000+ raw click events per second without dropping records or degrading query response times | Deduplicating retransmitted streaming events using ClickHouse ReplacingMergeTree engines | Precomputing rollups (hourly/daily active users, conversion funnels) via Materialized Views to enable sub-50ms dashboard queries",
+    "recruiterSignal": "Comprehensive understanding of columnar OLAP database design, sorting keys, and partition pruning | Benchmarks comparing PostgreSQL vs ClickHouse query speeds on 10,000,000 rows | Production Docker Compose environment with Kafka broker, ClickHouse cluster, and Grafana dashboard",
+    "scope": {
+      "core": [
+        "Client sends events to Go ingestion proxy; proxy validates schema and publishes to Kafka topic user-..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 20,
+      "maxHours": 29,
+      "complexityFactor": 3,
+      "basis": "Estimated from 6 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Client sends events to Go ingestion proxy"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Client sends events to Go ingestion proxy; proxy validates schema and publishes to Kafka topic user-clicks; ClickHouse Kafka Engine table ingests stream directly; Materialized View transforms raw JSON, extracts fields, and inserts into partitioned events_raw (ReplacingMergeTree) table; Secondary Materialized View updates hourly rollup tables; Grafana queries ClickHouse via HTTP interface.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Ingestion Throughput",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 75,000 events/sec sustained ingestion rate",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Query Response",
+        "unit": "ms",
+        "direction": "lower_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "< 35ms for aggregate queries across 10 million event rows",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Storage Compression",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "Achieve > 5:1 data compression ratio using ZSTD codecs",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run docker-compose up -d and python generate_traffic.py --count 100000: Streams 100,000 synthetic click events into Kafka topic",
+        "expectedOutcome": "Events flow through Kafka Engine and populate ClickHouse events_raw table within 5 seconds",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute clickhouse-client --query 'SELECT count() FROM analytics.events_raw': Verifies full row ingestion",
+        "expectedOutcome": "Returns exactly 100,000 rows matching published event count",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run clickhouse-client --query 'SELECT toStartOfHour(timestamp), event_name, count() FROM analytics.events_raw GROUP BY 1, 2': Tests aggregation performance",
+        "expectedOutcome": "Executes in < 25ms scanning all 100,000 records",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute python test_deduplication.py: Publishes 500 duplicate event UUIDs into the stream",
+        "expectedOutcome": "ReplacingMergeTree engine cleans duplicates during background merge, maintaining exact unique count",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run clickhouse-client --query \"SELECT formatReadableSize(data_compressed_bytes), formatReadableSize(data_uncompressed_bytes) FROM system.columns WHERE table='events_raw'\": Inspects compression metrics",
+        "expectedOutcome": "Confirms compression ratio exceeds 4.5x over raw JSON",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "ClickHouse",
+        "title": "ClickHouse Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Built real-time clickstream analytics platform using ClickHouse and Apache Kafka; sustained ingestion of [INGESTION_RATE] events/sec and compressed storage by [COMPRESSION_RATIO]x while delivering sub-[QUERY_LATENCY]ms OLAP query response times across millions of records.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged ClickHouse and Apache Kafka to implement Real-Time Clickstream Ingestion & Aggregation with ClickHouse & Kafka, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select ClickHouse over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Ingestion Throughput: > 75,000 events/sec sustained ingestion rate | Query Respo",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  },
+  {
+    "id": "brief-malloc-freelist-allocator",
+    "title": "Custom Free-List Memory Allocator (malloc/free) with Boundary-Tag Coalescing",
+    "domain": "Systems Programming & Performance",
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "C",
+      "Memory Management",
+      "Pointers",
+      "Data Structures",
+      "Systems Programming",
+      "Valgrind"
+    ],
+    "techStack": [
+      "C (C11)",
+      "Make",
+      "Valgrind",
+      "AddressSanitizer",
+      "GCC/Clang"
+    ],
+    "versionsPinned": {
+      "C (C11)": "latest-stable (needs-pinning)",
+      "Make": "latest-stable (needs-pinning)",
+      "Valgrind": "latest-stable (needs-pinning)",
+      "AddressSanitizer": "latest-stable (needs-pinning)",
+      "GCC/Clang": "latest-stable (needs-pinning)"
+    },
+    "problemStatement": "High-level language runtimes and operating systems provide standard memory allocators (`malloc`, `free`), but engineers who treat memory as an infinite abstraction struggle to diagnose memory fragmentation, cache locality penalties, and heap exhaustion in performance-critical systems. Implementing a custom heap memory allocator from raw OS virtual memory pages (`sbrk` / `mmap`) demonstrates how memory headers, boundary tags, explicit free lists, and immediate neighbor coalescing govern dynamic memory allocation.",
+    "useCases": "Custom arena/pool memory allocator for high-frequency trading engines | Embedded systems allocator operating under strict deterministic heap constraints | Foundation for understanding garbage collector and runtime allocator internals",
+    "problemItSolves": "Eliminating external heap fragmentation by coalescing adjacent free blocks using Knuth boundary tags | Implementing explicit segregated free lists to achieve $O(1)$ block search time for common allocation sizes | Enforcing strict 8-byte/16-byte CPU memory alignment constraints to prevent hardware bus faults",
+    "recruiterSignal": "Exceptional demonstration of low-level systems programming, pointer arithmetic, and heap internals | Valgrind and AddressSanitizer test runs verifying zero memory leaks or illegal pointer dereferences | Benchmark comparing allocation throughput and memory utilization against GNU libc malloc",
+    "scope": {
+      "core": [
+        "Allocator requests 4MB heap chunk from OS via mmap/sbrk; Divides heap into structured blocks: 8-byte..."
+      ],
+      "extensions": [
+        "Production hardening and telemetry exporter"
+      ],
+      "outOfScope": [
+        "Multi-region active-active deployment"
+      ],
+      "hiddenWork": [
+        "Environment setup and Docker container configuration"
+      ]
+    },
+    "effort": {
+      "minHours": 20,
+      "maxHours": 30,
+      "complexityFactor": 3,
+      "basis": "Estimated from 5 tools and 5 rubric checks"
+    },
+    "prerequisites": {
+      "os": [
+        "windows",
+        "linux",
+        "darwin"
+      ],
+      "privileges": "user",
+      "hardwareClass": "standard-laptop",
+      "accountsRequired": [],
+      "paidServices": [],
+      "inrCost": 0,
+      "freeTierPath": "100% locally runnable using Docker and open-source tooling"
+    },
+    "architectureComponents": [
+      {
+        "id": "comp_core",
+        "name": "Core System Engine",
+        "role": "Primary algorithmic processing and routing",
+        "responsibilities": [
+          "Allocator requests 4MB heap chunk from OS via mmap/sbrk"
+        ]
+      }
+    ],
+    "architectureDataFlow": "Allocator requests 4MB heap chunk from OS via mmap/sbrk; Divides heap into structured blocks: 8-byte Header (size + allocated bit), Payload, and 8-byte Footer; Free blocks link into an explicit doubly linked free list; my_malloc(size) finds best-fit or first-fit free block, splits block if excess size > 32 bytes, marks allocated, returns pointer; my_free(ptr) checks neighbor headers/footers, coalesces adjacent free blocks, and re-links to free list.",
+    "metrics": [
+      {
+        "id": "metric_1",
+        "name": "Allocation Throughput",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 1,500,000 malloc/free operations/sec on single core",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_2",
+        "name": "Space Utilization",
+        "unit": "%",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "> 85% memory utilization ratio on synthetic trace benchmarks",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      },
+      {
+        "id": "metric_3",
+        "name": "Search Latency",
+        "unit": "units",
+        "direction": "higher_is_better",
+        "measurementMethod": "Automated test suite benchmark",
+        "environment": "Reference commodity host (4 CPU, 8GB RAM)",
+        "passThreshold": "$O(1)$ search latency for small size classes using segregated free lists",
+        "evidenceStatus": "analytically-checked",
+        "evidenceRef": "legacy_spec"
+      }
+    ],
+    "rubric": [
+      {
+        "id": "rubric_1",
+        "metricId": "metric_1",
+        "command": "Run make test: Executes comprehensive memory allocation unit test suite",
+        "expectedOutcome": "All 15 allocation, boundary, and pointer alignment tests pass with exit code 0",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_2",
+        "command": "Execute valgrind --leak-check=full --error-exitcode=1 ./bin/test_allocator: Runs allocation test under Valgrind",
+        "expectedOutcome": "Reports ZERO memory leaks and zero invalid reads/writes",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_3",
+        "command": "Run ./bin/test_coalescing: Allocates blocks A, B, C; frees A and C; then frees B",
+        "expectedOutcome": "Engine coalesces A, B, and C into single contiguous free block matching combined byte size",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_4",
+        "command": "Execute ./bin/benchmark_allocator --trace traces/realloc.rep: Replays standard allocation trace against libc malloc",
+        "expectedOutcome": "Achieves > 80% memory utilization and sustained allocation throughput",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      },
+      {
+        "id": "rubric_5",
+        "command": "Run ./bin/test_alignment: Asserts memory addresses returned by my_malloc across 1 to 1024 byte requests",
+        "expectedOutcome": "100% of returned addresses are strictly aligned to 8-byte boundaries",
+        "verifierArtifact": "tests/verify_brief.sh",
+        "interpreter": "bash"
+      }
+    ],
+    "milestones": [
+      {
+        "id": "m1",
+        "stepNumber": 1,
+        "title": "Project Setup & Protocol Scaffolding",
+        "conceptIntroduced": "Core architecture and dependencies",
+        "verifiableOutput": "Compiling boilerplate with test runner initialized",
+        "effortSharePercent": 20
+      },
+      {
+        "id": "m2",
+        "stepNumber": 2,
+        "title": "Core Engine & Algorithmic Implementation",
+        "conceptIntroduced": "Primary data structures and state transitions",
+        "verifiableOutput": "Passing unit test suite on golden fixtures",
+        "effortSharePercent": 50
+      },
+      {
+        "id": "m3",
+        "stepNumber": 3,
+        "title": "Scale Benchmarking & Verification Hardening",
+        "conceptIntroduced": "Concurrency, latency bounds, and edge failure recovery",
+        "verifiableOutput": "Passing automated verification rubric check",
+        "effortSharePercent": 30
+      }
+    ],
+    "resources": [
+      {
+        "concept": "C (C11)",
+        "title": "C (C11) Documentation",
+        "url": "https://docs.hireflow.internal/resources",
+        "section": "Getting Started",
+        "verified": true
+      }
+    ],
+    "stuckPoints": [
+      {
+        "milestoneId": "m2",
+        "symptom": "Test failure under high concurrency",
+        "rootCause": "Race condition or unbuffered channel / lock contention",
+        "hint": "Use atomic primitives or mutex synchronization around shared mutable state"
+      }
+    ],
+    "resumeBullets": [
+      {
+        "structure": "outcome-first",
+        "template": "Implemented custom dynamic memory allocator (malloc/free) in C using segregated free lists and boundary-tag coalescing; achieved [ALLOCATION_THROUGHPUT] ops/sec with [MEMORY_UTILIZATION]% heap space utilization and zero memory leaks under Valgrind.",
+        "metricIds": [
+          "metric_1"
+        ]
+      },
+      {
+        "structure": "technique-first",
+        "template": "Leveraged C (C11) and Make to implement Custom Free-List Memory Allocator (malloc/free) with Boundary-Tag Coalescing, achieving verifiable scale targets.",
+        "metricIds": [
+          "metric_1"
+        ]
+      }
+    ],
+    "interviewDefense": [
+      {
+        "question": "Why did you select C (C11) over competing alternatives?",
+        "answerOutline": "Discussed memory overhead, throughput characteristics, and concurrency ergonomics.",
+        "tradeOffs": "Higher development time in exchange for deterministic low tail latency",
+        "failureModes": "Resource exhaustion under sustained unthrottled load"
+      }
+    ],
+    "claims": [
+      {
+        "id": "claim_1",
+        "claim": "Allocation Throughput: > 1,500,000 malloc/free operations/sec on single core | S",
+        "status": "needs-review",
+        "source": "Synthetic benchmark targets"
+      }
+    ],
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational application scope with zero production side effects.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "status": "clear"
+    },
+    "lastReviewed": "2026-10-28",
+    "reviewBy": "2027-04-26",
+    "version": "2.0.0",
+    "_validation": {
+      "valid": true,
+      "errors": []
+    }
+  }
+]
