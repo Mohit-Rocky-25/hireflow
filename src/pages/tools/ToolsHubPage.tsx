@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
-import { FEATURES, PATHWAYS_NAME } from '../../config';
+
 
 interface ToolItem {
   id: string;
@@ -104,20 +104,6 @@ export function ToolsHubPage() {
       title: 'Discovery & Direction',
       description: 'Explore career ladders and evaluate target roles side-by-side.',
       tools: [
-        ...(FEATURES.PATHWAYS_ENABLED
-          ? [
-              {
-                id: 'pathways',
-                pill: 'Campus Intel',
-                title: `${PATHWAYS_NAME} Fresher Radar`,
-                badge: '20 Verified Campus Programs',
-                description: 'Deterministic eligibility radar, CGPA gap calculator, and offer take-home simulator for Indian engineering students.',
-                link: '/tools/pathways',
-                cta: 'Launch Pathways',
-                tags: ['Eligibility Radar', 'CGPA Gap', 'Offer Evaluator', 'Zero Egress'],
-              },
-            ]
-          : []),
         {
           id: 'career-path',
           pill: 'Trajectory',

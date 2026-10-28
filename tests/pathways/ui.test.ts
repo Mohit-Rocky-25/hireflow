@@ -84,12 +84,11 @@ describe('Pathways UI Layer & Wireframes Verification (Stage S10)', () => {
     expect(content).toContain('/tools/pathways/about-data');
   });
 
-  it('verifies ToolsHubPage includes Pathways fresher intel card', () => {
+  it('verifies ToolsHubPage excludes Pathways fresher radar from Discovery & Direction', () => {
     const toolsHubPath = path.join(rootDir, 'src/pages/tools/ToolsHubPage.tsx');
     const content = fs.readFileSync(toolsHubPath, 'utf8');
-    expect(content).toContain('FEATURES.PATHWAYS_ENABLED');
-    expect(content).toContain('/tools/pathways');
-    expect(content).toContain('Fresher Radar');
+    expect(content).not.toContain('Fresher Radar');
+    expect(content).not.toContain('/tools/pathways');
   });
 
   it('verifies feature flag configuration', () => {
