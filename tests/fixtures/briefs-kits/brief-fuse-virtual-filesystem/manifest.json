@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-fuse-virtual-filesystem",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run go run cmd/fuse-vault/main.go --mount /tmp/myv",
+      "rubricIndex": 0,
+      "expectedOutcome": "Mount succeeds and /tmp/myvault becomes browseable via standard ls"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute echo \"Confidential Top Secret Data\" > /tmp",
+      "rubricIndex": 1,
+      "expectedOutcome": "File appears in /tmp/myvault; underlying file in /tmp/encrypted_store is completely encrypted ciphertext"
+    },
+    {
+      "id": "check_3",
+      "name": "Run cat /tmp/myvault/secret.txt: Reads file back t",
+      "rubricIndex": 2,
+      "expectedOutcome": "Transparently decrypts and outputs exact original string 'Confidential Top Secret Data'"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "All POSIX operations complete with expected error codes and directory tree consistency"
+    },
+    {
+      "id": "check_5",
+      "name": "Run dd if=/dev/zero of=/tmp/myvault/test.bin bs=1M",
+      "rubricIndex": 4,
+      "expectedOutcome": "Writes 100MB file at > 200MB/sec with clean cryptographic checksum verification"
+    }
+  ]
+}

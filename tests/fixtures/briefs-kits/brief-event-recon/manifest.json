@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-event-recon",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m recon_engine.reconcile --transactions da",
+      "rubricIndex": 0,
+      "expectedOutcome": "25 of 25 seeded breaks detected with zero false negatives and exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_recon_speed.py --count 10",
+      "rubricIndex": 1,
+      "expectedOutcome": "Measured throughput exceeds 5,000 transactions/sec"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m recon_engine.audit_ledger: Sum of all de",
+      "rubricIndex": 2,
+      "expectedOutcome": "Total debits minus total credits equals 0.00 with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8000/api/reports/breaks: API",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 with break categories matching seeded counts"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_recon.py --amount 12",
+      "rubricIndex": 4,
+      "expectedOutcome": "Engine creates break record with reference DYNAMIC_REF_77 and exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-mini-sql-lexer",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Produces exact sequence of 12 tokens with correct positions and types"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "AST structure matches canonical syntax tree snapshot"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Filtered output matches SQLite reference execution results byte-for-byte"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Engine throws descriptive syntax errors with exact column line and character index"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run benchmark: Executes 1,000 queries over",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reports average execution time < 25ms per query with zero memory accumulation"
+    }
+  ]
+}

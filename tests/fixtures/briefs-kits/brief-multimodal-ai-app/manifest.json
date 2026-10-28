@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-multimodal-ai-app",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m multimodal_app.evaluate_multimodal --tes",
+      "rubricIndex": 0,
+      "expectedOutcome": "Measured accuracy is >= 78.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_latency.py --samples 100:",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency is < 6.5s with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m multimodal_app.evaluate_ablation --data ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Accuracy margin >= 18.0 points with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/v1/reason -",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains non-empty answer and transcript fields"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_multimodal.py --imag",
+      "rubricIndex": 4,
+      "expectedOutcome": "Answer string contains exact serial number 'SN-9821' with exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-raft-consensus",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/bench_election --trials 10 --nodes 5:",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 failover latency < 450ms and 0 split-brain leaders with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "go run ./cmd/bench_throughput --requests 10000 --c",
+      "rubricIndex": 1,
+      "expectedOutcome": "Throughput >= 1500 ops/sec with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "100 of 100 persisted log entries restored with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "go run ./cmd/raft_cli status --endpoint localhost:",
+      "rubricIndex": 3,
+      "expectedOutcome": "Output displays valid leader and 4 connected followers with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms identical SHA-256 state hash across all 5 nodes with exit code 0"
+    }
+  ]
+}

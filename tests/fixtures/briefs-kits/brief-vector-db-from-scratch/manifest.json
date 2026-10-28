@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-vector-db-from-scratch",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/evaluate_recall.py --vectors 1",
+      "rubricIndex": 0,
+      "expectedOutcome": "Recall@10 >= 93.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./benchmarks/measure_latency.py --queries 1",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 search latency < 8.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./benchmarks/build_index.py --vectors 10000",
+      "rubricIndex": 2,
+      "expectedOutcome": "Build time < 300s with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/verify_persistence.py --index-pat",
+      "rubricIndex": 3,
+      "expectedOutcome": "100 of 100 identical neighbor results with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_exact_probe.py --probe-id ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms rank-1 match for ID 7194 with exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-bluegreen-envoy-router",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and go run cmd/controlpla",
+      "rubricIndex": 0,
+      "expectedOutcome": "Envoy establishes xDS stream and logs routes successfully synced"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute k6 run --vus 50 --duration 10s scripts/ver",
+      "rubricIndex": 1,
+      "expectedOutcome": "Response distribution confirms 80% Blue (+/- 1%) and 20% Green (+/- 1%)"
+    },
+    {
+      "id": "check_3",
+      "name": "Run go run cmd/deployer/main.go --canary --service",
+      "rubricIndex": 2,
+      "expectedOutcome": "Rolls out 5% -> 25% -> 50% -> 100% with verification pauses between steps"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scripts/inject_canary_faults.py: In",
+      "rubricIndex": 3,
+      "expectedOutcome": "Evaluator detects error rate > 2%, halts rollout, and shifts 100% traffic to Blue in < 1 second"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl -H 'X-Beta-Tester: true' http://localhost",
+      "rubricIndex": 4,
+      "expectedOutcome": "Directs request to Green version regardless of global percentage weights"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-notification-service",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:dedup -- --samples 1000: Redis dedupl",
+      "rubricIndex": 0,
+      "expectedOutcome": "1,000 of 1,000 duplicate payloads suppressed with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "node scripts/benchmark_throughput.js --events 2000",
+      "rubricIndex": 1,
+      "expectedOutcome": "Measured throughput is >= 2,500 msg/sec with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "node scripts/verify_channel_fallback.js --trials 3",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average fallback duration < 350ms across 30 trials with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:3000/api/v1/notifications/ev",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains delivery_timeline array with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_dedup.js --event-id ev",
+      "rubricIndex": 4,
+      "expectedOutcome": "Verification confirms provider called exactly once and second call logged 'DUPLICATE_SUPPRESSED' with exit code 0"
+    }
+  ]
+}

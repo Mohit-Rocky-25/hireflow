@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-tar-gzip-decompressor",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "All 15 test headers parse with exact file metadata extracted"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python unpacker.py --inspect sample.tar.gz",
+      "rubricIndex": 1,
+      "expectedOutcome": "Outputs filenames, sizes, and permissions matching `tar -tvf` output"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Unpacker raises PathTraversalSecurityException and aborts extraction"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scripts/benchmark_memory.py --archi",
+      "rubricIndex": 3,
+      "expectedOutcome": "Process memory remains strictly bounded under 35MB throughout extraction"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python unpacker.py --extract valid.tar.gz outp",
+      "rubricIndex": 4,
+      "expectedOutcome": "100% of extracted files match source checksums"
+    }
+  ]
+}

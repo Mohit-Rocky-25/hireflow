@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-database-engine",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run ./build/db_bench --benchmark point_lookup --ke",
+      "rubricIndex": 0,
+      "expectedOutcome": "Average point lookup latency is < 150 microseconds with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run ./build/db_bench --benchmark table_scan --tabl",
+      "rubricIndex": 1,
+      "expectedOutcome": "Measured scan throughput exceeds 25,000 records/sec"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./scripts/verify_crash_recovery.sh --crashes 2",
+      "rubricIndex": 2,
+      "expectedOutcome": "All 20 crash scenarios recover successfully with 0 corrupt pages and exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run ./build/verify_buffer_pool --frames 64 --acces",
+      "rubricIndex": 3,
+      "expectedOutcome": "Test passes with 0 memory errors reported by Valgrind/ASan"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./scripts/verify_dynamic_storage.sh --nonce 0x",
+      "rubricIndex": 4,
+      "expectedOutcome": "Dynamic verification confirms zero uncommitted nonce leakage with exit code 0"
+    }
+  ]
+}

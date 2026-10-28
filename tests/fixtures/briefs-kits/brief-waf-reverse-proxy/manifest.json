@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-waf-reverse-proxy",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run curl -i http://localhost:8080/search?q=\"1%20UN",
+      "rubricIndex": 0,
+      "expectedOutcome": "WAF blocks request returning HTTP 403 Forbidden with security violation header"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute curl -i http://localhost:8080/profile?bio=",
+      "rubricIndex": 1,
+      "expectedOutcome": "WAF detects script tags and blocks request with HTTP 403 Forbidden"
+    },
+    {
+      "id": "check_3",
+      "name": "Run curl -i http://localhost:8080/files?name=\"..%2",
+      "rubricIndex": 2,
+      "expectedOutcome": "WAF normalizes path, catches directory traversal attempt, and returns HTTP 403"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "WAF proxies 100% of clean requests to upstream server without false positives"
+    },
+    {
+      "id": "check_5",
+      "name": "Run wrk -t4 -c100 -d10s http://localhost:8080/api/",
+      "rubricIndex": 4,
+      "expectedOutcome": "Sustains > 6,500 req/sec with p95 inspection latency < 4ms"
+    }
+  ]
+}

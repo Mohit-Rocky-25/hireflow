@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-dist-rate-limiter",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run go run ./cmd/bench --requests 1000 --limit 500",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exactly 500 HTTP 200 and 500 HTTP 429 responses recorded with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run go run ./cmd/bench --benchmark latency --reque",
+      "rubricIndex": 1,
+      "expectedOutcome": "p99 latency overhead is < 3.0 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./scripts/verify_redis_outage.sh: Circuit brea",
+      "rubricIndex": 2,
+      "expectedOutcome": "Test passes with 0 HTTP 500 responses and circuit breaker state reported as OPEN"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -i http://localhost:8080/api/data -H 'X-API-K",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 429 and Retry-After header is present with positive integer value"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_quota.py --key DYNAM",
+      "rubricIndex": 4,
+      "expectedOutcome": "Request 10 returns 200, request 11 returns 429, and exit code is 0"
+    }
+  ]
+}

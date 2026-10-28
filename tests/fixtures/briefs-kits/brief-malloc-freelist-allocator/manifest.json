@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-malloc-freelist-allocator",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run make test: Executes comprehensive memory alloc",
+      "rubricIndex": 0,
+      "expectedOutcome": "All 15 allocation, boundary, and pointer alignment tests pass with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute valgrind --leak-check=full --error-exitcod",
+      "rubricIndex": 1,
+      "expectedOutcome": "Reports ZERO memory leaks and zero invalid reads/writes"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./bin/verify_coalescing: Allocates blocks A, B",
+      "rubricIndex": 2,
+      "expectedOutcome": "Engine coalesces A, B, and C into single contiguous free block matching combined byte size"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute ./bin/benchmark_allocator --trace traces/r",
+      "rubricIndex": 3,
+      "expectedOutcome": "Achieves > 80% memory utilization and sustained allocation throughput"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./bin/verify_alignment: Asserts memory address",
+      "rubricIndex": 4,
+      "expectedOutcome": "100% of returned addresses are strictly aligned to 8-byte boundaries"
+    }
+  ]
+}

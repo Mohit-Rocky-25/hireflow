@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-clickstream-clickhouse",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and python generate_traff",
+      "rubricIndex": 0,
+      "expectedOutcome": "Events flow through Kafka Engine and populate ClickHouse events_raw table within 5 seconds"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute clickhouse-client --query 'SELECT count() ",
+      "rubricIndex": 1,
+      "expectedOutcome": "Returns exactly 100,000 rows matching published event count"
+    },
+    {
+      "id": "check_3",
+      "name": "Run clickhouse-client --query 'SELECT toStartOfHou",
+      "rubricIndex": 2,
+      "expectedOutcome": "Executes in < 25ms scanning all 100,000 records"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python verify_brief-clickstream-clickhouse",
+      "rubricIndex": 3,
+      "expectedOutcome": "ReplacingMergeTree engine cleans duplicates during background merge, maintaining exact unique count"
+    },
+    {
+      "id": "check_5",
+      "name": "Run clickhouse-client --query \"SELECT formatReadab",
+      "rubricIndex": 4,
+      "expectedOutcome": "Confirms compression ratio exceeds 4.5x over raw JSON"
+    }
+  ]
+}

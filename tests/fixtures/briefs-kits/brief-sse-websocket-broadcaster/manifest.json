@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-sse-websocket-broadcaster",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Returns HTTP 101 Switching Protocols with valid Sec-WebSocket-Accept"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python load_verify_brief-sse-websocket-bro",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 10,000 connections established successfully without socket exhaustion"
+    },
+    {
+      "id": "check_3",
+      "name": "Run redis-cli PUBLISH sports_scores '{\"match_id\": ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Logs verify instant broadcast delivery across all connected clients in < 50ms"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Server detects missing pong within 30s heartbeat window and terminates connection file descriptor"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl -N -H 'Accept: text/event-stream' http://",
+      "rubricIndex": 4,
+      "expectedOutcome": "Streams text/event-stream data frames with valid event and data fields"
+    }
+  ]
+}

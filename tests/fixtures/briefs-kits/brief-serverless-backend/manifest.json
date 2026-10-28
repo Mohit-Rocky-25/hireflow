@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-serverless-backend",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_orders.py --orders 1000 ",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 250.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./tests/verify_brief-serverless-backend.sh ",
+      "rubricIndex": 1,
+      "expectedOutcome": "100 of 100 duplicate messages rejected with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./tests/verify_brief-serverless-backend.sh ",
+      "rubricIndex": 2,
+      "expectedOutcome": "20 of 20 messages verified in DLQ with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X GET http://localhost:4566/restapis/order-a",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status 200 with valid order body and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_concurrent_idempotency.py ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms exactly 1 DynamoDB write and 4 idempotent skips with exit code 0"
+    }
+  ]
+}

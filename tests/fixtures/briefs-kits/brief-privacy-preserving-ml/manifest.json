@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-privacy-preserving-ml",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./federated/coordinator.py --rounds 20 --cl",
+      "rubricIndex": 0,
+      "expectedOutcome": "Accuracy >= 78.0% and epsilon <= 3.0 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./privacy/eval_budget.py --steps 10000 --ba",
+      "rubricIndex": 1,
+      "expectedOutcome": "Calculated epsilon <= 3.0 with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./tests/verify_brief-privacy-preserving-ml.",
+      "rubricIndex": 2,
+      "expectedOutcome": "Global accuracy drop <= 3.0% with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./benchmarks/bench_grpc_streaming.py --payl",
+      "rubricIndex": 3,
+      "expectedOutcome": "p95 latency < 120ms with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_dlg_defense.py --iteration",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reconstruction MSE is >= 0.45 with exit code 0"
+    }
+  ]
+}

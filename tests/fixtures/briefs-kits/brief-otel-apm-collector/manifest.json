@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-otel-apm-collector",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and go run cmd/collector/",
+      "rubricIndex": 0,
+      "expectedOutcome": "Collector binds to :4317 (gRPC) and :4318 (HTTP) with status READY"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python send_otlp_traces.py --count 1000 --",
+      "rubricIndex": 1,
+      "expectedOutcome": "Collector receives all spans; tail sampler passes 100% of errors and 5% of normal spans"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Span exporter verifies attribute value is replaced with [REDACTED"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute curl http://localhost:16686/api/traces?ser",
+      "rubricIndex": 3,
+      "expectedOutcome": "Confirms valid W3C trace parent-child span hierarchy across multi-tier calls"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Processes > 35,000 spans/sec with low GC allocation overhead"
+    }
+  ]
+}

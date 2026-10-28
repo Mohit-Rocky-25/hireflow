@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-cloud-cost-anomaly",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python cost_monitor.py --detect-anomalies --da",
+      "rubricIndex": 0,
+      "expectedOutcome": "Statistical detector flags EC2 spend with Z-score 3.8 and generates alert payload"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python waste_reclaimer.py --dry-run: Scans",
+      "rubricIndex": 1,
+      "expectedOutcome": "Identifies 5 unattached EBS volumes and 2 idle Elastic IPs with total estimated monthly savings of $180"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Correctly suppresses alerts on predictable cyclical weekday spikes while catching irregular surges"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python waste_reclaimer.py --execute --conf",
+      "rubricIndex": 3,
+      "expectedOutcome": "Safely deletes identified unattached resources and writes audit trail to DynamoDB/JSON"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python send_slack_alert.py --sample-alert: Sen",
+      "rubricIndex": 4,
+      "expectedOutcome": "Delivers formatted interactive Block Kit card with service breakdown, cost delta, and action buttons"
+    }
+  ]
+}

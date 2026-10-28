@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-personalization-engine",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_inference.py --concurren",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency is < 30.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_brief-personalization-engi",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 lag < 250ms and 0 unhandled exceptions with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./models/eval_regret.py --rounds 10000: Lin",
+      "rubricIndex": 2,
+      "expectedOutcome": "Regret reduction >= 40% with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "celery -A tasks.retrain worker --loglevel=info --c",
+      "rubricIndex": 3,
+      "expectedOutcome": "Retraining task status completes with SUCCESS and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_dynamic_personalization.py",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms top-3 recommendations belong to technology category with exit code 0"
+    }
+  ]
+}

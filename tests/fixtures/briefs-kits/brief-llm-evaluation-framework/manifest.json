@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-llm-evaluation-framework",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m llm_eval.evaluate_geval --dataset verify",
+      "rubricIndex": 0,
+      "expectedOutcome": "Report records Spearman correlation rho >= 0.76 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m llm_eval.run_red_team --prompts verify_d",
+      "rubricIndex": 1,
+      "expectedOutcome": "Adversarial detection recall is >= 86.0% with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/benchmark_throughput.py --batch-siz",
+      "rubricIndex": 2,
+      "expectedOutcome": "Measured throughput >= 40 samples/min with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python -m llm_eval.compare_runs --baseline reports",
+      "rubricIndex": 3,
+      "expectedOutcome": "Comparison table outputs metrics with delta values and exit code is 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_eval.py --prompt 'Ig",
+      "rubricIndex": 4,
+      "expectedOutcome": "Report classifies attack as 'Prompt Injection' with confidence > 0.85 and exit code 0"
+    }
+  ]
+}

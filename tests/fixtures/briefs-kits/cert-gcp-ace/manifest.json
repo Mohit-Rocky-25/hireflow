@@ -1,0 +1,37 @@
+{
+  "briefId": "cert-gcp-ace",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./scripts/verify_cert-gcp-ace.sh --service ",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 cold start < 2.5s with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_cert-gcp-ace.sh --pods 30:",
+      "rubricIndex": 1,
+      "expectedOutcome": "Cluster scales nodes and schedules pods in < 210s with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "./scripts/verify_storage_iam.sh: Google Cloud Stor",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 unauthorized operations rejected with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/verify_monitoring_alert.py --chec",
+      "rubricIndex": 3,
+      "expectedOutcome": "Uptime probe reports healthy status with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "gcloud storage cp gs://private-test-bucket/secret.",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms 403 Access Denied or permission denied with exit code 1"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-computer-vision-api",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Execute curl -X POST -F 'file=@fixtures/sample_ima",
+      "rubricIndex": 0,
+      "expectedOutcome": "HTTP status 200 with valid bounding box coordinates and confidence score > 0.5"
+    },
+    {
+      "id": "check_2",
+      "name": "Run evaluation across 200 labelled test images: Sc",
+      "rubricIndex": 1,
+      "expectedOutcome": "Reported mAP@50 score is >= 0.60 across the 200 evaluation images"
+    },
+    {
+      "id": "check_3",
+      "name": "Run npm run test:load: API maintains batching queu",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average throughput exceeds 15 images/sec with 0 socket errors"
+    },
+    {
+      "id": "check_4",
+      "name": "Send text file as image upload to test validation:",
+      "rubricIndex": 3,
+      "expectedOutcome": "HTTP status 422 returned with clear validation error message"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_dynamic_vision.py --box ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returned bounding box matches injected rectangle coordinates with exit code 0"
+    }
+  ]
+}

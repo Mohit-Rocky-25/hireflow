@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-epoll-async-eventloop",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run make && ./bin/event_loop --port 9000 & and cur",
+      "rubricIndex": 0,
+      "expectedOutcome": "Returns HTTP/1.1 200 OK with PONG payload"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python tests/simulate_c10k.py --connection",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 10,000 connections established with zero socket drops or server crashes"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./bin/verify_timer_wheel: Schedules 50 timers ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Timers fire in exact chronological order within 2ms accuracy of deadline"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute wrk -t2 -c500 -d10s http://localhost:9000/",
+      "rubricIndex": 3,
+      "expectedOutcome": "Sustains > 30,000 requests/sec on single CPU core with zero thread context switching"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./bin/verify_edge_triggered_drain: Sends large",
+      "rubricIndex": 4,
+      "expectedOutcome": "Event loop drains socket buffer completely across multiple read loops without truncation"
+    }
+  ]
+}

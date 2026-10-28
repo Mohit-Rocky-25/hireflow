@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-terraform-cloud-infra",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "terraform apply -auto-approve: Terraform creates V",
+      "rubricIndex": 0,
+      "expectedOutcome": "Deployment duration < 90.0s with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "checkov -d ./modules --framework terraform: Checko",
+      "rubricIndex": 1,
+      "expectedOutcome": "20 of 20 violations detected with exit code 1"
+    },
+    {
+      "id": "check_3",
+      "name": "terraform plan -detailed-exitcode: Terraform confi",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exit code 0 confirming perfect infrastructure parity"
+    },
+    {
+      "id": "check_4",
+      "name": "tflint --recursive: TFLint verifies HCL syntax, pr",
+      "rubricIndex": 3,
+      "expectedOutcome": "0 lint errors with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_policy_gate.py --violation",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms security policy violation and blocked deployment with exit code 1"
+    }
+  ]
+}

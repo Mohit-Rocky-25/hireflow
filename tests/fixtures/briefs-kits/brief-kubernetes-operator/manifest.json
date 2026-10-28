@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-kubernetes-operator",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "All 50 invalid manifests rejected with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency is < 650ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "go run ./cmd/chaos_tester --trials 20 --cluster-na",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average failover duration < 25s and zero split-brain occurrences across 20 trials"
+    },
+    {
+      "id": "check_4",
+      "name": "kubectl get databasecluster test-cluster -o json: ",
+      "rubricIndex": 3,
+      "expectedOutcome": "status.phase equals 'Ready' and status.healthyReplicas equals 2"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_dynamic_operator.go --name",
+      "rubricIndex": 4,
+      "expectedOutcome": "StatefulSet dynamic-db-99 exists with 3 ready replicas and operator logs show successful reconciliation"
+    }
+  ]
+}

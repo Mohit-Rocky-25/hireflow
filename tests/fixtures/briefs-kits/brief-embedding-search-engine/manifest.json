@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-embedding-search-engine",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m search_engine.evaluate --queries data/ev",
+      "rubricIndex": 0,
+      "expectedOutcome": "Recall@10 is > 0.75 and MRR is > 0.65 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_latency.py --queries 500:",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average search latency is < 200 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 function boundary extraction tests pass with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/search -H 'Cont",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and results array contains at least 5 matching candidates"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_semantic.py --code '",
+      "rubricIndex": 4,
+      "expectedOutcome": "Dynamic function appears in top 3 retrieved results with exit code 0"
+    }
+  ]
+}

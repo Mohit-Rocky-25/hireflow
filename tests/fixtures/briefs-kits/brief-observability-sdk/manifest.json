@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-observability-sdk",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "Overhead is < 0.25ms/op with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "go run ./cmd/bench_exporter --spans 50000: SDK ach",
+      "rubricIndex": 1,
+      "expectedOutcome": "Export throughput is >= 15,000 spans/sec with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Peak heap memory < 35.0MB and exit code is 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -i http://localhost:8080/api/users/123: Respo",
+      "rubricIndex": 3,
+      "expectedOutcome": "traceparent header is present and valid format with status 200"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_dynamic_trace.go --tracepa",
+      "rubricIndex": 4,
+      "expectedOutcome": "Collector verifies span has ParentSpanID '00f067aa0ba902b7' and TraceID '4bf92f3577b34da6a3ce929d0e0e4736' with exit code 0"
+    }
+  ]
+}

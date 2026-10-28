@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-interview-prep-ai",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m interview_sim.benchmark_asr --audio-dir ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Report records average WER < 12.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_latency.py --chunks 100 -",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency is < 850ms and zero packets dropped"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m interview_sim.evaluate_calibration --eva",
+      "rubricIndex": 2,
+      "expectedOutcome": "Pearson correlation coefficient r >= 0.78 with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/interview/s",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains technical_score, behavioral_score, and actionable_feedback"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_stream.py --audio ve",
+      "rubricIndex": 4,
+      "expectedOutcome": "Server returns transcript matching prompt and valid rubric evaluation JSON with exit code 0"
+    }
+  ]
+}

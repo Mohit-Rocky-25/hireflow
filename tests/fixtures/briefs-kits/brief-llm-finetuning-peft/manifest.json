@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-llm-finetuning-peft",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m peft_pipeline.evaluate_domain --model-di",
+      "rubricIndex": 0,
+      "expectedOutcome": "Evaluation report confirms >= 14.0 point accuracy improvement with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/profile_vram.py --config configs/ql",
+      "rubricIndex": 1,
+      "expectedOutcome": "Peak memory allocation is < 12.0GB with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m peft_pipeline.verify_wandb_run --run-id ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Verification confirms monotonic loss trend and 0 NaN occurrences"
+    },
+    {
+      "id": "check_4",
+      "name": "python -m peft_pipeline.verify_model_artifacts --m",
+      "rubricIndex": 3,
+      "expectedOutcome": "All required model weight files exist and load successfully in Python"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_generation.py --prom",
+      "rubricIndex": 4,
+      "expectedOutcome": "Generation contains required statutory keywords and passes domain rubric checks with exit code 0"
+    }
+  ]
+}

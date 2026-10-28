@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-analytics-clickhouse",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Check health status of ClickHouse and Kafka contai",
+      "rubricIndex": 0,
+      "expectedOutcome": "Containers exit status 0 and HTTP 200 returned from ClickHouse ping endpoint"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute npm run test:ingest: All 100,000 events in",
+      "rubricIndex": 1,
+      "expectedOutcome": "Final row count in events table equals 100,000 and part count remains < 50"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute curl request to /analytics/funnel for a de",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exit code 0 with returned conversion rates matching expected values within 0.1% tolerance"
+    },
+    {
+      "id": "check_4",
+      "name": "Run npm run audit:compression: ClickHouse calculat",
+      "rubricIndex": 3,
+      "expectedOutcome": "Calculated compression ratio is >= 4.0:1 on active event data parts"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run verify:dynamic -- --tenant test-tenant",
+      "rubricIndex": 4,
+      "expectedOutcome": "Verification script confirms isolated tenant count and returns exit code 0"
+    }
+  ]
+}

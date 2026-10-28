@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-llm-finetuning-rlhf",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m rlhf_pipeline.evaluate_reward --model-di",
+      "rubricIndex": 0,
+      "expectedOutcome": "Report records preference classification accuracy >= 72.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m rlhf_pipeline.benchmark_win_rate --promp",
+      "rubricIndex": 1,
+      "expectedOutcome": "Win-rate is >= 65.0% with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m rlhf_pipeline.verify_training_stability ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average KL divergence < 0.15 and exit code is 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python -m rlhf_pipeline.verify_checkpoint --adapte",
+      "rubricIndex": 3,
+      "expectedOutcome": "All adapter files exist and load into TRL pipeline without errors"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_preference.py --prom",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reward margin > 1.5 logits and generated response politely declines with exit code 0"
+    }
+  ]
+}

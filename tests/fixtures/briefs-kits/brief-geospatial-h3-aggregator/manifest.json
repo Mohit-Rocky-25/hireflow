@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-geospatial-h3-aggregator",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Outputs exact matching 64-bit hexadecimal H3 index"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Engine computes demand/supply ratio 10:1 and assigns surge multiplier 2.4x"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Applies spatial smoothing algorithm so adjacent cells step up smoothly rather than creating cliff edges"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Sustains > 30,000 coordinate conversions/sec with zero memory leaks"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl http://localhost:8080/api/surge/geojson: ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returns valid RFC 7946 GeoJSON FeatureCollection of hexagonal polygon geometries with surge properties"
+    }
+  ]
+}

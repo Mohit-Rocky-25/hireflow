@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-priority-job-scheduler",
+  "archetype": "pipeline-ci",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Worker consumes all Critical jobs first, followed by Normal, then Low"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Tenant B jobs finish within 2 seconds despite massive Tenant A backlog"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Job remains dormant and triggers within 80ms of target epoch timestamp"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Watchdog discovers expired heartbeat lease after 30s and safely returns job to queue for another worker"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Demonstrates > 6,000 processed jobs/sec with zero race conditions"
+    }
+  ]
+}

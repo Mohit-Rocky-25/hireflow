@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-ci-cd-from-scratch",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "All scheduler unit tests pass with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Inspect Docker container lifecycle on worker host:",
+      "rubricIndex": 1,
+      "expectedOutcome": "Build completes successfully with exit code 0 and container removed from host"
+    },
+    {
+      "id": "check_3",
+      "name": "Verify worker container termination: Worker interc",
+      "rubricIndex": 2,
+      "expectedOutcome": "Container state transitions to destroyed within 4 seconds with 0 leftover containers"
+    },
+    {
+      "id": "check_4",
+      "name": "Run python scripts/verify_log_stream.py: Log strea",
+      "rubricIndex": 3,
+      "expectedOutcome": "Total received line count equals 5,000 with 0 dropped lines"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./scripts/verify_dynamic_job.sh --token DYN-TO",
+      "rubricIndex": 4,
+      "expectedOutcome": "Execution log matches dynamic token with exit status 0"
+    }
+  ]
+}

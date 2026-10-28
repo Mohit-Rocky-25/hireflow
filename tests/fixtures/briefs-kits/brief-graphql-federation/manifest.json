@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-graphql-federation",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:n-plus-one: DataLoader consolidates e",
+      "rubricIndex": 0,
+      "expectedOutcome": "Each downstream subgraph records exactly 1 batched request with 0 unbatched calls, exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run bench:planning-latency: Average query plan",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average planning overhead is < 4.0 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run bench:throughput -- --requests 10000 --con",
+      "rubricIndex": 2,
+      "expectedOutcome": "Measured throughput is > 2,500 queries/sec with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:4000/graphql -H 'Con",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200, data.user.name exists, and data.user.orders has items"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_federation.js --entity",
+      "rubricIndex": 4,
+      "expectedOutcome": "Downstream call inspector confirms batch size equals 15 and exit code is 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-bloom-filter-engine",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "All existing items return True with 100% recall"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python scripts/verify_false_positive_rate.",
+      "rubricIndex": 1,
+      "expectedOutcome": "Empirical false positive rate measures between 0.009 and 0.011 adhering to math model"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Estimated count falls within 2% standard error of true count"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scripts/memory_comparison.py: Compa",
+      "rubricIndex": 3,
+      "expectedOutcome": "Bloom Filter uses < 1.2MB compared to > 50MB for raw Python hash set"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_serialization.py: Serial",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reloaded filter preserves identical query results across 10,000 items"
+    }
+  ]
+}

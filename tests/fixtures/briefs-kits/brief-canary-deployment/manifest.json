@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-canary-deployment",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Inspect operator pod logs and Kubernetes deploymen",
+      "rubricIndex": 0,
+      "expectedOutcome": "CanaryDeployment status transitions to Initialized with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run traffic monitoring script while progression ad",
+      "rubricIndex": 1,
+      "expectedOutcome": "Observed request routing matches target weights within 4% tolerance across all steps"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute chaos test during 50% traffic rollout stag",
+      "rubricIndex": 2,
+      "expectedOutcome": "Traffic immediately shifted 100% to stable pods and canary status marked Failed"
+    },
+    {
+      "id": "check_4",
+      "name": "Inspect installed pods and CRD registration: Opera",
+      "rubricIndex": 3,
+      "expectedOutcome": "Pod is in Running state and ready probe returns HTTP 200"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./scripts/verify_operator.sh --dynamic-thresho",
+      "rubricIndex": 4,
+      "expectedOutcome": "Operator successfully halts deployment and logs matching dynamic threshold with exit code 0"
+    }
+  ]
+}

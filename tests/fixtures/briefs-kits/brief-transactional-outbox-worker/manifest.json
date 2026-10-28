@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-transactional-outbox-worker",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and go run cmd/worker/mai",
+      "rubricIndex": 0,
+      "expectedOutcome": "Worker connects to logical replication slot and logs READY"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Outbox worker extracts and publishes all 1,000 events to Kafka with zero dropped records"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Outbox table remains clean; zero spurious events published to Kafka"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute docker stop kafka && insert_orders 500 && ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Worker pauses, resumes upon broker recovery, and flushes all 500 events without duplicate LSN advancement"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Sustains > 4,500 processed events/sec with minimal WAL lag"
+    }
+  ]
+}

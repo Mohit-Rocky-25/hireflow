@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-merkle-airdrop-verifier",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Constructs deterministic 32-byte root hash matching OpenZeppelin reference implementation"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Proof validation evaluates to TRUE in < 0.02ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Verification returns FALSE, preventing unauthorized claims"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Bitmask claim registry detects existing claim and rejects with ALREADY_CLAIMED"
+    },
+    {
+      "id": "check_5",
+      "name": "Run node scripts/benchmark_scale.js --leaves 10000",
+      "rubricIndex": 4,
+      "expectedOutcome": "Tree builds in < 500ms; proof size verified at exactly 17 hashes"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-ast-sast-scanner",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python scan.py --target tests/fixtures/vulnera",
+      "rubricIndex": 0,
+      "expectedOutcome": "Detects SQL Injection (CWE-89) and Command Injection (CWE-78) with exact line numbers"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 18 AST visitor unit tests pass"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python scan.py --target tests/fixtures/false_p",
+      "rubricIndex": 2,
+      "expectedOutcome": "Reports ZERO vulnerabilities found, proving comment immunity"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scan.py --target tests/fixtures/vul",
+      "rubricIndex": 3,
+      "expectedOutcome": "Generates valid SARIF schema file validated via sarif-tools validate"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python benchmark_scan_speed.py --repo-dir ./la",
+      "rubricIndex": 4,
+      "expectedOutcome": "Completes full AST traversal and analysis in under 1.5 seconds"
+    }
+  ]
+}

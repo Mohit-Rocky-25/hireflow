@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-zerocopy-tcp-proxy",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run make && ./bin/zero_copy_proxy --listen 8080 --",
+      "rubricIndex": 0,
+      "expectedOutcome": "Proxy daemon initializes kernel pipes and begins listening on port 8080"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute iperf3 -s -p 9090 & and iperf3 -c 127.0.0.",
+      "rubricIndex": 1,
+      "expectedOutcome": "Throughput achieves near loopback line-rate with 0 packet drops"
+    },
+    {
+      "id": "check_3",
+      "name": "Run top -b -n 1 -p $(pgrep zero_copy_proxy): Monit",
+      "rubricIndex": 2,
+      "expectedOutcome": "CPU usage remains < 12% due to zero-copy kernel page forwarding"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute ./bin/verify_bidirectional_forwarding: Est",
+      "rubricIndex": 3,
+      "expectedOutcome": "Validates data flow in both directions with 100% byte-for-byte SHA-256 hash match"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./bin/verify_pipe_capacity_backpressure: Simul",
+      "rubricIndex": 4,
+      "expectedOutcome": "Proxy safely handles full kernel pipe buffer without dropping data or deadlocking"
+    }
+  ]
+}

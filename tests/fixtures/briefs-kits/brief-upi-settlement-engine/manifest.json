@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-upi-settlement-engine",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run ./mvnw test -Dtest=Iso20022XmlParserTest: Pars",
+      "rubricIndex": 0,
+      "expectedOutcome": "Validates schema compliance and extracts settlement amounts accurately"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute ./mvnw test -Dtest=MultilateralNettingTest",
+      "rubricIndex": 1,
+      "expectedOutcome": "Verifies SUM(All Net Balances) == 0 with zero rounding discrepancy"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./mvnw test -Dtest=SettlementFinalityTest: Att",
+      "rubricIndex": 2,
+      "expectedOutcome": "Engine rejects late transaction, routing it safely to the next open settlement cycle"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute ./mvnw test -Dtest=BilateralDisputeExclusi",
+      "rubricIndex": 3,
+      "expectedOutcome": "Engine safely carves out disputed amounts and settles remaining clean volume"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./mvnw test -Dtest=ClearingBatchBenchmarkTest:",
+      "rubricIndex": 4,
+      "expectedOutcome": "Calculates clearing obligations for 200,000 transactions in under 12 seconds"
+    }
+  ]
+}

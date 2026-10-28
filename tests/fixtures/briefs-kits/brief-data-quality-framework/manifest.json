@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-data-quality-framework",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python -m dq_framework check --contract contra",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 1 with exactly 20 distinct failure records reported"
+    },
+    {
+      "id": "check_2",
+      "name": "Run python scripts/benchmark_speed.py: DuckDB exec",
+      "rubricIndex": 1,
+      "expectedOutcome": "Total execution latency is < 4.5 seconds on local machine"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python -m dq_framework check --contract contra",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exit code 0 with 0 rule violations reported"
+    },
+    {
+      "id": "check_4",
+      "name": "Run python -m dq_framework drift --baseline data/c",
+      "rubricIndex": 3,
+      "expectedOutcome": "Drift detected with calculated distance exceeding configured threshold and warning logged"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_dynamic_quality.py --amo",
+      "rubricIndex": 4,
+      "expectedOutcome": "Exit code 1 with report pinpointing dynamic row index and rule violation"
+    }
+  ]
+}

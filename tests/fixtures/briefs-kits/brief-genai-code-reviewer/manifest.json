@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-genai-code-reviewer",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m reviewer.evaluate --diffs data/eval_diff",
+      "rubricIndex": 0,
+      "expectedOutcome": "Recall exceeds 0.80 across planted defects with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m reviewer.verify_injection --payloads dat",
+      "rubricIndex": 1,
+      "expectedOutcome": "25 of 25 injection attempts intercepted with 0 rule escapes"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/benchmark_review_speed.py --diff sa",
+      "rubricIndex": 2,
+      "expectedOutcome": "Total review duration is < 12.0 seconds"
+    },
+    {
+      "id": "check_4",
+      "name": "python -m reviewer.export_sarif --findings /tmp/fi",
+      "rubricIndex": 3,
+      "expectedOutcome": "File exists, parses as valid JSON, and contains runs and results arrays with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_injection.py --paylo",
+      "rubricIndex": 4,
+      "expectedOutcome": "Output contains INJECTION_DETECTED flag, approval is False, and exit code is 0"
+    }
+  ]
+}

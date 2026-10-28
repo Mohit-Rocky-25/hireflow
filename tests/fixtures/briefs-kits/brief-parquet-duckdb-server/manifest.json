@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-parquet-duckdb-server",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python generate_parquet_lake.py: Generates 2GB",
+      "rubricIndex": 0,
+      "expectedOutcome": "Produces valid Parquet files with snappy compression"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute curl -X POST http://localhost:8000/query -",
+      "rubricIndex": 1,
+      "expectedOutcome": "Returns formatted JSON results in < 150ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "File access logger confirms unreferenced partitions are completely skipped"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 3,
+      "expectedOutcome": "Gateway catches unauthorized statements and returns HTTP 403 Forbidden"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python benchmark_vs_pandas.py: Compares execut",
+      "rubricIndex": 4,
+      "expectedOutcome": "DuckDB executes 12x faster while consuming 75% less RAM"
+    }
+  ]
+}

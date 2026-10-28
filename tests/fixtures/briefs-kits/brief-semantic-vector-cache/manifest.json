@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-semantic-vector-cache",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and python init_cache.py:",
+      "rubricIndex": 0,
+      "expectedOutcome": "Redis index created with HNSW cosine distance metric"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python verify_brief-semantic-vector-cache.",
+      "rubricIndex": 1,
+      "expectedOutcome": "Second query returns cache HIT with similarity score 0.94 and response time < 10ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Correctly identifies false friends and forwards to upstream LLM"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python simulate_cost_savings.py --queries ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Reports exact cache hit percentage (> 38%) and calculated dollar savings"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python verify_brief-semantic-vector-cache.sh: ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Expired vector is evicted and subsequent identical query triggers live refresh"
+    }
+  ]
+}

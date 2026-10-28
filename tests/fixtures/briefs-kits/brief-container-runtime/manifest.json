@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-container-runtime",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Execute command and inspect process table output: ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Output contains only 1 running process with PID 1 and returns exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute memory stress program that attempts to all",
+      "rubricIndex": 1,
+      "expectedOutcome": "Process terminates with exit code 137 and memory.events reports oom_kill count >= 1"
+    },
+    {
+      "id": "check_3",
+      "name": "Inspect mounts visible inside container root files",
+      "rubricIndex": 2,
+      "expectedOutcome": "Host root mount absent from list and exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scripts/benchmark_startup.py: Bench",
+      "rubricIndex": 3,
+      "expectedOutcome": "Average startup latency is < 250ms across 20 consecutive runs"
+    },
+    {
+      "id": "check_5",
+      "name": "sudo ./scripts/verify_dynamic_runtime.sh --hostnam",
+      "rubricIndex": 4,
+      "expectedOutcome": "Container reports dynamic hostname and host reports original hostname with exit code 0"
+    }
+  ]
+}

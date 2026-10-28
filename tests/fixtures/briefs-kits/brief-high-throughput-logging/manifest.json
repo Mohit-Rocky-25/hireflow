@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-high-throughput-logging",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/logbench --input data/logs_500k.log: ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Measured throughput is > 75,000 lines/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/monitor_memory.py --process logdaem",
+      "rubricIndex": 1,
+      "expectedOutcome": "Peak RSS memory is < 65MB with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "bash scripts/inject_error_burst.sh --count 100 --w",
+      "rubricIndex": 2,
+      "expectedOutcome": "Alert latency is < 500 milliseconds with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:9200/app-logs/_count: Elasti",
+      "rubricIndex": 3,
+      "expectedOutcome": "Indexed document count matches expected input with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_alerts.py --token FA",
+      "rubricIndex": 4,
+      "expectedOutcome": "Alert message contains FATAL_DYNAMIC_CRASH_99, latency < 500ms, exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-cdc-pipeline",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Check health of PostgreSQL, Kafka, and Debezium co",
+      "rubricIndex": 0,
+      "expectedOutcome": "Connector state equals RUNNING with 1/1 tasks running and exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Query Elasticsearch products index for newly inser",
+      "rubricIndex": 1,
+      "expectedOutcome": "Document matches PostgreSQL row fields with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute deduplication verification test script: Co",
+      "rubricIndex": 2,
+      "expectedOutcome": "Final document count exactly equals source table count with 0 duplicates"
+    },
+    {
+      "id": "check_4",
+      "name": "Run python scripts/benchmark_latency.py: Benchmark",
+      "rubricIndex": 3,
+      "expectedOutcome": "Measured p95 end-to-end sync latency is < 1,500ms across all mutations"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_dynamic_mutation.py --sk",
+      "rubricIndex": 4,
+      "expectedOutcome": "Script confirms dynamic record reflected in search index within 2 seconds with exit code 0"
+    }
+  ]
+}

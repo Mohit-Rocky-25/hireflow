@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-knowledge-graph",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m kg_engine.evaluate_extraction --test-dat",
+      "rubricIndex": 0,
+      "expectedOutcome": "Report records micro-F1 >= 0.74 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m kg_engine.evaluate_linker --mentions-fil",
+      "rubricIndex": 1,
+      "expectedOutcome": "Linking precision >= 82.0% with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/benchmark_traversal.py --queries ve",
+      "rubricIndex": 2,
+      "expectedOutcome": "p95 latency is < 45ms and query success rate is 100%"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8000/api/graph/subgraph?enti",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains non-empty nodes and edges lists"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_kg.py --sentence 'Al",
+      "rubricIndex": 4,
+      "expectedOutcome": "Neo4j query verifies created edge INHIBITS between Alpha-7 and kinase-9 with exit code 0"
+    }
+  ]
+}

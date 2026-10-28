@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-disaster-recovery-harness",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run go run cmd/dr-harness/main.go --backup s3://ba",
+      "rubricIndex": 0,
+      "expectedOutcome": "Spins up isolated container, extracts backup, replays WAL, and brings database to READ-WRITE"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 25 data integrity checks PASS with 100% record match"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Logs empirical RTO: 342s and RPO: 4.2s"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Harness detects archive corruption, halts restore safely, and triggers alert notification"
+    },
+    {
+      "id": "check_5",
+      "name": "Run cat output/dr_report_latest.json: Inspects gen",
+      "rubricIndex": 4,
+      "expectedOutcome": "Contains machine-readable audit report with timestamps, checksums, RTO/RPO metrics, and pass status"
+    }
+  ]
+}

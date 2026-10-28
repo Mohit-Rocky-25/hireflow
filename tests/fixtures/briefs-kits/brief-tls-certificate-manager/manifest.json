@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-tls-certificate-manager",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/certmgr --domains test.local --issue-",
+      "rubricIndex": 0,
+      "expectedOutcome": "20 of 20 certificates issued with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 1,
+      "expectedOutcome": "10 of 10 expiring certificates queued with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./scripts/verify_brief-tls-certificate-mana",
+      "rubricIndex": 2,
+      "expectedOutcome": "1,000 of 1,000 requests succeed with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -s http://localhost:9090/metrics | grep cert_",
+      "rubricIndex": 3,
+      "expectedOutcome": "Metric reports valid certificate expiry integer with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./cmd/certmgr --verify-cert ./fixtures/tamp",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms cryptographic signature verification failure with exit code 1"
+    }
+  ]
+}

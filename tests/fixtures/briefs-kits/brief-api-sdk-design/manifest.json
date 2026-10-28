@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-api-sdk-design",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run npm run generate -- --input fixtures/petstore.",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 and presence of generated index.ts and api.ts files"
+    },
+    {
+      "id": "check_2",
+      "name": "Run npx tsc --noEmit --project ./generated/tsconfi",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 0 with zero type diagnostics reported"
+    },
+    {
+      "id": "check_3",
+      "name": "Run npm run test:retries: SDK executes retry loop ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Retry assertions pass confirming 3 attempts made before resolution"
+    },
+    {
+      "id": "check_4",
+      "name": "Run npm run test:packaging: Both node require('./d",
+      "rubricIndex": 3,
+      "expectedOutcome": "Both import methods instantiate client instance with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run test:anti-fake -- --seed 7712: Generat",
+      "rubricIndex": 4,
+      "expectedOutcome": "Dynamic method invocation compiles and returns expected mock data with exit code 0"
+    }
+  ]
+}

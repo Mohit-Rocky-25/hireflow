@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-streaming-data-pipeline",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_streaming.py --events 10",
+      "rubricIndex": 0,
+      "expectedOutcome": "Throughput >= 10000 events/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./benchmarks/bench_latency.py --events 5000",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency < 6.0s with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./tests/verify_brief-streaming-data-pipelin",
+      "rubricIndex": 2,
+      "expectedOutcome": "Silver table record count matches ground truth with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./tests/verify_brief-streaming-data-pipelin",
+      "rubricIndex": 3,
+      "expectedOutcome": "Pipeline recovers cleanly with valid transaction logs and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_exact_dedup.py --tx-id tx_",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms exactly 1 row in Silver for tx_verify_999 with exit code 0"
+    }
+  ]
+}

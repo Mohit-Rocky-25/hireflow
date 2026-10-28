@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-mlops-platform",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m mlops_pipeline.train_and_register --conf",
+      "rubricIndex": 0,
+      "expectedOutcome": "Cycle time is < 8.0 minutes and MLflow run status is FINISHED with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_inference.py --endpoint h",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency is < 25.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m mlops_pipeline.evaluate_drift --data-dir",
+      "rubricIndex": 2,
+      "expectedOutcome": "Detection recall is >= 90.0% and exit code is 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python -m mlops_pipeline.promote_model --model-nam",
+      "rubricIndex": 3,
+      "expectedOutcome": "Model stage equals 'Production' with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_drift.py --batch-fil",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console output logs 'DRIFT_DETECTED: Feature X p-value < 0.01' with exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-upi-payment-gateway",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "mvn test -Dtest=PaymentGatewayThroughputBenchmark:",
+      "rubricIndex": 0,
+      "expectedOutcome": "Sustained throughput >= 2,500 TPS with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_brief-upi-payment-gateway.",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exactly 1 debit recorded across 100 requests with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./scripts/verify_brief-upi-payment-gateway.",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 subsequent transactions route to Bank B with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/run_settlement_batch.py --date 20",
+      "rubricIndex": 3,
+      "expectedOutcome": "Settlement nets positions with 0 reconciliation discrepancies and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_brief-upi-payment-gateway.",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms exactly 1 authorization and 1 insufficient funds rejection with exit code 0"
+    }
+  ]
+}

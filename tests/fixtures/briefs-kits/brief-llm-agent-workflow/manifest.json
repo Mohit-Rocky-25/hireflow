@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-llm-agent-workflow",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m agent_engine.benchmark_tasks --tasks ver",
+      "rubricIndex": 0,
+      "expectedOutcome": "Report records completion rate >= 82.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m agent_engine.evaluate_schemas --traces v",
+      "rubricIndex": 1,
+      "expectedOutcome": "Compliance rate >= 95.0% with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/run_chaos_failures.py --trials 30: ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Autonomous recovery rate >= 80.0% with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/agent/run -",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains final_answer, steps_taken, and trace_id"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_agent.py --goal 'Fet",
+      "rubricIndex": 4,
+      "expectedOutcome": "Trace confirms primary_db error handled and secondary_db used to fulfill goal with exit code 0"
+    }
+  ]
+}

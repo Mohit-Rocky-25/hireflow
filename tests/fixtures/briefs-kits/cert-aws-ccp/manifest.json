@@ -1,0 +1,37 @@
+{
+  "briefId": "cert-aws-ccp",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "./scripts/verify_iam_boundaries.sh: IAM policy blo",
+      "rubricIndex": 0,
+      "expectedOutcome": "50 of 50 unauthorized requests blocked with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "./scripts/verify_vpc_routing.sh: Packets route wit",
+      "rubricIndex": 1,
+      "expectedOutcome": "Latency < 20ms and zero packet loss with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "./scripts/verify_billing_alarm.sh --spend 15 --thr",
+      "rubricIndex": 2,
+      "expectedOutcome": "Alarm triggers and dispatches alert in < 60s with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/run_exam_eval.py --questions 65: ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Score >= 700 with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "aws --endpoint-url=http://localhost:4566 s3 ls --p",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms AccessDenied exception with exit code 255 or 1"
+    }
+  ]
+}

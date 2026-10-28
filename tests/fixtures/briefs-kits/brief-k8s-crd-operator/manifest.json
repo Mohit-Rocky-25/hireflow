@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-k8s-crd-operator",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run make test: Executes envtest suite against loca",
+      "rubricIndex": 0,
+      "expectedOutcome": "Controller reconciliation tests pass with zero errors"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute kubectl apply -f config/samples/database_c",
+      "rubricIndex": 1,
+      "expectedOutcome": "Operator detects new resource, provisions StatefulSet with specified replica count, and transitions status to READY"
+    },
+    {
+      "id": "check_3",
+      "name": "Run kubectl delete pod database-cluster-0: Simulat",
+      "rubricIndex": 2,
+      "expectedOutcome": "Operator reconciliation loop immediately detects missing pod and recreates it within 2 seconds"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute kubectl patch databasecluster sample-db --",
+      "rubricIndex": 3,
+      "expectedOutcome": "Operator scales underlying StatefulSet from 3 to 5 replicas cleanly"
+    },
+    {
+      "id": "check_5",
+      "name": "Run kubectl delete databasecluster sample-db: Dele",
+      "rubricIndex": 4,
+      "expectedOutcome": "Kubernetes garbage collection removes all associated Services and StatefulSets via OwnerReferences"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-eod-interest-batch",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Results match bank reference tables down to 6 decimal places"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Accurately applies 366-day divisor without arithmetic drift"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Static code inspection asserts 100% adherence to decimal.Decimal types"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Second execution detects prior completion and aborts without duplicate accrual posts"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Completes entire calculation in < 8.5 seconds with zero database deadlocks"
+    }
+  ]
+}

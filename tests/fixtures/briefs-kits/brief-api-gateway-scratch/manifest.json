@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-api-gateway-scratch",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Inspect response status code and headers: Request ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Response status 200 OK received with gateway proxy header present"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute dynamic hot-reload test script: New route ",
+      "rubricIndex": 1,
+      "expectedOutcome": "10,000 of 10,000 requests complete with HTTP 200 and zero connection resets"
+    },
+    {
+      "id": "check_3",
+      "name": "Run rate limit verification script: First 10 reque",
+      "rubricIndex": 2,
+      "expectedOutcome": "HTTP status 429 returned on 11th request with valid Retry-After duration"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute upstream failover test script: Health chec",
+      "rubricIndex": 3,
+      "expectedOutcome": "Traffic rerouted within 3 seconds of termination with healthy replicas serving traffic"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Test passes with exit code 0 confirming dynamic proxy routing and header mutation"
+    }
+  ]
+}

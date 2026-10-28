@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-flash-sale-inventory",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run redis-cli EVAL \"$(cat scripts/reserve.lua)\" 1 ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Successfully decrements stock from 500 to 499 and returns reservation UUID"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute k6 run --vus 500 --duration 10s scripts/fl",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exactly 100 requests return HTTP 200; remaining requests return HTTP 409 Sold Out; zero overselling"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Keyspace expiration handler triggers, restoring inventory stock back to original count"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "All 1,000 rows inserted with matching foreign keys and balance verification"
+    },
+    {
+      "id": "check_5",
+      "name": "Run redis-benchmark -t eval -q: Measures raw Lua s",
+      "rubricIndex": 4,
+      "expectedOutcome": "Records > 20,000 evaluations/sec with zero script timeout errors"
+    }
+  ]
+}

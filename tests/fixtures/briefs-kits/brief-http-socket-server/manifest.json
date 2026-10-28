@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-http-socket-server",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python server.py --port 8080 and curl -v http:",
+      "rubricIndex": 0,
+      "expectedOutcome": "Valid HTTP status line with Content-Length matching payload byte count"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 12 unit tests pass with zero unhandled parsing exceptions"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python tests/verify_brief-http-socket-server.s",
+      "rubricIndex": 2,
+      "expectedOutcome": "Socket remains open across all 5 requests with connection reuse verified"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute wrk -t4 -c100 -d10s http://localhost:8080/",
+      "rubricIndex": 3,
+      "expectedOutcome": "Throughput exceeds 1,000 req/sec with zero dropped connections and 100% 2xx responses"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python tests/verify_brief-http-socket-server.s",
+      "rubricIndex": 4,
+      "expectedOutcome": "Server forcefully closes connection after 5-second timeout with exit code 0"
+    }
+  ]
+}

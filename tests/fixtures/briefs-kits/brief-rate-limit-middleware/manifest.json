@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-rate-limit-middleware",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "All 10 unit tests pass with exact token accounting asserted"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Headers conform strictly to IETF draft-ietf-httpapi-ratelimit-headers specs"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Strictly throttles excess requests beyond bucket capacity with HTTP 429 responses"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute npm run test:leakyBucket: Validates consta",
+      "rubricIndex": 3,
+      "expectedOutcome": "Egress events emit at strictly uniform intervals within 5ms jitter tolerance"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run benchmark: Executes 20,000 rate limit ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reports average execution time < 0.2ms per evaluation with zero memory leaks"
+    }
+  ]
+}

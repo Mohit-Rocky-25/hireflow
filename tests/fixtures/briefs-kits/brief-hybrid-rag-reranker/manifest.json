@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-hybrid-rag-reranker",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python ingest.py --docs ./data/tech_specs: Ing",
+      "rubricIndex": 0,
+      "expectedOutcome": "Embeds and indexes all 1,000 chunks with zero schema errors"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "Unit tests verify reciprocal weighting with k=60"
+    },
+    {
+      "id": "check_3",
+      "name": "Run curl -X POST http://localhost:8000/query -H 'C",
+      "rubricIndex": 2,
+      "expectedOutcome": "Returns relevant technical spec chunk as rank #1 with citation path"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python benchmark_retrieval.py --eval-set .",
+      "rubricIndex": 3,
+      "expectedOutcome": "Hybrid+Reranker outperforms pure vector search by at least 15% MRR"
+    },
+    {
+      "id": "check_5",
+      "name": "Run locust -f locustfile.py --users 20 --spawn-rat",
+      "rubricIndex": 4,
+      "expectedOutcome": "Maintains p95 response time < 250ms with zero 500 errors"
+    }
+  ]
+}

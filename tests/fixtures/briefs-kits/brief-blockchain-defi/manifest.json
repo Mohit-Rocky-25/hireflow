@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-blockchain-defi",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run complete unit test suite across pool and inter",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 with 25 passing test cases and zero assertion failures"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute npx hardhat test test/liquidation.test.js:",
+      "rubricIndex": 1,
+      "expectedOutcome": "Account health factor restored to >= 1.0 and transaction succeeds with event LiquidationCall emitted"
+    },
+    {
+      "id": "check_3",
+      "name": "Run slither . --exclude-dependencies: Slither scan",
+      "rubricIndex": 2,
+      "expectedOutcome": "Zero high and zero medium severity security issues detected"
+    },
+    {
+      "id": "check_4",
+      "name": "Run REPORT_GAS=true npx hardhat test: Gas report g",
+      "rubricIndex": 3,
+      "expectedOutcome": "deposit() method consumes < 95,000 gas and borrow() consumes < 160,000 gas"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npx hardhat test test/reentrancy_attack.test.j",
+      "rubricIndex": 4,
+      "expectedOutcome": "Attack transaction fails with revert error ReentrancyGuardReentrantCall"
+    }
+  ]
+}

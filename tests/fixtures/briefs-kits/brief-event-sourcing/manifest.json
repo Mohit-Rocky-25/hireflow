@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-event-sourcing",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:concurrency: Optimistic concurrency g",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exactly 1 success and 99 OptimisticConcurrencyError rejections with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run bench:rehydrate -- --aggregate-id acct-123",
+      "rubricIndex": 1,
+      "expectedOutcome": "Rehydration latency is < 15 milliseconds on local machine"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run bench:projections: Denormalized read-model",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average projection lag is < 150 milliseconds"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:3000/api/accounts/acct-1234/",
+      "rubricIndex": 3,
+      "expectedOutcome": "Returned state matches expected historical balance at specified timestamp with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_eventsourcing.js --ent",
+      "rubricIndex": 4,
+      "expectedOutcome": "Historical state at event 3 exactly matches intermediate balance, final matches event 5, exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-realtime-stock-platform",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_ingestion.py --ticks 100",
+      "rubricIndex": 0,
+      "expectedOutcome": "Throughput >= 8000 ticks/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./alerts/eval_alerts.py --alerts 1000: Aler",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency < 20.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./benchmarks/bench_timescale.py --queries 1",
+      "rubricIndex": 2,
+      "expectedOutcome": "p95 latency < 40.0ms with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/verify_brief-realtime-stock-platf",
+      "rubricIndex": 3,
+      "expectedOutcome": "Quotes received continuously with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_dynamic_alert.py --symbol ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms alert triggered for AAPL with exit code 0"
+    }
+  ]
+}

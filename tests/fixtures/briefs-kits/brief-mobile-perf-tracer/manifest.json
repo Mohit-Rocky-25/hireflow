@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-mobile-perf-tracer",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run ./gradlew connectedCheck: Runs startup profili",
+      "rubricIndex": 0,
+      "expectedOutcome": "Captures cold startup trace and reports exact milliseconds for each startup phase"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute ./gradlew test -Dtest=StrictModeViolationT",
+      "rubricIndex": 1,
+      "expectedOutcome": "StrictMode catches violation, logs stack trace, and asserts build failure"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python analyze_perfetto_trace.py --trace trace",
+      "rubricIndex": 2,
+      "expectedOutcome": "Extracts frame render durations, flags frames taking > 16.6ms, and categorizes slow frames"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python compare_benchmarks.py --base baseli",
+      "rubricIndex": 3,
+      "expectedOutcome": "Generates formatted markdown comparison table highlighting startup speedup or regression"
+    },
+    {
+      "id": "check_5",
+      "name": "Run ./gradlew test -Dtest=ColdStartRegressionGateT",
+      "rubricIndex": 4,
+      "expectedOutcome": "Test suite detects regression exceeding 200ms threshold and exits with non-zero failure code"
+    }
+  ]
+}

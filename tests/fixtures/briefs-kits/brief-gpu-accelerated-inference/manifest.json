@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-gpu-accelerated-inference",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python scripts/benchmark_batching.py --mode dynami",
+      "rubricIndex": 0,
+      "expectedOutcome": "Throughput ratio (dynamic / sequential) is > 2.8 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_latency.py --rate 50 --re",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency is < 25.0 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m inference_server.evaluate_quantization: ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Quantized accuracy divided by baseline accuracy is > 0.985 with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/predict -H 'Con",
+      "rubricIndex": 3,
+      "expectedOutcome": "1.0, 2.0, 3.0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_batching.py --burst ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Batch size logged inside forward execution equals 8 with exit code 0"
+    }
+  ]
+}

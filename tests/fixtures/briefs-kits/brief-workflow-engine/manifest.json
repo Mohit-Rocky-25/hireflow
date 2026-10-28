@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-workflow-engine",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "Sustained throughput >= 800 tasks/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_brief-workflow-engine.sh -",
+      "rubricIndex": 1,
+      "expectedOutcome": "Workflow completes all 5 steps after recovery with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./scripts/verify_brief-workflow-engine.sh -",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 workflows compensate in reverse order with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "python ./scripts/verify_brief-workflow-engine.sh -",
+      "rubricIndex": 3,
+      "expectedOutcome": "Exactly 1 execution recorded across duplicate tokens with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_deterministic_replay.py --",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms exactly 0 duplicate activity executions during recovery with exit code 0"
+    }
+  ]
+}

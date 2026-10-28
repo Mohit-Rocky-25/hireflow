@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-mtls-internal-ca",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run go run cmd/ca/main.go --init: Generates intern",
+      "rubricIndex": 0,
+      "expectedOutcome": "Outputs valid X.509 certificate PEM files with basicConstraints CA:TRUE"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "TLS handshake completes successfully; server logs client SAN identity"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Server rejects connection during TLS handshake with bad certificate error"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Load test completes with 100% successful 2xx responses and zero dropped connections"
+    },
+    {
+      "id": "check_5",
+      "name": "Run openssl verify -CAfile certs/root_ca.pem -untr",
+      "rubricIndex": 4,
+      "expectedOutcome": "OpenSSL reports certs/service.pem: OK"
+    }
+  ]
+}

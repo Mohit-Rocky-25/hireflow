@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-rag-vector-search",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_retrieval.py --queries 1",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 40.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./evaluation/eval_mrr.py --queries 500: Hyb",
+      "rubricIndex": 1,
+      "expectedOutcome": "MRR@10 >= 0.82 with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./ingestion/chunk_documents.py --input-dir ",
+      "rubricIndex": 2,
+      "expectedOutcome": "100 of 100 documents chunked and embedded with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/v1/query -H",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status 200 with non-empty citation list and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_hallucination_rejection.py",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-compiler-interpreter",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "120 of 120 tests pass with exit code 0 and 0 failures"
+    },
+    {
+      "id": "check_2",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 1,
+      "expectedOutcome": "Execution latency < 450ms and calculated integer equals 75025"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute ./bin/lang run fixtures/scoping.lang: Eval",
+      "rubricIndex": 2,
+      "expectedOutcome": "Output confirms outer variable unchanged with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Pipe arithmetic expression 'let x = 10; let y = 20",
+      "rubricIndex": 3,
+      "expectedOutcome": "Evaluated result equals 200 and REPL exits cleanly"
+    },
+    {
+      "id": "check_5",
+      "name": "Execute ./scripts/verify_dynamic_eval.sh --factor ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Calculated value matches expected mathematical output with exit code 0"
+    }
+  ]
+}

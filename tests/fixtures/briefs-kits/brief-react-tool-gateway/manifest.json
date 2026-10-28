@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-react-tool-gateway",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python agent.py --prompt 'Calculate the 50th F",
+      "rubricIndex": 0,
+      "expectedOutcome": "Returns correct Fibonacci number (12586269025) with generated chart PNG"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "Sandbox blocks network, protects filesystem, and kills runaway memory allocations"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python verify_brief-react-tool-gateway.sh: Fee",
+      "rubricIndex": 2,
+      "expectedOutcome": "Agent inspects traceback in observation, refactors code without missing module, and succeeds on retry #2"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python benchmark_sandbox_pool.py: Measures",
+      "rubricIndex": 3,
+      "expectedOutcome": "Sustains sub-300ms execution latency with pre-warmed container worker pool"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl http://localhost:8000/health: Verifies da",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returns status healthy with active pool capacity metrics"
+    }
+  ]
+}

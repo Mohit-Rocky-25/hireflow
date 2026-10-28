@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-graph-analysis",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m graph_engine.bench_pagerank --edges data",
+      "rubricIndex": 0,
+      "expectedOutcome": "Convergence time is < 4.5 seconds with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m graph_engine.verify_louvain --graph data",
+      "rubricIndex": 1,
+      "expectedOutcome": "Modularity score Q is > 0.65 with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/benchmark_traversal.py --requests 5",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average traversal latency is < 15.0 milliseconds"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8000/api/centrality/top?k=10",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and results array has exactly 10 ranked items"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_graph.py --hub-id DY",
+      "rubricIndex": 4,
+      "expectedOutcome": "Top ranked node equals DYNAMIC_HUB_99 with score > 0.15 and exit code 0"
+    }
+  ]
+}

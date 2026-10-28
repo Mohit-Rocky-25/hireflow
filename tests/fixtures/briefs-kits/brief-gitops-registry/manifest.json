@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-gitops-registry",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "bash scripts/inject_drift.sh --deployment web-app ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Live deployment replicas restored to 3 within 15 seconds with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "go run ./cmd/gitops-agent --sync-all: Controller a",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 25 resources report status SYNCHRONIZED with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/measure_memory.py --process gitops-",
+      "rubricIndex": 2,
+      "expectedOutcome": "Peak RSS memory is < 95MB with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 3,
+      "expectedOutcome": "Rendered manifest passes kubeval validation with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_gitops.py --key DYNA",
+      "rubricIndex": 4,
+      "expectedOutcome": "Live ConfigMap data matches dynamic key-value within 15 seconds and exit code is 0"
+    }
+  ]
+}

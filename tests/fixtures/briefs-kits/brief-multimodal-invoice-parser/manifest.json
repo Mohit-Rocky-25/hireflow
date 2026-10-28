@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-multimodal-invoice-parser",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run curl -X POST http://localhost:8000/extract -F ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Returns 200 OK with fully populated JSON matching InvoiceSchema"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 15 schema boundary unit tests pass"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python verify_brief-multimodal-invoice-parser.",
+      "rubricIndex": 2,
+      "expectedOutcome": "Extractor accurately notes mathematical mismatch and sets reconciliation_status: REQUIRES_REVIEW"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python eval_extraction_benchmark.py --data",
+      "rubricIndex": 3,
+      "expectedOutcome": "Field-level F1 score exceeds 0.94 across 30 distinct vendor layouts"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python tests/verify_brief-multimodal-invoice-p",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returns HTTP 422 Unprocessable Entity with clear error messaging and zero server crashes"
+    }
+  ]
+}

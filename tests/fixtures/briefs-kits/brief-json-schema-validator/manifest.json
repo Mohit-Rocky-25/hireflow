@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-json-schema-validator",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "All primitive assertions pass with exact boolean outcomes"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Rejects missing required fields and unexpected properties"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Nested array elements validate recursively"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Error list contains exact JSON Pointer paths and descriptive issue reasons"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run benchmark: Validates 10,000 JSON paylo",
+      "rubricIndex": 4,
+      "expectedOutcome": "Throughput exceeds 40,000 validations/sec in single Node.js thread"
+    }
+  ]
+}

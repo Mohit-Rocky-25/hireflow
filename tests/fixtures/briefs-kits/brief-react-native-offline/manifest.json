@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-react-native-offline",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run bench:sqlite-writes -- --records 1000: Dat",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 20.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:sync-throughput -- --records 500: Syn",
+      "rubricIndex": 1,
+      "expectedOutcome": "Sync duration < 2500ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:migrations: Migrations upgrade schema",
+      "rubricIndex": 2,
+      "expectedOutcome": "All migration steps pass with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:network-state: App updates connectivi",
+      "rubricIndex": 3,
+      "expectedOutcome": "State assertions verify valid status flags with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node ./scripts/verify_offline_merge.js --record 10",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms merged record contains both edits with exit code 0"
+    }
+  ]
+}

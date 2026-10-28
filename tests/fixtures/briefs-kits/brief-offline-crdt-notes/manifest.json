@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-offline-crdt-notes",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Both devices converge to byte-for-byte identical text state"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "All 500 mutations recovered from local SQLite with correct vector timestamps"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Transmits only small incremental delta (< 1KB) rather than full document payload"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Zero duplicate characters, dropped strokes, or unhandled promise rejections"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npx react-native run-android (or run-ios) with",
+      "rubricIndex": 4,
+      "expectedOutcome": "Displays real-time two-way synchronization with sub-100ms sync latency on local network"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-velocity-fraud-detector",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Engine flags 6th transaction with CARD_VELOCITY_EXCEEDED and returns REJECT"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Engine detects card testing pattern on 5th card, auto-bans IP for 1 hour"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Counters naturally roll off without stale bucket boundary penalties"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute k6 run --vus 50 --duration 10s scripts/fra",
+      "rubricIndex": 3,
+      "expectedOutcome": "Maintains p99 evaluation latency < 6ms with zero connection errors"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl -X POST http://localhost:8080/v1/fraud/ev",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returns HTTP 200 with decision: APPROVED and risk_score: 12"
+    }
+  ]
+}

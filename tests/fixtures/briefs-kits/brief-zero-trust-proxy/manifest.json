@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-zero-trust-proxy",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run bench:latency -- --rps 2000 --requests 100",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 proxy latency < 4.5ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 1,
+      "expectedOutcome": "50 of 50 revoked requests rejected with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 mismatched requests rejected with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 3,
+      "expectedOutcome": "Keypair rotation completes with 0 verification errors and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node ./scripts/verify_revocation_lock.js --token t",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms HTTP 401 and TOKEN_REVOKED rejection with exit code 0"
+    }
+  ]
+}

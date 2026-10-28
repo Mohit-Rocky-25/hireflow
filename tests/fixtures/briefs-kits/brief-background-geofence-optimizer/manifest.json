@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-background-geofence-optimizer",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run ./gradlew testDebugUnitTest: Validates geofenc",
+      "rubricIndex": 0,
+      "expectedOutcome": "All 15 geometric calculation tests pass"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute adb shell am broadcast -a com.google.andro",
+      "rubricIndex": 1,
+      "expectedOutcome": "BroadcastReceiver wakes up, logs transition event in Room database within 50ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run ./gradlew connectedAndroidTest: Executes test ",
+      "rubricIndex": 2,
+      "expectedOutcome": "WorkManager successfully schedules and batches telemetry upload during maintenance window"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python analyze_battery_historian.py --bugr",
+      "rubricIndex": 3,
+      "expectedOutcome": "Confirms GPS radio active time < 1.2% over 8-hour benchmark cycle"
+    },
+    {
+      "id": "check_5",
+      "name": "Run adb shell am force-stop com.example.geofence a",
+      "rubricIndex": 4,
+      "expectedOutcome": "OS successfully launches PendingIntent and records exit event despite terminated process"
+    }
+  ]
+}

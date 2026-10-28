@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-geval-eval-harness",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python eval_harness.py --config config/prompt_",
+      "rubricIndex": 0,
+      "expectedOutcome": "Runs 50 test cases and outputs colorized terminal comparison matrix"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "Handles edge cases including markdown-wrapped code blocks and trailing explanations"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python eval_harness.py --simulate-regression: ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Test suite detects statistically significant regression (p < 0.01) and exits with code 1"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python generate_report.py --run-id latest:",
+      "rubricIndex": 3,
+      "expectedOutcome": "Produces interactive report displaying score distribution charts, pass/fail status, and top failure samples"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python verify_brief-geval-eval-harness.sh: Exe",
+      "rubricIndex": 4,
+      "expectedOutcome": "Completes all requests with zero 429 rate limit errors via token bucket pacing"
+    }
+  ]
+}

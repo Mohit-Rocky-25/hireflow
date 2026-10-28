@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-cdc-pg-elasticsearch",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and go run cmd/cdc-sync/m",
+      "rubricIndex": 0,
+      "expectedOutcome": "Synchronizer connects to logical replication slot and logs STREAMING"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute psql -c \"INSERT INTO products (name, price",
+      "rubricIndex": 1,
+      "expectedOutcome": "Elasticsearch index product_search reflects new document within 300ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run psql -c \"UPDATE products SET price = 149.99 WH",
+      "rubricIndex": 2,
+      "expectedOutcome": "Elasticsearch document price field updates to 149.99 with incremented _version"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute psql -c \"DELETE FROM products WHERE name =",
+      "rubricIndex": 3,
+      "expectedOutcome": "Elasticsearch document is cleanly deleted with 0 hits on subsequent query"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "All 10,000 documents indexed into Elasticsearch with zero dropped events and verify count matches 10,000"
+    }
+  ]
+}

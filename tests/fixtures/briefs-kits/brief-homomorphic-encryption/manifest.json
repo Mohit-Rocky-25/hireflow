@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-homomorphic-encryption",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m confidential_db.audit_leakage: Inspectio",
+      "rubricIndex": 0,
+      "expectedOutcome": "0 plaintext values discovered with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_he_speed.py --records 100",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average operation latency is < 2.5 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "python -m confidential_db.verify_precision: Decryp",
+      "rubricIndex": 2,
+      "expectedOutcome": "100 of 100 batch precision tests pass within tolerance with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8000/api/query/encrypted_sum",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and ciphertext bytes field is non-empty"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_he.py --values 1000,",
+      "rubricIndex": 4,
+      "expectedOutcome": "Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-fullstack-ecommerce",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:concurrency: Prisma transactional row",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exactly 10 successful orders created and 0 inventory overselling with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:cart-latency: Optimistic UI updates D",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average optimistic cart update latency is < 40 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:webhook-idempotency: Webhook handler ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exactly 1 order record created with 0 duplicate entries and exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -I http://localhost:3000/products: Next.js re",
+      "rubricIndex": 3,
+      "expectedOutcome": "HTTP status is 200 and Content-Type contains text/html"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_checkout.js --sku DYNA",
+      "rubricIndex": 4,
+      "expectedOutcome": "Successful count equals 1, failure count equals 9, remaining stock equals 0, exit code 0"
+    }
+  ]
+}

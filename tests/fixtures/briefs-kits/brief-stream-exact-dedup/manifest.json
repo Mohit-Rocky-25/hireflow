@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-stream-exact-dedup",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exactly 50,000 events forwarded; exactly 10,000 duplicate events dropped"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Confirms 100% of unique events are processed without a single dropped unique record"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "RocksDB compaction cleaner removes expired keys, freeing disk storage"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Reports > 30,000 checks/sec with median latency < 0.25ms"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "RocksDB recovers on startup; subsequent duplicate checks correctly identify all pre-crash keys"
+    }
+  ]
+}

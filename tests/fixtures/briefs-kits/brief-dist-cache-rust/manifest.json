@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-dist-cache-rust",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "cargo run --release --bin cache_bench -- --clients",
+      "rubricIndex": 0,
+      "expectedOutcome": "Measured throughput is > 60,000 req/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "cargo run --release --bin latency_profile: Engine ",
+      "rubricIndex": 1,
+      "expectedOutcome": "p99 latency is < 3.5 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "carRun verification harness tests/fixtures/briefs-",
+      "rubricIndex": 2,
+      "expectedOutcome": "Test passes with coefficient of variation < 15%"
+    },
+    {
+      "id": "check_4",
+      "name": "carRun verification harness tests/fixtures/briefs-",
+      "rubricIndex": 3,
+      "expectedOutcome": "Memory consumption remains <= 10.5MB with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_singleflight.py --ke",
+      "rubricIndex": 4,
+      "expectedOutcome": "Upstream fetch counter equals 1 with all 100 clients receiving identical payload"
+    }
+  ]
+}

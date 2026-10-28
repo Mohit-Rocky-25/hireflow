@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-graphql-to-sql-compiler",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:compile -- --query samples/nested_ord",
+      "rubricIndex": 0,
+      "expectedOutcome": "Output contains exactly 1 SELECT statement, compilation latency < 2.5ms, exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:round-trip: Database executes exactly",
+      "rubricIndex": 1,
+      "expectedOutcome": "Recorded SQL statement count equals 1 with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:security: All 50 filter values are em",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 filter inputs safely parameterized with 0 injection escapes"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:complexity -- --depth 6: Complexity a",
+      "rubricIndex": 3,
+      "expectedOutcome": "Compiler rejects query with QueryTooComplexError and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_compiler.js --query '{",
+      "rubricIndex": 4,
+      "expectedOutcome": "Generated SQL contains dynamic_order alias inside LATERAL subquery and exit code is 0"
+    }
+  ]
+}

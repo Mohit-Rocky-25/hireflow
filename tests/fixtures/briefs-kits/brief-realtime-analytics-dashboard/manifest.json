@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-realtime-analytics-dashboard",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run bench:websocket -- --clients 2000 --rate 5",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 50.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run bench:postgres-query -- --queries 100: Pos",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency < 65.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:concurrency-soak -- --clients 2000 --",
+      "rubricIndex": 2,
+      "expectedOutcome": "2,000 active connections maintained with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:cluster-fanout: Redis Pub/Sub success",
+      "rubricIndex": 3,
+      "expectedOutcome": "All messages received across worker partitions with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node ./scripts/verify_live_update.js --amount 1000",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms revenue counter incremented by 10000 with exit code 0"
+    }
+  ]
+}

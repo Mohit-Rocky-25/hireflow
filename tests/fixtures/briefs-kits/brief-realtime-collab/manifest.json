@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-realtime-collab",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run bench:delta-latency -- --mutations 1000: W",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 45.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:chaos-convergence -- --trials 50 --cl",
+      "rubricIndex": 1,
+      "expectedOutcome": "50 of 50 trials converge with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:offline-reload: IndexedDB adapter loa",
+      "rubricIndex": 2,
+      "expectedOutcome": "Reload latency < 50.0ms with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:presence-cursors -- --clients 5: WebS",
+      "rubricIndex": 3,
+      "expectedOutcome": "5 active cursor positions verified with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node ./scripts/verify_dynamic_crdt.js --clientA-te",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms identical text on both clients with exit code 0"
+    }
+  ]
+}

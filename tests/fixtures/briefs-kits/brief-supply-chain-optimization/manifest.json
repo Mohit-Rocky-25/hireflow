@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-supply-chain-optimization",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_mileage.py --stops 100 -",
+      "rubricIndex": 0,
+      "expectedOutcome": "Mileage reduction >= 18.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./solver/run_vrptw.py --stops 100 --timeout",
+      "rubricIndex": 1,
+      "expectedOutcome": "Execution latency < 15.0s with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./tests/verify_brief-supply-chain-optimizat",
+      "rubricIndex": 2,
+      "expectedOutcome": "0 arrival violations with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/v1/optimize",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status 200 with non-empty route polylines and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_unfeasible_drop.py --overw",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms unfeasible node dropped with penalty and remaining solved with exit code 0"
+    }
+  ]
+}

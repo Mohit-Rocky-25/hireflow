@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-ab-experimentation",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 with 15 passing mathematical assertions and zero calculation errors"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute ingestion integration test script: All 100",
+      "rubricIndex": 1,
+      "expectedOutcome": "Database count equals 100 with zero dropped events and HTTP 200 responses"
+    },
+    {
+      "id": "check_3",
+      "name": "Run sequential experiment simulator: Engine transi",
+      "rubricIndex": 2,
+      "expectedOutcome": "Status correctly set to STOPPED_WINNER with winning variant identified as arm B"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python scripts/simulate_null.py: Empirical",
+      "rubricIndex": 3,
+      "expectedOutcome": "Reported empirical false positive rate is <= 5.0% across all 500 trials"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_reproducibility.py --see",
+      "rubricIndex": 4,
+      "expectedOutcome": "Script completes with exit code 0 confirming dynamic evaluation matches mathematical bounds"
+    }
+  ]
+}

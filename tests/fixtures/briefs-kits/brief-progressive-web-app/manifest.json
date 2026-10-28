@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-progressive-web-app",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npx lighthouse http://localhost:3000 --output=json",
+      "rubricIndex": 0,
+      "expectedOutcome": "PWA score >= 95 out of 100 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:offline-fcp: App shell renders comple",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 FCP < 1500ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "npx playwright test tests/offline_sync.spec.ts: Mu",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 mutations committed successfully with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:push-notification: Service worker rec",
+      "rubricIndex": 3,
+      "expectedOutcome": "Notification event received and displayed with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "npm run test:verify-offline-flow: Browser creates ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms offline creation and successful online commit with exit code 0"
+    }
+  ]
+}

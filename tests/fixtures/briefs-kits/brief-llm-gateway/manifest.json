@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-llm-gateway",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m gateway.benchmark_cache --requests verif",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency is < 25.0ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_overhead.py --concurrency",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average overhead is < 4.5ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/run_failover_chaos.py --trials 20 -",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average failover recovery < 650ms and 100% request fulfillment across 20 trials"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/v1/chat/complet",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 429 and response body contains rate limit exceeded error"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_cache.py --prompt 'S",
+      "rubricIndex": 4,
+      "expectedOutcome": "Second query logs cache_hit=true, latency < 15ms, and provider token usage equals 0"
+    }
+  ]
+}

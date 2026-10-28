@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-mobile-flutter-prod",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "flutter drive --driver=verify_driver/perf_driver.d",
+      "rubricIndex": 0,
+      "expectedOutcome": "Average cold start is < 1,800ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "flutter drive --driver=verify_driver/perf_driver.d",
+      "rubricIndex": 1,
+      "expectedOutcome": "Dropped frame count is < 4 and exit code is 0"
+    },
+    {
+      "id": "check_3",
+      "name": "dart test test/sync_reconciliation_test.dart: Sync",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average sync time < 650ms and 50 of 50 records confirmed with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "bundle exec fastlane build_release_apk: Fastlane e",
+      "rubricIndex": 3,
+      "expectedOutcome": "Build succeeds with exit code 0 and release APK file exists"
+    },
+    {
+      "id": "check_5",
+      "name": "dart test test/dynamic_offline_test.dart --item-ti",
+      "rubricIndex": 4,
+      "expectedOutcome": "Backend receives Inspection Asset 4099 and local database marks sync_status=1 with exit code 0"
+    }
+  ]
+}

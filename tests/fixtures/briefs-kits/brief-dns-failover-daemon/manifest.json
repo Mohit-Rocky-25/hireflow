@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-dns-failover-daemon",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Probe accurately detects connection refusal and marks node UNHEALTHY within 5s"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Coordinator determines quorum healthy and suppresses failover action"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Coordinator executes DNS record update API call, swapping A-record to standby IP"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Coordinator executes failback, safely restoring primary DNS record"
+    },
+    {
+      "id": "check_5",
+      "name": "Run dig @localhost -p 5354 api.company.internal: Q",
+      "rubricIndex": 4,
+      "expectedOutcome": "Returns updated secondary IP with 30-second TTL"
+    }
+  ]
+}

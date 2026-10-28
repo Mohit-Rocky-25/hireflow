@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-grpc-mesh-resilience",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run protoc --go_out=. --go-grpc_out=. proto/paymen",
+      "rubricIndex": 0,
+      "expectedOutcome": "Generates clean Go interfaces with zero compilation warnings"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute ghz --insecure --proto=proto/payment.proto",
+      "rubricIndex": 1,
+      "expectedOutcome": "Maintains > 20,000 req/sec with p99 latency < 3ms"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Circuit breaker opens, immediately returns ErrCircuitOpen without executing network call"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Hop 2 aborts computation immediately upon deadline expiry, saving CPU cycles"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Requests distributed evenly across all 3 backend replicas (100 requests each +/- 5%)"
+    }
+  ]
+}

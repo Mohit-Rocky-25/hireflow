@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-time-series-forecasting",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./evaluation/eval_wape.py --series 1000 --h",
+      "rubricIndex": 0,
+      "expectedOutcome": "WAPE <= 14.5% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./benchmarks/bench_inference.py --requests ",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency < 35.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./evaluation/eval_intervals.py --points 100",
+      "rubricIndex": 2,
+      "expectedOutcome": "Coverage between 87.0% and 93.0% with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/v1/forecast",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status 200 with 14 daily forecast points and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_shock_adaptation.py --shoc",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms interval width widened by >= 40% with exit code 0"
+    }
+  ]
+}

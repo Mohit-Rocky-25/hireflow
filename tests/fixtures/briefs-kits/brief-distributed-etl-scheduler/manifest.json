@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-distributed-etl-scheduler",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python dag_runner.py --dag examples/diamond_da",
+      "rubricIndex": 0,
+      "expectedOutcome": "Step A runs first, Steps B and C execute concurrently in parallel, Step D runs only after B and C complete"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "Cycle detector catches circular loop and throws CyclicDependencyError with offending node path"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python dag_runner.py --dag examples/failing_da",
+      "rubricIndex": 2,
+      "expectedOutcome": "Task retries twice, downstream dependent tasks marked UPSTREAM_FAILED, independent branches complete cleanly"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python backfill.py --dag examples/daily_ro",
+      "rubricIndex": 3,
+      "expectedOutcome": "Executes 10 daily pipeline runs sequentially with correct date execution contexts"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python dag_runner.py --export-dot examples/com",
+      "rubricIndex": 4,
+      "expectedOutcome": "Generates valid DOT file visualizing task dependency hierarchy"
+    }
+  ]
+}

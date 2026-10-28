@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-opentelemetry-observability",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/benchmarker --spans 100000 --batch-si",
+      "rubricIndex": 0,
+      "expectedOutcome": "Ingestion throughput >= 25,000 spans/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "go run ./cmd/bench_query --queries 100: Trace quer",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 query latency is < 45.0ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "100 of 100 error traces retained with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8080/api/v1/traces/trace_ver",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains non-empty spans array with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_dynamic_trace.go --attribu",
+      "rubricIndex": 4,
+      "expectedOutcome": "Trace verified in ClickHouse with attribute 'tenant_id=dyn_client_991' and status=ERROR with exit code 0"
+    }
+  ]
+}

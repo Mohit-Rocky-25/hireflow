@@ -1,0 +1,37 @@
+{
+  "briefId": "cert-aws-saa",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./scripts/verify_cert-aws-saa.sh --requests",
+      "rubricIndex": 0,
+      "expectedOutcome": "1,000 of 1,000 requests succeed with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_cert-aws-saa.sh --messages",
+      "rubricIndex": 1,
+      "expectedOutcome": "Sustained throughput >= 800 msgs/sec with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./scripts/verify_glacier_transition.py --bu",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 objects transitioned with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "terraform plan -out=tfplan.binary && tfsec .: Tfse",
+      "rubricIndex": 3,
+      "expectedOutcome": "Zero high/critical security findings with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_alb_target_drop.py --dead-",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms 100% traffic shifted away from dead AZ with exit code 0"
+    }
+  ]
+}

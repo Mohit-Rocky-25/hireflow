@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-credit-risk-model",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python scripts/train_model.py: Model trains wi",
+      "rubricIndex": 0,
+      "expectedOutcome": "Validation ROC-AUC is >= 0.74 with Platt calibration applied"
+    },
+    {
+      "id": "check_2",
+      "name": "Run python scripts/evaluate_calibration.py: Script",
+      "rubricIndex": 1,
+      "expectedOutcome": "Calculated Brier score is <= 0.14 across all test deciles"
+    },
+    {
+      "id": "check_3",
+      "name": "Execute curl -X POST -H 'Content-Type: application",
+      "rubricIndex": 2,
+      "expectedOutcome": "HTTP status 200 with valid probability float and 3 distinct adverse factor reasons"
+    },
+    {
+      "id": "check_4",
+      "name": "Evaluate risk predictions across synthetic applica",
+      "rubricIndex": 3,
+      "expectedOutcome": "0 monotonicity constraint violations detected across 1,000 synthetic test pairs"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_dynamic_applicant.py --u",
+      "rubricIndex": 4,
+      "expectedOutcome": "Primary adverse reason code equals HIGH_REVOLVING_UTILIZATION with exit code 0"
+    }
+  ]
+}

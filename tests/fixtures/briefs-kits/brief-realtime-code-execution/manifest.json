@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-realtime-code-execution",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/bench_executor --jobs 1000 --concurre",
+      "rubricIndex": 0,
+      "expectedOutcome": "p95 latency < 180ms with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 1,
+      "expectedOutcome": "Process contained with exit code 0 and host CPU unaffected"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Socket creation rejected with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 3,
+      "expectedOutcome": "OOM handled cleanly with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_host_containment.go --targ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms access denied / file not found with exit code 0"
+    }
+  ]
+}

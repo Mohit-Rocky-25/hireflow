@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-osint-data-platform",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m crawler.benchmark_throughput --pages 500",
+      "rubricIndex": 0,
+      "expectedOutcome": "Extraction throughput >= 120 pages/min with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python -m crawler.verify_bloom_filter --total 5000",
+      "rubricIndex": 1,
+      "expectedOutcome": "Deduplication accuracy >= 99.0% with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/verify_brief-osint-data-platform.sh",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average alert latency < 10.0s across 20 trials with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl http://localhost:8000/api/v1/snapshots?url=ht",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200 and JSON contains non-empty price and title fields"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_scrape.py --item-id ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Alert webhook confirms price change from 49.99 to 29.99 detected with exit code 0"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-devsecops-pipeline",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run semgrep scan --config .semgrep/rules.yml --err",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 1 with exactly 5 vulnerability violations reported"
+    },
+    {
+      "id": "check_2",
+      "name": "Run trivy fs --severity HIGH,CRITICAL --exit-code ",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 1 with identified CVE IDs matching planted test fixtures"
+    },
+    {
+      "id": "check_3",
+      "name": "Run cosign sign-blob --yes /tmp/image_digest.txt: ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Cosign verification command returns exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run bash scripts/benchmark_pipeline_speed.sh: All ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Total pipeline execution latency is < 240 seconds"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python scripts/verify_dynamic_secrets.sh --sec",
+      "rubricIndex": 4,
+      "expectedOutcome": "Exit code 1 with secret scanner pinpointing injected credential string"
+    }
+  ]
+}

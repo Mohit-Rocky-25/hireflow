@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-markdown-ast-ssg",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Metadata object contains exact key-value pairs"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "AST structure matches expected hierarchical node tree"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Rendered HTML sanitizes or escapes script tags preventing XSS execution"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute npm run build:site -- --src=docs --out=dis",
+      "rubricIndex": 3,
+      "expectedOutcome": "Outputs static HTML directory with valid links and syntax-highlighted code blocks"
+    },
+    {
+      "id": "check_5",
+      "name": "Run npm run benchmark: Measures build time across ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Complete static site compilation finishes in < 250ms with zero errors"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-semantic-kernel-agent",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./benchmarks/bench_completion.py --tasks 50",
+      "rubricIndex": 0,
+      "expectedOutcome": "Task completion rate >= 88.0% with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./benchmarks/bench_step_latency.py --steps ",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 latency < 250ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./tests/verify_brief-semantic-kernel-agent.",
+      "rubricIndex": 2,
+      "expectedOutcome": "20 of 20 flawed drafts caught and remediated with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/api/v1/memory/r",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status 200 with non-empty relevant memories and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "python ./scripts/verify_forced_remediation.py --ta",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms rejection of draft 1 and approval of draft 2 with exit code 0"
+    }
+  ]
+}

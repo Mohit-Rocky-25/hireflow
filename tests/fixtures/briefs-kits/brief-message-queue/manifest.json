@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-message-queue",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/benchmarker --messages 100000 --batch",
+      "rubricIndex": 0,
+      "expectedOutcome": "Measured throughput is >= 45,000 msg/sec with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "go run ./scripts/verify_crash_recovery.go --messag",
+      "rubricIndex": 1,
+      "expectedOutcome": "Recovered count equals 50,000 with 0 corrupted messages and exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average redelivery duration < 5.0s with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "go run ./scripts/verify_dlq_routing.go --poison-pa",
+      "rubricIndex": 3,
+      "expectedOutcome": "Message appears in DLQ topic with original error metadata and exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_dynamic_redelivery.go --ki",
+      "rubricIndex": 4,
+      "expectedOutcome": "Consumer 2 successfully acknowledges dynamic message with exit code 0"
+    }
+  ]
+}

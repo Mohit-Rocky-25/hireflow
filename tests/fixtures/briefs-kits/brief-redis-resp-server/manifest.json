@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-redis-resp-server",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Start server and run redis-cli ping: Server respon",
+      "rubricIndex": 0,
+      "expectedOutcome": "redis-cli displays PONG with return code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute redis-cli set key \"Hello World\" followed b",
+      "rubricIndex": 1,
+      "expectedOutcome": "redis-cli prints \"Hello World\""
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "All tests pass with zero data race warnings logged by Go race detector"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute redis-benchmark -q -n 50000 -c 50: Measure",
+      "rubricIndex": 3,
+      "expectedOutcome": "Sustains > 20,000 requests/sec across SET and GET operations"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Parser correctly handles all edge cases with zero panics"
+    }
+  ]
+}

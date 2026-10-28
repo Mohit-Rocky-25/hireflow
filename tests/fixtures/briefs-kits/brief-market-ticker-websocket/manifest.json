@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-market-ticker-websocket",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Produces exact Open, High, Low, Close, and Volume matching manual calculations"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Candlestick generator creates flat candles maintaining prior Close price with zero Volume"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Engine correctly updates prior candle High/Low bounds without crashing"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Processes > 120,000 ticks/sec with zero heap allocations per tick"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python verify_brief-market-ticker-websocket.sh",
+      "rubricIndex": 4,
+      "expectedOutcome": "Receives throttled updates and final closed candle bar with 100% packet integrity"
+    }
+  ]
+}

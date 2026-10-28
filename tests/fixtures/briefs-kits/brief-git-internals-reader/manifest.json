@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-git-internals-reader",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run go run main.py cat-file <blob-hash>: Decompres",
+      "rubricIndex": 0,
+      "expectedOutcome": "Output matches `git cat-file -p` output byte-for-byte"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Successfully decodes permissions, object types, hashes, and filenames"
+    },
+    {
+      "id": "check_3",
+      "name": "Run go run main.go log: Traverses commit history f",
+      "rubricIndex": 2,
+      "expectedOutcome": "Outputs commit history matching `git log --oneline` order and messages"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Gracefully handles unexpected EOF, returning non-zero exit code with informative error message"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Resolves current branch HEAD hash with exit code 0"
+    }
+  ]
+}

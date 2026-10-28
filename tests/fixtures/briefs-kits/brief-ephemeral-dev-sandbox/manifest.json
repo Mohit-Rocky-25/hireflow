@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-ephemeral-dev-sandbox",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "Verifies signature and queues provisioning task"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute go run cmd/provisioner/main.go --test-pr 1",
+      "rubricIndex": 1,
+      "expectedOutcome": "Builds containers, maps ports, and launches isolated preview stack within 30 seconds"
+    },
+    {
+      "id": "check_3",
+      "name": "Run curl -H 'Host: pr-101.preview.local' http://lo",
+      "rubricIndex": 2,
+      "expectedOutcome": "Routes request to internal container port and returns HTTP 200 OK"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Provisioner stops and removes containers, prunes Docker network, and deletes mounted volumes cleanly"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Provisioner safely rejects request and reports QUOTA_EXCEEDED without host crash"
+    }
+  ]
+}

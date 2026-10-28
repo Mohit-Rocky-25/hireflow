@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-dynamic-feature-gate",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "User receives identical bucket assignment 100% of the time without divergence"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Allocates between 29.8% and 30.2% of users to enabled bucket"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Reports < 1.5 microseconds per evaluation with zero heap allocations"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Worker node updates in-memory rule cache within 200ms via SSE"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl -X POST http://localhost:8080/api/flags/c",
+      "rubricIndex": 4,
+      "expectedOutcome": "Flag immediately evaluates to FALSE for 100% of incoming users"
+    }
+  ]
+}

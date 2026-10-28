@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-micro-frontend-shell",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run build --workspace=host && node scripts/ana",
+      "rubricIndex": 0,
+      "expectedOutcome": "Compressed host bundle size is < 120KB with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "node scripts/benchmark_load_latency.js --runs 100 ",
+      "rubricIndex": 1,
+      "expectedOutcome": "p95 load latency is < 650ms with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 crash simulations pass error boundary assertions with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 3,
+      "expectedOutcome": "All event pub/sub assertions pass with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_remote.js --port 8089 ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Headless browser DOM confirms DynamicPromoRemote mounted inside host layout with exit code 0"
+    }
+  ]
+}

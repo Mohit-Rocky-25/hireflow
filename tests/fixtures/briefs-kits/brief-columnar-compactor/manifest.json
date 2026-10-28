@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-columnar-compactor",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python generate_small_files.py --count 500: Ge",
+      "rubricIndex": 0,
+      "expectedOutcome": "Creates 500 valid raw JSON event files"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python compact.py --source staging/ --targ",
+      "rubricIndex": 1,
+      "expectedOutcome": "Consolidates 500 files into a single optimized Parquet file; logs total rows processed"
+    },
+    {
+      "id": "check_3",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 2,
+      "expectedOutcome": "Verifies 100% row and byte integrity with zero dropped records"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python benchmark_query_speed.py: Measures ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Compacted Parquet queries execute > 12x faster"
+    },
+    {
+      "id": "check_5",
+      "name": "Run parquet-tools inspect lake/2026-10-28/part-000",
+      "rubricIndex": 4,
+      "expectedOutcome": "Verifies Snappy compression codec, dictionary encoding on categorical columns, and valid row group counts"
+    }
+  ]
+}

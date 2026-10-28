@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-event-driven-saas",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:penetration: PostgreSQL Row-Level Sec",
+      "rubricIndex": 0,
+      "expectedOutcome": "1,000 of 1,000 penetration checks pass with 0 unauthorized records exposed and exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run bench:outbox: Transactional outbox publish",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average outbox latency is < 250 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:webhooks: Dispatcher retries failed d",
+      "rubricIndex": 2,
+      "expectedOutcome": "Delivery success rate exceeds 95% with failed items placed into DLQ"
+    },
+    {
+      "id": "check_4",
+      "name": "npm run test:ratelimit -- --tenant tenant-abc --re",
+      "rubricIndex": 3,
+      "expectedOutcome": "Responses transition to HTTP 429 once tenant quota threshold is reached"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_multitenancy.js --tena",
+      "rubricIndex": 4,
+      "expectedOutcome": "Query by Tenant Y returns null/404 and exit code is 0"
+    }
+  ]
+}

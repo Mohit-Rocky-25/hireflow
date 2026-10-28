@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-peer-to-peer",
+  "archetype": "pipeline-ci",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "go run ./cmd/bench_swarm --peers 5 --file-size 100",
+      "rubricIndex": 0,
+      "expectedOutcome": "Speedup factor >= 2.4x with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run verification harness tests/fixtures/briefs-kit",
+      "rubricIndex": 1,
+      "expectedOutcome": "20 of 20 corrupted pieces rejected and final file SHA-1 matches ground truth with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "go run ./scripts/verify_peer_churn.go --kill-peers",
+      "rubricIndex": 2,
+      "expectedOutcome": "File transfer completes with valid SHA-1 checksum and exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "go run ./cmd/p2p_cli status --infohash f4b9c1d8...",
+      "rubricIndex": 3,
+      "expectedOutcome": "Output displays active peer count >= 3 and valid completion progress with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "go run ./scripts/verify_dynamic_corruption.go --co",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms piece 3 rejected from peer 2, re-downloaded from peer 3, with exit code 0"
+    }
+  ]
+}

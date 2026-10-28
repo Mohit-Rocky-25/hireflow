@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-k8s-secret-sync",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and go run cmd/operator/m",
+      "rubricIndex": 0,
+      "expectedOutcome": "Operator authenticates with Vault and begins reconciliation loop"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute kubectl apply -f config/samples/vault_secr",
+      "rubricIndex": 1,
+      "expectedOutcome": "Operator creates native Kubernetes Secret db-credentials with decoded values"
+    },
+    {
+      "id": "check_3",
+      "name": "Run vault kv put secret/database password=\"NewUltr",
+      "rubricIndex": 2,
+      "expectedOutcome": "Operator detects change on next poll cycle and updates Kubernetes Secret cleanly"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute kubectl get deployment web-app -o jsonpath",
+      "rubricIndex": 3,
+      "expectedOutcome": "Checksum annotation updates, triggering automatic rolling restart of web pods"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Operator automatically requests new auth token and resumes syncing without crashing"
+    }
+  ]
+}

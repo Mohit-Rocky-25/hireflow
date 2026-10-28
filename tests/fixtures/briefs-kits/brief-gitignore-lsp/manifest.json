@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-gitignore-lsp",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "npm run test:latency: Server processes didChange a",
+      "rubricIndex": 0,
+      "expectedOutcome": "p99 diagnostic publication latency is < 30 milliseconds with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "npm run test:completion -- --prefix 'src/component",
+      "rubricIndex": 1,
+      "expectedOutcome": "Average completion response latency is < 20 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "npm run test:ast-parser: AST parser tokenizes and ",
+      "rubricIndex": 2,
+      "expectedOutcome": "50 of 50 glob parsing tests pass with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "node scripts/simulate_client.js --action hover --l",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response contains contents.kind equals markdown and non-empty description"
+    },
+    {
+      "id": "check_5",
+      "name": "node scripts/verify_dynamic_lsp.js --content 'inva",
+      "rubricIndex": 4,
+      "expectedOutcome": "abc' --expected-error 'UNCLOSED_BRACKET': Server emits publishDiagnostics identifying unclosed bracket at exact line and column [Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0"
+    }
+  ]
+}

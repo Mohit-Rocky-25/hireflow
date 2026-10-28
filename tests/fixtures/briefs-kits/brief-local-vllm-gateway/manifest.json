@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-local-vllm-gateway",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run docker-compose up -d and curl http://localhost",
+      "rubricIndex": 0,
+      "expectedOutcome": "Returns HTTP 200 with loaded model identifier in OpenAI JSON format"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute python verify_brief-local-vllm-gateway.sh:",
+      "rubricIndex": 1,
+      "expectedOutcome": "Streams completion tokens cleanly with standard usage metrics metadata"
+    },
+    {
+      "id": "check_3",
+      "name": "Run locust -f benchmarks/locustfile.py --users 30 ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Generates > 350 tokens/sec aggregate throughput with zero connection drops"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute curl http://localhost:8000/metrics | grep ",
+      "rubricIndex": 3,
+      "expectedOutcome": "Reports real-time metrics for vllm:avg_generation_throughput_toks_per_s and gpu_cache_usage_factor"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python tests/verify_brief-local-vllm-gateway.s",
+      "rubricIndex": 4,
+      "expectedOutcome": "Inference worker immediately frees KV cache allocated pages without memory leaks"
+    }
+  ]
+}

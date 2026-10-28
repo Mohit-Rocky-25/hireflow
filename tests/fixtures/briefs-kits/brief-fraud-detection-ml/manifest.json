@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-fraud-detection-ml",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python -m fraud_pipeline.evaluate --test-data data",
+      "rubricIndex": 0,
+      "expectedOutcome": "PR-AUC is > 0.72 with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python scripts/benchmark_scoring_latency.py --requ",
+      "rubricIndex": 1,
+      "expectedOutcome": "p99 decision latency is < 15.0 milliseconds"
+    },
+    {
+      "id": "check_3",
+      "name": "python scripts/benchmark_shap_speed.py --samples 1",
+      "rubricIndex": 2,
+      "expectedOutcome": "Average SHAP latency is < 8.0 milliseconds with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "curl -X POST http://localhost:8000/score -H 'Conte",
+      "rubricIndex": 3,
+      "expectedOutcome": "Response status is 200, decision is BLOCKED, and reason_codes array has at least 1 item"
+    },
+    {
+      "id": "check_5",
+      "name": "python scripts/verify_dynamic_fraud.py --card-id D",
+      "rubricIndex": 4,
+      "expectedOutcome": "6th transaction returns BLOCKED with reason VELOCITY_BURST and exit code 0"
+    }
+  ]
+}

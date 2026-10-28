@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-webhook-retry-engine",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 0,
+      "expectedOutcome": "All signature validation tests pass with zero timing attacks"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 1,
+      "expectedOutcome": "Calculated delay intervals fall within expected mathematical jitter bounds"
+    },
+    {
+      "id": "check_3",
+      "name": "Run node scripts/simulate_faulty_receiver.js & npm",
+      "rubricIndex": 2,
+      "expectedOutcome": "Worker catches error, logs retry attempt, and schedules delay according to policy"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "Message is cleanly removed from active queue and stored in DLQ with HTTP error status and response body"
+    },
+    {
+      "id": "check_5",
+      "name": "Run curl -X POST http://localhost:3000/api/dlq/rep",
+      "rubricIndex": 4,
+      "expectedOutcome": "Event re-enters queue, executes successfully, and receives HTTP 200"
+    }
+  ]
+}

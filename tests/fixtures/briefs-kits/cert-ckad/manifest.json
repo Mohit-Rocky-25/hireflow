@@ -1,0 +1,37 @@
+{
+  "briefId": "cert-ckad",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "python ./scripts/verify_cert-ckad.sh --deploy web-",
+      "rubricIndex": 0,
+      "expectedOutcome": "1,000 of 1,000 requests succeed with exit code 0"
+    },
+    {
+      "id": "check_2",
+      "name": "python ./scripts/verify_cert-ckad.sh --source test",
+      "rubricIndex": 1,
+      "expectedOutcome": "50 of 50 unauthorized attempts dropped with exit code 0"
+    },
+    {
+      "id": "check_3",
+      "name": "python ./scripts/verify_cert-ckad.sh --pod payment",
+      "rubricIndex": 2,
+      "expectedOutcome": "Container restarts and recovers in < 20s with exit code 0"
+    },
+    {
+      "id": "check_4",
+      "name": "./scripts/grade_ckad_labs.sh: Grader asserts all 1",
+      "rubricIndex": 3,
+      "expectedOutcome": "Score 15 of 15 tasks passed with exit code 0"
+    },
+    {
+      "id": "check_5",
+      "name": "kubectl run rogue-probe -n finance --image=curlima",
+      "rubricIndex": 4,
+      "expectedOutcome": "Console confirms command timed out with exit code 28"
+    }
+  ]
+}

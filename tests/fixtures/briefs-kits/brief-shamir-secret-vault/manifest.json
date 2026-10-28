@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-shamir-secret-vault",
+  "archetype": "security-corpus",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run ./vault split --secret \"MySuperSecretMasterKey",
+      "rubricIndex": 0,
+      "expectedOutcome": "Outputs 5 unique hexadecimal share strings"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute ./vault combine share1.txt share2.txt shar",
+      "rubricIndex": 1,
+      "expectedOutcome": "Outputs recovered secret exactly matching original text"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 2,
+      "expectedOutcome": "Engine rejects reconstruction and fails to produce valid secret"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute Run verification harness tests/fixtures/br",
+      "rubricIndex": 3,
+      "expectedOutcome": "All 10 finite field algebraic identity tests pass cleanly"
+    },
+    {
+      "id": "check_5",
+      "name": "Run Run verification harness tests/fixtures/briefs",
+      "rubricIndex": 4,
+      "expectedOutcome": "Reconstructed PEM key matches byte-for-byte with 0 bits divergence"
+    }
+  ]
+}

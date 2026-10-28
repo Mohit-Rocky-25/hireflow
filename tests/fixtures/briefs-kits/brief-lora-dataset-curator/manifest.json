@@ -1,0 +1,37 @@
+{
+  "briefId": "brief-lora-dataset-curator",
+  "archetype": "data-ml-eval",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run python curate.py --input raw_data.jsonl --outp",
+      "rubricIndex": 0,
+      "expectedOutcome": "Generates clean dataset and logs summary of dropped records per filter stage"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute verification kit runner tests/fixtures/bri",
+      "rubricIndex": 1,
+      "expectedOutcome": "Decontamination engine flags and removes 100% of injected benchmark questions"
+    },
+    {
+      "id": "check_3",
+      "name": "Run python tests/verify_brief-lora-dataset-curator",
+      "rubricIndex": 2,
+      "expectedOutcome": "Reduces duplicate clusters to single canonical record with Jaccard similarity > 0.85"
+    },
+    {
+      "id": "check_4",
+      "name": "Execute python validate_splits.py --train data/tra",
+      "rubricIndex": 3,
+      "expectedOutcome": "Confirms disjoint vocabulary overlap with zero duplicate hash collisions"
+    },
+    {
+      "id": "check_5",
+      "name": "Run python -c \"from datasets import load_dataset; ",
+      "rubricIndex": 4,
+      "expectedOutcome": "Loads cleanly with valid ChatML schema and non-empty splits"
+    }
+  ]
+}
