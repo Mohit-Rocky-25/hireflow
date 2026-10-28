@@ -82,3 +82,4 @@ migratedPilot.forEach((b) => {
 
 fs.writeFileSync(path.resolve(process.cwd(), 'docs/briefs/PILOT_SAMPLE.md'), md, 'utf8');
 console.log(`✓ Saved docs/briefs/PILOT_SAMPLE.md.`);
+

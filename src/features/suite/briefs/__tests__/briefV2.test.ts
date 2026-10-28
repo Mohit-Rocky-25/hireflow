@@ -48,3 +48,4 @@ describe('BriefV2 Schema & Validator', () => {
     expect(text).toContain('[7. SCREENER VERIFICATION RUBRIC]');
   });
 });
+

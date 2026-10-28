@@ -135,3 +135,4 @@ A project brief is certified **DONE (Grade A / Production Ready)** if and only i
 8. **Interview Defense & Resume Bullets**: Contains at least 3 resume bullet variants and 8+ interview defense questions with architectural trade-offs.
 9. **Safety, Privacy & Lawful Scope**: Disclaimers present for security/scraping/financial projects; synthetic test data mandated.
 10. **Pinned Tool Versions & Review Metadata**: Minimum semver versions pinned for all tools; `lastReviewed` and `reviewBy` dates recorded.
+

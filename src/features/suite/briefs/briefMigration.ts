@@ -266,3 +266,4 @@ export function toLegacyText(b: ProjectBrief | ProjectBriefV2, index?: number): 
     '-'.repeat(80),
   ].join('\n');
 }
+

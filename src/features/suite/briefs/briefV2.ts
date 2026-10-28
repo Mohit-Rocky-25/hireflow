@@ -249,3 +249,4 @@ export function validateBriefV2(obj: unknown): { valid: boolean; errors: string[
     errors,
   };
 }
+
