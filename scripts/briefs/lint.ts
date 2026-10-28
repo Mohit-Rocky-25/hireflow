@@ -147,7 +147,9 @@ export const LINT_RULES: LintRule[] = [
       const matched = linuxSyscalls.filter((s) =>
         (b.problemStatement || '').includes(s) || (b.architecture || '').includes(s)
       );
-      if (matched.length > 0) {
+      const text = `${b.problemStatement || ''} ${b.architecture || ''} ${b.scaleTargets || ''}`;
+      const hasPortabilityPrereq = text.includes('WSL2') || text.includes('Docker') || text.includes('Linux container');
+      if (matched.length > 0 && !hasPortabilityPrereq) {
         findings.push({
           briefId: b.id,
           ruleId: 'RULE-LINUX-SYSCALL-PORTABILITY',
@@ -172,10 +174,11 @@ export const LINT_RULES: LintRule[] = [
     falsePositiveRisk: 'low',
     check: (b) => {
       const findings: LintFinding[] = [];
-      const hasGpu = (b.techStack || []).some((t: string) => ['CUDA', 'vLLM', 'GPU'].includes(t)) ||
-        (b.scaleTargets || '').toLowerCase().includes('gpu') ||
-        (b.architecture || '').toLowerCase().includes('gpu');
-      if (hasGpu) {
+      const stackStr = (b.techStack || []).join(' ');
+      const text = `${stackStr} ${b.scaleTargets || ''} ${b.architecture || ''} ${b.problemStatement || ''}`;
+      const hasGpu = ['CUDA', 'vLLM', 'GPU'].some((k) => stackStr.includes(k) || (b.scaleTargets || '').includes(k));
+      const hasCpuFallback = text.toLowerCase().includes('cpu fallback') || text.toLowerCase().includes('quantized cpu') || text.toLowerCase().includes('colab');
+      if (hasGpu && !hasCpuFallback) {
         findings.push({
           briefId: b.id,
           ruleId: 'RULE-UNATTAINABLE-HARDWARE-REQUIREMENT',
@@ -230,7 +233,8 @@ export const LINT_RULES: LintRule[] = [
     check: (b) => {
       const findings: LintFinding[] = [];
       const formula = b.portfolioBulletFormula || '';
-      const matches = formula.match(/\b(100%|zero|0\b|never|guaranteed)\b/gi);
+      // Exclude semver decimals like 2.0 or 1.0 from standalone 0 check
+      const matches = formula.match(/(?<!\.)\b(?:100%|zero|never|guaranteed)\b|(?<![\d.])\b0\b(?![\d.])/gi);
       if (matches) {
         findings.push({
           briefId: b.id,
