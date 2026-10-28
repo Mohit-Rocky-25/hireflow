@@ -1,0 +1,48 @@
+PROJECT BRIEF — IMMUTABLE DOUBLE-ENTRY GENERAL LEDGER WITH MULTI-CURRENCY BALANCE INVARIANTS
+======================================================================
+
+Project ID  : brief-double-entry-ledger
+Domain      : FinTech & High-Integrity Systems
+Difficulty  : ADVANCED
+Est. Time   : 24 hours
+Tech Stack  : Go 1.22+, PostgreSQL 16+, SQL Constraints 1.0+, Docker 26+, pgx 1.0+, Testing 1.0+
+Covered Gaps: PostgreSQL, Go, Accounting, ACID, Database Constraints, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+FinTech and banking platforms cannot use naive single-column account balance fields (e.g. `UPDATE accounts SET balance = balance + 100`) because network retries, race conditions, and unrecorded state changes create untraceable money leaks. Standard financial accounting mandates double-entry bookkeeping: every transaction consists of an immutable set of balanced debit and credit entries whose net sum equals zero. A financial ledger must enforce immutability, foreign currency exchange rates, and mathematical zero-sum constraints at the database engine level.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Core banking engine for digital neobanks and wallet platforms | Multi-currency marketplace escrow account management | Regulatory compliance audit trails for payment service providers
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Eliminating money creation out of thin air by enforcing `SUM(debits) - SUM(credits) = 0` via database constraints | Preventing fraudulent transaction tampering by maintaining append-only journal entries with cryptographic chain hashes | Ensuring account balance calculations are derived directly from the immutable transaction history
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of accounting fundamentals (assets, liabilities, equity, debits/credits) | Production PostgreSQL schema utilizing deferrable constraints and check invariants | Automated stress test running concurrent transfers between 100 accounts with zero invariant violations
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+PostgreSQL schema defines accounts, transactions, and entries; Transactions write atomically in an ACID transaction with >= 2 entries; Check constraint ensures debit/credit balance; Trigger computes SHA-256 hash of previous transaction hash + current entry bytes, creating an append-only cryptographic ledger chain; Read queries calculate account balances via indexed aggregate sums.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Write Throughput: > 4,000 balanced ledger transactions/sec | Invariant Guarantee: 100% rejection of unbalanced debit/credit entries | Integrity Check: Verify audit chain across 1,000,000 entries in < 8 seconds
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-double-entry-ledger/verify.sh -run TestUnbalancedTransactionRejection: Attempts to insert transaction where debit ($100) does not equal credit ($80) [Database rejects with constraint violation error code]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-double-entry-ledger/verify.sh -run TestConcurrentTransfers: Simulates 200 concurrent money transfers between 10 accounts [Final sum of all balances matches initial total deposits to the exact cent]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-double-entry-ledger/verify.sh -run TestLedgerChainVerification: Traverses 10,000 historical transactions validating cryptographic SHA-256 chain links [Reports 100% chain integrity verified with zero tampered blocks]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-double-entry-ledger/verify.sh -run TestTamperDetection: Directly updates historical entry amount using privileged DB connection [Audit scanner immediately flags broken hash chain at altered block index]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-double-entry-ledger/verify.sh -benchmem: Measures transaction insertion rate under multi-threaded connection pool [Sustains > 3,500 transactions/sec with zero deadlocks]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Constructed immutable double-entry ledger in Go and PostgreSQL with cryptographic audit chaining; enforced mathematical balance invariants across [TRANSACTION_VOLUME] multi-currency transactions with lossless balance discrepancies under heavy concurrency."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

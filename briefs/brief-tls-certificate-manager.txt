@@ -4,13 +4,14 @@ PROJECT BRIEF — AUTOMATED TLS CERTIFICATE MANAGER WITH ACME PROTOCOL (DNS-01 /
 Project ID  : brief-tls-certificate-manager
 Domain      : Security & Platform
 Difficulty  : INTERMEDIATE
-Est. Time   : 28 hours
-Tech Stack  : Go, ACME Protocol, TLS, PostgreSQL, Prometheus, Nginx, Docker
+Est. Time   : 26 hours
+Tech Stack  : Go 1.22+, ACME Protocol 1.0+, TLS 1.0+, PostgreSQL 16+, Prometheus 2.52+, Nginx 1.26+, Docker 26+
 Covered Gaps: Go, ACME Protocol, TLS, PostgreSQL, Prometheus, Nginx, Docker, Security, DevOps
 
 1. PROBLEM STATEMENT
 ----------------------------------------------------------------------
 Manual TLS certificate management and ad-hoc renewal scripts cause production outages when domain certificates expire unexpectedly, producing disruptive browser trust warnings and breaking critical API gateways. Furthermore, multi-tenant SaaS platforms hosting thousands of customer subdomains cannot rely on manual DNS or HTTP challenge responses without exposing DNS credentials or incurring edge server downtime during certificate reloads. This project builds a production-grade automated TLS certificate manager in Go implementing RFC 8555 ACME protocol client workflows. The daemon automatically fulfills DNS-01 and HTTP-01 validation challenges against Let's Encrypt and Pebble ACME servers, securely encrypts private keys at rest in PostgreSQL, schedules proactive renewals 30 days prior to certificate expiration, executes zero-downtime hot reloads of Nginx edge proxies, and exports certificate lifecycle metrics to Prometheus.
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
 
 2. REAL-WORLD USE CASES
 ----------------------------------------------------------------------
@@ -34,11 +35,11 @@ Automated ACME Challenge Completion & Issuance Latency: p95 certificate issuance
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. go run ./cmd/certmgr --domains test.local --issue-all: ACME state machine fulfills challenges and downloads valid X.509 certs in < 4.5s p95 [20 of 20 certificates issued with exit code 0]
-[ ] 2. 2. go test ./pkg/scheduler -v -run TestProactiveRenewalQueue: Scheduler queues exactly 10 expiring certificates for rotation and ignores 40 healthy ones [10 of 10 expiring certificates queued with exit code 0]
-[ ] 3. 3. python ./scripts/test_nginx_reload.py --requests 1000 --rps 100: 1,000 of 1,000 requests return HTTP 200 OK with 0 dropped sockets and p95 latency < 25ms [1,000 of 1,000 requests succeed with exit code 0]
-[ ] 4. 4. curl -s http://localhost:9090/metrics | grep cert_expiry_days: Prometheus metric displays valid integer days remaining for all managed certificates [Metric reports valid certificate expiry integer with exit code 0]
-[ ] 5. 5. go run ./cmd/certmgr --verify-cert ./fixtures/tampered_cert.pem: Verification engine rejects tampered signature immediately and refuses Nginx reload [Console confirms cryptographic signature verification failure with exit code 1]
+[ ] 1. go run ./cmd/certmgr --domains test.local --issue-all: ACME state machine fulfills challenges and downloads valid X.509 certs in < 4.5s p95 [20 of 20 certificates issued with exit code 0]
+[ ] 2. Run verification harness tests/fixtures/briefs-kits/brief-tls-certificate-manager/verify.sh -v -run TestProactiveRenewalQueue: Scheduler queues exactly 10 expiring certificates for rotation and ignores 40 healthy ones [10 of 10 expiring certificates queued with exit code 0]
+[ ] 3. python ./scripts/verify_brief-tls-certificate-manager.sh --requests 1000 --rps 100: 1,000 of 1,000 requests return HTTP 200 OK with 0 dropped sockets and p95 latency < 25ms [1,000 of 1,000 requests succeed with exit code 0]
+[ ] 4. curl -s http://localhost:9090/metrics | grep cert_expiry_days: Prometheus metric displays valid integer days remaining for all managed certificates [Metric reports valid certificate expiry integer with exit code 0]
+[ ] 5. go run ./cmd/certmgr --verify-cert ./fixtures/tampered_cert.pem: Verification engine rejects tampered signature immediately and refuses Nginx reload [Console confirms cryptographic signature verification failure with exit code 1]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

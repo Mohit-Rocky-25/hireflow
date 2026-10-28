@@ -108,7 +108,7 @@
     "verificationRubric": [
       "1. Run docker-compose up -d and go run cmd/operator/main.go: Initializes Vault dev server and starts operator [Operator authenticates with Vault and begins reconciliation loop]",
       "2. Execute kubectl apply -f config/samples/vault_secret_sync.yaml: Applies ExternalSecret targeting secret/data/database [Operator creates native Kubernetes Secret db-credentials with decoded values]",
-      "3. Run vault kv put secret/database password=\"NewUltraSecretPassword123!\": Rotates password in Vault [Operator detects change on next poll cycle and updates Kubernetes Secret cleanly]",
+      "3. Run vault kv put secret/database db_val=mock_rotation: Rotates password in Vault [Operator detects change on next poll cycle and updates Kubernetes Secret cleanly]",
       "4. Execute kubectl get deployment web-app -o jsonpath='{.spec.template.metadata.annotations}': Checks deployment annotations [Checksum annotation updates, triggering automatic rolling restart of web pods]",
       "5. Run go test -v -run TestVaultAuthenticationExpiry: Simulates Vault token expiration [Operator automatically requests new auth token and resumes syncing without crashing]"
     ],

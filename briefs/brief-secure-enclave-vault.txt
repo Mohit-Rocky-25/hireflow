@@ -1,0 +1,48 @@
+PROJECT BRIEF — MOBILE SECURE ENCLAVE & BIOMETRIC KEYCHAIN STORAGE VAULT
+======================================================================
+
+Project ID  : brief-secure-enclave-vault
+Domain      : Mobile Engineering & Cross-Platform
+Difficulty  : INTERMEDIATE
+Est. Time   : 20 hours
+Tech Stack  : React Native 0.74+, TypeScript 5.4+, iOS Keychain 1.0+, Android Keystore 1.0+, BiometricPrompt 1.0+, Jest 29+
+Covered Gaps: React Native, iOS Keychain, Android Keystore, Biometrics, AES-GCM, TypeScript
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Storing authentication tokens, banking credentials, or private cryptographic keys in standard mobile storage (AsyncStorage, SharedPreferences) exposes them to extraction via root access, device backups, or malicious SDK inspection. Securing high-value secrets requires hardware-backed security: leveraging the Apple Secure Enclave / Android Keystore to generate cryptographic keys inside isolated hardware that never reveal private keys, requiring biometric user authentication (FaceID/Fingerprint) before decrypting secrets.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Mobile banking app credential storage and biometric session unlock | Cryptocurrency mobile wallet private key storage | Enterprise single sign-on (SSO) refresh token vault
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing credential theft on rooted or jailbroken mobile devices | Enforcing hardware-level biometric authentication prompts (BiometricPrompt / LocalAuthentication) before decrypting data | Encrypting secrets with AES-256-GCM using hardware-generated keys that cannot be extracted
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive understanding of mobile hardware security architectures (Secure Enclave, TEE, StrongBox) | Automated test verifying biometric enrollment checks, fallback passcodes, and key invalidation on new biometric enrollment | Clean TypeScript module exposing unified cross-platform API for secure storage
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+TypeScript app invokes SecureVault.setItem(key, secret); Module requests Android Keystore / iOS Keychain to generate 256-bit AES key with UserAuthenticationRequired flag; Hardware encrypts secret and returns ciphertext; Stored in encrypted SQLite; On getItem, OS prompts hardware FaceID/Fingerprint; Upon hardware confirmation, Secure Enclave decrypts ciphertext and returns plaintext in memory.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Encryption / Decryption Latency: Hardware crypto operations complete in < 25ms | Security Guarantee: Private keys never touch application memory or persistent disk in plaintext | Cross-Platform Parity: Identical security semantics across iOS Keychain and Android Keystore
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-secure-enclave-vault/verify.sh -- tests/secure_vault_api.test.ts: Tests cross-platform secure storage CRUD operations [All unit tests pass asserting proper key creation, encryption, and deletion]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-secure-enclave-vault/verify.sh -- tests/biometric_requirement.test.ts: Asserts decryption fails immediately if biometric authentication is not provided or cancelled [Throws UserBiometricCancelledException cleanly]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-secure-enclave-vault/verify.sh -- tests/tamper_resistance.test.ts: Modifies ciphertext bytes in storage and attempts decryption [AES-GCM authentication tag verification fails, throwing CryptographicTamperException]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-secure-enclave-vault/verify.sh -- tests/key_invalidation_on_new_biometric.test.ts: Simulates user adding a new fingerprint to OS settings [Key is automatically invalidated by OS Keystore, preventing unauthorized access]
+[ ] 5. Run npx react-native run-android on emulator with biometric mock: Enrolls fingerprint and retrieves token [Prompts native biometric UI dialog and successfully decrypts token on fingerprint match]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Developed hardware-backed biometric security vault for React Native using iOS Keychain and Android Keystore; secured sensitive authentication tokens with AES-256-GCM and Secure Enclave isolation, mitigating credential theft on rooted devices."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

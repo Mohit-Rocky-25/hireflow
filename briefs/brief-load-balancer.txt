@@ -4,8 +4,8 @@ PROJECT BRIEF — LAYER SEVEN HTTP REVERSE PROXY & LOAD BALANCER IN GO WITH ACTI
 Project ID  : brief-load-balancer
 Domain      : Distributed Systems
 Difficulty  : INTERMEDIATE
-Est. Time   : 28 hours
-Tech Stack  : Go, HTTP, Concurrency, Docker, Prometheus
+Est. Time   : 26 hours
+Tech Stack  : Go 1.22+, HTTP 1.0+, Concurrency 1.0+, Docker 26+, Prometheus 2.52+
 Covered Gaps: Go, HTTP, Concurrency, Docker, Prometheus, Networking, System Design, Linux
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Proxy Latency Overhead at Concurrency: p95 proxy latency overhead is < 0.85 mill
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. go run ./cmd/benchmarker --rps 5000 --duration 30s: Proxy successfully routes traffic with p95 latency overhead < 2.0 milliseconds [p95 proxy overhead < 2.0ms and error rate < 0.01% with exit code 0]
-[ ] 2. 2. go test -v ./proxy/... -run TestUpstreamCrashDetection: Health checker removes terminated upstream within average duration < 3.0 seconds [Average detection time < 3.0s with exit code 0]
-[ ] 3. 3. go test -v ./proxy/... -run TestLeastConnectionsBalancing: Least-connections algorithm balances load with connection variance ratio < 15.0% [Connection variance ratio < 15.0% with exit code 0]
-[ ] 4. 4. curl http://localhost:9090/metrics: Endpoint returns standard Prometheus format metrics including proxy_requests_total and proxy_upstream_health [Response status is 200 and metrics contain proxy_requests_total and proxy_upstream_health]
-[ ] 5. 5. go run ./scripts/verify_dynamic_failover.go --target-backend http://localhost:8081: Proxy immediately redirects in-flight and incoming traffic to remaining 3 healthy backends with 0 dropped requests [Verification log confirms 0 failed requests (100% success rate) and backend 8081 marked down with exit code 0]
+[ ] 1. go run ./cmd/benchmarker --rps 5000 --duration 30s: Proxy successfully routes traffic with p95 latency overhead < 2.0 milliseconds [p95 proxy overhead < 2.0ms and error rate < 0.01% with exit code 0]
+[ ] 2. Run verification harness tests/fixtures/briefs-kits/brief-load-balancer/verify.sh ./proxy/... -run TestUpstreamCrashDetection: Health checker removes terminated upstream within average duration < 3.0 seconds [Average detection time < 3.0s with exit code 0]
+[ ] 3. Run verification harness tests/fixtures/briefs-kits/brief-load-balancer/verify.sh ./proxy/... -run TestLeastConnectionsBalancing: Least-connections algorithm balances load with connection variance ratio < 15.0% [Connection variance ratio < 15.0% with exit code 0]
+[ ] 4. curl http://localhost:9090/metrics: Endpoint returns standard Prometheus format metrics including proxy_requests_total and proxy_upstream_health [Response status is 200 and metrics contain proxy_requests_total and proxy_upstream_health]
+[ ] 5. go run ./scripts/verify_dynamic_failover.go --target-backend http://localhost:8081: Proxy immediately redirects in-flight and incoming traffic to remaining 3 healthy backends with 0 dropped requests [Verification log confirms 0 failed requests (100% success rate) and backend 8081 marked down with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

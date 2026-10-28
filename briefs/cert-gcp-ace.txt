@@ -4,8 +4,8 @@ PROJECT BRIEF — GOOGLE CLOUD ASSOCIATE CLOUD ENGINEER (ACE) INFRASTRUCTURE & K
 Project ID  : cert-gcp-ace
 Domain      : Cloud Infrastructure & Kubernetes
 Difficulty  : INTERMEDIATE
-Est. Time   : 28 hours
-Tech Stack  : GCP, GKE, Cloud Run, Cloud Storage, Cloud Monitoring, Terraform, Docker
+Est. Time   : 29 hours
+Tech Stack  : GCP 1.0+, GKE 1.0+, Cloud Run 1.0+, Cloud Storage 1.0+, Cloud Monitoring 1.0+, Terraform 1.8+, Docker 26+
 Covered Gaps: GCP, GKE, Cloud Run, Cloud Storage, Cloud Monitoring, Terraform, Docker, DevOps, Cloud Architecture
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Cloud Run Serverless Cold Start & Request Latency: p95 container cold start late
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python ./scripts/test_cloud_run_latency.py --service api-gateway: Cloud Run starts and responds with p95 cold start latency < 2.5s [p95 cold start < 2.5s with exit code 0]
-[ ] 2. 2. python ./scripts/test_gke_autoscaling.py --pods 30: GKE cluster autoscaler adds nodes and schedules all pods in < 210 seconds [Cluster scales nodes and schedules pods in < 210s with exit code 0]
-[ ] 3. 3. ./scripts/test_storage_iam.sh: Google Cloud Storage rejects 50 of 50 unauthorized operations with HTTP 403 [50 of 50 unauthorized operations rejected with exit code 0]
-[ ] 4. 4. python ./scripts/verify_monitoring_alert.py --check-id uptime-check-1: Cloud Monitoring logs successful uptime probe with 100% availability status [Uptime probe reports healthy status with exit code 0]
-[ ] 5. 5. gcloud storage cp gs://private-test-bucket/secret.txt ./secret.txt --impersonate-service-account=unauthorized-sa@project.iam.gserviceaccount.com: API terminates immediately with 403 Access Denied error message [Console confirms 403 Access Denied or permission denied with exit code 1]
+[ ] 1. python ./scripts/verify_cert-gcp-ace.sh --service api-gateway: Cloud Run starts and responds with p95 cold start latency < 2.5s [p95 cold start < 2.5s with exit code 0]
+[ ] 2. python ./scripts/verify_cert-gcp-ace.sh --pods 30: GKE cluster autoscaler adds nodes and schedules all pods in < 210 seconds [Cluster scales nodes and schedules pods in < 210s with exit code 0]
+[ ] 3. ./scripts/verify_storage_iam.sh: Google Cloud Storage rejects 50 of 50 unauthorized operations with HTTP 403 [50 of 50 unauthorized operations rejected with exit code 0]
+[ ] 4. python ./scripts/verify_monitoring_alert.py --check-id uptime-check-1: Cloud Monitoring logs successful uptime probe with 100% availability status [Uptime probe reports healthy status with exit code 0]
+[ ] 5. gcloud storage cp gs://private-test-bucket/secret.txt ./secret.txt --impersonate-service-account=unauthorized-sa@project.iam.gserviceaccount.com: API terminates immediately with 403 Access Denied error message [Console confirms 403 Access Denied or permission denied with exit code 1]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

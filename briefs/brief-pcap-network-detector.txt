@@ -1,0 +1,50 @@
+PROJECT BRIEF — REAL-TIME PCAP PACKET SNIFFER & PORT SCAN INTRUSION DETECTION ENGINE
+======================================================================
+
+Project ID  : brief-pcap-network-detector
+Domain      : Applied Security & Cryptography
+Difficulty  : ADVANCED
+Est. Time   : 23 hours
+Tech Stack  : Go 1.22+, gopacket 1.0+, libpcap 1.0+, TCP/IP 1.0+, Docker 26+, Testing 1.0+
+Covered Gaps: Go, PCAP / libpcap, Network Security, TCP/IP Protocols, Concurrency, Linux
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Enterprise networks are continuously probed by external attackers conducting reconnaissance scans (SYN stealth scans, FIN scans, UDP sweeps) to discover vulnerable exposed services prior to launching targeted exploits. Relying on host-based firewalls alone fails to detect stealth scans that terminate connections prematurely without completing a TCP handshake. An intrusion detection engine sniffs raw network packets from network interfaces or PCAP files, tracks TCP state machines, and flags reconnaissance scans in real time.
+[Environment Prerequisite: Linux-specific primitives (libpcap) require a native Linux environment, WSL2 on Windows, or an isolated Linux Docker container.]
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Network intrusion detection system (NIDS) monitoring perimeter DMZ interfaces | Security operations center (SOC) automated alert generator for port sweep attacks | Forensics analysis tool replaying recorded PCAP packet dumps to detect lateral movement
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Decoding raw Ethernet, IP, TCP, and UDP packet headers at line speed using gopacket | Detecting stealth SYN scans (half-open connections where client sends RST after SYN-ACK) | Tracking multi-port sweep attempts per source IP across sliding time windows
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of the TCP/IP stack, TCP flags (SYN, ACK, FIN, RST, PSH, URG), and raw sockets | High-performance packet decoding pipeline with zero packet drop during burst traffic | Automated integration test replaying Nmap scan PCAP files and verifying instant threat classification
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Daemon binds to network interface using libpcap or reads PCAP file; Worker pool decodes packet layers; Packet classifier inspects TCP flags; TCP Session Tracker records state transitions; Port Scan Detector evaluates sliding window matrix of distinct target ports hit per source IP; If > 15 distinct ports scanned in 3 seconds, triggers PORT_SCAN alert; logs structured JSON event.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Packet Ingestion: > 50,000 packets/sec decoded on standard commodity CPU | Detection Latency: Trigger alert in < 50ms upon detection of port sweep threshold | Memory Efficiency: Maintain sliding state for 100,000 active remote IPs in < 80MB RAM
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-pcap-network-detector/verify.sh -run TestPacketHeaderDecoding: Decodes raw PCAP Ethernet, IPv4, IPv6, and TCP frames [Extracts source/dest IPs, ports, and TCP flags with 100% accuracy]
+[ ] 2. Execute go run cmd/nids/main.go --pcap samples/nmap_syn_scan.pcap: Replays synthetic Nmap -sS stealth scan [Engine flags SYN_STEALTH_SCAN from IP 192.168.1.50 scanning 100 ports]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-pcap-network-detector/verify.sh -run TestXmasScanDetection: Injects TCP packet with FIN, PSH, and URG flags set simultaneously [Engine immediately flags anomalous XMAS_SCAN probe]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-pcap-network-detector/verify.sh -run TestLegitimateTrafficImmunity: Replays 20,000 packets of normal web browsing and HTTPS traffic [Reports ZERO false positive scan alerts]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-pcap-network-detector/verify.sh -benchmem: Benchmarks packet decoding and sliding state evaluation [Processes > 60,000 packets/sec with zero memory leaks]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Scaled real-time network intrusion detection engine in Go using libpcap and packet layer decoding; detected stealth TCP port scans and reconnaissance probes across [PACKET_RATE] packets/sec with high-fidelity detection on normal web traffic."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -1,0 +1,49 @@
+PROJECT BRIEF — OAUTH 2.0 & OPENID CONNECT AUTHORIZATION SERVER WITH PKCE SUPPORT
+======================================================================
+
+Project ID  : brief-oidc-pkce-server
+Domain      : Applied Security & Cryptography
+Difficulty  : ADVANCED
+Est. Time   : 24 hours
+Tech Stack  : Go 1.22+, crypto/rsa 1.0+, golang-jwt 1.0+, PostgreSQL 16+, Docker 26+, Testing 1.0+
+Covered Gaps: Go, OAuth 2.0, OIDC, PKCE (RFC 7636), JWT / RS256, Cybersecurity
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Single-page applications (React/Vue) and mobile apps cannot safely store client secrets, making traditional OAuth 2.0 Authorization Code flow vulnerable to authorization code interception attacks. RFC 7636 Proof Key for Code Exchange (PKCE) secures public clients by dynamically generating cryptographic code verifiers and code challenges. Building an RFC-compliant OIDC/OAuth 2.0 server requires implementing authorization endpoints, token issuance (RS256 JWTs), PKCE validation, refresh token rotation, and OIDC discovery endpoints.
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Centralized single sign-on (SSO) identity provider for enterprise microservices | Secure authentication backend for mobile applications and single-page apps (SPAs) | Identity broker issuing standard OpenID Connect ID and Access tokens
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Mitigating authorization code interception attacks in public clients via SHA-256 PKCE challenges | Preventing token theft and replay attacks through single-use refresh token rotation with family revocation | Exposing standardized `/.well-known/openid-configuration` and `/.well-known/jwks.json` endpoints
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Strict compliance with OAuth 2.0 and OpenID Connect specifications | Security test suite testing PKCE challenge verification, replay protection, and signature tampering | Production RSA/ECDSA key pair management with dynamic public key rotation
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Client redirects user to /oauth/authorize with code_challenge (S256) and challenge_method; Server authenticates user, issues short-lived authorization code tied to hash; Client exchanges code + code_verifier at /oauth/token; Server hashes verifier with SHA-256 and compares to stored challenge; on match, signs and issues RS256 JWT Access Token and ID Token; issues rolling Refresh Token.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Token Issuance Latency: < 15ms per token exchange request | Concurrency: Sustain > 2,500 token verifications/sec | Security: 100% rejection of mismatched PKCE verifiers and tampered JWT signatures
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run curl http://localhost:8080/.well-known/openid-configuration: Fetches OIDC discovery document [Returns valid JSON with issuer, endpoints, and supported response types]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestPkceValidFlow: Runs complete authorization flow with valid code_verifier [Token endpoint validates SHA-256 hash and returns 200 OK with access_token and id_token]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestPkceInvalidVerifierRejection: Sends mismatched code_verifier at token exchange [Server immediately rejects with HTTP 400 Bad Request and error: invalid_grant]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestRefreshTokenRotation: Uses refresh token to obtain new access token [Server issues new refresh token and immediately invalidates old token]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestRefreshTokenReplayRevocation: Deliberately attempts to reuse already-invalidated refresh token [Server detects token family replay and revokes entire token lineage for security]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Developed RFC 7636 compliant OAuth 2.0 & OpenID Connect identity provider in Go with PKCE and JWT RS256 token signing; secured public client authorization flows, implementing refresh token rotation and automated replay attack mitigation."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

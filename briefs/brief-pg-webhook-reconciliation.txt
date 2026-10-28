@@ -1,0 +1,48 @@
+PROJECT BRIEF — AUTOMATED PAYMENT WEBHOOK RECONCILIATION & DISCREPANCY DETECTION ENGINE
+======================================================================
+
+Project ID  : brief-pg-webhook-reconciliation
+Domain      : FinTech & High-Integrity Systems
+Difficulty  : INTERMEDIATE
+Est. Time   : 21 hours
+Tech Stack  : Go 1.22+, PostgreSQL 16+, CSV Parser 1.0+, Docker 26+, Testing 1.0+, CLI 1.0+
+Covered Gaps: Go, PostgreSQL, Payment Gateways, Reconciliation, Cron/Batch, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+In production e-commerce and fintech platforms, payment gateway webhooks (Stripe, Razorpay, Adyen) frequently fail due to network drops, gateway outages, or customer browser closures before redirects complete. As a result, database order statuses diverge from actual payment provider settlement records, causing unpaid orders to ship or paid customers to be rejected. An automated reconciliation engine continuously matches internal order states against gateway settlement CSV/API reports, auto-resolving matches and flagging discrepancies.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+End-of-day financial settlement reconciliation for e-commerce platforms | Resolving customer chargeback disputes and charge status mismatches | Reconciling third-party payment provider fees against accounting ledger entries
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Detecting phantom payments (order marked paid in gateway but pending in internal database) | Identifying overcharges, undercharges, or unexpected gateway currency conversion fees | Ingesting and parsing large multi-gigabyte daily bank settlement settlement reports with streaming parsers
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive understanding of payment lifecycles (authorization, capture, settlement, refund) | Automated reconciliation engine handling edge cases like partial refunds and chargeback reversals | Detailed discrepancy reporting outputting actionable resolution suggestions for operations teams
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Daily cron pulls settlement CSV/API exports from payment gateway; Streaming CSV parser reads rows without high memory usage; Reconciliation matcher joins gateway transaction ID against internal database orders; classifies records: Matched, MissingInternal, MissingGateway, FeeDiscrepancy, StatusMismatch; auto-heals benign mismatches; generates discrepancy summary report.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Reconciliation Speed: Reconcile 250,000 daily settlement transactions in < 45 seconds | Memory Consumption: Constant memory footprint (< 40MB) using streaming CSV parsing | Accuracy: 100% detection of injected status, currency, and fee mismatches
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run go run cmd/reconcile/main.go --gateway stripe --date 2026-10-27: Processes daily Stripe settlement feed [Generates reconciliation summary table showing matched, mismatched, and missing transactions]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-pg-webhook-reconciliation/verify.sh -run TestMissingInternalOrder: Injects gateway settlement record with non-existent internal order ID [Matcher correctly flags transaction as MISSING_INTERNAL with gateway reference]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-pg-webhook-reconciliation/verify.sh -run TestFeeDiscrepancyDetection: Injects transaction where gateway fee exceeds contractual rate by 0.5% [Engine flags FEE_DISCREPANCY and logs calculated overcharge amount]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-pg-webhook-reconciliation/verify.sh -run TestAutoHealing: Injects order stuck in PENDING status that gateway confirmed as CAPTURED [Engine auto-updates order to PAID, triggers fulfillment event, and logs audit record]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-pg-webhook-reconciliation/verify.sh -benchmem: Benchmarks reconciliation matching engine on 100,000 synthetic records [Completes matching in < 15 seconds with steady-state RAM < 35MB]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Engineered automated payment reconciliation engine in Go and PostgreSQL; matched [TRANSACTION_COUNT] daily transactions against payment gateway settlement feeds, identifying [DISCREPANCY_PERCENT]% financial discrepancies and auto-resolving pending order states."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

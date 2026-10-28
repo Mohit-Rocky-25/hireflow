@@ -1,0 +1,48 @@
+PROJECT BRIEF — SUBSCRIPTION METERED BILLING & AUTOMATED DUNNING WORKFLOW ENGINE
+======================================================================
+
+Project ID  : brief-subscription-dunning-billing
+Domain      : FinTech & High-Integrity Systems
+Difficulty  : INTERMEDIATE
+Est. Time   : 22 hours
+Tech Stack  : TypeScript 5.4+, Node.js 20 LTS, PostgreSQL 16+, Vitest 1.6+, XState 1.0+, Docker 26+
+Covered Gaps: TypeScript, Node.js, PostgreSQL, State Machines, Payment Processing, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+B2B SaaS subscription billing involves complex lifecycle rules: mid-cycle upgrades, seat prorations, usage-based meter aggregation, and handling involuntary churn when credit cards fail. When a recurring invoice payment fails, immediately cancelling customer access destroys revenue, while ignoring failures causes revenue leakage. An automated dunning engine coordinates smart retries across optimal days, delivers customer warning emails, and gradually downgrades account access.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Billing infrastructure for B2B SaaS platforms with seat and usage tiers | Automated recovery workflow for failed recurring subscription charges | Prorated invoice generation for mid-month plan upgrades and downgrades
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Accurately calculating day-exact prorated credits and charges when customers upgrade mid-billing cycle | Automating dunning recovery schedules (Retry on Day 1, Day 3, Day 7, Day 14) with payment link emails | Managing subscription state machine transitions (Active, Past Due, Suspended, Canceled)
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive understanding of subscription accounting, proration formulas, and state machines | Test suite testing leap years, mid-month plan changes, and concurrent usage meter updates | Dunning recovery simulation recovering > 65% of simulated failed recurring cards
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+PostgreSQL stores subscriptions, plans, invoices, and usage_events; Hourly worker checks active subscriptions: aggregates metered usage, calculates prorations, generates draft invoice; Dispatches charge to payment gateway; on failure, transitions subscription to PAST_DUE and schedules Dunning State Machine (retries, notifications); after Day 14 without recovery, triggers SUSPENDED state.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Invoice Generation Speed: Generate 50,000 monthly subscription invoices in < 60 seconds | Proration Precision: 100% exact second-level proration math matching stripe-proration standards | Dunning Recovery Rate: Recover > 60% of transient failed card charges via automated schedule
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-subscription-dunning-billing/verify.sh -- tests/proration_math.test.ts: Tests mid-month upgrade from $50/mo plan to $150/mo plan on day 15 of a 30-day month [Calculates exact unused credit ($25.00) and new charge ($75.00) with net due $50.00]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-subscription-dunning-billing/verify.sh -- tests/dunning_state_machine.test.ts: Simulates failed card charge and advances mock clock through dunning schedule [Verifies 4 retry attempts executed with customer emails dispatched at expected intervals]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-subscription-dunning-billing/verify.sh -- tests/successful_dunning_recovery.test.ts: Simulates customer updating payment method on Day 4 of dunning [Engine immediately captures invoice, transitions status from PAST_DUE back to ACTIVE]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-subscription-dunning-billing/verify.sh -- tests/metered_usage_aggregation.test.ts: Ingests 10,000 API usage events for single tenant and computes tier billing [Calculates volume tiered pricing accurately with zero duplicate event counts]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-subscription-dunning-billing/verify.sh -- tests/subscription_suspension.test.ts: Simulates complete dunning failure past Day 14 [Engine revokes application tenant access tokens and transitions status to SUSPENDED]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Scaled automated subscription billing and dunning workflow engine in TypeScript and PostgreSQL; handled complex mid-cycle prorations and automated dunning recovery, preventing [RECOVERED_REVENUE]% involuntary churn across [CUSTOMER_COUNT] subscriptions."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

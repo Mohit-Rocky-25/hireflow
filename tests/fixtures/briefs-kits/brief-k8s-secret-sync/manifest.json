@@ -17,7 +17,7 @@
     },
     {
       "id": "check_3",
-      "name": "Run vault kv put secret/database password=\"NewUltr",
+      "name": "Run vault kv put secret/database db_val=mock_rotation: Rotates password in Vault",
       "rubricIndex": 2,
       "expectedOutcome": "Operator detects change on next poll cycle and updates Kubernetes Secret cleanly"
     },

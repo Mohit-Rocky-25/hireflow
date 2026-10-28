@@ -4,8 +4,8 @@ PROJECT BRIEF — OFFLINE-FIRST LOCAL SYNCHRONIZATION PROTOCOL WITH CRDTS, INDEX
 Project ID  : brief-offline-first-sync
 Domain      : Full-Stack Web
 Difficulty  : ADVANCED
-Est. Time   : 40 hours
-Tech Stack  : TypeScript, IndexedDB, CRDTs, WebSockets, Node.js, PostgreSQL
+Est. Time   : 37 hours
+Tech Stack  : TypeScript 5.4+, IndexedDB 1.0+, CRDTs 1.0+, WebSocket (RFC 6455), Node.js 20 LTS, PostgreSQL 16+
 Covered Gaps: TypeScript, IndexedDB, CRDTs, WebSockets, Node.js, PostgreSQL, Full-Stack Web, Distributed Systems
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Local IndexedDB Mutation Persistence Latency: p95 local mutation persistence lat
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. npm run test:indexeddb -- --mutations 1000: IndexedDB adapter persists mutations with p95 write latency < 15.0 milliseconds [p95 write latency < 15.0ms with exit code 0]
-[ ] 2. 2. npm run test:sync_latency -- --events 500: WebSocket delta sync delivers updates across peers with p95 latency < 180 milliseconds [p95 sync latency < 180ms with exit code 0]
-[ ] 3. 3. npm run test:chaos_convergence -- --trials 50 --clients 5: All 50 trials achieve identical converged JSON document states across all 5 clients upon reconnection [50 of 50 trials converge to identical state with exit code 0]
-[ ] 4. 4. node scripts/query_room_state.js --room-id doc_test_42: Server returns serialized state vector and document JSON containing valid vector clock [Response status confirms synchronized state with non-empty clock metadata]
-[ ] 5. 5. node scripts/verify_dynamic_conflict.js --doc doc_dyn_99: Both clients update locally offline, connect to server, and converge to identical title deterministically [Both clients report identical title value and exit code is 0]
+[ ] 1. npm run test:indexeddb -- --mutations 1000: IndexedDB adapter persists mutations with p95 write latency < 15.0 milliseconds [p95 write latency < 15.0ms with exit code 0]
+[ ] 2. npm run test:sync_latency -- --events 500: WebSocket delta sync delivers updates across peers with p95 latency < 180 milliseconds [p95 sync latency < 180ms with exit code 0]
+[ ] 3. npm run test:chaos_convergence -- --trials 50 --clients 5: All 50 trials achieve identical converged JSON document states across all 5 clients upon reconnection [50 of 50 trials converge to identical state with exit code 0]
+[ ] 4. node scripts/query_room_state.js --room-id doc_verify_42: Server returns serialized state vector and document JSON containing valid vector clock [Response status confirms synchronized state with non-empty clock metadata]
+[ ] 5. node scripts/verify_dynamic_conflict.js --doc doc_dyn_99: Both clients update locally offline, connect to server, and converge to identical title deterministically [Both clients report identical title value and exit code is 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

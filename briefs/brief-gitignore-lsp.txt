@@ -4,8 +4,8 @@ PROJECT BRIEF — LANGUAGE SERVER PROTOCOL (LSP) ENGINE WITH AST PARSING & GLOB 
 Project ID  : brief-gitignore-lsp
 Domain      : Computer Science Fundamentals
 Difficulty  : ADVANCED
-Est. Time   : 39 hours
-Tech Stack  : TypeScript, Node.js
+Est. Time   : 36 hours
+Tech Stack  : TypeScript 5.4+, Node.js 20 LTS
 Covered Gaps: TypeScript, Node.js, Language Server Protocol, AST Parsing, Systems Programming, Compilers
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Keystroke Diagnostic Publication Latency (p99): p99 diagnostic latency is < 12 m
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. npm run test:latency: Server processes didChange and emits publishDiagnostics with p99 latency < 30 milliseconds [p99 diagnostic publication latency is < 30 milliseconds with exit code 0]
-[ ] 2. 2. npm run test:completion -- --prefix 'src/components/': Server scans directory tree and returns matching path candidates in < 20 milliseconds [Average completion response latency is < 20 milliseconds]
-[ ] 3. 3. npm run test:ast-parser: AST parser tokenizes and compiles all 50 glob patterns accurately [50 of 50 glob parsing tests pass with exit code 0]
-[ ] 4. 4. node scripts/simulate_client.js --action hover --line 5 --col 2: Server returns hover response with markdown explanation of pattern matching behavior [Response contains contents.kind equals markdown and non-empty description]
-[ ] 5. 5. node scripts/verify_dynamic_lsp.js --content 'invalid-[abc' --expected-error 'UNCLOSED_BRACKET': Server emits publishDiagnostics identifying unclosed bracket at exact line and column [Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0]
+[ ] 1. npm run test:latency: Server processes didChange and emits publishDiagnostics with p99 latency < 30 milliseconds [p99 diagnostic publication latency is < 30 milliseconds with exit code 0]
+[ ] 2. npm run test:completion -- --prefix 'src/components/': Server scans directory tree and returns matching path candidates in < 20 milliseconds [Average completion response latency is < 20 milliseconds]
+[ ] 3. npm run test:ast-parser: AST parser tokenizes and compiles all 50 glob patterns accurately [50 of 50 glob parsing tests pass with exit code 0]
+[ ] 4. node scripts/simulate_client.js --action hover --line 5 --col 2: Server returns hover response with markdown explanation of pattern matching behavior [Response contains contents.kind equals markdown and non-empty description]
+[ ] 5. node scripts/verify_dynamic_lsp.js --content 'invalid-[abc' --expected-error 'UNCLOSED_BRACKET': Server emits publishDiagnostics identifying unclosed bracket at exact line and column [Diagnostic message contains UNCLOSED_BRACKET, range matches input, and exit code is 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

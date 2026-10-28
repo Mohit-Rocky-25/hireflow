@@ -5,7 +5,7 @@ Project ID  : brief-computer-vision-api
 Domain      : AI/ML Applications
 Difficulty  : INTERMEDIATE
 Est. Time   : 29 hours
-Tech Stack  : Python, FastAPI, ONNX Runtime, Docker, Pillow
+Tech Stack  : Python 3.11+, FastAPI 0.111+, ONNX Runtime 1.0+, Docker 26+, Pillow 1.0+
 Covered Gaps: Python, FastAPI, ONNX Runtime, Docker, Pillow, Computer Vision, REST APIs
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ CPU Single-Image Inference Latency: Inference latency < 75ms per image on CPU | 
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. Execute curl -X POST -F 'file=@fixtures/test_image.jpg' http://localhost:8000/predict: API responds with HTTP 200 and JSON payload containing detected classes and coordinates [HTTP status 200 with valid bounding box coordinates and confidence score > 0.5]
-[ ] 2. 2. Run evaluation across 200 labelled test images: Script computes mAP@50 score against ground truth annotations [Reported mAP@50 score is >= 0.60 across the 200 evaluation images]
-[ ] 3. 3. Run npm run test:load: API maintains batching queue and responds without dropping requests [Average throughput exceeds 15 images/sec with 0 socket errors]
-[ ] 4. 4. Send text file as image upload to test validation: API rejects invalid payload with structured HTTP 422 error response [HTTP status 422 returned with clear validation error message]
-[ ] 5. 5. Run python scripts/verify_dynamic_vision.py --box 100,100,200,200: Script posts image, asserts returned bounding box overlaps target coordinates with IoU > 0.7 [Returned bounding box matches injected rectangle coordinates with exit code 0]
+[ ] 1. Execute curl -X POST -F 'file=@fixtures/sample_image.jpg' http://localhost:8000/predict: API responds with HTTP 200 and JSON payload containing detected classes and coordinates [HTTP status 200 with valid bounding box coordinates and confidence score > 0.5]
+[ ] 2. Run evaluation across 200 labelled test images: Script computes mAP@50 score against ground truth annotations [Reported mAP@50 score is >= 0.60 across the 200 evaluation images]
+[ ] 3. Run npm run test:load: API maintains batching queue and responds without dropping requests [Average throughput exceeds 15 images/sec with 0 socket errors]
+[ ] 4. Send text file as image upload to test validation: API rejects invalid payload with structured HTTP 422 error response [HTTP status 422 returned with clear validation error message]
+[ ] 5. Run python scripts/verify_dynamic_vision.py --box 100,100,200,200: Script posts image, asserts returned bounding box overlaps target coordinates with IoU > 0.7 [Returned bounding box matches injected rectangle coordinates with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

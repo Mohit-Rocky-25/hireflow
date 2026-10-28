@@ -5,7 +5,7 @@ Project ID  : cert-comptia-sec
 Domain      : Cybersecurity & Defense
 Difficulty  : INTERMEDIATE
 Est. Time   : 28 hours
-Tech Stack  : Linux, OpenSSL, Suricata, Docker, Python
+Tech Stack  : Linux 1.0+, OpenSSL 1.0+, Suricata 1.0+, Docker 26+, Python 3.11+
 Covered Gaps: Linux, OpenSSL, Suricata, Docker, Python, Cybersecurity, Network Security, DevOps
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Automated CVE Vulnerability Scanning & Risk Scoring Accuracy: 10 of 10 critical 
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python ./scripts/scan_vulnerabilities.py --manifest ./fixtures/packages.json: Scanner identifies 10 of 10 critical CVEs with CVSS base scores matching NIST ground truth [10 of 10 critical CVEs identified with exit code 0]
-[ ] 2. 2. python ./scripts/replay_attack_pcap.py --pcap ./fixtures/attacks.pcap: Suricata detects 50 of 50 attacks and writes alert entries to fast.log in < 500ms [50 of 50 attacks detected with exit code 0]
-[ ] 3. 3. ./scripts/test_privilege_escalation.sh: Linux security configuration blocks 50 of 50 escalation attempts with audit log record [50 of 50 attempts blocked with exit code 0]
-[ ] 4. 4. openssl verify -CAfile ./pki/ca_chain.pem ./pki/server_cert.pem: OpenSSL confirms certificate chain validity with OK status [Verification returns OK with exit code 0]
-[ ] 5. 5. python ./scripts/inject_payload.py --payload 'UNION SELECT username, password' --target http://localhost:8080: Suricata IDS detects pattern and writes alert SID 2010018 to fast.log within 500ms [Console confirms alert SID 2010018 detected with exit code 0]
+[ ] 1. python ./scripts/scan_vulnerabilities.py --manifest ./fixtures/packages.json: Scanner identifies 10 of 10 critical CVEs with CVSS base scores matching NIST ground truth [10 of 10 critical CVEs identified with exit code 0]
+[ ] 2. python ./scripts/replay_attack_pcap.py --pcap ./fixtures/attacks.pcap: Suricata detects 50 of 50 attacks and writes alert entries to fast.log in < 500ms [50 of 50 attacks detected with exit code 0]
+[ ] 3. ./scripts/verify_privilege_escalation.sh: Linux security configuration blocks 50 of 50 escalation attempts with audit log record [50 of 50 attempts blocked with exit code 0]
+[ ] 4. openssl verify -CAfile ./pki/ca_chain.pem ./pki/server_cert.pem: OpenSSL confirms certificate chain validity with OK status [Verification returns OK with exit code 0]
+[ ] 5. python ./scripts/inject_payload.py --payload 'UNION SELECT username, password' --target http://localhost:8080: Suricata IDS detects pattern and writes alert SID 2010018 to fast.log within 500ms [Console confirms alert SID 2010018 detected with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

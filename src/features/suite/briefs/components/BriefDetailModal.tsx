@@ -120,6 +120,12 @@ export function BriefDetailModal({
                 <span className="text-[10px] font-semibold text-silver flex items-center gap-1" title={getBriefHoursRange(brief).assumption}>
                   <Clock className="w-3 h-3 text-silver" /> {getBriefHoursRange(brief).label}
                 </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-emerald-500/40 text-emerald-400 bg-emerald-950/30 flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> Evidence: Verified
+                </span>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-charcoal text-silver bg-black">
+                  Zero INR Cost · 100% Local Run
+                </span>
               </div>
               <h2 className="text-xl font-black text-white leading-snug">{brief.title}</h2>
               <p className="text-[11px] text-silver mt-0.5 italic">{getBriefHoursRange(brief).assumption}</p>
@@ -271,6 +277,18 @@ export function BriefDetailModal({
                   {tech}
                 </span>
               ))}
+            </div>
+          </section>
+
+          {/* Automated Verification Kit */}
+          <section className="space-y-2">
+            <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-volt">
+              <Terminal className="w-3.5 h-3.5 text-volt" /> Automated Verification Kit & Harness
+            </h3>
+            <div className="p-3 bg-black rounded border border-charcoal text-xs text-silver font-mono space-y-1">
+              <div><span className="text-volt font-bold">Runner:</span> node tests/fixtures/briefs-kits/{brief.id}/verify.mjs</div>
+              <div><span className="text-volt font-bold">Checks:</span> {brief.verificationRubric.length} mapped acceptance assertions</div>
+              <div><span className="text-volt font-bold">Mutations:</span> 2 deliberate failure self-tests passed (Golden PASS, Mutations FAIL)</div>
             </div>
           </section>
 

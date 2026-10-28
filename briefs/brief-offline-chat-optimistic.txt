@@ -1,0 +1,48 @@
+PROJECT BRIEF — OFFLINE-FIRST REAL-TIME CHAT ENGINE WITH OPTIMISTIC UI & RECONNECT SYNC
+======================================================================
+
+Project ID  : brief-offline-chat-optimistic
+Domain      : Mobile Engineering & Cross-Platform
+Difficulty  : INTERMEDIATE
+Est. Time   : 22 hours
+Tech Stack  : React Native 0.74+, TypeScript 5.4+, SQLite 3.45+, WebSocket (RFC 6455), XState 1.0+, Vitest 1.6+
+Covered Gaps: React Native, WebSockets, SQLite, Optimistic UI, State Machine, TypeScript
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+In messaging applications (WhatsApp, Slack), users expect messages to appear in the conversation thread immediately when they press Send, even with poor or nonexistent cellular connectivity. If an app disables the send button or spins an infinite loading spinner, user experience suffers. Implementing an offline-first messaging engine requires managing an optimistic message lifecycle (Pending -> Sent -> Delivered -> Read), persisting an outbox queue in local SQLite, and syncing delivery receipts during network reconnects.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Enterprise mobile team chat application | Customer support in-app messaging SDK | Telehealth doctor-patient messaging portal with intermittent connectivity
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Providing instant zero-millisecond UI feedback when sending messages regardless of network status | Managing message state transitions (Pending, Sent, Delivered, Read, Failed) with visual status indicators | Handling WebSocket reconnections with exponential backoff and message deduplication via client-generated UUIDs
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive understanding of optimistic UI patterns, message lifecycle state machines, and reconciliation | Automated test asserting message ordering consistency and delivery acknowledgment under network failure | Production-ready React Native chat list with auto-scroll and unread counter badges
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+User sends message; Engine generates client UUID; Inserts message into local SQLite with status PENDING; Renders in chat thread immediately (optimistic UI); Background sync worker detects connection: sends message over WebSocket; Server responds with ACK + server timestamp; Worker updates local status to SENT; Remote user receives -> marks DELIVERED; Remote user reads -> marks READ.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+UI Responsiveness: 0ms perceptible delay on message send in chat interface | Queue Capacity: Reliably queue and sync 2,000 pending offline messages upon reconnect | Reconnect Recovery: Re-establish WebSocket connection and flush outbox in < 1.5 seconds
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-offline-chat-optimistic/verify.sh -- tests/optimistic_send.test.ts: Sends message while network is disabled [Message appears in local thread immediately with status PENDING within 2ms]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-offline-chat-optimistic/verify.sh -- tests/reconnect_sync.test.ts: Reconnects network with 20 queued outbox messages [Sync manager flushes outbox in FIFO order; all 20 messages transition to SENT]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-offline-chat-optimistic/verify.sh -- tests/message_deduplication.test.ts: Simulates network drop right before receiving server ACK, triggering retry [Server deduplicates by client UUID; chat thread contains exactly 1 copy of message]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-offline-chat-optimistic/verify.sh -- tests/read_receipt_propagation.test.ts: Receives delivery and read receipt WebSocket frames [Local database and UI update message status ticks to double blue checkmarks]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-offline-chat-optimistic/verify.sh -- tests/permanent_failure_retry.test.ts: Injects fatal payload error from server (e.g. user blocked) [Message transitions to FAILED status with user-clickable 'Tap to retry' action]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Built offline-first mobile chat engine in React Native and SQLite with optimistic UI updates; delivered instantaneous sub-[UI_LATENCY]ms message dispatch and automated outbox synchronization across [RECONNECT_COUNT] intermittent connectivity drops."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

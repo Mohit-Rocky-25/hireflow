@@ -4,8 +4,8 @@ PROJECT BRIEF — SEMANTIC CODE SEARCH ENGINE WITH TREE-SITTER AST CHUNKING & VE
 Project ID  : brief-embedding-search-engine
 Domain      : AI/ML Applications
 Difficulty  : INTERMEDIATE
-Est. Time   : 28 hours
-Tech Stack  : Python, Tree-sitter, Qdrant, FastAPI
+Est. Time   : 30 hours
+Tech Stack  : Python 3.11+, Tree-sitter 1.0+, Qdrant 1.9+, FastAPI 0.111+
 Covered Gaps: Python, Tree-sitter, Qdrant, FastAPI, Vector Search, Information Retrieval, NLP
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Code Retrieval Relevance (Recall@10): Recall@10 exceeds 88% on technical query b
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python -m search_engine.evaluate --queries data/eval_queries.json: Search engine achieves Recall@10 exceeding 75% and MRR exceeding 0.65 [Recall@10 is > 0.75 and MRR is > 0.65 with exit code 0]
-[ ] 2. 2. python scripts/benchmark_latency.py --queries 500: Average end-to-end query retrieval latency is < 200 milliseconds on local CPU [Average search latency is < 200 milliseconds]
-[ ] 3. 3. pytest tests/test_ast_parser.py: Tree-sitter parser extracts all 50 function boundaries accurately [50 of 50 function boundary extraction tests pass with exit code 0]
-[ ] 4. 4. curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' -d '{"query": "parse json payload"}': FastAPI returns structured JSON with top ranked code functions, file paths, and confidence scores [Response status is 200 and results array contains at least 5 matching candidates]
-[ ] 5. 5. python scripts/verify_dynamic_semantic.py --code 'def xyz_calc_total(p, r, n): ...' --query 'calculate monthly mortgage payment breakdown': Engine embeds query and retrieves dynamic function in top 3 results despite zero lexical token overlap [Dynamic function appears in top 3 retrieved results with exit code 0]
+[ ] 1. python -m search_engine.evaluate --queries data/eval_queries.json: Search engine achieves Recall@10 exceeding 75% and MRR exceeding 0.65 [Recall@10 is > 0.75 and MRR is > 0.65 with exit code 0]
+[ ] 2. python scripts/benchmark_latency.py --queries 500: Average end-to-end query retrieval latency is < 200 milliseconds on local CPU [Average search latency is < 200 milliseconds]
+[ ] 3. Execute verification kit runner tests/fixtures/briefs-kits/brief-embedding-search-engine/verify.sh: Tree-sitter parser extracts all 50 function boundaries accurately [50 of 50 function boundary extraction tests pass with exit code 0]
+[ ] 4. curl -X POST http://localhost:8000/search -H 'Content-Type: application/json' -d '{"query": "parse json payload"}': FastAPI returns structured JSON with top ranked code functions, file paths, and confidence scores [Response status is 200 and results array contains at least 5 matching candidates]
+[ ] 5. python scripts/verify_dynamic_semantic.py --code 'def xyz_calc_total(p, r, n): ...' --query 'calculate monthly mortgage payment breakdown': Engine embeds query and retrieves dynamic function in top 3 results despite zero lexical token overlap [Dynamic function appears in top 3 retrieved results with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

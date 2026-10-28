@@ -1,0 +1,49 @@
+PROJECT BRIEF — CRYPTOGRAPHIC MERKLE TREE WHITELIST & PROOF VERIFICATION ENGINE
+======================================================================
+
+Project ID  : brief-merkle-airdrop-verifier
+Domain      : Applied Security & Cryptography
+Difficulty  : INTERMEDIATE
+Est. Time   : 19 hours
+Tech Stack  : TypeScript 5.4+, Keccak-256, Node.js 20 LTS, Vitest 1.6+, Buffer 1.0+
+Covered Gaps: TypeScript, Cryptography, Merkle Trees, Keccak-256, Data Integrity, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Distributing token airdrops, whitelist memberships, or file integrity manifests to hundreds of thousands of users by storing entire address lists on-chain or in transactional databases costs enormous gas or storage overhead ($O(N)$ space complexity). A cryptographic Merkle Tree compresses a dataset of 1,000,000 entries into a single 32-byte Merkle Root. Users prove their entitlement by submitting a compact $O(\log N)$ cryptographic proof containing only 20 hashes, which can be verified in microseconds with zero database lookups.
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Gas-efficient token airdrop and NFT whitelist claims in Web3 / Ethereum | File integrity verification in peer-to-peer file sharing protocols (BitTorrent / IPFS) | Tamper-evident certificate transparency logs
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Compressing millions of whitelist entries into a single 32-byte Merkle Root hash | Generating compact cryptographic inclusion proofs of size $O(\log N)$ | Verifying proof validity in sub-millisecond execution time while preventing double-spend claims via bitmasks
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Mastery of cryptographic data structures, Keccak-256 / SHA-256 hashing, and proof verification | Comprehensive test suite testing boundary conditions, odd leaf counts, and sorting order | Gas-optimized verification logic matching openzeppelin/merkle-proof standards
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Whitelist JSON ingested; Leaves computed as Keccak256(address, amount); Tree builder pairs and hashes sibling leaves iteratively up to single 32-byte Merkle Root; Proof generator produces sibling hash trail for target user; Verification module hashes user claim up the tree and checks if final hash matches published Root; Claim registry tracks claimed tokens using memory-efficient bitmasks.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Tree Generation Speed: Build Merkle Tree for 100,000 accounts in < 450ms | Proof Size: Proof contains <= 17 hashes (544 bytes) for 100,000 leaves ($O(\log_2 N)$) | Verification Speed: Verify cryptographic proof in < 0.05ms
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-merkle-airdrop-verifier/verify.sh -- tests/merkle_tree_construction.test.ts: Builds Merkle tree from 10,000 address-balance pairs [Constructs deterministic 32-byte root hash matching OpenZeppelin reference implementation]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-merkle-airdrop-verifier/verify.sh -- tests/proof_generation_verification.test.ts: Generates proof for valid user and verifies against root [Proof validation evaluates to TRUE in < 0.02ms]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-merkle-airdrop-verifier/verify.sh -- tests/tampered_proof_rejection.test.ts: Submits proof with altered token amount or swapped hash byte [Verification returns FALSE, preventing unauthorized claims]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-merkle-airdrop-verifier/verify.sh -- tests/double_claim_prevention.test.ts: Simulates user attempting to claim airdrop reward twice [Bitmask claim registry detects existing claim and rejects with ALREADY_CLAIMED]
+[ ] 5. Run node scripts/benchmark_scale.js --leaves 100000: Measures tree build time and proof sizes across 100,000 leaves [Tree builds in < 500ms; proof size verified at exactly 17 hashes]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Implemented cryptographic Merkle Tree whitelist and proof verification engine in TypeScript using Keccak-256; compressed [WHITELIST_SIZE] beneficiary records into a 32-byte root hash, enabling $O(\log N)$ claim proofs verified in under [VERIFY_TIME]ms."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

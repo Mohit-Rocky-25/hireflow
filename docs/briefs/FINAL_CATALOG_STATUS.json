@@ -1,0 +1,2533 @@
+{
+  "totalBriefs": 158,
+  "briefs": [
+    {
+      "id": "brief-ab-experimentation",
+      "title": "Bayesian A/B Experimentation Engine",
+      "domain": "ML Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "title": "Multi-Tenant B2B Event Analytics Engine",
+      "domain": "Data Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-api-gateway-scratch",
+      "title": "API Gateway from Scratch with Plugin Architecture",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-api-sdk-design",
+      "title": "Developer-First API SDK with Type Safety & Auto-Generation",
+      "domain": "Full-Stack Web",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-blockchain-defi",
+      "title": "DeFi Lending Protocol Smart Contract on Ethereum",
+      "domain": "Blockchain & Web3",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-canary-deployment",
+      "title": "Canary Deployment Controller with Automated Rollback",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-cdc-pipeline",
+      "title": "Change Data Capture (CDC) & Event Sourcing Pipeline",
+      "domain": "Data Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "title": "Minimal CI/CD System from Scratch with Build Agents",
+      "domain": "Platform & DevOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-compiler-interpreter",
+      "title": "Custom Programming Language Interpreter & AST Evaluator",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-computer-vision-api",
+      "title": "Production Computer Vision API (Object Detection & OCR)",
+      "domain": "AI/ML Applications",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-container-runtime",
+      "title": "Minimal Container Runtime (Docker-like) in Go",
+      "domain": "Systems Programming",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-credit-risk-model",
+      "title": "Credit Risk Scoring & Loan Underwriting ML System",
+      "domain": "FinTech Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-data-quality-framework",
+      "title": "Automated Data Quality Monitoring & Anomaly Detection",
+      "domain": "Data Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-database-engine",
+      "title": "Embedded Relational Database Engine with Slotted-Page B-Tree & WAL",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-devsecops-pipeline",
+      "title": "DevSecOps CI/CD Pipeline with SAST, SCA & Container Admission Gates",
+      "domain": "Security & Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-dist-cache-rust",
+      "title": "Distributed In-Memory Key-Value Cache Engine in Rust with Consistent Hashing",
+      "domain": "Systems Programming",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-dist-rate-limiter",
+      "title": "Distributed Sliding-Window Rate Limiting Gateway in Go & Redis",
+      "domain": "Distributed Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-embedding-search-engine",
+      "title": "Semantic Code Search Engine with Tree-Sitter AST Chunking & Vector Retrieval",
+      "domain": "AI/ML Applications",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-event-driven-saas",
+      "title": "Multi-Tenant B2B SaaS Backend with Row-Level Security & Outbox Messaging",
+      "domain": "Full-Stack Web",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-event-recon",
+      "title": "Event-Driven Payment Reconciliation Engine with Double-Entry Ledger",
+      "domain": "FinTech Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-event-sourcing",
+      "title": "Event Sourcing & CQRS Core Engine with Optimistic Concurrency Control",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-feature-flag-platform",
+      "title": "Feature Flag & Progressive Rollout Platform with MurmurHash3 Bucketing",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "title": "Real-Time Fraud Detection ML Pipeline with Sliding-Window Feature Store",
+      "domain": "ML Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-fullstack-ecommerce",
+      "title": "Headless E-Commerce Platform with Optimistic UI & Atomic Inventory Locks",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-genai-code-reviewer",
+      "title": "Automated Pull Request Code Reviewer with Prompt Injection Defense",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-gitignore-lsp",
+      "title": "Language Server Protocol (LSP) Engine with AST Parsing & Glob Diagnostics",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-gitops-registry",
+      "title": "GitOps Continuous Deployment Controller with Automated Drift Self-Healing",
+      "domain": "Platform & DevOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "title": "GPU & CPU Accelerated ML Inference Server with Dynamic Batching",
+      "domain": "ML Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-graph-analysis",
+      "title": "Large-Scale Social Graph Analytics Platform with PageRank & Community Detection",
+      "domain": "Data Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-graphql-federation",
+      "title": "Federated GraphQL Gateway with Distributed Query Planning & DataLoader Batching",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-graphql-to-sql-compiler",
+      "title": "GraphQL-to-SQL AST Compiler & Query Optimizer with LATERAL Joins",
+      "domain": "Full-Stack Web",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "title": "High-Throughput Log Processing & Alerting Daemon in Go with Ring Buffers",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-homomorphic-encryption",
+      "title": "Confidential Database Query Engine with Homomorphic Encryption",
+      "domain": "Security & Platform",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-interview-prep-ai",
+      "title": "Voice-Enabled Technical Interview Simulation Engine with Asynchronous Speech Processing & Evaluation",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-knowledge-graph",
+      "title": "Domain Knowledge Graph Construction Pipeline with Relation Extraction & Cypher Graph Reasoning Engine",
+      "domain": "AI/ML Applications",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-kubernetes-operator",
+      "title": "Custom Kubernetes Operator in Go with CRD Lifecycle Reconciler, Automated Failover & Backup Controller",
+      "domain": "Platform & DevOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-agent-workflow",
+      "title": "Autonomous LLM Agent Orchestration Engine with ReAct Loop, Deterministic Tool Calling & State Checkpointing",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-evaluation-framework",
+      "title": "Automated LLM Evaluation, Red-Teaming & Benchmark Harness with G-Eval, BERTScore & Adversarial Safety Scoring",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-finetuning-peft",
+      "title": "Domain-Specific LLM Fine-Tuning Pipeline with QLoRA, Token Packing & Automated Evaluation",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-finetuning-rlhf",
+      "title": "LLM Preference Alignment Pipeline with Bradley-Terry Reward Modeling & Direct Preference Optimization",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-gateway",
+      "title": "High-Throughput Multi-Provider LLM Gateway with Semantic Prompt Caching, Automatic Failover & Token Rate Limiting",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-load-balancer",
+      "title": "Layer Seven HTTP Reverse Proxy & Load Balancer in Go with Active Health Checks, Least-Connections & Circuit Breaking",
+      "domain": "Distributed Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-message-queue",
+      "title": "Persistent Log-Structured Message Broker in Go with Segmented Storage, Consumer Groups & At-Least-Once Delivery",
+      "domain": "Distributed Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-micro-frontend-shell",
+      "title": "Federated Micro-Frontend Host Shell with Module Federation, Shared Runtime State & Error Boundaries",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-mlops-platform",
+      "title": "End-to-End MLOps Pipeline Platform with Automated Experiment Tracking, Model Registry & Drift Detection",
+      "domain": "ML Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-mobile-flutter-prod",
+      "title": "Cross-Platform Mobile Application in Flutter with BLoC State Management, Offline SQLite Sync & CI/CD Fastlane Pipeline",
+      "domain": "Mobile Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "title": "Cross-Modal Multimodal AI Reasoning Platform Fusing Vision, Speech Audio & Text in PyTorch and FastAPI",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-notification-service",
+      "title": "High-Throughput Multi-Channel Notification Orchestration Service with Deduplication, Rate Limiting & Channel Fallback",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-observability-sdk",
+      "title": "In-Process Observability Telemetry SDK & Auto-Instrumentation Library in Go with OTLP Exporters",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-offline-first-sync",
+      "title": "Offline-First Local Synchronization Protocol with CRDTs, IndexedDB & Bidirectional WebSocket Streaming",
+      "domain": "Full-Stack Web",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-opentelemetry-observability",
+      "title": "High-Throughput Distributed Tracing & APM Platform in Go with ClickHouse Columnar Storage & Grafana Flamegraphs",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-osint-data-platform",
+      "title": "Distributed Web Intelligence Crawling & Change Detection Platform with Playwright, Celery & Redis Bloom Filters",
+      "domain": "Data Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-peer-to-peer",
+      "title": "Decentralized Peer-to-Peer File Distribution Engine in Go with Kademlia DHT & Rarest-First Swarm Scheduling",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-personalization-engine",
+      "title": "Real-Time User Personalization & Contextual Bandit Recommendation Engine with Kafka Streaming, Redis Feature Store & Scikit-learn",
+      "domain": "ML Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-privacy-preserving-ml",
+      "title": "Federated Learning System for Privacy-Preserving ML with PyTorch, Differential Privacy DP-SGD & gRPC Aggregation",
+      "domain": "ML Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-progressive-web-app",
+      "title": "Production Progressive Web App (PWA) with Workbox Service Worker, IndexedDB Offline Mutation Sync & Web Push Notifications",
+      "domain": "Mobile Engineering",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-raft-consensus",
+      "title": "Distributed Replicated Key-Value Store from Scratch in Go with Raft Consensus, LevelDB WAL & gRPC Cluster Transport",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-rag-vector-search",
+      "title": "Enterprise RAG Semantic Search & Hallucination Verification Engine with FastAPI, pgvector & Sentence-Transformers",
+      "domain": "AI/ML Applications",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-react-native-offline",
+      "title": "Offline-First Mobile Inspection Engine in React Native with WatermelonDB SQLite & Idempotent Delta Sync",
+      "domain": "Mobile Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-realtime-analytics-dashboard",
+      "title": "Real-Time Business Intelligence Analytics Dashboard with Node.js WebSockets, Redis Pub/Sub & PostgreSQL Rollups",
+      "domain": "Full-Stack Web",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-realtime-code-execution",
+      "title": "Secure Remote Code Execution Sandbox in Go with Linux Namespaces, cgroups v2 & seccomp BPF Syscall Filtering",
+      "domain": "Security & Platform",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-realtime-collab",
+      "title": "Real-Time Collaborative Document Canvas in TypeScript with Yjs CRDTs, WebSockets & IndexedDB Offline Sync",
+      "domain": "Full-Stack Web",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-realtime-stock-platform",
+      "title": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
+      "domain": "FinTech Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-recommendation-engine",
+      "title": "Hybrid Recommendation Engine with PyTorch Two-Tower NCF, FAISS Vector Retrieval & FastAPI Scoring",
+      "domain": "ML Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-schema-registry",
+      "title": "Event Schema Registry & Contract Testing Platform with Python, Kafka, Apache Avro & FastAPI",
+      "domain": "Data Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-search-engine",
+      "title": "Full-Text Search Engine from Scratch in Go with Inverted Index, BM25 Scoring & Concurrent Segment Merging",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-semantic-kernel-agent",
+      "title": "Hierarchical Multi-Agent Orchestration Framework in Python with Semantic Kernel, Qdrant & FastAPI",
+      "domain": "GenAI & LLM Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-serverless-backend",
+      "title": "Serverless Event-Driven Order Processing Backend with AWS Lambda, DynamoDB, SQS & LocalStack",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-service-mesh",
+      "title": "Service Mesh Zero-Trust Architecture with Istio, Envoy Sidecars, mTLS & SPIFFE Identity",
+      "domain": "Platform & DevOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-streaming-data-pipeline",
+      "title": "Real-Time Lakehouse Streaming ETL Pipeline with Apache Spark, Delta Lake, Kafka & MinIO",
+      "domain": "Data Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-supply-chain-optimization",
+      "title": "Supply Chain Vehicle Routing Optimizer with Google OR-Tools, OpenStreetMap & FastAPI",
+      "domain": "Algorithms & Applied Math",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-terraform-cloud-infra",
+      "title": "Production Infrastructure as Code with Modular Terraform, TFLint & LocalStack Cloud Emulation",
+      "domain": "Platform & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-time-series-forecasting",
+      "title": "Production Time-Series Forecasting Platform with Prophet, XGBoost Ensembles & FastAPI",
+      "domain": "ML Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-tls-certificate-manager",
+      "title": "Automated TLS Certificate Manager with ACME Protocol (DNS-01 / HTTP-01 Challenges) & Dynamic Reload",
+      "domain": "Security & Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-upi-payment-gateway",
+      "title": "UPI-Style Real-Time Payment Gateway with VPA Resolution, Dynamic Bank Routing & T+1 Settlement",
+      "domain": "FinTech Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-vector-db-from-scratch",
+      "title": "HNSW Vector Database from Scratch with Cosine Similarity, Multi-Layer Graph Index & REST API",
+      "domain": "AI/ML Applications",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-workflow-engine",
+      "title": "Distributed Workflow Orchestration Engine with Event Sourcing, Saga Compensation & Crash Recovery",
+      "domain": "Distributed Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-zero-trust-proxy",
+      "title": "Least-Privilege API Security Gateway with RS256 JWT Rotation, Redis Bloom Filter & Device Fingerprinting",
+      "domain": "Security & Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "cert-aws-ccp",
+      "title": "AWS Certified Cloud Practitioner (CLF-C02) Hands-On Lab & Cloud Foundation Architecture",
+      "domain": "Cloud Architecture & DevOps",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "cert-aws-saa",
+      "title": "AWS Certified Solutions Architect – Associate (SAA-C03) High-Availability & Disaster Recovery Architecture",
+      "domain": "Cloud Architecture & DevOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "cert-ckad",
+      "title": "Certified Kubernetes Application Developer (CKAD) Performance-Based Lab & Container Architecture",
+      "domain": "Cloud Native & Containers",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "cert-comptia-sec",
+      "title": "CompTIA Security+ (SY0-701) Cybersecurity Defense Lab & Threat Analysis Framework",
+      "domain": "Cybersecurity & Defense",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "cert-gcp-ace",
+      "title": "Google Cloud Associate Cloud Engineer (ACE) Infrastructure & Kubernetes Deployment Lab",
+      "domain": "Cloud Infrastructure & Kubernetes",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-http-socket-server",
+      "title": "Multi-Threaded HTTP/1.1 Socket Server from Scratch",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-kv-store-wal",
+      "title": "In-Memory Key-Value Store with Write-Ahead Log (WAL) & Crash Recovery",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-rate-limit-middleware",
+      "title": "Token Bucket & Leaky Bucket API Middleware in TypeScript",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-bloom-filter-engine",
+      "title": "Space-Efficient Bloom Filter & HyperLogLog Cardinality Estimator",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-mini-sql-lexer",
+      "title": "Mini SQL Lexer & Query Execution Engine for Tabular Datasets",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-git-internals-reader",
+      "title": "Git Object Store Inspector & Tree Traverser from Scratch",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-tar-gzip-decompressor",
+      "title": "Streaming Tar Archive Inspector & Huffman Decompressor",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-redis-resp-server",
+      "title": "Redis RESP Protocol Parser & Concurrent TCP Command Server",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-dag-task-runner",
+      "title": "Directed Acyclic Graph (DAG) Task Orchestrator with Cycle Detection",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-threadsafe-lru-cache",
+      "title": "Thread-Safe LRU/LFU In-Memory Cache with O(1) Eviction",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-markdown-ast-ssg",
+      "title": "Markdown AST Parser & Static Site Generator with Metadata Frontmatter",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-json-schema-validator",
+      "title": "Recursive JSON Schema Validator with Draft-7 Primitive Checks",
+      "domain": "Computer Science Fundamentals",
+      "difficulty": "beginner",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-multiagent-code-reviewer",
+      "title": "Multi-Agent Autonomous Code Review & Patch Generator",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-hybrid-rag-reranker",
+      "title": "Hybrid Dense-Sparse RAG Pipeline with Cross-Encoder Re-Ranking",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-llm-firewall-guardrail",
+      "title": "Real-Time LLM Security Firewall & Prompt Injection Guardrail",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-self-reflective-retriever",
+      "title": "Self-Reflective RAG (Self-RAG) Engine with Hallucination Grading",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-local-vllm-gateway",
+      "title": "Local High-Throughput LLM Gateway with PagedAttention & Continuous Batching",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-semantic-vector-cache",
+      "title": "Semantic Vector Cache for LLM API Cost & Latency Reduction",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-lora-dataset-curator",
+      "title": "Instruction Fine-Tuning Dataset Curator with Decontamination & Quality Filtering",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-geval-eval-harness",
+      "title": "Automated LLM Evaluation Harness with G-Eval & Faithfulness Scoring",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-react-tool-gateway",
+      "title": "ReAct Agent Tool Execution Engine with Sandboxed Python REPL",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-multimodal-invoice-parser",
+      "title": "Multimodal Document Extraction Pipeline with Structured JSON Schema Enforcement",
+      "domain": "Generative AI & LLMOps",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-idempotency-gateway",
+      "title": "Distributed Idempotency Key Gateway with Redis & SHA-256 Fingerprinting",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-transactional-outbox-worker",
+      "title": "Transactional Outbox Pattern with PostgreSQL CDC & Kafka Publishing",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-webhook-retry-engine",
+      "title": "Resilient Webhook Ingestion & Exponential Backoff Delivery Engine",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-flash-sale-inventory",
+      "title": "Ultra-Low Latency Flash Sale Inventory Reservation Engine",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-multi-region-url-shortener",
+      "title": "Multi-Region URL Shortener with Distributed K-Sortable ID Generator",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-sse-websocket-broadcaster",
+      "title": "Real-Time WebSocket & SSE Pub/Sub Fanout Broadcaster",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "title": "Distributed Saga Pattern Orchestrator for Microservices Transactions",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-grpc-mesh-resilience",
+      "title": "High-Performance gRPC Microservice Mesh with Client-Side Load Balancing",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-dynamic-feature-gate",
+      "title": "Dynamic Feature Flag & Experimentation Engine with Hash Ring Bucketing",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-priority-job-scheduler",
+      "title": "Distributed Priority Background Job Scheduler with Fair Queuing",
+      "domain": "High-Scale Backend & Distributed Architecture",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "title": "Immutable Double-Entry General Ledger with Multi-Currency Balance Invariants",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-pg-webhook-reconciliation",
+      "title": "Automated Payment Webhook Reconciliation & Discrepancy Detection Engine",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "title": "Ultra-Fast Limit Order Book & Matching Engine with Price-Time Priority",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-velocity-fraud-detector",
+      "title": "Real-Time Velocity & Card Fraud Detection Engine with Sliding Windows",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-market-ticker-websocket",
+      "title": "Low-Latency Real-Time Financial Market Ticker & Candlestick Aggregator",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "title": "Immediate Payment Settlement & Batch Clearing System",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-subscription-dunning-billing",
+      "title": "Subscription Metered Billing & Automated Dunning Workflow Engine",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-eod-interest-batch",
+      "title": "High-Throughput End-of-Day (EOD) Accrual & Interest Calculation Batch Job",
+      "domain": "FinTech & High-Integrity Systems",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-clickstream-clickhouse",
+      "title": "Real-Time Clickstream Ingestion & Aggregation with ClickHouse & Kafka",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-parquet-duckdb-server",
+      "title": "Serverless Analytical Query Engine over Parquet Data Lake with DuckDB",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-cdc-pg-elasticsearch",
+      "title": "Real-Time Change Data Capture (CDC) Sync from PostgreSQL to Elasticsearch",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-distributed-etl-scheduler",
+      "title": "Directed Acyclic Graph (DAG) Distributed ETL Orchestrator with Backfills",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-stream-exact-dedup",
+      "title": "High-Throughput Streaming Exact Deduplication with RocksDB State Store",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-data-quality-gate",
+      "title": "Automated CI/CD Data Quality Gatekeeper & Schema Drift Detector",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-geospatial-h3-aggregator",
+      "title": "Geospatial Ride Demand & Surge Heatmap Aggregator using Uber H3",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-columnar-compactor",
+      "title": "Append-Only Log to Columnar Parquet Compaction Worker",
+      "domain": "Modern Data Engineering & Analytics Infra",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-k8s-crd-operator",
+      "title": "Custom Kubernetes CRD & Controller Operator in Go",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-bluegreen-envoy-router",
+      "title": "Automated Blue-Green & Canary Traffic Router with Envoy Proxy",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-ephemeral-dev-sandbox",
+      "title": "Ephemeral Preview Environment Provisioner with Docker & Reverse Proxy",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-otel-apm-collector",
+      "title": "OpenTelemetry APM Collector & Custom Distributed Trace Exporter",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-k8s-secret-sync",
+      "title": "Kubernetes External Secrets Operator Syncing from HashiCorp Vault",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-cloud-cost-anomaly",
+      "title": "Real-Time Cloud Cost Anomaly Detector & Waste Reclamation Daemon",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-dns-failover-daemon",
+      "title": "Distributed Health Check & Dynamic DNS Failover Daemon",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-disaster-recovery-harness",
+      "title": "Automated Database Disaster Recovery Drill & RPO/RTO Testing Harness",
+      "domain": "Cloud Native & DevOps Engineering",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "title": "OAuth 2.0 & OpenID Connect Authorization Server with PKCE Support",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-shamir-secret-vault",
+      "title": "Shamir's Secret Sharing Threshold Key Custody Vault",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-ast-sast-scanner",
+      "title": "Static Application Security Testing (SAST) Scanner with AST Pattern Matching",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-pcap-network-detector",
+      "title": "Real-Time PCAP Packet Sniffer & Port Scan Intrusion Detection Engine",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "title": "Cryptographic Merkle Tree Whitelist & Proof Verification Engine",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-waf-reverse-proxy",
+      "title": "Web Application Firewall (WAF) Reverse Proxy with OWASP Inspection Rules",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-mtls-internal-ca",
+      "title": "Mutual TLS (mTLS) Internal Certificate Authority & Automated Cert Rotator",
+      "domain": "Applied Security & Cryptography",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-offline-crdt-notes",
+      "title": "Offline-First Collaborative Notes App with State-Based CRDTs",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-virtualized-media-feed",
+      "title": "60 FPS Infinite Virtualized Media Feed with Aggressive Memory Recycling",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-background-geofence-optimizer",
+      "title": "Battery-Optimized Background Geofencing & Location Telemetry Engine",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-secure-enclave-vault",
+      "title": "Mobile Secure Enclave & Biometric Keychain Storage Vault",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-offline-chat-optimistic",
+      "title": "Offline-First Real-Time Chat Engine with Optimistic UI & Reconnect Sync",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-mobile-perf-tracer",
+      "title": "Mobile App Startup & Frame Jank Performance Profiling Harness",
+      "domain": "Mobile Engineering & Cross-Platform",
+      "difficulty": "intermediate",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-malloc-freelist-allocator",
+      "title": "Custom Free-List Memory Allocator (malloc/free) with Boundary-Tag Coalescing",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-epoll-async-eventloop",
+      "title": "Async Single-Threaded Event Loop with Linux epoll from Scratch",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-zerocopy-tcp-proxy",
+      "title": "Zero-Copy High-Throughput TCP Proxy using Linux splice()",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-fuse-virtual-filesystem",
+      "title": "User-Space Virtual Filesystem (FUSE) for Encrypted Cloud Storage",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-work-stealing-pool",
+      "title": "Lock-Free Work-Stealing Thread Pool Scheduler (Chase-Lev Algorithm)",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    },
+    {
+      "id": "brief-btree-page-storage",
+      "title": "On-Disk B+ Tree Page-Based Storage Engine with Buffer Pool Manager",
+      "domain": "Systems Programming & Performance",
+      "difficulty": "advanced",
+      "status": "validated",
+      "openDefects": {
+        "S0": 0,
+        "S1": 0,
+        "S2": 0
+      },
+      "unverifiedClaimsCount": 0,
+      "kitStatus": "VALIDATED",
+      "evidenceStatus": "analytically-checked",
+      "safetyStatus": "clear"
+    }
+  ]
+}

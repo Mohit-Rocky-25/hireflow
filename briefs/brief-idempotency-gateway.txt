@@ -1,0 +1,48 @@
+PROJECT BRIEF — DISTRIBUTED IDEMPOTENCY KEY GATEWAY WITH REDIS & SHA-256 FINGERPRINTING
+======================================================================
+
+Project ID  : brief-idempotency-gateway
+Domain      : High-Scale Backend & Distributed Architecture
+Difficulty  : INTERMEDIATE
+Est. Time   : 20 hours
+Tech Stack  : Go 1.22+, Redis 7.2+, HTTP 1.0+, SHA-256, Docker 26+, Testing 1.0+
+Covered Gaps: Go, Redis, HTTP Protocols, Distributed Systems, Concurrency, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+In distributed microservice environments, network timeouts and automatic client retries can cause non-idempotent HTTP POST endpoints (e.g., payment charges, order submissions) to be executed multiple times, resulting in duplicate billing or double fulfillment. A distributed idempotency middleware must safely intercept requests carrying an Idempotency-Key header, lock processing during in-flight execution, detect payload mutation via cryptographic hashing, and replay cached responses atomically.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Payment gateway charge processing shielding merchant accounts from double-charges | Order processing pipeline preventing duplicate inventory deductions | Webhook dispatcher guaranteeing once-and-only-once execution of partner callbacks
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Preventing duplicate database writes caused by network blips and automated HTTP retries | Detecting malicious or buggy payload tampering when a client reuses an idempotency key with conflicting bodies | Avoiding race conditions where two simultaneous identical requests arrive concurrently using atomic SETNX locks
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of HTTP RFC specifications (draft-ietf-httpapi-idempotency-key-header) | Robust concurrency test suite executing 50 concurrent identical requests with zero duplicate executions | Benchmarks proving less than 3ms overhead added to the request-response lifecycle
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Incoming request carries Idempotency-Key; middleware computes SHA-256 fingerprint of method + path + body; executes atomic Redis SETNX with key and IN_PROGRESS status with 120s TTL; if lock fails, checks stored hash: if matching, awaits completion and returns cached response; if hash differs, returns HTTP 422 Unprocessable Entity; upon upstream completion, updates Redis key to COMPLETED with serialized response bytes and 24h TTL.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Throughput: > 12,000 requests/sec with Redis cluster backend | Overhead Latency (p99): < 2.5ms added to incoming request | Concurrency Safety: 100% duplicate prevention under 100 simultaneous concurrent retries
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-idempotency-gateway/verify.sh -run TestSingleExecution: Sends single POST /v1/orders with Idempotency-Key [Order processed successfully returning HTTP 201 Created with cached status in Redis]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-idempotency-gateway/verify.sh -run TestConcurrentRetries: Fires 50 simultaneous identical requests with identical Idempotency-Key in parallel goroutines [Downstream handler executes exactly once; 49 requests receive identical replay response]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-idempotency-gateway/verify.sh -run TestMismatchedPayloadRejection: Sends duplicate Idempotency-Key with different payload body [Gateway immediately rejects request with HTTP 422 Unprocessable Entity and mismatch error code]
+[ ] 4. Execute wrk -t4 -c100 -d15s http://localhost:8080/v1/orders -s scripts/idempotency_bench.lua: Stresses middleware under sustained concurrent load [Throughput exceeds 8,000 req/sec with p99 latency < 4ms]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-idempotency-gateway/verify.sh -run TestTimeoutUnlock: Simulates downstream server crash during IN_PROGRESS state [Lock expires safely according to TTL, allowing subsequent retry to proceed cleanly]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected distributed HTTP idempotency gateway in Go using Redis and SHA-256 payload hashing; empirically verified exactly-once semantic execution across [CONCURRENT_REQUESTS] concurrent retries while adding under [LATENCY_OVERHEAD]ms p99 latency."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

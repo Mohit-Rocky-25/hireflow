@@ -1,0 +1,48 @@
+PROJECT BRIEF — HIGH-THROUGHPUT STREAMING EXACT DEDUPLICATION WITH ROCKSDB STATE STORE
+======================================================================
+
+Project ID  : brief-stream-exact-dedup
+Domain      : Modern Data Engineering & Analytics Infra
+Difficulty  : INTERMEDIATE
+Est. Time   : 21 hours
+Tech Stack  : Go 1.22+, RocksDB 1.0+, Bloom Filter 1.0+, Docker 26+, Testing 1.0+, Benchmarking 1.0+
+Covered Gaps: Go, RocksDB, Streaming Data, Bloom Filters, Data Deduplication, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+In distributed event streams (Kafka/Pulsar), network retries and producer restarts cause duplicate messages. While approximate filters (Bloom/HyperLogLog) have false-positive rates that discard unique data, storing every observed event ID in RAM exhausts memory when processing billions of records over a 7-day retention window. An exact stream deduplicator combines a multi-tier architecture: an in-memory Bloom filter for fast negative lookups backed by an embedded LSM-tree key-value store (RocksDB) on SSD for 100% exact deduplication.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Deduplication gateway for high-volume telemetry and IoT device metrics | Ensuring exactly-once message ingestion into downstream analytical databases | Preventing duplicate email or push notification dispatches from streaming triggers
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Achieving 100% exact deduplication without false-positive discards of unique events | Bounding memory consumption while maintaining a rolling 7-day deduplication history across 500 million keys | Maintaining sub-millisecond deduplication checks at 30,000 events per second
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of streaming architectures, LSM-tree storage engines, and probabilistic data structures | Automated test asserting 0 false positives and 0 duplicate leaks across 1,000,000 simulated events | Performance benchmark comparing pure Redis vs RocksDB SSD storage costs and throughput
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Event arrives with UUID; Layer 1: In-memory Scalable Bloom Filter checks if UUID has been seen; if Bloom filter returns FALSE, event is guaranteed UNIQUE -> adds to Bloom filter, persists to RocksDB with expiration timestamp, and forwards event; if Bloom filter returns TRUE (possible duplicate or false positive), queries RocksDB: if found in RocksDB -> drops DUPLICATE; if not found -> processes UNIQUE; background thread prunes expired keys.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Throughput: > 35,000 event deduplication checks/sec per node | Accuracy: Exactly 0% false positives (never drops unique records) and 0% false negatives (never leaks duplicates) | State Capacity: Store 100 million active event keys in < 8GB local disk with < 500MB RAM
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-stream-exact-dedup/verify.sh -run TestExactDeduplication: Feeds 50,000 unique events and 10,000 duplicates in interleaved stream [Exactly 50,000 events forwarded; exactly 10,000 duplicate events dropped]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-stream-exact-dedup/verify.sh -run TestZeroFalsePositives: Feeds 100,000 unique events through pipeline [Confirms 100% of unique events are processed without a single dropped unique record]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-stream-exact-dedup/verify.sh -run TestTtlPruning: Inserts keys with short TTL, advances mock clock past expiration threshold [RocksDB compaction cleaner removes expired keys, freeing disk storage]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-stream-exact-dedup/verify.sh -benchmem: Benchmarks deduplication check latency under continuous ingestion [Reports > 30,000 checks/sec with median latency < 0.25ms]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-stream-exact-dedup/verify.sh -run TestCrashRecovery: Writes 100,000 keys, abruptly stops process, reboots engine [RocksDB recovers on startup; subsequent duplicate checks correctly identify all pre-crash keys]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Engineered high-throughput exact stream deduplication engine in Go using RocksDB and Bloom filters; eliminated duplicate events across [STREAM_VOLUME] events/sec with 100% precision while reducing state memory overhead by [RAM_SAVINGS]%."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -4,13 +4,15 @@ PROJECT BRIEF — SECURE REMOTE CODE EXECUTION SANDBOX IN GO WITH LINUX NAMESPAC
 Project ID  : brief-realtime-code-execution
 Domain      : Security & Platform
 Difficulty  : ADVANCED
-Est. Time   : 40 hours
-Tech Stack  : Go, Linux Namespaces, cgroups, seccomp, Docker
+Est. Time   : 42 hours
+Tech Stack  : Go 1.22+, Linux Namespaces 1.0+, cgroups v2 (Linux 6.1+), seccomp-bpf (Linux 6.1+), Docker 26+
 Covered Gaps: Go, Linux Namespaces, cgroups, seccomp, Docker, Systems Programming, Security
 
 1. PROBLEM STATEMENT
 ----------------------------------------------------------------------
 Online code assessment platforms, interactive coding sandboxes, and continuous integration runners need to execute untrusted user-submitted code at high concurrency. Naive execution directly on host operating systems exposes servers to catastrophic remote code execution (RCE) attacks, denial-of-service fork bombs, network port scanning, and host filesystem tampering. Relying on heavy full-system virtual machines introduces multi-second boot latency and unsustainable compute costs. This project builds a production-grade secure remote code execution engine and judge sandbox from scratch in Go. The system enforces strict process containment using Linux Namespaces (Mount, PID, Network, IPC, UTS), restricts CPU time and memory quotas with cgroups v2, filters dangerous kernel syscalls using seccomp BPF profiles, and executes code in under 120ms with zero host escape vulnerabilities.
+[Environment Prerequisite: Linux-specific primitives (seccomp, cgroups) require a native Linux environment, WSL2 on Windows, or an isolated Linux Docker container.]
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
 
 2. REAL-WORLD USE CASES
 ----------------------------------------------------------------------
@@ -34,15 +36,15 @@ Sandboxed Code Execution Cold-Start Latency: p95 execution cold-start latency is
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. go run ./cmd/bench_executor --jobs 1000 --concurrency 10: Sandbox executes code and captures outputs with p95 cold-start latency < 180ms [p95 latency < 180ms with exit code 0]
-[ ] 2. 2. go test -v ./sandbox/... -run TestForkBombSuppression: cgroups v2 blocks new process creation; fork bomb terminates in < 15ms with 0 host CPU freeze [Process contained with exit code 0 and host CPU unaffected]
-[ ] 3. 3. go test -v ./security/... -run TestNetworkNamespaceIsolation: Network namespace blocks socket creation; process receives network unreachable error [Socket creation rejected with exit code 0]
-[ ] 4. 4. go test -v ./sandbox/... -run TestOOMSuppression: cgroup OOM killer terminates process cleanly; supervisor reports exit status 'MEMORY_LIMIT_EXCEEDED' [OOM handled cleanly with exit code 0]
-[ ] 5. 5. go run ./scripts/verify_host_containment.go --target-file /etc/shadow: Sandbox pivot_root isolation blocks access; process receives file not found / access denied [Console confirms access denied / file not found with exit code 0]
+[ ] 1. go run ./cmd/bench_executor --jobs 1000 --concurrency 10: Sandbox executes code and captures outputs with p95 cold-start latency < 180ms [p95 latency < 180ms with exit code 0]
+[ ] 2. Run verification harness tests/fixtures/briefs-kits/brief-realtime-code-execution/verify.sh ./sandbox/... -run TestForkBombSuppression: cgroups v2 blocks new process creation; fork bomb terminates in < 15ms with 0 host CPU freeze [Process contained with exit code 0 and host CPU unaffected]
+[ ] 3. Run verification harness tests/fixtures/briefs-kits/brief-realtime-code-execution/verify.sh ./security/... -run TestNetworkNamespaceIsolation: Network namespace blocks socket creation; process receives network unreachable error [Socket creation rejected with exit code 0]
+[ ] 4. Run verification harness tests/fixtures/briefs-kits/brief-realtime-code-execution/verify.sh ./sandbox/... -run TestOOMSuppression: cgroup OOM killer terminates process cleanly; supervisor reports exit status 'MEMORY_LIMIT_EXCEEDED' [OOM handled cleanly with exit code 0]
+[ ] 5. go run ./scripts/verify_host_containment.go --target-file /etc/shadow: Sandbox pivot_root isolation blocks access; process receives file not found / access denied [Console confirms access denied / file not found with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------
-"Architected secure remote code execution sandbox in Go using Linux namespaces and cgroups; achieved sub-[COLD_START_LATENCY] millisecond execution cold-start latency, and neutralized [EXPLOIT_COUNT] exploit attack vectors with seccomp BPF syscall filtering."
+"Scaled secure remote code execution sandbox in Go using Linux namespaces and cgroups; achieved sub-[COLD_START_LATENCY] millisecond execution cold-start latency, and neutralized [EXPLOIT_COUNT] exploit attack vectors with seccomp BPF syscall filtering."
 
 ----------------------------------------------------------------------
 Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

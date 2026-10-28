@@ -1,0 +1,49 @@
+PROJECT BRIEF — MUTUAL TLS (MTLS) INTERNAL CERTIFICATE AUTHORITY & AUTOMATED CERT ROTATOR
+======================================================================
+
+Project ID  : brief-mtls-internal-ca
+Domain      : Applied Security & Cryptography
+Difficulty  : INTERMEDIATE
+Est. Time   : 21 hours
+Tech Stack  : Go 1.22+, crypto/x509, crypto/tls 1.0+, PKI 1.0+, Docker 26+, Testing 1.0+
+Covered Gaps: Go, mTLS, X.509 Certificates, PKI, TLS Protocols, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Zero-trust network architectures mandate that all internal microservice-to-microservice communication must be authenticated and encrypted via Mutual TLS (mTLS) so that compromised network boundaries do not permit eavesdropping or spoofing. Managing mTLS certificates manually causes production outages when certificates expire unexpectedly. An automated internal Public Key Infrastructure (PKI) manages a Root and Intermediate CA, issues short-lived service certificates, and provides client agents that auto-rotate certificates without restarting applications.
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Zero-trust internal service mesh encryption and mutual identity verification | Securing database and queue connections with client certificate authentication | Automated short-lived TLS certificate provisioning for internal APIs
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Eliminating hardcoded long-lived TLS certificates by issuing ephemeral 7-day certificates | Automating zero-downtime certificate rotation using dynamic TLS `GetCertificate` hooks in Go | Enforcing mutual client authentication: server verifies client certificate and client verifies server
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Comprehensive understanding of X.509 certificate chains, SAN extensions, and TLS handshakes | Integration test proving zero-downtime certificate rotation while traffic flows continuously | Automated test rejecting clients with expired, untrusted, or missing client certificates
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Internal CA daemon initializes Root CA (stored offline/encrypted) and Intermediate Issuing CA; Microservice sidecar daemon generates local private key, submits Certificate Signing Request (CSR) with Subject Alternative Name (SAN); CA signs and issues 7-day X.509 cert; Go microservice loads cert via dynamic tls.Config; Rotator checks cert expiry daily; auto-renews at 70% lifetime without service restart.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Issuance Speed: Sign and issue X.509 certificate in < 100ms | Rotation Reliability: 100% zero-downtime hot certificate reload without dropped TCP connections | Mutual Verification: 100% rejection of unauthorized or untrusted client certificates
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run go run cmd/ca/main.go --init: Generates internal Root CA and Intermediate CA certificate hierarchy [Outputs valid X.509 certificate PEM files with basicConstraints CA:TRUE]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-mtls-internal-ca/verify.sh -run TestValidMtlsHandshake: Client connects to server presenting valid signed client certificate [TLS handshake completes successfully; server logs client SAN identity]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-mtls-internal-ca/verify.sh -run TestUntrustedClientCertificateRejection: Client attempts connection with self-signed certificate untrusted by CA [Server rejects connection during TLS handshake with bad certificate error]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-mtls-internal-ca/verify.sh -run TestZeroDowntimeHotReload: Rotates active server certificate while wrk load test sends requests [Load test completes with 100% successful 2xx responses and zero dropped connections]
+[ ] 5. Run openssl verify -CAfile certs/root_ca.pem -untrusted certs/intermediate_ca.pem certs/service.pem: Verifies certificate chain [OpenSSL reports certs/service.pem: OK]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Implemented internal PKI Certificate Authority and automated Mutual TLS (mTLS) rotator in Go; secured inter-service microservice communications with short-lived X.509 certificates and achieved continuous no detected-impact automated certificate renewal."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

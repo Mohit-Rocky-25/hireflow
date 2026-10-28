@@ -1,0 +1,48 @@
+PROJECT BRIEF — AUTOMATED DATABASE DISASTER RECOVERY DRILL & RPO/RTO TESTING HARNESS
+======================================================================
+
+Project ID  : brief-disaster-recovery-harness
+Domain      : Cloud Native & DevOps Engineering
+Difficulty  : ADVANCED
+Est. Time   : 23 hours
+Tech Stack  : Go 1.22+, PostgreSQL 16+, Docker Engine API 1.0+, AWS S3 / MinIO, Testing 1.0+, CLI 1.0+
+Covered Gaps: Go, PostgreSQL, Disaster Recovery, S3, DevOps, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Engineering teams write backup scripts, but almost never test restoring them until a catastrophic production database failure occurs, discovering corrupted backup archives, missing encryption keys, or unacceptably long restore times that violate contractual SLAs. Maintaining true disaster readiness requires an automated DR testing harness that periodically downloads real production backup snapshots, restores them into an isolated sandbox, validates data integrity, and records empirical RTO/RPO metrics.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Automated weekly disaster recovery drill verifying compliance with SOC2 / ISO 27001 SLAs | Measuring empirical Recovery Time Objective (RTO) and Recovery Point Objective (RPO) | Validating database backup encryption and point-in-time recovery (PITR) WAL replays
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Verifying that encrypted database backup files are non-corrupted and restorable without human intervention | Calculating true Recovery Point Objective (RPO) data loss in seconds by comparing latest restored transaction timestamp against backup snapshot time | Running automated database consistency assertions (e.g. checking user counts, checksum invariants) on restored data
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of enterprise disaster recovery standards (RTO, RPO, PITR, WAL archiving) | Fully automated execution lifecycle: provision isolated container, restore WAL, run integrity tests, export metrics, teardown | Comprehensive audit report generator for compliance auditors
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+Scheduled runner triggers DR drill; downloads latest base backup and WAL archives from encrypted S3 storage; spins up isolated PostgreSQL container; executes pg_restore / WAL replay to target timestamp; executes data integrity validation suite (table row counts, foreign key checks, balance invariants); logs exact elapsed restore time (RTO) and data drift (RPO); generates signed PDF/JSON compliance certificate; destroys container.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+RTO Measurement: Restore and verify 50GB database snapshot in < 15 minutes | RPO Accuracy: Compute transaction lag down to the millisecond | Automation: 100% hands-free execution from S3 fetch to report generation
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run go run cmd/dr-harness/main.go --backup s3://backups/pg_base_latest.tar.gz: Executes automated restore drill [Spins up isolated container, extracts backup, replays WAL, and brings database to READ-WRITE]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-disaster-recovery-harness/verify.sh -run TestRestoredDataIntegrity: Queries restored database for row count parity and key foreign key constraints [All 25 data integrity checks PASS with 100% record match]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-disaster-recovery-harness/verify.sh -run TestRpoRtoCalculation: Validates RTO calculation against wall-clock restore duration and RPO against last transaction LSN [Logs empirical RTO: 342s and RPO: 4.2s]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-disaster-recovery-harness/verify.sh -run TestCorruptedBackupDetection: Injects corrupted byte headers into test backup tarball [Harness detects archive corruption, halts restore safely, and triggers alert notification]
+[ ] 5. Run cat output/dr_report_latest.json: Inspects generated audit certificate [Contains machine-readable audit report with timestamps, checksums, RTO/RPO metrics, and pass status]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Architected automated disaster recovery drill harness in Go and PostgreSQL; automated weekly backup restore verification and WAL replay into isolated test containers, proving an empirical RTO of [EMPIRICAL_RTO]m and RPO under [EMPIRICAL_RPO]s."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

@@ -5,7 +5,7 @@ Project ID  : cert-aws-ccp
 Domain      : Cloud Architecture & DevOps
 Difficulty  : BEGINNER
 Est. Time   : 16 hours
-Tech Stack  : AWS IAM, Amazon EC2, Amazon S3, AWS VPC, CloudWatch, LocalStack, AWS CLI
+Tech Stack  : AWS IAM 1.0+, Amazon EC2, Amazon S3, AWS VPC 1.0+, CloudWatch 1.0+, LocalStack 1.0+, AWS CLI 1.0+
 Covered Gaps: AWS IAM, Amazon EC2, Amazon S3, AWS VPC, CloudWatch, LocalStack, AWS CLI, DevOps, Cloud Architecture
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ IAM Least-Privilege Permission Boundary Enforcement Rate: 50 of 50 unauthorized 
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. ./scripts/test_iam_boundaries.sh: IAM policy blocks 50 of 50 unauthorized calls with HTTP 403 AccessDenied [50 of 50 unauthorized requests blocked with exit code 0]
-[ ] 2. 2. ./scripts/verify_vpc_routing.sh: Packets route with average latency < 20ms and 0 packet loss [Latency < 20ms and zero packet loss with exit code 0]
-[ ] 3. 3. ./scripts/test_billing_alarm.sh --spend 15 --threshold 10: CloudWatch transitions alarm to ALARM state and dispatches notification within 60s [Alarm triggers and dispatches alert in < 60s with exit code 0]
-[ ] 4. 4. python ./scripts/run_exam_eval.py --questions 65: Scorer evaluates domain answers with score >= 700 / 1000 scaled points [Score >= 700 with exit code 0]
-[ ] 5. 5. aws --endpoint-url=http://localhost:4566 s3 ls --profile restricted-user: API terminates immediately with AccessDenied error message [Console confirms AccessDenied exception with exit code 255 or 1]
+[ ] 1. ./scripts/verify_iam_boundaries.sh: IAM policy blocks 50 of 50 unauthorized calls with HTTP 403 AccessDenied [50 of 50 unauthorized requests blocked with exit code 0]
+[ ] 2. ./scripts/verify_vpc_routing.sh: Packets route with average latency < 20ms and 0 packet loss [Latency < 20ms and zero packet loss with exit code 0]
+[ ] 3. ./scripts/verify_billing_alarm.sh --spend 15 --threshold 10: CloudWatch transitions alarm to ALARM state and dispatches notification within 60s [Alarm triggers and dispatches alert in < 60s with exit code 0]
+[ ] 4. python ./scripts/run_exam_eval.py --questions 65: Scorer evaluates domain answers with score >= 700 / 1000 scaled points [Score >= 700 with exit code 0]
+[ ] 5. aws --endpoint-url=http://localhost:4566 s3 ls --profile restricted-user: API terminates immediately with AccessDenied error message [Console confirms AccessDenied exception with exit code 255 or 1]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

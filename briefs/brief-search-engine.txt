@@ -4,8 +4,8 @@ PROJECT BRIEF — FULL-TEXT SEARCH ENGINE FROM SCRATCH IN GO WITH INVERTED INDEX
 Project ID  : brief-search-engine
 Domain      : Distributed Systems
 Difficulty  : ADVANCED
-Est. Time   : 40 hours
-Tech Stack  : Go, Concurrency, Algorithms, Data Structures, HTTP
+Est. Time   : 38 hours
+Tech Stack  : Go 1.22+, Concurrency 1.0+, Algorithms 1.0+, Data Structures 1.0+, HTTP 1.0+
 Covered Gaps: Go, Concurrency, Algorithms, Data Structures, HTTP, Distributed Systems, Systems Programming
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ p95 Full-Text Search Query Latency: p95 full-text query latency is < 9.5 millise
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. go run ./cmd/bench_search --queries 10000 --concurrency 20: Search engine serves queries with p95 query latency < 25.0ms and 0 HTTP errors [p95 latency < 25.0ms with exit code 0]
-[ ] 2. 2. go run ./cmd/bench_indexing --docs 100000 --batch-size 1000: Engine indexes corpus with sustained throughput >= 4,000 docs/sec and memory < 250MB [Throughput >= 4000 docs/sec with exit code 0]
-[ ] 3. 3. go test -v ./query/... -run TestBooleanASTExecution: AST parser evaluates query correctly; all returned documents match boolean constraints [All returned documents satisfy boolean logic with exit code 0]
-[ ] 4. 4. go test -v ./segment/... -run TestConcurrentSegmentFlush: Buffer flushes to disk segment file cleanly without dropping in-flight search queries [Flush completes without read errors and exit code 0]
-[ ] 5. 5. go run ./scripts/verify_bm25_ranking.go --query 'search' --expected-order 'DocA,DocB': Engine ranks DocA higher than DocB with BM25 score difference matching reference formula [Console confirms DocA rank 1 and DocB rank 2 with exit code 0]
+[ ] 1. go run ./cmd/bench_search --queries 10000 --concurrency 20: Search engine serves queries with p95 query latency < 25.0ms and 0 HTTP errors [p95 latency < 25.0ms with exit code 0]
+[ ] 2. go run ./cmd/bench_indexing --docs 100000 --batch-size 1000: Engine indexes corpus with sustained throughput >= 4,000 docs/sec and memory < 250MB [Throughput >= 4000 docs/sec with exit code 0]
+[ ] 3. Run verification harness tests/fixtures/briefs-kits/brief-search-engine/verify.sh ./query/... -run TestBooleanASTExecution: AST parser evaluates query correctly; all returned documents match boolean constraints [All returned documents satisfy boolean logic with exit code 0]
+[ ] 4. Run verification harness tests/fixtures/briefs-kits/brief-search-engine/verify.sh ./segment/... -run TestConcurrentSegmentFlush: Buffer flushes to disk segment file cleanly without dropping in-flight search queries [Flush completes without read errors and exit code 0]
+[ ] 5. go run ./scripts/verify_bm25_ranking.go --query 'search' --expected-order 'DocA,DocB': Engine ranks DocA higher than DocB with BM25 score difference matching reference formula [Console confirms DocA rank 1 and DocB rank 2 with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

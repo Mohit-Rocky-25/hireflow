@@ -5,7 +5,7 @@ Project ID  : brief-rag-vector-search
 Domain      : AI/ML Applications
 Difficulty  : INTERMEDIATE
 Est. Time   : 28 hours
-Tech Stack  : Python, FastAPI, pgvector, PostgreSQL, Docker, Sentence-Transformers
+Tech Stack  : Python 3.11+, FastAPI 0.111+, pgvector 1.0+, PostgreSQL 16+, Docker 26+, Sentence-Transformers 1.0+
 Covered Gaps: Python, FastAPI, pgvector, PostgreSQL, Docker, Sentence-Transformers, RAG, AI/ML Applications
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ p95 Hybrid Vector Retrieval Latency: p95 hybrid retrieval latency is < 18.5 mill
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python ./benchmarks/bench_retrieval.py --queries 1000 --concurrency 10: pgvector returns top-5 chunks with p95 hybrid latency < 40.0ms [p95 latency < 40.0ms with exit code 0]
-[ ] 2. 2. python ./evaluation/eval_mrr.py --queries 500: Hybrid dense-sparse retrieval achieves MRR@10 >= 0.82 and Hit Rate@5 >= 0.90 [MRR@10 >= 0.82 with exit code 0]
-[ ] 3. 3. python ./ingestion/chunk_documents.py --input-dir ./docs/sample: Chunks preserve code block integrity and generate valid 384-d vector embeddings [100 of 100 documents chunked and embedded with exit code 0]
-[ ] 4. 4. curl -X POST http://localhost:8000/api/v1/query -H 'Content-Type: application/json' -d '{"question":"What is the database connection timeout?"}': FastAPI returns grounded answer with verified source chunk ID and text citation span [Response status 200 with non-empty citation list and exit code 0]
-[ ] 5. 5. python ./scripts/verify_hallucination_rejection.py --query 'What are the penalties under policy XYZ-999?': System detects low similarity scores and returns 'INSUFFICIENT_CONTEXT' with 0 fabricated text [Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0]
+[ ] 1. python ./benchmarks/bench_retrieval.py --queries 1000 --concurrency 10: pgvector returns top-5 chunks with p95 hybrid latency < 40.0ms [p95 latency < 40.0ms with exit code 0]
+[ ] 2. python ./evaluation/eval_mrr.py --queries 500: Hybrid dense-sparse retrieval achieves MRR@10 >= 0.82 and Hit Rate@5 >= 0.90 [MRR@10 >= 0.82 with exit code 0]
+[ ] 3. python ./ingestion/chunk_documents.py --input-dir ./docs/sample: Chunks preserve code block integrity and generate valid 384-d vector embeddings [100 of 100 documents chunked and embedded with exit code 0]
+[ ] 4. curl -X POST http://localhost:8000/api/v1/query -H 'Content-Type: application/json' -d '{"question":"What is the database connection timeout?"}': FastAPI returns grounded answer with verified source chunk ID and text citation span [Response status 200 with non-empty citation list and exit code 0]
+[ ] 5. python ./scripts/verify_hallucination_rejection.py --query 'What are the penalties under policy XYZ-999?': System detects low similarity scores and returns 'INSUFFICIENT_CONTEXT' with 0 fabricated text [Console confirms response is 'INSUFFICIENT_CONTEXT' with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

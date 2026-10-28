@@ -4,8 +4,8 @@ PROJECT BRIEF — HNSW VECTOR DATABASE FROM SCRATCH WITH COSINE SIMILARITY, MULT
 Project ID  : brief-vector-db-from-scratch
 Domain      : AI/ML Applications
 Difficulty  : ADVANCED
-Est. Time   : 40 hours
-Tech Stack  : Python, NumPy, HNSW Algorithm, FastAPI, Docker, Pytest
+Est. Time   : 44 hours
+Tech Stack  : Python 3.11+, NumPy 1.26+, HNSW Algorithm 1.0+, FastAPI 0.111+, Docker 26+, Pytest 1.0+
 Covered Gaps: Python, NumPy, HNSW Algorithm, FastAPI, Docker, Pytest, Algorithms, Vector Search
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Approximate Nearest Neighbor Recall@10 vs Brute-Force Ground Truth: Average Reca
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python ./benchmarks/evaluate_recall.py --vectors 100000 --queries 1000 --k 10: HNSW search achieves >= 93.0% Recall@10 compared to exact brute force [Recall@10 >= 93.0% with exit code 0]
-[ ] 2. 2. python ./benchmarks/measure_latency.py --queries 1000 --ef-search 64: Query search latency achieves p95 < 8.0ms per request [p95 search latency < 8.0ms with exit code 0]
-[ ] 3. 3. python ./benchmarks/build_index.py --vectors 100000 --m 16 --ef-con 100: Index construction finishes in < 300 seconds with memory consumption < 2.5GB [Build time < 300s with exit code 0]
-[ ] 4. 4. python ./scripts/verify_persistence.py --index-path ./index.bin: Reloaded index performs 100 sample queries with 100 of 100 identical nearest neighbor IDs [100 of 100 identical neighbor results with exit code 0]
-[ ] 5. 5. python ./scripts/verify_exact_probe.py --probe-id probe_vec_42 --expected-id 7194: HNSW index returns vector ID 7194 in rank-1 position with cosine distance within 0.0001 [Console confirms rank-1 match for ID 7194 with exit code 0]
+[ ] 1. python ./benchmarks/evaluate_recall.py --vectors 100000 --queries 1000 --k 10: HNSW search achieves >= 93.0% Recall@10 compared to exact brute force [Recall@10 >= 93.0% with exit code 0]
+[ ] 2. python ./benchmarks/measure_latency.py --queries 1000 --ef-search 64: Query search latency achieves p95 < 8.0ms per request [p95 search latency < 8.0ms with exit code 0]
+[ ] 3. python ./benchmarks/build_index.py --vectors 100000 --m 16 --ef-con 100: Index construction finishes in < 300 seconds with memory consumption < 2.5GB [Build time < 300s with exit code 0]
+[ ] 4. python ./scripts/verify_persistence.py --index-path ./index.bin: Reloaded index performs 100 sample queries with 100 of 100 identical nearest neighbor IDs [100 of 100 identical neighbor results with exit code 0]
+[ ] 5. python ./scripts/verify_exact_probe.py --probe-id probe_vec_42 --expected-id 7194: HNSW index returns vector ID 7194 in rank-1 position with cosine distance within 0.0001 [Console confirms rank-1 match for ID 7194 with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

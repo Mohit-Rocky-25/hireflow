@@ -6,7 +6,7 @@
 ---
 
 ### Catalog Breakdown
-- **Total In-Depth Briefs:** 102 Credentials & Opportunities
+- **Total In-Depth Briefs:** 99 Credentials & Opportunities
 - **Categories:** 8 Technical Categories (Cloud, DevOps, Software Eng, AI/ML, Security, Open Source, Hackathons)
 - **Verified Official Sources:** 100% verified official registration links, fees, and syllabus matrices.
 
@@ -16,10 +16,10 @@
 | **Cloud and DevOps** | 12 | AWS Certified Cloud Practitioner, AWS Certified Solutions Architect – Associate, Google Associate Cloud Engineer |
 | **Competitions and Events** | 17 | Smart India Hackathon, Kaggle Competitions, MLH Hackathons |
 | **Cybersecurity** | 11 | CompTIA Security+, Google Cybersecurity Certificate, eLearnSecurity Junior Penetration Tester (eJPT) |
-| **Data and Analytics** | 9 | Google Cloud Professional Data Engineer, AWS Certified Data Engineer – Associate, Kaggle Learn Certificates |
-| **Open Source** | 16 | Google Summer of Code, MLH Fellowship, Outreachy |
+| **Data and Analytics** | 8 | Google Cloud Professional Data Engineer, AWS Certified Data Engineer – Associate, Kaggle Learn Certificates |
+| **Open Source** | 15 | Google Summer of Code, MLH Fellowship, Outreachy |
 | **Product, Business, and Design** | 2 | Google UX Design Certificate, Salesforce Certified Administrator |
-| **Software Development** | 27 | AWS Certified Developer – Associate, Meta Front-End Developer Professional Certificate, Meta Back-End Developer Professional Certificate |
+| **Software Development** | 26 | AWS Certified Developer – Associate, Meta Front-End Developer Professional Certificate, Meta Back-End Developer Professional Certificate |
 
 ---
 
@@ -81,7 +81,7 @@
 - [Introduction to Cybersecurity (Cisco Networking Academy)](#introduction-to-cybersecurity-cisco-networking-academy) — *Cisco Networking Academy* [Tier: TIER3]
 - [CTF circuit (CTFtime, picoCTF, InCTF, institute CTFs)](#ctf-circuit-ctftime-picoctf-inctf-institute-ctfs) — *Various* [Tier: TIER2]
 
-### Data and Analytics (9 Opportunities)
+### Data and Analytics (8 Opportunities)
 - [Google Cloud Professional Data Engineer](#google-cloud-professional-data-engineer) — *Google Cloud Certification* [Tier: TIER1]
 - [AWS Certified Data Engineer – Associate](#aws-certified-data-engineer-associate) — *Amazon Web Services Training & Certification* [Tier: TIER2]
 - [Kaggle Learn Certificates](#kaggle-learn-certificates) — *Kaggle* [Tier: TIER3]
@@ -90,9 +90,8 @@
 - [NPTEL / SWAYAM Certification (IIT & IISc courses)](#nptel-swayam-certification-iit-iisc-courses) — *NPTEL* [Tier: TIER1]
 - [Databricks Certified Data Engineer Associate](#databricks-certified-data-engineer-associate) — *Databricks* [Tier: TIER2]
 - [SnowPro Core Certification](#snowpro-core-certification) — *Snowflake* [Tier: TIER3]
-- [Kaggle Competitions](#kaggle-competitions) — *Kaggle* [Tier: TIER2]
 
-### Open Source (16 Opportunities)
+### Open Source (15 Opportunities)
 - [Google Summer of Code](#google-summer-of-code) — *Google LLC* [Tier: TIER1]
 - [MLH Fellowship](#mlh-fellowship) — *Major League Hacking* [Tier: TIER3]
 - [Outreachy](#outreachy) — *Outreachy* [Tier: TIER3]
@@ -105,7 +104,6 @@
 - [Hacktoberfest 2026](#hacktoberfest-2026) — *DigitalOcean* [Tier: TIER2]
 - [Google Summer of Code 2027](#google-summer-of-code-2027) — *Google* [Tier: TIER1]
 - [Outreachy Internships](#outreachy-internships) — *Outreachy* [Tier: TIER1]
-- [LFX Mentorship](#lfx-mentorship) — *Linux Foundation* [Tier: TIER1]
 - [SONiC Mentorship Programme 2026](#sonic-mentorship-programme-2026) — *SONiC Foundation* [Tier: TIER1]
 - [C4GT Dedicated Mentoring Programme (DMP)](#c4gt-dedicated-mentoring-programme-dmp) — *C4GT* [Tier: TIER1]
 - [FOSSEE Summer Fellowship](#fossee-summer-fellowship) — *IIT Bombay* [Tier: TIER1]
@@ -114,7 +112,7 @@
 - [Google UX Design Certificate](#google-ux-design-certificate) — *Google Career Certificates via Coursera* [Tier: TIER3]
 - [Salesforce Certified Administrator](#salesforce-certified-administrator) — *Salesforce* [Tier: TIER3]
 
-### Software Development (27 Opportunities)
+### Software Development (26 Opportunities)
 - [AWS Certified Developer – Associate](#aws-certified-developer-associate) — *Amazon Web Services Training & Certification* [Tier: TIER1]
 - [Meta Front-End Developer Professional Certificate](#meta-front-end-developer-professional-certificate) — *Meta via Coursera* [Tier: TIER2]
 - [Meta Back-End Developer Professional Certificate](#meta-back-end-developer-professional-certificate) — *Meta via Coursera* [Tier: TIER2]
@@ -135,7 +133,6 @@
 - [Microsoft Imagine Cup](#microsoft-imagine-cup) — *Microsoft* [Tier: TIER3]
 - [e-Yantra Robotics Competition (eYRC)](#e-yantra-robotics-competition-eyrc) — *IIT Bombay (e-Yantra, MoE)* [Tier: TIER2]
 - [Meta Hacker Cup](#meta-hacker-cup) — *Meta* [Tier: TIER3]
-- [MLH Fellowship](#mlh-fellowship) — *Major League Hacking* [Tier: TIER2]
 - [GirlScript Summer of Code (GSSoC)](#girlscript-summer-of-code-gssoc) — *GirlScript Foundation* [Tier: TIER3]
 - [Linux Kernel Mentorship Program](#linux-kernel-mentorship-program) — *Linux Foundation* [Tier: TIER2]
 - [Open Mainframe Project Mentorship](#open-mainframe-project-mentorship) — *Linux Foundation* [Tier: TIER3]
@@ -2586,52 +2583,7 @@ Paid remote internships with open-source organisations. Applications have an ini
 
 ---
 
-### <a id="lfx-mentorship"></a>58. LFX Mentorship
-
-| Specification | Details |
-| :--- | :--- |
-| **Identifier** | `oss-lfx` |
-| **Issuer / Organizer** | **Linux Foundation** |
-| **Category** | Open Source, Software Development |
-| **Kind / Format** | `open_source` |
-| **Cost / Fees** | ₹0 Free |
-| **Official Portal** | [https://lfx.linuxfoundation.org](https://lfx.linuxfoundation.org) |
-| **Target Engineering Roles** | Cloud/DevOps Engineer, Security Engineer, Software Developer |
-| **Verified Skills** | Mentee application to approved projects, Mid-term and final evaluations, Standards of Excellence for conduct |
-
-#### 1. Overview & Industry Standing
-LFX Mentoring is one of the largest open-source mentorship programmes, covering hundreds of projects. Stipend amounts follow a Purchasing Power Parity formula.
-
-#### 2. Core Curriculum & Tested Domains
-- **Module 1:** Mentee application to approved projects
-- **Module 2:** Mid-term and final evaluations
-- **Module 3:** Standards of Excellence for conduct
-
-#### 3. Student Aid & Fee Waiver Playbook
-> **Summary:** Funded mentorships pay a stipend in instalments.
-
-**Waiver Claim Steps:**
-1. Check each project's label: Funded or Unpaid.
-2. Find your country's amount in the mentee stipend documentation.
-
-#### 4. Application & Execution Roadmap
-1. Browse open mentorships on the LFX platform.
-2. Read the project's requirements and complete any application task.
-3. Apply within the project's window.
-4. Interview if shortlisted.
-
-#### 5. Exam / Format Details
-- **Delivery:** Online
-- **Style:** Scenario-based
-
-#### 6. High-Impact Performative Resume Bullet Formula
-```text
-"Spearheaded [Subsystem/Feature in Mentee application to approved projects] development as a selected contributor in [LFX Mentorship] with [Mentoring Org: The Linux Foundation]; authored [N] merged production pull requests, improving [performance/memory/testing] by [X%] across [Y] repository modules."
-```
-
----
-
-### <a id="sonic-mentorship-programme-2026"></a>59. SONiC Mentorship Programme 2026
+### <a id="sonic-mentorship-programme-2026"></a>58. SONiC Mentorship Programme 2026
 
 | Specification | Details |
 | :--- | :--- |
@@ -2674,7 +2626,7 @@ For college students in the United States, India and China. In 2026 the foundati
 
 ---
 
-### <a id="c4gt-dedicated-mentoring-programme-dmp"></a>60. C4GT Dedicated Mentoring Programme (DMP)
+### <a id="c4gt-dedicated-mentoring-programme-dmp"></a>59. C4GT Dedicated Mentoring Programme (DMP)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2715,7 +2667,7 @@ Four rounds since 2022. Selected students and professionals work with organisati
 
 ---
 
-### <a id="fossee-summer-fellowship"></a>61. FOSSEE Summer Fellowship
+### <a id="fossee-summer-fellowship"></a>60. FOSSEE Summer Fellowship
 
 | Specification | Details |
 | :--- | :--- |
@@ -2761,7 +2713,7 @@ Hybrid fellowship. You pick a project, complete a screening task (doable in a we
 
 ---
 
-### <a id="certified-kubernetes-application-developer-ckad"></a>62. Certified Kubernetes Application Developer (CKAD)
+### <a id="certified-kubernetes-application-developer-ckad"></a>61. Certified Kubernetes Application Developer (CKAD)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2787,7 +2739,7 @@ Developer-focused Kubernetes proof; pairs well with a deployed project.
 
 ---
 
-### <a id="microsoft-certified-azure-developer-associate-az-204"></a>63. Microsoft Certified: Azure Developer Associate (AZ-204)
+### <a id="microsoft-certified-azure-developer-associate-az-204"></a>62. Microsoft Certified: Azure Developer Associate (AZ-204)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2813,7 +2765,7 @@ Developer-side Azure proof for backend roles in Microsoft-stack companies.
 
 ---
 
-### <a id="kubernetes-and-cloud-native-associate-kcna"></a>64. Kubernetes and Cloud Native Associate (KCNA)
+### <a id="kubernetes-and-cloud-native-associate-kcna"></a>63. Kubernetes and Cloud Native Associate (KCNA)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2839,7 +2791,7 @@ Entry step toward CKA/CKAD.
 
 ---
 
-### <a id="cisco-certified-network-associate-ccna-200-301"></a>65. Cisco Certified Network Associate (CCNA 200-301)
+### <a id="cisco-certified-network-associate-ccna-200-301"></a>64. Cisco Certified Network Associate (CCNA 200-301)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2865,7 +2817,7 @@ Strong fit for ECE students; networking depth recruiters can test in interviews.
 
 ---
 
-### <a id="comptia-cysa"></a>66. CompTIA CySA+
+### <a id="comptia-cysa"></a>65. CompTIA CySA+
 
 | Specification | Details |
 | :--- | :--- |
@@ -2891,7 +2843,7 @@ Blue-team analyst proof; next step after Security+.
 
 ---
 
-### <a id="comptia-pentest"></a>67. CompTIA PenTest+
+### <a id="comptia-pentest"></a>66. CompTIA PenTest+
 
 | Specification | Details |
 | :--- | :--- |
@@ -2917,7 +2869,7 @@ Vendor-neutral pentest credential with a practical component.
 
 ---
 
-### <a id="certified-ethical-hacker-ceh"></a>68. Certified Ethical Hacker (CEH)
+### <a id="certified-ethical-hacker-ceh"></a>67. Certified Ethical Hacker (CEH)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2943,7 +2895,7 @@ Frequently named in Indian job descriptions and HR filters even when practitione
 
 ---
 
-### <a id="microsoft-security-compliance-and-identity-fundamentals-sc-900"></a>69. Microsoft Security, Compliance, and Identity Fundamentals (SC-900)
+### <a id="microsoft-security-compliance-and-identity-fundamentals-sc-900"></a>68. Microsoft Security, Compliance, and Identity Fundamentals (SC-900)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2969,7 +2921,7 @@ Low-cost security + identity basics; useful before SC-200/AZ-500.
 
 ---
 
-### <a id="introduction-to-cybersecurity-cisco-networking-academy"></a>70. Introduction to Cybersecurity (Cisco Networking Academy)
+### <a id="introduction-to-cybersecurity-cisco-networking-academy"></a>69. Introduction to Cybersecurity (Cisco Networking Academy)
 
 | Specification | Details |
 | :--- | :--- |
@@ -2995,7 +2947,7 @@ Free starter; label as coursework, not a certification, on the resume.
 
 ---
 
-### <a id="databricks-certified-data-engineer-associate"></a>71. Databricks Certified Data Engineer Associate
+### <a id="databricks-certified-data-engineer-associate"></a>70. Databricks Certified Data Engineer Associate
 
 | Specification | Details |
 | :--- | :--- |
@@ -3021,7 +2973,7 @@ Lakehouse/Spark skills demanded in data engineering roles.
 
 ---
 
-### <a id="snowpro-core-certification"></a>72. SnowPro Core Certification
+### <a id="snowpro-core-certification"></a>71. SnowPro Core Certification
 
 | Specification | Details |
 | :--- | :--- |
@@ -3047,7 +2999,7 @@ Cloud data warehouse proof.
 
 ---
 
-### <a id="python-institute-pcep-certified-entry-level-python-programmer"></a>73. Python Institute PCEP (Certified Entry-Level Python Programmer)
+### <a id="python-institute-pcep-certified-entry-level-python-programmer"></a>72. Python Institute PCEP (Certified Entry-Level Python Programmer)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3073,7 +3025,7 @@ Very low-cost fundamentals proof, helpful for non-CS branches.
 
 ---
 
-### <a id="python-institute-pcap-certified-associate-in-python-programming"></a>74. Python Institute PCAP (Certified Associate in Python Programming)
+### <a id="python-institute-pcap-certified-associate-in-python-programming"></a>73. Python Institute PCAP (Certified Associate in Python Programming)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3099,7 +3051,7 @@ Next step after PCEP.
 
 ---
 
-### <a id="salesforce-certified-administrator"></a>75. Salesforce Certified Administrator
+### <a id="salesforce-certified-administrator"></a>74. Salesforce Certified Administrator
 
 | Specification | Details |
 | :--- | :--- |
@@ -3125,7 +3077,7 @@ Common requirement for CRM/business-systems roles; Trailhead gives free practice
 
 ---
 
-### <a id="github-foundations-gh-900"></a>76. GitHub Foundations (GH-900)
+### <a id="github-foundations-gh-900"></a>75. GitHub Foundations (GH-900)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3151,7 +3103,7 @@ Proves Git/GitHub workflow knowledge; pairs with open-source PRs.
 
 ---
 
-### <a id="mathworks-matlab-onramp-matlab-associate"></a>77. MathWorks MATLAB Onramp / MATLAB Associate
+### <a id="mathworks-matlab-onramp-matlab-associate"></a>76. MathWorks MATLAB Onramp / MATLAB Associate
 
 | Specification | Details |
 | :--- | :--- |
@@ -3177,7 +3129,7 @@ Core-engineering tool proof for ECE/EEE/Mech.
 
 ---
 
-### <a id="labview-associate-developer-clad"></a>78. LabVIEW Associate Developer (CLAD)
+### <a id="labview-associate-developer-clad"></a>77. LabVIEW Associate Developer (CLAD)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3203,7 +3155,7 @@ Instrumentation/test automation skill used in hardware industries.
 
 ---
 
-### <a id="arm-accredited-engineer-aae"></a>79. Arm Accredited Engineer (AAE)
+### <a id="arm-accredited-engineer-aae"></a>78. Arm Accredited Engineer (AAE)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3229,7 +3181,7 @@ Embedded/SoC fundamentals credential from the Arm ecosystem.
 
 ---
 
-### <a id="solidworks-certified-associate-cswa"></a>80. SolidWorks Certified Associate (CSWA)
+### <a id="solidworks-certified-associate-cswa"></a>79. SolidWorks Certified Associate (CSWA)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3255,7 +3207,7 @@ CAD proof for mechanical roles; best with a design portfolio.
 
 ---
 
-### <a id="walmart-sparkathon-codehers"></a>81. Walmart Sparkathon / CodeHers
+### <a id="walmart-sparkathon-codehers"></a>80. Walmart Sparkathon / CodeHers
 
 | Specification | Details |
 | :--- | :--- |
@@ -3281,7 +3233,7 @@ Company hackathon with hiring visibility.
 
 ---
 
-### <a id="bharatiya-antariksh-hackathon-2026-isro"></a>82. Bharatiya Antariksh Hackathon 2026 (ISRO)
+### <a id="bharatiya-antariksh-hackathon-2026-isro"></a>81. Bharatiya Antariksh Hackathon 2026 (ISRO)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3307,7 +3259,7 @@ Space-tech credential; rare on student resumes.
 
 ---
 
-### <a id="india-agentic-ai-open-hackathon"></a>83. India Agentic AI Open Hackathon
+### <a id="india-agentic-ai-open-hackathon"></a>82. India Agentic AI Open Hackathon
 
 | Specification | Details |
 | :--- | :--- |
@@ -3333,7 +3285,7 @@ Current-topic AI build with sponsor visibility.
 
 ---
 
-### <a id="india-computer-vision-hackathon-2026"></a>84. India Computer Vision Hackathon 2026
+### <a id="india-computer-vision-hackathon-2026"></a>83. India Computer Vision Hackathon 2026
 
 | Specification | Details |
 | :--- | :--- |
@@ -3359,7 +3311,7 @@ Measurable leaderboard result you can cite.
 
 ---
 
-### <a id="handloom-hackathon-2026"></a>85. Handloom Hackathon 2026
+### <a id="handloom-hackathon-2026"></a>84. Handloom Hackathon 2026
 
 | Specification | Details |
 | :--- | :--- |
@@ -3385,7 +3337,7 @@ Government-sector problem statement with a jury from academia and industry.
 
 ---
 
-### <a id="emerging-technologies-hackathon-2026"></a>86. Emerging Technologies Hackathon 2026
+### <a id="emerging-technologies-hackathon-2026"></a>85. Emerging Technologies Hackathon 2026
 
 | Specification | Details |
 | :--- | :--- |
@@ -3411,7 +3363,7 @@ Telecom/6G-style problems are a natural fit for ECE students.
 
 ---
 
-### <a id="amazon-ml-challenge"></a>87. Amazon ML Challenge
+### <a id="amazon-ml-challenge"></a>86. Amazon ML Challenge
 
 | Specification | Details |
 | :--- | :--- |
@@ -3437,7 +3389,7 @@ Leaderboard-ranked ML task with a recruiter-visible brand.
 
 ---
 
-### <a id="google-solution-challenge"></a>88. Google Solution Challenge
+### <a id="google-solution-challenge"></a>87. Google Solution Challenge
 
 | Specification | Details |
 | :--- | :--- |
@@ -3463,7 +3415,7 @@ Social-impact build aligned with UN goals.
 
 ---
 
-### <a id="hackwithinfy"></a>89. HackWithInfy
+### <a id="hackwithinfy"></a>88. HackWithInfy
 
 | Specification | Details |
 | :--- | :--- |
@@ -3489,7 +3441,7 @@ Large-company coding contest with a hiring route in past years.
 
 ---
 
-### <a id="microsoft-imagine-cup"></a>90. Microsoft Imagine Cup
+### <a id="microsoft-imagine-cup"></a>89. Microsoft Imagine Cup
 
 | Specification | Details |
 | :--- | :--- |
@@ -3515,7 +3467,7 @@ Global student startup/AI contest.
 
 ---
 
-### <a id="e-yantra-robotics-competition-eyrc"></a>91. e-Yantra Robotics Competition (eYRC)
+### <a id="e-yantra-robotics-competition-eyrc"></a>90. e-Yantra Robotics Competition (eYRC)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3541,7 +3493,7 @@ Hands-on robotics and embedded work, rare on resumes and well-suited to ECE/EEE/
 
 ---
 
-### <a id="ctf-circuit-ctftime-picoctf-inctf-institute-ctfs"></a>92. CTF circuit (CTFtime, picoCTF, InCTF, institute CTFs)
+### <a id="ctf-circuit-ctftime-picoctf-inctf-institute-ctfs"></a>91. CTF circuit (CTFtime, picoCTF, InCTF, institute CTFs)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3567,7 +3519,7 @@ Public write-ups plus a scoreboard rank are the strongest fresher evidence in se
 
 ---
 
-### <a id="meta-hacker-cup"></a>93. Meta Hacker Cup
+### <a id="meta-hacker-cup"></a>92. Meta Hacker Cup
 
 | Specification | Details |
 | :--- | :--- |
@@ -3593,59 +3545,7 @@ Pure algorithmic contest signal.
 
 ---
 
-### <a id="kaggle-competitions"></a>94. Kaggle Competitions
-
-| Specification | Details |
-| :--- | :--- |
-| **Identifier** | `hack-kaggle` |
-| **Issuer / Organizer** | **Kaggle** |
-| **Category** | Data and Analytics, AI and Machine Learning |
-| **Kind / Format** | `event` |
-| **Cost / Fees** | ₹0 Free |
-| **Official Portal** | [https://www.kaggle.com/competitions](https://www.kaggle.com/competitions) |
-| **Target Engineering Roles** | Data Engineer, AI/ML Engineer, Data Analyst |
-| **Verified Skills** | Kaggle Competitions, Core Domain Foundations, Problem Solving, Technical Execution |
-
-#### 1. Overview & Industry Standing
-A public, checkable data-science record.
-
-#### 3. Student Aid & Fee Waiver Playbook
-> Check official site for student discounts and vouchers
-
-#### 6. High-Impact Performative Resume Bullet Formula
-```text
-"Kaggle Competitions (Kaggle) | Demonstrated competency in Data Engineer domains through proctored verification."
-```
-
----
-
-### <a id="mlh-fellowship"></a>95. MLH Fellowship
-
-| Specification | Details |
-| :--- | :--- |
-| **Identifier** | `oss-mlh-fellowship` |
-| **Issuer / Organizer** | **Major League Hacking** |
-| **Category** | Software Development |
-| **Kind / Format** | `open_source` |
-| **Cost / Fees** | ₹0 Free |
-| **Official Portal** | [https://fellowship.mlh.io](https://fellowship.mlh.io) |
-| **Target Engineering Roles** | Software Developer, Backend Developer, Systems Engineer |
-| **Verified Skills** | MLH Fellowship, Core Domain Foundations, Problem Solving, Technical Execution |
-
-#### 1. Overview & Industry Standing
-12-week remote programme with tracks including open source and production engineering.
-
-#### 3. Student Aid & Fee Waiver Playbook
-> Check official site for student discounts and vouchers
-
-#### 6. High-Impact Performative Resume Bullet Formula
-```text
-"MLH Fellowship (Major League Hacking) | Demonstrated competency in Software Developer domains through proctored verification."
-```
-
----
-
-### <a id="girlscript-summer-of-code-gssoc"></a>96. GirlScript Summer of Code (GSSoC)
+### <a id="girlscript-summer-of-code-gssoc"></a>93. GirlScript Summer of Code (GSSoC)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3671,7 +3571,7 @@ Beginner-friendly Indian programme to build a first PR history.
 
 ---
 
-### <a id="kubestellar-interns-for-open-source-ifos"></a>97. KubeStellar Interns for Open Source (IFoS)
+### <a id="kubestellar-interns-for-open-source-ifos"></a>94. KubeStellar Interns for Open Source (IFoS)
 
 | Specification | Details |
 | :--- | :--- |
@@ -3697,7 +3597,7 @@ Low-barrier route into a CNCF project with a letter of recommendation.
 
 ---
 
-### <a id="linux-kernel-mentorship-program"></a>98. Linux Kernel Mentorship Program
+### <a id="linux-kernel-mentorship-program"></a>95. Linux Kernel Mentorship Program
 
 | Specification | Details |
 | :--- | :--- |
@@ -3723,7 +3623,7 @@ Kernel patches are rare and respected; good for embedded and systems roles.
 
 ---
 
-### <a id="open-mainframe-project-mentorship"></a>99. Open Mainframe Project Mentorship
+### <a id="open-mainframe-project-mentorship"></a>96. Open Mainframe Project Mentorship
 
 | Specification | Details |
 | :--- | :--- |
@@ -3749,7 +3649,7 @@ Niche enterprise-systems niche with less competition.
 
 ---
 
-### <a id="summer-of-bitcoin"></a>100. Summer of Bitcoin
+### <a id="summer-of-bitcoin"></a>97. Summer of Bitcoin
 
 | Specification | Details |
 | :--- | :--- |
@@ -3775,7 +3675,7 @@ Paid mentored work on Bitcoin open-source projects.
 
 ---
 
-### <a id="google-season-of-docs"></a>101. Google Season of Docs
+### <a id="google-season-of-docs"></a>98. Google Season of Docs
 
 | Specification | Details |
 | :--- | :--- |
@@ -3801,7 +3701,7 @@ Documentation contributions are valued and less crowded.
 
 ---
 
-### <a id="winter-of-code-programmes-kwoc-swoc-njack-winter-of-code"></a>102. Winter of Code programmes (KWoC, SWoC, NJACK Winter of Code)
+### <a id="winter-of-code-programmes-kwoc-swoc-njack-winter-of-code"></a>99. Winter of Code programmes (KWoC, SWoC, NJACK Winter of Code)
 
 | Specification | Details |
 | :--- | :--- |

@@ -4,13 +4,14 @@ PROJECT BRIEF — CONFIDENTIAL DATABASE QUERY ENGINE WITH HOMOMORPHIC ENCRYPTION
 Project ID  : brief-homomorphic-encryption
 Domain      : Security & Platform
 Difficulty  : ADVANCED
-Est. Time   : 40 hours
-Tech Stack  : Python, PostgreSQL, Cryptography, Docker
+Est. Time   : 45 hours
+Tech Stack  : Python 3.11+, PostgreSQL 16+, Cryptography 1.0+, Docker 26+
 Covered Gaps: Python, PostgreSQL, Cryptography, Docker, Homomorphic Encryption, Security Engineering, Systems Programming
 
 1. PROBLEM STATEMENT
 ----------------------------------------------------------------------
 Traditional database encryption-at-rest models protect files on disk but force database servers to decrypt data into plaintext memory during query execution, exposing sensitive financial and healthcare records to rogue database administrators, memory-scraping malware, and cloud hypervisor compromises. Homomorphic Encryption (HE) solves this by enabling mathematical operations directly on ciphertexts without decryption. This project builds a confidential database query prototype in Python, TenSEAL, PostgreSQL, and Cryptography. The system encrypts sensitive numerical records client-side using BFV and CKKS homomorphic schemes, stores encrypted vector blobs in PostgreSQL, executes homomorphic SUM and AVG aggregations entirely on the server without plaintext access, and monitors ciphertext noise budgets to guarantee mathematical correctness upon client decryption.
+[Lawful Scope Notice: All packet analysis, traffic filtering, and payload inspections must be conducted exclusively on local loopback or authorized sandbox networks owned by the student; scanning unauthorized third-party infrastructure is strictly prohibited.]
 
 2. REAL-WORLD USE CASES
 ----------------------------------------------------------------------
@@ -34,15 +35,15 @@ Zero-Knowledge Plaintext Confidentiality Rate: 0 plaintext values discovered in 
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python -m confidential_db.audit_leakage: Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps [0 plaintext values discovered with exit code 0]
-[ ] 2. 2. python scripts/benchmark_he_speed.py --records 1000 --op add: Homomorphic addition execution completes in < 2.5 milliseconds per record pair [Average operation latency is < 2.5 milliseconds]
-[ ] 3. 3. python -m confidential_db.test_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance [100 of 100 batch precision tests pass within tolerance with exit code 0]
-[ ] 4. 4. curl http://localhost:8000/api/query/encrypted_sum?column=payroll: Server returns serialized ciphertext byte buffer without possessing decryption keys [Response status is 200 and ciphertext bytes field is non-empty]
-[ ] 5. 5. python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000: Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext [Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0]
+[ ] 1. python -m confidential_db.audit_leakage: Inspection confirms zero plaintext numeric values exist in server query logs or memory dumps [0 plaintext values discovered with exit code 0]
+[ ] 2. python scripts/benchmark_he_speed.py --records 1000 --op add: Homomorphic addition execution completes in < 2.5 milliseconds per record pair [Average operation latency is < 2.5 milliseconds]
+[ ] 3. python -m confidential_db.verify_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance [100 of 100 batch precision tests pass within tolerance with exit code 0]
+[ ] 4. curl http://localhost:8000/api/query/encrypted_sum?column=payroll: Server returns serialized ciphertext byte buffer without possessing decryption keys [Response status is 200 and ciphertext bytes field is non-empty]
+[ ] 5. python scripts/verify_dynamic_he.py --values 1000,2000,3000,4000,5000: Server computes encrypted sum; client decrypts payload to exactly $15,000.00 while server logs show only ciphertext [Decrypted sum equals 15000.00, server log contains zero plaintext, exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------
-"Architected confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision."
+"Engineered confidential database query engine in Python and PostgreSQL using Homomorphic Encryption; executed encrypted aggregations without plaintext leakage across [RECORD_COUNT] records, and delivered sub-[ADDITION_LATENCY] encrypted addition latency with verified mathematical precision."
 
 ----------------------------------------------------------------------
 Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

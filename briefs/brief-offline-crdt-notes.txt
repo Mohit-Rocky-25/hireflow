@@ -1,0 +1,48 @@
+PROJECT BRIEF — OFFLINE-FIRST COLLABORATIVE NOTES APP WITH STATE-BASED CRDTS
+======================================================================
+
+Project ID  : brief-offline-crdt-notes
+Domain      : Mobile Engineering & Cross-Platform
+Difficulty  : ADVANCED
+Est. Time   : 24 hours
+Tech Stack  : React Native 0.74+, TypeScript 5.4+, SQLite (WatermelonDB / op-sqlite) 1.0+, CRDT (Yjs / Automerge) 1.0+, WebSocket (RFC 6455), Vitest 1.6+
+Covered Gaps: React Native, TypeScript, CRDTs, SQLite, Offline-First, WebSockets
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Mobile users frequently edit notes, documents, and task lists while travelling through tunnels, airplanes, or poor connectivity zones. Traditional client-server architectures fail offline because writes either block or cause conflicting edits to overwrite each other during synchronization (the 'last write wins' data loss bug). Implementing Conflict-Free Replicated Data Types (CRDTs) allows mobile devices to mutate documents completely offline without a centralized server, mathematically guaranteeing conflict-free convergence when devices reconnect.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Offline-first collaborative note-taking and document editing apps | Mobile field inspection checklist tools for remote construction sites | Personal knowledge base apps syncing peer-to-peer across mobile and desktop
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Enabling instantaneous local UI updates with zero network latency | Guaranteeing deterministic convergence of concurrent edits across multiple mobile devices without data loss | Storing CRDT delta logs locally in SQLite and efficiently syncing only unapplied deltas upon network reconnection
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Deep understanding of distributed consensus, causality vectors, and CRDT math (LWW-Element-Set or Yjs/Automerge) | Comprehensive test suite simulating multi-device offline concurrent edits and verifying identical convergence | Production React Native architecture with local SQLite storage and WebSocket synchronization
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+User mutates note in React Native UI; Mutation immediately creates CRDT delta record in local SQLite database; UI updates optimistically in 1ms; Sync manager monitors network connectivity: when online, connects to sync relay over WebSockets; exchanges state vectors; sends local deltas; receives remote deltas and applies merge function to local state; updates UI without re-renders.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Local Write Latency: < 4ms to persist mutation and update local UI | Sync Overhead: Delta payloads compressed to < 5KB for typical offline editing sessions | Convergence Invariant: 100% convergence to identical document state across all devices regardless of sync arrival order
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-offline-crdt-notes/verify.sh -- tests/crdt_offline_convergence.test.ts: Simulates Device A and Device B editing same note while disconnected, then syncing [Both devices converge to byte-for-byte identical text state]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-offline-crdt-notes/verify.sh -- tests/sqlite_persistence.test.ts: Writes 500 offline edits, force-kills app process, and relaunches [All 500 mutations recovered from local SQLite with correct vector timestamps]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-offline-crdt-notes/verify.sh -- tests/delta_sync_efficiency.test.ts: Syncs device with 1 new sentence edit against 10,000-word document [Transmits only small incremental delta (< 1KB) rather than full document payload]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-offline-crdt-notes/verify.sh -- tests/network_reconnect_resilience.test.ts: Toggles network connection 20 times during continuous text typing [Zero duplicate characters, dropped strokes, or unhandled promise rejections]
+[ ] 5. Run npx react-native run-android (or run-ios) with test harness: Types in editor on two simultaneous emulator instances [Displays real-time two-way synchronization with sub-100ms sync latency on local network]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Constructed offline-first collaborative mobile note app in React Native using CRDTs and local SQLite storage; achieved sub-[WRITE_LATENCY]ms local UI mutations and empirically verified 100% conflict-free convergence across [DEVICE_COUNT] devices after prolonged offline periods."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)

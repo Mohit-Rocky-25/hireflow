@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "briefs:lint": "npx tsx scripts/briefs/lint.ts",
     "briefs:fix": "npx tsx scripts/briefs/fix_engine.ts",
+    "briefs:gate": "npx tsx scripts/briefs/gate.ts",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "check:design": "node scripts/check-design.mjs",

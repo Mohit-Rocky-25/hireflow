@@ -4,8 +4,8 @@ PROJECT BRIEF — VOICE-ENABLED TECHNICAL INTERVIEW SIMULATION ENGINE WITH ASYNC
 Project ID  : brief-interview-prep-ai
 Domain      : GenAI & LLM Engineering
 Difficulty  : INTERMEDIATE
-Est. Time   : 28 hours
-Tech Stack  : Python, FastAPI, Whisper, LangChain, React, WebSockets
+Est. Time   : 31 hours
+Tech Stack  : Python 3.11+, FastAPI 0.111+, Whisper 1.0+, LangChain 0.2+, React 18.3+, WebSocket (RFC 6455)
 Covered Gaps: Python, FastAPI, Whisper, LangChain, React, WebSockets, GenAI, Speech Recognition, AsyncIO
 
 1. PROBLEM STATEMENT
@@ -34,11 +34,11 @@ Whisper Transcription Word Error Rate (WER): Average Word Error Rate across 50 a
 
 7. SCREENER VERIFICATION RUBRIC
 ----------------------------------------------------------------------
-[ ] 1. 1. python -m interview_sim.benchmark_asr --audio-dir test_data/audio --manifest test_data/transcripts.json: faster-whisper transcribes all files with average Word Error Rate < 12.0% [Report records average WER < 12.0% with exit code 0]
-[ ] 2. 2. python scripts/benchmark_latency.py --chunks 100 --duration 3: WebSocket audio transcription pipeline records p95 chunk latency < 850 milliseconds [p95 latency is < 850ms and zero packets dropped]
-[ ] 3. 3. python -m interview_sim.evaluate_calibration --eval-set test_data/calibration_evals.json: DSPy evaluation engine produces scoring outputs achieving Pearson correlation r >= 0.78 [Pearson correlation coefficient r >= 0.78 with exit code 0]
-[ ] 4. 4. curl -X POST http://localhost:8000/api/interview/session/report -H 'Content-Type: application/json' -d @test_data/sample_session.json: API returns structured feedback JSON with category scores, STAR breakdown, and specific code improvements [Response status is 200 and JSON contains technical_score, behavioral_score, and actionable_feedback]
-[ ] 5. 5. python scripts/verify_dynamic_stream.py --audio test_data/dynamic_prompt.wav: WebSocket server transcribes speech, evaluates response against question criteria, and streams structured feedback tokens [Server returns transcript matching prompt and valid rubric evaluation JSON with exit code 0]
+[ ] 1. python -m interview_sim.benchmark_asr --audio-dir verify_data/audio --manifest verify_data/transcripts.json: faster-whisper transcribes all files with average Word Error Rate < 12.0% [Report records average WER < 12.0% with exit code 0]
+[ ] 2. python scripts/benchmark_latency.py --chunks 100 --duration 3: WebSocket audio transcription pipeline records p95 chunk latency < 850 milliseconds [p95 latency is < 850ms and zero packets dropped]
+[ ] 3. python -m interview_sim.evaluate_calibration --eval-set verify_data/calibration_evals.json: DSPy evaluation engine produces scoring outputs achieving Pearson correlation r >= 0.78 [Pearson correlation coefficient r >= 0.78 with exit code 0]
+[ ] 4. curl -X POST http://localhost:8000/api/interview/session/report -H 'Content-Type: application/json' -d @verify_data/sample_session.json: API returns structured feedback JSON with category scores, STAR breakdown, and specific code improvements [Response status is 200 and JSON contains technical_score, behavioral_score, and actionable_feedback]
+[ ] 5. python scripts/verify_dynamic_stream.py --audio verify_data/dynamic_prompt.wav: WebSocket server transcribes speech, evaluates response against question criteria, and streams structured feedback tokens [Server returns transcript matching prompt and valid rubric evaluation JSON with exit code 0]
 
 8. RESUME PORTFOLIO BULLET FORMULA
 ----------------------------------------------------------------------

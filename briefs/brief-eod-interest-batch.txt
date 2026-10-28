@@ -1,0 +1,48 @@
+PROJECT BRIEF — HIGH-THROUGHPUT END-OF-DAY (EOD) ACCRUAL & INTEREST CALCULATION BATCH JOB
+======================================================================
+
+Project ID  : brief-eod-interest-batch
+Domain      : FinTech & High-Integrity Systems
+Difficulty  : INTERMEDIATE
+Est. Time   : 20 hours
+Tech Stack  : Go 1.22+, PostgreSQL 16+, shopspring/decimal 1.0+, Worker Pools 1.0+, Docker 26+, Testing 1.0+
+Covered Gaps: Go, PostgreSQL, Financial Math, Concurrency, Batch Processing, Testing
+
+1. PROBLEM STATEMENT
+----------------------------------------------------------------------
+Commercial banking and lending platforms must calculate daily interest accruals for millions of deposit and loan accounts at the close of every business day. Using naive floating-point numbers (`float64`) introduces disastrous IEEE-754 binary rounding errors (e.g. 0.1 + 0.2 = 0.30000000000000004), leading to audit failures and regulatory fines. The End-of-Day (EOD) batch job must execute arbitrary-precision decimal mathematics, process accounts in parallel worker chunks, and commit accrued interest within a tight nightly batch window.
+
+2. REAL-WORLD USE CASES
+----------------------------------------------------------------------
+Nightly interest calculation for savings, checking, and fixed deposit bank accounts | Daily compounding interest and penalty accrual for consumer loan portfolios | Margin lending interest calculations for brokerage accounts
+
+3. WHY THIS IS HARD (COMPETENCY REDUCER)
+----------------------------------------------------------------------
+Eliminating floating-point rounding errors by utilizing arbitrary-precision fixed-point decimal arithmetic (shopspring/decimal) | Chunking 1,000,000 accounts across concurrent worker pools with zero lock contention or deadlocks | Producing deterministic, reproducible audit logs verifying every penny of daily interest accrued
+
+4. RECRUITER SHORTLIST SIGNAL
+----------------------------------------------------------------------
+Mastery of financial decimal arithmetic and day-count conventions (Actual/365, Actual/360, 30/360) | High-performance Go worker pool processing 50,000 accounts per second across multi-core CPU | Comprehensive test suite testing boundary dates, leap years, and negative account balances
+
+5. ARCHITECTURE & DATA FLOW
+----------------------------------------------------------------------
+EOD Orchestrator acquires exclusive batch lock; selects accounts in keyset-paginated chunks of 5,000; distributes chunks across worker goroutines; workers compute daily interest: Balance * (AnnualRate / DayCountBasis) using arbitrary-precision decimal; stages accrual entries in temporary batch tables; performs bulk upsert into interest_accruals and general ledger; releases lock.
+
+6. SCALE & PERFORMANCE TARGETS
+----------------------------------------------------------------------
+Batch Throughput: > 60,000 account interest calculations/sec | Processing Window: Calculate 1,000,000 accounts in < 20 seconds | Precision Guarantee: Zero penny rounding errors across 10,000,000 test calculations
+
+7. SCREENER VERIFICATION RUBRIC
+----------------------------------------------------------------------
+[ ] 1. Run Run verification harness tests/fixtures/briefs-kits/brief-eod-interest-batch/verify.sh -run TestDayCountConventions: Computes accrual using Actual/365, Actual/360, and 30/360 conventions [Results match bank reference tables down to 6 decimal places]
+[ ] 2. Execute Run verification harness tests/fixtures/briefs-kits/brief-eod-interest-batch/verify.sh -run TestLeapYearAccrual: Computes interest on February 29th across regular vs leap year configurations [Accurately applies 366-day divisor without arithmetic drift]
+[ ] 3. Run Run verification harness tests/fixtures/briefs-kits/brief-eod-interest-batch/verify.sh -run TestDecimalPrecisionNoFloat: Asserts zero usage of native float32/float64 types in accounting math packages [Static code inspection asserts 100% adherence to decimal.Decimal types]
+[ ] 4. Execute Run verification harness tests/fixtures/briefs-kits/brief-eod-interest-batch/verify.sh -run TestBatchIdempotency: Re-runs EOD batch job twice for the same business date [Second execution detects prior completion and aborts without duplicate accrual posts]
+[ ] 5. Run Run verification harness tests/fixtures/briefs-kits/brief-eod-interest-batch/verify.sh -benchmem: Benchmarks parallel EOD interest calculation on 500,000 synthetic accounts [Completes entire calculation in < 8.5 seconds with zero database deadlocks]
+
+8. RESUME PORTFOLIO BULLET FORMULA
+----------------------------------------------------------------------
+"Implemented high-throughput End-of-Day (EOD) interest accrual batch engine in Go with arbitrary-precision decimal math; processed [ACCOUNT_COUNT] banking accounts in under [BATCH_TIME] seconds with exact decimal precision across diverse day-count conventions."
+
+----------------------------------------------------------------------
+Generated by HireFlow — ATS Resume Engine & Decision Suite (hireflow.io)
