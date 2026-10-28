@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-shamir-secret-vault",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run go test -v -run TestInsufficientSharesFailure: Attempts reconstruction using only 2 shares when threshold is 3 [Engine rejects reconstruction and fails to produce valid secret]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-shamir-secret-vault",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Shamir's Secret Sharing Threshold Key Custody Vault",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

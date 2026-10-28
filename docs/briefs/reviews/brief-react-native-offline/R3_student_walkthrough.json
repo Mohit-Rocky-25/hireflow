@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R3",
+    "briefId": "brief-react-native-offline",
+    "dimension": "D-08",
+    "severity": "S2",
+    "quote": "The field agent updates an inspection item on the React Native UI; WatermelonDB ",
+    "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+    "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+    "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+    "confidence": 0.92
+  }
+]

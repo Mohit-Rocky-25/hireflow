@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R2",
+    "briefId": "brief-local-vllm-gateway",
+    "dimension": "D-02",
+    "severity": "S0",
+    "quote": "GPU requirement",
+    "description": "Mandates dedicated enterprise GPU hardware; infeasible on standard student laptops without quantized CPU fallback",
+    "evidenceOrSource": "Hardware feasibility audit on student commodity laptops",
+    "suggestedFix": "Provide quantized GGUF / CPU execution path alongside GPU stretch target",
+    "confidence": 0.99
+  }
+]

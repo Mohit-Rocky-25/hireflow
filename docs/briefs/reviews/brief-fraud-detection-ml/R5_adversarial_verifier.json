@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-fraud-detection-ml",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. python -m fraud_pipeline.evaluate --test-data data/test_split.parquet: Model achieves PR-AUC exceeding 0.72 on positive fraud class [PR-AUC is > 0.72 with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

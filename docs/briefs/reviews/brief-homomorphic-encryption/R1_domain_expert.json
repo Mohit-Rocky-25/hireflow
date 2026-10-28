@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R1",
+    "briefId": "brief-homomorphic-encryption",
+    "dimension": "D-13",
+    "severity": "S2",
+    "quote": "Python, PostgreSQL, Cryptography, Docker",
+    "description": "Stack components lack explicit pinned minimum semver versions",
+    "evidenceOrSource": "Language and SDK release lifecycle documentation",
+    "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+    "confidence": 0.95
+  },
+  {
+    "role": "R1",
+    "briefId": "brief-homomorphic-encryption",
+    "dimension": "D-01",
+    "severity": "S1",
+    "quote": "Zero-Knowledge Plaintext Confidentiality Rate",
+    "description": "Terminology conflation: Homomorphic Encryption (FHE) is mathematically distinct from Zero-Knowledge Proofs (ZKP)",
+    "evidenceOrSource": "NIST Cryptographic Standards & ACM Cryptography Definitions",
+    "suggestedFix": "Replace \"Zero-Knowledge\" with \"Homomorphic Ciphertext Privacy Rate\"",
+    "confidence": 1
+  }
+]

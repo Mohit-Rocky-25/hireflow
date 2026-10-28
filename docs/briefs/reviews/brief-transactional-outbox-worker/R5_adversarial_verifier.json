@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-transactional-outbox-worker",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute go test -v -run TestAtomicCommit: Inserts 1,000 orders into database within ACID transactions [Outbox worker extracts and publishes all 1,000 events to Kafka with zero dropped records]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

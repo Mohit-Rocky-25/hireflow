@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-fuse-virtual-filesystem",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "4. Execute go test -v -run TestPosixFileOperations: Executes standard file operations (mkdir, rmdir, rename, append) [All POSIX operations complete with expected error codes and directory tree consistency]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

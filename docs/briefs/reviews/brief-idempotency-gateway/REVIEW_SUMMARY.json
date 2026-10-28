@@ -1,0 +1,64 @@
+{
+  "briefId": "brief-idempotency-gateway",
+  "title": "Distributed Idempotency Key Gateway with Redis & SHA-256 Fingerprinting",
+  "totalFindings": 4,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 1,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 3,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-idempotency-gateway",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Go, Redis, HTTP, Docker, Testing",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-idempotency-gateway",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Incoming request carries Idempotency-Key; middleware computes SHA-256 fingerprin",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R4",
+      "briefId": "brief-idempotency-gateway",
+      "dimension": "D-09",
+      "severity": "S2",
+      "quote": "guaranteed",
+      "description": "Resume bullet uses absolute assertion \"guaranteed\" which invites skeptical interviewer pushback",
+      "evidenceOrSource": "Senior Engineering Interview Rubric & Resume Auditing Guidelines",
+      "suggestedFix": "Reframe with empirical benchmark bounds (e.g. \"zero regressions across 500 test trials\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-idempotency-gateway",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "1. Run go test -v -run TestSingleExecution: Sends single POST /v1/orders with Idempotency-Key [Order processed successfully returning HTTP 201 Created with cached status in Redis]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

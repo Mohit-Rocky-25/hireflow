@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-waf-reverse-proxy",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "4. Execute go test -v -run TestCleanTrafficPassThrough: Sends 500 legitimate API and HTML requests [WAF proxies 100% of clean requests to upstream server without false positives]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-waf-reverse-proxy",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Web Application Firewall (WAF) Reverse Proxy with OWASP Inspection Rules",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

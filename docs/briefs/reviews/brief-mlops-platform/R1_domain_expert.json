@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R1",
+    "briefId": "brief-mlops-platform",
+    "dimension": "D-13",
+    "severity": "S2",
+    "quote": "Python, MLflow, Docker, FastAPI, GitHub Actions, PostgreSQL",
+    "description": "Stack components lack explicit pinned minimum semver versions",
+    "evidenceOrSource": "Language and SDK release lifecycle documentation",
+    "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-osint-data-platform",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python -m crawler.test_bloom_filter --total 5000 --distinct 1000: Bloom filter suppresses duplicate URLs with deduplication accuracy >= 99.0% [Deduplication accuracy >= 99.0% with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

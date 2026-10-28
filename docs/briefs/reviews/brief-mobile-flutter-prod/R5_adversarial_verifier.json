@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-mobile-flutter-prod",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. flutter drive --driver=test_driver/perf_driver.dart --target=integration_test/cold_start_test.dart: Application renders initial interactive screen with average cold start latency < 1,800 milliseconds [Average cold start is < 1,800ms with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

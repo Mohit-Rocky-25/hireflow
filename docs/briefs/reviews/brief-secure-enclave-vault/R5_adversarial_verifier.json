@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-secure-enclave-vault",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- tests/secure_vault_api.test.ts: Tests cross-platform secure storage CRUD operations [All unit tests pass asserting proper key creation, encryption, and deletion]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

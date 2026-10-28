@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-personalization-engine",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python ./scripts/test_feature_pipeline.py --events 5000: Worker processes all events and updates Redis session vectors with p95 lag < 250ms [p95 lag < 250ms and 0 unhandled exceptions with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

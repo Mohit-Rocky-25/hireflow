@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-cloud-cost-anomaly",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run python cost_monitor.py --detect-anomalies --data test_billing.json: Ingests billing telemetry with an injected $500 EC2 spike [Statistical detector flags EC2 spend with Z-score 3.8 and generates alert payload]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-observability-sdk",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. go test -bench=BenchmarkMiddlewareOverhead -benchmem ./sdk/...: Microbenchmark confirms added latency overhead is < 0.25 milliseconds per request [Overhead is < 0.25ms/op with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

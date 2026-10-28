@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-malloc-freelist-allocator",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute valgrind --leak-check=full --error-exitcode=1 ./bin/test_allocator: Runs allocation test under Valgrind [Reports ZERO memory leaks and zero invalid reads/writes]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

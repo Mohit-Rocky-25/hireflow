@@ -1,0 +1,75 @@
+{
+  "briefId": "brief-homomorphic-encryption",
+  "title": "Confidential Database Query Engine with Homomorphic Encryption",
+  "totalFindings": 5,
+  "byRole": {
+    "R1": 2,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 2
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 3,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-homomorphic-encryption",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Python, PostgreSQL, Cryptography, Docker",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R1",
+      "briefId": "brief-homomorphic-encryption",
+      "dimension": "D-01",
+      "severity": "S1",
+      "quote": "Zero-Knowledge Plaintext Confidentiality Rate",
+      "description": "Terminology conflation: Homomorphic Encryption (FHE) is mathematically distinct from Zero-Knowledge Proofs (ZKP)",
+      "evidenceOrSource": "NIST Cryptographic Standards & ACM Cryptography Definitions",
+      "suggestedFix": "Replace \"Zero-Knowledge\" with \"Homomorphic Ciphertext Privacy Rate\"",
+      "confidence": 1
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-homomorphic-encryption",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "The client Key Manager initializes BFV/CKKS cryptographic context parameters; pu",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-homomorphic-encryption",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "3. python -m confidential_db.test_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance [100 of 100 batch precision tests pass within tolerance with exit code 0]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-homomorphic-encryption",
+      "dimension": "D-12",
+      "severity": "S1",
+      "quote": "Confidential Database Query Engine with Homomorphic Encryption",
+      "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+      "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+      "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+      "confidence": 0.95
+    }
+  ]
+}

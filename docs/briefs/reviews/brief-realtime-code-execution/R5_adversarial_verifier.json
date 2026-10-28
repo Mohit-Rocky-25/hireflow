@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-realtime-code-execution",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. go test -v ./sandbox/... -run TestForkBombSuppression: cgroups v2 blocks new process creation; fork bomb terminates in < 15ms with 0 host CPU freeze [Process contained with exit code 0 and host CPU unaffected]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-realtime-code-execution",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Secure Remote Code Execution Sandbox in Go with Linux Namespaces, cgroups v2 & seccomp BPF Syscall Filtering",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

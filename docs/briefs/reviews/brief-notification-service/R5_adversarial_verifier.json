@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-notification-service",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. node scripts/test_channel_fallback.js --trials 30 --timeout-ms 200: Worker catches timeout and completes delivery via secondary channel in average duration < 350ms [Average fallback duration < 350ms across 30 trials with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

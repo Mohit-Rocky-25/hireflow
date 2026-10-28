@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-genai-code-reviewer",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python -m reviewer.test_injection --payloads data/injection_payloads.json: Sanitizer and prompt guard intercept all 25 injection attempts without executing malicious instructions [25 of 25 injection attempts intercepted with 0 rule escapes]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

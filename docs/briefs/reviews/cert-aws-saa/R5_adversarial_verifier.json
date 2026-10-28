@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "cert-aws-saa",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. python ./scripts/test_az_failover.py --requests 1000 --sever-az us-east-1a: 1,000 of 1,000 requests succeed; ALB reroutes to healthy zone in < 5.0 seconds [1,000 of 1,000 requests succeed with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

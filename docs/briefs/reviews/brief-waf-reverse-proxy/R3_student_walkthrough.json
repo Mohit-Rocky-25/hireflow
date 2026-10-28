@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R3",
+    "briefId": "brief-waf-reverse-proxy",
+    "dimension": "D-08",
+    "severity": "S2",
+    "quote": "Client sends HTTP request to WAF proxy; Request Pre-processor normalizes path an",
+    "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+    "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+    "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+    "confidence": 0.92
+  }
+]

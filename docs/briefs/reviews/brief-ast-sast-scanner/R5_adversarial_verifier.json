@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-ast-sast-scanner",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute pytest tests/test_ast_visitors.py: Tests detection of hardcoded AWS keys, MD5 password hashing, and insecure temp files [All 18 AST visitor unit tests pass]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-ast-sast-scanner",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Static Application Security Testing (SAST) Scanner with AST Pattern Matching",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-columnar-compactor",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run pytest tests/test_data_integrity.py: Asserts total row count and column values in compacted Parquet exactly equal original JSON sum [Verifies 100% row and byte integrity with zero dropped records]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

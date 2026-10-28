@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-schema-registry",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. python ./tests/test_compatibility_matrix.py --mode BACKWARD: Validator rejects all 50 breaking schemas and outputs specific conflicting field names [50 of 50 breaking schemas rejected with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

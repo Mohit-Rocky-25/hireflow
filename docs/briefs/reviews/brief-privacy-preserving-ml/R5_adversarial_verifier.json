@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-privacy-preserving-ml",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. python ./tests/test_byzantine_resilience.py --poisoned-clients 1: Trimmed mean / median aggregation filters poisoned updates without degrading global accuracy by > 3% [Global accuracy drop <= 3.0% with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

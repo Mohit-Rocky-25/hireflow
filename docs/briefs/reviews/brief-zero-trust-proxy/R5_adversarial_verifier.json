@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-zero-trust-proxy",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. npm test -- -t 'revocation propagation': 50 of 50 requests using revoked tokens rejected with HTTP 401 within 25ms [50 of 50 revoked requests rejected with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-zero-trust-proxy",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Least-Privilege API Security Gateway with RS256 JWT Rotation, Redis Bloom Filter & Device Fingerprinting",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

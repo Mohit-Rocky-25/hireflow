@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-interview-prep-ai",
+  "title": "Voice-Enabled Technical Interview Simulation Engine with Asynchronous Speech Processing & Evaluation",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-interview-prep-ai",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Python, FastAPI, Whisper, LangChain, React, WebSockets",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-interview-prep-ai",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "The candidate speaks into the browser microphone; the React frontend captures 16",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-interview-prep-ai",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "1. python -m interview_sim.benchmark_asr --audio-dir test_data/audio --manifest test_data/transcripts.json: faster-whisper transcribes all files with average Word Error Rate < 12.0% [Report records average WER < 12.0% with exit code 0]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

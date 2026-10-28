@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-stream-exact-dedup",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run go test -v -run TestExactDeduplication: Feeds 50,000 unique events and 10,000 duplicates in interleaved stream [Exactly 50,000 events forwarded; exactly 10,000 duplicate events dropped]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-feature-flag-platform",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. go test -bench=BenchmarkEvaluate -benchmem ./pkg/evaluator: Evaluator achieves p99 latency under 1.0 milliseconds [p99 evaluation latency is < 1.0 milliseconds with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

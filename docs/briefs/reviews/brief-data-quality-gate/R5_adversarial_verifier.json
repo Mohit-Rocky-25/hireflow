@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-data-quality-gate",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run pytest tests/test_schema_drift.py: Compares incoming schema with baseline catalog containing a mutated data type [Flags SCHEMA_DRIFT: column 'age' changed from INTEGER to STRING]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-service-mesh",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python ./scripts/test_mtls_enforcement.py --attempts 50: STRICT mTLS policy rejects all 50 attempts; 0 plaintext bytes delivered [50 of 50 connections rejected with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-btree-page-storage",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run go test -v -run TestSlottedPageLayout: Tests binary serialization and deserialization of 4KB slotted page [Page header, slot array, and cell records pack and unpack with 100% byte fidelity]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

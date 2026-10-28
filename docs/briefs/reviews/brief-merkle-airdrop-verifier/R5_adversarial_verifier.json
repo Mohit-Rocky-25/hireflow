@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-merkle-airdrop-verifier",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- tests/merkle_tree_construction.test.ts: Builds Merkle tree from 10,000 address-balance pairs [Constructs deterministic 32-byte root hash matching OpenZeppelin reference implementation]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-merkle-airdrop-verifier",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Cryptographic Merkle Tree Whitelist & Proof Verification Engine",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

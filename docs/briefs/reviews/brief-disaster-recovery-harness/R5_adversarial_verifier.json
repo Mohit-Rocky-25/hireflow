@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-disaster-recovery-harness",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute go test -v -run TestRestoredDataIntegrity: Queries restored database for row count parity and key foreign key constraints [All 25 data integrity checks PASS with 100% record match]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

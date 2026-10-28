@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R1",
+    "briefId": "brief-gitignore-lsp",
+    "dimension": "D-13",
+    "severity": "S2",
+    "quote": "TypeScript, Node.js",
+    "description": "Stack components lack explicit pinned minimum semver versions",
+    "evidenceOrSource": "Language and SDK release lifecycle documentation",
+    "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+    "confidence": 0.95
+  }
+]

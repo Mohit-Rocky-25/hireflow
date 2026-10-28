@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-opentelemetry-observability",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. go test -v ./sampler/... -run TestTailBasedSampling: Sampling engine retains 100 of 100 error traces while sampling healthy traces at target 10% rate [100 of 100 error traces retained with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

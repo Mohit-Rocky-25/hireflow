@@ -334,3 +334,4 @@ if (process.argv[1] && process.argv[1].endsWith('lint.ts')) {
   fs.writeFileSync(baselineMdPath, md, 'utf8');
   console.log(`\n✓ Saved ${baselineJsonPath} and ${baselineMdPath}`);
 }
+

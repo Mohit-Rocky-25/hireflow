@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-clickstream-clickhouse",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "4. Execute python test_deduplication.py: Publishes 500 duplicate event UUIDs into the stream [ReplacingMergeTree engine cleans duplicates during background merge, maintaining exact unique count]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -102,3 +102,4 @@ console.log(`\nMutation Test Summary: ${passedClasses}/${totalClasses} classes p
 if (passedClasses !== totalClasses) {
   process.exit(1);
 }
+

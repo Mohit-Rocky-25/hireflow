@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-realtime-stock-platform",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "4. python ./scripts/test_websocket_stream.py --symbols AAPL,MSFT,GOOGL,AMZN,TSLA: WebSocket streams real-time quote frames with sub-50ms inter-message interval [Quotes received continuously with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

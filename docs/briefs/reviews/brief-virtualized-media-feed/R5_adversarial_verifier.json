@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-virtualized-media-feed",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- tests/virtualization_window.test.ts: Simulates scrolling down 1,000 items in feed [Confirms active mounted native views capped at 12 views regardless of scroll depth]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

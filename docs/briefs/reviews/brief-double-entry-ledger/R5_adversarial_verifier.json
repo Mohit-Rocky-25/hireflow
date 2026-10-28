@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-double-entry-ledger",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run go test -v -run TestUnbalancedTransactionRejection: Attempts to insert transaction where debit ($100) does not equal credit ($80) [Database rejects with constraint violation error code]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

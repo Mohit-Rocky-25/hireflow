@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-epoll-async-eventloop",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run ./bin/test_timer_wheel: Schedules 50 timers with varying millisecond delays [Timers fire in exact chronological order within 2ms accuracy of deadline]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

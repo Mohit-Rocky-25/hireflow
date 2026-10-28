@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R4",
+    "briefId": "brief-idempotency-gateway",
+    "dimension": "D-09",
+    "severity": "S2",
+    "quote": "guaranteed",
+    "description": "Resume bullet uses absolute assertion \"guaranteed\" which invites skeptical interviewer pushback",
+    "evidenceOrSource": "Senior Engineering Interview Rubric & Resume Auditing Guidelines",
+    "suggestedFix": "Reframe with empirical benchmark bounds (e.g. \"zero regressions across 500 test trials\")",
+    "confidence": 0.95
+  }
+]

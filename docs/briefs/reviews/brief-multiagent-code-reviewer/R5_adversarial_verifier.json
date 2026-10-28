@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-multiagent-code-reviewer",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute pytest tests/test_agent_workflow.py: Runs graph state machine through linting, security, and patch synthesis stages [LangGraph execution terminates in FINISHED state across all test cases]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "briefId": "brief-upi-settlement-engine",
+  "title": "Immediate Payment Settlement & Batch Clearing System",
+  "totalFindings": 4,
+  "byRole": {
+    "R1": 2,
+    "R2": 0,
+    "R3": 1,
+    "R4": 1,
+    "R5": 0
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 3,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-upi-settlement-engine",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Java, Spring Boot, PostgreSQL, JAXB, Docker",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R1",
+      "briefId": "brief-upi-settlement-engine",
+      "dimension": "D-15",
+      "severity": "S1",
+      "quote": "Immediate Payment Settlement & Batch Clearing System",
+      "description": "FinTech ledger or accounting calculations must explicitly mandate arbitrary-precision decimal types to prevent IEEE-754 float rounding errors",
+      "evidenceOrSource": "ISO 20022 and banking accounting standards",
+      "suggestedFix": "Enforce shopspring/decimal or BigDecimal in core calculation path",
+      "confidence": 0.98
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-upi-settlement-engine",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Payment switch receives pacs.008 payment instruction; verifies bank participant ",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R4",
+      "briefId": "brief-upi-settlement-engine",
+      "dimension": "D-09",
+      "severity": "S2",
+      "quote": "zero",
+      "description": "Resume bullet uses absolute assertion \"zero\" which invites skeptical interviewer pushback",
+      "evidenceOrSource": "Senior Engineering Interview Rubric & Resume Auditing Guidelines",
+      "suggestedFix": "Reframe with empirical benchmark bounds (e.g. \"zero regressions across 500 test trials\")",
+      "confidence": 0.95
+    }
+  ]
+}

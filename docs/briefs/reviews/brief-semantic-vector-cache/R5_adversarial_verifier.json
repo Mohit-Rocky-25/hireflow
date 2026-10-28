@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-semantic-vector-cache",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute python test_cache_hits.py: Submits exact query followed by rephrased query [Second query returns cache HIT with similarity score 0.94 and response time < 10ms]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

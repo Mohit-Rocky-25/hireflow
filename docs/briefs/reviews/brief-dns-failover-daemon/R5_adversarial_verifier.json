@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-dns-failover-daemon",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run go test -v -run TestHealthProbeDetection: Starts mock HTTP server, shuts it down mid-probe [Probe accurately detects connection refusal and marks node UNHEALTHY within 5s]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

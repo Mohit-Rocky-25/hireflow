@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-message-queue",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. go run ./scripts/test_crash_recovery.go --messages 50000: Broker restarts, parses segment index headers, and verifies 50,000 of 50,000 messages present [Recovered count equals 50,000 with 0 corrupted messages and exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

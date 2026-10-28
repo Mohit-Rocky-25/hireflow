@@ -1,0 +1,64 @@
+{
+  "briefId": "brief-realtime-stock-platform",
+  "title": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
+  "totalFindings": 4,
+  "byRole": {
+    "R1": 2,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 2,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-realtime-stock-platform",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Python, Kafka, TimescaleDB, Redis, React, WebSockets",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R1",
+      "briefId": "brief-realtime-stock-platform",
+      "dimension": "D-15",
+      "severity": "S1",
+      "quote": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
+      "description": "FinTech ledger or accounting calculations must explicitly mandate arbitrary-precision decimal types to prevent IEEE-754 float rounding errors",
+      "evidenceOrSource": "ISO 20022 and banking accounting standards",
+      "suggestedFix": "Enforce shopspring/decimal or BigDecimal in core calculation path",
+      "confidence": 0.98
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-realtime-stock-platform",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Market data sources publish trade ticks to the Kafka 'stock-ticks' topic; the Py",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-realtime-stock-platform",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "4. python ./scripts/test_websocket_stream.py --symbols AAPL,MSFT,GOOGL,AMZN,TSLA: WebSocket streams real-time quote frames with sub-50ms inter-message interval [Quotes received continuously with exit code 0]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-webhook-retry-engine",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- tests/webhook_signature.test.ts: Asserts HMAC-SHA256 signature generation and timestamp header verification [All signature validation tests pass with zero timing attacks]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

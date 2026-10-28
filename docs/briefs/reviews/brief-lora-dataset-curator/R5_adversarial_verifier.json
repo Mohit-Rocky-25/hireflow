@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-lora-dataset-curator",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute python -m pytest tests/test_decontamination.py: Injects known HumanEval problems into raw dataset and checks filter output [Decontamination engine flags and removes 100% of injected benchmark questions]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-bloom-filter-engine",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run pytest tests/test_bloom_filter.py: Verifies zero false negatives across 50,000 test keys [All existing items return True with 100% recall]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

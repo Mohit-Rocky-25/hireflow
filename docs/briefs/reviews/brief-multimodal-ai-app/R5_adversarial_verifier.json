@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-multimodal-ai-app",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. python -m multimodal_app.evaluate_multimodal --test-file test_data/multimodal_eval.json: Multimodal reasoning system achieves accuracy >= 78.0% across 300 test cases [Measured accuracy is >= 78.0% with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

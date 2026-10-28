@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-json-schema-validator",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- test/primitives.test.ts: Tests validation of string, number, integer, boolean, and null types [All primitive assertions pass with exact boolean outcomes]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

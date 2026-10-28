@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-sse-websocket-broadcaster",
+  "title": "Real-Time WebSocket & SSE Pub/Sub Fanout Broadcaster",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-sse-websocket-broadcaster",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Go, Gorilla WebSocket, Redis, Docker, Linux Epoll, Locust",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-sse-websocket-broadcaster",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Clients establish WebSocket or SSE connection on Go edge nodes; Node registers c",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-sse-websocket-broadcaster",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "1. Run go test -v -run TestWebSocketHandshake: Connects client and validates RFC 6455 protocol handshake and header upgrade [Returns HTTP 101 Switching Protocols with valid Sec-WebSocket-Accept]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

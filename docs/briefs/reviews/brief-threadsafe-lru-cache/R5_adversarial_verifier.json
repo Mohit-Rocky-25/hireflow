@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-threadsafe-lru-cache",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run go test -v -run TestLruEviction: Fills cache of capacity 3 with 4 items and asserts oldest unaccessed item is evicted [Evicted key returns nil while recent keys return correct values]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

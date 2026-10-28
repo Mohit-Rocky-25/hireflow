@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-mlops-platform",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. python -m mlops_pipeline.evaluate_drift --data-dir test_data/drift_batches: Drift monitor correctly flags >= 90.0% of drifted batches with false positive rate < 5.0% [Detection recall is >= 90.0% and exit code is 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

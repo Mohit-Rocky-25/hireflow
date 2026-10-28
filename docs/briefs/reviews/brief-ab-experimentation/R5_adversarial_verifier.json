@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-ab-experimentation",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run pytest tests/test_math.py: All test assertions pass with absolute difference between analytical and quadrature calculations < 1e-4 [Exit code 0 with 15 passing mathematical assertions and zero calculation errors]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

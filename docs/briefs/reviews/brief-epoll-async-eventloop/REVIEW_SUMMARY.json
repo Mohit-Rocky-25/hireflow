@@ -1,0 +1,64 @@
+{
+  "briefId": "brief-epoll-async-eventloop",
+  "title": "Async Single-Threaded Event Loop with Linux epoll from Scratch",
+  "totalFindings": 4,
+  "byRole": {
+    "R1": 1,
+    "R2": 1,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 2,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-epoll-async-eventloop",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Linux epoll, POSIX Sockets, Make, Wrk",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R2",
+      "briefId": "brief-epoll-async-eventloop",
+      "dimension": "D-02",
+      "severity": "S1",
+      "quote": "epoll",
+      "description": "Linux kernel primitives (epoll) fail on native Windows hosts without WSL2 or Docker container prerequisites",
+      "evidenceOrSource": "OS system call portability matrix (POSIX vs Win32)",
+      "suggestedFix": "Add explicit prerequisite documentation for Windows Subsystem for Linux (WSL2)",
+      "confidence": 0.98
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-epoll-async-eventloop",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Event loop initializes epoll instance via epoll_create1(); Sets server socket to",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-epoll-async-eventloop",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "3. Run ./bin/test_timer_wheel: Schedules 50 timers with varying millisecond delays [Timers fire in exact chronological order within 2ms accuracy of deadline]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

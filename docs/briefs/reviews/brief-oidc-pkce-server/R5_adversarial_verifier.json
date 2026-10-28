@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-oidc-pkce-server",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute go test -v -run TestPkceValidFlow: Runs complete authorization flow with valid code_verifier [Token endpoint validates SHA-256 hash and returns 200 OK with access_token and id_token]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-oidc-pkce-server",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "OAuth 2.0 & OpenID Connect Authorization Server with PKCE Support",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

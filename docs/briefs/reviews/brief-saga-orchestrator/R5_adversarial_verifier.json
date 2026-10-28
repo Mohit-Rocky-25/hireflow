@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-saga-orchestrator",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run npm test -- tests/saga_happy_path.test.ts: Executes complete 3-step order booking workflow [All 3 steps execute in order and saga status transitions to COMPLETED]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

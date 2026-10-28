@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R3",
+    "briefId": "brief-grpc-mesh-resilience",
+    "dimension": "D-08",
+    "severity": "S2",
+    "quote": "Client service uses gRPC resolver to discover upstream replica IPs; Client-side ",
+    "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+    "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+    "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+    "confidence": 0.92
+  }
+]

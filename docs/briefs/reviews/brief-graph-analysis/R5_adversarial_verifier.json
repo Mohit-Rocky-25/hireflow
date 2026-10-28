@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-graph-analysis",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python -m graph_engine.test_louvain --graph data/communities.parquet: Louvain algorithm partitions graph with modularity score Q exceeding 0.65 [Modularity score Q is > 0.65 with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

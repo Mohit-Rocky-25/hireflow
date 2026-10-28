@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-react-tool-gateway",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute python -m pytest tests/test_security_sandbox.py: Tests malicious code injections (os.system('cat /etc/shadow'), socket connections, memory bombs) [Sandbox blocks network, protects filesystem, and kills runaway memory allocations]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

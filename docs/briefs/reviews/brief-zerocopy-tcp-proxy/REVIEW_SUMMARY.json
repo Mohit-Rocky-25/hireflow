@@ -1,0 +1,75 @@
+{
+  "briefId": "brief-zerocopy-tcp-proxy",
+  "title": "Zero-Copy High-Throughput TCP Proxy using Linux splice()",
+  "totalFindings": 5,
+  "byRole": {
+    "R1": 1,
+    "R2": 1,
+    "R3": 1,
+    "R4": 1,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 2,
+    "S2": 3,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-zerocopy-tcp-proxy",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Linux splice(), POSIX Sockets, Make",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R2",
+      "briefId": "brief-zerocopy-tcp-proxy",
+      "dimension": "D-02",
+      "severity": "S1",
+      "quote": "splice()",
+      "description": "Linux kernel primitives (splice()) fail on native Windows hosts without WSL2 or Docker container prerequisites",
+      "evidenceOrSource": "OS system call portability matrix (POSIX vs Win32)",
+      "suggestedFix": "Add explicit prerequisite documentation for Windows Subsystem for Linux (WSL2)",
+      "confidence": 0.98
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-zerocopy-tcp-proxy",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Client connects to proxy inbound socket; Proxy opens outbound connection to upst",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R4",
+      "briefId": "brief-zerocopy-tcp-proxy",
+      "dimension": "D-09",
+      "severity": "S2",
+      "quote": "zero",
+      "description": "Resume bullet uses absolute assertion \"zero\" which invites skeptical interviewer pushback",
+      "evidenceOrSource": "Senior Engineering Interview Rubric & Resume Auditing Guidelines",
+      "suggestedFix": "Reframe with empirical benchmark bounds (e.g. \"zero regressions across 500 test trials\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-zerocopy-tcp-proxy",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "4. Execute ./bin/test_bidirectional_forwarding: Establishes bidirectional communication channel through proxy [Validates data flow in both directions with 100% byte-for-byte SHA-256 hash match]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

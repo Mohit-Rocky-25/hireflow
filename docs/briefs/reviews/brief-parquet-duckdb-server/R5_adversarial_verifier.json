@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-parquet-duckdb-server",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run pytest tests/test_predicate_pushdown.py: Asserts DuckDB reads only filtered partition folders when WHERE year=2026 is specified [File access logger confirms unreferenced partitions are completely skipped]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

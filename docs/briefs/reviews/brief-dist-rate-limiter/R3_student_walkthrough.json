@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R3",
+    "briefId": "brief-dist-rate-limiter",
+    "dimension": "D-08",
+    "severity": "S2",
+    "quote": "Inbound HTTP requests arrive at the Go reverse proxy; the Quota Matcher identifi",
+    "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+    "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+    "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+    "confidence": 0.92
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-distributed-etl-scheduler",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute pytest tests/test_cycle_detection.py: Feeds pipeline with circular dependency (A -> B -> C -> A) [Cycle detector catches circular loop and throws CyclicDependencyError with offending node path]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-peer-to-peer",
+  "title": "Decentralized Peer-to-Peer File Distribution Engine in Go with Kademlia DHT & Rarest-First Swarm Scheduling",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-peer-to-peer",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Go, TCP, UDP, BitTorrent Protocol, Concurrency",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-peer-to-peer",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "The client loads a metainfo .torrent file, extracts the 20-byte infohash and pie",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-peer-to-peer",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "2. go test -v ./peer/... -run TestPieceCorruptionRecovery: SHA-1 hasher detects all 20 corrupted pieces, discards bytes, and re-downloads valid pieces [20 of 20 corrupted pieces rejected and final file SHA-1 matches ground truth with exit code 0]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

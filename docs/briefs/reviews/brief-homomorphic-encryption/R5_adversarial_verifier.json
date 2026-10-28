@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-homomorphic-encryption",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. python -m confidential_db.test_precision: Decrypted client sums match exact plaintext mathematical calculations within 1e-4 tolerance [100 of 100 batch precision tests pass within tolerance with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  },
+  {
+    "role": "R5",
+    "briefId": "brief-homomorphic-encryption",
+    "dimension": "D-12",
+    "severity": "S1",
+    "quote": "Confidential Database Query Engine with Homomorphic Encryption",
+    "description": "Security testing brief lacks explicit lawful testing scope disclaimer",
+    "evidenceOrSource": "CWE and Ethical Hacking compliance standards",
+    "suggestedFix": "Add scope-of-lawful-use notice requiring loopback-only and synthetic container sandbox execution",
+    "confidence": 0.95
+  }
+]

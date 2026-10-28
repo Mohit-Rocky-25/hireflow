@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-event-driven-saas",
+  "title": "Multi-Tenant B2B SaaS Backend with Row-Level Security & Outbox Messaging",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 1,
+    "R5": 0
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 0,
+    "S2": 3,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-event-driven-saas",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "TypeScript, Node.js, PostgreSQL, Kafka, Redis",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-event-driven-saas",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Incoming client HTTP requests pass through Tenant Ingress Middleware; tenant ID ",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R4",
+      "briefId": "brief-event-driven-saas",
+      "dimension": "D-09",
+      "severity": "S2",
+      "quote": "guaranteed",
+      "description": "Resume bullet uses absolute assertion \"guaranteed\" which invites skeptical interviewer pushback",
+      "evidenceOrSource": "Senior Engineering Interview Rubric & Resume Auditing Guidelines",
+      "suggestedFix": "Reframe with empirical benchmark bounds (e.g. \"zero regressions across 500 test trials\")",
+      "confidence": 0.95
+    }
+  ]
+}

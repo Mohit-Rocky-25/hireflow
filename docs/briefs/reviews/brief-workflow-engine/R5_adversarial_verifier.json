@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-workflow-engine",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. go test ./benchmarks -v -run BenchmarkWorkflowThroughput: Engine sustains >= 800 activity tasks/sec with p95 latency < 75ms [Sustained throughput >= 800 tasks/sec with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

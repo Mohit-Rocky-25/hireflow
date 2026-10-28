@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-multimodal-invoice-parser",
+  "title": "Multimodal Document Extraction Pipeline with Structured JSON Schema Enforcement",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-multimodal-invoice-parser",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Python, FastAPI, Instructor, Pydantic, Pytest",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-multimodal-invoice-parser",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "User uploads PDF invoice; pdf2image converts pages to high-resolution PNGs; Visi",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-multimodal-invoice-parser",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "2. Execute pytest tests/test_schema_validation.py: Asserts strict Pydantic model validation on nested LineItem and TaxSummary objects [All 15 schema boundary unit tests pass]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

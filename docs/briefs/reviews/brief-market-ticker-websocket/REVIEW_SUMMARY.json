@@ -1,0 +1,64 @@
+{
+  "briefId": "brief-market-ticker-websocket",
+  "title": "Low-Latency Real-Time Financial Market Ticker & Candlestick Aggregator",
+  "totalFindings": 4,
+  "byRole": {
+    "R1": 2,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 2,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-market-ticker-websocket",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Go, WebSockets, Ring Buffer, Time Series, Docker, Testing",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R1",
+      "briefId": "brief-market-ticker-websocket",
+      "dimension": "D-15",
+      "severity": "S1",
+      "quote": "Low-Latency Real-Time Financial Market Ticker & Candlestick Aggregator",
+      "description": "FinTech ledger or accounting calculations must explicitly mandate arbitrary-precision decimal types to prevent IEEE-754 float rounding errors",
+      "evidenceOrSource": "ISO 20022 and banking accounting standards",
+      "suggestedFix": "Enforce shopspring/decimal or BigDecimal in core calculation path",
+      "confidence": 0.98
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-market-ticker-websocket",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Trade tick ingested via UDP/WebSocket; Ticker engine pushes tick to Active Candl",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-market-ticker-websocket",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "1. Run go test -v -run TestCandlestickAggregation: Feeds 1,000 simulated ticks over a 60-second window [Produces exact Open, High, Low, Close, and Volume matching manual calculations]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

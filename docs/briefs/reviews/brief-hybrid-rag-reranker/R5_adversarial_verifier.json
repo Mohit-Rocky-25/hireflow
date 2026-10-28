@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-hybrid-rag-reranker",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. Execute python -m pytest tests/test_rrf.py: Validates Reciprocal Rank Fusion ranking math against known mathematical ground truth [Unit tests verify reciprocal weighting with k=60]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

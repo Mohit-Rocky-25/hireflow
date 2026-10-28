@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-raft-consensus",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. go test -v ./storage/... -run TestLevelDBWALRecovery: Node restores currentTerm, votedFor, and all uncompacted log entries from LevelDB with 0 data loss [100 of 100 persisted log entries restored with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

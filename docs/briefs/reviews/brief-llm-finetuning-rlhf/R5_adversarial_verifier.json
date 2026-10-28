@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-llm-finetuning-rlhf",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. python -m rlhf_pipeline.evaluate_reward --model-dir output/reward_model --test-file test_data/test_pairs.json: Reward model scores chosen response higher than rejected response in >= 72.0% of test pairs [Report records preference classification accuracy >= 72.0% with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

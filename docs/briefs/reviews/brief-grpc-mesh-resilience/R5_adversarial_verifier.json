@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-grpc-mesh-resilience",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run go test -v -run TestCircuitBreakerTripping: Simulates 60% failure rate from backend server replica [Circuit breaker opens, immediately returns ErrCircuitOpen without executing network call]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

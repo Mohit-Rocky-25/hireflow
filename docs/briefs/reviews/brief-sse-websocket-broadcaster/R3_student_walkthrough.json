@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R3",
+    "briefId": "brief-sse-websocket-broadcaster",
+    "dimension": "D-08",
+    "severity": "S2",
+    "quote": "Clients establish WebSocket or SSE connection on Go edge nodes; Node registers c",
+    "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+    "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+    "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+    "confidence": 0.92
+  }
+]

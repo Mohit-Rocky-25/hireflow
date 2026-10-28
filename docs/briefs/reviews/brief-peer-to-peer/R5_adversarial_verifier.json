@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-peer-to-peer",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. go test -v ./peer/... -run TestPieceCorruptionRecovery: SHA-1 hasher detects all 20 corrupted pieces, discards bytes, and re-downloads valid pieces [20 of 20 corrupted pieces rejected and final file SHA-1 matches ground truth with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

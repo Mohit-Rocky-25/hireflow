@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-tar-gzip-decompressor",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "1. Run pytest tests/test_header_parser.py: Validates parsing of standard and UStar tar headers including octal size conversion [All 15 test headers parse with exact file metadata extracted]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

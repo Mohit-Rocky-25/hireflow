@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-zerocopy-tcp-proxy",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "4. Execute ./bin/test_bidirectional_forwarding: Establishes bidirectional communication channel through proxy [Validates data flow in both directions with 100% byte-for-byte SHA-256 hash match]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

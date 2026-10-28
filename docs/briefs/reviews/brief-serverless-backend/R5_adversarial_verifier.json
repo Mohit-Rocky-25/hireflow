@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-serverless-backend",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python ./tests/test_idempotency.py --duplicates 100: Lambda conditional writes reject duplicate messages; exactly 1 record created per order ID [100 of 100 duplicate messages rejected with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

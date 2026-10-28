@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-recommendation-engine",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "2. python ./evaluation/eval_metrics.py --test-split ./data/test_interactions.csv: Recommender achieves NDCG@10 >= 0.72 and HitRate@50 >= 85.0% [NDCG@10 >= 0.72 with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

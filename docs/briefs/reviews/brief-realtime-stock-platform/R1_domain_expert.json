@@ -1,0 +1,24 @@
+[
+  {
+    "role": "R1",
+    "briefId": "brief-realtime-stock-platform",
+    "dimension": "D-13",
+    "severity": "S2",
+    "quote": "Python, Kafka, TimescaleDB, Redis, React, WebSockets",
+    "description": "Stack components lack explicit pinned minimum semver versions",
+    "evidenceOrSource": "Language and SDK release lifecycle documentation",
+    "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+    "confidence": 0.95
+  },
+  {
+    "role": "R1",
+    "briefId": "brief-realtime-stock-platform",
+    "dimension": "D-15",
+    "severity": "S1",
+    "quote": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
+    "description": "FinTech ledger or accounting calculations must explicitly mandate arbitrary-precision decimal types to prevent IEEE-754 float rounding errors",
+    "evidenceOrSource": "ISO 20022 and banking accounting standards",
+    "suggestedFix": "Enforce shopspring/decimal or BigDecimal in core calculation path",
+    "confidence": 0.98
+  }
+]

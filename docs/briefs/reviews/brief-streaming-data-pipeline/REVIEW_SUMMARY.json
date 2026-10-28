@@ -1,0 +1,53 @@
+{
+  "briefId": "brief-streaming-data-pipeline",
+  "title": "Real-Time Lakehouse Streaming ETL Pipeline with Apache Spark, Delta Lake, Kafka & MinIO",
+  "totalFindings": 3,
+  "byRole": {
+    "R1": 1,
+    "R2": 0,
+    "R3": 1,
+    "R4": 0,
+    "R5": 1
+  },
+  "bySeverity": {
+    "S0": 0,
+    "S1": 1,
+    "S2": 2,
+    "S3": 0
+  },
+  "topIssues": [
+    {
+      "role": "R1",
+      "briefId": "brief-streaming-data-pipeline",
+      "dimension": "D-13",
+      "severity": "S2",
+      "quote": "Python, Apache Spark, Delta Lake, Kafka, MinIO, SQL",
+      "description": "Stack components lack explicit pinned minimum semver versions",
+      "evidenceOrSource": "Language and SDK release lifecycle documentation",
+      "suggestedFix": "Pin verified semver releases (e.g. \"Go 1.22+\", \"Python 3.11+\")",
+      "confidence": 0.95
+    },
+    {
+      "role": "R3",
+      "briefId": "brief-streaming-data-pipeline",
+      "dimension": "D-08",
+      "severity": "S2",
+      "quote": "Producers publish transaction events to Kafka; Spark Structured Streaming consum",
+      "description": "Architecture presented as a single monolithic block without progressive milestone breakdown or stuck-point guidance",
+      "evidenceOrSource": "Student walkthrough simulation on second-year B.Tech syllabus",
+      "suggestedFix": "Decompose project into 4-6 sequential milestones with testable checkpoints and troubleshooting hints",
+      "confidence": 0.92
+    },
+    {
+      "role": "R5",
+      "briefId": "brief-streaming-data-pipeline",
+      "dimension": "D-06",
+      "severity": "S1",
+      "quote": "3. python ./tests/test_watermark_dedup.py --duplicates 50: Silver Delta table contains exactly 50 records; all duplicates dropped by Spark Structured Streaming [Silver table record count matches ground truth with exit code 0]",
+      "description": "Rubric is gameable: student authors the test script that certifies their own code",
+      "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+      "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+      "confidence": 0.99
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-streaming-data-pipeline",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. python ./tests/test_watermark_dedup.py --duplicates 50: Silver Delta table contains exactly 50 records; all duplicates dropped by Spark Structured Streaming [Silver table record count matches ground truth with exit code 0]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]

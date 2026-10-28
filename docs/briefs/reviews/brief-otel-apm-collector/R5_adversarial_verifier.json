@@ -1,0 +1,13 @@
+[
+  {
+    "role": "R5",
+    "briefId": "brief-otel-apm-collector",
+    "dimension": "D-06",
+    "severity": "S1",
+    "quote": "3. Run pytest tests/test_span_redaction.py: Emits span with attribute `http.header.authorization: Bearer sec_xyz123` [Span exporter verifies attribute value is replaced with [REDACTED]]",
+    "description": "Rubric is gameable: student authors the test script that certifies their own code",
+    "evidenceOrSource": "Adversarial verification audit (Trivial stub pass rate)",
+    "suggestedFix": "Provide external, immutable verification test kits with seeded hidden test fixtures",
+    "confidence": 0.99
+  }
+]
