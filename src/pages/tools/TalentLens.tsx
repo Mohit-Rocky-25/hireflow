@@ -23,26 +23,11 @@ import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
-import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ReportErrorModal } from '../../components/common/ReportErrorModal';
 
 // ── Status Components ──
-function EligibilityBadge({ status }: { status: string }) {
-  const map: Record<string, { cls: string; label: string }> = {
-    ELIGIBLE: { cls: "bg-black text-volt border-volt", label: "ELIGIBLE" },
-    CONDITIONAL: { cls: "bg-black text-pale-yellow border-pale-yellow/50", label: "CONDITIONAL" },
-    INELIGIBLE: { cls: "bg-black text-danger border-danger/50", label: "INELIGIBLE" },
-    UNCERTAIN: { cls: "bg-black text-silver border-charcoal", label: "UNCERTAIN" },
-  };
-  const { cls, label } = map[status] ?? map.UNCERTAIN;
-  return (
-    <span className={`px-2.5 py-1 rounded text-xs font-mono font-bold border uppercase tracking-wider ${cls}`}>
-      {label}
-    </span>
-  );
-}
 
 function MatchStatusIcon({ status }: { status: string }) {
   switch (status) {
@@ -429,7 +414,6 @@ export function TalentLens() {
               <div>
                 <div className="flex items-center gap-3 mb-1.5 flex-wrap">
                   <h2 className="text-lg font-bold text-white">Intelligence Report</h2>
-                  <EligibilityBadge status={match.eligibility} />
                   <button
                     type="button"
                     onClick={() => setIsWhyScoreOpen(true)}
@@ -517,9 +501,6 @@ export function TalentLens() {
 
           {/* Reality Factors (Stage 3D, Unscored) */}
           <RealityFactorsPanel className="my-6" />
-
-          {/* Eligibility Card (Stage 4, Advisory) */}
-          <EligibilityCard className="my-6" />
 
           {/* Tabs */}
           <div className="flex items-center gap-1 border-b border-charcoal">

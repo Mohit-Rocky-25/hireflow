@@ -51,7 +51,6 @@ import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
 import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/ats/components/ConfirmRequirementsModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
-import { EligibilityCard } from '../../components/common/EligibilityCard';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
@@ -709,9 +708,6 @@ export function ResumeChecker() {
 
                 {/* Reality Factors (Stage 3D, Unscored) */}
                 <RealityFactorsPanel className="mb-6" />
-
-                {/* Eligibility Card (Stage 4, Advisory) */}
-                <EligibilityCard targetCompanyId={detectedTargetCompany} className="mb-6" />
 
                 {/* Fresher & Student Checks (Stage 4) */}
                 <FresherChecksPanel resumeText={resumeText} className="mb-6" />
