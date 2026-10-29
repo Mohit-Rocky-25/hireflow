@@ -68,9 +68,23 @@
 ---
 
 ## Active Stage
-- **Stage 6: Verification Gate & Documentation** (Active)
-  - 6.1: Build unified `scripts/outreach/gate.ts` runnable via `npm run outreach:gate` that runs validator, authoring lint, engine tests, UI tests, privacy/storage tests, golden snapshots, check:claims, and check:ui-math.
-  - 6.2: Negative gate verification: verify gate failure on injected negative cases (cold referral ask, 250c note, stray brace, duplicate opener).
-  - 6.3: Comprehensive documentation under `docs/outreach/` (`README.md`, `TEMPLATE_STANDARD.md`, `CHANNEL_PROFILES.md`, `HOW_TO_ADD_A_TEMPLATE.md`, `LIMITATIONS.md`).
-  - Gate 6 verification.
+- **Stage 6: Verification Gate & Documentation** — COMPLETED
+  - 6.1: Unified verification gate implemented in `scripts/outreach/gate.ts` runnable via `npm run outreach:gate`. Executes all 9 verification steps in sequence.
+  - 6.2: Negative verification suite implemented and verified: demonstrably catches cold referral requests (Evidence E5), 250c notes on free tier, templates with stray unclosed braces, and duplicate opening sentences.
+  - 6.3: Golden snapshot regression suite implemented in `tests/outreach/goldenSnapshot.spec.ts` (425 rendered combinations across 85 templates x 5 personas verified against SHA-256 hash `7ca08f1bb550b7d7b983d80e9422da0c55f227b9fd3e0dc8958531a156e4ec79`).
+  - 6.4: Full documentation suite written under `docs/outreach/`:
+    - `docs/outreach/README.md` (Architecture, invariants, and data flow).
+    - `docs/outreach/TEMPLATE_STANDARD.md` (Standard D6 4-block architecture and Indian market linguistic calibration).
+    - `docs/outreach/CHANNEL_PROFILES.md` (Evidence E1–E6 with sources, caveats, and verifyBy dates).
+    - `docs/outreach/HOW_TO_ADD_A_TEMPLATE.md` (Step-by-step authoring guide for new contributors).
+    - `docs/outreach/LIMITATIONS.md` (Cross-domain assumptions, platform quirks, and top 10 highest-risk items).
+  - Gate 6 verified: `npm run outreach:gate` passing 100% (9/9 steps green).
+
+---
+
+## Active Stage
+- **Stage 7: Final Verification & Comprehensive Final Report** (Active)
+  - 7.1: Execute repository-wide verification sweeps (`npm run outreach:gate`, `npm run typecheck`, `npm run test:data`, `npm run check:claims`, `npm run check:ui-math`, `npm run privacy:check`).
+  - 7.2: Generate `docs/outreach/FINAL_REPORT.md` compiling full implementation metrics, before/after comparisons, sample messages, decisions, and exact git review/merge commands.
+  - 7.3: Commit and output the final report.
 

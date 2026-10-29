@@ -148,6 +148,18 @@ export function validateOutreachTemplate(input: unknown): ValidationResult {
         errors.push({ path: `blocks.${r}`, message: `Block "${r}" must be an array of strings` });
       } else if (!t.needsAuthoring && b[r].length === 0) {
         errors.push({ path: `blocks.${r}`, message: `Block "${r}" must have at least one variant` });
+      } else if (Array.isArray(b[r])) {
+        for (const variant of b[r] as string[]) {
+          if (typeof variant === 'string') {
+            const openDouble = (variant.match(/\{\{/g) || []).length;
+            const closeDouble = (variant.match(/\}\}/g) || []).length;
+            const openSingle = (variant.match(/(?<!\{)\{(?!\{)/g) || []).length;
+            const closeSingle = (variant.match(/(?<!\})\}(?!\})/g) || []).length;
+            if (openDouble !== closeDouble || openSingle !== closeSingle) {
+              errors.push({ path: `blocks.${r}`, message: `Unclosed brace found in block "${r}": "${variant}"` });
+            }
+          }
+        }
       }
     }
   }
