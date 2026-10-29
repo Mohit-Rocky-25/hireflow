@@ -4,7 +4,7 @@
 // Includes real-time 1-page overflow sentinel & interactive zoom
 // ============================================================
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   ZoomIn,
   ZoomOut,
@@ -28,9 +28,34 @@ interface DarkPaperPreviewProps {
 }
 
 export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPaperPreviewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [zoomMode, setZoomMode] = useState<'fit' | 'manual'>('fit');
   const [zoom, setZoom] = useState<number>(100);
+  const [fitZoom, setFitZoom] = useState<number>(62);
   const [downloading, setDownloading] = useState<boolean>(false);
-  const { autoFitOnePage } = useTailorStore();
+  const { autoFitOnePage, setLayoutSetting } = useTailorStore();
+
+  const settings = resume.layoutSettings;
+  const paperSize = settings.paperSize || 'a4';
+  const heightReport = evaluateLayoutHeight(resume);
+
+  // Dynamically compute fitZoom so entire A4 sheet is 100% visible with zero scrolling
+  const updateFitZoom = useCallback(() => {
+    if (!containerRef.current) return;
+    const containerHeight = containerRef.current.clientHeight;
+    const pagePx = paperSize === 'letter' ? 1056 : 1123;
+    const availableHeight = Math.max(300, containerHeight - 32);
+    const computed = Math.min(100, Math.max(45, Math.floor((availableHeight / pagePx) * 100)));
+    setFitZoom(computed);
+  }, [paperSize]);
+
+  useEffect(() => {
+    updateFitZoom();
+    window.addEventListener('resize', updateFitZoom);
+    return () => window.removeEventListener('resize', updateFitZoom);
+  }, [updateFitZoom]);
+
+  const effectiveZoom = zoomMode === 'fit' ? fitZoom : zoom;
 
   const handleDownload = async () => {
     setDownloading(true);
@@ -42,9 +67,6 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
       setDownloading(false);
     }
   };
-
-  const settings = resume.layoutSettings;
-  const heightReport = evaluateLayoutHeight(resume);
 
   // Density classes based on layout settings
   const fontSizes: Record<'compact' | 'standard' | 'spacious', string> = {
@@ -87,18 +109,46 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
 
   const template = settings.template;
   const currentSpacing = lineSpacings[settings.lineSpacing || 'standard'];
-  const pageWidth = settings.paperSize === 'letter' ? '8.5in' : '210mm';
-  const pageHeight = settings.paperSize === 'letter' ? '11in' : '297mm';
+  const pageWidth = paperSize === 'letter' ? '8.5in' : '210mm';
+  const pageHeight = paperSize === 'letter' ? '11in' : '297mm';
 
   return (
     <div className={`flex flex-col h-full bg-surface border border-charcoal rounded overflow-hidden shadow-2xl ${className}`}>
       {/* ── Studio Top Toolbar ── */}
-      <div className="bg-black border-b border-charcoal px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-neutral-300">
-        <div className="flex items-center gap-2.5">
+      <div className="bg-black border-b border-charcoal px-3 py-2 flex flex-wrap items-center justify-between gap-2.5 text-xs text-neutral-300">
+        <div className="flex items-center gap-2">
           <FileText className="w-4 h-4 text-volt" />
           <span className="font-mono font-bold text-white uppercase tracking-wider text-[11px]">
             Live Paper Canvas
           </span>
+
+          {/* Paper Size Selector (A4 standard) */}
+          <div className="flex items-center bg-surface p-0.5 rounded border border-charcoal">
+            <button
+              type="button"
+              onClick={() => setLayoutSetting('paperSize', 'a4')}
+              className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded transition cursor-pointer ${
+                paperSize === 'a4'
+                  ? 'bg-volt text-black shadow-xs'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+              title="Standard International A4 (210mm x 297mm)"
+            >
+              A4
+            </button>
+            <button
+              type="button"
+              onClick={() => setLayoutSetting('paperSize', 'letter')}
+              className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded transition cursor-pointer ${
+                paperSize === 'letter'
+                  ? 'bg-volt text-black shadow-xs'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+              title="US Letter (8.5in x 11in)"
+            >
+              Letter
+            </button>
+          </div>
 
           {/* 1-Page Height Sentinel Badge */}
           <div className="flex items-center gap-1.5">
@@ -154,55 +204,92 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             <Printer className="w-3.5 h-3.5" />
           </button>
 
-          <div className="flex items-center gap-1.5 bg-surface p-1 rounded border border-charcoal">
+          {/* Zoom and Fit View Controls */}
+          <div className="flex items-center gap-1 bg-surface p-1 rounded border border-charcoal">
             <button
               type="button"
-              onClick={() => setZoom(Math.max(60, zoom - 10))}
+              onClick={() => {
+                setZoomMode('fit');
+                updateFitZoom();
+              }}
+              className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase transition cursor-pointer ${
+                zoomMode === 'fit' ? 'bg-volt text-black' : 'text-neutral-400 hover:text-white'
+              }`}
+              title="Fit entire 1-page sheet to screen with zero scrolling"
+            >
+              Fit
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setZoomMode('manual');
+                setZoom(100);
+              }}
+              className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase transition cursor-pointer ${
+                zoomMode === 'manual' && zoom === 100 ? 'bg-volt text-black' : 'text-neutral-400 hover:text-white'
+              }`}
+              title="Actual 100% Print Size"
+            >
+              100%
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setZoomMode('manual');
+                setZoom(Math.max(40, effectiveZoom - 10));
+              }}
               className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
               title="Zoom Out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
-            <span className="text-[11px] font-mono px-1.5 text-neutral-300 min-w-[36px] text-center">
-              {zoom}%
+            <span className="text-[11px] font-mono px-1 text-neutral-300 min-w-[34px] text-center">
+              {Math.round(effectiveZoom)}%
             </span>
             <button
               type="button"
-              onClick={() => setZoom(Math.min(130, zoom + 10))}
+              onClick={() => {
+                setZoomMode('manual');
+                setZoom(Math.min(140, effectiveZoom + 10));
+              }}
               className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
               title="Zoom In"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
-            <button
-              type="button"
-              onClick={() => setZoom(100)}
-              className="p-1 rounded hover:bg-surface-elevated text-neutral-400 hover:text-volt transition cursor-pointer"
-              title="Reset to 100%"
-            >
-              <Maximize2 className="w-3.5 h-3.5" />
-            </button>
           </div>
         </div>
       </div>
 
-      {/* ── Scrollable Document Sheet ── */}
-      <div className="flex-1 overflow-auto p-4 sm:p-8 flex justify-center items-start bg-black">
+      {/* ── Fixed-Dimension Paper Sheet Canvas ── */}
+      <div
+        ref={containerRef}
+        className="flex-1 overflow-auto p-3 sm:p-6 flex justify-center items-start bg-black/95 select-none"
+      >
         <div
-          id="printable-resume"
           style={{
-            transform: `scale(${zoom / 100})`,
-            transformOrigin: 'top center',
-            width: pageWidth,
-            minHeight: pageHeight,
-            maxHeight: heightReport.densityStatus === 'page_overflow' ? undefined : pageHeight,
+            width: `calc(${pageWidth} * ${effectiveZoom / 100})`,
+            height: `calc(${pageHeight} * ${effectiveZoom / 100})`,
+            overflow: 'hidden',
           }}
-          className={`bg-white text-slate-900 shadow-2xl rounded-xs border border-slate-300/80 transition-all duration-150 relative ${
-            marginPaddings[settings.margins]
-          } ${fontSizes[settings.fontSize]} ${
-            template === 'classic' ? 'font-serif' : 'font-sans'
-          }`}
+          className="shrink-0 shadow-2xl rounded-xs transition-all duration-150 relative bg-white border border-slate-400/50"
         >
+          <div
+            id="printable-resume"
+            style={{
+              width: pageWidth,
+              height: pageHeight,
+              maxHeight: pageHeight,
+              transform: `scale(${effectiveZoom / 100})`,
+              transformOrigin: 'top left',
+              overflow: 'hidden',
+            }}
+            className={`bg-white text-slate-900 border border-slate-300/80 transition-all duration-150 select-text ${
+              marginPaddings[settings.margins]
+            } ${fontSizes[settings.fontSize]} ${
+              template === 'classic' ? 'font-serif' : 'font-sans'
+            }`}
+          >
           {/* Candidate Header */}
           <header className={`mb-2.5 ${template === 'modern' ? 'border-b-2 border-slate-900 pb-2' : 'text-center border-b border-slate-300 pb-1.5'}`}>
             <h1 className={`text-xl sm:text-2xl font-black tracking-tight uppercase ${template === 'modern' ? 'text-slate-950' : 'text-black'}`}>
@@ -312,5 +399,6 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

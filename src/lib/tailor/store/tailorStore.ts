@@ -83,7 +83,7 @@ function createDefaultProject(): TailoringProject {
     sections: initialSections,
     layoutSettings: {
       template: 'modern',
-      paperSize: 'letter',
+      paperSize: 'a4',
       fontSize: 'standard',
       margins: 'standard',
       lineSpacing: 'standard',
@@ -299,7 +299,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
       sections,
       layoutSettings: {
         template: isSecurity ? 'executive' : 'compact',
-        paperSize: 'letter',
+        paperSize: 'a4',
         fontSize: 'standard',
         margins: 'standard',
         lineSpacing: 'standard',
@@ -360,7 +360,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
         sections,
         layoutSettings: state.activeProject.tailoredResume?.layoutSettings || {
           template: 'modern',
-          paperSize: 'letter',
+          paperSize: 'a4',
           fontSize: 'standard',
           margins: 'standard',
           lineSpacing: 'standard',
@@ -467,7 +467,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
         version: 1,
         layoutSettings: {
           template: 'modern',
-          paperSize: 'letter',
+          paperSize: 'a4',
           fontSize: 'standard',
           margins: 'standard',
           lineSpacing: 'standard',
