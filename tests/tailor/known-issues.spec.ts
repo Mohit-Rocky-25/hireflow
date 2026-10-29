@@ -13,6 +13,7 @@ import path from 'path';
 import { elevateBulletPoint, elevateResumeToBestStandard } from '../../src/lib/tailor/engine/makeItBetterEngine';
 import { verifyFactualIntegrity } from '../../src/lib/tailor/engine/truthGate';
 import { evaluateTruthGate } from '../../src/engine/tailor/truthGate';
+import { sanitizeForPdf } from '../../src/lib/tailor/export/pdfExporter';
 import { runPreExportFormattingChecks } from '../../src/lib/tailor/export/formattingChecker';
 import { evaluateLayoutHeight } from '../../src/lib/tailor/export/layoutSentinel';
 import { extractMetricsFromText } from '../../src/lib/tailor/ledger/factLedger';
@@ -182,9 +183,8 @@ describe('HireFlow Rebuild — Known Issues Register (Observable Failures)', () 
     const textWithAccents = 'Chloé Lefèvre';
     const textWithIndic = 'ಅಮಿತ್ ಕುಮಾರ್';
 
-    const sanitizeRegex = /[^\x00-\x7F]/g;
-    const strippedAccents = textWithAccents.replace(sanitizeRegex, ' ');
-    const strippedIndic = textWithIndic.replace(sanitizeRegex, ' ');
+    const strippedAccents = sanitizeForPdf(textWithAccents);
+    const strippedIndic = sanitizeForPdf(textWithIndic);
 
     // Desired: Characters must NOT be stripped to spaces
     expect(strippedAccents).not.toContain('Chlo ');

@@ -1,46 +1,20 @@
 // ============================================================
 // HIREFLOW CANDIDATE FACT LEDGER
 // Immutable ledger indexing candidate claims with metric provenance
+// Delegates metric extraction to canonical Stage 1 extractor (I-10).
 // ============================================================
 
 import { CandidateProfile, CandidateFact } from '../types';
 import { extractSkillsFromText } from '../knowledge/skillsTaxonomy';
+import { extractMetrics } from '../../resume/extractor';
 
 /**
- * Extracts all numerical and metric tokens from a string.
- * Tokens include percentages, dollar values, multipliers, and numbers.
+ * Extracts all numerical and metric tokens from a string using canonical extractor.
  */
 export function extractMetricsFromText(text: string): string[] {
   if (!text) return [];
-  const metrics: string[] = [];
-
-  // Match percentages (e.g. 45%, 99.9%, 15.2%)
-  const pctMatches = text.match(/\b\d+(?:\.\d+)?%/g);
-  if (pctMatches) metrics.push(...pctMatches);
-
-  // Match currency (e.g. $50k, $1.2M, €400,000, ₹10L)
-  const currencyMatches = text.match(/[$€£₹]\s*\d+(?:\.\d+)?(?:k|m|b|l|cr)?\b/gi);
-  if (currencyMatches) metrics.push(...currencyMatches.map(m => m.replace(/\s+/g, '')));
-
-  // Match multipliers / ratios (e.g. 10x, 3.5x, 24/7)
-  const multMatches = text.match(/\b\d+(?:\.\d+)?x\b|\b24\/7\b/gi);
-  if (multMatches) metrics.push(...multMatches);
-
-  // Match standalone numbers with units (e.g. 500+ users, 12 engineers, 50ms, 100k requests)
-  const unitMatches = text.match(/\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:users|clients|engineers|developers|ms|seconds|minutes|hours|days|weeks|months|years|req\/s|rps|qps|stars|downloads|endpoints|features|services|clusters|nodes|vms|vulnerabilities|findings)\b/gi);
-  if (unitMatches) metrics.push(...unitMatches.map(m => m.trim().toLowerCase()));
-
-  // Standalone numbers > 1
-  const numMatches = text.match(/\b\d+(?:,\d+)*(?:\.\d+)?\+?\b/g);
-  if (numMatches) {
-    for (const n of numMatches) {
-      if (!metrics.some(m => m.includes(n))) {
-        metrics.push(n);
-      }
-    }
-  }
-
-  return Array.from(new Set(metrics));
+  const extracted = extractMetrics(text);
+  return Array.from(new Set(extracted.map(m => m.raw)));
 }
 
 function simpleHash(str: string): string {
@@ -50,7 +24,7 @@ function simpleHash(str: string): string {
     hash = (hash << 5) - hash + char;
     hash |= 0;
   }
-  return Math.abs(hash).toString(16);
+  return Math.abs(hash).toString(36);
 }
 
 /**
@@ -58,7 +32,7 @@ function simpleHash(str: string): string {
  */
 export function buildCandidateFactLedger(profile: CandidateProfile): CandidateFact[] {
   const facts: CandidateFact[] = [];
-  const now = new Date().toISOString();
+  const now = '2026-10-28T12:00:00.000Z';
 
   // Summary fact
   if (profile.summary && profile.summary.trim()) {

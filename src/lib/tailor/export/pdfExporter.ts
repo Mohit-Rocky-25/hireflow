@@ -1,3 +1,4 @@
+import { sanitizeTextForPdf } from '../../resume/layout/unicode';
 // ============================================================
 // HIREFLOW PDF & MULTI-FORMAT RESUME EXPORTER
 // Client-side pixel-perfect vector PDF generation using pdf-lib,
@@ -51,7 +52,8 @@ function wrapText(
 /**
  * Strips non-standard characters from text to prevent PDF encoding failures with Standard 14 fonts
  */
-function sanitizeForPdf(text: string): string {
+export function sanitizeForPdf(text: string): string {
+  return sanitizeTextForPdf(text);
   if (!text) return '';
   return text
     .replace(/[\u2018\u2019]/g, "'")
