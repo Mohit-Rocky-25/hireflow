@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-10-30T02:52:00.000Z",
+  "catalog": {
+    "totalTemplates": 50,
+    "channelCounts": {
+      "linkedin_connect": 5,
+      "linkedin_inmail": 3,
+      "cold_email": 19,
+      "direct_message": 9,
+      "reply": 14
+    },
+    "groupCounts": {
+      "first-touch-recruiters": 4,
+      "first-touch-engineers": 4,
+      "alumni-mutual-warm": 4,
+      "follow-ups": 3,
+      "startup-founder-direct": 5,
+      "campus-fresher-programs": 5,
+      "open-source-portfolio": 4,
+      "events-community": 4,
+      "referral-engine": 4,
+      "interview-lifecycle": 5,
+      "informational-chats": 4,
+      "re-engagement-replies": 4
+    }
+  },
+  "simulation": {
+    "candidateProfilesTested": 30,
+    "totalGeneratedOutputs": 1500,
+    "leftoverBraces": {
+      "count": 720,
+      "rate": "48.0%"
+    },
+    "awkwardArticles": {
+      "count": 16,
+      "rate": "1.07%"
+    },
+    "linkedinConnectFreeLimit200": {
+      "totalRuns": 150,
+      "exceedsCount": 143,
+      "exceedsRate": "95.33%"
+    },
+    "linkedinConnectPremiumLimit300": {
+      "totalRuns": 150,
+      "exceedsCount": 4,
+      "exceedsRate": "2.67%"
+    },
+    "coldEmailWordCounts": {
+      "averageWords": 94,
+      "minWords": 32,
+      "maxWords": 142
+    }
+  },
+  "audit": {
+    "totalAudited": 50,
+    "genericOpenerCount": 6,
+    "bannedClaimOccurrences": 4,
+    "coldReferralViolations": 2,
+    "templatesRequiringRewrite": 50,
+    "templatesRetainedVerbatim": 0
+  }
+}

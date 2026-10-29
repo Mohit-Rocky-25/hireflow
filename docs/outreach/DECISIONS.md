@@ -1,0 +1,14 @@
+# Reach Out Rebuild — Architecture Decisions Ledger
+
+| ID | Decision | Reason | Alternative Rejected |
+|---|---|---|---|
+| D-01 | Trust the actual code over documentation brief where discrepancies occur (50 templates vs 15; scenario groups vs modes). | Default X1: The codebase represents running production behavior; docs reflect earlier design iteration. | Rewinding the codebase to 15 templates and throwing away working code. |
+| D-02 | Retain all existing template IDs (e.g. `recruiter-direct-note`) across the v2 schema migration. | Default X2: Ensures backward compatibility and bookmarks/saved drafts don't break. | Renaming template IDs to match new matrix coordinates. |
+| D-03 | Normalize slot names in engine while maintaining alias support for snake_case and camelCase. | Default X3: Avoids breaking legacy saved drafts while providing clean TypeScript types. | Forcing a breaking key rename without alias fallback. |
+| D-04 | Add at most 2 new slots (`followUpNewInfo`, `daysSince`) for follow-up chaining. | Default X4 & Rule D2: Needed to support honest follow-up logic without slot bloat. | Adding dozens of one-off slots for specific scenarios. |
+| D-05 | Preserve existing tab structure (All Channels, LinkedIn Connect, LinkedIn InMail, Cold Email, Warm Referral, Follow-Up) with subtitle guidance for InMail. | Default X5 & Rule D3: Keeps established navigation intact while filtering by recipient and relationship. | Introducing separate tabs for every scenario group. |
+| D-06 | Implement pure TypeScript algorithms for all linguistic, formatting, and matching requirements without adding external runtime dependencies. | Default X6 & Rule H5: 100% client-side zero-egress architecture. | Installing heavy NLP or template libraries. |
+| D-07 | Adopt LinkedIn Free limit = 200 chars and Premium limit = 300 chars with persistent user toggle and clear platform verification notes. | Default X7 & Evidence E1: Prevents 95% of users from encountering rejected invitations on LinkedIn. | Continuing to assume 300 characters for all users. |
+| D-08 | Transition from legacy keyword "spam filter" to message-quality checker with BLOCK/WARN severities. | Evidence E4 & Rule D4: Modern email delivery relies on reputation; word-level triggers are mostly myths. | Retaining simplistic spam word blacklist. |
+| D-09 | Enforce referral etiquette: block referral asks in cold first touches; require warm or post-accept relationship. | Evidence E5 & Rule D6: Asking strangers for referrals produces low response and damages professional reputation. | Allowing aggressive cold referral requests. |
+| D-10 | Require `followUpNewInfo` for follow-up templates; block generic bump/check-in messages. | Evidence E6 & Rule D4: Follow-ups that merely "bump" clutter inboxes without adding value. | Permitting zero-substance reminder nudges. |
