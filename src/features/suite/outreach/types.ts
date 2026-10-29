@@ -122,6 +122,9 @@ export interface OutreachSlotsV2 {
   your_name?: string;
   candidate_email?: string;
   your_email?: string;
+  github?: string;
+  what_changed?: string;
+  days_since_last_contact?: number | string;
   [key: string]: unknown;
 }
 
