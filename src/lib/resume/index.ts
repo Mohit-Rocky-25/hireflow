@@ -7,3 +7,4 @@ export * from './migration';
 export * from './ingest';
 export * from './confirm';
 export * from './planner';
+export * from './composer';
