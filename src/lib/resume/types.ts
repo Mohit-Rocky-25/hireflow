@@ -207,6 +207,8 @@ export interface ResumeDocumentTree {
   updatedAt: string;
 }
 
+export type ResumeSection = ResumeDocumentTree['sections'][number];
+
 // ============================================================
 // HAND-WRITTEN DETERMINISTIC VALIDATORS (ZERO NEW DEPENDENCY)
 // ============================================================

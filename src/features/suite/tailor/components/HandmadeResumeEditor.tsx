@@ -56,6 +56,15 @@ import {
   CandidateProfileSection,
 } from './sections';
 import { CompanyLogo } from '../../../../components/common/CompanyLogo';
+import { TwoReadoutsStrip } from './TwoReadoutsStrip';
+import { SectionSequenceDrawer } from './SectionSequenceDrawer';
+import {
+  computeProjectWorkspaceReadouts,
+  saveSequencePreference,
+  loadSavedSequencePreference,
+  clearSavedSequencePreference,
+  SectionType,
+} from '../../../../lib/resume';
 
 type SubsectionFilterTab = 'all' | 'experience' | 'projects' | 'skills' | 'education' | 'summary' | 'requirements' | 'profile';
 
@@ -97,6 +106,12 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
   const [addedBulletMap, setAddedBulletMap] = useState<Record<string, boolean>>({});
   const [newSkillInput, setNewSkillInput] = useState<Record<string, string>>({});
   const [fitToast, setFitToast] = useState(false);
+  const [sequenceDrawerOpen, setSequenceDrawerOpen] = useState(false);
+  const [savedOverride, setSavedOverride] = useState<SectionType[] | undefined>(
+    () => loadSavedSequencePreference() || undefined
+  );
+
+
 
   useEffect(() => {
     if (initialFocus) {
@@ -111,6 +126,45 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
       </div>
     );
   }
+
+  const readouts = useMemo(() => {
+    return computeProjectWorkspaceReadouts({
+      candidate: {
+        fullName: candidate.fullName,
+        email: candidate.contact.email,
+        phone: candidate.contact.phone,
+        location: candidate.contact.location,
+        yearsExperience: candidate.experience.length,
+        archetype: candidate.archetype,
+      },
+      job: {
+        title: job.title,
+        company: job.company,
+        requirements: job.requirements.map((r) => ({ text: r.text, priority: r.priority })),
+      },
+      sections: resume.sections.map((s) => ({
+        type: s.type,
+        title: s.title,
+        visible: s.visible,
+        content: s.content,
+      })),
+      userOverride: savedOverride,
+    });
+  }, [candidate, job, resume.sections, savedOverride]);
+
+  const currentSectionTypes = useMemo(() => {
+    return resume.sections.map((s) => s.type as SectionType);
+  }, [resume.sections]);
+
+  const handleSaveSequencePreference = () => {
+    saveSequencePreference(currentSectionTypes);
+    setSavedOverride(currentSectionTypes);
+  };
+
+  const handleResetToRecommended = () => {
+    clearSavedSequencePreference();
+    setSavedOverride(undefined);
+  };
 
   // Pre-calculate counts for pill badges
   const expSection = resume.sections.find((s) => s.type === 'experience');
@@ -264,38 +318,11 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
           </button>
         </div>
 
-        {/* Target Alignment Metrics Strip (3 Mini Cards) */}
-        <div className="grid grid-cols-3 gap-3 text-center">
-          <div className="bg-black rounded-lg p-3 border border-charcoal">
-            <div className="text-base sm:text-lg font-mono font-black text-volt">
-              {mandatoryMatchedCount} / {mandatoryReqs.length}
-            </div>
-            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Mandatory Criteria</div>
-            <div className="text-xs font-mono font-bold text-white mt-0.5">
-              {Math.round((mandatoryMatchedCount / Math.max(1, mandatoryReqs.length)) * 100)}% Match
-            </div>
-          </div>
-
-          <div className="bg-black rounded-lg p-3 border border-charcoal">
-            <div className="text-base sm:text-lg font-mono font-black text-volt">
-              {resume.pageCount || 1} Page
-            </div>
-            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Length Status</div>
-            <div className="text-xs font-mono font-bold text-volt mt-0.5">
-              1-Page Sentinel Active
-            </div>
-          </div>
-
-          <div className="bg-black rounded-lg p-3 border border-charcoal">
-            <div className="text-base sm:text-lg font-mono font-black text-white">
-              100%
-            </div>
-            <div className="text-xs text-neutral-300 font-mono font-bold uppercase tracking-wider mt-1">Truth Gate</div>
-            <div className="text-xs font-mono font-bold text-volt mt-0.5 flex items-center justify-center gap-1">
-              <span>Zero-Hallucination</span>
-            </div>
-          </div>
-        </div>
+        {/* P8: Two Readouts Strip (JD Coverage % + Quality Checklist) */}
+        <TwoReadoutsStrip
+          readouts={readouts}
+          onOpenSequenceDrawer={() => setSequenceDrawerOpen(true)}
+        />
 
         {/* Template Style Switcher */}
         <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
@@ -567,6 +594,20 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
           updateCandidateContact={updateCandidateContact}
         />
       )}
+
+      {/* P7: Section Sequence Explainability & Control Drawer */}
+      <SectionSequenceDrawer
+        isOpen={sequenceDrawerOpen}
+        onClose={() => setSequenceDrawerOpen(false)}
+        recommendedOrder={readouts.recommendedOrder}
+        currentOrder={currentSectionTypes}
+        reasons={readouts.reasons}
+        reasonsBySection={readouts.reasonsBySection}
+        isUserOverride={readouts.isUserOverride}
+        onReorder={reorderSections}
+        onSavePreference={handleSaveSequencePreference}
+        onResetToRecommended={handleResetToRecommended}
+      />
     </div>
   );
 }

@@ -225,7 +225,7 @@ export function evaluateResumeTruthGate(
   // Readout 1: Deterministic JD Coverage Percentage
   // -----------------------------------------------------------
   let jdCoveragePct = 100;
-  if (target && target.requirements.length > 0) {
+  if (target && Array.isArray(target.requirements) && target.requirements.length > 0) {
     const renderableFacts = ledger.renderableFacts();
     const candidateSkills = new Set<string>();
     for (const f of renderableFacts) {
