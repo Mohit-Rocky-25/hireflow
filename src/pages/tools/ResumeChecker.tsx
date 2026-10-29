@@ -52,6 +52,7 @@ import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
 import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/ats/components/ConfirmRequirementsModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { JobRoleProjectBridge } from '../../features/suite/briefs/components/JobRoleProjectBridge';
+import { ResumePreviewModal } from '../../components/common/ResumePreviewModal';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
@@ -530,6 +531,13 @@ export function ResumeChecker() {
               />
             )}
 
+            {/* Scanned Resume Content Preview Banner */}
+            <ResumePreviewModal
+              resumeText={resumeText}
+              fileName={resumeFileName}
+              showSnippetBanner={true}
+            />
+
             {/* Top Re-Scan Action Bar with Mode Switcher */}
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg bg-near-black border border-charcoal shadow-level-1 print:hidden">
               <div className="flex items-center gap-3 min-w-0 text-sm">
@@ -594,6 +602,13 @@ export function ResumeChecker() {
                 >
                   <Search className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Confirm Requirements
                 </button>
+
+                <ResumePreviewModal
+                  resumeText={resumeText}
+                  fileName={resumeFileName}
+                  triggerButtonText="Inspect Scanned Resume"
+                  triggerClassName="px-3.5 py-2 bg-near-black hover:bg-hover-gray border border-charcoal hover:border-volt text-xs font-bold uppercase tracking-[1px] rounded text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+                />
 
                 <button
                   type="button"

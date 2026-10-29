@@ -4,6 +4,7 @@
 // ============================================================
 
 import React, { useState, useRef } from 'react';
+import { ResumePreviewModal } from '../../../components/common/ResumePreviewModal';
 import {
   Upload,
   FileText,
@@ -441,6 +442,14 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
                     </div>
                   )}
                 </div>
+
+                {/* Full Extracted Plain English Modal Trigger */}
+                <ResumePreviewModal
+                  resumeText={text}
+                  fileName={fileName}
+                  triggerButtonText="Inspect Full Extracted Text (Pure English)"
+                  triggerClassName="w-full mt-2 py-2 px-3 rounded bg-black hover:bg-near-black border border-charcoal hover:border-volt text-volt text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer uppercase tracking-wider"
+                />
               </div>
 
               {/* Action Buttons */}

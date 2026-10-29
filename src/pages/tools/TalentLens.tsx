@@ -24,6 +24,7 @@ import { HonestyExplainerModal } from '../../components/common/HonestyExplainerM
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
 import { JobRoleProjectBridge } from '../../features/suite/briefs/components/JobRoleProjectBridge';
+import { ResumePreviewModal } from '../../components/common/ResumePreviewModal';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ReportErrorModal } from '../../components/common/ReportErrorModal';
@@ -283,6 +284,15 @@ export function TalentLens() {
     }));
   }, [match?.requirementAssessments]);
 
+  
+  const activeResumeText = useMemo(() => {
+    return profile?.resumeRawText || DEMO_TALENTLENS_RESUME.text;
+  }, [profile?.resumeRawText]);
+
+  const activeResumeFileName = useMemo(() => {
+    return profile?.headline ? `${candidate?.displayName || 'Candidate'} - Resume` : DEMO_TALENTLENS_RESUME.fileName;
+  }, [profile?.headline, candidate?.displayName]);
+
   const selectedJob = jobs.find(j => j.id === selectedJobId);
 
   return (
@@ -327,6 +337,11 @@ export function TalentLens() {
         <div className="flex items-center gap-3 flex-wrap">
           <HonestyExplainerModal tool="talentlens" />
           <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <ResumePreviewModal
+            resumeText={activeResumeText}
+            fileName={activeResumeFileName}
+            triggerButtonText="Preview Candidate Resume"
+          />
           {/* Job selector */}
           <select
             value={selectedJobId}
@@ -412,6 +427,13 @@ export function TalentLens() {
 
           {showFullTalentLensReport && (
             <>
+              {/* Evaluated Resume Content Preview Banner */}
+              <ResumePreviewModal
+                resumeText={activeResumeText}
+                fileName={activeResumeFileName}
+                showSnippetBanner={true}
+              />
+
               {/* Stale Version Notification (Task 5.4) */}
               <StaleVersionBanner
                 storedSpecVersion={(match as any).specVersion}
