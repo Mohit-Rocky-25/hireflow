@@ -216,6 +216,11 @@ export function parseResumeRawText(rawText: string, fileName?: string): Candidat
       const cleanLine = line.replace(/^[•\-*\d.]\s*/, '').trim();
 
       if (!isBullet) {
+        if (/\b(?:20\d{2}|19\d{2}|present|current)\b/i.test(line)) {
+          currentDates = line;
+          continue;
+        }
+
         if (line.includes('|') || line.includes(' - ') || /^(?:software|frontend|backend|full\s*stack|security|data|intern|engineer|developer|lead)/i.test(line)) {
           if (currentCompany || currentRole) {
             experience.push({
@@ -243,11 +248,6 @@ export function parseResumeRawText(rawText: string, fileName?: string): Candidat
           } else {
             currentRole = line;
           }
-          continue;
-        }
-
-        if (/\b(?:20\d{2}|present|current)\b/i.test(line)) {
-          currentDates = line;
           continue;
         }
       }

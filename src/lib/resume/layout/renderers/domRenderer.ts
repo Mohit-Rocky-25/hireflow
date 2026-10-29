@@ -41,3 +41,4 @@ export function renderPageToSvgString(page: LayoutPage): string {
 export function renderLayoutToSvgPages(layout: LayoutDocument): string[] {
   return layout.pages.map(renderPageToSvgString);
 }
+

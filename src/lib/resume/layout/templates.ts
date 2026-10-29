@@ -114,3 +114,4 @@ export const TEMPLATE_SPECS: Record<ResumeTemplateId, TemplateStyleSpec> = {
     isCompactTable: false,
   },
 };
+

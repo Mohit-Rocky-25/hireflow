@@ -54,12 +54,41 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
   };
 
   const marginPaddings: Record<'tight' | 'standard' | 'relaxed', string> = {
-    tight: 'p-7 sm:p-9',
-    standard: 'p-9 sm:p-11',
-    relaxed: 'p-11 sm:p-13'
+    tight: 'p-6 sm:p-7',
+    standard: 'p-8 sm:p-9',
+    relaxed: 'p-10 sm:p-11'
+  };
+
+  const lineSpacings: Record<'dense' | 'standard' | 'loose', {
+    sectionGap: string;
+    entryGap: string;
+    bulletGap: string;
+    leading: string;
+  }> = {
+    dense: {
+      sectionGap: 'space-y-1.5',
+      entryGap: 'space-y-1',
+      bulletGap: 'space-y-0.5',
+      leading: 'leading-tight'
+    },
+    standard: {
+      sectionGap: 'space-y-2.5',
+      entryGap: 'space-y-1.5',
+      bulletGap: 'space-y-1',
+      leading: 'leading-snug'
+    },
+    loose: {
+      sectionGap: 'space-y-3.5',
+      entryGap: 'space-y-2',
+      bulletGap: 'space-y-1.5',
+      leading: 'leading-relaxed'
+    }
   };
 
   const template = settings.template;
+  const currentSpacing = lineSpacings[settings.lineSpacing || 'standard'];
+  const pageWidth = settings.paperSize === 'letter' ? '8.5in' : '210mm';
+  const pageHeight = settings.paperSize === 'letter' ? '11in' : '297mm';
 
   return (
     <div className={`flex flex-col h-full bg-surface border border-charcoal rounded overflow-hidden shadow-2xl ${className}`}>
@@ -164,17 +193,18 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
           style={{
             transform: `scale(${zoom / 100})`,
             transformOrigin: 'top center',
-            width: settings.paperSize === 'letter' ? '8.5in' : '210mm',
-            minHeight: settings.paperSize === 'letter' ? '11in' : '297mm'
+            width: pageWidth,
+            minHeight: pageHeight,
+            maxHeight: heightReport.densityStatus === 'page_overflow' ? undefined : pageHeight,
           }}
-          className={`bg-white text-slate-900 shadow-2xl rounded-xs border border-slate-300/80 transition-transform duration-100 ${
+          className={`bg-white text-slate-900 shadow-2xl rounded-xs border border-slate-300/80 transition-all duration-150 relative ${
             marginPaddings[settings.margins]
           } ${fontSizes[settings.fontSize]} ${
             template === 'classic' ? 'font-serif' : 'font-sans'
           }`}
         >
           {/* Candidate Header */}
-          <header className={`mb-3.5 ${template === 'modern' ? 'border-b-2 border-slate-900 pb-2.5' : 'text-center border-b border-slate-300 pb-2'}`}>
+          <header className={`mb-2.5 ${template === 'modern' ? 'border-b-2 border-slate-900 pb-2' : 'text-center border-b border-slate-300 pb-1.5'}`}>
             <h1 className={`text-xl sm:text-2xl font-black tracking-tight uppercase ${template === 'modern' ? 'text-slate-950' : 'text-black'}`}>
               {candidate.fullName || 'Candidate Name'}
             </h1>
@@ -189,13 +219,13 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             </div>
           </header>
 
-          {/* Sections with Bold Subheadings */}
-          <div className="space-y-3">
+          {/* Sections with Dynamic Layout Density */}
+          <div className={currentSpacing.sectionGap}>
             {resume.sections.map((section: TailoredSection) => {
               if (!section.visible) return null;
 
               return (
-                <section key={section.id} className="space-y-1">
+                <section key={section.id} className="space-y-0.5">
                   {/* Bold Subheading */}
                   <h2
                     className={`font-black tracking-wider uppercase border-b pb-0.5 text-[9pt] ${
@@ -211,14 +241,14 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
 
                   {/* Professional Summary */}
                   {section.content.summaryText && (
-                    <p className="text-slate-800 leading-relaxed text-[8.5pt] pt-0.5">
+                    <p className={`text-slate-800 ${currentSpacing.leading} text-[8.5pt] pt-0.5`}>
                       {section.content.summaryText}
                     </p>
                   )}
 
                   {/* Skills Section */}
                   {section.content.skillsByCategory && (
-                    <div className="space-y-0.5 text-[8.5pt] pt-0.5">
+                    <div className={`space-y-0.5 text-[8.5pt] pt-0.5 ${currentSpacing.leading}`}>
                       {Object.entries(section.content.skillsByCategory).map(([cat, rawSkills]) => {
                         const skills = rawSkills as string[];
                         if (!skills || skills.length === 0) return null;
@@ -234,7 +264,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
 
                   {/* Experience, Education & Projects */}
                   {section.content.entries && (
-                    <div className="space-y-2 pt-0.5">
+                    <div className={`${currentSpacing.entryGap} pt-0.5`}>
                       {section.content.entries.map((entry) => (
                         <div key={entry.id} className="space-y-0.5">
                           {/* Title & Organization Header */}
@@ -254,7 +284,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
 
                           {/* Bullets with Google XYZ Action Statements */}
                           {entry.bullets && entry.bullets.length > 0 && (
-                            <ul className="list-disc list-outside ml-4 space-y-0.5 text-[8.5pt] text-slate-800 leading-snug">
+                            <ul className={`list-disc list-outside ml-4 ${currentSpacing.bulletGap} text-[8.5pt] text-slate-800 ${currentSpacing.leading}`}>
                               {entry.bullets.map((b) => (
                                 <li key={b.id} className="pl-0.5">
                                   {b.text}
@@ -270,6 +300,15 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
               );
             })}
           </div>
+
+          {/* Visible Page Break / Spill Boundary Sentinel */}
+          {heightReport.hasSpillRisk && (
+            <div className="mt-4 pt-2 border-t-2 border-dashed border-amber-500/80 text-center select-none print:hidden">
+              <span className="inline-block bg-amber-950 text-amber-300 border border-amber-500/60 px-3 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold shadow-md">
+                Page 1 Cutoff &bull; {heightReport.recommendations[0] || 'Content spills onto Page 2'}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

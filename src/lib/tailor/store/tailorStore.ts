@@ -122,7 +122,7 @@ function createDefaultProject(): TailoringProject {
   };
 }
 
-function buildInitialTailoredSections(candidate: CandidateProfile): TailoredSection[] {
+export function buildInitialTailoredSections(candidate: CandidateProfile): TailoredSection[] {
   const sections: TailoredSection[] = [];
 
   // Summary
@@ -680,20 +680,50 @@ export const useTailorStore = create<TailorState>((set, get) => ({
   autoFitOnePage: () => {
     set((state) => {
       if (!state.activeProject.tailoredResume) return state;
+
+      const compactedSections = state.activeProject.tailoredResume.sections.map((section) => {
+        if (section.type === 'experience' || section.type === 'projects') {
+          return {
+            ...section,
+            content: {
+              ...section.content,
+              entries: (section.content.entries || []).map((entry) => ({
+                ...entry,
+                // Keep top 3 high-impact bullets per entry to guarantee 1-page fit
+                bullets: (entry.bullets || []).slice(0, 3),
+              })),
+            },
+          };
+        }
+        if (section.type === 'summary' && section.content.summaryText) {
+          const sentences = section.content.summaryText.split(/(?<=[.!?])\s+/);
+          const trimmedSummary = sentences.slice(0, 2).join(' ');
+          return {
+            ...section,
+            content: {
+              ...section.content,
+              summaryText: trimmedSummary,
+            },
+          };
+        }
+        return section;
+      });
+
       return {
         activeProject: {
           ...state.activeProject,
           tailoredResume: {
             ...state.activeProject.tailoredResume,
+            sections: compactedSections,
             layoutSettings: {
               ...state.activeProject.tailoredResume.layoutSettings,
               fontSize: 'compact',
               margins: 'tight',
-              lineSpacing: 'dense'
+              lineSpacing: 'dense',
             },
-            updatedAt: new Date().toISOString()
-          }
-        }
+            updatedAt: new Date().toISOString(),
+          },
+        },
       };
     });
   },

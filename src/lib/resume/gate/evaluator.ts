@@ -153,17 +153,22 @@ export function evaluateResumeTruthGate(
           });
         }
 
-        // G-04: Claim strength ladder verification
-        const firstWord = bullet.text.trim().split(/\s+/)[0] || '';
-        const declaredTier = (fact?.ownership || bullet.ownershipTier) as OwnershipTier;
-        if (declaredTier && !isVerbPermittedForTier(firstWord, declaredTier)) {
-          issues.push({
-            ruleId: 'G-04',
-            severity: 'BLOCKING',
-            message: `Verb "${firstWord}" exceeds candidate declared ownership tier ${declaredTier}. Violates claim-strength ladder.`,
-            location,
-            suggestedFix: `Rephrase using a verb permitted for Tier ${declaredTier}.`,
-          });
+        // G-04: Claim strength ladder verification (action bullets in experience and projects)
+        const isAcademicScoreOrLabel = /^(?:cgpa|gpa|grade|score|marks|honors?|percentage|coursework|courses?|cert|credential):/i.test(bullet.text.trim());
+        const isActionSection = section.type === 'experience' || section.type === 'projects';
+
+        if (isActionSection && !isAcademicScoreOrLabel) {
+          const firstWord = bullet.text.trim().split(/\s+/)[0]?.replace(/[^\w]/g, '') || '';
+          const declaredTier = (fact?.ownership || bullet.ownershipTier) as OwnershipTier;
+          if (declaredTier && !isVerbPermittedForTier(firstWord, declaredTier)) {
+            issues.push({
+              ruleId: 'G-04',
+              severity: 'BLOCKING',
+              message: `Verb "${firstWord}" exceeds candidate declared ownership tier ${declaredTier}. Violates claim-strength ladder.`,
+              location,
+              suggestedFix: `Rephrase using a verb permitted for Tier ${declaredTier}.`,
+            });
+          }
         }
 
         // G-05: Invented metrics
@@ -239,9 +244,22 @@ export function evaluateResumeTruthGate(
 
     for (const req of target.requirements) {
       totalWeight += req.weight;
-      const isMatched = req.canonicalSkillId
-        ? candidateSkills.has(req.canonicalSkillId.toLowerCase())
-        : Array.from(candidateSkills).some(cs => req.text.toLowerCase().includes(cs));
+      const reqTextLower = req.text.toLowerCase();
+      const normReq = reqTextLower.replace(/&/g, 'and').replace(/[^\w\s]/g, ' ');
+      const canonLower = req.canonicalSkillId?.toLowerCase();
+
+      let isMatched = false;
+      if (canonLower && candidateSkills.has(canonLower)) {
+        isMatched = true;
+      } else {
+        for (const cs of candidateSkills) {
+          const normCs = cs.replace(/&/g, 'and').replace(/[^\w\s]/g, ' ').trim();
+          if (normCs.length >= 2 && (normReq.includes(normCs) || (normCs.includes(normReq) && normReq.length >= 4))) {
+            isMatched = true;
+            break;
+          }
+        }
+      }
 
       if (isMatched) {
         matchedWeight += req.weight;

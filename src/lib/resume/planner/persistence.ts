@@ -55,3 +55,4 @@ export function clearSavedSequencePreference(): void {
     console.warn('Failed to clear section sequence preference:', err);
   }
 }
+

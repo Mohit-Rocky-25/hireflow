@@ -68,3 +68,4 @@ export function renderTreeToMarkdown(tree: ResumeDocumentTree): string {
 
   return md.join('\n').trim();
 }
+

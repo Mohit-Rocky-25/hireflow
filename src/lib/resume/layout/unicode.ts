@@ -56,3 +56,4 @@ export function sanitizeTextForPdf(text: string): string {
 
   return result.replace(/\s+/g, ' ').trim();
 }
+

@@ -8,9 +8,9 @@
 import { OwnershipTier } from '../types';
 
 export const OWNERSHIP_VERB_LADDER: Record<OwnershipTier, string[]> = {
-  1: ['Supported', 'Assisted', 'Contributed to', 'Participated in', 'Shadowed', 'Aided', 'Cooperated in'],
-  2: ['Implemented', 'Developed', 'Built', 'Programmed', 'Wrote', 'Refactored', 'Tested', 'Debugged', 'Maintained'],
-  3: ['Engineered', 'Architected', 'Designed', 'Shipped', 'Delivered', 'Deployed', 'Automated', 'Integrated', 'Scaled', 'Optimized'],
+  1: ['Supported', 'Assisted', 'Contributed to', 'Participated in', 'Shadowed', 'Aided', 'Cooperated in', 'Collaborated', 'Collaborated in', 'Partnered'],
+  2: ['Implemented', 'Developed', 'Built', 'Programmed', 'Wrote', 'Refactored', 'Tested', 'Debugged', 'Maintained', 'Configured', 'Resolved', 'Authored'],
+  3: ['Engineered', 'Architected', 'Designed', 'Shipped', 'Delivered', 'Deployed', 'Automated', 'Integrated', 'Scaled', 'Optimized', 'Constructed'],
   4: ['Led', 'Spearheaded', 'Coordinated', 'Managed', 'Guided', 'Directed', 'Mentored', 'Supervised'],
   5: ['Championed', 'Established', 'Founded', 'Pioneered', 'Defined', 'Overhauled', 'Formulated', 'Instituted']
 };

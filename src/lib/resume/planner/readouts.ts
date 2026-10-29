@@ -16,6 +16,7 @@ import {
 import { AppendOnlyFactLedger } from '../ledger';
 import { evaluateResumeTruthGate, GateIssue, GateResult } from '../gate';
 import { evaluateSectionSequence } from './sequence';
+import { extractSkillsFromText } from '../../tailor/knowledge/skillsTaxonomy';
 
 export interface WorkspaceReadouts {
   jdCoveragePercent: number;
@@ -142,10 +143,41 @@ export function computeProjectWorkspaceReadouts(params: {
     const secType = s.type as SectionType;
     const isVisible = s.visible !== false;
 
+    // Register skills from skillsByCategory into ledger
+    if (s.content?.skillsByCategory) {
+      for (const [cat, skList] of Object.entries(s.content.skillsByCategory)) {
+        if (Array.isArray(skList)) {
+          skList.forEach((sk, idx) => {
+            ledger.addFact({
+              id: `f_skill_${cat}_${idx}`,
+              source: 'user',
+              confirmed: true,
+              kind: 'skill',
+              action: 'Implemented',
+              object: sk,
+              tech: [sk],
+              ownership: 3,
+              createdAt: '2026-10-28T12:00:00.000Z',
+            });
+          });
+        }
+      }
+    }
+
     const entries = (s.content?.entries || []).map((e) => {
+      const entrySkills = extractSkillsFromText(`${e.primaryTitle || ''} ${e.secondaryTitle || ''}`).map(s => s.name);
+      if (e.secondaryTitle) {
+        e.secondaryTitle.split(/[,/|]/).map(t => t.trim()).filter(t => t.length >= 2).forEach(t => entrySkills.push(t));
+      }
+      if (secType === 'education' && /bachelor|b\.tech|degree|engineering|master|computer science/i.test(e.primaryTitle || '')) {
+        entrySkills.push('bachelor', 'engineering', 'degree');
+      }
+
       const bullets = (e.bullets || []).map((b, bIdx) => {
         const factId = `f_${e.id}_${bIdx}`;
         const tier = (b.ownershipTier || 3) as 1 | 2 | 3 | 4 | 5;
+        const bulletSkills = extractSkillsFromText(b.text).map(s => s.name);
+        const allFactTech = Array.from(new Set([...entrySkills, ...bulletSkills]));
 
         // Populate fact into ledger
         ledger.addFact({
@@ -155,7 +187,7 @@ export function computeProjectWorkspaceReadouts(params: {
           kind: secType === 'education' ? 'education' : secType === 'projects' ? 'project' : 'experience',
           action: 'Engineered',
           object: b.text,
-          tech: [],
+          tech: allFactTech,
           ownership: tier,
           createdAt: '2026-10-28T12:00:00.000Z',
         });

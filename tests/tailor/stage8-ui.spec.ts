@@ -229,4 +229,45 @@ describe('Stage 8 — Workspace UI, Sequence Controls & Readouts', () => {
     expect(readouts.effectiveOrder.length).toBeGreaterThan(0);
     expect(readouts.reasons.length).toBeGreaterThan(0);
   });
+
+  it('6. Fresher Demo Persona with Razorpay JD achieves >70% JD Coverage and 0 Blockers', async () => {
+    const { DEMO_FRESHER_RESUME, DEMO_SOFTWARE_ENGINEER_JD } = await import('../../src/lib/tailor/store/fixtures');
+    const { parseResumeRawText } = await import('../../src/lib/tailor/parser/resumeParser');
+    const { parseJobDescription } = await import('../../src/lib/tailor/parser/jobParser');
+    const { buildInitialTailoredSections } = await import('../../src/lib/tailor/store/tailorStore');
+
+    const candidate = parseResumeRawText(DEMO_FRESHER_RESUME, 'test.pdf');
+    const job = parseJobDescription(DEMO_SOFTWARE_ENGINEER_JD);
+    const initialSections = buildInitialTailoredSections(candidate);
+
+    const readouts = computeProjectWorkspaceReadouts({
+      candidate: {
+        fullName: candidate.fullName,
+        email: candidate.contact.email,
+        phone: candidate.contact.phone,
+        location: candidate.contact.location,
+        yearsExperience: candidate.experience.length,
+        archetype: candidate.archetype,
+      },
+      job: {
+        title: job.title,
+        company: job.company,
+        requirements: job.requirements.map(r => ({ text: r.text, priority: r.priority })),
+      },
+      sections: initialSections.map(s => ({
+        type: s.type,
+        title: s.title,
+        visible: s.visible,
+        content: s.content,
+      })),
+      asOf,
+    });
+
+    // Zero false blockers
+    expect(readouts.blockersCount).toBe(0);
+    expect(readouts.passedTruthGate).toBe(true);
+
+    // High JD coverage (>70%) since fresher matches TypeScript, React, Node, PostgreSQL, Git, DSA, Docker
+    expect(readouts.jdCoveragePercent).toBeGreaterThanOrEqual(70);
+  });
 });

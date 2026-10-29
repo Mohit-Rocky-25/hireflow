@@ -215,3 +215,4 @@ export async function renderTreeToDocxBytes(tree: ResumeDocumentTree): Promise<U
   const buffer = await Packer.toBuffer(doc);
   return new Uint8Array(buffer);
 }
+

@@ -25,35 +25,39 @@ export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelRepo
   // Distinguish Letter vs A4 paper capacity (I-05)
   const pageHeightPx = settings.paperSize === 'a4' ? A4_HEIGHT_PX : LETTER_HEIGHT_PX;
 
-  // Base margin heights
-  const marginPx = settings.margins === 'tight' ? 76 : settings.margins === 'relaxed' ? 124 : 96;
+  // Base margin heights (top + bottom padding in px)
+  const marginPx = settings.margins === 'tight' ? 56 : settings.margins === 'relaxed' ? 112 : 80;
   const usablePageHeight = pageHeightPx - marginPx;
 
-  let totalHeight = 90; // Header name and contact lines
+  // Typography and spacing scaling factors
+  const fontScale = settings.fontSize === 'compact' ? 0.90 : settings.fontSize === 'spacious' ? 1.15 : 1.0;
+  const lineScale = settings.lineSpacing === 'dense' ? 0.85 : settings.lineSpacing === 'loose' ? 1.20 : 1.0;
+
+  let totalHeight = Math.round(95 * fontScale); // Header name, contact, borders
 
   for (const section of resume.sections) {
     if (!section.visible) continue;
 
-    totalHeight += 40; // Section heading and border
+    totalHeight += Math.round(36 * fontScale * lineScale); // Section heading and border
 
     if (section.content.summaryText) {
       const words = section.content.summaryText.split(/\s+/).length;
-      totalHeight += Math.ceil(words / 14) * 22; // ~14 words per line
+      totalHeight += Math.round(Math.ceil(words / 14) * 19 * fontScale * lineScale);
     }
 
     if (section.content.skillsByCategory) {
       const catCount = Object.keys(section.content.skillsByCategory).length;
-      totalHeight += catCount * 24;
+      totalHeight += Math.round(catCount * 26 * fontScale * lineScale);
     }
 
     if (section.content.entries) {
       for (const entry of section.content.entries) {
-        totalHeight += 28; // Title, company, dates
-        if (entry.location) totalHeight += 18;
+        totalHeight += Math.round(26 * fontScale * lineScale); // Title, company, dates
+        if (entry.location) totalHeight += Math.round(14 * fontScale * lineScale);
         if (entry.bullets) {
           for (const b of entry.bullets) {
             const words = b.text.split(/\s+/).length;
-            totalHeight += Math.max(1, Math.ceil(words / 15)) * 18 + 4; // Bullet line + spacing
+            totalHeight += Math.round((Math.max(1, Math.ceil(words / 14)) * 18 + 3) * fontScale * lineScale);
           }
         }
       }
@@ -62,22 +66,21 @@ export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelRepo
 
   const estimatedPages = Math.max(1, Math.ceil(totalHeight / usablePageHeight));
   const overflowPx = Math.max(0, totalHeight - usablePageHeight);
-  const hasSpillRisk = overflowPx > 0 && overflowPx < 120; // 1-6 lines over
+  const hasSpillRisk = overflowPx > 0;
 
   let densityStatus: LayoutSentinelReport['densityStatus'] = 'optimal_single_page';
   const recommendations: string[] = [];
 
-  if (totalHeight <= usablePageHeight * 0.9) {
-    densityStatus = 'optimal_single_page';
-  } else if (totalHeight <= usablePageHeight) {
-    densityStatus = 'tight_fit';
-    recommendations.push('Layout is near single-page capacity; avoid adding additional lines.');
-  } else if (hasSpillRisk) {
-    densityStatus = 'page_overflow';
-    recommendations.push(`Content spills ${Math.ceil(overflowPx / 20)} line(s) onto page 2. Trim 1-2 lower-impact bullets to achieve clean 1-page presentation.`);
+  if (overflowPx === 0) {
+    if (totalHeight <= usablePageHeight * 0.88) {
+      densityStatus = 'optimal_single_page';
+    } else {
+      densityStatus = 'tight_fit';
+      recommendations.push('Layout is near single-page capacity; avoid adding additional lines.');
+    }
   } else {
-    densityStatus = 'multi_page_balanced';
-    recommendations.push('Multi-page format active. Ensure page 2 is at least 50% populated to avoid orphan visual imbalance.');
+    densityStatus = 'page_overflow';
+    recommendations.push(`Content spills ~${Math.ceil(overflowPx / 20)} line(s) onto page ${estimatedPages}. Click Auto-Fit 1P to compress layout.`);
   }
 
   return {
