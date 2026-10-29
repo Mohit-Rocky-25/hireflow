@@ -1,0 +1,3885 @@
+[
+  {
+    "id": "recruiter-direct-note",
+    "version": 2,
+    "channel": "linkedin_connect",
+    "tab": "linkedin_connect",
+    "name": "Recruiter Direct Note",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "primary_skill",
+      "proof_point",
+      "role"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Hi {{recipient_name}}, noticed your focus building {{company}}'s tech bench.",
+        "Hi {{recipient_name}}, saw your team is actively sourcing for {{role}} roles at {{company}}.",
+        "Hi {{recipient_name}}, came across your profile while tracking engineering hiring at {{company}}."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 180,
+      "warn": 195,
+      "hardMax": 200
+    },
+    "whenToUse": "When connecting with a tech recruiter who explicitly posts about engineering hiring.",
+    "whenNotToUse": "Do not use for engineering managers or peer engineers.",
+    "risks": [],
+    "whyItWorks": "Establish a direct connection with a technical recruiter hiring for target engineering teams.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Concise and respectful of recruiter screen volume; leads with verified stack and one proof point.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "recruiter-inmail-value-prop",
+    "version": 2,
+    "channel": "linkedin_inmail",
+    "tab": "linkedin_inmail",
+    "name": "Recruiter InMail Value Proposition",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "primary_skill",
+      "proof_point",
+      "company",
+      "role",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "{{role}} candidate: {{your_name}} ({{primary_skill}})"
+    ],
+    "blocks": {
+      "hook": [
+        "Having built multiple production-grade services in {{primary_skill}}, I am reaching out regarding the {{role}} opening at {{company}}.",
+        "My hands-on engineering work focuses on {{primary_skill}}, and I have been following {{company}}'s engineering milestones.",
+        "I specialize in {{primary_skill}} and recently wrapped up work where I {{proof_point}}."
+      ],
+      "proof": [
+        "I specialize in {{primary_skill}} and recently {{proof_point}}. With {{company}} expanding the {{role}} team, I wanted to put my profile in front of you directly."
+      ],
+      "ask": [
+        "My focus has been writing clean, tested services and understanding production failure modes. You can review my code samples and past implementations here: {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 600,
+      "warn": 1200,
+      "hardMax": 1900
+    },
+    "whenToUse": "When you have InMail credits and the recruiter manages the specific requisition for your role.",
+    "whenNotToUse": "Avoid when the company only accepts applications through campus placements or designated TPO coordinators.",
+    "risks": [],
+    "whyItWorks": "Secure a quick recruiter screening chat by presenting verifiable project impact and stack alignment.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Direct, polite, and scannable without corporate fluff.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "cold-email-direct-role-app",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Cold Email Direct Role Application",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Application: {{role}} - {{your_name}} ({{primary_skill}})"
+    ],
+    "blocks": {
+      "hook": [
+        "I saw the {{role}} listing posted for {{company}} and am submitting my details directly.",
+        "Following {{company}}'s recent hiring update for {{role}} engineers, I am sharing my technical profile.",
+        "I noticed the active {{role}} requisition on {{company}}'s careers portal and wanted to share my fit."
+      ],
+      "proof": [
+        "I saw the {{role}} opening posted for {{company}} and wanted to share my technical background directly."
+      ],
+      "ask": [
+        "I work primarily with {{primary_skill}}, and recently {{proof_point}}. My project code and architecture notes are documented at {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When an active job posting exists and you have verified the recruiter's corporate email address.",
+    "whenNotToUse": "Do not use if the company explicitly requests applicants not to email recruiters directly.",
+    "risks": [],
+    "whyItWorks": "Submit a clean, evidence-based cold application directly to the designated talent scout.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Clear, crisp, and respectful of high inbound volume.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "cold-email-scannable-pitch",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Cold Email Scannable Bullet Pitch",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "{{your_name}} - {{role}} profile ({{primary_skill}})"
+    ],
+    "blocks": {
+      "hook": [
+        "Are you still evaluating candidates for the {{role}} requisition at {{company}}?",
+        "Is the {{role}} position at {{company}} still actively open for applications?",
+        "Could you confirm if your team is currently reviewing profiles for {{role}}?"
+      ],
+      "proof": [
+        "Are you still reviewing applications for the {{role}} opening at {{company}}?"
+      ],
+      "ask": [
+        "If so, here is a 15-second summary of my technical qualifications:\n- Core Competency: {{primary_skill}}\n- Concrete Result: {{proof_point}}\n- Code Evidence: {{portfolio}}"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Ideal for busy recruiters managing multiple high-volume roles simultaneously.",
+    "whenNotToUse": "Avoid when a detailed narrative of systems architecture or research context is required.",
+    "risks": [],
+    "whyItWorks": "Provide an ultra-scannable 3-line overview that can be digested in under 15 seconds.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Minimalist, structured, zero conversational preamble.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "hiring-manager-project-hook",
+    "version": 2,
+    "channel": "linkedin_connect",
+    "tab": "linkedin_connect",
+    "name": "Hiring Manager Project Hook",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "primary_skill",
+      "proof_point"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Hi {{recipient_name}}, came across your team's work scaling {{admired_project}} at {{company}}.",
+        "Hi {{recipient_name}}, read through {{company}}'s recent engineering updates regarding {{admired_project}}.",
+        "Hi {{recipient_name}}, noticed your team's technical decisions around {{admired_project}} at {{company}}."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 180,
+      "warn": 195,
+      "hardMax": 200
+    },
+    "whenToUse": "When connecting with team leads, engineering managers, or directors whose teams built a specific public feature.",
+    "whenNotToUse": "Do not use if you cannot name a genuine product or technical initiative.",
+    "risks": [],
+    "whyItWorks": "Connect with an engineering manager by referencing concrete admiration for an engineering system they oversee.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Technical peer respect without flattering or begging.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "hiring-manager-high-impact-pitch",
+    "version": 2,
+    "channel": "linkedin_inmail",
+    "tab": "linkedin_inmail",
+    "name": "Hiring Manager High-Impact Pitch",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "primary_skill",
+      "proof_point",
+      "admired_project",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "{{role}} candidate: {{your_name}} (focused on {{primary_skill}})"
+    ],
+    "blocks": {
+      "hook": [
+        "Having spent the last few quarters shipping projects in {{primary_skill}}, I am writing regarding your {{role}} opening.",
+        "I focus on building resilient software in {{primary_skill}}, and saw that your group at {{company}} is adding engineers.",
+        "I track the technical milestones your team ships at {{company}}, particularly around {{admired_project}}."
+      ],
+      "proof": [
+        "I noticed your group at {{company}} is hiring for the {{role}} opening. My core stack centers on {{primary_skill}}, and recently I {{proof_point}}."
+      ],
+      "ask": [
+        "Given the complexity of {{admired_project}}, I have focused on writing modular code with high unit test coverage and low latency overhead. You can inspect my implementations directly at {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 600,
+      "warn": 1200,
+      "hardMax": 1900
+    },
+    "whenToUse": "When reaching out to the direct hiring manager for an open headcount.",
+    "whenNotToUse": "Do not send to general recruiters or non-technical business partners.",
+    "risks": [],
+    "whyItWorks": "Pitch immediate engineering contribution directly to the hiring manager with verified metrics.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Pragmatic, execution-focused, and humble about learning curve.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "peer-engineer-tech-convo",
+    "version": 2,
+    "channel": "linkedin_inmail",
+    "tab": "linkedin_inmail",
+    "name": "Peer Engineer Tech Conversation",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "primary_skill",
+      "proof_point",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Quick technical question regarding {{company}}'s {{primary_skill}} stack"
+    ],
+    "blocks": {
+      "hook": [
+        "How does your team at {{company}} balance architectural refactoring against fast delivery on {{admired_project}}?",
+        "What led your engineering team at {{company}} to adopt your current approach on {{admired_project}}?",
+        "How does your day-to-day workflow at {{company}} handle service reliability on {{admired_project}}?"
+      ],
+      "proof": [
+        "I was reviewing {{company}}'s engineering setup and saw your work as a software engineer on {{admired_project}}."
+      ],
+      "ask": [
+        "As someone developing in {{primary_skill}}, I recently {{proof_point}}. I ran into interesting trade-offs around concurrency and schema migration, and wondered how your team approaches this problem in production."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 600,
+      "warn": 1200,
+      "hardMax": 1900
+    },
+    "whenToUse": "When connecting with software engineers on target teams to understand team culture before applying.",
+    "whenNotToUse": "Never ask a peer engineer for an immediate referral in this initial contact.",
+    "risks": [],
+    "whyItWorks": "Start a grounded engineer-to-engineer dialogue about stack choices and team development habits.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Curious, professional, and respectful of active coding time.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "cold-email-solutions-problem-solving",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Cold Email Solutions & Problem Solving",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "admired_project",
+      "portfolio",
+      "primary_skill",
+      "proof_point",
+      "company",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Small prototype related to {{company}} {{admired_project}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I put together a small implementation exploring how {{company}} could approach {{admired_project}}.",
+        "While studying {{company}}'s engineering milestones on {{admired_project}}, I built a functional prototype.",
+        "I have been experimenting with solutions that mirror the architectural scope of {{admired_project}}."
+      ],
+      "proof": [
+        "I built a lightweight prototype addressing a common performance bottleneck in {{admired_project}}: {{portfolio}}."
+      ],
+      "ask": [
+        "I work primarily in {{primary_skill}}, and recently {{proof_point}}. Looking at {{company}}'s public engineering priorities, I wanted to see if this design pattern aligns with how your team plans upcoming quarters."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have written a public repo, demo, or reproducible code sample relevant to the team.",
+    "whenNotToUse": "Do not use if the prototype link is broken, private, or unfinished.",
+    "risks": [],
+    "whyItWorks": "Present a concrete solution prototype or architectural observation directly to an engineering lead.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Solutions-oriented, builder mindset, zero ungrounded critique.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "alumni-common-ground",
+    "version": 2,
+    "channel": "linkedin_connect",
+    "tab": "linkedin_connect",
+    "name": "Alumni Common Ground",
+    "goal": "G3",
+    "relationship": "alumni",
+    "recipientTypes": [
+      "alumnus/alumna"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "college",
+      "company",
+      "role",
+      "primary_skill"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Hi {{recipient_name}}, saw another {{college}} graduate making an impact at {{company}}.",
+        "Hi {{recipient_name}}, coming across {{college}} alumni at companies like {{company}} is always inspiring.",
+        "Hi {{recipient_name}}, greetings from a fellow {{college}} graduate."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 180,
+      "warn": 195,
+      "hardMax": 200
+    },
+    "whenToUse": "Strictly for alumni who graduated from the same university or college institution.",
+    "whenNotToUse": "Never send to recruiters or hiring managers who did not attend your college.",
+    "risks": [],
+    "whyItWorks": "Establish connection with a college alumnus currently working at the target organization.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Warm, respectful of shared college heritage, with zero immediate asks for jobs.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "alumni-warm-referral-ask",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Alumni Warm Referral Ask",
+    "goal": "G3",
+    "relationship": "alumni",
+    "recipientTypes": [
+      "alumnus/alumna"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "college",
+      "company",
+      "role",
+      "job_id",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "{{college}} student inquiring about {{role}} referral at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "As a fellow {{college}} alumnus, I have been following your career journey at {{company}} with great interest.",
+        "Reaching out as a {{college}} junior preparing for off-campus opportunities at {{company}}.",
+        "Following up on our alumni connection, I wanted to share my recent engineering preparations for {{company}}."
+      ],
+      "proof": [
+        "I hope you are having a productive week. As a fellow graduate from {{college}}, I have been tracking {{company}}'s engineering milestones."
+      ],
+      "ask": [
+        "I am preparing to apply for the {{role}} opening (Job ID: {{job_id}}). Over the past year, I have built production projects in {{primary_skill}}, and recently {{proof_point}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When applying for an open job ID where an alumnus works at the company.",
+    "whenNotToUse": "Do not use for strangers with whom you share no alumni or mutual bond.",
+    "risks": [],
+    "whyItWorks": "Request an internal employee referral from an alumnus after mutual context has been established.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Humble, structured, forwardable fit summary, explicit no-pressure out.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "mutual-connection-referral",
+    "version": 2,
+    "channel": "warm_referral",
+    "tab": "warm_referral",
+    "name": "Mutual Connection / Peer Referral",
+    "goal": "G3",
+    "relationship": "alumni",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "referrer_relationship",
+      "primary_skill",
+      "company",
+      "admired_project",
+      "role",
+      "proof_point",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "I noticed we share connections across the {{primary_skill}} developer community.",
+        "Saw that we are both connected with mutual peers working in {{primary_skill}}.",
+        "Came across your updates through our shared network in the tech ecosystem."
+      ],
+      "proof": [
+        "I am exploring the {{role}} opening, and recently {{proof_point}}. Could I ask for 10 minutes of your advice on how your team evaluates candidates during the technical interview?"
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you share a mutual contact, community group, or former teammate with the recipient.",
+    "whenNotToUse": "Do not use if you have never interacted and have zero shared connections.",
+    "risks": [],
+    "whyItWorks": "Reach out to a peer or warm contact through a mutual acquaintance or community context.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Casual but polite, establishing warm relationship bridge.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "referral-recommendation-team-lead",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Referral Recommendation via Team Lead",
+    "goal": "G3",
+    "relationship": "alumni",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Application pathway for {{role}} at {{company}} - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Would your engineering group at {{company}} prefer that I apply for {{role}} via internal referral or direct portal submission?",
+        "What is the most effective way for a candidate with {{primary_skill}} experience to get their profile before your team for {{role}}?",
+        "Should I submit my application for {{role}} directly through {{company}}'s careers site, or does your team review incoming referrals first?"
+      ],
+      "proof": [
+        "I noticed your team at {{company}} is hiring for the {{role}} opening. As an engineer focused on {{primary_skill}}, I recently {{proof_point}}."
+      ],
+      "ask": [
+        "I want to ensure my application reaches your engineering coordinators through the proper channel. Does your team prefer candidates apply through an internal referral link, or should I submit directly to your careers portal with code samples ({{portfolio}})?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you know someone inside the company but want to confirm the hiring lead's preferred workflow.",
+    "whenNotToUse": "Do not use if the application instructions explicitly specify single-channel submission.",
+    "risks": [],
+    "whyItWorks": "Inquire directly with an engineering lead on the preferred application pathway.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Courteous, direct, and considerate of protocol.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "gentle-follow-up",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Gentle Follow-Up (Day 5-7)",
+    "goal": "G6",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "days_since_last_contact",
+      "role",
+      "company",
+      "primary_skill",
+      "portfolio",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Following up briefly on my earlier note regarding the {{role}} opening at {{company}}.",
+        "Checking in on my previous email sent {{days_since_last_contact}} days ago about the {{role}} role.",
+        "Wanted to send a quick follow-up to my earlier message regarding {{company}} engineering."
+      ],
+      "proof": [
+        "Following up briefly on my note sent {{days_since_last_contact}} days ago regarding the {{role}} opening at {{company}}."
+      ],
+      "ask": [
+        "I understand your schedule is demanding, so keeping this concise: I remain eager to be considered and have continued building in {{primary_skill}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Send 5 to 7 business days after initial cold email or application if no reply has been received.",
+    "whenNotToUse": "Do not send within 72 hours of first outreach; allow reasonable processing time.",
+    "risks": [],
+    "whyItWorks": "Send a polite, low-friction status check referencing original message context without sounding aggrieved.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Calm, patient, concise, acknowledging crowded inboxes.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "value-add-follow-up",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Value-Add Follow-Up with Update",
+    "goal": "G6",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "proof_point",
+      "portfolio",
+      "admired_project",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Since reaching out last week regarding {{company}}'s {{role}} team, I shipped a fresh technical milestone.",
+        "Wanted to follow up on my earlier note with an update on my recent engineering work.",
+        "Checking back in regarding the {{role}} team with a newly published project update."
+      ],
+      "proof": [
+        "Following up on my note last week regarding {{company}}'s {{role}} team. Since reaching out, I {{proof_point}} and documented the architecture here: {{portfolio}}."
+      ],
+      "ask": [
+        "This implementation directly relates to the scalability challenges we discussed around {{admired_project}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "When you have accomplished a tangible milestone (e.g. deployed a new feature, fixed a bug, wrote a benchmark).",
+    "whenNotToUse": "Do not use if you have no new concrete technical progress to share.",
+    "risks": [],
+    "whyItWorks": "Follow up by introducing new, verifiable evidence or milestone shipped since the original touchpoint.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Proactive, growth-oriented, evidence-driven.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "final-polite-loop-closure",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Final Polite Loop Closure",
+    "goal": "G6",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Circling back one final time regarding the {{role}} position at {{company}}.",
+        "Sending a final note to close the loop regarding my application for {{role}} at {{company}}.",
+        "Reaching out one last time regarding {{company}}'s {{role}} opening."
+      ],
+      "proof": [
+        "Circling back one last time regarding the {{role}} opening at {{company}}."
+      ],
+      "ask": [
+        "If the hiring priority has shifted or timing is not right, I completely understand. I will continue tracking {{company}}'s engineering milestones and would welcome staying in touch on LinkedIn for future cycles."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Send as the final touchpoint after 2 prior messages have received no reply.",
+    "whenNotToUse": "Never send before at least one prior follow-up has elapsed.",
+    "risks": [],
+    "whyItWorks": "Gracefully close the communication loop while keeping doors open for future hiring cycles.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Gracious, zero bitterness, completely releases the recipient from pressure.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "founder-cold-email-product-obs",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Founder Cold Email - Product Observation",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "senior leader or founder"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "specific_observation",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Quick observation on {{company}}'s {{admired_project}}"
+    ],
+    "blocks": {
+      "hook": [
+        "While using {{company}} recently, I noticed an interesting pattern in {{specific_observation}}.",
+        "I have been testing {{company}}'s latest release and observed how {{specific_observation}} performs.",
+        "As an active user of {{company}}, I observed something specific about {{specific_observation}}."
+      ],
+      "proof": [
+        "I have been testing {{company}} and noticed {{specific_observation}}. It made me think about how your team handles that edge case at current user volume."
+      ],
+      "ask": [
+        "I am an engineer focused on {{primary_skill}}, and recently {{proof_point}}. My code and architectural explorations are at {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you genuinely use or tested the startup's product and discovered an authentic UX or technical observation.",
+    "whenNotToUse": "Hard blocked if specific_observation is empty. Never fabricate a fake bug or generic comment.",
+    "risks": [],
+    "whyItWorks": "Initiate a dialogue with a startup founder grounded in a concrete, verified user observation of their product.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Sharp, respectful, focused on the product experience rather than self-aggrandizement.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "cto-stack-question-dm",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "CTO Stack Question DM",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "senior leader or founder"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "primary_skill",
+      "proof_point",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "CTO Stack Question DM - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "What led your engineering team at {{company}} to select your current architecture for {{admired_project}}?",
+        "Quick technical question regarding {{company}}'s backend choices around {{admired_project}}.",
+        "Curious about the concurrency design your team implemented for {{admired_project}} at {{company}}."
+      ],
+      "proof": [
+        "Quick engineering question: what factored most into your choice between managed cloud primitives and self-hosted components for {{admired_project}}?"
+      ],
+      "ask": [
+        "Curious about the trade-offs you encountered."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When messaging a technical co-founder or CTO on Twitter, LinkedIn, or developer channels.",
+    "whenNotToUse": "Never ask a non-technical CEO or HR partner about deep stack primitives.",
+    "risks": [],
+    "whyItWorks": "Ask a targeted, single technical question to a startup CTO regarding an architectural decision.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Engineer-to-engineer, technically rigorous, zero pleasantry overhead.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "founding-engineer-scope-pitch",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Founding Engineer Scope Pitch",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "senior leader or founder"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Early engineer candidate for {{company}} - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I know early-stage teams need builders who can take a feature from spec to production without hand-holding.",
+        "As a fresher who prioritizes execution speed and clean testing, I want to contribute to {{company}}.",
+        "I specialize in {{primary_skill}} and focus on shipping end-to-end features rapidly."
+      ],
+      "proof": [
+        "I know early-stage teams at {{company}} need engineers who can take feature scope from whiteboard to production without hand-holding."
+      ],
+      "ask": [
+        "I am a fresher specializing in {{primary_skill}}, and recently {{proof_point}}. I understand I have fewer years of formal tenure, but I compensate with high shipping velocity, automated test discipline, and comfort reading unfamiliar codebases (code: {{portfolio}})."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When applying to seed, pre-Series A, or Series A startups looking for high-ownership builders.",
+    "whenNotToUse": "Do not use for large multinational corporations or campus placement cell drives.",
+    "risks": [],
+    "whyItWorks": "Pitch your readiness to take high ownership and ship quickly as an early-stage software engineer.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Hungry, humble about years of experience, transparent about speed and reliability.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "build-first-prototype",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Build-First Outreach - Small Prototype",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "senior leader or founder"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "portfolio",
+      "your_name",
+      "primary_skill",
+      "proof_point",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "A small prototype for {{company}} {{admired_project}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Rather than just sending a resume, I spent the weekend building a prototype related to {{admired_project}}.",
+        "I put together a functioning demo showing how {{company}} could approach {{admired_project}}.",
+        "To demonstrate my alignment with {{company}}'s product, I implemented a small proof-of-concept."
+      ],
+      "proof": [
+        "I use {{company}} and noticed potential in {{admired_project}}. Rather than sending a cold resume, I put together a working prototype of how that could work: {{portfolio}}."
+      ],
+      "ask": [
+        "I am {{your_name}}, an engineer working with {{primary_skill}}. Recently, I {{proof_point}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have built a tangible working demo, public GitHub repo, or live deployment specifically for this team.",
+    "whenNotToUse": "Hard blocked if portfolio/demo link is empty. Never attach a PDF resume to this touchpoint.",
+    "risks": [],
+    "whyItWorks": "Demonstrate initiative by building a working prototype or feature demo before asking for anything.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Builder-first, respectful, no resume attached, focuses entirely on working software.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "response-we-are-hiring-post",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Response to a \"We're Hiring\" Post",
+    "goal": "G5",
+    "relationship": "cold",
+    "recipientTypes": [
+      "senior leader or founder"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "source_trigger",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Response to a \"We're Hiring\" Post - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Saw your hiring post regarding the {{role}} opening at {{company}}.",
+        "Reaching out directly in response to your recent update looking for {{role}} engineers.",
+        "Noticed your post seeking engineering talent for {{company}}'s {{role}} team."
+      ],
+      "proof": [
+        "My code samples and system designs are at {{portfolio}}. Would love to connect and submit my background for this requisition."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Within 24 to 48 hours of a founder, CTO, or team lead posting a public hiring update on LinkedIn or Twitter.",
+    "whenNotToUse": "Do not quote extensive paragraphs from their post beyond the role name and context trigger.",
+    "risks": [],
+    "whyItWorks": "Respond immediately to an executive or recruiter hiring broadcast with zero fluff and immediate fit summary.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Direct, rapid-response, references the specific hiring update.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "university-relations-eligibility-query",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "University Relations Eligibility Query",
+    "goal": "G4",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter",
+      "campus/university relations"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "batch_year",
+      "college",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Eligibility inquiry for {{company}} graduate hiring ({{batch_year}} batch)"
+    ],
+    "blocks": {
+      "hook": [
+        "Could you confirm if {{company}}'s graduate engineering drive is open to the {{batch_year}} passing batch?",
+        "I am inquiring regarding the eligibility criteria and timelines for {{company}}'s {{batch_year}} campus intake.",
+        "Does {{company}}'s university relations program currently accept applications from {{batch_year}} graduates?"
+      ],
+      "proof": [
+        "Could you confirm if {{company}}'s upcoming graduate engineering intake will be open to students from the {{batch_year}} passing batch?"
+      ],
+      "ask": [
+        "I am currently completing my degree at {{college}}, specializing in {{primary_skill}}. Over the last year, I {{proof_point}} (projects and repository links: {{portfolio}})."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When targeting university relations, talent acquisition leads, or campus recruiters before placement season starts.",
+    "whenNotToUse": "Do not use for experienced hiring managers or lateral engineering requisitions.",
+    "risks": [],
+    "whyItWorks": "Inquire with university relations coordinators regarding graduation batch eligibility and intake windows.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Formal, polite, educational-context aware, respectful of recruitment timelines.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "off-campus-fresher-drive-follow-up",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Off-Campus Fresher Drive Follow-Up",
+    "goal": "G4",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "job_id",
+      "days_since_last_contact",
+      "batch_year",
+      "primary_skill",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Following up on my submission for the {{company}} off-campus drive (Application ID: {{job_id}}).",
+        "Checking in regarding next steps for the {{batch_year}} graduate intake under Job ID {{job_id}}.",
+        "Submitting a status check regarding the {{company}} off-campus assessment for {{job_id}}."
+      ],
+      "proof": [
+        "Following up on my registration and assessment submission for {{company}}'s off-campus drive (Application ID: {{job_id}})."
+      ],
+      "ask": [
+        "I completed the online technical evaluation on {{days_since_last_contact}} days ago and wanted to confirm if results for the {{batch_year}} batch have been finalized."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "After completing an online assessment (OA) or national qualifying test for an off-campus fresher intake.",
+    "whenNotToUse": "Do not send within 7 days of test completion, as bulk grading takes time.",
+    "risks": [],
+    "whyItWorks": "Follow up on an off-campus recruitment drive assessment or registration with explicit application tracking ID.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Patient, process-respecting, includes application identification details.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "intern-to-ppo-conversion-note",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Intern-to-PPO Conversion Note",
+    "goal": "G4",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "proof_point",
+      "primary_skill",
+      "portfolio",
+      "batch_year",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Internship wrap-up & full-time discussion - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "As my internship period at {{company}} approaches its conclusion, I wanted to schedule a discussion about full-time conversion.",
+        "Reflecting on the projects shipped during my internship at {{company}}, I would value a conversation about returning full-time.",
+        "With my internship deliverables completed on the {{role}} team, I am reaching out regarding post-graduation opportunities."
+      ],
+      "proof": [
+        "As my internship with the {{role}} team at {{company}} nears its final weeks, I wanted to share a brief summary of the impact delivered:\n- Shipped Key Milestone: {{proof_point}}\n- Technology Applied: {{primary_skill}}\n- Code & Documentation: {{portfolio}}"
+      ],
+      "ask": [
+        "Working with this team has solidified my commitment to {{company}}'s mission. I graduate with the {{batch_year}} batch and would love to transition into a full-time Software Engineer role."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Strictly for active or recently completed interns evaluating full-time return offers (PPOs).",
+    "whenNotToUse": "Incompatible if experience_level is not Intern.",
+    "risks": [],
+    "whyItWorks": "Initiate a structured conversation with your internship manager or HR partner regarding pre-placement offer (PPO) conversion.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Professional, appreciative, grounded in internship deliverables and metrics.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "campus-drive-process-question-alumnus",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Campus Drive Process Question to Alumnus",
+    "goal": "G4",
+    "relationship": "cold",
+    "recipientTypes": [
+      "alumnus/alumna"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "college",
+      "company",
+      "batch_year",
+      "primary_skill",
+      "proof_point",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Campus Drive Process Question to Alumnus - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "As a {{college}} junior preparing for {{company}}'s upcoming on-campus recruitment, I would value your perspective.",
+        "{{company}} is visiting {{college}} for placements this semester, and I am preparing for the technical rounds.",
+        "Reaching out to a fellow {{college}} graduate ahead of {{company}}'s recruitment drive on our campus."
+      ],
+      "proof": [
+        "My background is centered on {{primary_skill}}, and recently {{proof_point}}. Could I ask for 10 minutes of your time to understand what fundamental concepts your team evaluates most during coding rounds?"
+      ],
+      "ask": [
+        "Not asking for any referral since it is an on-campus drive, just looking for genuine preparation advice."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When the company is visiting your campus through the official Training & Placement Cell (TPO).",
+    "whenNotToUse": "Do not ask for a referral, as campus drives operate through placement cell policy.",
+    "risks": [],
+    "whyItWorks": "Ask an alumnus from your college for guidance on preparation topics and interview structure for an upcoming campus drive.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Humble, respectful of senior colleague, zero referral pressure.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "ask-placement-cell-forward-profile",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Ask Placement Cell to Forward Profile",
+    "goal": "G4",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter",
+      "campus/university relations"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "shared-background-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "company",
+      "batch_year",
+      "your_name",
+      "college",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Profile submission for {{company}} campus drive - {{your_name}} ({{batch_year}} batch)"
+    ],
+    "blocks": {
+      "hook": [
+        "Submitting my technical summary for inclusion in the {{company}} placement shortlist.",
+        "In accordance with the placement cell circular for {{company}}, I am providing my verified profile details.",
+        "Sharing my candidate overview for the upcoming {{company}} on-campus engineering drive."
+      ],
+      "proof": [
+        "I am submitting my profile for the upcoming {{company}} engineering drive for the {{batch_year}} graduating batch."
+      ],
+      "ask": [
+        "Key candidate summary for corporate shortlisting:\n- Full Name: {{your_name}}\n- College / Department: {{college}}\n- Primary Stack: {{primary_skill}}\n- Verified Evidence: {{proof_point}}\n- Portfolio & Verified Repos: {{portfolio}}"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When submitting details to your university placement officer (TPO) or student placement coordinators.",
+    "whenNotToUse": "Do not send to external corporate executives or founders.",
+    "risks": [],
+    "whyItWorks": "Provide your college placement office (TPO coordinator) with a structured, verified profile summary for company shortlists.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Formal, institutional, structured according to Indian TPO conventions.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "oss-contribution-to-maintainer",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "OSS Contribution to Maintainer",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "pr_link",
+      "primary_skill",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "OSS Contribution to Maintainer - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I recently opened a pull request on {{company}}'s open-source repository ({{pr_link}}).",
+        "Following {{company}}'s open-source projects, I submitted a PR addressing {{admired_project}} ({{pr_link}}).",
+        "I have been contributing to {{company}}'s public tooling and recently submitted {{pr_link}}."
+      ],
+      "proof": [
+        "I recently submitted a pull request on {{company}}'s open-source repo for {{admired_project}} (PR: {{pr_link}}). I work with {{primary_skill}} and wanted to ensure my patch aligns with your project style guidelines."
+      ],
+      "ask": [
+        "Could you share if your maintainer team prefers handling unit test fixtures inline or via shared mock modules?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have submitted a genuine pull request or issue to an open-source project maintained by the company.",
+    "whenNotToUse": "Hard blocked if pr_link is empty. Never claim a contribution you did not author.",
+    "risks": [],
+    "whyItWorks": "Connect with an engineer or core maintainer at the target company around an authentic open-source pull request.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Collaborative, open-source native, humble, zero transactional overtone.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "engineering-blog-reaction",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Engineering Blog Reaction",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "primary_skill",
+      "proof_point",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Thoughtful takeaway on your {{company}} post regarding {{admired_project}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I read your recent article detailing how {{company}} architected {{admired_project}}.",
+        "Your engineering blog breakdown on {{admired_project}} at {{company}} provided concrete architectural clarity.",
+        "Following your team's publication on {{admired_project}}, I was fascinated by the trade-offs you outlined."
+      ],
+      "proof": [
+        "I read your recent engineering post on how {{company}} scaled {{admired_project}}. Your breakdown of database replication lag and idempotency guarantees was especially clarifying."
+      ],
+      "ask": [
+        "As someone developing with {{primary_skill}}, I recently {{proof_point}}. It made me wonder how your service handles network partitions during peak failover."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When an engineer or tech lead at the target company published a technical blog post or whitepaper.",
+    "whenNotToUse": "Never use empty praise without mentioning a specific architectural takeaway.",
+    "risks": [],
+    "whyItWorks": "Engage with an engineering blog author by discussing technical takeaways and trade-offs rather than generic flattery.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Intellectually curious, specific, cites genuine architectural details.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "product-teardown-improvement-note",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Product Teardown - Small Improvement Note",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "portfolio",
+      "primary_skill",
+      "proof_point",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Lightweight analysis and benchmark for {{company}} {{admired_project}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I ran a brief bundle size and client-side latency audit on {{company}}'s {{admired_project}}.",
+        "While studying {{company}}'s frontend load times, I documented three small optimization opportunities.",
+        "I put together a brief technical teardown analyzing asset caching on {{admired_project}}."
+      ],
+      "proof": [
+        "I put together a lightweight performance teardown examining client asset caching on {{company}}'s {{admired_project}}: {{portfolio}}."
+      ],
+      "ask": [
+        "I specialize in {{primary_skill}}, and recently {{proof_point}}. My goal was exploring how localized tree-shaking and preconnect headers could shave 200ms from the initial render."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "For sharing non-sensitive UX, accessibility, or web-performance benchmark analyses.",
+    "whenNotToUse": "Hard blocked for security vulnerabilities. Security bugs must be reported via security.txt or bug bounties.",
+    "risks": [],
+    "whyItWorks": "Share a constructive, non-security UX or performance teardown highlighting potential optimisations.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Humble, respectful of existing constraints, strictly non-adversarial.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "hackathon-project-demo-share",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Hackathon / Project Demo Share",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "project-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "portfolio",
+      "primary_skill",
+      "proof_point",
+      "role",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Built a hackathon prototype for {{admired_project}} domain - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "At a recent engineering hackathon, our team built an application solving challenges in the {{admired_project}} space.",
+        "I recently built an end-to-end prototype tackling problem spaces very similar to {{company}}'s {{admired_project}}.",
+        "Following {{company}}'s developments in {{admired_project}}, I designed a hackathon project exploring this problem."
+      ],
+      "proof": [
+        "At a recent hackathon, my team engineered a working prototype designed around problem spaces that {{company}} tackles in {{admired_project}}. A live demo and repository are hosted at {{portfolio}}."
+      ],
+      "ask": [
+        "As the lead developer writing in {{primary_skill}}, I {{proof_point}}. Given your team's active work in this domain, I wanted to put my work directly in front of you."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have built a hackathon submission or comprehensive side project in the company's exact domain.",
+    "whenNotToUse": "Do not use if the portfolio link does not host a working deployment or readable codebase.",
+    "risks": [],
+    "whyItWorks": "Share an award-winning or domain-matched hackathon project with an engineering manager in the same domain.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Energetic, builder-driven, focused on solved domain problems.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "post-meetup-webinar-speaker-follow-up",
+    "version": 2,
+    "channel": "linkedin_connect",
+    "tab": "linkedin_connect",
+    "name": "Post-Meetup / Webinar Follow-Up to Speaker",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "event-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "talk_topic",
+      "event_name",
+      "primary_skill",
+      "company"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Hi {{recipient_name}}, really appreciated your keynote covering {{talk_topic}} at {{event_name}}.",
+        "Hi {{recipient_name}}, attended your presentation at {{event_name}} discussing {{talk_topic}}.",
+        "Hi {{recipient_name}}, your session on {{talk_topic}} at {{event_name}} was one of my favorites."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 180,
+      "warn": 195,
+      "hardMax": 200
+    },
+    "whenToUse": "Within 48 hours of attending a tech conference, local meetup, or webinar where the recipient gave a talk.",
+    "whenNotToUse": "Do not use if you did not actually attend the talk or cannot cite the topic.",
+    "risks": [],
+    "whyItWorks": "Follow up with a conference speaker or webinar host by referencing their specific talk insights.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Appreciative, professional, grounded in the speaker's thesis.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "hackathon-judge-sponsor-follow-up",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Hackathon Sponsor / Judge Follow-Up",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "event-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "event_name",
+      "admired_project",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Follow-up from {{event_name}} on our project - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you for evaluating our team's submission during {{event_name}} last weekend.",
+        "I was grateful for your technical critique of our implementation during the judging round at {{event_name}}.",
+        "Following up on your advice at {{event_name}} regarding our project's architecture."
+      ],
+      "proof": [
+        "Thank you for judging our project during {{event_name}} last weekend. You suggested optimizing our indexing layer for {{admired_project}}, and I spent the last few days implementing that recommendation."
+      ],
+      "ask": [
+        "I refactored the pipeline in {{primary_skill}}, and recently {{proof_point}}. The updated benchmarks and codebase are available at {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Within 7 days of meeting a judge or sponsor engineer at a major hackathon or competition.",
+    "whenNotToUse": "Do not use if you did not implement the judge's feedback.",
+    "risks": [],
+    "whyItWorks": "Reconnect with a hackathon judge or sponsor engineer with updates on project feedback received during evaluation.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Action-oriented, demonstrating rapid iteration upon receiving feedback.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "community-chat-to-dm",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Community Chat to DM (Discord/Slack/GitHub)",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "event-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "source_trigger",
+      "primary_skill",
+      "proof_point",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Community Chat to DM (Discord/Slack/GitHub) - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Reaching out following our discussion in the community thread on {{source_trigger}}.",
+        "Saw your response in the public forum regarding {{source_trigger}}.",
+        "Enjoyed exchanging thoughts in the community chat on {{source_trigger}}."
+      ],
+      "proof": [
+        "As someone building in {{primary_skill}}, I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Quick follow-up question: in your daily work at {{company}}, do you run into similar constraints when deploying to distributed clusters?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have previously exchanged public messages on Discord, Slack, Reddit, or GitHub Discussions.",
+    "whenNotToUse": "Do not send unsolicited DMs to members without a prior public interaction.",
+    "risks": [],
+    "whyItWorks": "Transition a productive public community thread (Discord, Slack, GitHub Discussions) into a professional DM.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Informal, respectful of community norms, references public thread context.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "booth-career-fair-recruiter-follow-up",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Booth / Career-Fair Recruiter Follow-Up",
+    "goal": "G9",
+    "relationship": "cold",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "event-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "event_name",
+      "primary_skill",
+      "role",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Follow-up from {{event_name}} booth - {{your_name}} ({{role}})"
+    ],
+    "blocks": {
+      "hook": [
+        "It was a pleasure speaking with you at {{company}}'s booth during {{event_name}} yesterday.",
+        "Thank you for taking a few minutes to discuss {{company}}'s engineering team at {{event_name}}.",
+        "Following up on our conversation at the {{event_name}} career fair regarding {{role}} opportunities."
+      ],
+      "proof": [
+        "It was great speaking with you at {{company}}'s booth during {{event_name}}. We briefly discussed how my background in {{primary_skill}} aligns with your upcoming {{role}} requisitions."
+      ],
+      "ask": [
+        "As mentioned, I recently {{proof_point}}. My full code samples and resume are available at {{portfolio}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Within 24 to 48 hours of speaking with a company representative at a career fair or booth.",
+    "whenNotToUse": "Do not use if you did not actually meet at the event.",
+    "risks": [],
+    "whyItWorks": "Follow up with a recruiter after speaking in person at a campus booth or tech career fair.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Polite, brisk, provides verified resume link and highlights conversation topic.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "job-id-referral-ask-forwardable-fit",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Specific Job-ID Referral Ask with Forwardable Fit Summary",
+    "goal": "G2",
+    "relationship": "warm",
+    "recipientTypes": [
+      "alumnus/alumna"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "job_id",
+      "your_name",
+      "your_email",
+      "primary_skill",
+      "proof_point",
+      "portfolio"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Referral inquiry: {{role}} (Job ID: {{job_id}}) - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I am preparing an application for {{company}}'s {{role}} opening (Job ID: {{job_id}}) and put together a forwardable blurb.",
+        "Following up on our discussions, I found the active requisition for {{role}} at {{company}} under Job ID {{job_id}}.",
+        "I wanted to reach out regarding the open {{role}} position at {{company}} with a pre-written fit summary."
+      ],
+      "proof": [
+        "I hope your week is going well. I am preparing to apply for {{company}}'s {{role}} opening (Job ID: {{job_id}})."
+      ],
+      "ask": [
+        "To make this as quick as possible for you, here is a 3-line summary formatted for your internal referral form:\n- Candidate: {{your_name}} ({{your_email}})\n- Core Tech: {{primary_skill}} (evidence: {{proof_point}})\n- Code & Portfolio: {{portfolio}}"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Strictly for alumni, mutual connections, or engineers who already know you or your work.",
+    "whenNotToUse": "Hard blocked for strangers. Never request a referral from someone who has never heard of you.",
+    "risks": [],
+    "whyItWorks": "Provide a warm contact with an exact 3-line forwardable blurb that takes them under 30 seconds to paste into the referral portal.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Frictionless, structured, ultra-considerate of referrer's busy workday.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "thank-you-referral-submitted",
+    "version": 2,
+    "channel": "warm_referral",
+    "tab": "warm_referral",
+    "name": "Thank You After Referral Submitted",
+    "goal": "G2",
+    "relationship": "warm",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you so much for taking the time to submit my referral for {{role}} at {{company}}!",
+        "I just received the confirmation notification from {{company}}'s careers portal, thank you!",
+        "Grateful for your support submitting the internal referral for {{company}}."
+      ],
+      "proof": [
+        "Thank you so much for taking the time out of your busy schedule to submit my referral for the {{role}} opening at {{company}}!"
+      ],
+      "ask": [
+        "I received the automated confirmation from the recruitment portal. I will keep you posted as the process moves forward, and I really appreciate you putting your word behind my profile."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Send within 24 hours of receiving confirmation that your referral was logged in the portal.",
+    "whenNotToUse": "Never ask for another favor or referral in this note.",
+    "risks": [],
+    "whyItWorks": "Express genuine gratitude immediately after a contact submits an internal employee referral.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Grateful, gracious, brief, zero additional requests.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "referral-status-nudge",
+    "version": 2,
+    "channel": "warm_referral",
+    "tab": "warm_referral",
+    "name": "Referral Status Nudge (~14 Days)",
+    "goal": "G2",
+    "relationship": "warm",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "days_since_last_contact",
+      "role",
+      "portfolio",
+      "your_name",
+      "company"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Checking in briefly about two weeks following your referral submission for {{role}} at {{company}}.",
+        "Wanted to send a quiet check-in regarding the {{role}} application referred {{days_since_last_contact}} days ago.",
+        "Reaching out with a quick status check on the {{company}} referral portal."
+      ],
+      "proof": [
+        "Hope you are having a productive week! Checking in briefly about {{days_since_last_contact}} days after you kindly submitted my referral for the {{role}} opening."
+      ],
+      "ask": [
+        "I have not heard back from the recruitment team yet, which is completely normal given volume. If there is any additional project breakdown or code repository I can provide on my end ({{portfolio}}), please let me know."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Send roughly 12 to 14 days after the referral was submitted if talent acquisition has not initiated contact.",
+    "whenNotToUse": "Do not send if the recruiter has already initiated technical screening or contacted you.",
+    "risks": [],
+    "whyItWorks": "Gently check in with your internal referrer after two weeks of silence from the talent acquisition team.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Low pressure, helpful, appreciative, zero entitlement.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "give-first-note-before-any-ask",
+    "version": 2,
+    "channel": "warm_referral",
+    "tab": "warm_referral",
+    "name": "Give-First Note Before Any Ask",
+    "goal": "G2",
+    "relationship": "warm",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "admired_project",
+      "company",
+      "primary_skill",
+      "portfolio",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Saw your team discussing {{admired_project}} benchmarks and wanted to share a useful tool.",
+        "Came across an open-source library that directly mirrors what you were building for {{admired_project}}.",
+        "I noticed your public discussion around {{primary_skill}} tooling and thought this might be useful."
+      ],
+      "proof": [
+        "Thought this might save your team a few hours of sprint debugging. No reply needed, just wanted to share something genuinely helpful!"
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When connecting with high-caliber engineers before establishing any transactional relationship.",
+    "whenNotToUse": "Never attach a resume or ask for a referral in this message.",
+    "risks": [],
+    "whyItWorks": "Share an authentic technical resource, benchmark, or tool without requesting any job or referral.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Generous, community-minded, zero transactional expectation.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "post-oa-note-to-recruiter",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Post-Online-Assessment Note to Recruiter",
+    "goal": "G8",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Confirming completion of the technical assessment for the {{role}} opening at {{company}}.",
+        "I wanted to confirm that I have submitted the online assessment for the {{role}} position.",
+        "Reaching out to verify that my test submission for {{company}} {{role}} was logged."
+      ],
+      "proof": [
+        "I wanted to confirm that I completed and submitted the online technical assessment for {{company}}'s {{role}} opening earlier today."
+      ],
+      "ask": [
+        "Thank you for setting up the evaluation link. I enjoyed working through the test problems and look forward to hearing your team's timeline for scheduling the technical rounds."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Send within a few hours of submitting an official online coding assessment (HackerRank, Codility, etc.).",
+    "whenNotToUse": "Do not speculate on your score, justify failed test cases, or ask for answers.",
+    "risks": [],
+    "whyItWorks": "Confirm completion of an online coding assessment neutrally without speculating about scores.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Composed, process-oriented, neutral, does not comment on test difficulty.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "thank-you-after-technical-round",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Thank You After Technical Round",
+    "goal": "G8",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "interviewer_topic",
+      "company",
+      "your_name",
+      "role"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you for taking the time to conduct our technical interview for {{company}} today.",
+        "I really enjoyed our discussion during the technical screen for {{role}} at {{company}}.",
+        "Grateful for the engaging technical round we had today covering {{company}} engineering."
+      ],
+      "proof": [
+        "Thank you for your time during our technical interview today. I particularly enjoyed our discussion around {{interviewer_topic}}."
+      ],
+      "ask": [
+        "Thinking further about that trade-off, I appreciated your insight on balancing memory overhead against lookup speed in production. It reinforced my excitement about the engineering bar at {{company}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Send within 24 hours of completing a technical interview with an engineer or hiring manager.",
+    "whenNotToUse": "Hard blocked if interviewer_topic is empty. Generic thank-you notes add zero value.",
+    "risks": [],
+    "whyItWorks": "Thank a technical interviewer by reflecting on a specific problem or architectural trade-off discussed in the session.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Thoughtful, intellectually engaged, references exact technical conversation.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "silence-after-final-round",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Silence After Final Round (Day 7+)",
+    "goal": "G8",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "days_since_last_contact",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Following up on our final interview round held {{days_since_last_contact}} days ago for {{role}} at {{company}}.",
+        "Checking in regarding next steps following my final round with the {{company}} engineering team.",
+        "Reaching out for a quiet status update following my final interviews for {{role}}."
+      ],
+      "proof": [
+        "Following up on my final interview round with the {{role}} team at {{company}}, completed {{days_since_last_contact}} days ago."
+      ],
+      "ask": [
+        "I really enjoyed meeting the team and discussing their technical priorities. I know hiring committee reviews require coordination across multiple calendars, so I wanted to check in quietly to see if there are any updates regarding next steps."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Only offered when days_since_last_contact >= 7 days following the final interview round.",
+    "whenNotToUse": "Never send before 7 full business days have elapsed.",
+    "risks": [],
+    "whyItWorks": "Follow up calmly on final-round interview outcomes after at least 7 days of silence from the talent team.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Patient, calm, respectful of extended hiring committee deliberations.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "real-competing-deadline-note",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Real Competing Deadline Note",
+    "goal": "G8",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "availability_date",
+      "company",
+      "admired_project",
+      "role",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "I am reaching out with an update regarding my timeline, as I have received an offer with a decision deadline.",
+        "Wanted to share an update on my current interview cycle, as I am managing a concrete offer deadline.",
+        "Writing with transparency regarding an active decision deadline on my end."
+      ],
+      "proof": [
+        "I wanted to share a transparent update on my recruitment timeline. I have received an offer from another organization that requires a decision by {{availability_date}}."
+      ],
+      "ask": [
+        "{{company}} remains my top choice due to the engineering team's work on {{admired_project}}. Because of this deadline, I wanted to ask if your team might be able to expedite the decision timeline for my {{role}} interviews before {{availability_date}}."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Strictly when you possess a real, written offer with an active expiration deadline.",
+    "whenNotToUse": "Hard blocked without user confirmation checkbox. Never fabricate fake deadlines or competing offers.",
+    "risks": [],
+    "whyItWorks": "Politely inform a recruiter of a genuine, verified decision deadline with another employer to accelerate your timeline.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Calm, transparent, ethical, expresses genuine preference for target company without ultimatums.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "polite-withdrawal-from-process",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Polite Withdrawal From Process",
+    "goal": "G8",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "I am writing to formally withdraw my application for the {{role}} opening at {{company}}.",
+        "Wanted to notify you promptly that I am withdrawing from consideration for the {{role}} position.",
+        "Reaching out to share that I have accepted another opportunity and am closing my candidacy."
+      ],
+      "proof": [
+        "I am writing to share that I have accepted an offer with another company, and would like to respectfully withdraw my application for the {{role}} opening at {{company}}."
+      ],
+      "ask": [
+        "I was genuinely impressed by the engineers I spoke with and appreciated the thoughtful conversations throughout the interview stages. I hope we can stay in touch on LinkedIn as our paths cross in the industry."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "Send as soon as you have signed an offer with another employer while actively interviewing with this team.",
+    "whenNotToUse": "Do not send if you have not finalized written offer terms elsewhere.",
+    "risks": [],
+    "whyItWorks": "Formally withdraw from an active interview process with prompt courtesy, leaving doors open for the future.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Courteous, appreciative of time invested, definitive yet warm.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "advice-ask-senior-engineer",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "15-Minute Advice Ask to Senior Engineer",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "curiosity-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "primary_skill",
+      "proof_point",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Quick technical advice on {{primary_skill}} architecture - {{your_name}}"
+    ],
+    "blocks": {
+      "hook": [
+        "I have been following your technical engineering insights at {{company}} regarding {{primary_skill}}.",
+        "Your career journey as a staff engineer at {{company}} represents the technical depth I hope to develop.",
+        "As an engineer navigating early architecture decisions in {{primary_skill}}, I value your perspective."
+      ],
+      "proof": [
+        "I have been following your technical insights at {{company}} regarding {{primary_skill}}. I am currently facing a concrete architectural decision on a project where I recently {{proof_point}}."
+      ],
+      "ask": [
+        "I am weighing whether to decouple my queue consumers early or keep them inside a modular monolith until throughput demands distributed workers. Given your experience with high-scale services at {{company}}, I would value your quick perspective."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When seeking authentic technical mentoring from a senior or staff engineer on a specific fork in the road.",
+    "whenNotToUse": "Do not use as a veiled job application or to ask for an immediate referral.",
+    "risks": [],
+    "whyItWorks": "Ask for a brief perspective on one specific career or technical architecture decision the sender is actively facing.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Humble, focused on a specific decision, avoids generic \"how do I get hired\" prompts.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "prospective-teammate-stack-question",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Prospective Teammate Stack/Culture Question",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "curiosity-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "admired_project",
+      "primary_skill",
+      "proof_point",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Prospective Teammate Stack/Culture Question - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "What testing framework and CI pipeline does your engineering group rely on at {{company}}?",
+        "How does your team at {{company}} manage code reviews and automated deployment checks?",
+        "Quick culture question: how much autonomous ownership do junior engineers have over feature specs at {{company}}?"
+      ],
+      "proof": [
+        "Quick engineering question: how does your team structure integration testing between microservices before production rollout?"
+      ],
+      "ask": [
+        "Curious to learn how your team approaches this challenge day-to-day."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When connecting with potential future engineering peers before or during application season.",
+    "whenNotToUse": "Never ask multiple compound questions; stick strictly to one single inquiry.",
+    "risks": [],
+    "whyItWorks": "Ask a single specific question about day-to-day tooling and testing practices to a potential future teammate.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Collegial, curious, respectful of time, strictly one question.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "interview-process-question-recent-hire",
+    "version": 2,
+    "channel": "linkedin_connect",
+    "tab": "linkedin_connect",
+    "name": "Interview Process Questions to Recent Hire",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "engineer or peer"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "curiosity-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "company",
+      "role",
+      "college",
+      "primary_skill"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Hi {{recipient_name}}, great to see another early-career engineer joining {{company}}.",
+        "Hi {{recipient_name}}, congrats on your recent role at {{company}} on the tech team!",
+        "Hi {{recipient_name}}, saw your recent update joining {{company}} as a software engineer."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "characters",
+      "target": 180,
+      "warn": 195,
+      "hardMax": 200
+    },
+    "whenToUse": "For connecting with engineers who joined the target company within the past year.",
+    "whenNotToUse": "Do not ask for a referral in this touchpoint; recent hires often cannot refer candidates immediately.",
+    "risks": [],
+    "whyItWorks": "Connect with a recently joined fresher or junior engineer who navigated the recruitment bar in the past 6-12 months.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Peer-level, congratulatory, zero referral ask, focused on interview preparation tips.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "one-question-note-after-talk",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "One-Question Note After a Talk or Post",
+    "goal": "G1",
+    "relationship": "cold",
+    "recipientTypes": [
+      "hiring manager"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "curiosity-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "talk_topic",
+      "event_name",
+      "admired_project",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "One-Question Note After a Talk or Post - {{role}} at {{company}}"
+    ],
+    "blocks": {
+      "hook": [
+        "Loved your session on {{talk_topic}} at {{event_name}}.",
+        "Watched your presentation covering {{talk_topic}} at {{event_name}} yesterday.",
+        "Read your summary on {{talk_topic}} and had one quick follow-up question."
+      ],
+      "proof": [
+        "I recently {{proof_point}}."
+      ],
+      "ask": [
+        "Would you be open to connecting?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "When you have a sharp, single technical question immediately after a tech talk, podcast, or post.",
+    "whenNotToUse": "Do not use for lengthy multi-topic emails or generalized career queries.",
+    "risks": [],
+    "whyItWorks": "Send a laser-focused, ultra-concise technical follow-up question after reading a post or watching a conference talk.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Ultra-crisp, 40 to 60 words, zero pleasantry overhead.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "reapply-after-rejection",
+    "version": 2,
+    "channel": "cold_email",
+    "tab": "cold_email",
+    "name": "Re-Apply After Rejection",
+    "goal": "G1",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "what_changed",
+      "proof_point",
+      "portfolio",
+      "your_name",
+      "your_email",
+      "primary_skill"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "subjectVariants": [
+      "Re-application for {{role}} at {{company}} - {{your_name}} update"
+    ],
+    "blocks": {
+      "hook": [
+        "Following my interview cycle for {{role}} at {{company}} earlier this year, I spent the last two quarters strengthening my systems foundations.",
+        "I wanted to circle back following our interview cycle 6 months ago with a major update on my engineering work.",
+        "Reflecting on my previous technical interview with {{company}}, I focused on building depth in {{primary_skill}}."
+      ],
+      "proof": [
+        "I interviewed for the {{role}} opening with {{company}} earlier this year. While the timing was not right then, I took the team's feedback to heart and spent the last few months leveling up my technical foundations."
+      ],
+      "ask": [
+        "Since our last conversation: {{what_changed}}. In addition, I {{proof_point}} (documented code and tests: {{portfolio}})."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 80,
+      "warn": 125,
+      "hardMax": 200
+    },
+    "whenToUse": "Send at least 6 months after an interview loop when you have concrete, verifiable progress to demonstrate.",
+    "whenNotToUse": "Hard blocked if what_changed is empty. Never re-apply without concrete new projects or skills.",
+    "risks": [],
+    "whyItWorks": "Re-engage a recruiter 6 months after an interview rejection by presenting verifiable technical growth and projects shipped since.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Mature, growth-oriented, zero defensiveness, highlights newly acquired technical capabilities.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "reply-no-openings-right-now",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Reply to \"No Openings Right Now\"",
+    "goal": "G1",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you for the quick and transparent update regarding current headcount at {{company}}.",
+        "I appreciate the prompt response regarding {{company}}'s hiring timelines.",
+        "Thanks for letting me know about the current hiring pause for {{role}} at {{company}}."
+      ],
+      "proof": [
+        "Thank you for the transparent update regarding hiring bandwidth for the {{role}} team at {{company}}."
+      ],
+      "ask": [
+        "I completely understand that headcount priorities shift. What technical signals or upcoming hiring quarters would you recommend I watch for as your engineering roadmap expands?"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "When a recruiter or founder politely declines due to lack of open positions or freeze.",
+    "whenNotToUse": "Do not use if the decline was due to severe technical screening failure.",
+    "risks": [],
+    "whyItWorks": "Respond gracefully to a \"no headcount\" response by inquiring what technical signals or timing to watch for next.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Gracious, professional, non-pushy, seeks future alignment signals.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "reply-share-your-details",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Reply to \"Please Share Your Details\"",
+    "goal": "G1",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role",
+      "company",
+      "batch_year",
+      "notice_period",
+      "location_preference",
+      "primary_skill",
+      "portfolio",
+      "your_name",
+      "your_email"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you for reaching out! Here are the requested candidate details for {{role}} at {{company}}.",
+        "Delighted to share my information regarding the {{role}} opening at {{company}}.",
+        "Here are my logistics and technical details as requested for {{company}}'s {{role}} team."
+      ],
+      "proof": [
+        "Thank you for following up! Here are the details you requested for the {{role}} requisition at {{company}}:"
+      ],
+      "ask": [
+        "- Graduating Batch: {{batch_year}}\n- Availability / Notice Period: {{notice_period}}\n- Preferred Location: {{location_preference}}\n- Core Tech Stack: {{primary_skill}}\n- Code Samples & Resume: {{portfolio}}"
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "When a recruiter has replied requesting availability, notice period, location preferences, or graduation batch.",
+    "whenNotToUse": "Do not send unsolicited as a first message.",
+    "risks": [],
+    "whyItWorks": "Respond promptly and completely when a recruiter requests your candidate logistics (batch, notice, location, expected CTC).",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Precise, operational, formatted for immediate HR database entry.",
+    "needsAuthoring": true
+  },
+  {
+    "id": "reply-open-to-other-roles-mismatch",
+    "version": 2,
+    "channel": "follow_up",
+    "tab": "follow_up",
+    "name": "Reply to \"Open to Other Roles?\" / Role Mismatch",
+    "goal": "G1",
+    "relationship": "after-accept",
+    "recipientTypes": [
+      "in-house recruiter"
+    ],
+    "candidateStages": [
+      "student",
+      "fresher",
+      "intern-seeker"
+    ],
+    "companyTypes": [
+      "product",
+      "startup",
+      "gcc",
+      "it-services",
+      "any"
+    ],
+    "angle": "skill-led",
+    "askStrength": "low",
+    "requiredSlots": [
+      "recipient_name",
+      "role_family",
+      "primary_skill",
+      "proof_point",
+      "portfolio",
+      "company",
+      "your_name"
+    ],
+    "optionalSlots": [
+      "portfolio",
+      "college"
+    ],
+    "blocks": {
+      "hook": [
+        "Thank you for considering my profile for {{company}}'s team.",
+        "Appreciate you reviewing my background and exploring potential fits across {{company}}.",
+        "Thank you for the thoughtful suggestion regarding alternative openings at {{company}}."
+      ],
+      "proof": [
+        "Thank you for considering my background! While I appreciate the thought regarding alternative roles, my deep hands-on expertise and project work are centered around {{role_family}} development."
+      ],
+      "ask": [
+        "I specialize in {{primary_skill}}, and recently {{proof_point}} (verified projects: {{portfolio}}). I want to ensure I bring maximum immediate impact to {{company}} where my core strengths lie."
+      ],
+      "close": [
+        "Best regards,\n{{your_name}}"
+      ]
+    },
+    "optionalBlockPriority": [
+      "proof",
+      "hook",
+      "ask",
+      "close"
+    ],
+    "lengthProfile": {
+      "metric": "words",
+      "target": 50,
+      "warn": 85,
+      "hardMax": 120
+    },
+    "whenToUse": "When an HR recruiter offers an unrelated role (e.g. QA, technical support, sales engineering) but you want software engineering.",
+    "whenNotToUse": "Do not use if the proposed role is actually an acceptable career step for your goals.",
+    "risks": [],
+    "whyItWorks": "Redirect a recruiter proposing an mismatched role towards your true core engineering family while preserving goodwill.",
+    "exampleFilled": "Hi Rahul, I noticed Finlo is hiring a backend intern. Built Go queue (6.5k jobs/s). Would value connecting.",
+    "followUpTemplateIds": [],
+    "lastReviewed": "2026-10-30",
+    "notes": "Honest about engineering strengths, collaborative, redirects to the right role family.",
+    "needsAuthoring": true
+  }
+]
