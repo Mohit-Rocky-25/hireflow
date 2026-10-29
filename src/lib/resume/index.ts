@@ -6,3 +6,4 @@ export * from './spelling';
 export * from './migration';
 export * from './ingest';
 export * from './confirm';
+export * from './planner';

@@ -8,3 +8,6 @@ export * from './thresholds';
 export * from './wordlists';
 export * from './India-fresher';
 export * from './features';
+export * from './resume';
+export * from './resume';
+

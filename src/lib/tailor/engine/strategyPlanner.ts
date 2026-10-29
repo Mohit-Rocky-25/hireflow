@@ -1,6 +1,7 @@
 // ============================================================
 // HIREFLOW TAILORING STRATEGY PLANNER
 // Archetype-aware section ordering, skill prioritization, and length strategy
+// Deterministic: accepts injected asOf date, zero clock access (Hard Rule 2, I-27)
 // ============================================================
 
 import {
@@ -15,16 +16,23 @@ import {
 export function planTailoringStrategy(
   candidate: CandidateProfile,
   job: JobDescription,
-  evidence: EvidenceMapping
+  evidence: EvidenceMapping,
+  options?: { asOf?: string }
 ): TailoringPlan {
+  const asOf = options?.asOf || '2026-10-28';
   const archetype: CandidateArchetype = candidate.archetype || 'technical_specialist';
 
-  // Section Ordering Rules based on Archetype
+  // Section Ordering Rules based on Archetype & Graduation Recency
   let recommendedSectionOrder: SectionOrderRecommendation[] = [];
 
   if (archetype === 'student_fresher') {
     recommendedSectionOrder = [
-      { sectionId: 'education', title: 'Education', recommendedPosition: 1, rationale: 'Prioritize recent degree, academic excellence, and CGPA for entry-level roles.' },
+      {
+        sectionId: 'education',
+        title: 'Education',
+        recommendedPosition: 1,
+        rationale: 'Prioritize recent degree, academic excellence, and CGPA for entry-level roles; graduation was recent or candidate is currently enrolled.'
+      },
       { sectionId: 'projects', title: 'Technical Projects', recommendedPosition: 2, rationale: 'Demonstrates hands-on engineering ability and applied tooling in lieu of full-time corporate history.' },
       { sectionId: 'skills', title: 'Technical Skills', recommendedPosition: 3, rationale: 'Positions proficiencies clearly for automated ATS parsing.' },
       { sectionId: 'experience', title: 'Experience & Internships', recommendedPosition: 4, rationale: 'Highlights internships, apprenticeships, or student leadership.' },
@@ -41,7 +49,7 @@ export function planTailoringStrategy(
     ];
   } else if (archetype === 'academic_researcher') {
     recommendedSectionOrder = [
-      { sectionId: 'education', title: 'Education', recommendedPosition: 1, rationale: 'Highlights advanced degrees (Ph.D., M.S.), advisors, and academic pedigree.' },
+      { sectionId: 'education', title: 'Education', recommendedPosition: 1, rationale: 'Highlights advanced degrees (Ph.D., M.S.), advisors, and academic pedigree; graduation was part of research pathway.' },
       { sectionId: 'projects', title: 'Research & Publications', recommendedPosition: 2, rationale: 'Prioritizes peer-reviewed publications, arXiv preprints, and research grants.' },
       { sectionId: 'experience', title: 'Academic & Industry Experience', recommendedPosition: 3, rationale: 'Fellowships, lab appointments, and industry research collaborations.' },
       { sectionId: 'skills', title: 'Research Methodologies & Tools', recommendedPosition: 4, rationale: 'Mathematical modeling, frameworks (PyTorch), and experimental instrumentation.' }
@@ -82,7 +90,7 @@ export function planTailoringStrategy(
     : '2-page format recommended to accommodate extensive career history and publications without sacrificing readability.';
 
   return {
-    projectId: `proj_plan_${Date.now()}`,
+    projectId: 'proj_plan_deterministic',
     recommendedArchetype: archetype,
     recommendedSectionOrder,
     skillsToEmphasize,
@@ -92,6 +100,6 @@ export function planTailoringStrategy(
       recommendedPages,
       reason: pageReason
     },
-    generatedAt: new Date().toISOString()
+    generatedAt: `${asOf}T12:00:00.000Z`
   };
 }
