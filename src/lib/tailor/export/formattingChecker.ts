@@ -26,6 +26,7 @@ export interface FormattingCheckResult {
 
 // Broken glyphs, unescaped replacement characters, mojibake, control chars
 const SUSPICIOUS_GLYPH_REGEX = /[\uFFFD\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g;
+const PLACEHOLDER_REGEX = /\[(?:X%?|metric|number|\.\.\.)\]/i;
 
 export function runPreExportFormattingChecks(resume: TailoredResume): FormattingCheckResult {
   const issues: FormattingIssue[] = [];
@@ -48,6 +49,14 @@ export function runPreExportFormattingChecks(resume: TailoredResume): Formatting
           location: section.title,
         });
       }
+      if (PLACEHOLDER_REGEX.test(section.content.summaryText)) {
+        issues.push({
+          type: 'broken_glyph',
+          severity: 'error',
+          message: 'Unreplaced placeholder detected in summary text. Export blocked.',
+          location: section.title,
+        });
+      }
     }
 
     // Check entries and bullets
@@ -66,6 +75,18 @@ export function runPreExportFormattingChecks(resume: TailoredResume): Formatting
           for (const bullet of entry.bullets) {
             totalBullets++;
 
+            // Placeholder check (I-04)
+            if (PLACEHOLDER_REGEX.test(bullet.text)) {
+              glyphIssues++;
+              const match = bullet.text.match(PLACEHOLDER_REGEX);
+              issues.push({
+                type: 'broken_glyph',
+                severity: 'error',
+                message: `Unreplaced metric placeholder detected: "${match?.[0]}" in "${bullet.text.slice(0, 40)}...". Export blocked until resolved.`,
+                location: `${entry.primaryTitle}`,
+              });
+            }
+
             // Broken glyph check
             if (SUSPICIOUS_GLYPH_REGEX.test(bullet.text)) {
               glyphIssues++;
@@ -77,7 +98,7 @@ export function runPreExportFormattingChecks(resume: TailoredResume): Formatting
               });
             }
 
-            // Widow/Orphan check (lines that leave just 1 or 2 stray words at the end)
+            // Widow/Orphan check
             const words = bullet.text.trim().split(/\s+/);
             if (words.length > 15) {
               const remainder = words.length % 15;
@@ -97,26 +118,29 @@ export function runPreExportFormattingChecks(resume: TailoredResume): Formatting
     }
   }
 
-  // 2. Page overflow sentinel check
-  const heightReport = evaluateLayoutHeight(resume);
-  if (heightReport.estimatedPages > 1) {
+  // 2. Physical Layout & Page Boundary Safety
+  const layoutReport = evaluateLayoutHeight(resume);
+  if (layoutReport.estimatedPages > 1) {
     issues.push({
       type: 'page_overflow',
       severity: 'warning',
-      message: `Resume estimated at ${heightReport.estimatedPages} pages (~${heightReport.overflowPx}px over single-page capacity). Consider using Auto-Fit 1P to avoid spillover.`,
+      message: `Resume content currently exceeds 1 page (${layoutReport.estimatedPages} pages calculated). For campus & early-career roles, standard 1-page is strongly recommended.`,
+      location: 'Physical Page Layout',
     });
   }
 
-  const hasErrors = issues.some((i) => i.severity === 'error');
+  // Determine overall pass status (any error severity fails the check)
+  const hasErrors = issues.some(issue => issue.severity === 'error');
+  const passed = !hasErrors;
 
   return {
-    passed: !hasErrors,
+    passed,
     issues,
     metrics: {
       totalBullets,
       glyphIssues,
       widowOrphanCount,
-      estimatedPages: heightReport.estimatedPages,
+      estimatedPages: layoutReport.estimatedPages,
     },
   };
 }

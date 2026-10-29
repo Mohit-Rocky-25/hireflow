@@ -1,11 +1,32 @@
 // ============================================================
 // HIREFLOW TRUTH GATE & FACTUAL INTEGRITY SENTINEL
-// Zero-tolerance hallucination detection and export blocking gate
+// Zero-tolerance hallucination detection and export blocking gate (Stage 5)
+// Evaluates both claim-strength ladder and metric preservation (I-02).
 // ============================================================
 
 import { TruthGateResult, TailoredResume, CandidateProfile } from '../types';
 import { extractMetricsFromText, buildCandidateFactLedger } from '../ledger/factLedger';
 import { extractSkillsFromText } from '../knowledge/skillsTaxonomy';
+import { CLAIM_STRENGTH_LADDER } from '../../../config/thresholds';
+
+function getVerbRank(bulletText: string): { verb: string; rank: number } {
+  const clean = bulletText.replace(/^[-•*►›\d.]+\s*/, '').trim().toLowerCase();
+  const firstWord = clean.split(/\s+/)[0] || '';
+  const firstTwo = clean.split(/\s+/).slice(0, 2).join(' ');
+
+  if (CLAIM_STRENGTH_LADDER[firstTwo]) {
+    return { verb: firstTwo, rank: CLAIM_STRENGTH_LADDER[firstTwo] };
+  }
+  if (CLAIM_STRENGTH_LADDER[firstWord]) {
+    return { verb: firstWord, rank: CLAIM_STRENGTH_LADDER[firstWord] };
+  }
+  for (const [v, r] of Object.entries(CLAIM_STRENGTH_LADDER)) {
+    if (clean.startsWith(v)) {
+      return { verb: v, rank: r };
+    }
+  }
+  return { verb: firstWord, rank: 3 };
+}
 
 export function verifyFactualIntegrity(
   tailoredResume: TailoredResume,
@@ -18,7 +39,6 @@ export function verifyFactualIntegrity(
   let totalBullets = 0;
   let preservedMetricsCount = 0;
 
-  // Build master set of all original metrics in candidate resume
   const allOriginalMetrics = new Set<string>();
   for (const fact of factLedger) {
     for (const m of fact.extractedMetrics) {
@@ -26,7 +46,6 @@ export function verifyFactualIntegrity(
     }
   }
 
-  // Master set of all original skills in candidate profile
   const originalSkillIds = new Set<string>();
   for (const fact of factLedger) {
     for (const c of fact.normalizedConcepts) {
@@ -34,7 +53,6 @@ export function verifyFactualIntegrity(
     }
   }
 
-  // Scan every section and bullet in tailored resume
   for (const section of tailoredResume.sections) {
     if (!section.visible || !section.content.entries) continue;
 
@@ -43,43 +61,55 @@ export function verifyFactualIntegrity(
 
       for (const bullet of entry.bullets) {
         totalBullets++;
-        const tailoredMetrics = extractMetricsFromText(bullet.text);
 
+        // 1. Check claim-strength verb escalation (I-02)
+        if (bullet.originalText && bullet.originalText.trim() !== bullet.text.trim()) {
+          const original = getVerbRank(bullet.originalText);
+          const tailored = getVerbRank(bullet.text);
+
+          if (tailored.rank > original.rank) {
+            blockingIssues.push({
+              id: `block_verb_${Math.random().toString(36).substr(2, 7)}`,
+              message: `Verb escalation detected: "${tailored.verb}" (rank ${tailored.rank}) escalates candidate ownership from original "${original.verb}" (rank ${original.rank}). Violates claim-strength ladder.`,
+              section: section.title,
+              severity: 'CRITICAL',
+            });
+          }
+        }
+
+        // 2. Check metric preservation & hallucination
+        const tailoredMetrics = extractMetricsFromText(bullet.text);
         for (const tm of tailoredMetrics) {
           const normalizedTm = tm.toLowerCase().replace(/\s+/g, '');
-          // Check if metric exists in original facts
           if (allOriginalMetrics.has(normalizedTm)) {
             preservedMetricsCount++;
           } else {
-            // Check if bullet has an associated originalText
             const originalBulletMetrics = bullet.originalText
               ? extractMetricsFromText(bullet.originalText).map(m => m.toLowerCase().replace(/\s+/g, ''))
               : [];
 
             if (!originalBulletMetrics.includes(normalizedTm)) {
-              // INVENTED METRIC DETECTED!
               inventedMetricsDetected.push(tm);
               blockingIssues.push({
                 id: `block_metric_${Math.random().toString(36).substr(2, 7)}`,
                 message: `Invented metric detected: "${tm}" in ${section.title} (${entry.primaryTitle}). This number did not exist in candidate source facts.`,
                 section: section.title,
-                severity: 'CRITICAL'
+                severity: 'CRITICAL',
               });
             }
           }
         }
 
-        // Check for invented tools or technologies in bullet
+        // 3. Check for invented skills
         const skillsInBullet = extractSkillsFromText(bullet.text);
         for (const skill of skillsInBullet) {
           if (!originalSkillIds.has(skill.id)) {
-            // Check if user confirmed it or edited it manually
             if (!bullet.isEditedByUser) {
               blockingIssues.push({
                 id: `block_skill_${Math.random().toString(36).substr(2, 7)}`,
                 message: `Unverified skill "${skill.name}" introduced in bullet without candidate confirmation.`,
                 section: section.title,
-                severity: 'WARNING'
+                severity: 'WARNING',
               });
             }
           }
@@ -100,6 +130,6 @@ export function verifyFactualIntegrity(
     unsupportedClaimsCount: warningCount,
     preservedMetricsCount,
     inventedMetricsDetected,
-    blockingIssues
+    blockingIssues,
   };
 }

@@ -3,6 +3,9 @@
 // Stage 1 Single Source of Truth: Confirmed Facts Ledger (P1, P2, P3)
 // ============================================================
 
+import type { GateIssue, GateResult } from './gate/types';
+export type { GateIssue, GateResult };
+
 export type FactSource = 'user' | 'imported';
 
 export type FactKind =
@@ -173,28 +176,6 @@ export interface Target {
     eligibleBatches?: number[];
     requiredCertification?: string;
   };
-}
-
-export interface GateIssue {
-  ruleId: string;
-  severity: 'BLOCKING' | 'WARNING';
-  message: string;
-  location: {
-    sectionId?: string;
-    entryId?: string;
-    factId?: string;
-    bulletIndex?: number;
-  };
-  suggestedFix: string;
-}
-
-export interface GateResult {
-  passed: boolean;
-  blockingCount: number;
-  warningCount: number;
-  issues: GateIssue[];
-  jdCoveragePct: number;
-  evaluatedAt: string;
 }
 
 export interface ResumeDocumentTree {
