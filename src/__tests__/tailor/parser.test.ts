@@ -11,16 +11,16 @@ import { DEMO_FRESHER_RESUME, DEMO_SOFTWARE_ENGINEER_JD } from '../../lib/tailor
 describe('Resume Parser & Structure Recovery', () => {
   it('extracts contact information accurately', () => {
     const contact = extractContactInfo(DEMO_FRESHER_RESUME);
-    expect(contact.email).toBe('jeswanth.kumar@example.com');
+    expect(contact.email).toBe('fictional.candidate@example.org');
     expect(contact.phone).toBe('+91 9876543210');
-    expect(contact.linkedin).toBe('linkedin.com/in/jeswanth-k');
-    expect(contact.github).toBe('github.com/jeswanth-k');
+    expect(contact.linkedin).toBe('linkedin.com/in/fictional-candidate');
+    expect(contact.github).toBe('github.com/fictional-candidate');
     expect(contact.location).toBe('Bengaluru, India');
   });
 
   it('recovers education with degree, institution, and CGPA score', () => {
     const profile = parseResumeRawText(DEMO_FRESHER_RESUME, 'test_resume.pdf');
-    expect(profile.fullName).toBe('JESWANTH KUMAR');
+    expect(profile.fullName).toBe('FICTIONAL CANDIDATE A');
     expect(profile.education.length).toBeGreaterThan(0);
 
     const edu = profile.education[0];

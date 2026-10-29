@@ -67,7 +67,7 @@ interface TailorState {
 const STORAGE_KEY = 'hireflow_tailor_state_v2';
 
 function createDefaultProject(): TailoringProject {
-  const initialCandidate = parseResumeRawText(DEMO_FRESHER_RESUME, 'Jeswanth_Kumar_Resume.pdf');
+  const initialCandidate = parseResumeRawText(DEMO_FRESHER_RESUME, 'Fictional_Candidate_Resume.pdf');
   const initialJob = parseJobDescription(DEMO_SOFTWARE_ENGINEER_JD);
   const initialEvidence = matchCandidateToJob(initialCandidate, initialJob);
   const initialPlan = planTailoringStrategy(initialCandidate, initialJob, initialEvidence);
@@ -281,7 +281,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
     const isSecurity = preset === 'security';
     const resumeText = isSecurity ? DEMO_SECURITY_RESUME : DEMO_FRESHER_RESUME;
     const jdText = isSecurity ? DEMO_SECURITY_JD : DEMO_SOFTWARE_ENGINEER_JD;
-    const fileName = isSecurity ? 'Alex_Morgan_CISSP_Resume.pdf' : 'Jeswanth_Kumar_Resume.pdf';
+    const fileName = isSecurity ? 'Fictional_Security_Resume.pdf' : 'Fictional_Candidate_Resume.pdf';
 
     const candidate = parseResumeRawText(resumeText, fileName);
     const job = parseJobDescription(jdText);

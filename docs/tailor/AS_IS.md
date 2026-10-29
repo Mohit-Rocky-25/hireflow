@@ -135,3 +135,4 @@ src/
 8. **`pdfExporter.ts`**: Emits vector PDF using `pdf-lib` with standard WinAnsi fonts (Helvetica/Times-Roman). Silently strips all non-ASCII characters (`/[^\x00-\x7F]/g -> ' '`), mangling Indian names, accents, and diacritics. Operates on independent manual coordinates.
 9. **`docxExporter.ts`**: Generates tableless Word documents with Calibri typography. Contains zero pagination tracking or shared layout tree with PDF/DOM preview; cannot guarantee page parity.
 10. **`tailorStore.ts`**: Zustand store persisting unvalidated JSON snapshots to `localStorage` without quota protection or corruption recovery. Seeds state with demo fixtures containing real-looking personal names ("Jeswanth Kumar", "Alex Morgan").
+

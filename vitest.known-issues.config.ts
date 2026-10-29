@@ -15,3 +15,4 @@ export default defineConfig({
     include: ['tests/tailor/known-issues.spec.ts'],
   },
 });
+

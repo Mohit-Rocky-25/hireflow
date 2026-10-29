@@ -651,3 +651,4 @@ fs.writeFileSync(path.join(outDir, 'jobDescriptions.json'), JSON.stringify(JOB_D
 console.log(`Successfully generated fixtures:`);
 console.log(`- Personas: ${PERSONAS_DATA.length} written to tests/fixtures/tailor/personas.json`);
 console.log(`- Job Descriptions: ${JOB_DESCRIPTIONS.length} written to tests/fixtures/tailor/jobDescriptions.json`);
+

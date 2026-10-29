@@ -1,12 +1,12 @@
 // ============================================================
 // HIREFLOW SYNTHETIC RESUME & JOB FIXTURES
-// Curated fixtures covering diverse candidate archetypes
+// Curated fixtures covering diverse candidate archetypes (fictional names only)
 // ============================================================
 
 export const DEMO_FRESHER_RESUME = `
-JESWANTH KUMAR
-Bengaluru, India | +91 9876543210 | jeswanth.kumar@example.com
-linkedin.com/in/jeswanth-k | github.com/jeswanth-k
+FICTIONAL CANDIDATE A
+Bengaluru, India | +91 9876543210 | fictional.candidate@example.org
+linkedin.com/in/fictional-candidate | github.com/fictional-candidate
 
 EDUCATION
 Bachelor of Technology in Electronics & Communication Engineering
@@ -61,9 +61,9 @@ Preferred Qualifications (Bonus):
 `.trim();
 
 export const DEMO_SECURITY_RESUME = `
-ALEX MORGAN, CISSP
-Austin, TX | (512) 555-0199 | alex.morgan@securityops.net
-linkedin.com/in/alexmorgan-cyber | github.com/alexmorgan-sec
+FICTIONAL SECURITY LEAD, CISSP
+Austin, TX | (512) 555-0199 | fictional.security@example.org
+linkedin.com/in/fictional-security | github.com/fictional-security
 
 PROFESSIONAL SUMMARY
 Senior Information Security Engineer with 8+ years leading enterprise SOC operations, threat hunting, and cloud vulnerability remediation. Proven track record reducing mean time to detect (MTTD) by 60% across Fortune 500 financial networks.
