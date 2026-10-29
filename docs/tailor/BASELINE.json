@@ -1,0 +1,453 @@
+{
+  "timestamp": "2026-10-29T17:25:06.556Z",
+  "harness": "HireFlow v4.0.0 As-Is Tailor Engine Baseline Audit",
+  "totalPersonasAudited": 12,
+  "results": [
+    {
+      "personaId": "persona-01-fresher-campus-cs",
+      "name": "Aarav Sharma",
+      "archetype": "student_fresher",
+      "region": "india-campus",
+      "pdfLetterBytes": 2992,
+      "pdfA4Bytes": 3004,
+      "docxBytes": 10594,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "0/0",
+        "projRatio": "1/2"
+      },
+      "runtimeMs": 2220
+    },
+    {
+      "personaId": "persona-02-fresher-with-internship",
+      "name": "Rohan Mehra",
+      "archetype": "student_fresher",
+      "region": "india-private",
+      "pdfLetterBytes": 2881,
+      "pdfA4Bytes": 2890,
+      "docxBytes": 10530,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "1/1"
+      },
+      "runtimeMs": 102
+    },
+    {
+      "personaId": "persona-03-diacritics-sde1",
+      "name": "Chloé Lefèvre",
+      "archetype": "early_career",
+      "region": "us",
+      "pdfLetterBytes": 2897,
+      "pdfA4Bytes": 2914,
+      "docxBytes": 10560,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": false,
+        "email": true,
+        "phone": true,
+        "expRatio": "1/1",
+        "projRatio": "1/1"
+      },
+      "runtimeMs": 58
+    },
+    {
+      "personaId": "persona-04-indic-name-fresher",
+      "name": "ಅಮಿತ್ ಕುಮಾರ್ (Amit Kumar)",
+      "archetype": "student_fresher",
+      "region": "india-campus",
+      "pdfLetterBytes": 2518,
+      "pdfA4Bytes": 2528,
+      "docxBytes": 10428,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "stripped_indic",
+      "droppedDetails": "Indic unicode characters completely stripped to spaces by WinAnsi sanitization",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": false,
+        "email": true,
+        "phone": false,
+        "expRatio": "0/0",
+        "projRatio": "2/1"
+      },
+      "runtimeMs": 50
+    },
+    {
+      "personaId": "persona-05-mid-sde-backend",
+      "name": "Vikram Sengupta",
+      "archetype": "mid_career",
+      "region": "india-private",
+      "pdfLetterBytes": 3097,
+      "pdfA4Bytes": 3113,
+      "docxBytes": 10637,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "2/2",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 54
+    },
+    {
+      "personaId": "persona-06-senior-sde-us",
+      "name": "Rachel Chen",
+      "archetype": "senior_lead",
+      "region": "us",
+      "pdfLetterBytes": 2912,
+      "pdfA4Bytes": 2923,
+      "docxBytes": 10574,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": true,
+        "expRatio": "3/2",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 48
+    },
+    {
+      "personaId": "persona-07-lead-manager-uk",
+      "name": "Alastair Montgomery",
+      "archetype": "executive",
+      "region": "uk",
+      "pdfLetterBytes": 2604,
+      "pdfA4Bytes": 2613,
+      "docxBytes": 10448,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 64
+    },
+    {
+      "personaId": "persona-08-cybersecurity-specialist",
+      "name": "David Sterling",
+      "archetype": "security_specialist",
+      "region": "us",
+      "pdfLetterBytes": 3003,
+      "pdfA4Bytes": 3023,
+      "docxBytes": 10622,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": true,
+        "expRatio": "1/1",
+        "projRatio": "1/1"
+      },
+      "runtimeMs": 73
+    },
+    {
+      "personaId": "persona-09-data-ml-engineer",
+      "name": "Pooja Narayanan",
+      "archetype": "data_ml_specialist",
+      "region": "india-private",
+      "pdfLetterBytes": 2613,
+      "pdfA4Bytes": 2624,
+      "docxBytes": 10461,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 48
+    },
+    {
+      "personaId": "persona-10-devops-engineer",
+      "name": "Siddharth Iyer",
+      "archetype": "devops_specialist",
+      "region": "india-private",
+      "pdfLetterBytes": 2584,
+      "pdfA4Bytes": 2620,
+      "docxBytes": 10443,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 46
+    },
+    {
+      "personaId": "persona-11-mobile-engineer",
+      "name": "Ananya Deshmukh",
+      "archetype": "mobile_specialist",
+      "region": "india-private",
+      "pdfLetterBytes": 2669,
+      "pdfA4Bytes": 2673,
+      "docxBytes": 10465,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 37
+    },
+    {
+      "personaId": "persona-12-frontend-specialist",
+      "name": "Karthik Raja",
+      "archetype": "frontend_specialist",
+      "region": "india-private",
+      "pdfLetterBytes": 2624,
+      "pdfA4Bytes": 2634,
+      "docxBytes": 10465,
+      "pageCountLetter": 1,
+      "pageCountA4": 1,
+      "fontUsed": "StandardFonts.Helvetica / HelveticaBold (WinAnsi)",
+      "charIntegrity": "pass",
+      "droppedDetails": "",
+      "placeholdersSurviving": 0,
+      "recovery": {
+        "name": true,
+        "email": true,
+        "phone": false,
+        "expRatio": "1/1",
+        "projRatio": "0/0"
+      },
+      "runtimeMs": 37
+    }
+  ],
+  "sectionDecisions": [
+    {
+      "personaId": "persona-01-fresher-campus-cs",
+      "name": "Aarav Sharma",
+      "archetype": "student_fresher",
+      "yearsSinceGraduation": 0,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-02-fresher-with-internship",
+      "name": "Rohan Mehra",
+      "archetype": "student_fresher",
+      "yearsSinceGraduation": 0.5,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-03-diacritics-sde1",
+      "name": "Chloé Lefèvre",
+      "archetype": "early_career",
+      "yearsSinceGraduation": 1.5,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-04-indic-name-fresher",
+      "name": "ಅಮಿತ್ ಕುಮಾರ್ (Amit Kumar)",
+      "archetype": "student_fresher",
+      "yearsSinceGraduation": 0,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-05-mid-sde-backend",
+      "name": "Vikram Sengupta",
+      "archetype": "mid_career",
+      "yearsSinceGraduation": 4,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-06-senior-sde-us",
+      "name": "Rachel Chen",
+      "archetype": "senior_lead",
+      "yearsSinceGraduation": 8,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-07-lead-manager-uk",
+      "name": "Alastair Montgomery",
+      "archetype": "executive",
+      "yearsSinceGraduation": 12,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-08-cybersecurity-specialist",
+      "name": "David Sterling",
+      "archetype": "security_specialist",
+      "yearsSinceGraduation": 6,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-09-data-ml-engineer",
+      "name": "Pooja Narayanan",
+      "archetype": "data_ml_specialist",
+      "yearsSinceGraduation": 3,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-10-devops-engineer",
+      "name": "Siddharth Iyer",
+      "archetype": "devops_specialist",
+      "yearsSinceGraduation": 5,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-11-mobile-engineer",
+      "name": "Ananya Deshmukh",
+      "archetype": "mobile_specialist",
+      "yearsSinceGraduation": 2.5,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    },
+    {
+      "personaId": "persona-12-frontend-specialist",
+      "name": "Karthik Raja",
+      "archetype": "frontend_specialist",
+      "yearsSinceGraduation": 3.5,
+      "sectionOrder": [
+        "skills",
+        "experience",
+        "projects",
+        "education"
+      ],
+      "educationRank": 4,
+      "rationale": "Standard university credentials."
+    }
+  ]
+}

@@ -14,5 +14,6 @@ export default defineConfig({
     environment: 'node',
     maxWorkers: 2,
     pool: 'threads',
+    exclude: ['tests/tailor/known-issues.spec.ts', '**/node_modules/**', '**/dist/**'],
   },
 });

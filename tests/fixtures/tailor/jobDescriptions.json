@@ -1,0 +1,1418 @@
+[
+  {
+    "id": "jd-01-campus-fresher-sde",
+    "title": "Software Development Engineer - 1 (University Graduate)",
+    "company": "ApexScale Systems India",
+    "seniority": "fresher",
+    "region": "india-campus",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minDegree": "B.Tech / B.E. in Computer Science, IT, or ECE",
+      "minCGPA": 7.5,
+      "minPercentage": 70,
+      "eligibleBatches": [
+        2025,
+        2026
+      ]
+    },
+    "requirements": [
+      {
+        "id": "req-1",
+        "text": "Proficiency in object-oriented programming (C++, Java, or Go)",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "c++"
+      },
+      {
+        "id": "req-2",
+        "text": "Solid understanding of Data Structures, Algorithms, and Complexity Analysis",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "data structures"
+      },
+      {
+        "id": "req-3",
+        "text": "Experience with relational databases and SQL query design (PostgreSQL or MySQL)",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-4",
+        "text": "Familiarity with Git version control and Linux development environment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "git"
+      }
+    ],
+    "domainKeywords": [
+      "Data Structures",
+      "Algorithms",
+      "Go",
+      "PostgreSQL",
+      "Linux",
+      "Git"
+    ],
+    "rawText": "ApexScale Systems is hiring SDE-1 for university graduates (2025/2026 batch). Minimum 7.5 CGPA required. Strong algorithms, SQL, and system fundamentals."
+  },
+  {
+    "id": "jd-02-junior-sde-backend",
+    "title": "Junior Backend Software Engineer",
+    "company": "NovaWave Labs Inc",
+    "seniority": "junior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-5",
+        "text": "1-2 years experience building backend services in Node.js or Go",
+        "category": "experience",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "go"
+      },
+      {
+        "id": "req-6",
+        "text": "Experience writing clean RESTful APIs and microservice communication",
+        "category": "responsibility",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "rest api"
+      },
+      {
+        "id": "req-7",
+        "text": "Experience with Redis caching and asynchronous message queues",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 2,
+        "canonicalSkill": "redis"
+      }
+    ],
+    "domainKeywords": [
+      "Go",
+      "Node.js",
+      "REST API",
+      "Redis",
+      "PostgreSQL"
+    ],
+    "rawText": "Looking for a Junior Backend Engineer with 1+ years building robust APIs. No minimum academic cutoff; pure engineering merit."
+  },
+  {
+    "id": "jd-03-mid-sde-distributed",
+    "title": "Software Engineer II - Distributed Systems",
+    "company": "PayMatrix Global",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-8",
+        "text": "3+ years experience with Java or Kotlin in high-concurrency systems",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "java"
+      },
+      {
+        "id": "req-9",
+        "text": "Hands-on production experience with Apache Kafka event streaming",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "kafka"
+      },
+      {
+        "id": "req-10",
+        "text": "Deep knowledge of distributed transactions and PostgreSQL query optimization",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      }
+    ],
+    "domainKeywords": [
+      "Java",
+      "Kafka",
+      "Distributed Systems",
+      "Spring Boot",
+      "PostgreSQL"
+    ],
+    "rawText": "PayMatrix is hiring an SDE II for core ledger systems. 3+ years in Java/Kafka required."
+  },
+  {
+    "id": "jd-04-security-soc-engineer",
+    "title": "Security Operations Engineer (SOC)",
+    "company": "Sentinel Cyber Defense Systems",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "requiredCertification": "CISSP or CEH"
+    },
+    "requirements": [
+      {
+        "id": "req-11",
+        "text": "Active industry certification: CISSP, CEH, or CompTIA Security+",
+        "category": "certification",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "cissp"
+      },
+      {
+        "id": "req-12",
+        "text": "Hands-on SIEM incident detection and SOAR automation in Splunk",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "splunk"
+      },
+      {
+        "id": "req-13",
+        "text": "Knowledge of MITRE ATT&CK framework and threat hunting methodologies",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "mitre att&ck"
+      }
+    ],
+    "domainKeywords": [
+      "Splunk",
+      "CISSP",
+      "SOC",
+      "Incident Response",
+      "MITRE ATT&CK"
+    ],
+    "rawText": "Sentinel Cyber seeks a SOC Engineer. Requires active CISSP/CEH certification and Splunk SOAR experience."
+  },
+  {
+    "id": "jd-05-staff-cloud-architect",
+    "title": "Staff Cloud Infrastructure Architect",
+    "company": "HyperScale Data Systems",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-14",
+        "text": "7+ years managing multi-region Kubernetes clusters in AWS or GCP",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "kubernetes"
+      },
+      {
+        "id": "req-15",
+        "text": "Advanced Terraform infrastructure-as-code automation and GitOps",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "terraform"
+      },
+      {
+        "id": "req-16",
+        "text": "Proficiency in Go or Python for internal platform tooling development",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 2,
+        "canonicalSkill": "go"
+      }
+    ],
+    "domainKeywords": [
+      "Kubernetes",
+      "Terraform",
+      "AWS",
+      "Go",
+      "Infrastructure as Code"
+    ],
+    "rawText": "HyperScale seeks a Staff Cloud Architect. 7+ years production Kubernetes and Terraform required."
+  },
+  {
+    "id": "jd-6-fictional-spec",
+    "title": "Software Engineering Role 6",
+    "company": "Fictional Corp 6",
+    "seniority": "fresher",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j6-1",
+        "text": "Mandatory Core Capability for track 6",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j6-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j6-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 6. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-7-fictional-spec",
+    "title": "Software Engineering Role 7",
+    "company": "Fictional Corp 7",
+    "seniority": "fresher",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j7-1",
+        "text": "Mandatory Core Capability for track 7",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j7-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j7-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 7. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-8-fictional-spec",
+    "title": "Software Engineering Role 8",
+    "company": "Fictional Corp 8",
+    "seniority": "fresher",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j8-1",
+        "text": "Mandatory Core Capability for track 8",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j8-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j8-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 8. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-9-fictional-spec",
+    "title": "Software Engineering Role 9",
+    "company": "Fictional Corp 9",
+    "seniority": "fresher",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j9-1",
+        "text": "Mandatory Core Capability for track 9",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j9-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j9-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 9. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-10-fictional-spec",
+    "title": "Software Engineering Role 10",
+    "company": "Fictional Corp 10",
+    "seniority": "fresher",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j10-1",
+        "text": "Mandatory Core Capability for track 10",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j10-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j10-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 10. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-11-fictional-spec",
+    "title": "Software Engineering Role 11",
+    "company": "Fictional Corp 11",
+    "seniority": "fresher",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j11-1",
+        "text": "Mandatory Core Capability for track 11",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j11-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j11-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 11. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-12-fictional-spec",
+    "title": "Software Engineering Role 12",
+    "company": "Fictional Corp 12",
+    "seniority": "fresher",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j12-1",
+        "text": "Mandatory Core Capability for track 12",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j12-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j12-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 12. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-13-fictional-spec",
+    "title": "Software Engineering Role 13",
+    "company": "Fictional Corp 13",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j13-1",
+        "text": "Mandatory Core Capability for track 13",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j13-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j13-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 13. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-14-fictional-spec",
+    "title": "Software Engineering Role 14",
+    "company": "Fictional Corp 14",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j14-1",
+        "text": "Mandatory Core Capability for track 14",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j14-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j14-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 14. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-15-fictional-spec",
+    "title": "Software Engineering Role 15",
+    "company": "Fictional Corp 15",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j15-1",
+        "text": "Mandatory Core Capability for track 15",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j15-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j15-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 15. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-16-fictional-spec",
+    "title": "Software Engineering Role 16",
+    "company": "Fictional Corp 16",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j16-1",
+        "text": "Mandatory Core Capability for track 16",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j16-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j16-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 16. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-17-fictional-spec",
+    "title": "Software Engineering Role 17",
+    "company": "Fictional Corp 17",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j17-1",
+        "text": "Mandatory Core Capability for track 17",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j17-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j17-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 17. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-18-fictional-spec",
+    "title": "Software Engineering Role 18",
+    "company": "Fictional Corp 18",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j18-1",
+        "text": "Mandatory Core Capability for track 18",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j18-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j18-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 18. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-19-fictional-spec",
+    "title": "Software Engineering Role 19",
+    "company": "Fictional Corp 19",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j19-1",
+        "text": "Mandatory Core Capability for track 19",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j19-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j19-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 19. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-20-fictional-spec",
+    "title": "Software Engineering Role 20",
+    "company": "Fictional Corp 20",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j20-1",
+        "text": "Mandatory Core Capability for track 20",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j20-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j20-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 20. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-21-fictional-spec",
+    "title": "Software Engineering Role 21",
+    "company": "Fictional Corp 21",
+    "seniority": "mid",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j21-1",
+        "text": "Mandatory Core Capability for track 21",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j21-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j21-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 21. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-22-fictional-spec",
+    "title": "Software Engineering Role 22",
+    "company": "Fictional Corp 22",
+    "seniority": "mid",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j22-1",
+        "text": "Mandatory Core Capability for track 22",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j22-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j22-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 22. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-23-fictional-spec",
+    "title": "Software Engineering Role 23",
+    "company": "Fictional Corp 23",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j23-1",
+        "text": "Mandatory Core Capability for track 23",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j23-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j23-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 23. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-24-fictional-spec",
+    "title": "Software Engineering Role 24",
+    "company": "Fictional Corp 24",
+    "seniority": "senior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j24-1",
+        "text": "Mandatory Core Capability for track 24",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j24-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j24-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 24. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-25-fictional-spec",
+    "title": "Software Engineering Role 25",
+    "company": "Fictional Corp 25",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j25-1",
+        "text": "Mandatory Core Capability for track 25",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j25-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j25-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 25. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-26-fictional-spec",
+    "title": "Software Engineering Role 26",
+    "company": "Fictional Corp 26",
+    "seniority": "senior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j26-1",
+        "text": "Mandatory Core Capability for track 26",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j26-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j26-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 26. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-27-fictional-spec",
+    "title": "Software Engineering Role 27",
+    "company": "Fictional Corp 27",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j27-1",
+        "text": "Mandatory Core Capability for track 27",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j27-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j27-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 27. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-28-fictional-spec",
+    "title": "Software Engineering Role 28",
+    "company": "Fictional Corp 28",
+    "seniority": "senior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j28-1",
+        "text": "Mandatory Core Capability for track 28",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j28-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j28-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 28. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-29-fictional-spec",
+    "title": "Software Engineering Role 29",
+    "company": "Fictional Corp 29",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j29-1",
+        "text": "Mandatory Core Capability for track 29",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j29-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j29-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 29. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-30-fictional-spec",
+    "title": "Software Engineering Role 30",
+    "company": "Fictional Corp 30",
+    "seniority": "senior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": true,
+      "minCGPA": 7,
+      "minDegree": "B.Tech/B.E."
+    },
+    "requirements": [
+      {
+        "id": "req-j30-1",
+        "text": "Mandatory Core Capability for track 30",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j30-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j30-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 30. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-31-fictional-spec",
+    "title": "Software Engineering Role 31",
+    "company": "Fictional Corp 31",
+    "seniority": "senior",
+    "region": "us",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j31-1",
+        "text": "Mandatory Core Capability for track 31",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j31-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j31-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 31. Core proficiency in Python, PostgreSQL and system design."
+  },
+  {
+    "id": "jd-32-fictional-spec",
+    "title": "Software Engineering Role 32",
+    "company": "Fictional Corp 32",
+    "seniority": "senior",
+    "region": "india-private",
+    "eligibilityCriteria": {
+      "hasEligibilityLine": false
+    },
+    "requirements": [
+      {
+        "id": "req-j32-1",
+        "text": "Mandatory Core Capability for track 32",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 3,
+        "canonicalSkill": "python"
+      },
+      {
+        "id": "req-j32-2",
+        "text": "Database architecture and query design",
+        "category": "skill",
+        "priority": "MANDATORY",
+        "weight": 2.5,
+        "canonicalSkill": "postgresql"
+      },
+      {
+        "id": "req-j32-3",
+        "text": "Cloud infrastructure deployment",
+        "category": "skill",
+        "priority": "PREFERRED",
+        "weight": 1.5,
+        "canonicalSkill": "docker"
+      }
+    ],
+    "domainKeywords": [
+      "Python",
+      "PostgreSQL",
+      "Docker",
+      "Cloud"
+    ],
+    "rawText": "Fictional Job Description for Role 32. Core proficiency in Python, PostgreSQL and system design."
+  }
+]

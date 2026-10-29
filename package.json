@@ -16,6 +16,7 @@
     "check:design": "node scripts/check-design.mjs",
     "format": "node -e \"console.log('Formatted')\"",
     "test": "vitest run",
+    "test:known-issues": "vitest run --config vitest.known-issues.config.ts",
     "test:engine": "vitest run src/engine/ tests/matcher/ tests/roaster/ tests/tailor/ tests/ingestion/",
     "test:data": "vitest run src/data/__tests__/",
     "test:a11y": "vitest run tests/a11y/ src/__tests__/a11y/",

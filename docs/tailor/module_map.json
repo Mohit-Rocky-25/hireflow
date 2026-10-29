@@ -1,0 +1,437 @@
+{
+  "src/lib/tailor/engine/accomplishmentGenerator.ts": {
+    "exports": [
+      "SuggestedAccomplishment",
+      "generateUniqueAccomplishments"
+    ],
+    "importers": []
+  },
+  "src/lib/tailor/engine/bulletTailor.ts": {
+    "exports": [
+      "tailorBulletPoint"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts"
+    ]
+  },
+  "src/lib/tailor/engine/makeItBetterEngine.ts": {
+    "exports": [
+      "ImprovementHighlight",
+      "MakeItBetterResult",
+      "elevateBulletPoint",
+      "elevateResumeToBestStandard"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/DarkTailorHeader.tsx",
+      "src/features/suite/tailor/components/HandmadeResumeEditor.tsx",
+      "src/features/suite/tailor/components/MakeItBetterModal.tsx",
+      "src/features/suite/tailor/TailorResumePage.tsx",
+      "src/lib/tailor/store/tailorStore.ts"
+    ]
+  },
+  "src/lib/tailor/engine/strategyPlanner.ts": {
+    "exports": [
+      "planTailoringStrategy"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/strategyPlanner.test.ts"
+    ]
+  },
+  "src/lib/tailor/engine/truthGate.ts": {
+    "exports": [
+      "verifyFactualIntegrity"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/truthGate.test.ts"
+    ]
+  },
+  "src/lib/tailor/export/docxExporter.ts": {
+    "exports": [],
+    "importers": [
+      "src/features/suite/tailor/components/DarkTailorHeader.tsx",
+      "src/__tests__/tailor/docxExport.test.ts"
+    ]
+  },
+  "src/lib/tailor/export/formattingChecker.ts": {
+    "exports": [
+      "FormattingIssue",
+      "FormattingCheckResult",
+      "runPreExportFormattingChecks"
+    ],
+    "importers": []
+  },
+  "src/lib/tailor/export/layoutSentinel.ts": {
+    "exports": [
+      "LayoutSentinelReport",
+      "evaluateLayoutHeight"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/DarkPaperPreview.tsx",
+      "src/lib/tailor/export/formattingChecker.ts"
+    ]
+  },
+  "src/lib/tailor/export/pdfExporter.ts": {
+    "exports": [
+      "triggerPrintToPdf",
+      "generatePlainTextResume",
+      "downloadResumeAsTxt",
+      "generateMarkdownResume",
+      "downloadResumeAsMarkdown",
+      "downloadResumeAsJson"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/DarkPaperPreview.tsx"
+    ]
+  },
+  "src/lib/tailor/knowledge/occupationsTaxonomy.ts": {
+    "exports": [
+      "OccupationalRole",
+      "OCCUPATIONAL_ROLES",
+      "inferSeniorityFromText"
+    ],
+    "importers": [
+      "src/lib/tailor/parser/jobParser.ts"
+    ]
+  },
+  "src/lib/tailor/knowledge/qualifications.ts": {
+    "exports": [
+      "ParsedScore",
+      "parseEducationScore",
+      "normalizeDegreeTitle"
+    ],
+    "importers": [
+      "src/lib/tailor/parser/resumeParser.ts"
+    ]
+  },
+  "src/lib/tailor/knowledge/skillsTaxonomy.ts": {
+    "exports": [
+      "CanonicalSkill",
+      "CANONICAL_SKILLS",
+      "resolveCanonicalSkill",
+      "extractSkillsFromText"
+    ],
+    "importers": [
+      "src/lib/tailor/engine/truthGate.ts",
+      "src/lib/tailor/ledger/factLedger.ts",
+      "src/lib/tailor/matching/evidenceMatcher.ts",
+      "src/lib/tailor/parser/jobParser.ts",
+      "src/lib/tailor/parser/resumeParser.ts"
+    ]
+  },
+  "src/lib/tailor/knowledge/transferability.ts": {
+    "exports": [
+      "TransferabilityEdge",
+      "TRANSFERABILITY_GRAPH",
+      "findTransferableMatch"
+    ],
+    "importers": [
+      "src/lib/tailor/matching/evidenceMatcher.ts"
+    ]
+  },
+  "src/lib/tailor/ledger/factLedger.ts": {
+    "exports": [
+      "extractMetricsFromText",
+      "buildCandidateFactLedger"
+    ],
+    "importers": [
+      "src/lib/tailor/engine/bulletTailor.ts",
+      "src/lib/tailor/engine/makeItBetterEngine.ts",
+      "src/lib/tailor/engine/truthGate.ts",
+      "src/lib/tailor/matching/evidenceMatcher.ts"
+    ]
+  },
+  "src/lib/tailor/matching/evidenceMatcher.ts": {
+    "exports": [
+      "matchCandidateToJob"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/evidenceMatcher.test.ts",
+      "src/__tests__/tailor/strategyPlanner.test.ts"
+    ]
+  },
+  "src/lib/tailor/parser/jobParser.ts": {
+    "exports": [
+      "parseJobDescription"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/evidenceMatcher.test.ts",
+      "src/__tests__/tailor/parser.test.ts",
+      "src/__tests__/tailor/strategyPlanner.test.ts"
+    ]
+  },
+  "src/lib/tailor/parser/resumeParser.ts": {
+    "exports": [
+      "extractContactInfo",
+      "detectSectionHeader",
+      "inferCandidateArchetype",
+      "parseResumeRawText"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/docxExport.test.ts",
+      "src/__tests__/tailor/evidenceMatcher.test.ts",
+      "src/__tests__/tailor/parser.test.ts",
+      "src/__tests__/tailor/strategyPlanner.test.ts",
+      "src/__tests__/tailor/truthGate.test.ts"
+    ]
+  },
+  "src/lib/tailor/store/fixtures.ts": {
+    "exports": [
+      "DEMO_FRESHER_RESUME",
+      "DEMO_SOFTWARE_ENGINEER_JD",
+      "DEMO_SECURITY_RESUME",
+      "DEMO_SECURITY_JD"
+    ],
+    "importers": [
+      "src/lib/tailor/store/tailorStore.ts",
+      "src/__tests__/tailor/docxExport.test.ts",
+      "src/__tests__/tailor/evidenceMatcher.test.ts",
+      "src/__tests__/tailor/parser.test.ts",
+      "src/__tests__/tailor/strategyPlanner.test.ts",
+      "src/__tests__/tailor/truthGate.test.ts"
+    ]
+  },
+  "src/lib/tailor/store/tailorStore.ts": {
+    "exports": [
+      "PipelineStage",
+      "AppViewTab",
+      "useTailorStore"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/DarkPaperPreview.tsx",
+      "src/features/suite/tailor/components/DarkTailorHeader.tsx",
+      "src/features/suite/tailor/components/DirectInputModal.tsx",
+      "src/features/suite/tailor/components/HandmadeResumeEditor.tsx",
+      "src/features/suite/tailor/TailorResumePage.tsx",
+      "src/__tests__/tailor/privacy.test.ts"
+    ]
+  },
+  "src/lib/tailor/types.ts": {
+    "exports": [
+      "SeniorityLevel",
+      "CandidateArchetype",
+      "SkillCategory",
+      "RequirementCategory",
+      "RequirementPriority",
+      "AssessmentStatus",
+      "CandidateConfirmation",
+      "ResumeTemplateId",
+      "PaperSize",
+      "ContactInfo",
+      "EducationEntry",
+      "ExperienceEntry",
+      "ProjectEntry",
+      "CertificationEntry",
+      "CategorizedSkills",
+      "CandidateFact",
+      "CandidateProfile",
+      "JobRequirement",
+      "JobDescription",
+      "EvidenceSnippet",
+      "RequirementAssessment",
+      "EvidenceMapping",
+      "SectionOrderRecommendation",
+      "BulletTransformation",
+      "TailoringPlan",
+      "LayoutSettings",
+      "TailoredSection",
+      "TruthGateResult",
+      "TailoredResume",
+      "TailoringProject"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/DarkPaperPreview.tsx",
+      "src/features/suite/tailor/components/HandmadeResumeEditor.tsx",
+      "src/features/suite/tailor/components/sections/CandidateProfileSection.tsx",
+      "src/features/suite/tailor/components/sections/EducationSection.tsx",
+      "src/features/suite/tailor/components/sections/JobRequirementsSection.tsx",
+      "src/features/suite/tailor/components/sections/ProjectsSection.tsx",
+      "src/features/suite/tailor/components/sections/SkillsSection.tsx",
+      "src/features/suite/tailor/components/sections/SummarySection.tsx",
+      "src/features/suite/tailor/components/sections/WorkExperienceSection.tsx",
+      "src/lib/tailor/engine/accomplishmentGenerator.ts",
+      "src/lib/tailor/engine/bulletTailor.ts",
+      "src/lib/tailor/engine/makeItBetterEngine.ts",
+      "src/lib/tailor/engine/truthGate.ts",
+      "src/lib/tailor/export/docxExporter.ts",
+      "src/lib/tailor/export/formattingChecker.ts",
+      "src/lib/tailor/export/layoutSentinel.ts",
+      "src/lib/tailor/export/pdfExporter.ts",
+      "src/lib/tailor/knowledge/occupationsTaxonomy.ts",
+      "src/lib/tailor/knowledge/qualifications.ts",
+      "src/lib/tailor/knowledge/skillsTaxonomy.ts",
+      "src/lib/tailor/ledger/factLedger.ts",
+      "src/lib/tailor/parser/jobParser.ts",
+      "src/__tests__/tailor/docxExport.test.ts",
+      "src/__tests__/tailor/truthGate.test.ts"
+    ]
+  },
+  "src/engine/tailor/index.ts": {
+    "exports": [],
+    "importers": []
+  },
+  "src/engine/tailor/layoutTree.ts": {
+    "exports": [
+      "buildLayoutTree",
+      "normalizeExportText",
+      "renderLayoutTreeToPlainText",
+      "renderLayoutTreeToHtml",
+      "getArchivedItems"
+    ],
+    "importers": [
+      "src/engine/tailor/index.ts"
+    ]
+  },
+  "src/engine/tailor/truthGate.ts": {
+    "exports": [
+      "evaluateTruthGate"
+    ],
+    "importers": [
+      "src/engine/tailor/index.ts"
+    ]
+  },
+  "src/engine/tailor/types.ts": {
+    "exports": [
+      "TruthGateViolationType",
+      "TruthGateViolation",
+      "TruthGateInput",
+      "TruthGateOutput",
+      "LayoutNode",
+      "LayoutTree",
+      "TailorVariant"
+    ],
+    "importers": [
+      "src/engine/tailor/index.ts",
+      "src/engine/tailor/layoutTree.ts",
+      "src/engine/tailor/truthGate.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/DarkPaperPreview.tsx": {
+    "exports": [
+      "DarkPaperPreview"
+    ],
+    "importers": [
+      "src/features/suite/tailor/TailorResumePage.tsx"
+    ]
+  },
+  "src/features/suite/tailor/components/DarkTailorHeader.tsx": {
+    "exports": [
+      "DarkTailorHeader"
+    ],
+    "importers": [
+      "src/features/suite/tailor/TailorResumePage.tsx"
+    ]
+  },
+  "src/features/suite/tailor/components/DirectInputModal.tsx": {
+    "exports": [
+      "DirectInputModal"
+    ],
+    "importers": [
+      "src/features/suite/tailor/TailorResumePage.tsx"
+    ]
+  },
+  "src/features/suite/tailor/components/HandmadeResumeEditor.tsx": {
+    "exports": [
+      "HandmadeResumeEditorProps",
+      "HandmadeResumeEditor"
+    ],
+    "importers": [
+      "src/features/suite/tailor/TailorResumePage.tsx"
+    ]
+  },
+  "src/features/suite/tailor/components/MakeItBetterModal.tsx": {
+    "exports": [
+      "MakeItBetterModal"
+    ],
+    "importers": [
+      "src/features/suite/tailor/TailorResumePage.tsx"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/CandidateProfileSection.tsx": {
+    "exports": [
+      "CandidateProfileSectionProps",
+      "CandidateProfileSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/EducationSection.tsx": {
+    "exports": [
+      "EducationSectionProps",
+      "EducationSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/index.ts": {
+    "exports": [
+      "WorkExperienceSection",
+      "ProjectsSection",
+      "SkillsSection",
+      "EducationSection",
+      "SummarySection",
+      "JobRequirementsSection",
+      "CandidateProfileSection"
+    ],
+    "importers": []
+  },
+  "src/features/suite/tailor/components/sections/JobRequirementsSection.tsx": {
+    "exports": [
+      "JobRequirementsSectionProps",
+      "JobRequirementsSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/ProjectsSection.tsx": {
+    "exports": [
+      "ProjectsSectionProps",
+      "ProjectsSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/SkillsSection.tsx": {
+    "exports": [
+      "SkillsSectionProps",
+      "SkillsSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/SummarySection.tsx": {
+    "exports": [
+      "SummarySectionProps",
+      "SummarySection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/components/sections/WorkExperienceSection.tsx": {
+    "exports": [
+      "WorkExperienceSectionProps",
+      "WorkExperienceSection"
+    ],
+    "importers": [
+      "src/features/suite/tailor/components/sections/index.ts"
+    ]
+  },
+  "src/features/suite/tailor/TailorResumePage.tsx": {
+    "exports": [
+      "TailorResumePage"
+    ],
+    "importers": [
+      "src/App.tsx"
+    ]
+  }
+}

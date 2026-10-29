@@ -1,0 +1,2460 @@
+[
+  {
+    "id": "persona-01-fresher-campus-cs",
+    "fullName": "Aarav Sharma",
+    "headline": "B.Tech Computer Science Fresher (Batch 2026)",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "aarav.sharma.test@example.org",
+      "phone": "+91 98765 43210",
+      "location": "Bengaluru, India",
+      "github": "github.com/aarav-cs-test"
+    },
+    "yearsSinceGraduation": 0,
+    "yearsExperience": 0,
+    "education": [
+      {
+        "id": "edu-1",
+        "degree": "B.Tech in Computer Science and Engineering",
+        "institution": "National Institute of Technology Karnataka",
+        "location": "Surathkal, India",
+        "startYear": 2022,
+        "endYear": 2026,
+        "scoreType": "CGPA",
+        "scoreValue": "8.8/10"
+      }
+    ],
+    "experience": [],
+    "projects": [
+      {
+        "id": "proj-1",
+        "title": "Distributed Key-Value Store",
+        "technologies": [
+          "Go",
+          "Raft",
+          "gRPC"
+        ],
+        "startDate": "08/2025",
+        "endDate": "12/2025",
+        "bullets": [
+          {
+            "id": "b-p1-1",
+            "text": "Implemented Raft consensus algorithm with leader election and log replication across 5 cluster nodes.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-p1-2",
+            "text": "responsible for testing key value storage throughput under network partition scenarios.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      },
+      {
+        "id": "proj-2",
+        "title": "Campus Event Portal",
+        "technologies": [
+          "React",
+          "TypeScript",
+          "Node.js",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2025",
+        "endDate": "05/2025",
+        "bullets": [
+          {
+            "id": "b-p2-1",
+            "text": "Built responsive web portal for university cultural symposium handling 4,200 registrations.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-p2-2",
+            "text": "worked on database queries and index configuration for event filtering.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "C++",
+        "TypeScript",
+        "SQL",
+        "Python"
+      ],
+      "frameworks": [
+        "React",
+        "Node.js",
+        "Express"
+      ],
+      "tools": [
+        "Git",
+        "Docker",
+        "Linux"
+      ],
+      "databases": [
+        "PostgreSQL",
+        "Redis"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "C++",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-02-fresher-with-internship",
+    "fullName": "Rohan Mehra",
+    "headline": "Associate Software Engineer Candidate",
+    "archetype": "student_fresher",
+    "region": "india-private",
+    "contact": {
+      "email": "rohan.mehra.test@example.org",
+      "phone": "+91 91234 56789",
+      "location": "Pune, India",
+      "github": "github.com/rohanm-test"
+    },
+    "yearsSinceGraduation": 0.5,
+    "yearsExperience": 0.5,
+    "education": [
+      {
+        "id": "edu-2",
+        "degree": "B.E. Information Technology",
+        "institution": "Pune Institute of Computer Technology",
+        "location": "Pune, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.4/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-2",
+        "company": "NovaWave Labs Pvt Ltd",
+        "position": "Software Engineering Intern",
+        "location": "Pune, India",
+        "startDate": "01/2025",
+        "endDate": "06/2025",
+        "bullets": [
+          {
+            "id": "b-exp2-1",
+            "text": "Constructed asynchronous webhook delivery engine processing 120,000 daily webhook calls with retry queue in Redis.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-exp2-2",
+            "text": "assisted with writing unit tests for microservice authentication middleware.",
+            "ownershipTier": 1,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-3",
+        "title": "Inventory Reconciliation Engine",
+        "technologies": [
+          "Python",
+          "FastAPI",
+          "PostgreSQL"
+        ],
+        "startDate": "07/2024",
+        "endDate": "11/2024",
+        "bullets": [
+          {
+            "id": "b-proj3-1",
+            "text": "Engineered batch processing pipeline resolving ledger mismatches across 50,000 SKUs.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Python",
+        "JavaScript",
+        "SQL"
+      ],
+      "frameworks": [
+        "FastAPI",
+        "Node.js"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL",
+        "Redis"
+      ],
+      "cloud": [
+        "GCP"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Python",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-03-diacritics-sde1",
+    "fullName": "Chloé Lefèvre",
+    "headline": "Software Engineer I (Frontend & UI Systems)",
+    "archetype": "early_career",
+    "region": "us",
+    "contact": {
+      "email": "chloe.lefevre.test@example.org",
+      "phone": "+1 (555) 234-5678",
+      "location": "Seattle, WA, USA",
+      "linkedin": "linkedin.com/in/chloe-lefevre-test"
+    },
+    "yearsSinceGraduation": 1.5,
+    "yearsExperience": 1.5,
+    "education": [
+      {
+        "id": "edu-3",
+        "degree": "B.S. in Computer Science",
+        "institution": "University of Washington",
+        "location": "Seattle, WA",
+        "startYear": 2019,
+        "endYear": 2023,
+        "scoreType": "GPA",
+        "scoreValue": "3.75/4.0"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-3",
+        "company": "Cascade Cloud Analytics",
+        "position": "Software Engineer I",
+        "location": "Seattle, WA",
+        "startDate": "07/2023",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-exp3-1",
+            "text": "Architected reusable component design system across 12 product surfaces using React and Tailwind CSS.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-exp3-2",
+            "text": "helped with optimizing page render times by adding bundle tree-shaking.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-4",
+        "title": "Accessibility Linter Tool",
+        "technologies": [
+          "TypeScript",
+          "AST",
+          "Babel"
+        ],
+        "startDate": "01/2023",
+        "endDate": "05/2023",
+        "bullets": [
+          {
+            "id": "b-proj4-1",
+            "text": "Built static analysis tool validating WCAG 2.1 AA compliance in JSX codebases.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3"
+      ],
+      "frameworks": [
+        "React",
+        "Next.js"
+      ],
+      "tools": [
+        "Webpack",
+        "Vite",
+        "Jest"
+      ],
+      "databases": [
+        "IndexedDB"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "TypeScript",
+        "React"
+      ]
+    }
+  },
+  {
+    "id": "persona-04-indic-name-fresher",
+    "fullName": "ಅಮಿತ್ ಕುಮಾರ್ (Amit Kumar)",
+    "headline": "B.E. Computer Science Graduate",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "amit.kumar.indic.test@example.org",
+      "phone": "+91 94481 00000",
+      "location": "Mysuru, India"
+    },
+    "yearsSinceGraduation": 0,
+    "yearsExperience": 0,
+    "education": [
+      {
+        "id": "edu-4",
+        "degree": "B.E. Computer Science & Engineering",
+        "institution": "Sri Jayachamarajendra College of Engineering",
+        "location": "Mysuru, India",
+        "startYear": 2022,
+        "endYear": 2026,
+        "scoreType": "CGPA",
+        "scoreValue": "9.1/10"
+      }
+    ],
+    "experience": [],
+    "projects": [
+      {
+        "id": "proj-5",
+        "title": "Kannada Morphological Analyzer",
+        "technologies": [
+          "Python",
+          "NLP",
+          "NLTK"
+        ],
+        "startDate": "03/2025",
+        "endDate": "09/2025",
+        "bullets": [
+          {
+            "id": "b-p5-1",
+            "text": "Trained rule-based morphological tagger identifying inflections with 94.2% precision across 15,000 tokens.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-p5-2",
+            "text": "handled tokenization preprocessing scripts for raw corpora.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Python",
+        "C",
+        "Java"
+      ],
+      "frameworks": [
+        "PyTorch",
+        "Flask"
+      ],
+      "tools": [
+        "Git",
+        "Linux"
+      ],
+      "databases": [
+        "SQLite",
+        "MySQL"
+      ],
+      "cloud": []
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Python",
+        "NLP"
+      ]
+    }
+  },
+  {
+    "id": "persona-05-mid-sde-backend",
+    "fullName": "Vikram Sengupta",
+    "headline": "Backend Software Engineer (Distributed Systems & FinTech)",
+    "archetype": "mid_career",
+    "region": "india-private",
+    "contact": {
+      "email": "vikram.sengupta.test@example.org",
+      "phone": "+91 98300 11223",
+      "location": "Hyderabad, India",
+      "linkedin": "linkedin.com/in/vikram-sengupta-test"
+    },
+    "yearsSinceGraduation": 4,
+    "yearsExperience": 4,
+    "education": [
+      {
+        "id": "edu-5",
+        "degree": "B.Tech in Information Technology",
+        "institution": "Jadavpur University",
+        "location": "Kolkata, India",
+        "startYear": 2018,
+        "endYear": 2022,
+        "scoreType": "PERCENTAGE",
+        "scoreValue": "82%"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-5a",
+        "company": "PayMatrix Global Technologies",
+        "position": "Software Engineer II",
+        "location": "Hyderabad, India",
+        "startDate": "06/2023",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e5a-1",
+            "text": "Architected distributed ledger reconciliation engine processing 1.4M transactions daily with zero settlement variance.",
+            "ownershipTier": 4
+          },
+          {
+            "id": "b-e5a-2",
+            "text": "Migrated monolithic payment gateway to Kafka event-driven consumers, reducing peak latency by 35%.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e5a-3",
+            "text": "involved in bi-weekly sprint planning and backlog grooming.",
+            "ownershipTier": 1,
+            "isWeak": true
+          }
+        ]
+      },
+      {
+        "id": "exp-5b",
+        "company": "FinCore Solutions Ltd",
+        "position": "Software Engineer I",
+        "location": "Kolkata, India",
+        "startDate": "07/2022",
+        "endDate": "05/2023",
+        "bullets": [
+          {
+            "id": "b-e5b-1",
+            "text": "Implemented AES-256 field-level encryption for credit card data complying with PCI-DSS 4.0.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Java",
+        "Kotlin",
+        "SQL"
+      ],
+      "frameworks": [
+        "Spring Boot",
+        "Kafka",
+        "Hibernate"
+      ],
+      "tools": [
+        "Docker",
+        "Kubernetes",
+        "Datadog"
+      ],
+      "databases": [
+        "PostgreSQL",
+        "Redis"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Java",
+        "Spring Boot",
+        "Kafka"
+      ]
+    }
+  },
+  {
+    "id": "persona-06-senior-sde-us",
+    "fullName": "Rachel Chen",
+    "headline": "Senior Staff Software Engineer | Cloud Infrastructure",
+    "archetype": "senior_lead",
+    "region": "us",
+    "contact": {
+      "email": "rachel.chen.test@example.org",
+      "phone": "+1 (415) 890-1234",
+      "location": "San Francisco, CA",
+      "github": "github.com/rchen-test"
+    },
+    "yearsSinceGraduation": 8,
+    "yearsExperience": 8,
+    "education": [
+      {
+        "id": "edu-6",
+        "degree": "B.S. in Electrical Engineering & Computer Science",
+        "institution": "UC Berkeley",
+        "location": "Berkeley, CA",
+        "startYear": 2014,
+        "endYear": 2018,
+        "scoreType": "GPA",
+        "scoreValue": "3.82/4.0"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-6a",
+        "company": "HyperScale Data Systems",
+        "position": "Senior Software Engineer",
+        "location": "San Francisco, CA",
+        "startDate": "04/2021",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e6a-1",
+            "text": "Led infrastructure reliability initiative scaling multi-region Kubernetes clusters across 180+ nodes.",
+            "ownershipTier": 4
+          },
+          {
+            "id": "b-e6a-2",
+            "text": "Engineered auto-remediation daemon that recovered 94% of unready worker nodes without manual intervention.",
+            "ownershipTier": 4
+          }
+        ]
+      },
+      {
+        "id": "exp-6b",
+        "company": "Apex Cloud Platforms",
+        "position": "Software Engineer",
+        "location": "San Jose, CA",
+        "startDate": "08/2018",
+        "endDate": "03/2021",
+        "bullets": [
+          {
+            "id": "b-e6b-1",
+            "text": "Designed high-concurrency rate limiter in Go sustaining 85,000 requests/sec with Redis cluster backing.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "C++"
+      ],
+      "frameworks": [
+        "Kubernetes API",
+        "gRPC"
+      ],
+      "tools": [
+        "Terraform",
+        "Helm",
+        "Prometheus"
+      ],
+      "databases": [
+        "etcd",
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS",
+        "GCP"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "after_experience",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "Kubernetes",
+        "Terraform"
+      ]
+    }
+  },
+  {
+    "id": "persona-07-lead-manager-uk",
+    "fullName": "Alastair Montgomery",
+    "headline": "Director of Engineering | Platform & Security",
+    "archetype": "executive",
+    "region": "uk",
+    "contact": {
+      "email": "alastair.montgomery.test@example.org",
+      "phone": "+44 20 7946 0912",
+      "location": "London, UK"
+    },
+    "yearsSinceGraduation": 12,
+    "yearsExperience": 12,
+    "education": [
+      {
+        "id": "edu-7",
+        "degree": "B.Eng (Hons) in Computing",
+        "institution": "Imperial College London",
+        "location": "London, UK",
+        "startYear": 2010,
+        "endYear": 2014,
+        "scoreType": "PERCENTAGE",
+        "scoreValue": "First Class"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-7a",
+        "company": "Meridian Global Securities",
+        "position": "Head of Core Infrastructure",
+        "location": "London, UK",
+        "startDate": "09/2020",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e7a-1",
+            "text": "Directed engineering division of 42 engineers across Platform, Data, and SRE pillars.",
+            "ownershipTier": 5
+          },
+          {
+            "id": "b-e7a-2",
+            "text": "Delivered £3.8M annual cloud infrastructure cost reduction through compute rightsizing and reserved capacity agreements.",
+            "ownershipTier": 5
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Java",
+        "Python"
+      ],
+      "frameworks": [
+        "Enterprise Architecture"
+      ],
+      "tools": [
+        "AWS",
+        "Datadog",
+        "Kubernetes"
+      ],
+      "databases": [
+        "Oracle",
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "after_experience",
+      "mandatorySkillsToPreserve": [
+        "Enterprise Architecture",
+        "AWS"
+      ]
+    }
+  },
+  {
+    "id": "persona-08-cybersecurity-specialist",
+    "fullName": "David Sterling",
+    "headline": "Senior Information Security Engineer (CISSP, CEH)",
+    "archetype": "security_specialist",
+    "region": "us",
+    "contact": {
+      "email": "david.sterling.security@example.org",
+      "phone": "+1 (703) 555-0198",
+      "location": "Washington, DC"
+    },
+    "yearsSinceGraduation": 6,
+    "yearsExperience": 6,
+    "education": [
+      {
+        "id": "edu-8",
+        "degree": "B.S. in Cybersecurity & Information Assurance",
+        "institution": "George Mason University",
+        "location": "Fairfax, VA",
+        "startYear": 2016,
+        "endYear": 2020,
+        "scoreType": "GPA",
+        "scoreValue": "3.65/4.0"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-8",
+        "company": "Sentinel Cyber Defense Systems",
+        "position": "Lead SOC Analyst",
+        "location": "Reston, VA",
+        "startDate": "06/2020",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e8-1",
+            "text": "Architected automated SOAR playbooks in Splunk Phantom, reducing Mean Time to Remediate (MTTR) phishing incidents from 4 hours to 8 minutes.",
+            "ownershipTier": 4
+          },
+          {
+            "id": "b-e8-2",
+            "text": "responsible for reviewing daily firewall logs and vulnerability scan reports.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-8",
+        "title": "Adversary Emulation Sandbox",
+        "technologies": [
+          "Python",
+          "YARA",
+          "Suricata"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p8-1",
+            "text": "Created detection rules matching MITRE ATT&CK techniques with 98% detection efficacy.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Python",
+        "Bash",
+        "PowerShell"
+      ],
+      "frameworks": [
+        "NIST CSF",
+        "MITRE ATT&CK"
+      ],
+      "tools": [
+        "Splunk",
+        "Wireshark",
+        "Burp Suite",
+        "CrowdStrike"
+      ],
+      "databases": [
+        "Elasticsearch"
+      ],
+      "cloud": [
+        "AWS Security Hub"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "after_experience",
+      "mandatorySkillsToPreserve": [
+        "Splunk",
+        "CrowdStrike",
+        "MITRE ATT&CK"
+      ]
+    }
+  },
+  {
+    "id": "persona-09-data-ml-engineer",
+    "fullName": "Pooja Narayanan",
+    "headline": "Machine Learning Engineer | NLP & LLM Serving",
+    "archetype": "data_ml_specialist",
+    "region": "india-private",
+    "contact": {
+      "email": "pooja.narayanan.test@example.org",
+      "phone": "+91 97110 99887",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 3,
+    "yearsExperience": 3,
+    "education": [
+      {
+        "id": "edu-9",
+        "degree": "B.Tech in Computer Science",
+        "institution": "PES University",
+        "location": "Bengaluru, India",
+        "startYear": 2019,
+        "endYear": 2023,
+        "scoreType": "CGPA",
+        "scoreValue": "8.9/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-9",
+        "company": "TensorFlow Mindworks Labs",
+        "position": "ML Engineer",
+        "location": "Bengaluru, India",
+        "startDate": "08/2023",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e9-1",
+            "text": "Deployed quantized 7B parameter LLM inference service using vLLM on NVIDIA A100 GPUs, cutting p99 latency by 58%.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e9-2",
+            "text": "built RAG pipeline using LangChain, pgvector, and hybrid BM25 lexical search over 250,000 legal contracts.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Python",
+        "SQL",
+        "C++"
+      ],
+      "frameworks": [
+        "PyTorch",
+        "vLLM",
+        "LangChain",
+        "FastAPI"
+      ],
+      "tools": [
+        "Docker",
+        "MLflow",
+        "Weights & Biases"
+      ],
+      "databases": [
+        "pgvector",
+        "Redis"
+      ],
+      "cloud": [
+        "GCP",
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Python",
+        "PyTorch",
+        "pgvector"
+      ]
+    }
+  },
+  {
+    "id": "persona-10-devops-engineer",
+    "fullName": "Siddharth Iyer",
+    "headline": "DevOps & Site Reliability Engineer",
+    "archetype": "devops_specialist",
+    "region": "india-private",
+    "contact": {
+      "email": "siddharth.iyer.devops@example.org",
+      "phone": "+91 98450 12345",
+      "location": "Chennai, India"
+    },
+    "yearsSinceGraduation": 5,
+    "yearsExperience": 5,
+    "education": [
+      {
+        "id": "edu-10",
+        "degree": "B.E. in Electronics & Communication",
+        "institution": "Anna University",
+        "location": "Chennai, India",
+        "startYear": 2017,
+        "endYear": 2021,
+        "scoreType": "CGPA",
+        "scoreValue": "7.8/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-10",
+        "company": "CloudCore Infrastructure Ltd",
+        "position": "Senior SRE",
+        "location": "Chennai, India",
+        "startDate": "06/2021",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e10-1",
+            "text": "Automated infrastructure-as-code deployment for 40+ microservices across 3 AWS regions using Terraform and GitHub Actions.",
+            "ownershipTier": 4
+          },
+          {
+            "id": "b-e10-2",
+            "text": "Cut average deployment duration from 45 minutes to 7 minutes with zero downtime canary rollouts.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Python",
+        "Bash",
+        "Go"
+      ],
+      "frameworks": [
+        "Terraform",
+        "Ansible"
+      ],
+      "tools": [
+        "Kubernetes",
+        "Helm",
+        "ArgoCD",
+        "Prometheus",
+        "Grafana"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS",
+        "GCP"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Terraform",
+        "Kubernetes",
+        "AWS"
+      ]
+    }
+  },
+  {
+    "id": "persona-11-mobile-engineer",
+    "fullName": "Ananya Deshmukh",
+    "headline": "Mobile Application Engineer (Kotlin & Flutter)",
+    "archetype": "mobile_specialist",
+    "region": "india-private",
+    "contact": {
+      "email": "ananya.deshmukh.mobile@example.org",
+      "phone": "+91 99200 33445",
+      "location": "Mumbai, India"
+    },
+    "yearsSinceGraduation": 2.5,
+    "yearsExperience": 2.5,
+    "education": [
+      {
+        "id": "edu-11",
+        "degree": "B.Tech in Computer Science",
+        "institution": "VJTI Mumbai",
+        "location": "Mumbai, India",
+        "startYear": 2019,
+        "endYear": 2023,
+        "scoreType": "CGPA",
+        "scoreValue": "8.6/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-11",
+        "company": "InstaCart Logistics India",
+        "position": "Mobile Software Engineer",
+        "location": "Mumbai, India",
+        "startDate": "07/2023",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e11-1",
+            "text": "Architected native Android delivery partner application in Kotlin achieving 99.85% crash-free session rate across 200,000 monthly active riders.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e11-2",
+            "text": "Streamlined background location polling battery drain by 28% using Geofencing API and work manager.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Kotlin",
+        "Java",
+        "Dart",
+        "Swift"
+      ],
+      "frameworks": [
+        "Android SDK",
+        "Jetpack Compose",
+        "Flutter"
+      ],
+      "tools": [
+        "Android Studio",
+        "Gradle",
+        "Firebase"
+      ],
+      "databases": [
+        "Room",
+        "SQLite"
+      ],
+      "cloud": [
+        "GCP"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Android SDK"
+      ]
+    }
+  },
+  {
+    "id": "persona-12-frontend-specialist",
+    "fullName": "Karthik Raja",
+    "headline": "Frontend Engineer | Web Performance & Design Systems",
+    "archetype": "frontend_specialist",
+    "region": "india-private",
+    "contact": {
+      "email": "karthik.raja.ui@example.org",
+      "phone": "+91 96000 77889",
+      "location": "Coimbatore, India"
+    },
+    "yearsSinceGraduation": 3.5,
+    "yearsExperience": 3.5,
+    "education": [
+      {
+        "id": "edu-12",
+        "degree": "B.E. Computer Science",
+        "institution": "PSG College of Technology",
+        "location": "Coimbatore, India",
+        "startYear": 2018,
+        "endYear": 2022,
+        "scoreType": "CGPA",
+        "scoreValue": "8.3/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-12",
+        "company": "SaasFlow Analytics",
+        "position": "Frontend Engineer",
+        "location": "Bengaluru, India",
+        "startDate": "08/2022",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e12-1",
+            "text": "Optimized core web vitals across enterprise analytics portal, elevating Largest Contentful Paint (LCP) from 3.8s to 1.2s.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e12-2",
+            "text": "Developed virtualized canvas data grid rendering 50,000 rows with 60fps scrolling fidelity.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "CSS3"
+      ],
+      "frameworks": [
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Zustand"
+      ],
+      "tools": [
+        "Vite",
+        "Webpack",
+        "Playwright",
+        "Jest"
+      ],
+      "databases": [
+        "IndexedDB"
+      ],
+      "cloud": [
+        "Vercel",
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "TypeScript",
+        "React",
+        "Next.js"
+      ]
+    }
+  },
+  {
+    "id": "persona-13-qa-sdet",
+    "fullName": "Deepika Rao",
+    "headline": "Software Development Engineer in Test (SDET)",
+    "archetype": "qa_sdet",
+    "region": "india-private",
+    "contact": {
+      "email": "deepika.rao.test@example.org",
+      "phone": "+91 98860 44556",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 4,
+    "yearsExperience": 4,
+    "education": [
+      {
+        "id": "edu-13",
+        "degree": "B.Tech Information Technology",
+        "institution": "BMS College of Engineering",
+        "location": "Bengaluru, India",
+        "startYear": 2018,
+        "endYear": 2022,
+        "scoreType": "CGPA",
+        "scoreValue": "8.1/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-13",
+        "company": "OmniFin Core Banking Systems",
+        "position": "SDET II",
+        "location": "Bengaluru, India",
+        "startDate": "07/2022",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e13-1",
+            "text": "Architected distributed Playwright test harness running 1,800 end-to-end tests in parallel within 9 minutes in GitHub Actions.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e13-2",
+            "text": "Constructed mock banking settlement simulator in WireMock eliminating staging environment dependencies.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "Java",
+        "TypeScript",
+        "Python"
+      ],
+      "frameworks": [
+        "Playwright",
+        "Selenium",
+        "RestAssured",
+        "JUnit"
+      ],
+      "tools": [
+        "Docker",
+        "Jenkins",
+        "Allure"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Playwright",
+        "TypeScript",
+        "Java"
+      ]
+    }
+  },
+  {
+    "id": "persona-14-academic-researcher",
+    "fullName": "Dr. Srinivas Murthy",
+    "headline": "Senior Research Scientist | Cryptography & Quantum Computing",
+    "archetype": "academic_researcher",
+    "region": "india-private",
+    "contact": {
+      "email": "dr.srinivas.murthy@example.org",
+      "phone": "+91 98401 55667",
+      "location": "Chennai, India"
+    },
+    "yearsSinceGraduation": 5,
+    "yearsExperience": 5,
+    "education": [
+      {
+        "id": "edu-14a",
+        "degree": "Ph.D. in Computer Science (Lattice Cryptography)",
+        "institution": "Indian Institute of Technology Madras",
+        "location": "Chennai, India",
+        "startYear": 2017,
+        "endYear": 2021,
+        "scoreType": "CGPA",
+        "scoreValue": "9.4/10"
+      },
+      {
+        "id": "edu-14b",
+        "degree": "M.Tech in Computer Science",
+        "institution": "IIT Madras",
+        "location": "Chennai, India",
+        "startYear": 2015,
+        "endYear": 2017,
+        "scoreType": "CGPA",
+        "scoreValue": "9.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-14",
+        "company": "QuantaSecure Labs",
+        "position": "Principal Scientist",
+        "location": "Bengaluru, India",
+        "startDate": "09/2021",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e14-1",
+            "text": "Published 4 peer-reviewed IEEE papers on post-quantum key encapsulation mechanisms (Kyber NIST standards).",
+            "ownershipTier": 4
+          },
+          {
+            "id": "b-e14-2",
+            "text": "Implemented constant-time polynomial arithmetic in AVX-512 assembly thwarting cache-timing side-channel attacks.",
+            "ownershipTier": 4
+          }
+        ]
+      }
+    ],
+    "projects": [],
+    "skills": {
+      "languages": [
+        "C",
+        "C++",
+        "Python",
+        "Rust",
+        "x86 Assembly"
+      ],
+      "frameworks": [
+        "OpenSSL",
+        "SageMath"
+      ],
+      "tools": [
+        "Valgrind",
+        "GDB",
+        "Git"
+      ],
+      "databases": [],
+      "cloud": []
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "C++",
+        "Lattice Cryptography",
+        "AVX-512"
+      ]
+    }
+  },
+  {
+    "id": "persona-15-career-switcher",
+    "fullName": "Aditya Kulkarni",
+    "headline": "Full-Stack Software Engineer (Transitioned from Mechanical CAD)",
+    "archetype": "career_switcher",
+    "region": "india-private",
+    "contact": {
+      "email": "aditya.kulkarni.switch@example.org",
+      "phone": "+91 98230 88990",
+      "location": "Pune, India"
+    },
+    "yearsSinceGraduation": 4,
+    "yearsExperience": 1.5,
+    "education": [
+      {
+        "id": "edu-15",
+        "degree": "B.E. in Mechanical Engineering",
+        "institution": "College of Engineering Pune (COEP)",
+        "location": "Pune, India",
+        "startYear": 2018,
+        "endYear": 2022,
+        "scoreType": "CGPA",
+        "scoreValue": "7.9/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-15",
+        "company": "DigitalNexus Solutions",
+        "position": "Junior Full-Stack Engineer",
+        "location": "Pune, India",
+        "startDate": "11/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e15-1",
+            "text": "Engineered backend CRUD services in Go and PostgreSQL supporting customer support ticketing system.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e15-2",
+            "text": "built responsive administration screens in React with data pagination.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-15",
+        "title": "Open-Source CAD Model Metadata Parser",
+        "technologies": [
+          "Python",
+          "Three.js",
+          "FastAPI"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p15-1",
+            "text": "Developed 3D model parsing microservice rendering STEP/IGES assemblies in web browsers.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "JavaScript",
+        "SQL"
+      ],
+      "frameworks": [
+        "React",
+        "FastAPI",
+        "Node.js"
+      ],
+      "tools": [
+        "Git",
+        "Docker"
+      ],
+      "databases": [
+        "PostgreSQL",
+        "SQLite"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "after_experience",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL",
+        "React"
+      ]
+    }
+  },
+  {
+    "id": "persona-16-auto-generated",
+    "fullName": "Candidate 16 Fictional",
+    "headline": "Software Engineer Spec 16",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.16@example.org",
+      "phone": "+91 90000 10016",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-16",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 16",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-16",
+        "company": "TechCorp Systems 16",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e16-1",
+            "text": "Engineered high-performance data processing service for module 16 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e16-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-16",
+        "title": "Project Alpha 16",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p16-1",
+            "text": "Built automated ingestion pipeline 16.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-17-auto-generated",
+    "fullName": "Candidate 17 Fictional",
+    "headline": "Software Engineer Spec 17",
+    "archetype": "early_career",
+    "region": "india-private",
+    "contact": {
+      "email": "candidate.17@example.org",
+      "phone": "+91 90000 10017",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 2,
+    "yearsExperience": 2,
+    "education": [
+      {
+        "id": "edu-17",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 17",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-17",
+        "company": "TechCorp Systems 17",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e17-1",
+            "text": "Engineered high-performance data processing service for module 17 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e17-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-17",
+        "title": "Project Alpha 17",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p17-1",
+            "text": "Built automated ingestion pipeline 17.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-18-auto-generated",
+    "fullName": "Candidate 18 Fictional",
+    "headline": "Software Engineer Spec 18",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.18@example.org",
+      "phone": "+91 90000 10018",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-18",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 18",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-18",
+        "company": "TechCorp Systems 18",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e18-1",
+            "text": "Engineered high-performance data processing service for module 18 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e18-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-18",
+        "title": "Project Alpha 18",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p18-1",
+            "text": "Built automated ingestion pipeline 18.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-19-auto-generated",
+    "fullName": "Candidate 19 Fictional",
+    "headline": "Software Engineer Spec 19",
+    "archetype": "early_career",
+    "region": "india-private",
+    "contact": {
+      "email": "candidate.19@example.org",
+      "phone": "+91 90000 10019",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 2,
+    "yearsExperience": 2,
+    "education": [
+      {
+        "id": "edu-19",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 19",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-19",
+        "company": "TechCorp Systems 19",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e19-1",
+            "text": "Engineered high-performance data processing service for module 19 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e19-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-19",
+        "title": "Project Alpha 19",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p19-1",
+            "text": "Built automated ingestion pipeline 19.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-20-auto-generated",
+    "fullName": "Candidate 20 Fictional",
+    "headline": "Software Engineer Spec 20",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.20@example.org",
+      "phone": "+91 90000 10020",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-20",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 20",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-20",
+        "company": "TechCorp Systems 20",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e20-1",
+            "text": "Engineered high-performance data processing service for module 20 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e20-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-20",
+        "title": "Project Alpha 20",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p20-1",
+            "text": "Built automated ingestion pipeline 20.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-21-auto-generated",
+    "fullName": "Candidate 21 Fictional",
+    "headline": "Software Engineer Spec 21",
+    "archetype": "early_career",
+    "region": "india-private",
+    "contact": {
+      "email": "candidate.21@example.org",
+      "phone": "+91 90000 10021",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 2,
+    "yearsExperience": 2,
+    "education": [
+      {
+        "id": "edu-21",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 21",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-21",
+        "company": "TechCorp Systems 21",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e21-1",
+            "text": "Engineered high-performance data processing service for module 21 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e21-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-21",
+        "title": "Project Alpha 21",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p21-1",
+            "text": "Built automated ingestion pipeline 21.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-22-auto-generated",
+    "fullName": "Candidate 22 Fictional",
+    "headline": "Software Engineer Spec 22",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.22@example.org",
+      "phone": "+91 90000 10022",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-22",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 22",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-22",
+        "company": "TechCorp Systems 22",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e22-1",
+            "text": "Engineered high-performance data processing service for module 22 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e22-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-22",
+        "title": "Project Alpha 22",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p22-1",
+            "text": "Built automated ingestion pipeline 22.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-23-auto-generated",
+    "fullName": "Candidate 23 Fictional",
+    "headline": "Software Engineer Spec 23",
+    "archetype": "early_career",
+    "region": "india-private",
+    "contact": {
+      "email": "candidate.23@example.org",
+      "phone": "+91 90000 10023",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 2,
+    "yearsExperience": 2,
+    "education": [
+      {
+        "id": "edu-23",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 23",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-23",
+        "company": "TechCorp Systems 23",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e23-1",
+            "text": "Engineered high-performance data processing service for module 23 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e23-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-23",
+        "title": "Project Alpha 23",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p23-1",
+            "text": "Built automated ingestion pipeline 23.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-24-auto-generated",
+    "fullName": "Candidate 24 Fictional",
+    "headline": "Software Engineer Spec 24",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.24@example.org",
+      "phone": "+91 90000 10024",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-24",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 24",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-24",
+        "company": "TechCorp Systems 24",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e24-1",
+            "text": "Engineered high-performance data processing service for module 24 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e24-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-24",
+        "title": "Project Alpha 24",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p24-1",
+            "text": "Built automated ingestion pipeline 24.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-25-auto-generated",
+    "fullName": "Candidate 25 Fictional",
+    "headline": "Software Engineer Spec 25",
+    "archetype": "early_career",
+    "region": "india-private",
+    "contact": {
+      "email": "candidate.25@example.org",
+      "phone": "+91 90000 10025",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 2,
+    "yearsExperience": 2,
+    "education": [
+      {
+        "id": "edu-25",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 25",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-25",
+        "company": "TechCorp Systems 25",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e25-1",
+            "text": "Engineered high-performance data processing service for module 25 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e25-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-25",
+        "title": "Project Alpha 25",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p25-1",
+            "text": "Built automated ingestion pipeline 25.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "mid",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "persona-26-auto-generated",
+    "fullName": "Candidate 26 Fictional",
+    "headline": "Software Engineer Spec 26",
+    "archetype": "student_fresher",
+    "region": "india-campus",
+    "contact": {
+      "email": "candidate.26@example.org",
+      "phone": "+91 90000 10026",
+      "location": "Bengaluru, India"
+    },
+    "yearsSinceGraduation": 0.2,
+    "yearsExperience": 0.2,
+    "education": [
+      {
+        "id": "edu-26",
+        "degree": "B.Tech in Computer Science",
+        "institution": "Engineering Institute 26",
+        "location": "Hyderabad, India",
+        "startYear": 2021,
+        "endYear": 2025,
+        "scoreType": "CGPA",
+        "scoreValue": "8.2/10"
+      }
+    ],
+    "experience": [
+      {
+        "id": "exp-26",
+        "company": "TechCorp Systems 26",
+        "position": "Software Engineer",
+        "location": "Hyderabad, India",
+        "startDate": "08/2024",
+        "endDate": "Present",
+        "isCurrent": true,
+        "bullets": [
+          {
+            "id": "b-e26-1",
+            "text": "Engineered high-performance data processing service for module 26 in Go.",
+            "ownershipTier": 3
+          },
+          {
+            "id": "b-e26-2",
+            "text": "responsible for code reviews and sprint tasks.",
+            "ownershipTier": 2,
+            "isWeak": true
+          }
+        ]
+      }
+    ],
+    "projects": [
+      {
+        "id": "proj-26",
+        "title": "Project Alpha 26",
+        "technologies": [
+          "Go",
+          "Docker",
+          "PostgreSQL"
+        ],
+        "startDate": "01/2024",
+        "endDate": "06/2024",
+        "bullets": [
+          {
+            "id": "b-p26-1",
+            "text": "Built automated ingestion pipeline 26.",
+            "ownershipTier": 3
+          }
+        ]
+      }
+    ],
+    "skills": {
+      "languages": [
+        "Go",
+        "Python",
+        "SQL"
+      ],
+      "frameworks": [
+        "Gin",
+        "React"
+      ],
+      "tools": [
+        "Docker",
+        "Git"
+      ],
+      "databases": [
+        "PostgreSQL"
+      ],
+      "cloud": [
+        "AWS"
+      ]
+    },
+    "expectedBehavior": {
+      "educationPlacement": "early",
+      "mandatorySkillsToPreserve": [
+        "Go",
+        "PostgreSQL"
+      ]
+    }
+  }
+]
