@@ -59,8 +59,18 @@
 ---
 
 ## Active Stage
-- **Stage 5: Honesty, Guidance, Privacy** (Next)
-  - 5.1: Verify copy tone across all UI, templates, and docs: zero banned marketing claims ("high-converting", "guaranteed", "proven", "pre-calibrated"). Ensure length targets are clearly labeled as derived from B2B sales-outbound datasets and assumed to transfer to job-seeker outreach (Evidence E3).
-  - 5.2: Verify privacy integrity: zero recipient data transmitted or stored remotely; only local drafts persist under `hireflow:reachout:draft_v2`.
-  - Gate 5 verification: run `npm run check:claims`, `npm run privacy:check`, storage quota/corruption handling.
+- **Stage 5: Honesty, Guidance, Privacy** — COMPLETED
+  - 5.1: Copy tone audited across all UI, templates, and docs: zero banned marketing claims ("high-converting", "guaranteed", "proven", "pre-calibrated"). Educational section added in `ReachOutPage.tsx` explaining the 4-part architecture, B2B sales study caveats (Hunter 34M, Boomerang), and explicit disclosure that length guidelines transfer conditionally.
+  - 5.2: Privacy integrity verified: zero runtime network egress, zero third-party calls or telemetry. Drafts persist safely under `hireflow:reachout:draft_v2` with defensive parsing against corrupted JSON and `QuotaExceededError`.
+  - Comprehensive unit test suite implemented in `tests/outreach/privacyAndStorage.spec.ts` (5 tests passing).
+  - Gate 5 verified: `npm run check:claims` passed (0 violations), `npm run privacy:check` passed (0 violations).
+
+---
+
+## Active Stage
+- **Stage 6: Verification Gate & Documentation** (Active)
+  - 6.1: Build unified `scripts/outreach/gate.ts` runnable via `npm run outreach:gate` that runs validator, authoring lint, engine tests, UI tests, privacy/storage tests, golden snapshots, check:claims, and check:ui-math.
+  - 6.2: Negative gate verification: verify gate failure on injected negative cases (cold referral ask, 250c note, stray brace, duplicate opener).
+  - 6.3: Comprehensive documentation under `docs/outreach/` (`README.md`, `TEMPLATE_STANDARD.md`, `CHANNEL_PROFILES.md`, `HOW_TO_ADD_A_TEMPLATE.md`, `LIMITATIONS.md`).
+  - Gate 6 verification.
 

@@ -995,6 +995,43 @@ export function ReachOutPage() {
               </ul>
             </div>
           </div>
+
+          {/* ── How These Templates Are Built (Stage 5.1 Guidance & Honesty) ── */}
+          <div className="bg-[#111] border border-white/10 rounded-xl p-4 flex flex-col gap-2.5 text-xs">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2">
+              <span className="font-semibold text-white/90">How These Templates Are Built</span>
+              <span className="text-[10px] font-mono uppercase text-volt">Standard D6 & Evidence E1–E6</span>
+            </div>
+            <p className="text-[11px] text-white/70 leading-relaxed">
+              Every template follows a strict 4-part architecture:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] text-white/60">
+              <div className="bg-black/40 border border-white/5 rounded p-2">
+                <strong className="text-white/90 block mb-0.5">1. Contextual Hook</strong>
+                States who you are and why this specific person in one sentence, referencing verifiable public work.
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded p-2">
+                <strong className="text-white/90 block mb-0.5">2. Quantified Proof</strong>
+                One concrete benchmark, project metric, or source repo link. Bare skills lists are strictly rejected.
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded p-2">
+                <strong className="text-white/90 block mb-0.5">3. Low-Friction Ask</strong>
+                One focused question about role openings or screening. Strangers are never asked for cold referrals (Evidence E5).
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded p-2">
+                <strong className="text-white/90 block mb-0.5">4. Polite Out</strong>
+                A no-pressure close ("no worries if not relevant") ensuring zero guilt and professional goodwill.
+              </div>
+            </div>
+            <div className="bg-white/[0.02] border border-white/5 rounded p-2.5 text-[11px] text-white/50 space-y-1">
+              <p>
+                <strong>Length targets:</strong> 50–100 words for cold emails, 200 characters for LinkedIn free notes, and 30–70 words for follow-ups. Derived from B2B sales outbound studies (Hunter 34M dataset, Boomerang) and assumed to transfer to job-seeker outreach.
+              </p>
+              <p>
+                <strong>Privacy standard:</strong> 100% client-side computation. Recipient details and draft notes are never sent to external servers or logged.
+              </p>
+            </div>
+          </div>
         </section>
       </main>
 

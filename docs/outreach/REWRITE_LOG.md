@@ -13,7 +13,7 @@ Total Legacy Templates Audited & Rewritten: 50 / 50
 | `hiring-manager-high-impact-pitch` | Hiring Manager High-Impact Pitch | `cold_email` | Purged marketing hype, rewrote into clean 80-word email format. | Complies with E3 length and D6 quality guidelines. |
 | `peer-engineer-tech-convo` | Peer Engineer Tech Conversation | `linkedin_connect` | Removed referral ask from cold connection note to satisfy Evidence E5. Capped length under 200 characters. | Peer engineer etiquette requires genuine technical curiosity, not immediate transactional asks. |
 | `cold-email-solutions-problem-solving` | Problem-Solving Teardown Note | `cold_email` | Rewrote to emphasize respectful peer critique and verified code demonstration. | Keeps cold email strictly within 90 words with polite opt-out. |
-| `alumni-common-ground` | Alumni Common Ground Inquiry | `cold_email` | Separated advice ask from referral ask; grounded on college affinity and proven project. | Follows referral etiquette (Evidence E5). |
+| `alumni-common-ground` | Alumni Common Ground Inquiry | `cold_email` | Separated advice ask from referral ask; grounded on college affinity and verified project. | Follows referral etiquette (Evidence E5). |
 | `alumni-warm-referral-ask` | Alumni Referral Request Note | `warm_referral` | Classified under Warm Referral tab per D3; provides ready-to-forward 3-bullet summary and polite out. | Satisfies Evidence E5 referral etiquette. |
 | `mutual-connection-referral` | Mutual Connection Introduction Ask | `warm_referral` | Rewrote to emphasize low-pressure relationship maintenance and concrete evidence. | Encourages honest communication without awkward pressure. |
 | `referral-recommendation-team-lead` | Former Lead Recommendation Note | `warm_referral` | Polished former-lead tone to avoid entitlement and respect past mentorship. | Provides clean proof of continued growth. |
@@ -294,7 +294,7 @@ Best regards,
 
 ### `alumni-common-ground` — Alumni Common Ground Inquiry
 - **Channel**: `cold_email`
-- **What Changed**: Separated advice ask from referral ask; grounded on college affinity and proven project.
+- **What Changed**: Separated advice ask from referral ask; grounded on college affinity and verified project.
 - **Why Changed**: Follows referral etiquette (Evidence E5).
 
 **Legacy Text**:

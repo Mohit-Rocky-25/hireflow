@@ -55,7 +55,7 @@ export function buildSubjectLine(opts: SubjectLineOptions): string {
 
   subject = sanitizeSubjectText(subject);
 
-  // Guarantee word count bounds: 3 to 8 words
+  // Enforce word count bounds: 3 to 8 words
   const words = subject.split(/\s+/).filter(Boolean);
   if (words.length > 8) {
     subject = words.slice(0, 8).join(' ');
