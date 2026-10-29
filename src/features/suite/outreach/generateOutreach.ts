@@ -506,18 +506,34 @@ export function generateOutreach(
   // Otherwise fallback to catalog-based slot filling
   const slots = arg1 as OutreachSlots;
   const selectedChannel = arg2 as OutreachChannel | 'all' | undefined;
-  const allTemplates = templatesData as OutreachTemplateItem[];
+  const allTemplates = (templatesData as unknown) as Array<Record<string, unknown>>;
   const targetTemplates =
     !selectedChannel || selectedChannel === 'all'
       ? allTemplates
       : allTemplates.filter((t) => t.channel === selectedChannel);
 
   return targetTemplates.map((item) => {
-    const body = fillSlots(item.template, slots);
-    const subject = item.subject ? fillSlots(item.subject, slots) : undefined;
+    const rawTemplate = typeof item.template === 'string'
+      ? item.template
+      : item.blocks && typeof item.blocks === 'object'
+      ? [
+          ((item.blocks as Record<string, string[]>).hook?.[0] || ''),
+          ((item.blocks as Record<string, string[]>).proof?.[0] || ''),
+          ((item.blocks as Record<string, string[]>).ask?.[0] || ''),
+          ((item.blocks as Record<string, string[]>).close?.[0] || ''),
+        ].filter(Boolean).join(' ')
+      : '';
+    const body = fillSlots(rawTemplate, slots);
+    const subjectTemplate = typeof item.subject === 'string'
+      ? item.subject
+      : Array.isArray(item.subjectVariants) && typeof item.subjectVariants[0] === 'string'
+      ? item.subjectVariants[0]
+      : undefined;
+    const subject = subjectTemplate ? fillSlots(subjectTemplate, slots) : undefined;
     const charCount = body.length;
     const wordCount = body.split(/\s+/).filter(Boolean).length;
-    const exceedsLimit = item.maxLength !== undefined && charCount > item.maxLength;
+    const maxLength = typeof item.maxLength === 'number' ? item.maxLength : (item.lengthProfile as { hardMax?: number })?.hardMax;
+    const exceedsLimit = maxLength !== undefined && charCount > maxLength;
 
     const fullCombined = subject ? `${subject}\n${body}` : body;
     const placeholders = detectPlaceholders(fullCombined);
@@ -532,16 +548,16 @@ export function generateOutreach(
     }
 
     return {
-      templateId: item.id,
-      name: item.name,
-      channel: item.channel,
-      targetAudience: item.targetAudience,
-      description: item.description,
+      templateId: String(item.id || ''),
+      name: String(item.name || ''),
+      channel: (item.channel || 'cold_email') as OutreachChannel,
+      targetAudience: String(item.targetAudience || (Array.isArray(item.recipientTypes) ? item.recipientTypes.join(', ') : '')),
+      description: typeof item.description === 'string' ? item.description : (typeof item.whenToUse === 'string' ? item.whenToUse : undefined),
       subject,
       body,
       charCount,
       wordCount,
-      maxLength: item.maxLength,
+      maxLength,
       exceedsLimit,
       placeholders,
       placeholdersCount: placeholders.length,

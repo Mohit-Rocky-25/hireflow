@@ -35,6 +35,7 @@
     "graph:audit": "npx tsx scripts/graph-audit.ts",
     "skills:gate": "npx tsx scripts/skills-gate.ts",
     "tailor:gate": "npx tsx scripts/tailor-gate.ts",
+    "outreach:lint-templates": "npx tsx scripts/outreach/lint-templates.ts",
     "bundle:check": "npx tsx scripts/check-bundle-size.ts",
     "verify": "npm run typecheck && npm run test && npm run privacy:check && npm run build",
     "security:secrets": "node scripts/security/scan-secrets.mjs",

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "recruiter-direct-note",
+    "name": "Recruiter Direct Note",
+    "candidate": "Candidate 1: Aarav Menon (NIT Warangal, Go backend)",
+    "output": "Hi Rahul, reaching out as Finlo Technologies scales its technical engineering teams. Glad to connect and learn what traits your team prioritizes."
+  },
+  {
+    "id": "peer-engineer-tech-convo",
+    "name": "Peer Engineer Tech Conversation",
+    "candidate": "Candidate 2: Neha Sharma (IIT Roorkee, ML / Computer Vision)",
+    "output": "Hi Priya, noticed your engineering contributions to Kavach Vision Labs's edge inference pipeline for autonomous inspection. Would be glad to connect and learn about Kavach Vision Labs's engineering culture."
+  },
+  {
+    "id": "response-we-are-hiring-post",
+    "name": "Response to Hiring Post Note",
+    "candidate": "Candidate 3: Vikramaditya Nair (BITS Pilani, Cloud & DevOps)",
+    "output": "Hi Rajesh, reaching out directly following your hiring post for CloudScale Networks. Would love to connect and share my repository if the role is still open."
+  },
+  {
+    "id": "li-connect-alumni-curiosity",
+    "name": "Alumni Connection Note (Curiosity)",
+    "candidate": "Candidate 4: Ananya Iyer (PES University, Frontend / Web)",
+    "output": "Hi Murthy, PES University, Bengaluru alumnus reaching out re: DesignDock India. Would value connecting to follow your journey."
+  },
+  {
+    "id": "li-connect-founder-early-stage",
+    "name": "Founder Note (Early Startup)",
+    "candidate": "Candidate 5: Rohan Gupta (Thapar University, Data Engineering)",
+    "output": "Hi Vandana, following DataSprint Analytics's product roadmap closely. Glad to connect and follow your team's engineering growth."
+  },
+  {
+    "id": "li-connect-campus-recruiter-event",
+    "name": "Campus Recruiter (Post-Drive)",
+    "candidate": "Candidate 1: Aarav Menon (NIT Warangal, Go backend)",
+    "output": "Hi Rahul, enjoyed Finlo Technologies's presentation for NIT Warangal. Would love to connect here on LinkedIn."
+  },
+  {
+    "id": "recruiter-inmail-value-prop",
+    "name": "Recruiter InMail Value Pitch",
+    "candidate": "Candidate 2: Neha Sharma (IIT Roorkee, ML / Computer Vision)",
+    "output": "Subject: ML Intern profile — PyTorch, TensorRT & Python projects\n\nHi Priya,\n\nReaching out directly as you handle engineering talent sourcing for Kavach Vision Labs.\n\nI specialize in PyTorch, TensorRT & Python. Recently, I optimized YOLOv8 model achieving 42 FPS on Jetson Nano with 94.2% mAP, with reproducible code and architecture documented at github.com/neha-cv/edge-yolo.\n\nAre there open requisitions matching this profile where a brief review of my work would be relevant?\n\nIf hiring is currently paused, no worries at all and thank you for your time.\n\nBest regards,\nNeha Sharma"
+  },
+  {
+    "id": "li-inmail-manager-project-deep-dive",
+    "name": "Manager InMail: Technical Project Deep-Dive",
+    "candidate": "Candidate 3: Vikramaditya Nair (BITS Pilani, Cloud & DevOps)",
+    "output": "Subject: Technical note on Kubernetes, Terraform & Prometheus for CloudScale Networks's engineering team\n\nHi Rajesh,\n\nNoticed your team at CloudScale Networks focuses on high-reliability backend systems, specifically regarding multi-cluster service mesh failover architecture.\n\nI specialize in Kubernetes, Terraform & Prometheus. Recently, I engineered automated canary deployment controller reducing rollback latency by 45%. The project architecture, reproducible tests, and benchmarks are published at github.com/vikram-ops/canary-ctl.\n\nAre there upcoming openings on your team where this hands-on background would be a match?"
+  },
+  {
+    "id": "li-inmail-founder-scaling-pitch",
+    "name": "Founder InMail: Scaling Engineering Scope",
+    "candidate": "Candidate 4: Ananya Iyer (PES University, Frontend / Web)",
+    "output": "Subject: Technical candidate: TypeScript, React & WebGL projects\n\nHi Murthy,\n\nSaw DesignDock India's latest technical milestones and wanted to reach out directly regarding engineering intern hiring.\n\nI work primarily with TypeScript, React & WebGL. Recently, I implemented virtualized infinite canvas rendering 10,000 DOM nodes at 60 FPS (source: github.com/ananya-web/fast-canvas).\n\nAre you evaluating interns or junior developers for your engineering squad this quarter?\n\nNo worries if you are heads-down building. Appreciate you reading.\n\nBest,\nAnanya Iyer"
+  },
+  {
+    "id": "li-inmail-peer-tech-exchange",
+    "name": "Peer InMail: Architectural Tradeoffs",
+    "candidate": "Candidate 5: Rohan Gupta (Thapar University, Data Engineering)",
+    "output": "Subject: Technical question: real-time streaming analytics engine implementation\n\nHi Vandana,\n\nSaw your technical posts regarding backend systems at DataSprint Analytics and wanted to ask a focused question.\n\nI recently tackled similar concurrency constraints in Apache Spark, Kafka & ClickHouse when I built streaming event pipeline processing 25,000 events/sec with sub-second ingestion (benchmarks at github.com/rohan-data/spark-pipeline).\n\nIf you have 5 minutes, I would appreciate your take on balancing write throughput against consistency in that service.\n\nTotally fine if work commitments keep you busy. Thanks for sharing technical learnings publicly.\n\nCheers,\nRohan Gupta"
+  },
+  {
+    "id": "cold-email-direct-role-app",
+    "name": "Direct Role Application Email",
+    "candidate": "Candidate 1: Aarav Menon (NIT Warangal, Go backend)",
+    "output": "Subject: Backend Engineering Intern application: Go, PostgreSQL & Redis background\n\nHi Rahul,\n\nI saw Finlo Technologies is hiring for the Backend Engineering Intern position, and your team's work on settlement reconciliation engine caught my attention.\n\nFocusing on Go, PostgreSQL & Redis, I recently built Go distributed job queue handling 6,500 jobs/sec. You can review the benchmark implementation here: github.com/aarav-demo/pgqueue.\n\nCould you let me know if this role is still actively accepting candidates and what the initial screening stage looks like?"
+  },
+  {
+    "id": "cold-email-scannable-pitch",
+    "name": "Scannable Candidate Pitch",
+    "candidate": "Candidate 2: Neha Sharma (IIT Roorkee, ML / Computer Vision)",
+    "output": "Subject: Inquiry: ML Intern hiring at Kavach Vision Labs\n\nHi Priya,\n\nReaching out to explore upcoming junior ML Intern opportunities on your engineering teams at Kavach Vision Labs.\n\nHere is a quick snapshot of my technical background:\n• Primary Stack: PyTorch, TensorRT & Python\n• Key Project: optimized YOLOv8 model achieving 42 FPS on Jetson Nano with 94.2% mAP\n• Repository & Demos: github.com/neha-cv/edge-yolo\n\nCould you guide me toward the appropriate hiring drive or portal for early-career applicants with this profile?"
+  },
+  {
+    "id": "hiring-manager-project-hook",
+    "name": "Hiring Manager Project Hook",
+    "candidate": "Candidate 3: Vikramaditya Nair (BITS Pilani, Cloud & DevOps)",
+    "output": "Subject: Kubernetes, Terraform & Prometheus project relevant to CloudScale Networks\n\nHi Rajesh,\n\nI follow CloudScale Networks's engineering developments, and your team's recent work on multi-cluster service mesh failover architecture stood out.\n\nBuilding primarily in Kubernetes, Terraform & Prometheus, I recently engineered automated canary deployment controller reducing rollback latency by 45% (source: github.com/vikram-ops/canary-ctl).\n\nI am exploring Site Reliability Engineering Intern positions and wanted to ask if your team is open to evaluating engineers with this focus?\n\nThank you for reading.\n\nBest,\nVikramaditya Nair"
+  },
+  {
+    "id": "cold-email-solutions-problem-solving",
+    "name": "Problem-Solving Teardown Note",
+    "candidate": "Candidate 4: Ananya Iyer (PES University, Frontend / Web)",
+    "output": "Subject: Frontend Software Engineer candidate — prototype for DesignDock India\n\nHi Murthy,\n\nI was examining DesignDock India's public tech teardown regarding real-time canvas collaboration workspace and found the concurrency model intriguing.\n\nAs an engineer building in TypeScript, React & WebGL, I put together a working prototype where I implemented virtualized infinite canvas rendering 10,000 DOM nodes at 60 FPS. The codebase and reproduction steps are open: github.com/ananya-web/fast-canvas.\n\nCould I ask if your group is currently evaluating engineers with hands-on focus in this area?"
+  },
+  {
+    "id": "post-accept-manager-role-inquiry",
+    "name": "Manager Follow-Up (Post-Acceptance Email)",
+    "candidate": "Candidate 5: Rohan Gupta (Thapar University, Data Engineering)",
+    "output": "Subject: Technical background re: Data Engineering Fresher at DataSprint Analytics\n\nHi Vandana,\n\nAppreciate you connecting on LinkedIn. Wanted to share a quick technical overview regarding DataSprint Analytics's Data Engineering Fresher openings.\n\nI build in Apache Spark, Kafka & ClickHouse. Recently, I built streaming event pipeline processing 25,000 events/sec with sub-second ingestion (source repository and benchmarks: github.com/rohan-data/spark-pipeline).\n\nAre there upcoming screening rounds for this role where reviewing my work would make sense?\n\nIf headcount is closed, no problem at all and thank you for connecting.\n\nBest regards,\nRohan Gupta"
+  },
+  {
+    "id": "alumni-warm-referral-ask",
+    "name": "Alumni Referral Request Note",
+    "candidate": "Candidate 1: Aarav Menon (NIT Warangal, Go backend)",
+    "output": "Subject: NIT Warangal alum: Backend Engineering Intern application at Finlo Technologies\n\nHi Rahul,\n\nHope your week is going well. I am currently applying for the open Backend Engineering Intern requisition at Finlo Technologies as an NIT Warangal graduate.\n\nIf my technical background looks like a solid match for the team, would you feel comfortable submitting an internal referral on my behalf?"
+  },
+  {
+    "id": "post-accept-alumni-referral-ask",
+    "name": "Alumni Referral Request (Post-Acceptance)",
+    "candidate": "Candidate 2: Neha Sharma (IIT Roorkee, ML / Computer Vision)",
+    "output": "Subject: IIT Roorkee senior: ML Intern application context\n\nHi Priya,\n\nAppreciate you accepting my connection request. Reaching out regarding the open ML Intern requisition at Kavach Vision Labs.\n\nI have prepared an application for ML Intern. I build with PyTorch, TensorRT & Python, recently optimized YOLOv8 model achieving 42 FPS on Jetson Nano with 94.2% mAP (source: github.com/neha-cv/edge-yolo).\n\nWould you be comfortable referring my profile for this specific role, or sharing any advice before I apply?"
+  },
+  {
+    "id": "warm-referral-former-colleague-forwardable",
+    "name": "Peer Forwardable Blurb (Referral)",
+    "candidate": "Candidate 3: Vikramaditya Nair (BITS Pilani, Cloud & DevOps)",
+    "output": "Subject: Referral blurb: Site Reliability Engineering Intern (Kubernetes, Terraform & Prometheus)\n\nHi Rajesh,\n\nHope your work on the team at CloudScale Networks is going smoothly. I am preparing to apply for the Site Reliability Engineering Intern opening on your team.\n\nWould you be comfortable dropping this note into your internal referral portal?"
+  },
+  {
+    "id": "gentle-follow-up",
+    "name": "Contextual Gentle Follow-Up",
+    "candidate": "Candidate 4: Ananya Iyer (PES University, Frontend / Web)",
+    "output": "Subject: Following up: Frontend Software Engineer interest at DesignDock India\n\nHi Murthy,\n\nChecking in on my earlier message regarding Frontend Software Engineer engineering at DesignDock India.\n\nOne quick update since my last note: benchmarked memory usage and open-sourced custom Web Worker renderer.\n\nCould you let me know if this role remains open for screening?"
+  },
+  {
+    "id": "follow-up-hiring-manager-new-benchmark",
+    "name": "Manager Follow-Up: New Shipped Benchmark",
+    "candidate": "Candidate 5: Rohan Gupta (Thapar University, Data Engineering)",
+    "output": "Subject: Following up: Data Engineering Fresher candidate progress\n\nHi Vandana,\n\nBriefly following up on my previous message concerning engineering opportunities on your team.\n\nWanted to share one concrete technical update: {{follow_up_new_info}}.\n\nLet me know if your team is open to evaluating this profile for upcoming sprints."
+  }
+]

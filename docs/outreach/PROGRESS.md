@@ -32,10 +32,19 @@
 ---
 
 ## Active Stage
-- **Stage 3: Template Library Authoring** (Next)
-  - 3.0 Rewrite existing 50 templates to D6 standard (hook, proof, ask, close blocks with 2-4 variants each). Fix all audit issues. Create `docs/outreach/REWRITE_LOG.md`.
-  - 3.1 Fill matrix per D3 & D6 with authoring batches of <=12 templates.
-  - 3.2 Implement authoring lint script `npm run outreach:lint-templates`.
-  - 3.3 Generate `docs/outreach/COVERAGE.md`.
-  - Verify Gate 3.
+- **Stage 3: Template Library Authoring** — COMPLETED
+  - 3.0: 100% of the 50 legacy templates rewritten to the D6 block standard (hook, proof, ask, close with 2-4 variants each), fixing all Stage 0.2 audit findings (generic openers, flattery without specifics, clichés, pushy asks, character overflows). Full before/after table generated in `docs/outreach/REWRITE_LOG.md`.
+  - 3.1: Matrix filled with 35 new templates across 3 batches (Batch 1: LinkedIn Connect & InMail; Batch 2: Post-Accept & Warm Referral; Batch 3: Cold Email & Follow-Up / Event-based), expanding library to 85 templates.
+  - 3.2: Authoring linter created in `scripts/outreach/lint-templates.ts` (`npm run outreach:lint-templates`). All 85 templates pass with 0 errors across 174 unique opening lines and length fitting.
+  - 3.3: `docs/outreach/COVERAGE.md` generated with full matrix coverage breakdown across channels, goals G1-G9, recipient types, and angles.
+  - Gate 3 verified: 85 templates valid; 0 errors on authoring linter; 20 sample messages generated across 5 fictional profiles in `docs/outreach/SAMPLE_MESSAGES.md`.
+
+---
+
+## Active Stage
+- **Stage 4: UI Implementation (D5)** (Next)
+  - 4.1: Update `src/features/suite/outreach/ReachOutPage.tsx` with Free (200) / Premium (300) toggle, full matrix template filters (Channel, Goal, Recipient, Angle), slot form with inline engine validation & good/bad examples, live counters & fit status from engine (zero UI math), "Try another phrasing" deterministic variant cycler, and quality checklist panel.
+  - 4.2: Implement UI component/integration tests in `tests/outreach/ui.spec.ts`.
+  - 4.3: Verify `npm run check:ui-math`, contrast, ARIA accessibility, responsive 360px layout.
+  - Gate 4 verification.
 

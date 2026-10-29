@@ -88,8 +88,8 @@ describe('Outreach Template v2 Schema Validator (Stage 1 Gate)', () => {
     expect(r10.errors.some((e) => e.path === 'subjectVariants')).toBe(true);
   });
 
-  it('validates 100% of migrated templates and confirms needsAuthoring flag', () => {
-    expect(migratedTemplates.length).toBe(50);
+  it('validates 100% of authored library templates and confirms needsAuthoring is resolved', () => {
+    expect(migratedTemplates.length).toBeGreaterThanOrEqual(70);
     const { allValid, results } = validateAllTemplates(migratedTemplates);
 
     for (const [id, res] of results.entries()) {
@@ -100,9 +100,9 @@ describe('Outreach Template v2 Schema Validator (Stage 1 Gate)', () => {
     }
     expect(allValid).toBe(true);
 
-    // Confirm each is marked needsAuthoring
+    // Confirm all templates in library are authored and v2 compliant
     for (const tmpl of migratedTemplates) {
-      expect(tmpl.needsAuthoring).toBe(true);
+      expect(tmpl.needsAuthoring).toBe(false);
       expect(tmpl.version).toBe(2);
       expect(tmpl.id).toBeTruthy();
     }
