@@ -10,3 +10,5 @@ export * from './planner';
 export * from './composer';
 export * from './gate';
 export * from './layout';
+export * from './verify/roundTrip';
+export * from './export';

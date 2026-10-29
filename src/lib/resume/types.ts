@@ -107,14 +107,14 @@ export type ResumeTemplateId = 'classic' | 'modern' | 'compact' | 'campus' | 'ex
 export interface LayoutSettings {
   template: ResumeTemplateId;
   paperSize: 'a4' | 'letter';
-  fontSizePt: number;       // e.g. 10.0 pt floor
-  marginsPt: {
+  fontSizePt?: number;       // e.g. 10.0 pt floor
+  marginsPt?: {
     top: number;
     bottom: number;
     left: number;
     right: number;
   };
-  lineSpacingPt: number;    // e.g. 12.5 pt
+  lineSpacingPt?: number;    // e.g. 12.5 pt
   accentColor?: string;     // Hex color code for headings only
   showPhoto?: boolean;
   showDob?: boolean;

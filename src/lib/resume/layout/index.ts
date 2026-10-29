@@ -7,5 +7,6 @@ export * from './templates';
 export * from './unicode';
 export * from './engine';
 export * from './renderers/pdfRenderer';
+export * from './renderers/docxRenderer';
 export * from './renderers/domRenderer';
 export * from './renderers/textRenderer';
