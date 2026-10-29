@@ -8,6 +8,7 @@
 import templatesData from '../../../data/suite/outreach-templates.json';
 import { CandidateProfile } from '../profile/types';
 import { ALL_REACH_OUT_TEMPLATES } from '../../reach-out/data';
+import { fitMessageToLength } from './engine/lengthFit';
 
 export type OutreachChannel =
   | 'linkedin_connect'
@@ -513,26 +514,28 @@ export function generateOutreach(
       : allTemplates.filter((t) => t.channel === selectedChannel);
 
   return targetTemplates.map((item) => {
-    const rawTemplate = typeof item.template === 'string'
-      ? item.template
-      : item.blocks && typeof item.blocks === 'object'
-      ? [
-          ((item.blocks as Record<string, string[]>).hook?.[0] || ''),
-          ((item.blocks as Record<string, string[]>).proof?.[0] || ''),
-          ((item.blocks as Record<string, string[]>).ask?.[0] || ''),
-          ((item.blocks as Record<string, string[]>).close?.[0] || ''),
-        ].filter(Boolean).join(' ')
-      : '';
-    const body = fillSlots(rawTemplate, slots);
-    const subjectTemplate = typeof item.subject === 'string'
-      ? item.subject
-      : Array.isArray(item.subjectVariants) && typeof item.subjectVariants[0] === 'string'
-      ? item.subjectVariants[0]
-      : undefined;
-    const subject = subjectTemplate ? fillSlots(subjectTemplate, slots) : undefined;
-    const charCount = body.length;
-    const wordCount = body.split(/\s+/).filter(Boolean).length;
-    const maxLength = typeof item.maxLength === 'number' ? item.maxLength : (item.lengthProfile as { hardMax?: number })?.hardMax;
+    let body = '';
+    let subject: string | undefined = undefined;
+    let charCount = 0;
+    let wordCount = 0;
+    let maxLength = typeof item.maxLength === 'number' ? item.maxLength : (item.lengthProfile as { hardMax?: number })?.hardMax;
+
+    if (item.blocks && typeof item.blocks === 'object') {
+      const fit = fitMessageToLength(item as any, slots as any, 0, { isPremiumLinkedIn: false });
+      body = fit.body;
+      subject = fit.subject;
+      charCount = fit.charCount;
+      wordCount = fit.wordCount;
+      maxLength = fit.hardMax;
+    } else {
+      const rawTemplate = typeof item.template === 'string' ? item.template : '';
+      body = fillSlots(rawTemplate, slots);
+      const subjectTemplate = typeof item.subject === 'string' ? item.subject : undefined;
+      subject = subjectTemplate ? fillSlots(subjectTemplate, slots) : undefined;
+      charCount = body.length;
+      wordCount = body.split(/\s+/).filter(Boolean).length;
+    }
+
     const exceedsLimit = maxLength !== undefined && charCount > maxLength;
 
     const fullCombined = subject ? `${subject}\n${body}` : body;

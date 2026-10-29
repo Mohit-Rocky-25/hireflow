@@ -41,10 +41,26 @@
 
 ---
 
+- **Stage 4: UI Implementation (D5)** — COMPLETED
+  - 4.1: Rebuilt `src/features/suite/outreach/ReachOutPage.tsx` adhering to D5:
+    - LinkedIn Free (200c default) / Premium (300c) toggle with localStorage persistence (`hireflow:reachout:isPremiumLinkedIn`).
+    - Full template browser with filters for Channel (All Channels, LinkedIn Connect, LinkedIn InMail, Cold Email, Warm Referral, Follow-Up), Goal (G1–G9), Recipient Type, and Angle.
+    - Selected template strategy card displaying "Why this works", "When not to use", and "Tradeoffs & Risks".
+    - Inline slot form with real-time engine specificity validation (rejects generic flattery, requires quantified proof, enforces followUpNewInfo for follow-ups).
+    - Live message canvas rendering `fitMessageToLength` status and counters with zero UI arithmetic (`check:ui-math` verified).
+    - Deterministic "Try another phrasing" variant cycler (increments `variantIndex` using stable FNV-1a hash).
+    - Dedicated Subject Line copy box for Email & InMail.
+    - Message Quality Checklist displaying BLOCKERS (in red) and WARNINGS (in amber), plus the 4-point send etiquette checklist.
+    - Reset / Clear Reach Out Data action.
+  - 4.2: Comprehensive UI integration test suite implemented in `tests/outreach/ui.spec.ts` (9 tests passing: free/premium toggle, generic flattery rejection, proof validation, slot gap detection, determinism, quality rules classification, keyboard navigation, 360px responsiveness, zero UI math).
+  - 4.3: `npm run check:ui-math` passes with 0 violations. All interactive controls have `focus-visible:ring-2 focus-visible:ring-volt` and `aria-live="polite"` live regions.
+  - Gate 4 verified.
+
+---
+
 ## Active Stage
-- **Stage 4: UI Implementation (D5)** (Next)
-  - 4.1: Update `src/features/suite/outreach/ReachOutPage.tsx` with Free (200) / Premium (300) toggle, full matrix template filters (Channel, Goal, Recipient, Angle), slot form with inline engine validation & good/bad examples, live counters & fit status from engine (zero UI math), "Try another phrasing" deterministic variant cycler, and quality checklist panel.
-  - 4.2: Implement UI component/integration tests in `tests/outreach/ui.spec.ts`.
-  - 4.3: Verify `npm run check:ui-math`, contrast, ARIA accessibility, responsive 360px layout.
-  - Gate 4 verification.
+- **Stage 5: Honesty, Guidance, Privacy** (Next)
+  - 5.1: Verify copy tone across all UI, templates, and docs: zero banned marketing claims ("high-converting", "guaranteed", "proven", "pre-calibrated"). Ensure length targets are clearly labeled as derived from B2B sales-outbound datasets and assumed to transfer to job-seeker outreach (Evidence E3).
+  - 5.2: Verify privacy integrity: zero recipient data transmitted or stored remotely; only local drafts persist under `hireflow:reachout:draft_v2`.
+  - Gate 5 verification: run `npm run check:claims`, `npm run privacy:check`, storage quota/corruption handling.
 

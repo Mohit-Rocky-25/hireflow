@@ -325,3 +325,5 @@ export function checkMessageQuality(input: QualityCheckInput): QualityFinding[] 
 
   return findings;
 }
+
+export { checkMessageQuality as runQualityChecker };

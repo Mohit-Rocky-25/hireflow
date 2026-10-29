@@ -49,7 +49,7 @@ describe('Outreach Generator Engine', () => {
     expect(placeholders).toContain('[Your College / University]');
   });
 
-  it('enforces LinkedIn Connection Request 300 char limit', () => {
+  it('enforces LinkedIn Connection Request 200 char free platform limit (Evidence E1)', () => {
     const slots: OutreachSlots = {
       recipientName: 'Sneha',
       targetCompany: 'Swiggy',
@@ -63,8 +63,8 @@ describe('Outreach Generator Engine', () => {
 
     for (const msg of messages) {
       expect(msg.channel).toBe('linkedin_connect');
-      expect(msg.maxLength).toBe(300);
-      expect(msg.charCount).toBeLessThanOrEqual(300);
+      expect(msg.maxLength).toBe(200);
+      expect(msg.charCount).toBeLessThanOrEqual(200);
       expect(msg.exceedsLimit).toBe(false);
     }
   });
@@ -86,8 +86,8 @@ describe('Outreach Generator Engine', () => {
     expect(channels.has('linkedin_connect')).toBe(true);
     expect(channels.has('linkedin_inmail')).toBe(true);
     expect(channels.has('cold_email')).toBe(true);
-    expect(channels.has('direct_message')).toBe(true);
-    expect(channels.has('reply')).toBe(true);
+    expect(channels.has('warm_referral')).toBe(true);
+    expect(channels.has('follow_up')).toBe(true);
   });
 
   it('extracts slots and top proof point from CandidateProfile', () => {
@@ -155,14 +155,14 @@ describe('Outreach Generator Engine', () => {
       commonGround: 'Golang Bangalore Meetup',
     };
 
-    it('validates LinkedIn Connect templates strictly adhere to the 300 character limit', () => {
+    it('validates LinkedIn Connect templates strictly adhere to the 200 character free limit', () => {
       const messages = generateOutreach(testSlots, 'linkedin_connect');
       expect(messages.length).toBeGreaterThanOrEqual(4);
 
       for (const msg of messages) {
         expect(msg.channel).toBe('linkedin_connect');
-        expect(msg.maxLength).toBe(300);
-        expect(msg.charCount).toBeLessThanOrEqual(300);
+        expect(msg.maxLength).toBe(200);
+        expect(msg.charCount).toBeLessThanOrEqual(200);
         expect(msg.exceedsLimit).toBe(false);
         expect(msg.body).toContain('Sanjay');
       }
@@ -187,9 +187,9 @@ describe('Outreach Generator Engine', () => {
       }
     });
 
-    it('verifies total template catalog across all channels equals exactly 50', () => {
+    it('verifies total template catalog across all channels reflects the full authored matrix (85 templates)', () => {
       const all = generateOutreach(testSlots, 'all');
-      expect(all).toHaveLength(50);
+      expect(all).toHaveLength(85);
     });
   });
 });
