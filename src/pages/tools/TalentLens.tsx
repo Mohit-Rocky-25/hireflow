@@ -4,7 +4,7 @@
 // Per spec: show evidence, separate eligibility/relevance/confidence,
 // never fabricate, distinguish "no evidence" from "not skilled"
 // ============================================================
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import {
@@ -23,6 +23,7 @@ import { DEMO_TALENTLENS_RESUME } from '../demo/useTalentLensStore';
 import { HonestyExplainerModal } from '../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
+import { JobRoleProjectBridge } from '../../features/suite/briefs/components/JobRoleProjectBridge';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ReportErrorModal } from '../../components/common/ReportErrorModal';
@@ -272,6 +273,16 @@ export function TalentLens() {
     );
   }
 
+  
+  const jobRoleBridgeSkills = useMemo(() => {
+    if (!match?.requirementAssessments) return [];
+    return match.requirementAssessments.map((ra) => ({
+      name: ra.requirementName,
+      isMandatory: ra.requirementPriority === 'MANDATORY',
+      status: ra.status === 'STRONG' ? ('verified' as const) : ('gap' as const),
+    }));
+  }, [match?.requirementAssessments]);
+
   const selectedJob = jobs.find(j => j.id === selectedJobId);
 
   return (
@@ -501,6 +512,13 @@ export function TalentLens() {
 
           {/* Reality Factors (Stage 3D, Unscored) */}
           <RealityFactorsPanel className="my-6" />
+
+          {/* Target Role Skills & Project Brief Bridge */}
+          <JobRoleProjectBridge
+            skills={jobRoleBridgeSkills}
+            roleTitle={selectedJob?.title || 'Target Job Role'}
+            className="my-6"
+          />
 
           {/* Tabs */}
           <div className="flex items-center gap-1 border-b border-charcoal">

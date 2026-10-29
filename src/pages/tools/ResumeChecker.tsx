@@ -51,6 +51,7 @@ import { WordLimitSource } from '../../lib/config/limits';
 import { resolveTargetJob } from '../../features/career-path/resolveTargetJob';
 import { ConfirmRequirementsModal, ConfirmedRequirement } from '../../features/ats/components/ConfirmRequirementsModal';
 import { RealityFactorsPanel } from '../../components/common/RealityFactorsPanel';
+import { JobRoleProjectBridge } from '../../features/suite/briefs/components/JobRoleProjectBridge';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
@@ -137,6 +138,25 @@ export function ResumeChecker() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [confirmedRequirements, setConfirmedRequirements] = useState<ConfirmedRequirement[] | null>(null);
   const [parsedJdData, setParsedJdData] = useState<ReturnType<typeof parseJD> | null>(null);
+
+  const jobRoleBridgeSkills = useMemo(() => {
+    if (!engineResult?.skillResults) return [];
+    return engineResult.skillResults.map((s) => ({
+      name: s.canonical,
+      isMandatory: s.required === 'must',
+      status: (s.found && s.status === 'verified' ? 'verified' : 'gap') as 'verified' | 'gap',
+    }));
+  }, [engineResult?.skillResults]);
+
+  const detectedRoleTitle = useMemo(() => {
+    if (queryCompanyId) return `${queryCompanyId} Target Role`;
+    const match = jobText.match(/(?:Role|Title|Position):\s*([^\r\n,]+)/i);
+    if (match && match[1]) return match[1].trim();
+    const firstLine = jobText.trim().split('\n')[0]?.trim();
+    if (firstLine && firstLine.length < 60 && !firstLine.includes(':')) return firstLine;
+    return 'Target Role';
+  }, [queryCompanyId, jobText]);
+
 
   // Campus UI removed for TalentLens JD single source
 
@@ -696,6 +716,12 @@ export function ResumeChecker() {
                       </div>
                     </div>
 
+                    <JobRoleProjectBridge
+                      skills={jobRoleBridgeSkills}
+                      roleTitle={detectedRoleTitle}
+                      className="mt-6"
+                    />
+
                     <RealityFactorsPanel className="mt-6" />
                   </div>
                 )}
@@ -714,6 +740,13 @@ export function ResumeChecker() {
 
                 {/* Layout Section B: Fix These First */}
                 <FixTheseFirst items={engineResult.fixFirst} />
+
+                {/* Target Role Skills & Project Brief Bridge */}
+                <JobRoleProjectBridge
+                  skills={jobRoleBridgeSkills}
+                  roleTitle={detectedRoleTitle}
+                  className="mb-6"
+                />
 
                 {/* Layout Section C: Tab Bar with Exactly 4 Tabs */}
                 <div className="space-y-6">
