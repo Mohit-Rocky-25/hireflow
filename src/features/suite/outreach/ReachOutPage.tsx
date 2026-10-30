@@ -57,6 +57,7 @@ import { validateSlots, validateAdmiredWork, validateProofPoint } from './engine
 
 // 85 Authored Templates from Stage 3
 import templatesRaw from '../../../data/suite/outreach/templates.json';
+import { PLATFORM_RULES } from '../../reach-out/data/platformRules';
 
 const ALL_TEMPLATES = templatesRaw as OutreachTemplateV2[];
 
@@ -204,6 +205,9 @@ export function ReachOutPage() {
       // safe fallback
     }
   };
+
+  // Platform Rules Collapsible Section State
+  const [showPlatformRules, setShowPlatformRules] = useState<boolean>(true);
 
   // 2. Draft Slots State (Local-only persistence per H1 & Stage 5.2)
   const [slots, setSlots] = useState<OutreachSlotsV2>(() => {
@@ -937,6 +941,11 @@ export function ReachOutPage() {
             </div>
           </div>
 
+          {/* Mandatory Limits Notice */}
+          <div className="bg-black/60 border border-white/10 rounded-lg p-2.5 text-[11px] text-white/60 leading-relaxed mb-1">
+            Replies depend on your profile, timing and the company&apos;s hiring state. No template can guarantee one. {/* // banned claim disclaimer */}
+          </div>
+
           {/* Main Output Card */}
           <div className="bg-[#111] border border-white/15 rounded-xl p-4 flex flex-col gap-3 shadow-xl">
             {/* Subject Line for Email & InMail */}
@@ -1159,6 +1168,74 @@ export function ReachOutPage() {
           </div>
         </section>
       </main>
+
+      {/* ── Platform Rules Collapsible Section ── */}
+      <section className="max-w-7xl mx-auto px-4 w-full mb-8" aria-label="Platform Rules and Delivery Guidelines">
+        <div className="border border-white/10 rounded-xl bg-[#111] overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setShowPlatformRules((prev) => !prev)}
+            className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-white/[0.03] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-volt"
+          >
+            <div className="flex items-center gap-2.5">
+              <Shield className="w-4 h-4 text-volt" />
+              <div>
+                <span className="text-xs font-semibold text-white">Platform rules</span>
+                <span className="text-[11px] text-white/50 ml-2">({PLATFORM_RULES.length} standards)</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-medium text-white/60">
+              <span>{showPlatformRules ? 'Hide rules' : 'View platform rules'}</span>
+              {showPlatformRules ? (
+                <ChevronUp className="w-4 h-4 text-white/60" />
+              ) : (
+                <ChevronDown className="w-4 h-4 text-white/60" />
+              )}
+            </div>
+          </button>
+
+          {showPlatformRules && (
+            <div className="border-t border-white/10 p-4 bg-black/50 divide-y divide-white/5">
+              {PLATFORM_RULES.map((rule, idx) => (
+                <div
+                  key={idx}
+                  className="py-2.5 first:pt-0 last:pb-0 flex flex-col md:flex-row md:items-center md:justify-between gap-1.5 text-xs"
+                >
+                  <div className="max-w-2xl">
+                    <div className="font-semibold text-white">{rule.rule}</div>
+                    <div className="text-[11px] text-white/50 mt-0.5">{rule.value}</div>
+                  </div>
+
+                  <div className="text-[11px] shrink-0">
+                    {rule.sourceUrl ? (
+                      <a
+                        href={rule.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-volt hover:underline font-medium inline-flex items-center gap-1"
+                      >
+                        {`Source: ${rule.sourceName}, last checked ${rule.lastCheckedDate}`}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : (
+                      <span className="text-white/40 italic px-2 py-0.5 rounded bg-white/5 border border-white/10">
+                        Source pending
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── Honesty Footer ── */}
+      <footer className="mt-auto py-6 border-t border-white/10 text-center">
+        <p className="text-xs font-semibold text-white/50">
+          Pre-written templates. Nothing you type leaves your browser.
+        </p>
+      </footer>
 
       {/* Data Provenance Modal */}
       {showProvenance && (
