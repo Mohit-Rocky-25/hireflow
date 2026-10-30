@@ -14,7 +14,7 @@ import { DirectInputModal } from './components/DirectInputModal';
 import { MakeItBetterModal } from './components/MakeItBetterModal';
 import { MakeItBetterResult } from '../../../lib/tailor/engine/makeItBetterEngine';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
-import { Sparkles, Zap, FileText, CheckCircle2, Target, X } from 'lucide-react';
+import { Sparkles, Zap, FileText, CheckCircle2, Target, X, Columns, Eye, Edit3 } from 'lucide-react';
 
 export function TailorResumePage() {
   const { activeProject } = useTailorStore();
@@ -27,6 +27,7 @@ export function TailorResumePage() {
   const [isMakeItBetterModalOpen, setIsMakeItBetterModalOpen] = useState(false);
   const [makeItBetterResult, setMakeItBetterResult] = useState<MakeItBetterResult | null>(null);
   const [mobileTab, setMobileTab] = useState<'editor' | 'preview'>('editor');
+  const [viewMode, setViewMode] = useState<'split' | 'editor' | 'preview'>('split');
 
   const resume = activeProject.tailoredResume;
   const candidate = activeProject.candidate;
@@ -61,24 +62,66 @@ export function TailorResumePage() {
             </p>
           </div>
 
-          {/* Mobile Switcher (Hidden on Desktop) */}
-          <div className="lg:hidden flex items-center p-1 bg-surface border border-border rounded self-start">
-            <button
-              onClick={() => setMobileTab('editor')}
-              className={`px-4 py-1.5 text-xs font-bold rounded transition cursor-pointer ${
-                mobileTab === 'editor' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              Editor
-            </button>
-            <button
-              onClick={() => setMobileTab('preview')}
-              className={`px-4 py-1.5 text-xs font-bold rounded transition cursor-pointer ${
-                mobileTab === 'preview' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              Paper Canvas
-            </button>
+          {/* Desktop & Mobile View Mode Switcher */}
+          <div className="flex items-center gap-2 self-start md:self-auto">
+            {/* Mobile Switcher (Hidden on Desktop) */}
+            <div className="lg:hidden flex items-center p-1 bg-surface border border-border rounded self-start">
+              <button
+                type="button"
+                onClick={() => setMobileTab('editor')}
+                className={`px-4 py-1.5 text-xs font-bold rounded transition cursor-pointer ${
+                  mobileTab === 'editor' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                Editor
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileTab('preview')}
+                className={`px-4 py-1.5 text-xs font-bold rounded transition cursor-pointer ${
+                  mobileTab === 'preview' ? 'bg-volt text-black shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]' : 'text-neutral-400 hover:text-white'
+                }`}
+              >
+                Paper Canvas
+              </button>
+            </div>
+
+            {/* Desktop View Switcher: Split vs Full-Width Editor vs Full Canvas */}
+            <div className="hidden lg:flex items-center p-0.5 bg-surface border border-charcoal rounded text-xs">
+              <button
+                type="button"
+                onClick={() => setViewMode('split')}
+                className={`px-3 py-1.5 font-mono uppercase text-[11px] font-bold rounded transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'split' ? 'bg-volt text-black shadow-xs' : 'text-neutral-400 hover:text-white'
+                }`}
+                title="Side-by-side Editor & Paper Canvas"
+              >
+                <Columns className="w-3.5 h-3.5" />
+                <span>Split View</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('editor')}
+                className={`px-3 py-1.5 font-mono uppercase text-[11px] font-bold rounded transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'editor' ? 'bg-volt text-black shadow-xs' : 'text-neutral-400 hover:text-white'
+                }`}
+                title="Focus on Full-Width Editor"
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Editor Focus</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('preview')}
+                className={`px-3 py-1.5 font-mono uppercase text-[11px] font-bold rounded transition cursor-pointer flex items-center gap-1.5 ${
+                  viewMode === 'preview' ? 'bg-volt text-black shadow-xs' : 'text-neutral-400 hover:text-white'
+                }`}
+                title="Focus on Full A4 Paper Canvas"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>Canvas Focus</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -115,16 +158,16 @@ export function TailorResumePage() {
           </div>
         )}
 
-        {/* Desktop Split View: Editor (Left) & Live Canvas (Right) */}
+        {/* Workspace: Editor & Live Canvas */}
         {resume && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-1">
+          <div className={`grid grid-cols-1 ${viewMode === 'split' ? 'lg:grid-cols-12' : 'lg:grid-cols-1'} gap-6 items-start flex-1`}>
             {/* Left Column: Handmade Editor */}
-            <div className={`lg:col-span-7 ${mobileTab === 'preview' ? 'hidden lg:block' : ''}`}>
+            <div className={`${viewMode === 'split' ? 'lg:col-span-7' : viewMode === 'editor' ? 'w-full' : 'hidden'} ${mobileTab === 'preview' ? 'hidden lg:block' : ''}`}>
               <HandmadeResumeEditor initialFocus={targetFocus} />
             </div>
 
             {/* Right Column: Live Paper Canvas */}
-            <div className={`lg:col-span-5 lg:sticky lg:top-20 h-[calc(100vh-6.5rem)] ${mobileTab === 'editor' ? 'hidden lg:block' : ''}`}>
+            <div className={`${viewMode === 'split' ? 'lg:col-span-5 lg:sticky lg:top-20' : viewMode === 'preview' ? 'w-full max-w-4xl mx-auto' : 'hidden'} h-[calc(100vh-6.5rem)] ${mobileTab === 'editor' ? 'hidden lg:block' : ''}`}>
               <DarkPaperPreview resume={resume} candidate={candidate} className="h-full" />
             </div>
           </div>
