@@ -39,31 +39,35 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
   const paperSize = settings.paperSize || 'a4';
   const heightReport = evaluateLayoutHeight(resume);
 
-  // Dynamically compute fitZoom so entire A4 sheet is 100% visible with ZERO scrolling
+  // ResizeObserver-based fit-zoom: fires when container gets its real dimensions (avoids 0-height race)
   const updateFitZoom = useCallback(() => {
     if (!containerRef.current) return;
     const containerWidth = containerRef.current.clientWidth;
     const containerHeight = containerRef.current.clientHeight;
+    if (!containerWidth || !containerHeight) return;
 
+    // A4 at screen 96 dpi: 210mm = 794px, 297mm = 1123px | Letter: 8.5in = 816px, 11in = 1056px
     const pagePxWidth = paperSize === 'letter' ? 816 : 794;
     const pagePxHeight = paperSize === 'letter' ? 1056 : 1123;
 
-    // Available space inside the studio container with generous padding
-    const availableWidth = Math.max(200, containerWidth - 32);
-    const availableHeight = Math.max(250, containerHeight - 32);
+    // Leave 24px padding on each side so the page has a visible dark border
+    const availableWidth = Math.max(200, containerWidth - 48);
+    const availableHeight = Math.max(250, containerHeight - 48);
 
     const zoomW = (availableWidth / pagePxWidth) * 100;
     const zoomH = (availableHeight / pagePxHeight) * 100;
 
-    // Constrain to fit within both dimensions so it NEVER scrolls or overflows
-    const computed = Math.min(100, Math.max(35, Math.floor(Math.min(zoomW, zoomH))));
+    // Smaller of the two so the page fits in BOTH axes — zero scroll in fit mode
+    const computed = Math.min(100, Math.max(30, Math.floor(Math.min(zoomW, zoomH))));
     setFitZoom(computed);
   }, [paperSize]);
 
   useEffect(() => {
+    if (!containerRef.current) return;
+    const ro = new ResizeObserver(() => updateFitZoom());
+    ro.observe(containerRef.current);
     updateFitZoom();
-    window.addEventListener('resize', updateFitZoom);
-    return () => window.removeEventListener('resize', updateFitZoom);
+    return () => ro.disconnect();
   }, [updateFitZoom]);
 
   const effectiveZoom = zoomMode === 'fit' ? fitZoom : zoom;
