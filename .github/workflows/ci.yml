@@ -42,3 +42,6 @@ jobs:
 
       - name: Vitest Suite (Unit, Invariants, Privacy & Regression)
         run: npm run test
+
+      - name: Production Bundle Build
+        run: npm run build
