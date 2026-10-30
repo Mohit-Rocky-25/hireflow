@@ -31,7 +31,7 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
   const containerRef = useRef<HTMLDivElement>(null);
   const [zoomMode, setZoomMode] = useState<'fit' | 'manual'>('fit');
   const [zoom, setZoom] = useState<number>(100);
-  const [fitZoom, setFitZoom] = useState<number>(62);
+  const [fitZoom, setFitZoom] = useState<number>(55);
   const [downloading, setDownloading] = useState<boolean>(false);
   const { autoFitOnePage, setLayoutSetting } = useTailorStore();
 
@@ -39,13 +39,24 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
   const paperSize = settings.paperSize || 'a4';
   const heightReport = evaluateLayoutHeight(resume);
 
-  // Dynamically compute fitZoom so entire A4 sheet is 100% visible with zero scrolling
+  // Dynamically compute fitZoom so entire A4 sheet is 100% visible with ZERO scrolling
   const updateFitZoom = useCallback(() => {
     if (!containerRef.current) return;
+    const containerWidth = containerRef.current.clientWidth;
     const containerHeight = containerRef.current.clientHeight;
-    const pagePx = paperSize === 'letter' ? 1056 : 1123;
-    const availableHeight = Math.max(300, containerHeight - 32);
-    const computed = Math.min(100, Math.max(45, Math.floor((availableHeight / pagePx) * 100)));
+
+    const pagePxWidth = paperSize === 'letter' ? 816 : 794;
+    const pagePxHeight = paperSize === 'letter' ? 1056 : 1123;
+
+    // Available space inside the studio container with generous padding
+    const availableWidth = Math.max(200, containerWidth - 32);
+    const availableHeight = Math.max(250, containerHeight - 32);
+
+    const zoomW = (availableWidth / pagePxWidth) * 100;
+    const zoomH = (availableHeight / pagePxHeight) * 100;
+
+    // Constrain to fit within both dimensions so it NEVER scrolls or overflows
+    const computed = Math.min(100, Math.max(35, Math.floor(Math.min(zoomW, zoomH))));
     setFitZoom(computed);
   }, [paperSize]);
 
@@ -264,7 +275,9 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
       {/* ── Fixed-Dimension Paper Sheet Canvas ── */}
       <div
         ref={containerRef}
-        className="flex-1 overflow-auto p-3 sm:p-6 flex justify-center items-start bg-black/95 select-none"
+        className={`flex-1 ${
+          zoomMode === 'fit' ? 'overflow-hidden' : 'overflow-auto'
+        } p-3 sm:p-5 flex justify-center items-center bg-black/95 select-none transition-all`}
       >
         <div
           style={{

@@ -68,6 +68,27 @@ import {
 
 type SubsectionFilterTab = 'all' | 'experience' | 'projects' | 'skills' | 'education' | 'summary' | 'requirements' | 'profile';
 
+const SECTION_ORDER: SubsectionFilterTab[] = [
+  'skills',
+  'experience',
+  'projects',
+  'education',
+  'summary',
+  'requirements',
+  'profile'
+];
+
+const SECTION_NAMES: Record<string, string> = {
+  skills: 'Technical Skills',
+  experience: 'Work Experience',
+  projects: 'Technical Projects',
+  education: 'Education',
+  summary: 'Professional Summary',
+  requirements: 'Job Requirements Map',
+  profile: 'Candidate Profile',
+};
+
+
 export interface HandmadeResumeEditorProps {
   initialFocus?: string;
 }
@@ -99,7 +120,7 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
   const evidence = activeProject.evidenceMapping;
 
   // Local UI states
-  const [activeTab, setActiveTab] = useState<SubsectionFilterTab>('all');
+  const [activeTab, setActiveTab] = useState<SubsectionFilterTab>('skills');
   const [searchQuery, setSearchQuery] = useState(initialFocus || '');
   const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
   const [expandedSuggestions, setExpandedSuggestions] = useState<Record<string, boolean>>({});
@@ -593,6 +614,56 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
           updateCandidateName={updateCandidateName}
           updateCandidateContact={updateCandidateContact}
         />
+      )}
+
+      
+      {/* ── Channel-Wise / Section-Wise Stepper Navigator (when focused on a single section) ── */}
+      {activeTab !== 'all' && (
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 bg-black rounded-lg border border-charcoal text-xs font-mono shadow-sm">
+          <button
+            type="button"
+            disabled={SECTION_ORDER.indexOf(activeTab) <= 0}
+            onClick={() => {
+              const idx = SECTION_ORDER.indexOf(activeTab);
+              if (idx > 0) setActiveTab(SECTION_ORDER[idx - 1]);
+            }}
+            className="px-3 py-1.5 rounded bg-surface hover:bg-surface-elevated border border-charcoal text-neutral-300 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 transition cursor-pointer"
+          >
+            <span>&larr; Previous</span>
+          </button>
+
+          <div className="text-center text-neutral-400">
+            <span className="text-volt font-bold uppercase tracking-wider">
+              {SECTION_NAMES[activeTab] || activeTab}
+            </span>
+            <span className="text-neutral-500 ml-2">
+              (Section {SECTION_ORDER.indexOf(activeTab) + 1} of {SECTION_ORDER.length})
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTab('all')}
+              className="px-2.5 py-1.5 rounded bg-surface hover:bg-surface-elevated border border-charcoal text-neutral-400 hover:text-white transition cursor-pointer text-[11px]"
+              title="Show all sections together"
+            >
+              Overview All
+            </button>
+
+            <button
+              type="button"
+              disabled={SECTION_ORDER.indexOf(activeTab) >= SECTION_ORDER.length - 1}
+              onClick={() => {
+                const idx = SECTION_ORDER.indexOf(activeTab);
+                if (idx < SECTION_ORDER.length - 1) setActiveTab(SECTION_ORDER[idx + 1]);
+              }}
+              className="px-3 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black font-bold disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 transition cursor-pointer"
+            >
+              <span>Next &rarr;</span>
+            </button>
+          </div>
+        </div>
       )}
 
       {/* P7: Section Sequence Explainability & Control Drawer */}

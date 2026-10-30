@@ -44,7 +44,7 @@ export function TailorResumePage() {
       />
 
       {/* Main Container */}
-      <main className="relative flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col space-y-6">
+      <main className="relative flex-1 max-w-[1560px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col space-y-6">
         {/* Subtle Page Intro Banner */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-border">
           <div>

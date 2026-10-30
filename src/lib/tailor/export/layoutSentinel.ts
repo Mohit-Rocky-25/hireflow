@@ -33,31 +33,35 @@ export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelRepo
   const fontScale = settings.fontSize === 'compact' ? 0.90 : settings.fontSize === 'spacious' ? 1.15 : 1.0;
   const lineScale = settings.lineSpacing === 'dense' ? 0.85 : settings.lineSpacing === 'loose' ? 1.20 : 1.0;
 
-  let totalHeight = Math.round(95 * fontScale); // Header name, contact, borders
+  let totalHeight = Math.round(100 * fontScale); // Header name, contact, borders
 
   for (const section of resume.sections) {
     if (!section.visible) continue;
 
-    totalHeight += Math.round(36 * fontScale * lineScale); // Section heading and border
+    totalHeight += Math.round(34 * fontScale * lineScale); // Section heading and border
 
     if (section.content.summaryText) {
       const words = section.content.summaryText.split(/\s+/).length;
-      totalHeight += Math.round(Math.ceil(words / 14) * 19 * fontScale * lineScale);
+      totalHeight += Math.round(Math.ceil(words / 13) * 19 * fontScale * lineScale);
     }
 
     if (section.content.skillsByCategory) {
-      const catCount = Object.keys(section.content.skillsByCategory).length;
-      totalHeight += Math.round(catCount * 26 * fontScale * lineScale);
+      for (const [cat, skList] of Object.entries(section.content.skillsByCategory)) {
+        if (!Array.isArray(skList) || skList.length === 0) continue;
+        const textLen = cat.length + 2 + skList.join(', ').length;
+        const lines = Math.max(1, Math.ceil(textLen / 85));
+        totalHeight += Math.round((lines * 17 + 3) * fontScale * lineScale);
+      }
     }
 
     if (section.content.entries) {
       for (const entry of section.content.entries) {
-        totalHeight += Math.round(26 * fontScale * lineScale); // Title, company, dates
+        totalHeight += Math.round(24 * fontScale * lineScale); // Title, company, dates
         if (entry.location) totalHeight += Math.round(14 * fontScale * lineScale);
         if (entry.bullets) {
           for (const b of entry.bullets) {
-            const words = b.text.split(/\s+/).length;
-            totalHeight += Math.round((Math.max(1, Math.ceil(words / 14)) * 18 + 3) * fontScale * lineScale);
+            const lines = Math.max(1, Math.ceil(b.text.length / 85));
+            totalHeight += Math.round((lines * 17 + 3) * fontScale * lineScale);
           }
         }
       }

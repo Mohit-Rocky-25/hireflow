@@ -14,7 +14,6 @@ import {
   ChevronDown,
   ChevronUp,
   Target,
-  Sparkles,
   ArrowUpDown,
 } from 'lucide-react';
 import { WorkspaceReadouts } from '../../../../lib/resume';
@@ -34,19 +33,19 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
     <div className="rounded bg-surface border border-charcoal p-4 space-y-3 shadow-xl">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
         {/* Readout 1: Target JD Coverage */}
-        <div className="bg-black rounded-lg p-3.5 border border-charcoal flex items-center justify-between gap-3">
-          <div className="space-y-1">
+        <div className="bg-black rounded-lg p-3.5 border border-charcoal flex items-center justify-between gap-3 overflow-hidden">
+          <div className="space-y-1 min-w-0">
             <div className="flex items-center gap-2">
-              <Target className="w-4 h-4 text-volt" />
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
+              <Target className="w-4 h-4 text-volt shrink-0" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-300 truncate">
                 Target JD Coverage
               </span>
             </div>
-            <p className="text-[11px] font-mono text-neutral-400">
+            <p className="text-[11px] font-mono text-neutral-400 truncate">
               Direct requirement coverage from confirmed facts
             </p>
           </div>
-          <div className="text-right">
+          <div className="text-right shrink-0">
             <span className="text-2xl font-mono font-black text-volt">
               {readouts.jdCoveragePercent}%
             </span>
@@ -54,21 +53,21 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
         </div>
 
         {/* Readout 2: Quality Checklist (Blockers vs Warnings) */}
-        <div className="bg-black rounded-lg p-3.5 border border-charcoal flex items-center justify-between gap-3">
-          <div className="space-y-1">
+        <div className="bg-black rounded-lg p-3.5 border border-charcoal flex flex-wrap items-center justify-between gap-3 overflow-hidden">
+          <div className="space-y-1 min-w-[130px]">
             <div className="flex items-center gap-2">
               {hasBlockers ? (
-                <ShieldAlert className="w-4 h-4 text-rose-500" />
+                <ShieldAlert className="w-4 h-4 text-rose-500 shrink-0" />
               ) : hasWarnings ? (
-                <AlertTriangle className="w-4 h-4 text-amber-400" />
+                <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
               ) : (
-                <CheckCircle2 className="w-4 h-4 text-volt" />
+                <CheckCircle2 className="w-4 h-4 text-volt shrink-0" />
               )}
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
                 Truth Gate Checklist
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               {hasBlockers ? (
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-rose-500/10 text-rose-400 border border-rose-500/30">
                   {readouts.blockersCount} Blockers
@@ -87,10 +86,11 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button
+              type="button"
               onClick={() => setChecklistOpen(!checklistOpen)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-mono font-bold uppercase bg-surface hover:bg-surface-elevated border border-charcoal text-neutral-200 transition"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-mono font-bold uppercase bg-surface hover:bg-surface-elevated border border-charcoal text-neutral-200 transition cursor-pointer"
               title="Toggle detailed quality checklist"
             >
               <span>Issues</span>
@@ -102,12 +102,14 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
             </button>
 
             <button
+              type="button"
               onClick={onOpenSequenceDrawer}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-mono font-bold uppercase bg-surface hover:bg-surface-elevated border border-charcoal text-volt transition"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded text-xs font-mono font-bold uppercase bg-surface hover:bg-surface-elevated border border-charcoal text-volt transition cursor-pointer"
               title="Explain evaluated section sequence"
             >
               <ArrowUpDown className="w-3.5 h-3.5 text-volt" />
-              <span className="hidden sm:inline">Why this order?</span>
+              <span className="hidden xl:inline">Why this order?</span>
+              <span className="xl:hidden">Order</span>
             </button>
           </div>
         </div>

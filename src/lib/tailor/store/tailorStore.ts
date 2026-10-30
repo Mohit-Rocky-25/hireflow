@@ -689,9 +689,22 @@ export const useTailorStore = create<TailorState>((set, get) => ({
               ...section.content,
               entries: (section.content.entries || []).map((entry) => ({
                 ...entry,
-                // Keep top 3 high-impact bullets per entry to guarantee 1-page fit
-                bullets: (entry.bullets || []).slice(0, 3),
+                // Keep top 2 high-impact bullets per entry to guarantee 1-page fit
+                bullets: (entry.bullets || []).slice(0, 2),
               })),
+            },
+          };
+        }
+        if (section.type === 'skills' && section.content.skillsByCategory) {
+          const compactedSkills: Record<string, string[]> = {};
+          for (const [cat, skList] of Object.entries(section.content.skillsByCategory)) {
+            compactedSkills[cat] = (skList as string[]).slice(0, 5);
+          }
+          return {
+            ...section,
+            content: {
+              ...section.content,
+              skillsByCategory: compactedSkills,
             },
           };
         }
