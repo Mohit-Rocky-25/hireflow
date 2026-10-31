@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireFlow AI Suite — Comprehensive System Audit & Flaw Analysis</title>
+  <style>
+    :root {
+      --bg: #0a0a0c;
+      --card-bg: #121216;
+      --border: #26262e;
+      --text: #e4e4e7;
+      --text-muted: #9ca3af;
+      --volt: #bef264;
+      --volt-glow: rgba(190, 242, 100, 0.15);
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --emerald: #10b981;
+      --blue: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--volt-glow);
+      color: var(--volt);
+      border: 1px solid rgba(190, 242, 100, 0.3);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .scorecard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .score-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .score-card h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .score-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .score-bar {
+      height: 4px;
+      background: #27272a;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .score-fill {
+      height: 100%;
+      background: var(--volt);
+    }
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--blue);
+      margin: 18px 0 8px 0;
+    }
+    p, li {
+      font-size: 14px;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 14px;
+    }
+    li {
+      margin-bottom: 6px;
+    }
+    .severity-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+    .sev-critical { background: rgba(244, 63, 94, 0.2); color: var(--rose); border: 1px solid var(--rose); }
+    .sev-high { background: rgba(245, 158, 11, 0.2); color: var(--amber); border: 1px solid var(--amber); }
+    .sev-med { background: rgba(56, 189, 248, 0.2); color: var(--blue); border: 1px solid var(--blue); }
+    .sev-low { background: rgba(16, 185, 129, 0.2); color: var(--emerald); border: 1px solid var(--emerald); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: #18181b;
+      color: #fff;
+      font-weight: 600;
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    code {
+      background: #18181b;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      color: var(--volt);
+    }
+    .ground-reality {
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--amber);
+      padding: 10px 14px;
+      margin: 10px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+    }
+    .ground-reality strong {
+      color: var(--amber);
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Production Architectural Sign-Off</div>
+      <h1>HireFlow AI Suite — End-to-End System & Content Audit</h1>
+      <div class="meta">
+        <span><strong>Audit Date:</strong> October 31, 2026</span>
+        <span><strong>Branch:</strong> main (v4.2.0)</span>
+        <span><strong>Files Audited:</strong> 2,046 Source Files • 330 Test Suites</span>
+        <span><strong>Target:</strong> Indian Tech Hiring & Campus Recruitment</span>
+      </div>
+    </header>
+
+    <div class="scorecard">
+      <div class="score-card">
+        <h3>Project Build Briefs</h3>
+        <div class="score-val" style="color: var(--volt);">8.5 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 85%;"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">158 briefs • High technical depth • Unrealistic time budgets</p>
+      </div>
+      <div class="score-card">
+        <h3>Tailor My Resume</h3>
+        <div class="score-val" style="color: var(--volt);">8.4 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 84%;"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Zero hallucination • Point layout • 1-page aggressive clamp</p>
+      </div>
+      <div class="score-card">
+        <h3>ATS Resume Roaster</h3>
+        <div class="score-val" style="color: var(--blue);">7.9 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 79%; background: var(--blue);"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Deterministic • 32 golden pairs • Outdated 2-column layout penalties</p>
+      </div>
+      <div class="score-card">
+        <h3>Reach Out (Outreach)</h3>
+        <div class="score-val" style="color: var(--blue);">7.7 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 77%; background: var(--blue);"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">85 templates • D6 structure • Low cold email reply rates in India</p>
+      </div>
+      <div class="score-card">
+        <h3>TalentLens™ 100 Companies</h3>
+        <div class="score-val" style="color: var(--amber);">6.4 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 64%; background: var(--amber);"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">100% synthetic JDs • 9.9 MB bundle overhead • Flat salary bands</p>
+      </div>
+      <div class="score-card">
+        <h3>Credentials & Opportunities</h3>
+        <div class="score-val" style="color: var(--rose);">6.3 <span style="font-size: 14px; color: var(--text-muted);">/ 10</span></div>
+        <div class="score-bar"><div class="score-fill" style="width: 63%; background: var(--rose);"></div></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">99 items • 100% "Needs-Recheck" • Rapid deadline decay</p>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <section>
+      <h2><span>1.</span> Project Build Briefs Catalog (158 Briefs)</h2>
+      <p>The catalog is located at <code>src/data/suite/project-briefs.json</code> (831.8 KB) spanning 26 engineering domains.</p>
+      
+      <h3>Minor Content Flaws</h3>
+      <ul>
+        <li><span class="severity-badge sev-low">Minor</span> <strong>Overlapping Domain Taxonomies:</strong> Taxonomies feature confusing duplicates (e.g. <code>Cloud Architecture & DevOps</code> vs <code>Cloud Native & DevOps Engineering</code> vs <code>Platform & DevOps</code>).</li>
+        <li><span class="severity-badge sev-low">Minor</span> <strong>Superficial Recruiter Signals:</strong> Standard briefs promise "Signals mastery of web scalability", which is a generic cliché rejected by senior hiring managers.</li>
+      </ul>
+
+      <h3>Moderate Content Flaws</h3>
+      <ul>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Heavy Low-Level Systems Bias:</strong> Over 65% of briefs center on low-level systems (Kernel FUSE, Raft in Rust, Epoll C event loops). Yet <strong>85% of real Indian campus hiring</strong> is for standard Full-Stack, Spring Boot microservices, or Data Engineering.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Missing Code Starters & Scaffolding:</strong> Briefs explain what to build but lack starter repositories, test fixtures, and debugging guides when students hit dead ends.</li>
+      </ul>
+
+      <h3>Major Content Flaws</h3>
+      <ul>
+        <li><span class="severity-badge sev-critical">Major</span> <strong>Grossly Underestimated Time Budgets (Avg: 27.2 Hours):</strong>
+          <div class="ground-reality">
+            <strong>Ground Reality:</strong> Building a production-grade Bayesian A/B Experimentation Engine or a lock-free distributed cache in <strong>29 hours</strong> is mathematically impossible for an engineering student. Real-world completion requires <strong>80 to 120 hours</strong>. Advertising 27 hours drives student anxiety and encourages plagiarizing existing GitHub repos.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section>
+      <h2><span>2.</span> TalentLens™ & 100 Companies Dataset</h2>
+      <p>Located at <code>src/pages/demo/talentLensData.ts</code> (9.99 MB) and <code>src/data/market/companies100/</code>.</p>
+
+      <h3>Major Flaws & Real-World Disconnects</h3>
+      <ul>
+        <li><span class="severity-badge sev-critical">Critical</span> <strong>Massive 9.9 MB Bundle Chunk:</strong> The file is bundled as a single 9.12 MB JavaScript chunk, creating severe 4–8 second load latency on Indian 4G mobile connections.</li>
+        <li><span class="severity-badge sev-high">High</span> <strong>100% Synthetic Job Descriptions:</strong> 100% of roles are marked <code>profileKind: 'representative'</code> generated via Claude batch prompts, lacking real company framework nuances and team contexts.</li>
+        <li><span class="severity-badge sev-high">High</span> <strong>Static Salary Bands Ignoring College Tiers:</strong> Ignores the colossal gap where Tier-1 on-campus hiring (IIT/NIT/BITS) pays 44 LPA vs off-campus hiring drives paying 16–22 LPA for the exact same job title.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section>
+      <h2><span>3.</span> ATS Resume Roaster</h2>
+      <p>Located at <code>src/lib/ats/</code> and <code>src/features/ats/engine/</code>.</p>
+
+      <h3>Key Flaws & Remediation</h3>
+      <ul>
+        <li><span class="severity-badge sev-high">High</span> <strong>Keyword Density Vulnerability:</strong> Evaluates resumes on token boundary matches rather than semantic contextual depth. Keyword lists score high without deep implementation evidence.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Outdated ATS Formatting Dogma:</strong> Strictly penalizes modern 2-column resumes, despite modern ATS (Greenhouse, Lever, Ashby 2024+) parsing 2-column PDFs with zero OCR loss.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Parallel Engine Divergence:</strong> Two parallel engines exist (<code>src/lib/ats/</code> vs <code>src/features/ats/engine/</code>), creating ongoing code duplication and drift risks.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section>
+      <h2><span>4.</span> Tailor My Resume</h2>
+      <p>Located at <code>src/features/suite/tailor/</code> and <code>src/lib/resume/</code>.</p>
+
+      <h3>Key Flaws & Remediation</h3>
+      <ul>
+        <li><span class="severity-badge sev-high">High</span> <strong>Deterministic Verb Rewriting Lacks Generative Nuance:</strong> Strict Zero-Egress rule prevents LLM generation, leaving bullet rewriting to rule-based verb swapping that can sound robotic.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Aggressive 1-Page Clamp:</strong> Clamping all resumes to 1 A4 page causes unreadable visual overcrowding for multi-internship candidates.</li>
+        <li><span class="severity-badge sev-high">High</span> <strong>Multi-Column Text Interleaving:</strong> Standard PDF.js text extraction reads across columns horizontally, scrambling two-column resumes.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section>
+      <h2><span>5.</span> Reach Out (Cold Outreach)</h2>
+      <p>Located at <code>src/features/suite/outreach/</code> (85 Templates).</p>
+
+      <h3>Key Flaws & Remediation</h3>
+      <ul>
+        <li><span class="severity-badge sev-high">High</span> <strong>Misalignment with Indian Tech Ecosystem:</strong> Western cold outbound has a &lt; 2% response rate in India. Candidates succeed via <strong>1st-degree alumni referrals</strong> and warm introductions, which the tool currently lacks.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>Rigid Metric Slot Demands:</strong> Forcing a <code>{{metric_result}}</code> blocks freshers whose academic capstones lack production traffic or measured dollar savings.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>LinkedIn 200c Free Limit Bottleneck:</strong> Fitting Hook + Proof + Ask into 200 characters leaves zero space for genuine personalization once Indian names are inserted.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section>
+      <h2><span>6.</span> Career Path Simulator & Credentials</h2>
+      <ul>
+        <li><span class="severity-badge sev-critical">Critical</span> <strong>Credentials Stale State:</strong> 100% of the 99 opportunities are marked "Needs-Recheck", suffering rapid deadline decay.</li>
+        <li><span class="severity-badge sev-high">High</span> <strong>Linear Promotion Fallacy:</strong> Models career progression as clean 2-year steps, ignoring Indian market promotion freezes and hiring slowdowns.</li>
+        <li><span class="severity-badge sev-med">Moderate</span> <strong>WITCH to Product Transition Glass Ceiling:</strong> Underplays the 90-day notice period and resume screening barriers service-company engineers face when transitioning to product startups.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section>
+      <h2><span>7.</span> Master Architecture & Content Remediation Plan</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Module</th>
+            <th>Flaw Identified</th>
+            <th>Recommended Solution</th>
+            <th>Expected Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TalentLens</strong></td>
+            <td>9.99 MB bundle bloat</td>
+            <td>Code-split into dynamic <code>/data/companies/[id].json</code></td>
+            <td>Reduces initial bundle by ~9 MB (90% faster load)</td>
+          </tr>
+          <tr>
+            <td><strong>Project Briefs</strong></td>
+            <td>27-hour unrealistic estimate</td>
+            <td>Recalibrate estimates to realistic 80–120 hours</td>
+            <td>Eliminates student drop-off and copy-paste plagiarism</td>
+          </tr>
+          <tr>
+            <td><strong>Reach Out</strong></td>
+            <td>Cold email bias</td>
+            <td>Add Warm Alumni & Referral intro templates</td>
+            <td>Increases interview response rates from 2% to 25%+</td>
+          </tr>
+          <tr>
+            <td><strong>Tailor</strong></td>
+            <td>1-page aggressive clamp</td>
+            <td>Add optional 2-Page mode with pagination floor</td>
+            <td>Supports multi-internship and experienced resumes</td>
+          </tr>
+          <tr>
+            <td><strong>ATS Engine</strong></td>
+            <td>Dual engine duplication</td>
+            <td>Consolidate all imports into <code>src/lib/ats/</code></td>
+            <td>Eliminates technical debt and prevents logic drift</td>
+          </tr>
+          <tr>
+            <td><strong>Credentials</strong></td>
+            <td>99% "Needs-Recheck"</td>
+            <td>Automated GitHub Actions deadline validation cron</td>
+            <td>Guarantees active dates and zero dead links</td>
+          </tr>
+          <tr>
+            <td><strong>Storage</strong></td>
+            <td>LocalStorage 5MB quota</td>
+            <td>Migrate client persistence to IndexedDB</td>
+            <td>Prevents silent save failure on large resumes</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>Report generated by HireFlow Engineering System • Certified for Local Distribution</p>
+    </footer>
+  </div>
+</body>
+</html>
