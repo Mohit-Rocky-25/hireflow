@@ -44,6 +44,12 @@ export function ExperiencedRoleCard({
               <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-black text-neutral-300 border border-charcoal">
                 {role.level || 'Standard'}
               </span>
+              {role.isLiveVerified && (
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/50 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Verified Live ATS
+                </span>
+              )}
               {role.profileKind === 'representative' && (
                 <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-near-black text-pale-yellow border border-pale-yellow/40">
                   Representative profile

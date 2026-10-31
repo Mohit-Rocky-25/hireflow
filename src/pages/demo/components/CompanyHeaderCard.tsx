@@ -37,6 +37,14 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
                 </span>
               )}
 
+              {/* Live ATS Feed Badge */}
+              {company.isLiveFeedActive && (
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/60 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Live ATS Feed · 3-Day Sync
+                </span>
+              )}
+
               {/* Data Status Chip */}
               {(!company.dataStatus || company.dataStatus === 'legacy_unaudited') ? (
                 <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-black text-neutral-400 border border-charcoal">

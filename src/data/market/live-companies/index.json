@@ -1,0 +1,164 @@
+{
+  "lastSyncTimestamp": "2026-10-31T17:49:12.371Z",
+  "totalLiveRoles": 136,
+  "companyCount": 11,
+  "cadence": "3-days",
+  "companies": [
+    {
+      "companyId": "cred",
+      "companyName": "CRED",
+      "ats": "lever",
+      "liveRoleCount": 2,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "AWS",
+        "Linux",
+        "Python",
+        "Shell Scripting",
+        "Computer Networks",
+        "Operating Systems"
+      ]
+    },
+    {
+      "companyId": "meesho",
+      "companyName": "Meesho",
+      "ats": "lever",
+      "liveRoleCount": 17,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Python",
+        "Machine Learning",
+        "Next.js",
+        "Java",
+        "SQL",
+        "Apache Spark"
+      ]
+    },
+    {
+      "companyId": "groww",
+      "companyName": "Groww",
+      "ats": "greenhouse",
+      "liveRoleCount": 0,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": []
+    },
+    {
+      "companyId": "inmobi",
+      "companyName": "InMobi",
+      "ats": "greenhouse",
+      "liveRoleCount": 7,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Machine Learning",
+        "Generative AI",
+        "Next.js",
+        "Python",
+        "Technical Leadership & Mentorship",
+        "CI/CD Pipelines"
+      ]
+    },
+    {
+      "companyId": "stripe",
+      "companyName": "Stripe India",
+      "ats": "greenhouse",
+      "liveRoleCount": 12,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Distributed Systems",
+        "Ruby",
+        "Java",
+        "Microservices",
+        "ETL Pipelines",
+        "MongoDB"
+      ]
+    },
+    {
+      "companyId": "datadog",
+      "companyName": "Datadog India",
+      "ats": "greenhouse",
+      "liveRoleCount": 1,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Scalable Logging & Monitoring",
+        "Site Reliability Engineering",
+        "Linux",
+        "Prometheus"
+      ]
+    },
+    {
+      "companyId": "mongodb",
+      "companyName": "MongoDB India",
+      "ats": "greenhouse",
+      "liveRoleCount": 41,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "MongoDB",
+        "AWS",
+        "Next.js",
+        "Azure",
+        "Python",
+        "Kubernetes"
+      ]
+    },
+    {
+      "companyId": "elastic",
+      "companyName": "Elastic India",
+      "ats": "greenhouse",
+      "liveRoleCount": 10,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Elasticsearch",
+        "Prometheus",
+        "Generative AI",
+        "JavaScript",
+        "Data Modeling",
+        "AWS"
+      ]
+    },
+    {
+      "companyId": "gitlab",
+      "companyName": "GitLab India",
+      "ats": "greenhouse",
+      "liveRoleCount": 21,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Prometheus",
+        "Ruby",
+        "Kubernetes",
+        "Grafana"
+      ]
+    },
+    {
+      "companyId": "rubrik",
+      "companyName": "Rubrik India",
+      "ats": "greenhouse",
+      "liveRoleCount": 17,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Python",
+        "Distributed Systems",
+        "AWS",
+        "Go",
+        "GCP",
+        "Java"
+      ]
+    },
+    {
+      "companyId": "coinbase",
+      "companyName": "Coinbase India",
+      "ats": "greenhouse",
+      "liveRoleCount": 8,
+      "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+      "topSkills": [
+        "Generative AI",
+        "Security Compliance",
+        "System Design",
+        "AWS",
+        "Machine Learning",
+        "Python"
+      ]
+    }
+  ]
+}

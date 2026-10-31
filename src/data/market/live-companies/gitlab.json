@@ -1,0 +1,1257 @@
+{
+  "companyId": "gitlab",
+  "companyName": "GitLab India",
+  "ats": "greenhouse",
+  "slug": "gitlab",
+  "tier": "PRODUCT_MNC",
+  "sector": "The DevSecOps Platform",
+  "headquarters": "Remote - India",
+  "website": "https://about.gitlab.com",
+  "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+  "liveRoleCount": 21,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "gh-8799044002",
+      "title": "Engineering Manager",
+      "level": "Engineering Manager",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Platforms Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8799044002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "46d33b22d422eee8d5060ad601e2abbf954a6d6d2593a543f612adf29763ba58",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Prometheus",
+        "Grafana",
+        "Site Reliability Engineering",
+        "System Design",
+        "Distributed Tracing",
+        "Elasticsearch"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Prometheus",
+        "Grafana",
+        "Site Reliability Engineering",
+        "System Design",
+        "Distributed Tracing",
+        "Elasticsearch"
+      ],
+      "responsibilities": [
+        "Lead, hire, onboard, and develop a distributed engineering team working asynchronously.",
+        "Set priorities with Site Reliability Engineering, Product Engineering, and GitLab Dedicated teams, and help the team deliver observability services iteratively.",
+        "Own the reliability, scalability, and cost of the team's metrics, logging, alerting, and capacity planning platforms.",
+        "Reduce noisy or missing alerts and telemetry gaps, and use SLOs, error budgets, and self-service instrumentation to help engineers maintain the health of their services.",
+        "Guide technical decisions about time-series storage, high-cardinality metrics, log pipelines, and distributed tracing.",
+        "Participate in the Incident Manager On Call (IMOC) rotation, coordinating the response to high-severity incidents affecting GitLab.com .",
+        "Keep the team's on-call rotation sustainable through coverage across time zones, useful runbooks, better alerts, and follow-through on post-incident actions.",
+        "Use AI tools and agents to support engineering workflows and incident triage, reviewing their output while engineers retain responsibility for decisions."
+      ],
+      "requiredQualifications": [
+        "Experience leading an observability, platform engineering, or site reliability engineering team operating at scale, including supporting people in a distributed, asynchronous environment.",
+        "Technical knowledge of metrics systems such as Prometheus and long-term storage, logging platforms such as Elasticsearch or cloud-native services, and alerting design.",
+        "Experience using SLOs, error budgets, and capacity forecasts to make reliability and investment decisions.",
+        "Experience operating a large software-as-a-service platform and investigating production issues such as telemetry gaps, ingestion limits, or noisy and missing alerts.",
+        "Experience participating in and improving production on-call rotations, including incident coordination and balancing operational load with project work.",
+        "Experience using AI tools or agents in engineering or management work; you can describe how you would apply them to operational problems such as incident triage."
+      ],
+      "fullText": "Engineering Manager\n\nLocation: Bangalore, India\nDepartment: Platforms Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n Engineering Manager, Production Engineering - Observability \n \n An overview of this role \nYou'll lead the globally distributed Observability team. The team builds and operates the metrics, logging, alerting, and capacity planning platforms that GitLab engineers use to understand GitLab.com and GitLab Dedicated. You'll help determine how the team collects, stores, queries, and acts on telemetry, balancing reliable signals with scale and cost.\nIn your first year, you'll guide improvements to Prometheus-based metrics pipelines, log ingestion and retention, alerting driven by service-level objectives (SLOs), and capacity forecasting. You'll work with Site Reliability Engineering, Product Engineering, and other Infrastructure Platforms teams to make it easier for engineers to observe the services they own. You'll also take part in incident response and help keep the team's on-call work sustainable.\n What you’ll do \n \n Lead, hire, onboard, and develop a distributed engineering team working asynchronously.\n\n Set priorities with Site Reliability Engineering, Product Engineering, and GitLab Dedicated teams, and help the team deliver observability services iteratively.\n\n Own the reliability, scalability, and cost of the team's metrics, logging, alerting, and capacity planning platforms.\n\n Reduce noisy or missing alerts and telemetry gaps, and use SLOs, error budgets, and self-service instrumentation to help engineers maintain the health of their services.\n\n Guide technical decisions about time-series storage, high-cardinality metrics, log pipelines, and distributed tracing.\n\n Participate in the Incident Manager On Call (IMOC) rotation, coordinating the response to high-severity incidents affecting GitLab.com .\n\n Keep the team's on-call rotation sustainable through coverage across time zones, useful runbooks, better alerts, and follow-through on post-incident actions.\n\n Use AI tools and agents to support engineering workflows and incident triage, reviewing their output while engineers retain responsibility for decisions.\n\n What"
+    },
+    {
+      "id": "gh-8725225002",
+      "title": "Engineering Manager, Dedicated Integrations Team",
+      "level": "Engineering Manager",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Platforms Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8725225002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "9e6e7bb7fe8f6b2b52aa2550f7d3d53d6a28ac2de557497b9943e60f098bbb6d",
+      "competencies": [
+        "aws",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Distributed Systems",
+        "System Design",
+        "Root Cause Analysis & Debugging",
+        "AWS"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Distributed Systems",
+        "System Design",
+        "Root Cause Analysis & Debugging",
+        "AWS"
+      ],
+      "responsibilities": [
+        "Enable effective execution with Quality and Speed, in partnership with the team’s Product Manager",
+        "Ensure 3+ 9s availability of Dedicated infrastructure, ensuring security and automating for maximum scalability and number of tenants.",
+        "Provide clear direction, meaningful feedback and foster an environment where meaningless toil gets ruthlessly automated and Devops ownership is enforced.",
+        "Continuously improved owned artifacts in a direction of optimizing platforms for self-service ownership of production for feature implementers.",
+        "Recruitment, onboarding and development of excellent and productive team members.",
+        "Be a role model for the team: provide Proof of concepts, agentic mindset and extreme simplification of processes and removal of human toil. Show and Tell, not only Tell.",
+        "Role model Incident Management best-practices, lead in fast resolutions, escalations and train and codify best practices to the whole of GitLab",
+        "Data driven approach to prioritization, impact quantification and management of risk and technical debt.Able to use AI to demonstrate concepts and translate technical complexity to drive stakeholder decisions."
+      ],
+      "requiredQualifications": [
+        "Experience in driving operational excellence and you've owned services running at four-nines (99.99%) SLOs and know what it takes to keep them there",
+        "Experience leveraging AI tooling to boost team productivity, with real lessons learned from both wins and missteps",
+        "Experience leading distributed and remote teams effectively"
+      ],
+      "fullText": "Engineering Manager, Dedicated Integrations Team\n\nLocation: Bangalore, India\nDepartment: Platforms Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role\n\n We're looking for a technical engineering manager to lead a team building and operating large-scale distributed systems. The ideal candidate combines deep technical expertise with strong operational instincts and a passion for building high-performing teams.\n\n What you’ll do\n\n Enable effective execution with Quality and Speed, in partnership with the team’s Product Manager\n\n Ensure 3+ 9s availability of Dedicated infrastructure, ensuring security and automating for maximum scalability and number of tenants.\n\n Provide clear direction, meaningful feedback and foster an environment where meaningless toil gets ruthlessly automa"
+    },
+    {
+      "id": "gh-8626740002",
+      "title": "Engineering Manager - Git & Gitaly Operations",
+      "level": "Engineering Manager",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Architecture Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8626740002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "207ef7ae6ad309d2f593bdcbcbbe31d25da8ae36ca2d3401548ee53c32bc710d",
+      "competencies": [
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Git",
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Root Cause Analysis & Debugging",
+        "Ansible",
+        "Distributed Systems",
+        "System Design",
+        "Site Reliability Engineering",
+        "Feature Engineering"
+      ],
+      "toolsAndTech": [
+        "Git",
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Root Cause Analysis & Debugging",
+        "Ansible",
+        "Distributed Systems",
+        "System Design",
+        "Site Reliability Engineering",
+        "Feature Engineering"
+      ],
+      "responsibilities": [
+        "Build and lead a team with deep platform expertise in Git and Gitaly, hiring and developing engineers who can operate this infrastructure layer with strong operational judgment.",
+        "Own production reliability for Git and Gitaly across GitLab's full deployment footprint.",
+        "Drive incident management, root cause investigation, and postmortems with the technical depth to distinguish a Git internals problem from a generic infrastructure problem.",
+        "Design and operate Git and Gitaly service models that work across Self-Managed, GitLab Dedicated, and SaaS, with a clear view of which elements are common and which must differ between them.",
+        "Maintain cloud-agnostic architecture and tooling decisions, avoiding designs that assume a single hyperscaler's primitives.",
+        "Partner with the teams that own each deployment model so operational practices stay coherent rather than fragmenting into separate playbooks.",
+        "Apply distributed systems fundamentals, including consistency, replication, and failure domains, to Gitaly's storage and replication model.",
+        "Own elastic storage and compute strategy for Git repository data, including capacity planning, autoscaling, and consumption-based provisioning for GitLab's largest self-managed and SaaS customers."
+      ],
+      "requiredQualifications": [
+        "Experience running production infrastructure across multiple deployment models, such as self-managed, dedicated or single-tenant, and multi-tenant SaaS, or a credible path from adjacent experience to it.",
+        "Experience with elastic storage and compute, and consumption-based system design for variable, unpredictable load.",
+        "People management experience, ideally leading site reliability engineering-style or platform operations teams.",
+        "Direct experience with Gitaly, libgit2, JGit, or another Git implementation's internals is advantageous.",
+        "Experience operating cloud-agnostic infrastructure across multiple hyperscalers or on-premises environments is advantageous."
+      ],
+      "fullText": "Engineering Manager - Git & Gitaly Operations\n\nLocation: Bangalore, India\nDepartment: Architecture Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n This role is not a typical infrastructure operations role. As Manager, Engineering, Git &amp; Gitaly Operations, you'll lead the team responsible for the infrastructure layer underneath Git at GitLab: the open source Git project itself, Gitaly, GitLab's Git storage and remote procedure call layer, and the services that make Git perform at enterprise scale.\n\n Git and Gitaly are core to GitLab. If they go sideways in production, they affect everything downstream, including continuous integration, code review, and deployments. This role starts with genuine subject matter expertise in Git technologies and extends to reliable operation across GitLab's deployment models: Self-Managed, GitLab Dedicated, and SaaS.\n\n You'll build and develop a team with deep platform expertise and strong operational judgment. You'll partner across engineering groups to shape how Git and Gitaly operations evolve as the platform grows.\n\n What you’ll do \n \n Build and lead a team with deep platform expertise in Git and Gitaly, hiring and developing engineers who can operate this infrastructure layer with strong operational judgment.\n\n Own production reliability for Git and Gitaly across GitLab's full deployment footprint.\n\n Drive incident management, root cause investigation, and postmortems with the technical depth to distinguish a Git internals problem from a generic infrastructure problem.\n\n Design and operate Git and Gitaly service models that work across Self-Managed, GitLab Dedicated, and SaaS, with a clear view of which elements are common and which must differ between them.\n\n Maintain cloud-agnostic architecture and tooling decisions, avoiding designs that assume a single hyperscaler's primitives.\n\n Partner with the teams that own each deployment model so operational practices stay coherent rather than fragmenting into separate playbooks.\n\n Apply distributed systems fundamentals, including consistency, replication, and failure domains, to Gitaly's storage and replication model.\n\n Own"
+    },
+    {
+      "id": "gh-8632388002",
+      "title": "Engineering Manager - Nonlinear Productivity (Friction Elimination & Solutions)",
+      "level": "Engineering Manager",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Architecture Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8632388002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "39b49c6af687c4c5481735ab6f647012b193e4c5509d7276e9119ef330a91a46",
+      "competencies": [
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Continuous Delivery"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Continuous Delivery"
+      ],
+      "responsibilities": [
+        "Survey GitLab’s internal software development lifecycle and code-generation workflows to identify structural friction early, and build a data-backed view of where technical interventions will have the highest leverage.",
+        "Evaluate build, buy, and adapt options for each opportunity, including emerging agentic and AI tooling, with a clear view of cost, risk, and durability.",
+        "Stand up prototypes and review architecture directly to test whether a proposed fix moves a target metric and represents a durable solution before GitLab makes broader engineering investment.",
+        "Hire and manage a small, high-caliber team, or operate as a hands-on working manager, with a focus on talent density over headcount.",
+        "Drive validated fixes from prototype to internal adoption by partnering with affected teams so solutions are relied on, used, and maintained.",
+        "Build the technical and business case for productizing internal fixes that prove durable, in partnership with product.",
+        "Document reusable learnings so successful internal fixes don’t remain tribal knowledge.",
+        "Report impact through changes in key metrics and progress on turning internal fixes into products, including a clear account of what didn’t work."
+      ],
+      "requiredQualifications": [
+        "People management experience, including in a small-team or working-manager capacity.",
+        "Experience moving an internal tool toward an external, customer-facing product is advantageous."
+      ],
+      "fullText": "Engineering Manager - Nonlinear Productivity (Friction Elimination & Solutions)\n\nLocation: Bangalore, India\nDepartment: Architecture Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As Manager, Engineering, Nonlinear Productivity (Friction Elimination &amp; Solutions), you’ll help GitLab break the linear relationship between headcount and engineering output. In this role, you’ll oversee the initiative’s forward-scanning work, reviewing GitLab’s software development lifecycle and code-generation workflows to spot recurring friction, test durable fixes, and identify internal solutions that could become customer-facing products.\n\n You’ll report to the Senior Manager or Director, Nonlinear Productivity and work at the intersection of engineering, developer productivity, AI-assisted development, and product. You’ll build a data-backed view of where technical interventions can have the highest leverage, test solutions through prototypes, drive validated fixes into internal adoption, and help build the case for productizing the strongest outcomes.\n\n What you’ll do \n \n Survey GitLab’s internal software development lifecycle and code-generation workflows to identify structural friction early, and build a data-backed view of where technical interventions will have the highest leverage.\n\n Evaluate build, buy, and adapt options for each opportunity, including emerging agentic and AI tooling, with a clear view of cost, risk, and durability.\n\n Stand up prototypes and review architecture directly to test whether a proposed fix moves a target metric and represents a durable solution before GitLab makes broader engineering investment.\n\n Hire and manage a small, high-caliber team, or operate as a hands-on working manager, with a focus on talent density over headcount.\n\n Drive validated fixes from prototype to internal adoption by partnering with affected teams so solutions are relied on, used, and maintained.\n\n Build the technical and business case for productizing internal fixes that prove durable, in partnership with product.\n\n Document reusable learnings so successful internal fixes don’t remain tribal knowledge.\n\n Report"
+    },
+    {
+      "id": "gh-8478405002",
+      "title": "Engineering Manager, SSCS: Supply Chain",
+      "level": "Engineering Manager",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India; Remote Ireland; Remote, Canada; Remote, Israel; Remote, Poland; Remote, United Kingdom; Remote, United States",
+      "workplaceType": "remote",
+      "department": "Sec Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8478405002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "e60daa3e5b680d1b2fa3724ee2c40a405d2ca6a9e45a3c5ab004ae3cbf29e5d0",
+      "competencies": [
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Feature Engineering"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "Feature Engineering"
+      ],
+      "responsibilities": [
+        "Guide a backend engineering team building the SSCS Add-On across dependency enforcement, build provenance, malicious package detection, and artifact signing.",
+        "Be responsible for Drive engineering delivery for general availability milestones by aligning sequencing, scope, and dependencies with the Staff Backend Engineer and Product Manager.",
+        "Develop the team by partnering with Talent Acquisition on sourcing, interview design, candidate evaluation, and hiring decisions.",
+        "Run regular 1:1s, performance reviews, and career development conversations that enable growth and clear expectations.",
+        "Advance engineering quality by monitoring cycle time, defect rates, and test coverage, and by addressing risks early.",
+        "Coordinate quarterly planning and roadmap tradeoff discussions with SSCS stage leadership and Product.",
+        "Work with Finance and other partners on headcount pacing and team planning as the Add-On scales.",
+        "Represent the SSCS Add-On team within stage leadership discussions and help ensure strong communication across functions."
+      ],
+      "requiredQualifications": [
+        "Over 3 years of experience guiding backend product engineering teams in security, DevOps, or platform engineering environments.",
+        "Experience managing predictable delivery across multi-quarter product roadmaps and managing cross-team dependencies.",
+        "Familiarity with supply chain security, artifact management, or compliance-focused product areas, or transferable experience from related domains.",
+        "Working knowledge of concepts related to frameworks and ecosystems such as SLSA and Sigstore."
+      ],
+      "fullText": "Engineering Manager, SSCS: Supply Chain\n\nLocation: Bangalore, India; Remote Ireland; Remote, Canada; Remote, Israel; Remote, Poland; Remote, United Kingdom; Remote, United States\nDepartment: Sec Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As an Engineering Manager , you’ll guide GitLab’s dedicated Software Supply Chain Security (SSCS) Add-On engineering team as it develops core capabilities including Dependency Firewall, Build Provenance, Malicious Packages detection, and Artifact Signing . This is a founding management role where you’ll help shape how the team works, partner closely with the Staff Backend Engineer, Product Manager, and SSCS stage management, and turn a defined roadmap into steady, high-quality delivery for enterprise customers with strict security and compliance needs. You’ll focus on developing the team, creating a healthy operating rhythm, and establishing predictable execution for the SSCS SKU.\n\n You’ll join a product area where customers in regulated industries are already validating the need, and your work will help GitLab deliver software supply chain security features that customers can rely on. While technical credibility matters, your main focus will be growing a strong backend engineering team, enabling team members in their development, and creating the conditions for long-term delivery and quality.\n\n What you’ll do \n \n Guide a backend engineering team building the SSCS Add-On across dependency enforcement, build provenance, malicious package detection, and artifact signing.\n\n Be responsible for Drive engineering delivery for general availability milestones by aligning sequencing, scope, and dependencies with the Staff Backend Engineer and Product Manager.\n\n Develop the team by partnering with Talent Acquisition on sourcing, interview design, candidate evaluation, and hiring decisions.\n\n Run regular 1:1s, performance reviews, and career development conversations that enable growth and clear expectations.\n\n Advance engineering quality by monitoring cycle time, defect rates, and test coverage, and by addressing risks early.\n\n Coordinate quarterly planning and roadmap tradeoff"
+    },
+    {
+      "id": "gh-8775507002",
+      "title": "Intermediate Backend Engineer, India",
+      "level": "Mid-Level",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8775507002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "ce384628fd2519870b1700d589f3c0e9697ab6fc1476bad833bbae1c7397f579",
+      "competencies": [
+        "golang",
+        "kubernetes",
+        "databases",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Ruby",
+        "Go",
+        "gRPC",
+        "Docker",
+        "Kubernetes",
+        "Helm",
+        "CI/CD Pipelines",
+        "Rust",
+        "PostgreSQL",
+        "Prometheus",
+        "Grafana"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Ruby",
+        "Go",
+        "gRPC",
+        "Docker",
+        "Kubernetes",
+        "Helm",
+        "CI/CD Pipelines",
+        "Rust",
+        "PostgreSQL",
+        "Prometheus",
+        "Grafana"
+      ],
+      "responsibilities": [
+        "Ownership: You'll take features from requirements through delivery and follow-up; your code will run on a platform used by millions of users.",
+        "Learning and Growth : You’ll work alongside your engineering team, who treat code review and design review as a learning loop rather than a gate — one of the fastest ways to grow your engineering judgment.",
+        "Innovative Culture: You’ll use AI as a genuine part of daily engineering work, developing the judgment to know when to trust it and when not to.",
+        "Autonomy: You’ll thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.",
+        "User-Centric Collaboration: You’ll partner closely with PMs and designers to shape requirements, so you understand why you’re building something, not just what.",
+        "Own and Ship Features: Design, implement, test, and ship backend features and improvements with minimal guidance, working in Ruby/Rails, Go, or any other modern languages.",
+        "Build for Production: Write maintainable, secure, observable, and performant code. Design and maintain APIs, background jobs, integrations, and bounded service functionality, and work with data models, migrations, indexes, and query behavior.",
+        "Test and Review: Add and improve automated coverage — unit, integration, contract, and end-to-end where appropriate — and review others’ code for correctness, maintainability, security, performance, and operational risk."
+      ],
+      "requiredQualifications": [
+        "Backend Fundamentals: Professional experience building and shipping production backend applications, with strong programming, API, database, testing, debugging, and performance fundamentals.",
+        "Adaptability: Experience with Ruby/Rails, Go, or any other modern backend language. We value the ability to learn and adapt over mastery of a single language.",
+        "AI Fluency: Practical experience with AI coding tools, including the ability to review and correct what they generate."
+      ],
+      "fullText": "Intermediate Backend Engineer, India\n\nLocation: Bangalore, India\nDepartment: Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n About the role \n As an Intermediate Backend Engineer, you will take backend features and improvements from clarifying the problem through shipping them and following up in production. You will work within a product area, partnering with Product Management, Frontend, Infrastructure, and Security to deliver predictably and contribute to the quality, security, performance, and maintainability of shared backend code and services. You will be trusted to work with minimal guidance, to know when to seek help, and to communicate clearly in a remote, asynchronous environment — with other tenured engineers alongside you to review your work, think through hard problems with you, and help you grow.\n\n Why you’ll love this role \n \n Ownership: You'll take features from requirements through delivery and follow-up; your code will run on a platform used by millions of users.\n\n Learning and Growth : You’ll work alongside your engineering team, who treat code review and design review as a learning loop rather than a gate — one of the fastest ways to grow your engineering judgment.\n\n Innovative Culture: You’ll use AI as a genuine part of daily engineering work, developing the judgment to know when to trust it and when not to.\n\n Autonomy: You’ll thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.\n\n User-Centric Collaboration: You’ll partner closely with PMs and designers to shape requirements, so you understand why you’re building something, not just what.\n\n What you’ll do \n \n Own and Ship Features: Design, implement, test, and ship backend features and improvements with minimal guidance, working in Ruby/Rails, Go, or any other modern languages.\n\n Build for Production: Write maintainable, secure, observable, and performant code. Design and maintain APIs, background jobs, integrations, and bounded service functionality, and work with data models, migrations, indexes, and query behavior.\n\n Test and Review: Add and improve automated coverage — unit, in"
+    },
+    {
+      "id": "gh-8861748002",
+      "title": "People Systems Engineer",
+      "level": "Mid-Level",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India; Remote, Poland",
+      "workplaceType": "remote",
+      "department": "People Technology",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8861748002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "dd5418cf4cf6f3afe6a27035b7b166a0005a9f7c3f7168f8ee7e40129be72754",
+      "competencies": [
+        "java",
+        "python",
+        "react",
+        "typescript",
+        "aws",
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "GCP",
+        "Ruby",
+        "Technical Leadership & Mentorship",
+        "Root Cause Analysis & Debugging",
+        "CI/CD Pipelines",
+        "Natural Language Processing",
+        "Python",
+        "JavaScript",
+        "Git",
+        "Next.js",
+        "AWS",
+        "Docker",
+        "Kubernetes"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "GCP",
+        "Ruby",
+        "Technical Leadership & Mentorship",
+        "Root Cause Analysis & Debugging",
+        "CI/CD Pipelines",
+        "Natural Language Processing",
+        "Python",
+        "JavaScript",
+        "Git",
+        "Next.js",
+        "AWS",
+        "Docker",
+        "Kubernetes"
+      ],
+      "responsibilities": [
+        "Build, test and maintain People system automations and integrations across Workato, Google Cloud Platform, Claude, Workday, Greenhouse and GitLab, owning your features from design through deployment.",
+        "Develop integrations between Workday, Greenhouse, Slack and internal tools using Workday Web Services (WWS) and Slack’s API and Bot SDK, and build Slack apps and bots that turn manual steps into simple, automated workflows for team members around the world.",
+        "Write clean, readable automation code in Ruby or a comparable scripting language, stored and versioned in GitLab, with clear documentation and peer code reviews.",
+        "Keep pace with a high-growth company by monitoring integration health, troubleshooting failures quickly and fixing root causes so our automations stay reliable at scale.",
+        "Ship changes safely through GitLab CI/CD pipelines, following testing, change-management and Sarbanes-Oxley (SOX) IT general controls (ITGC) standards with care.",
+        "Lead with AI: use AI tools, large language models (LLMs) and Model Context Protocol (MCP) frameworks, including Claude, every day to accelerate development, prototype AI agents and reimagine how People work gets done, then share what you learn so the whole team moves faster.",
+        "Look past the surface of a request to find the real problem, then recommend and build solutions that are durable, scalable and easy to support. Partner with People Technology Analysts on configuration, testing and releases, and with Information Security, IT and AI Engineering on security and standards.",
+        "Raise the bar for how automations are architected, documented and maintained, learning from and contributing alongside our Lead People Systems Engineer."
+      ],
+      "requiredQualifications": [
+        "Hands-on experience building automations or integrations, ideally with human resources or business systems.",
+        "Experience writing and maintaining code in Ruby or a comparable scripting language, such as Python or JavaScript, and a willingness to learn Ruby if you haven’t already.",
+        "Hands-on experience with Workato or a comparable integration platform as a service (iPaaS) in a production environment.",
+        "Experience working with APIs and web services, including REST and SOAP, and an understanding of how data moves between systems.",
+        "Proficiency with Git for version control and code review; you treat automation code like production software.",
+        "The ability to work independently, solve problems with curiosity, come with options and a recommendation, and collaborate openly. You protect highly confidential information and take ownership of code quality, reliable outcomes and the end user’s experience.",
+        "Additional relevant experience includes Workday integrations (WWS, Reporting as a Service or Workday Studio), Slack apps or bots, CI/CD pipelines, Google Cloud Platform or Amazon Web Services, Docker or Kubernetes, building with LLMs, AI agents or MCP frameworks, SOX ITGC controls, Greenhouse, Serval, Google Workspace, or all-remote and asynchronous work. A related computing degree or equivalent experience is also welcome; none of these is required."
+      ],
+      "fullText": "People Systems Engineer\n\nLocation: Bangalore, India; Remote, Poland\nDepartment: People Technology\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n At GitLab, People technology never stands still, and as a People Systems Engineer, you’ll build what keeps it moving. Reporting to the Senior Director, People Technology, and working alongside our Lead People Systems Engineer, you’ll design, build and maintain the automations, integrations and AI-powered workflows that connect Workday, Greenhouse, Slack and the tools that power our global workforce. You’ll own features from request through tested code, deployment and ongoing reliability across Workato, Google Cloud and Claude. With an AI-forward mindset, you’ll rethink how People work gets done, eliminating manual effort and creating streamlined, delightful experiences for team members. If you think like a software engineer, love solving puzzles and want to grow your career at the intersection of people systems, AI and automation in an all-remote, async-first environment, this is your role.\n\n What You’ll Do \n\n Build, test and maintain People system automations and integrations across Workato, Google Cloud Platform, Claude, Workday, Greenhouse and GitLab, owning your features from design through deployment.\n\n Develop integrations between Workday, Greenhouse, Slack and internal tools using Workday Web Services (WWS) and Slack’s API and Bot SDK, and build Slack apps and bots that turn manual steps into simple, automated workflows for team members around the world.\n\n Write clean, readable automation code in Ruby or a comparable scripting language, stored and versioned in GitLab, with clear documentation and peer code reviews.\n\n Keep pace with a high-growth company by monitoring integration health, troubleshooting failures quickly and fixing root causes so our automations stay reliable at scale.\n\n Ship changes safely through GitLab CI/CD pipelines, following testing, change-management and Sarbanes-Oxley (SOX) IT general controls (ITGC) standards with care.\n\n Lead with AI: use AI tools, large language models (LLMs) and Model Context Protocol (MCP) frameworks, including Claude, eve"
+    },
+    {
+      "id": "gh-8918853002",
+      "title": "Senior Assigned Support Engineer-(Designated / Premier Support)",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "ASE",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8918853002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "c3132ee1b53d90db3c86346993ae6efd7dc4557b567041beb67d1feaf080e93b",
+      "competencies": [
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Linux",
+        "CI/CD Pipelines",
+        "Root Cause Analysis & Debugging",
+        "Continuous Delivery",
+        "Ruby",
+        "Shell Scripting",
+        "Kubernetes",
+        "Serverless"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Linux",
+        "CI/CD Pipelines",
+        "Root Cause Analysis & Debugging",
+        "Continuous Delivery",
+        "Ruby",
+        "Shell Scripting",
+        "Kubernetes",
+        "Serverless"
+      ],
+      "responsibilities": [
+        "Provide technical support to our largest Self-managed, GitLab Dedicated, and GitLab.com customers, ensuring their GitLab environments remain stable and performant.",
+        "Troubleshoot and resolve complex, critical, and sensitive support issues using tools like Zendesk, logs, and Linux utilities such as strace, through email and video conferencing.",
+        "Build strong, proactive relationships with key customer stakeholders, helping them prioritize and address their most important technical blockers.",
+        "Collaborate with Product , Development , Infrastructure , Customer Success , and Sales teams to drive bug fixes, influence feature development, and help shape product goals and roadmap.",
+        "Act as a technical expert on GitLab and CI/CD implementations, advising customers on how incidents and service interruptions impact their workflows and how to mitigate them.",
+        "Create and improve support content, including documentation and knowledge articles, to help customers and GitLab team members resolve issues more efficiently.",
+        "Partner closely with Support Engineering team members through pairing sessions and stable counterpart relationships to share knowledge and solve problems together.",
+        "Contribute to team growth by participating in hiring processes, including reviewing applications and assessments and joining interviews."
+      ],
+      "requiredQualifications": [
+        "Practical experience with GitLab and continuous integration / continuous delivery (CI/CD), including how different deployment models and outages affect customers.",
+        "Proficiency with scripting languages (such as Ruby or Bash) and familiarity with model-view-controller (MVC) frameworks, preferably Ruby on Rails."
+      ],
+      "fullText": "Senior Assigned Support Engineer-(Designated / Premier Support)\n\nLocation: Bangalore, India\nDepartment: ASE\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As an Assigned Support Engineer, you’ll be a trusted technical advisor to GitLab’s largest Self-managed, GitLab Dedicated, and GitLab.com customers, helping them avoid operational disruption and get the most from GitLab. You’ll combine deep Linux systems expertise, GitLab and CI/CD knowledge, and a proactive support mindset to understand each customer’s environment, anticipate and prevent issues, and solve complex technical and business challenges. In a typical week, you might be prioritizing strategic blockers with customer stakeholders, partnering with Product, Development, Infrastructure, Customer Success, and Sales to drive defect resolution and influence the roadmap, or diving into code, logs, and tools like strace to troubleshoot performance issues. Your impact in the first year will be measured by customer trust, reduced critical incidents, and clear, reusable support content that empowers customers and GitLab teams alike.\n\n What you’ll do \n \n Provide technical support to our largest Self-managed, GitLab Dedicated, and GitLab.com customers, ensuring their GitLab environments remain stable and performant.\n\n Troubleshoot and resolve complex, critical, and sensitive support issues using tools like Zendesk, logs, and Linux utilities such as strace, through email and video conferencing.\n\n Build strong, proactive relationships with key customer stakeholders, helping them prioritize and address their most important technical blockers.\n\n Collaborate with Product , Development , Infrastructure , Customer Success , and Sales teams to drive bug fixes, influence feature development, and help shape product goals and roadmap.\n\n Act as a technical expert on GitLab and CI/CD implementations, advising customers on how incidents and service interruptions impact their workflows and how to mitigate them.\n\n Create and improve support content, including documentation and knowledge articles, to help customers and GitLab team members resolve issues more efficiently.\n\n Partner close"
+    },
+    {
+      "id": "gh-8716143002",
+      "title": "Senior Backend Engineer, India",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8716143002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "cbec5858d81391c12d36cb02e74a48c4250d7fc0b8b79e6c5da7d65f8848a658",
+      "competencies": [
+        "kubernetes",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Generative AI",
+        "Distributed Systems",
+        "Kubernetes",
+        "PostgreSQL",
+        "Real-Time Analytics"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Generative AI",
+        "Distributed Systems",
+        "Kubernetes",
+        "PostgreSQL",
+        "Real-Time Analytics"
+      ],
+      "responsibilities": [
+        "High Impact: You aren't just shipping features; you are shaping the architecture of a global platform used by millions.",
+        "Technical Agency: You will influence team objectives, technical direction, and long-range goals, helping us solve problems of high scope and complexity.",
+        "Innovative Culture: You will get to experiment with and integrate agentic AI into production engineering workflows, moving beyond simple prompt engineering to build resilient, AI-assisted systems.",
+        "Autonomy: You will thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.",
+        "User-Centric Collaboration: You’ll partner closely with PMs and designers to shape requirements, ensuring every technical decision delivers genuine value to our users.",
+        "Drive Technical Direction: Design and ship moderate to complex backend features with minimal guidance, making pragmatic choices between modular-monolith code, shared components, or independently operated services.",
+        "Raise the Bar: Advocate for product quality, security, availability, and performance. You will define backend standards for style, maintainability, testing, APIs, and operational readiness.",
+        "Mentor &amp; Lead: Mentor associate and intermediate engineers, remove technical blockers, and improve team delivery practices through code and design reviews."
+      ],
+      "requiredQualifications": [
+        "Adaptability: Proficiency in modern backend languages and a deep understanding of systems programming. We value the ability to learn and adapt over mastery of a single language.",
+        "Architectural Judgment: Experience designing or evolving modular backend boundaries, bounded contexts, and migration-safe architectures.",
+        "Agentic AI Expertise: Proven experience building or operating agentic systems in production—moving beyond prompt engineering to architecting loops, tool-use, and error-handling strategies that ensure reliability at scale.",
+        "Experience with high-throughput distributed systems, concurrency, or profiling.",
+        "Hands-on experience with containerized production operations (e.g., Kubernetes).",
+        "Public technical communication, open-source maintenance, or experience in developer-focused SaaS."
+      ],
+      "fullText": "Senior Backend Engineer, India\n\nLocation: Bangalore, India\nDepartment: Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n About the role \n As a Senior Backend Engineer, you will design, implement, and evolve product capabilities while solving high-scope backend problems and influencing the technical and product direction of our teams. You will move beyond \"assigned work\" to actively improve the quality, reliability, and performance of our systems. You will work across product, frontend, infrastructure, data, and security boundaries, making sound architectural trade-offs, communicating complex ideas clearly in an asynchronous environment, and helping define the standards for a high-scale, global product.\n\n Why you’ll love this role \n \n High Impact: You aren't just shipping features; you are shaping the architecture of a global platform used by millions.\n\n Technical Agency: You will influence team objectives, technical direction, and long-range goals, helping us solve problems of high scope and complexity.\n\n Innovative Culture: You will get to experiment with and integrate agentic AI into production engineering workflows, moving beyond simple prompt engineering to build resilient, AI-assisted systems.\n\n Autonomy: You will thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.\n\n User-Centric Collaboration: You’ll partner closely with PMs and designers to shape requirements, ensuring every technical decision delivers genuine value to our users.\n\n What you’ll do \n \n Drive Technical Direction: Design and ship moderate to complex backend features with minimal guidance, making pragmatic choices between modular-monolith code, shared components, or independently operated services.\n\n Raise the Bar: Advocate for product quality, security, availability, and performance. You will define backend standards for style, maintainability, testing, APIs, and operational readiness.\n\n Mentor &amp; Lead: Mentor associate and intermediate engineers, remove technical blockers, and improve team delivery practices through code and design reviews.\n\n Operational Excellence: Diagnose and"
+    },
+    {
+      "id": "gh-8826920002",
+      "title": "Senior Frontend Engineer",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "DevOps Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8826920002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "b236bd1c25f6dd759f0373a632c147aa4bf11da04419b6afd8564d04d2e42c75",
+      "competencies": [
+        "java",
+        "react",
+        "typescript",
+        "kubernetes",
+        "databases",
+        "devops",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Prometheus",
+        "OAuth2 & JWT",
+        "Continuous Delivery",
+        "Vue.js",
+        "React",
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "PostgreSQL",
+        "Redis",
+        "GraphQL",
+        "Kubernetes",
+        "Docker",
+        "GCP"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Prometheus",
+        "OAuth2 & JWT",
+        "Continuous Delivery",
+        "Vue.js",
+        "React",
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "PostgreSQL",
+        "Redis",
+        "GraphQL",
+        "Kubernetes",
+        "Docker",
+        "GCP"
+      ],
+      "responsibilities": [
+        "Design and ship moderately sized frontend features and improvements with minimal guidance, making pragmatic architectural choices.",
+        "Advocate for product quality, security, accessibility, performance, maintainability, and operational readiness throughout the development lifecycle.",
+        "Establish and improve practices for frontend architecture, styling, component design, testing, observability, maintainable code, and thoughtful use of artificial intelligence and agentic tools in production engineering work.",
+        "Mentor Associate and Intermediate Engineers, share knowledge, remove technical blockers, and improve team delivery practices.",
+        "Diagnose and prevent frontend performance and reliability issues at scale using observability and production signals, and participate in incident response or on-call responsibilities under your team's ownership model.",
+        "Design or review independently buildable frontend surfaces and explicit contracts for data, events, authorization, feature flags, error handling, testing, and performance expectations.",
+        "Collaborate with product, design, backend, quality, security, and other teams to deliver cohesive customer outcomes.",
+        "The ability to lead through technical judgment, collaboration, and clear written communication rather than formal authority."
+      ],
+      "requiredQualifications": [
+        "Turn ambiguous customer and product needs into clear technical plans and intuitive, accessible experiences.",
+        "Experience applying frontend architecture, browser behavior, testing, accessibility, performance, and maintainability practices in a complex product or platform environment.",
+        "Experience designing or evolving modular frontend boundaries, independently buildable surfaces, component systems, or migration-safe architectures.",
+        "Experience making pragmatic trade-offs with product and design partners and turning complex requirements into clear user experiences.",
+        "Experience mentoring engineers and improving team practices through code review, design review, documentation, or hands-on collaboration.",
+        "Practical experience integrating artificial intelligence into a feature, workflow, or engineering process, or evaluating its reliability, security, privacy, and appropriate human oversight.",
+        "Helpful, but not required: experience with Vue, React, Angular, TypeScript, or JavaScript; PostgreSQL, Redis, or object storage; representational state transfer or GraphQL; Kubernetes, Google Kubernetes Engine, Docker, or Google Cloud Platform; Prometheus or Sentry; and Git, GitLab Runner, or GitLab continuous integration and continuous delivery."
+      ],
+      "fullText": "Senior Frontend Engineer\n\nLocation: Bangalore, India\nDepartment: DevOps Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n Senior Frontend Engineer \n An overview of this role \n As a Senior Frontend Engineer, you'll solve high-scope frontend problems and influence your team's technical and product direction. You'll ship moderately sized features with minimal guidance, improve quality and performance, mentor other engineers, and help establish standards for a high-scale web environment. You'll partner across product, design, backend, and frontend to make sound trade-offs, communicate clearly, and improve how the team delivers software.\n\n This is an opportunity to shape product experiences and frontend architecture for a global platform while helping define how modern frontend teams use agentic artificial intelligence. You'll apply artificial intelligence-assisted engineering workflows thoughtfully and help create trustworthy user experiences that incorporate artificial intelligence responsibly in a remote-first, asynchronous organization.\n\n What you’ll do \n \n Design and ship moderately sized frontend features and improvements with minimal guidance, making pragmatic architectural choices.\n\n Turn ambiguous customer and product needs into clear technical plans and intuitive, accessible experiences.\n\n Advocate for product quality, security, accessibility, performance, maintainability, and operational readiness throughout the development lifecycle.\n\n Establish and improve practices for frontend architecture, styling, component design, testing, observability, maintainable code, and thoughtful use of artificial intelligence and agentic tools in production engineering work.\n\n Mentor Associate and Intermediate Engineers, share knowledge, remove technical blockers, and improve team delivery practices.\n\n Diagnose and prevent frontend performance and reliability issues at scale using observability and production signals, and participate in incident response or on-call responsibilities under your team's ownership model.\n\n Design or review independently buildable frontend surfaces and explicit contracts for data, events, authorization, feature flags, "
+    },
+    {
+      "id": "gh-8730125002",
+      "title": "Senior Release Engineer",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Enterprise Applications",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8730125002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "fa4d5a1b4e8c255e251530ccf42baf09ec158c1831d105d7f936d68c79fc83fb",
+      "competencies": [
+        "python",
+        "devops",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "GitLab CI",
+        "Root Cause Analysis & Debugging",
+        "Python",
+        "Ansible",
+        "Prometheus",
+        "Grafana",
+        "REST APIs",
+        "OAuth2 & JWT"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "CI/CD Pipelines",
+        "GitLab CI",
+        "Root Cause Analysis & Debugging",
+        "Python",
+        "Ansible",
+        "Prometheus",
+        "Grafana",
+        "REST APIs",
+        "OAuth2 & JWT"
+      ],
+      "responsibilities": [
+        "Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications, including validation, testing, packaging, deployment, promotion, rollback, and post-release verification.",
+        "Develop reusable automation using scripting languages such as Python to reduce manual release activities and improve repeatability.",
+        "Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation, release analysis, and operational automation.",
+        "Define and implement CI/CD patterns for platforms such as Salesforce, Zuora, and other Business Systems.",
+        "Establish environment and promotion strategies across development, test, staging, and production, including configuration management and deployment sequencing.",
+        "Implement quality gates, automated checks, approvals, audit trails, and policy controls appropriate for enterprise application releases.",
+        "Partner with application owners and development teams to define branching, versioning, release cadence, and rollback standards.",
+        "Improve release observability through deployment dashboards, pipeline metrics, change records, notifications, and operational reporting."
+      ],
+      "requiredQualifications": [
+        "Bachelor’s degree in Computer Science,Information Systems, or equivalent practical experience.",
+        "7+ years of experience in release engineering, DevOps or a related discipline.",
+        "Experience in Release &amp; deployments for enterprise SaaS applications such as Salesforce, Zuora or Business Systems.",
+        "Strong hands-on experience designing and operating GitLab CI/CD or comparable CI/CD pipelines in production environments.",
+        "Proficiency in at least one scripting language, such as Python, with the ability to write maintainable automation and integrations.",
+        "Mandatory hands-on experience using AI-assisted development and automation tools such as Claude or comparable enterprise-approved tools as part of day-to-day DevOps and release engineering work.",
+        "Experience with source control, branching and merging strategies, artifact management, automated testing, deployment orchestration, and rollback practices.",
+        "Working knowledge of REST APIs, webhooks, JSON, authentication patterns, and integration troubleshooting."
+      ],
+      "fullText": "Senior Release Engineer\n\nLocation: Bangalore, India\nDepartment: Enterprise Applications\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An Overview of this role \n We are looking for a Senior Release Engineer to help design, standardize, and operate reliable enterprise application delivery across the Enterprise Technology &amp; AI team. This role will establish scalable CI/CD practices for business-critical platforms such as Salesforce, Zuora and other Business Systems while enabling engineering teams to ship changes safely, quickly, and with clear operational controls.\n\n The ideal candidate combines strong release engineering and automation skills with practical experience supporting enterprise SaaS applications. You will build and maintain GitLab CI/CD or comparable CI/CD pipelines, develop reusable scripts and deployment tooling, improve release governance, and partner with application, security, compliance, and business teams across the release lifecycle. Daily use of approved AI-assisted engineering tools, including Claude, Duo Agent Platform or comparable enterprise-approved tools, is a mandatory expectation for DevOps, troubleshooting, documentation, testing, and automation activities.\n\n What you'll do \n \n Design, build, and maintain GitLab CI/CD or comparable CI/CD pipelines for enterprise applications, including validation, testing, packaging, deployment, promotion, rollback, and post-release verification.\n\n Develop reusable automation using scripting languages such as Python to reduce manual release activities and improve repeatability.\n\n Use approved AI-assisted engineering tools such as Claude or similar tools every day to accelerate pipeline development, scripting, test creation, troubleshooting, documentation, release analysis, and operational automation.\n\n Define and implement CI/CD patterns for platforms such as Salesforce, Zuora, and other Business Systems. \n\n Establish environment and promotion strategies across development, test, staging, and production, including configuration management and deployment sequencing.\n\n Implement quality gates, automated checks, approvals, audit trails, and policy controls appropriate for enterpr"
+    },
+    {
+      "id": "gh-8878486002",
+      "title": "Senior Software Engineer, SSCS : Authentication",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Sec Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8878486002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "644fa0169e95b64448b2ae489f67469a53dbd33a499cdd43d1bcc00029afa23b",
+      "competencies": [
+        "react",
+        "aws",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "OAuth2 & JWT",
+        "DevSecOps",
+        "Next.js",
+        "Ruby",
+        "Feature Engineering",
+        "AWS"
+      ],
+      "toolsAndTech": [
+        "OAuth2 & JWT",
+        "DevSecOps",
+        "Next.js",
+        "Ruby",
+        "Feature Engineering",
+        "AWS"
+      ],
+      "responsibilities": [
+        "Building GATE as the centralized service for token issuance and validation",
+        "Consolidating tokens and migrating authentication paths out of the Rails monolith",
+        "Building passkeys and passwordless authentication",
+        "Developing composite identities that combine machine and human authorization for AI",
+        "Improving service accounts and secure automation",
+        "Enhancing Security Assertion Markup Language (SAML), Lightweight Directory Access Protocol (LDAP), OpenID Connect (OIDC), and System for Cross-domain Identity Management (SCIM) capabilities for automated user provisioning and single sign-on (SSO)",
+        "Shape the roadmap for GATE and GitLab's authentication services with the team.",
+        "Design and implement token issuance, validation, and identity services in Go and Ruby across the Rails monolith and GATE, including new authentication mechanisms such as Workload Identity Federation."
+      ],
+      "requiredQualifications": [
+        "Professional experience with Go and/or Ruby in scaling or mission-critical SaaS products.",
+        "Knowledge of token systems, cryptographic signing, and key management.",
+        "Experience building or contributing to a service from concept to production, including proposal, discussion, and execution.",
+        "Proficiency in written and verbal English, with the ability to communicate complex problems and solutions clearly in a remote, largely asynchronous work environment.",
+        "Experience diagnosing, preventing, and resolving performance and optimization problems.",
+        "Experience working in an iterative software development process, managing your work effectively, staying organized, and following through on priorities."
+      ],
+      "fullText": "Senior Software Engineer, SSCS : Authentication\n\nLocation: Bangalore, India\nDepartment: Sec Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n Help us build the next generation of authentication services at GitLab. As a Senior Backend Engineer on the Authentication team, you'll build authentication features across the Rails monolith and GATE. GATE is our new service for issuing and validating tokens and managing identities, designed to support every GitLab deployment model.\n\n You'll expand authentication mechanisms, including support for identities used by artificial intelligence (AI) agents. You'll also help keep GitLab and its customers secure by building access management tooling and addressing vulnerabilities reported through our HackerOne program.\n\n GATE will become the foundation for token issuance, validation, and identity services across GitLab.com multi-tenant software as a service (SaaS), Self-Managed, Dedicated, and air-gapped environments. Your work will affect core components that customers, users, and GitLab teams rely on.\n\n Some of our projects include:\n\n Building GATE as the centralized service for token issuance and validation\n\n Consolidating tokens and migrating authentication paths out of the Rails monolith\n\n Building passkeys and passwordless authentication\n\n Developing composite identities that combine machine and human authorization for AI\n\n Improving service accounts and secure automation\n\n Enhancing Security Assertion Markup Language (SAML), Lightweight Directory Access Protocol (LDAP), OpenID Connect (OIDC), and System for Cross-domain Identity Management (SCIM) capabilities for automated user provisioning and single sign-on (SSO)\n\n What you'll do \n \n Shape the roadmap for GATE and GitLab's authentication services with the team.\n\n Design and implement token issuance, validation, and identity services in Go and Ruby across the Rails monolith and GATE, including new authentication mechanisms such as Workload Identity Federation.\n\n Migrate authentication and token management paths from the monolith into GATE while maintaining reliability across all deployment models.\n\n Build authenticati"
+    },
+    {
+      "id": "gh-8731996002",
+      "title": "Senior Solutions Architect",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "SA",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8731996002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "ce301bab6562c784e345627939e17df852a8ad0943c2d9f1c138e5becb95291d",
+      "competencies": [
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "CI/CD Pipelines"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "CI/CD Pipelines"
+      ],
+      "responsibilities": [
+        "Lead technical discovery, demonstrations, and validation to show how GitLab's AI-powered DevSecOps platform meets customers' technical and business needs across the software development lifecycle.",
+        "Own the technical evaluation process, including solution design, proofs of concept or value, workshops, and technical contributions to tenders, audits, and value stream assessments.",
+        "Collaborate with Account Executives and regional sales teams across Commercial and Enterprise segments to shape account strategies for new customer acquisition and expansion, with a focus on GCC, Digital Native, and startup accounts.",
+        "Support regional go-to-market partners that provide Professional Services, helping them deliver consistent technical guidance and apply effective practices during partner-led engagements.",
+        "Represent GitLab at online and in-person marketing events, including webinars, industry events, presentations, roundtables, panels, demonstration days, and hackathons.",
+        "Build trusted relationships with technical practitioners and business leaders, guide GitLab-driven transformation, and help customers become GitLab advocates.",
+        "Advise customers on modern software development, continuous integration and continuous deployment (CI/CD), security, and cloud practices to improve their return on investment.",
+        "Share customer feedback, use cases, and competitive insights with Product Management, Engineering, Sales, and Marketing while continuing to build expertise and reusable guidance in GitLab, DevSecOps, AI, and cloud technologies."
+      ],
+      "requiredQualifications": [
+        "Experience guiding Commercial and Enterprise customers through solution design and evaluation in technical presales, consulting, or a similar role.",
+        "Experience working with India's GCCs, Digital Native organizations, and startups is highly valued.",
+        "Knowledge of the end-to-end software development lifecycle, including modern DevSecOps practices and CI/CD workflows.",
+        "Hands-on experience with GitLab or comparable source control, CI/CD, and collaboration platforms, with the ability to connect platform capabilities to customer use cases.",
+        "Practical knowledge of cloud computing concepts and related technologies, including deployment, security, and operations options."
+      ],
+      "fullText": "Senior Solutions Architect\n\nLocation: Bangalore, India\nDepartment: SA\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As a Senior Solutions Architect on GitLab's India team, you'll be a trusted advisor to prospects, customers, and partners across India. You'll help them understand how GitLab's AI-powered DevSecOps platform addresses technical requirements and business goals across the software development lifecycle. This role supports Commercial and Enterprise segments in India's Southern Region. Experience with Global Capability Centers (GCCs), Digital Native organizations, and startups is highly valued given the accounts you'll support.\n\n You'll partner closely with Account Executives and cross-functional teams to own technical evaluations, including proofs of value and workshops, shape solution architectures, and bring customer feedback to Product Management. You'll also occasionally support regional go-to-market partners that provide Professional Services. Your work will help customers adopt GitLab successfully, support revenue growth through solution selling, and build long-term, trusted relationships.\n\n What you’ll do \n \n Lead technical discovery, demonstrations, and validation to show how GitLab's AI-powered DevSecOps platform meets customers' technical and business needs across the software development lifecycle.\n\n Own the technical evaluation process, including solution design, proofs of concept or value, workshops, and technical contributions to tenders, audits, and value stream assessments.\n\n Collaborate with Account Executives and regional sales teams across Commercial and Enterprise segments to shape account strategies for new customer acquisition and expansion, with a focus on GCC, Digital Native, and startup accounts.\n\n Support regional go-to-market partners that provide Professional Services, helping them deliver consistent technical guidance and apply effective practices during partner-led engagements.\n\n Represent GitLab at online and in-person marketing events, including webinars, industry events, presentations, roundtables, panels, demonstration days, and hackathons.\n\n Build trusted relationships wi"
+    },
+    {
+      "id": "gh-8692874002",
+      "title": "Senior Support Engineer",
+      "level": "Senior",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Customer Support",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8692874002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "93b8bc16811da255be220fa93634a1500cfd80fbc8c3316d1ba837f4dbbee8d2",
+      "competencies": [
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Linux",
+        "Ruby",
+        "Root Cause Analysis & Debugging",
+        "Git",
+        "CI/CD Pipelines",
+        "Continuous Delivery",
+        "Kubernetes",
+        "Serverless"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Linux",
+        "Ruby",
+        "Root Cause Analysis & Debugging",
+        "Git",
+        "CI/CD Pipelines",
+        "Continuous Delivery",
+        "Kubernetes",
+        "Serverless"
+      ],
+      "responsibilities": [
+        "A tool to automatically check a GitLab Omnibus install for known issues",
+        "A solution to capture the state of a customer’s server for easier troubleshooting",
+        "A tool which turns log files into interactive tables to easily sort and filter columns",
+        "A ChatOps feature that makes it easier to identify user accounts on GitLab.com",
+        "Act as an escalation point for difficult customer interactions and lead the resolution of complex issues through Zendesk tickets, merge requests, email, and video calls.",
+        "Mentor and guide teammates on complex troubleshooting and customer communication through pairing sessions and cross-team collaboration.",
+        "Advocate for and drive improvements to support practices, product quality, and reusable documentation and support content that directly influence team objectives.",
+        "Collaborate with Product, Development, Infrastructure, Customer Success, and Sales teams to shape product goals, roadmaps, and priorities while driving fixes and new features."
+      ],
+      "requiredQualifications": [
+        "Experience owning complex, customer-facing technical cases from initial contact through triage, reproduction, bug reporting, resolution, and clear customer communication, including difficult or escalated interactions.",
+        "Strong experience with Linux systems administration, scripting, Git, and continuous integration and continuous delivery in production or customer environments, with the ability to investigate issues at both the infrastructure and application levels.",
+        "Experience collaborating with Product, Engineering, and Sales teams to turn customer feedback into product fixes, feature improvements, and roadmap priorities."
+      ],
+      "fullText": "Senior Support Engineer\n\nLocation: Bangalore, India\nDepartment: Customer Support\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As a Support Engineer at GitLab, you'll sit at the intersection of Support and Engineering, helping customers solve complex, real-world challenges while running GitLab in diverse and demanding environments. You'll join the Engineering department and work directly with customers as they encounter edge cases. You'll dig into Linux systems, logs, and our Ruby on Rails codebase to troubleshoot performance issues, reproduce bugs, and contribute merge requests that fix problems at the source.\n\n You'll also improve our documentation, refine support processes in our issue tracker, and collaborate closely with Product, Development, Infrastructure, Customer Success, and Sales so customer feedback directly shapes our roadmap. In your first year, you'll build deep expertise across a range of GitLab implementations, strengthen our ability to keep customers productive on both self-managed GitLab and GitLab.com software as a service, and help create tools and content that make support more efficient and effective for the entire team.\n\n Some examples of our projects:\n\n A tool to automatically check a GitLab Omnibus install for known issues \n\n A solution to capture the state of a customer’s server for easier troubleshooting \n\n A tool which turns log files into interactive tables to easily sort and filter columns \n\n A ChatOps feature that makes it easier to identify user accounts on GitLab.com \n\n What you’ll do \n \n Act as an escalation point for difficult customer interactions and lead the resolution of complex issues through Zendesk tickets, merge requests, email, and video calls.\n\n Mentor and guide teammates on complex troubleshooting and customer communication through pairing sessions and cross-team collaboration.\n\n Advocate for and drive improvements to support practices, product quality, and reusable documentation and support content that directly influence team objectives.\n\n Collaborate with Product, Development, Infrastructure, Customer Success, and Sales teams to shape product goals, roadmaps, and pri"
+    },
+    {
+      "id": "gh-8916232002",
+      "title": "Software Engineer, Delivery : Release",
+      "level": "Mid-Level",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Platforms Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8916232002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "b06d538678e0ed97a703d14bc6216110161d34391123c1fa8a4e81f62325daff",
+      "competencies": [
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Release Management",
+        "Prometheus",
+        "Grafana",
+        "Ruby",
+        "Continuous Delivery",
+        "CI/CD Pipelines",
+        "Docker",
+        "Terraform"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Release Management",
+        "Prometheus",
+        "Grafana",
+        "Ruby",
+        "Continuous Delivery",
+        "CI/CD Pipelines",
+        "Docker",
+        "Terraform"
+      ],
+      "responsibilities": [
+        "Guarantee the GitLab Release Process",
+        "Create new tools and frameworks to automate the release process",
+        "Build new GitLab release features to replace existing custom tooling by contributing to new work for our Release Framework",
+        "Work with individual teams on defining and implementing solutions that will help them release quicker",
+        "Create frameworks that allow engineers to write code that scales with demand",
+        "Help teams instrument their code and helps recognize parts of code that could benefit from increased observability",
+        "Work closely with peer Infrastructure Platforms groups to control the impact of application code running in user facing products",
+        "Help communicate the release schedule clearly with others"
+      ],
+      "requiredQualifications": [
+        "Strong coding background. Mandatory Ruby or Go (willing to learn Ruby is a must). Proficiency with Ruby is a strong plus. Ruby on Rails knowledge is not mandatory",
+        "Experience working on large-scale systems",
+        "Experience optimizing Continuous Delivery and Continuous Deployment pipelines as well as the tooling and processes that go with them"
+      ],
+      "fullText": "Software Engineer, Delivery : Release\n\nLocation: Bangalore, India\nDepartment: Platforms Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n The Software Delivery Section, part of the Infrastructure Platforms Department, is dedicated to enhancing the safety, reliability, and overall customer experience of GitLab’s complete software delivery process. We aim to provide seamless and efficient delivery of GitLab products across all platforms, including SaaS multi-tenant, self-managed, and SaaS single-tenant environments. Our primary goals are to accelerate delivery cycles, minimize incidents, and ensure high-quality releases that consistently meet and exceed customer expectations. By focusing on these objectives, we aim to improve GitLab’s end-to-end software delivery process, making it more reliable, efficient, and aligned with the needs of our users.\n\n Responsibilities \n\n Backend Engineers with the Software Delivery:Release bring not only a strong background in backend development but also a solid understanding of, or keen interest in, infrastructure and operations. In this role, you will work alongside Site Reliability Engineers (SREs) to enhance release management tooling, infrastructure, and processes. While SREs approach these responsibilities from an operational standpoint, Backend Engineers provide a software development perspective, collaborating closely to deliver efficient and safe solutions for streamlined code delivery across various supported environments. This role is ideal for individuals with a strong coding background who are also comfortable working on infrastructure, automation and operations-related topics or are motivated to develop expertise in these areas.\n\n Guarantee the GitLab Release Process \n\n Create new tools and frameworks to automate the release process\n\n Build new GitLab release features to replace existing custom tooling by contributing to new work for our Release Framework \n\n Work with individual teams on defining and implementing solutions that will help them release quicker\n\n Create frameworks that allow engineers to write code that scales with demand\n\n Help teams instrument their code and helps recognize "
+    },
+    {
+      "id": "gh-8775136002",
+      "title": "Staff Backend Engineer, India",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8775136002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "7d7ef05006f9c6e566f73d75ea996b5b2b41b95284596df0ac560f53bed5aba4",
+      "competencies": [
+        "kubernetes",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Prometheus",
+        "Kubernetes",
+        "Rust",
+        "Feature Engineering",
+        "Clean Architecture",
+        "Ruby",
+        "PostgreSQL",
+        "Distributed Systems"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Prometheus",
+        "Kubernetes",
+        "Rust",
+        "Feature Engineering",
+        "Clean Architecture",
+        "Ruby",
+        "PostgreSQL",
+        "Distributed Systems"
+      ],
+      "responsibilities": [
+        "Leverage: Your work multiplies across teams. The platforms, standards, and architectural decisions you lead determine how quickly everyone else can ship.",
+        "Genuinely Hard Problems: You’ll lead the modernization of a large monolith toward modular, reusable, appropriately independent systems — at the scale of a platform used by millions of users.",
+        "Influence Without Bureaucracy: You’ll shape technical direction across teams through clear written proposals and decision records, and partner with Product and Engineering leadership on platform roadmap and investment trade-offs.",
+        "Frontier AI Work: You’ll lead adoption of AI-assisted and agentic engineering workflows and define the review, quality, security, and privacy guardrails that make them safe to rely on.",
+        "Autonomy: You’ll thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.",
+        "Lead Cross-Cutting Initiatives: Lead the technical design and delivery of large backend initiatives that span teams, and identify and remove systemic bottlenecks across product and infrastructure groups.",
+        "Own Architecture Strategy: Drive modular backend, service, data, and platform architecture. Lead modernization of the monolith and legacy backends toward modular, reusable, and appropriately independently operated systems — while preventing fragmentation and service sprawl.",
+        "Set the Standards: Define and improve standards for APIs, contracts, compatibility, schema evolution, testing, security, performance, observability, operability, and maintainability — plus the build, test, deploy, release, rollback, and production-readiness practices needed to operate modular features safely."
+      ],
+      "requiredQualifications": [
+        "Deep Architecture Experience: Deep backend architecture and production experience in complex applications, services, or platforms, including scaling or governing APIs, service platforms, data systems, modular monoliths, or shared backend components.",
+        "Modularization in Production: Experience modernizing a monolith or legacy backend architecture in production, and with modular architecture such as bounded contexts, package encapsulation, ports and adapters, service extraction, event-driven boundaries, or an equivalent approach.",
+        "Mentorship: Experience mentoring engineers and shaping standards through code review, documentation, and example.",
+        "Agentic AI Leadership: Production experience with AI-assisted or agentic engineering workflows, including the ability to evaluate and improve how a team adopts them.",
+        "Experience across SaaS, single-tenant, self-managed, or air-gapped deployment constraints."
+      ],
+      "fullText": "Staff Backend Engineer, India\n\nLocation: Bangalore, India\nDepartment: Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n About the role \n As a Staff Backend Engineer, you will provide technical leadership across your team and adjacent teams, solving the highest-scope and most complex problems in your area. You will lead large, cross-cutting backend initiatives, drive our modular architecture strategy, and define the standards that let teams move faster without compromising quality, security, reliability, or operability.\n\n This is a technical leadership role that combines deep backend expertise, systems judgment, product judgment, and influence across organizational boundaries. You will work with Product, Frontend, Infrastructure, Security, Data, Engineering Managers, and engineers across product groups, bringing subject matter expertise, and you will do it without relying on formal authority.\n\n Why you’ll love this role \n \n Leverage: Your work multiplies across teams. The platforms, standards, and architectural decisions you lead determine how quickly everyone else can ship.\n\n Genuinely Hard Problems: You’ll lead the modernization of a large monolith toward modular, reusable, appropriately independent systems — at the scale of a platform used by millions of users.\n\n Influence Without Bureaucracy: You’ll shape technical direction across teams through clear written proposals and decision records, and partner with Product and Engineering leadership on platform roadmap and investment trade-offs.\n\n Frontier AI Work: You’ll lead adoption of AI-assisted and agentic engineering workflows and define the review, quality, security, and privacy guardrails that make them safe to rely on.\n\n Autonomy: You’ll thrive in our remote-first, asynchronous organization, where clear written communication and self-direction are the pillars of success.\n\n What you’ll do \n \n Lead Cross-Cutting Initiatives: Lead the technical design and delivery of large backend initiatives that span teams, and identify and remove systemic bottlenecks across product and infrastructure groups.\n\n Own Architecture Strategy: Drive modular backend, service, data, and platform architect"
+    },
+    {
+      "id": "gh-8827370002",
+      "title": "Staff Data Analyst",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Customer Support",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8827370002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "61d3179cb35fe0394ba691fdd108bc961f1ed600855257fb8c7596e8e04ae15d",
+      "competencies": [
+        "ml",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Grafana",
+        "Data Modeling",
+        "SQL",
+        "Machine Learning"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Grafana",
+        "Data Modeling",
+        "SQL",
+        "Machine Learning"
+      ],
+      "responsibilities": [
+        "Own annual operating plan and capacity planning through data modeling and validation that support workforce and budget decisions.",
+        "Build and maintain utilization and team-performance scorecards, including automated alerting that surfaces trends in real time.",
+        "Analyze Support Economics, including cost-per-ticket modeling, self-service savings, and product quality costs.",
+        "Develop performance indexes and heatmaps that identify product areas and customers using the most support resources.",
+        "Lead dashboarding for AI adoption and return on investment, measuring the business impact of AI-driven initiatives across Support Engineering.",
+        "Partner with go-to-market teams on predictive analytics and churn-prevention models that identify at-risk customers.",
+        "Define and refine unified customer-schema requirements to create consistent data across systems and a single source of truth.",
+        "Deliver Monthly Business Review telemetry, executive-ready reporting packages, recurring operational reports, and ad hoc analysis."
+      ],
+      "requiredQualifications": [
+        "Experience as a business intelligence analyst, analytics engineer, or in a similar data role, ideally in a software as a service or technology company.",
+        "Experience partnering with Technical Support, Business Operations, Product Engineering, or similar organizations.",
+        "Hands-on experience building dashboards and reports in Zendesk Explore, Tableau, Looker, or similar business intelligence tools.",
+        "You may also bring experience with large language model-based tools, artificial intelligence and machine learning workflows, durable data solutions, analytics frameworks, in-depth data analysis, or presenting to senior leaders and executives."
+      ],
+      "fullText": "Staff Data Analyst\n\nLocation: Bangalore, India\nDepartment: Customer Support\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \nAs a Staff Data Analyst, you'll turn raw data into actionable insights that inform strategic decisions across GitLab's global Support Engineering organization. You'll design dashboards, reports, and data models that help leaders monitor performance, optimize costs, and improve customer outcomes. You'll also promote data innovation by experimenting thoughtfully and working through complex problems.\n\n What you'll do \n\n Own annual operating plan and capacity planning through data modeling and validation that support workforce and budget decisions.\n\n Build and maintain utilization and team-performance scorecards, including automated alerting that surfaces trends in real time.\n\n Analyze Support Economics, including cost-per-ticket modeling, self-service savings, and product quality costs.\n\n Develop performance indexes and heatmaps that identify product areas and customers using the most support resources.\n\n Lead dashboarding for AI adoption and return on investment, measuring the business impact of AI-driven initiatives across Support Engineering.\n\n Partner with go-to-market teams on predictive analytics and churn-prevention models that identify at-risk customers.\n\n Define and refine unified customer-schema requirements to create consistent data across systems and a single source of truth.\n\n Deliver Monthly Business Review telemetry, executive-ready reporting packages, recurring operational reports, and ad hoc analysis.\n\n What you'll bring \n\n Experience as a business intelligence analyst, analytics engineer, or in a similar data role, ideally in a software as a service or technology company.\n\n Experience partnering with Technical Support, Business Operations, Product Engineering, or similar organizations.\n\n Fluency in SQL, including complex multi-table joins, grouping and aggregation, common table expressions, and conditional filters.\n\n Hands-on experience building dashboards and reports in Zendesk Explore, Tableau, Looker, or similar business intelligence tools.\n\n Translate ambiguous business question"
+    },
+    {
+      "id": "gh-8826965002",
+      "title": "Staff Frontend Engineer",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "DevOps Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8826965002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "c6ed11bc7f3feb988bdf2bb0fd72ab6ca8db41664d9d97b9e53fa3a0935c7055",
+      "competencies": [
+        "java",
+        "react",
+        "typescript",
+        "kubernetes",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "System Design",
+        "Prometheus",
+        "Feature Engineering",
+        "Vue.js",
+        "React",
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "PostgreSQL",
+        "Redis",
+        "GraphQL",
+        "Kubernetes",
+        "Docker",
+        "GCP"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "System Design",
+        "Prometheus",
+        "Feature Engineering",
+        "Vue.js",
+        "React",
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "PostgreSQL",
+        "Redis",
+        "GraphQL",
+        "Kubernetes",
+        "Docker",
+        "GCP"
+      ],
+      "responsibilities": [
+        "Lead the technical design and delivery of large, complex frontend initiatives across multiple teams.",
+        "Drive frontend platform, design system, and shared architecture strategy for long-term scalability.",
+        "Define and improve standards for versioning, testing, documentation, accessibility, security, performance, and maintainability.",
+        "Lead modernization of a monolith or legacy frontend architecture toward modular, reusable, and independently deployable systems.",
+        "Establish versioned module or host contracts and build, test, deploy, release, and rollback practices for safe operations.",
+        "Create shared patterns for dependency management, design system integration, observability, error isolation, and performance budgets.",
+        "Guide technical direction through clear written proposals and architectural leadership. Partner with product and engineering leaders on platform roadmaps, technical debt, and investment trade-offs.",
+        "Mentor senior and intermediate engineers. Establish guardrails for artificial-intelligence-assisted and agentic workflows that protect code quality, security, privacy, and evaluation standards."
+      ],
+      "requiredQualifications": [
+        "Deep frontend architecture and production experience in complex web applications.",
+        "Experience scaling or governing a design system, frontend platform, or shared component architecture.",
+        "Experience with modular frontend architecture in production, such as package encapsulation, Web Components, frontend islands, runtime composition, or an equivalent architecture.",
+        "Experience creating alignment without formal authority through clear written proposals and decision records.",
+        "Experience balancing user outcomes, delivery speed, technical health, and long-term platform investment.",
+        "Experience mentoring engineers and shaping standards through code review and documentation, including evaluating and improving artificial-intelligence-assisted or agentic engineering workflows.",
+        "Helpful, but not required: experience with Vue, React, Angular, TypeScript, or JavaScript; PostgreSQL, Redis, or object storage; representational state transfer or GraphQL application programming interfaces; Kubernetes, Google Kubernetes Engine, Docker, or Google Cloud Platform; and observability tools such as Prometheus or Sentry."
+      ],
+      "fullText": "Staff Frontend Engineer\n\nLocation: Bangalore, India\nDepartment: DevOps Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n Staff Frontend Engineer \n An overview of this role \n As a Staff Frontend Engineer on the Core DevOps team, you'll provide technical leadership across your team and adjacent teams. You'll solve complex frontend problems, deliver large features with minimal guidance, and improve the architecture and standards that help teams move faster without compromising quality.\n\n You'll work with product, design, engineering managers, and engineers across product groups to shape product experiences and frontend architecture for a global platform. This includes how teams use agentic artificial intelligence in engineering workflows and user experiences.\n\n At GitLab, we build an all-remote, artificial intelligence-powered DevSecOps platform. You'll help shape product experiences and frontend architecture that enable everyone to contribute to and co-create the software that powers our world.\n\n What you’ll do \n \n Lead the technical design and delivery of large, complex frontend initiatives across multiple teams.\n\n Drive frontend platform, design system, and shared architecture strategy for long-term scalability.\n\n Define and improve standards for versioning, testing, documentation, accessibility, security, performance, and maintainability.\n\n Lead modernization of a monolith or legacy frontend architecture toward modular, reusable, and independently deployable systems.\n\n Establish versioned module or host contracts and build, test, deploy, release, and rollback practices for safe operations.\n\n Create shared patterns for dependency management, design system integration, observability, error isolation, and performance budgets.\n\n Guide technical direction through clear written proposals and architectural leadership. Partner with product and engineering leaders on platform roadmaps, technical debt, and investment trade-offs.\n\n Mentor senior and intermediate engineers. Establish guardrails for artificial-intelligence-assisted and agentic workflows that protect code quality, security, privacy, and evaluation standards.\n\n What you’ll bring \n "
+    },
+    {
+      "id": "gh-8800489002",
+      "title": "Staff Site Reliability Engineer, Environment Automation ",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Platforms Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8800489002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "0fdeb9c1ad4332e6aa228f33a842e279ffe44da562bb84225bfcc237cfc6d7ba",
+      "competencies": [
+        "golang",
+        "aws",
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Site Reliability Engineering",
+        "Terraform",
+        "Ansible",
+        "Kubernetes",
+        "Helm",
+        "GCP",
+        "AWS",
+        "Microservices",
+        "Prometheus",
+        "Elasticsearch",
+        "Grafana",
+        "System Design",
+        "Distributed Systems",
+        "State Management"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Site Reliability Engineering",
+        "Terraform",
+        "Ansible",
+        "Kubernetes",
+        "Helm",
+        "GCP",
+        "AWS",
+        "Microservices",
+        "Prometheus",
+        "Elasticsearch",
+        "Grafana",
+        "System Design",
+        "Distributed Systems",
+        "State Management"
+      ],
+      "responsibilities": [
+        "Designing infrastructure automation that provisions and operates GitLab environments using Terraform, Ansible, and Kubernetes",
+        "Creating and maintaining deployment packages for GitLab, such as Helm Charts and omnibus-gitlab",
+        "Building and operating Dedicated GitLab instances integrated with cloud-native services (e.g., GCP, AWS)",
+        "Developing tools to orchestrate infrastructure-as-code workflows across multiple tenants",
+        "Deploying and managing microservices on Kubernetes clusters at scale",
+        "Enhancing GitLab’s observability stack (e.g., Prometheus, ELK) to support proactive monitoring and incident response",
+        "Integrating with and operating infrastructure in cloud provider ecosystems (e.g., IAM, networking, storage)",
+        "Championing and implementing cloud security best practices across automated infrastructure"
+      ],
+      "requiredQualifications": [
+        "Production-Scale Experience: Proven ability to operate and troubleshoot production workloads across multiple tenants or environments. Deep understanding of how distributed systems fail at scale and how to build in resilience. Terraform &amp; IaC Mastery: Strong hands-on experience with Terraform, including workspace strategies, state management, and automation patterns that scale. Comfortable solving state isolation issues and building reliable, reusable infrastructure code. Experience with Ansible and templating tools like Jsonnet is a plus. Kubernetes in Production: Skilled at diagnosing deployment failures, interpreting pod logs, and debugging scheduling issues and rollback scenarios in live environments. Understands how pods, ReplicaSets, and controllers interact in production. Programming &amp; Code Analysis: Ability to read and debug code in Go and/or Ruby. Familiar with identifying performance issues, scalability concerns, and contributing to infrastructure tooling through thoughtful code analysis. Large Scale Operations Background: Experience supporting infrastructure for many customers or environments simultaneously. Comfortable managing isolation, scaling, monitoring, and incident response across diverse workloads. Architecture &amp; Incident Response: Able to reason through complex systems and operational challenges. Brings on-call experience and can lead technical discussions and incident resolution efforts under pressure. Customer-Focused Collaboration: Proven ability to work across teams and with internal or external customers to solve technical problems while maintaining service commitments and clear communication. GitLab Platform Proficiency: Comfortable using GitLab as a daily tool for infrastructure automation, collaboration, and operational workflows."
+      ],
+      "fullText": "Staff Site Reliability Engineer, Environment Automation \n\nLocation: Bangalore, India\nDepartment: Platforms Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n As a Staff Site Reliability Engineer (SRE) at GitLab, you’ll help keep all user-facing services and production systems reliable, scalable, and efficient. Our SREs combine a pragmatic operations mindset with strong software engineering practices to drive automation, reduce toil, and improve resilience across our platform.\n\n In the Environment Automation specialization, your focus is on operating and automating hundreds of GitLab environments—from initial provisioning to day-to-day maintenance tasks. \n\n Unlike other SRE roles, this position centers on automating the lifecycle of many tenant environments, ensuring they remain secure, consistent, and reliable at scale.\n\n Some examples of the projects you could work on:\n\n Designing infrastructure automation that provisions and operates GitLab environments using Terraform, Ansible, and Kubernetes\n\n Creating and maintaining deployment packages for GitLab, such as Helm Charts and omnibus-gitlab\n\n Building and operating Dedicated GitLab instances integrated with cloud-native services (e.g., GCP, AWS)\n\n Developing tools to orchestrate infrastructure-as-code workflows across multiple tenants\n\n Deploying and managing microservices on Kubernetes clusters at scale\n\n Enhancing GitLab’s observability stack (e.g., Prometheus, ELK) to support proactive monitoring and incident response\n\n Integrating with and operating infrastructure in cloud provider ecosystems (e.g., IAM, networking, storage)\n\n Championing and implementing cloud security best practices across automated infrastructure\n\n What You’ll Do \n\n Build &amp; Scale Multi-Tenant Infrastructure: Design and implement automation that provisions and manages hundreds of isolated GitLab environments using Terraform, Ansible, and Kubernetes. Manage complex state strategies and workspace configurations to support scale and maintainability.\n\n Debug &amp; Resolve Production Issues: Troubleshoot issues across Kubernetes clusters, cloud services, and GitLab apps—identifying root causes of failed deploymen"
+    },
+    {
+      "id": "gh-8615268002",
+      "title": "Staff Site Reliability Engineer - Monitoring and Anomaly Detection (Monetization)   ",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Data Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8615268002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "059c020d33a718aa70c57b8d9b19e37a1f846d261f6a42358a5d13c8c61ed532",
+      "competencies": [
+        "python",
+        "ml",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "Prometheus",
+        "Grafana",
+        "Machine Learning",
+        "Ruby",
+        "Distributed Tracing",
+        "Real-Time Analytics",
+        "Python",
+        "Root Cause Analysis & Debugging"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "Prometheus",
+        "Grafana",
+        "Machine Learning",
+        "Ruby",
+        "Distributed Tracing",
+        "Real-Time Analytics",
+        "Python",
+        "Root Cause Analysis & Debugging"
+      ],
+      "responsibilities": [
+        "Design, build, and operate observability across the Monetization stack, including metrics, logs, and traces, using tools such as Prometheus and Grafana.",
+        "Implement automated detection for billing, data, and event anomalies, and route alerts to the responsible feature teams.",
+        "Develop reconciliation and data integrity checks across usage and billing pipelines.",
+        "Define and track service level objectives and service level indicators, write runbooks, and take part in incident response to measure and improve Monetization system reliability.",
+        "Explore artificial intelligence and machine learning techniques to predict system anomalies and accelerate resolution.",
+        "Review and offer feedback on merge requests from other Monetization engineers.",
+        "Collaborate with Product, Finance, Support, and other partners to turn operational needs into reliable tooling.",
+        "Familiarity with observability tools such as Prometheus, Grafana, and OpenTelemetry."
+      ],
+      "requiredQualifications": [
+        "Professional experience with Ruby on Rails, including building and operating applications such as CustomersDot.",
+        "Experience in site reliability or observability engineering, including monitoring, alerting, service level objectives and indicators, runbooks, and incident response.",
+        "Experience setting technical direction for observability, reliability, or detection work and bringing other engineers along.",
+        "Experience building anomaly detection, monitoring, or risk management tooling.",
+        "Experience owning projects from concept through production, communicating clearly about complex technical and organizational problems, and proposing iterative solutions.",
+        "Working knowledge of Python for anomaly detection and data work, or experience with billing, financial, or other business-critical systems, including Zuora or Salesforce, is a plus."
+      ],
+      "fullText": "Staff Site Reliability Engineer - Monitoring and Anomaly Detection (Monetization)   \n\nLocation: Bangalore, India\nDepartment: Data Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n The Observability, Monitoring, and Integrations team manages observability, monitoring, and detection for systems that support customer purchasing and use of GitLab. As a Staff Backend Engineer on the Fulfillment Workflow Monitoring (Catch All) team, you'll set the technical direction for the telemetry, detection, and reconciliation tooling that identifies billing, data, and event anomalies across CustomersDot, Salesforce, and Zuora before they can affect revenue or the customer experience.\n\n This is a greenfield team. You'll help build it from the ground up, shaping its operating rhythm, incident response model, and quality bar. You'll use telemetry and machine learning to identify issues early and help resolve them. Because Monetization changes can directly affect revenue and often involve confidential or financial information, you'll use strong judgment, careful rollout practices, and a high bar for reliability. This role is opening at the Staff Backend Engineer level (grade 8).\n\n What you’ll do \n \n Design, build, and operate observability across the Monetization stack, including metrics, logs, and traces, using tools such as Prometheus and Grafana.\n\n Implement automated detection for billing, data, and event anomalies, and route alerts to the responsible feature teams.\n\n Develop reconciliation and data integrity checks across usage and billing pipelines.\n\n Define and track service level objectives and service level indicators, write runbooks, and take part in incident response to measure and improve Monetization system reliability.\n\n Explore artificial intelligence and machine learning techniques to predict system anomalies and accelerate resolution.\n\n Review and offer feedback on merge requests from other Monetization engineers.\n\n Collaborate with Product, Finance, Support, and other partners to turn operational needs into reliable tooling.\n\n What you’ll bring \n \n Professional experience with Ruby on Rails, including building "
+    },
+    {
+      "id": "gh-8632446002",
+      "title": "Staff Software Engineer, Security Foundations",
+      "level": "Staff",
+      "desc": "GitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust G...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Sec Engineering",
+      "source": "Official GitLab India Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/gitlab/jobs/8632446002",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "f8b2b91c30ecb3337b453d400a00e52f1b5dd8e6b377d17a4048ccef013c49a2",
+      "competencies": [
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "DevSecOps",
+        "PostgreSQL",
+        "Ruby",
+        "Rust"
+      ],
+      "toolsAndTech": [
+        "DevSecOps",
+        "PostgreSQL",
+        "Ruby",
+        "Rust"
+      ],
+      "responsibilities": [
+        "Lead large technical deliverables from initial problem definition through delivery, often across multiple months or quarters.",
+        "Design and develop backend systems for vulnerability and dependency management, including security report ingestion, storage, indexing, querying, and integrations with key third-party systems.",
+        "Build and improve systems using Ruby on Rails and PostgreSQL, and contribute to newer services using technologies such as Go or Rust where appropriate.",
+        "Shape technical plans, break down complex work, and help other engineers deliver effectively.",
+        "Work directly with product, design, frontend, and engineering partners to make clear decisions, resolve constraints, and deliver measurable progress.",
+        "Influence the team's product and technical roadmap through hands-on investigation, clear proposals, and iterative delivery that demonstrates progress in each monthly release cycle.",
+        "Apply a security mindset when designing systems, including considering how GitLab identifies and handles malicious or vulnerable software packages.",
+        "Define patterns for modular services, provide technical leadership when vulnerability management work spans multiple GitLab areas, and share that expertise across GitLab Security."
+      ],
+      "requiredQualifications": [
+        "Experience leading complex backend projects from idea through delivery while remaining hands-on with design and development.",
+        "Strong PostgreSQL experience, including evidence of query optimization, table optimization, and write-ahead log management in data-intensive systems.",
+        "Strong professional experience with Ruby on Rails or Go and comfort working in Ruby on Rails day to day. Experience with large monoliths is helpful, along with an interest in working across languages and services.",
+        "Experience shaping delivery plans, guiding technical decisions, and supporting the work of other engineers.",
+        "Experience communicating with leaders, leading peers through complex delivery, identifying constraints, and moving work forward.",
+        "Experience using security tooling for activities such as vulnerability triage and remediation, or professional experience building vulnerability management, dependency management, or related security products.",
+        "Experience with large-scale data systems or established software products. We welcome transferable experience from outside the security domain."
+      ],
+      "fullText": "Staff Software Engineer, Security Foundations\n\nLocation: Bangalore, India\nDepartment: Sec Engineering\n\nGitLab is the intelligent orchestration platform for DevSecOps. GitLab enables organizations to increase developer productivity, improve operational efficiency, reduce security and compliance risk, and accelerate digital transformation. More than 50 million registered users and more than 50% of the Fortune 100* trust GitLab to ship better, more secure software faster.\n\n The same principles built into our products are reflected in how our team works: we embrace AI as a core productivity multiplier, with all team members expected to incorporate AI into their daily workflows to drive efficiency, innovation, and impact. GitLab is where careers accelerate, innovation flourishes, and every voice is valued. Our high-performance culture is driven by our values and continuous knowledge exchange, enabling our team members to reach their full potential while collaborating with industry leaders to solve complex problems. Co-create the future with us as we build technology that transforms how the world develops software.\n\n * Fortune 500® is a registered trademark of Fortune Media IP Limited, used under license. Claim based on GitLab data. Fortune 100 refers to the top 20% ranked companies in the 2025 Fortune 500 list, published in June 2025. Fortune and Fortune Media IP Limited are not affiliated with, and do not endorse products or services of GitLab. \n\n An overview of this role \n As a Staff Software Engineer, you'll help lead two important areas for GitLab Security: the data layer behind our vulnerability and dependency management capabilities, and our move toward services outside the GitLab monolith. You'll design and develop systems that ingest, store, index, and query security report data, including integrations with key third-party systems. With a strong focus on PostgreSQL and scalable backend design, your work will support security features delivered by teams across GitLab.\n\n You'll take ownership of large deliverables from early ideas through implementation, working directly with product, design, frontend, and engineering partners to shape the technical and product roadmap. You'll stay hands-on across GitLab's Ruby on Rails application and newer services, including greenfield projects, while helping the team build its expertise in modular service design.\n\n What you’ll do \n\n Lead large technical deliverables from initial problem definition through delivery, often across multiple months or quarters.\n\n Design and develop backend systems for vulnerability and dependency management, including security report ingestion, storage, indexing, querying, and integrations with key third-party systems.\n\n Build and improve systems using Ruby on Rails and PostgreSQL, and contribute to newer services using technologies such as Go or Rust where appropriate.\n\n Shape technical plans, break down complex work, and help other engineers deliver effectively.\n\n Work directly with product, design, frontend, and engineering partners to make clear decisions, resolve constraints, and deliver measurable progress.\n\n Influence the team's product and technical roadmap through hands-on investigation, clear proposals, and iterative delivery that demonstrates progress in each monthly release cycle.\n\n Apply a security mindset when designing systems, including considering how GitLab identifies and handles malicious or vulnerable software packages.\n\n Define patterns for modular "
+    }
+  ]
+}

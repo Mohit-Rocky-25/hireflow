@@ -1,0 +1,112 @@
+[
+  {
+    "id": "cred",
+    "name": "CRED",
+    "ats": "lever",
+    "slug": "cred",
+    "tier": "UNICORN",
+    "sector": "FinTech",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://cred.club"
+  },
+  {
+    "id": "meesho",
+    "name": "Meesho",
+    "ats": "lever",
+    "slug": "meesho",
+    "tier": "UNICORN",
+    "sector": "E-Commerce & Social Commerce",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.meesho.com"
+  },
+  {
+    "id": "groww",
+    "name": "Groww",
+    "ats": "greenhouse",
+    "slug": "groww",
+    "tier": "UNICORN",
+    "sector": "WealthTech & Financial Services",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://groww.in"
+  },
+  {
+    "id": "inmobi",
+    "name": "InMobi",
+    "ats": "greenhouse",
+    "slug": "inmobi",
+    "tier": "UNICORN",
+    "sector": "AdTech & AI Consumer Platforms",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.inmobi.com"
+  },
+  {
+    "id": "stripe",
+    "name": "Stripe India",
+    "ats": "greenhouse",
+    "slug": "stripe",
+    "tier": "TIER_S",
+    "sector": "Global Financial Infrastructure",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://stripe.com"
+  },
+  {
+    "id": "datadog",
+    "name": "Datadog India",
+    "ats": "greenhouse",
+    "slug": "datadog",
+    "tier": "TIER_S",
+    "sector": "Cloud Observability & Distributed Systems",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.datadoghq.com"
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB India",
+    "ats": "greenhouse",
+    "slug": "mongodb",
+    "tier": "TIER_S",
+    "sector": "Modern Database Systems & Cloud Data",
+    "headquarters": "Bengaluru / Gurgaon",
+    "website": "https://www.mongodb.com"
+  },
+  {
+    "id": "elastic",
+    "name": "Elastic India",
+    "ats": "greenhouse",
+    "slug": "elastic",
+    "tier": "PRODUCT_MNC",
+    "sector": "Search AI & Enterprise Observability",
+    "headquarters": "Bengaluru / Pune",
+    "website": "https://www.elastic.co"
+  },
+  {
+    "id": "gitlab",
+    "name": "GitLab India",
+    "ats": "greenhouse",
+    "slug": "gitlab",
+    "tier": "PRODUCT_MNC",
+    "sector": "The DevSecOps Platform",
+    "headquarters": "Remote - India",
+    "website": "https://about.gitlab.com"
+  },
+  {
+    "id": "rubrik",
+    "name": "Rubrik India",
+    "ats": "greenhouse",
+    "slug": "rubrik",
+    "tier": "TIER_S",
+    "sector": "Zero Trust Data Security & Cloud Storage",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.rubrik.com"
+  },
+  {
+    "id": "coinbase",
+    "name": "Coinbase India",
+    "ats": "greenhouse",
+    "slug": "coinbase",
+    "tier": "TIER_S",
+    "sector": "Web3 & Global Crypto Infrastructure",
+    "headquarters": "Hyderabad / Remote India",
+    "website": "https://www.coinbase.com"
+  }
+]

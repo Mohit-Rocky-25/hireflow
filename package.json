@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "market:sync": "npx tsx scripts/market/sync-live-jobs.ts",
     "briefs:lint": "npx tsx scripts/briefs/lint.ts",
     "briefs:fix": "npx tsx scripts/briefs/fix_engine.ts",
     "briefs:gate": "npx tsx scripts/briefs/gate.ts",

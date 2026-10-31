@@ -1,0 +1,675 @@
+{
+  "companyId": "stripe",
+  "companyName": "Stripe India",
+  "ats": "greenhouse",
+  "slug": "stripe",
+  "tier": "TIER_S",
+  "sector": "Global Financial Infrastructure",
+  "headquarters": "Bengaluru, Karnataka",
+  "website": "https://stripe.com",
+  "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+  "liveRoleCount": 12,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "gh-7923653",
+      "title": "Data Science Manager, Risk",
+      "level": "Engineering Manager",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "7112 Data Science",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=7923653",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "85e84c60c7980273c43654c876abc5386afd004299874db9f0d1b59648e309ec",
+      "competencies": [
+        "python",
+        "aws",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Statistical Analysis & A/B Testing",
+        "SQL",
+        "Python",
+        "R",
+        "Cross-Functional Collaboration",
+        "Computer Science Fundamentals",
+        "Feature Engineering",
+        "Cloud Architecture"
+      ],
+      "toolsAndTech": [
+        "Statistical Analysis & A/B Testing",
+        "SQL",
+        "Python",
+        "R",
+        "Cross-Functional Collaboration",
+        "Computer Science Fundamentals",
+        "Feature Engineering",
+        "Cloud Architecture"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Data Science Manager, Risk\n\nLocation: Bengaluru\nDepartment: 7112 Data Science\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n The Data Science and Analytics organization at Stripe partners with teams across the company to drive rigorous, data-informed decision-making at scale. Within this org, the Verifications and Greater China data teams deliver critical analytical and data science work—from identity verification and risk modeling to market-specific growth insights—that directly shapes Stripe's ability to serve users safely and expand into new markets.\n\n Today, the team comprises individual contributors distributed across Singapore and India, supporting two high-impact pillars. We're looking for a founding Data Science Manager based in Bengaluru to build and lead this growing regional footprint from the ground up.\n\n What you'll do \n This is a rare 0 → 1 leadership role with a dual mandate.\n\n Pillar 1—Direct Team Leadership\n\n • Manage a team of Data Scientists and Data Analysts (currently 4 individual contributors across India and Singapore) spanning the Verifications and Greater China workstreams.\n\n • Own roadmap prioritization, execution quality, and stakeholder alignment for both workstreams.\n\n • Drive hiring for open and future roles in India, building a high-caliber data team in a competitive talent market.\n\n • Foster individual contributor growth through real-time coaching, mentorship, career development, and performance management.\n\n Pillar 2—Regional Data Craft Lead (India Office)\n\n • Serve as the founding data craft leader for Stripe's India office. Set quality standards, establish community rituals (knowledge sharing, peer reviews, office hours), and cultivate a strong local data culture.\n\n • Act as the go-to point of contact for data craft standards, tooling, and best practices for co-located analysts, even those outside your direct reporting line.\n\n • Partner with managers and leads across the broader Data org to ensure consistency in methodology, tooling, and quality bar.\n\n • Support onboarding and integration of new data hires in the Bengaluru office.\n\n • Over time, this role has the potential to evolve into a Center of Excellence (COE) model—becoming the single point of data leadership in India across multiple product pillars (e.g., Payments, Growth, Marketing), not just Risk.\n\n Responsibilities \n • Build, manage, and develop a high-performing, geographically distributed data team.\n\n • Define and drive the data roadmap in close partnership with product, engineering, and business stakeholders—ensuring analytical work is tightly coupled to business outcomes.\n\n • Establish and raise the bar on analytical rigor, experimentation frameworks, and data science best practices across the team.\n\n • Recruit and retain skilled data talent, crafting a compelling hiring narrative anchored in local leadership and craft excellence.\n\n • Champion a culture of technical excellence, intellectual curiosity, and operational discipline.\n\n • Collaborate with "
+    },
+    {
+      "id": "gh-8234252",
+      "title": "Engineering Manager, Accounting Products",
+      "level": "Engineering Manager",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the...",
+      "location": "Bengaluru, India",
+      "workplaceType": "unspecified",
+      "department": "8417 Accounting Products",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8234252",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "acecd7a85c78428e7507c5564cb380d07e47b5ee8f4b54516c907942e5c54779",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "Distributed Systems"
+      ],
+      "toolsAndTech": [
+        "Distributed Systems"
+      ],
+      "responsibilities": [
+        "Lead your team of talented engineers to solve data engineering challenges at scale and deliver a high level of technical and operational excellence",
+        "Collaborate with product managers and talk to directly to customers to drive a high-impact, prioritized roadmap for your team",
+        "Recruit, coach, mentor, develop, and grow engineers on your team",
+        "Be deeply involved in launching new product features and capabilities",
+        "Partner with engineers and product managers across Stripe to ensure your features are integrated into the Stripe suite",
+        "Contribute to engineering initiatives across the Revenue and Finance Automation (RFA) organization and across Stripe as a member of Stripe’s engineering management team",
+        "Successfully led high-complexity teams, working in parallel on multiple high-impact areas.",
+        "Works very well cross-functionally, and is able to think rigorously and make hard decisions and tradeoffs."
+      ],
+      "requiredQualifications": [
+        "5+ years of engineering management experience and 10+ years of overall experience in the industry.",
+        "Strong technical background and hands-on experience in solving large scale and difficult technical problems.",
+        "Experience working in high-growth teams similar to Stripe.",
+        "Experience building financial systems or tools for financial experts.",
+        "Experience with accounting procedures or systems"
+      ],
+      "fullText": "Engineering Manager, Accounting Products\n\nLocation: Bengaluru, India\nDepartment: 8417 Accounting Products\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n Stripe’s Revenue &amp; Financial Management group is building new products that expand the scope of problems we tackle beyond payments into Revenue Management, Financial Operations and analytics. Right now this includes products like Billing, Invoicing, Revenue Recognition, Reconciliation and the underlying platform for batch and real time processing of large scale financial data to power these solutions. These solutions are going to be key pillars for Stripe’s growing SaaS business and a major revenue stream.\n\n What you’ll do \n We are seeking an experienced engineering manager to lead the team building the foundation for accounting system and user-facing product features that will streamline and automate accrual accounting for Stripe customers.\n\n Responsibilities \n \n Lead your team of talented engineers to solve data engineering challenges at scale and deliver a high level of technical and operational excellence\n\n Collaborate with product managers and talk to directly to customers to drive a high-impact, prioritized roadmap for your team\n\n Recruit, coach, mentor, develop, and grow engineers on your team\n\n Be deeply involved in launching new product features and capabilities\n\n Partner with engineers and product managers across Stripe to ensure your features are integrated into the Stripe suite\n\n Contribute to engineering initiatives across the Revenue and Finance Automation (RFA) organization and across Stripe as a member of Stripe’s engineering management team\n\n Who you are \n We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\n\n Minimum requirements \n \n 5+ years of engineering management experience and 10+ years of overall experience in the industry.\n\n Successfully led high-complexity teams, working in parallel on multiple high-impact areas.\n\n Works very well cross-functionally, and is able to think rigorously and make hard decisions and tradeoffs.\n\n Thrives on a high level of autonomy and responsibility.\n\n Encourages a healthy work environment that’s both supportive and challenging and enables engineers to do their best work.\n\n Strong technical background and hands-on experience in solving large scale and difficult technical problems.\n\n Values and enjoys working with a diverse group of people with different expertise.\n\n Preferred qualifications \n \n Familiarity with large scale distributed systems or big data processing systems.\n\n Experience working in high-growth teams similar to Stripe.\n\n Experience building financial systems or tools for financial experts.\n\n Experience with accounting procedures or systems"
+    },
+    {
+      "id": "gh-7618977",
+      "title": "Software Engineer, Core Technology",
+      "level": "Mid-Level",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bangalore",
+      "workplaceType": "unspecified",
+      "department": "8127 Core Infrastructure",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=7618977",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "dae6ae6024a9d5f8f01c1c14721f915140e5dd1463ef7fe81a708642a0fb2ea7",
+      "competencies": [
+        "golang",
+        "ml",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "System Design",
+        "Microservices",
+        "ETL Pipelines",
+        "Machine Learning",
+        "Algorithms",
+        "Data Structures",
+        "Distributed Systems"
+      ],
+      "toolsAndTech": [
+        "System Design",
+        "Microservices",
+        "ETL Pipelines",
+        "Machine Learning",
+        "Algorithms",
+        "Data Structures",
+        "Distributed Systems"
+      ],
+      "responsibilities": [
+        "Core Infrastructure—We're the home for Stripe's critical tier-0 infrastructure systems (Compute, Networking, DocumentDB, Distributed Caching, and High assurance engineering). We build the foundational platform for Stripe products and services to allow them to operate at scale. We drive reliability, availability, efficiency, and scalability of these systems.",
+        "Developer Infrastructure—We're responsible for the productivity of all developers at Stripe. We ensure Stripe's engineers have a reliable inner dev loop to maximize productivity while building everything from low-latency microservices to large-scale data pipelines and machine learning models.",
+        "Security—We're a newly formed security team tasked with building the guardrails to extend Stripe's secure platform, allowing engineers to leverage new technologies that best meet their needs. We work on enabling new technologies for product and platform teams, prioritizing business needs as well as building the tooling and controls that further enable self-serve, guaranteeing we maintain a high bar across all Stripe surfaces with security in-built into foundations.",
+        "Application and Revenue Platform—We build the powerful and scalable infrastructure that powers the company's application offerings and supports the processing and management of global transaction volumes.",
+        "Participate in roadmap planning and prioritization",
+        "Deliver value through a strong collaborative approach with multiple customers and stakeholders across Stripe",
+        "Debug production issues across services and several levels of the stack",
+        "Strong coding skills in any programming language (we understand engineers learn new languages on the job, so our interview process is language agnostic)"
+      ],
+      "requiredQualifications": [
+        "Build a great customer experience for internal and external Stripe teams using our infrastructure",
+        "7+ years of industry software engineering experience (does not include internships or co-ops)",
+        "Ability to write well-factored algorithms and experience with commonly used data structures and algorithms",
+        "Hands-on experience contributing to or building large-scale distributed systems",
+        "Experience optimizing the end-to-end performance of distributed systems"
+      ],
+      "fullText": "Software Engineer, Core Technology\n\nLocation: Bangalore\nDepartment: 8127 Core Infrastructure\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n Stripe Infrastructure is responsible for the reliability, scale, performance, and cost of Stripe's systems and the productivity and sentiment of Stripe's people. You may work on a wide variety of critical business areas including\n\n Core Infrastructure—We're the home for Stripe's critical tier-0 infrastructure systems (Compute, Networking, DocumentDB, Distributed Caching, and High assurance engineering). We build the foundational platform for Stripe products and services to allow them to operate at scale. We drive reliability, availability, efficiency, and scalability of these systems.\n\n Developer Infrastructure—We're responsible for the productivity of all developers at Stripe. We ensure Stripe's engineers have a reliable inner dev loop to maximize productivity while building everything from low-latency microservices to large-scale data pipelines and machine learning models.\n\n Security—We're a newly formed security team tasked with building the guardrails to extend Stripe's secure platform, allowing engineers to leverage new technologies that best meet their needs. We work on enabling new technologies for product and platform teams, prioritizing business needs as well as building the tooling and controls that further enable self-serve, guaranteeing we maintain a high bar across all Stripe surfaces with security in-built into foundations.\n\n Application and Revenue Platform—We build the powerful and scalable infrastructure that powers the company's application offerings and supports the processing and management of global transaction volumes.\n\n Team Matching—exact team matching for one of the sub-teams within one of these organizations will begin during final stages. Please note we may also consider you for different organizations based on your experience, location, etc.\n\n What you'll do \n We're looking for software engineers who are interested in building software services and platforms that impact thousands of employees and millions of Stripe users, regardless of whether they're an end user, developer, or partner. You'll work on projects that span technologies, systems, and processes where you'll design, build, test, and ship great code every day.\n\n Responsibilities \n \n Build a great customer experience for internal and external Stripe teams using our infrastructure\n\n Participate in roadmap planning and prioritization\n\n Deliver value through a strong collaborative approach with multiple customers and stakeholders across Stripe\n\n Debug production issues across services and several levels of the stack\n\n Who you are \n We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\n\n Minimum requirements \n \n 7+ years of industry software engineering experience (does no"
+    },
+    {
+      "id": "gh-7543868",
+      "title": "Software Engineer, Financial Business Insights",
+      "level": "Mid-Level",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bengaluru, India",
+      "workplaceType": "unspecified",
+      "department": "7420 Finance Systems",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=7543868",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "3cbb6e83515863823751d07dbd5cce78b0ca89684c99dcdf21b520d4f166f339",
+      "competencies": [
+        "golang",
+        "aws",
+        "kubernetes",
+        "ml",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Cloud Cost Optimization",
+        "ETL Pipelines",
+        "Ruby",
+        "MongoDB",
+        "MySQL",
+        "Big Data Technologies",
+        "gRPC",
+        "GraphQL",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Machine Learning",
+        "Distributed Systems",
+        "Microservices"
+      ],
+      "toolsAndTech": [
+        "Cloud Cost Optimization",
+        "ETL Pipelines",
+        "Ruby",
+        "MongoDB",
+        "MySQL",
+        "Big Data Technologies",
+        "gRPC",
+        "GraphQL",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Machine Learning",
+        "Distributed Systems",
+        "Microservices"
+      ],
+      "responsibilities": [
+        "Design, build, and maintain beautiful, robust, and high-performance APIs and services",
+        "Ensure our infrastructure is extensible, scalable, reliable, and meets service-level agreements for both external and internal users",
+        "Hide complexity from our users behind simple yet powerful abstractions",
+        "Debug production issues across services and multiple levels of the stack with an eye towards improving maintainability over the long term",
+        "Improve engineering standards, tooling, and processes",
+        "You have implemented server-side APIs in dynamic languages like Ruby, working with document and relational datastores (especially Mongo and MySQL) and enjoy spelunking through new datasets (especially in systems like Redshift, Presto, or Trino).",
+        "Empathetic, collaborative, and user-first mindset in everything you build and have excellent oral and written communication",
+        "The skills to build holistically — from specs and documentation to implementation, testing, deployment, and measuring impact and ability to balance speed, complexity, and scope in service of user needs"
+      ],
+      "requiredQualifications": [
+        "Partner closely with other engineers, analysts, and scientists to build highly scalable systems, to deliver delightful developer experiences and comprehensive interfaces",
+        "Build the APIs that power internal stakeholder-facing UI experiences, defining composable data models and durable interfaces",
+        "8+ years of experience designing, implementing, and operating large-scale, high-performance APIs and services",
+        "Experience proactively seeking feedback from users, teammates, and subject matter experts",
+        "Experience with large-scale financial tracking systems",
+        "Experience in marketing domain building products that contribute to marketing tech stack",
+        "Experience with machine learning, recommender systems, product-led growth, or lifecycle marketing",
+        "Prior experience building distributed systems or a microservices architecture"
+      ],
+      "fullText": "Software Engineer, Financial Business Insights\n\nLocation: Bengaluru, India\nDepartment: 7420 Finance Systems\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n Our mission is to enable effective financial decisions through reliable data, increased efficiency, and automation. We support Marketing, Sales, Seller, Accounting, Tax, Finance and Strategy (F&amp;S), Finance Operations (FinOps), and Treasury functions across automation, data insights, and process improvements.\n\n You may work on a wide variety of critical business areas including\n\n Seller Systems — Responsible for building the systems and tooling that make sellers and internal revenue teams at Stripe dramatically more productive and effective. We partner with Sales, Finance, Legal, and Product to deliver a single \"plane of glass\" selling experience that spans deal creation and modeling, negotiation and approvals, contracting, onboarding, and activation. The Seller Systems team composes first‑party, custom Stripe components with best‑in‑class third‑party business systems to deliver configurable, auditable, and globally scalable workflows. Engineers on Seller Systems build services, APIs, integrations, data pipelines, and internal UIs that power seller productivity, reduce time‑to‑activation, improve deal velocity, and enable AI‑driven assistive workflows. Use cases include deal modeling and pricing engines, approval and orchestration platforms, CLM/CPQ integrations, onboarding automation, seller analytics, and AI‑assisted seller tooling.\n\n Finance Engineering — Responsible for building the robust and scalable infrastructure that powers the company's core financial operations, including payments processing, fund settlement, accounting, and business intelligence. The Finance Engineering team is at the core of Stripe to empower business-critical financial domains including Accounting, Finance operations, Finance and Strategy, and Treasury. Engineers on the Financial Engineering team build platforms, data pipelines, and financial products for the Finance team. The use cases include financial analytics and insights, accounting automation, auditing, financial planning and forecasting, and financial business intelligence.\n\n Marketing and Sales Systems — Responsible for building the most measurable, cross-channel messaging capability possible, to attract and engage customers. We do this through scalable motions, with the most relevant messaging and increasing reach of our marketing motions. We are a cross-functional team of engineers, analysts, marketers, and product managers that deliver the insights, internal systems and tools that fuel growth at Stripe.\n\n As part of the Marketing Systems team, you own systems that power go-to-market motions productizing gathered insights and intelligence. This includes building tools that 1/ power better digital experiences, 2/ accelerate customer journey with intelligent orchestrations, 3/ drive smarter decisions with CDP, and 4/ improve marketer and seller productivi"
+    },
+    {
+      "id": "gh-8031833",
+      "title": "Software Engineer, Intern",
+      "level": "Intern",
+      "desc": "Who we are \n About Stripe \n Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "5112 General University",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8031833",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "87745fd1a2ae50ff8f9df3f281afb3f9478fa24b40d0dcd4613824de0f3f5dff",
+      "competencies": [
+        "java",
+        "golang",
+        "typescript",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Technical Leadership & Mentorship",
+        "Distributed Systems",
+        "Computer Science Fundamentals",
+        "Ruby",
+        "Java",
+        "JavaScript",
+        "Go"
+      ],
+      "toolsAndTech": [
+        "Technical Leadership & Mentorship",
+        "Distributed Systems",
+        "Computer Science Fundamentals",
+        "Ruby",
+        "Java",
+        "JavaScript",
+        "Go"
+      ],
+      "responsibilities": [
+        "Operate as a real member of the team you join; engage in team discussions, decisions, and the technical design process.",
+        "Write software that will be used in production, and has meaningful impact to Stripe’s business and users.",
+        "Give and receive technical feedback through code reviews or design discussions",
+        "Collaborate with other engineers and cross-functional stakeholders to proactively seek and incorporate feedback.",
+        "Learn quickly by asking great questions, working with your intern manager and teammates effectively, communicating the status of your work clearly, and building with the latest AI tooling.",
+        "Ambitious builder: You’re energized by building solutions without clear precedent and solving problems with far-reaching consequences. Successful Stripes are deeply curious, and prefer the joy of discovery to the comfort of certainty.",
+        "Rigorous thinker: You appreciate that things worth doing are rarely simple. You enjoy working on problems that have never been tackled before.",
+        "Adaptable problem solver: You adapt quickly and treat obstacles as opportunities. At Stripe we embrace kindness while encouraging Stripes to take measured risks and act boldly, even in the absence of consensus."
+      ],
+      "requiredQualifications": [
+        "A strong fundamental understanding of computer science through pursuit of a Bachelor’s or Master’s degree in computer science, math, or a related discipline.",
+        "Experience and familiarity with programming, either through side projects or classwork. We work mostly in Ruby, Java, Javascript, Go, and Scala. We believe new programming languages can be learned if the fundamentals and general knowledge are present.",
+        "Experience from previous internships or other multi-person projects, including open source contributions, that demonstrate evaluating and receiving feedback from mentors, peers, and stakeholders.",
+        "At least 1 year of university education, or equivalent work experience.",
+        "Experience writing high quality pull requests, with good test coverage, and working knowledge to complete projects with minimal defects."
+      ],
+      "fullText": "Software Engineer, Intern\n\nLocation: Bengaluru\nDepartment: 5112 General University\n\nWho we are \n About Stripe \n Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million businesses build on Stripe, spanning the economic frontier—from solo founders to established enterprises—united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global customer base, the quality and diversity of products in the world increase, and craft and creativity are unleashed into the smallest niches. Our own growth is wholly contingent on the success of the businesses building on Stripe. We therefore invest back into our technology at an unusual rate. We make upgrades to our products every single day to deliver compounding gains to our customers. We maintain some of the most reliable APIs on the internet. We build entirely new pieces of financial infrastructure to enable new ideas. And our significant advances in risk and fraud infrastructure over many years are making the internet economy safer and more accessible. \n\n Though people at Stripe don’t tend to take themselves seriously, Stripe is a fairly serious place: our customers are depending on us for their livelihoods. We admire ambition, intensity, curiosity, humility, and rigor. The most effective people become knowledgeable about many domains besides their own. Any company is an applied exercise in understanding some aspect of society or the market. In working with so many (especially the new and innovative ones), we think that Stripe is one of the very best places to learn about how the world works.\n\n What you’ll do \n As an intern at Stripe you’ll work on projects across our stack that directly impact the way millions of businesses operate. You’ll own problems end to end with the support of your manager and teammates. It’s an opportunity to work alongside some of the most creative and technically rigorous engineers in the industry and learn how to ship high-quality work at scale. By contributing to Stripe’s codebase you’ll work across domains that give you insight into how the global economy works. Recent intern projects include expanding Stripe’s Payments Foundation Model capabilities to improve generalized anomaly detection, building more approachable fraud controls, creating safer payouts, and developing user-facing solutions that prevent costly pricing mistakes and make merchant checkout setup easier.\n\n Our internship program is competitive and the expectations are high. \n\n Responsibilities \n\n Operate as a real member of the team you join; engage in team discussions, decisions, and the technical design process.\n\n Write software that will be used in production, and has meaningful impact to Stripe’s business and users.\n\n Give and receive technical feedback through code reviews or design discussions\n\n Collaborate with other engineers and cross-functional stakeholders to proactively seek and incorporate feedback.\n\n Learn quickly by asking great questions, working with yo"
+    },
+    {
+      "id": "gh-8130876",
+      "title": "Software Engineer, New Grad",
+      "level": "Mid-Level",
+      "desc": "Who we are \n About Stripe \n Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More...",
+      "location": "Bangalore",
+      "workplaceType": "unspecified",
+      "department": "5112 General University",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8130876",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "b694a85041d727d6ff0c5a0ffc668861f362e31c0e31f1956a8b3c9d80317e92",
+      "competencies": [
+        "java",
+        "golang",
+        "typescript",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Distributed Systems",
+        "Java",
+        "Ruby",
+        "JavaScript",
+        "Go"
+      ],
+      "toolsAndTech": [
+        "Distributed Systems",
+        "Java",
+        "Ruby",
+        "JavaScript",
+        "Go"
+      ],
+      "responsibilities": [
+        "Ambitious builder: You’re energized by building solutions without clear precedent and solving problems with far-reaching consequences. Successful Stripes are deeply curious, and prefer the joy of discovery to the comfort of certainty.",
+        "Rigorous thinker: You appreciate that things worth doing are rarely simple. You enjoy working on problems that have never been tackled before.",
+        "Adaptable problem solver: You adapt quickly and treat obstacles as opportunities. At Stripe we embrace kindness while encouraging Stripes to take measured risks and act boldly, even in the absence of consensus.",
+        "Ability to learn unfamiliar systems and form an understanding of those systems, through independent research and working with a mentor or subject matter experts.",
+        "Clear written communication skills, with the ability to explain your work to stakeholders, team members, and other Stripes.",
+        "Ability to leverage AI tools to accelerate development while applying rigorous critical thinking and professional judgement to review, refine, and validate all outputs.",
+        "One or more areas of specialized knowledge (frontend, backend, infrastructure or other technologies) balanced with general skills and knowledge.",
+        "Familiarity with navigating and managing work in large code bases."
+      ],
+      "requiredQualifications": [
+        "A Bachelor’s or Master’s degree in computer science or a directly related field, obtained by summer 2027, or equivalent work experience; New grad candidates should have no more than 18 months of professional experience (excluding internship experience).",
+        "Experience and familiarity with programming, either through side projects or classwork. We work mostly in Java, Ruby, JavaScript, Scala, and Go. We believe new programming languages can be learned if the fundamentals and general knowledge are present.",
+        "Experience from either previous internships or working collaboratively on multi-person coding projects (in a university or professional setting).",
+        "Experience in code review practices, and an understanding of how to safely update production systems.",
+        "Experience leading small projects independently, and contributing to larger projects alongside peers."
+      ],
+      "fullText": "Software Engineer, New Grad\n\nLocation: Bangalore\nDepartment: 5112 General University\n\nWho we are \n About Stripe \n Stripe is a technology company focused on improving the conditions for economic growth and prosperity. We build programmable financial infrastructure, rethinking from first principles how financial services should work, to make it easier and cheaper for any business to start and scale. More than 10 million businesses build on Stripe, spanning the economic frontier—from solo founders to established enterprises—united by a practical focus on growth. The most ambitious companies in the world use Stripe as core infrastructure to grow faster. They process trillions of dollars a year on Stripe, equivalent to around 1.6% of global GDP. While economic growth makes everyone better off, open markets also enable greater variety. When any business can easily serve a global customer base, the quality and diversity of products in the world increase, and craft and creativity are unleashed into the smallest niches. Our own growth is wholly contingent on the success of the businesses building on Stripe. We therefore invest back into our technology at an unusual rate. We make upgrades to our products every single day to deliver compounding gains to our customers. We maintain some of the most reliable APIs on the internet. We build entirely new pieces of financial infrastructure to enable new ideas. And our significant advances in risk and fraud infrastructure over many years are making the internet economy safer and more accessible. \n\n Though people at Stripe don’t tend to take themselves seriously, Stripe is a fairly serious place: our customers are depending on us for their livelihoods. We admire ambition, intensity, curiosity, humility, and rigor. The most effective people become knowledgeable about many domains besides their own. Any company is an applied exercise in understanding some aspect of society or the market. In working with so many (especially the new and innovative ones), we think that Stripe is one of the very best places to learn about how the world works.\n\n Your role \n \n Stripe is large enough that individual products and projects can be rapidly deployed to a meaningful fraction of the world’s businesses, but small enough that individual agency still has outsized impact. Small teams can impact how millions of businesses grow. Right now the global economy is replatforming around AI, creating new opportunities for growth. We’re at the center of this, and we think the best work is still in front of us.\n\n To meet this moment, we’re looking for people who move with urgency, like hard problems, and want their work to matter at a time of great change. If that’s you, there’s no better place to build your career.\n\n Who you are \n\n Ambitious builder: You’re energized by building solutions without clear precedent and solving problems with far-reaching consequences. Successful Stripes are deeply curious, and prefer the joy of discovery to the comfort of certainty.\n\n Rigorous thinker: You appreciate that things worth doing are rarely simple. You enjoy working on problems that have never been tackled before. \n\n Adaptable problem solver: You adapt quickly and treat obstacles as opportunities. At Stripe we embrace kindness while encouraging Stripes to take measured risks and act boldly, even in the absence of consensus.\n\n Minimum requirements \n\n A Bachelor’s or Master’s degree in computer science or a directly related field, obtained by summ"
+    },
+    {
+      "id": "gh-8185012",
+      "title": "Software Engineer, Payin",
+      "level": "Mid-Level",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue and accelerate new business opportunities. Our mission is to increase the GDP of the i...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "8516 Payments Global",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8185012",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "ee66cef8c168265d0e7774d9017ffd84ab2342eaae017bd8a1f8778337181537",
+      "competencies": [
+        "java",
+        "golang",
+        "react",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Next.js",
+        "Message Queuing Patterns",
+        "State Management",
+        "Distributed Systems",
+        "Microservices",
+        "Distributed Tracing",
+        "Grafana",
+        "Technical Leadership & Mentorship",
+        "Ruby",
+        "Java",
+        "Go",
+        "MongoDB",
+        "MySQL"
+      ],
+      "toolsAndTech": [
+        "Next.js",
+        "Message Queuing Patterns",
+        "State Management",
+        "Distributed Systems",
+        "Microservices",
+        "Distributed Tracing",
+        "Grafana",
+        "Technical Leadership & Mentorship",
+        "Ruby",
+        "Java",
+        "Go",
+        "MongoDB",
+        "MySQL"
+      ],
+      "responsibilities": [
+        "Architect and operate low-latency, fault-tolerant backend microservices that integrate with Indian payment methods",
+        "Design highly reliable adapter layers that interact with domestic banking partners and payment networks, building systems that gracefully handle external API latency and asynchronous callbacks",
+        "Own end-to-end service health, implementing shadow rollouts, distributed tracing, automated failovers and proactive alerting for 99.99% uptime",
+        "Collaborate with Product, Regulatory/Legal, Risk and Partner Integration teams across global engineering hubs while delivering seamless developer-facing APIs",
+        "Mentor and empower engineers to contribute independently through ongoing technical guidance and actionable feedback",
+        "Independently scope, build and ship medium-to-large projects from ambiguous requirements to production",
+        "Partner with product and data teams to proactively identify, size and solve the most impactful problems for our users",
+        "Engineer highly reliable, scalable infrastructure that consistently meets strict SLAs for all internal and external systems"
+      ],
+      "requiredQualifications": [
+        "Map complex, India-specific payment flows into Stripe’s global, unified API platforms, ensuring a seamless integration experience for developers worldwide",
+        "Build robust APIs that hide the extreme complexity of Indian payment rails behind simple, elegant developer experiences",
+        "8+ years of experience designing, implementing and operating large-scale, high-performance APIs and services",
+        "Experience proactively seeking feedback from users, teammates and subject matter experts",
+        "Experience building large-scale financial systems, payments infrastructure or working in the broader fintech industry is a plus",
+        "Experience building distributed systems or operating within a complex microservices architecture",
+        "Proficiency in Ruby, Java, or Go, with deep experience modeling data in relational and document databases (e.g., MySQL, Mongo)",
+        "Experience driving technical alignment across global, cross-functional teams"
+      ],
+      "fullText": "Software Engineer, Payin\n\nLocation: Bengaluru\nDepartment: 8516 Payments Global\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue and accelerate new business opportunities. Our mission is to increase the GDP of the internet and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the Organization \n Payments is at the core of Stripe’s mission to increase the GDP of the internet. We are expanding our payments footprint in India and we are looking for Backend Engineers to own the technical architecture behind our next generation of payment offerings in India. \n\n As part of the India Payments team, you will build on top of Stripe’s robust foundational platforms, driving complex integrations and contributing to the architectural evolution of the critical services that handle money movement every millisecond. You will engineer the entire horizontal payments stack, driving every phase of a transaction's journey: integrating with local payment rails, managing initiation and intelligent routing, ensuring reliable completion and automating reconciliation and payouts. \n\n Partnering with cross-functional engineering hubs globally, you will tackle high-stakes technical challenges requiring low-latency execution, strict transactional idempotency, zero-downtime migrations and resilient distributed state management at scale.\n\n If you thrive on taking ambiguous product mandates and turning them into fault-tolerant, self-healing distributed systems, you will feel right at home here.\n\n What You’ll Do (Core Responsibilities) \n \n Architect and operate low-latency, fault-tolerant backend microservices that integrate with Indian payment methods\n\n Map complex, India-specific payment flows into Stripe’s global, unified API platforms, ensuring a seamless integration experience for developers worldwide\n\n Design highly reliable adapter layers that interact with domestic banking partners and payment networks, building systems that gracefully handle external API latency and asynchronous callbacks\n\n Own end-to-end service health, implementing shadow rollouts, distributed tracing, automated failovers and proactive alerting for 99.99% uptime\n\n Collaborate with Product, Regulatory/Legal, Risk and Partner Integration teams across global engineering hubs while delivering seamless developer-facing APIs\n\n Mentor and empower engineers to contribute independently through ongoing technical guidance and actionable feedback\n\n Other Responsibilities \n \n Independently scope, build and ship medium-to-large projects from ambiguous requirements to production\n\n Build robust APIs that hide the extreme complexity of Indian payment rails behind simple, elegant developer experiences\n\n Partner with product and data teams to proactively identify, size and solve the most impactful problems for our users\n\n Engineer highly reliable, scalable infrastructure that consistently meets strict SLAs for all internal and external systems\n\n Debug production issues across services and multiple levels of the stack with an eye towards improving maintainability over the long term\n\n Improve engineering standards, tooling and processes\n\n Accelerate team velocity through high-quality"
+    },
+    {
+      "id": "gh-8209970",
+      "title": "Software Engineer, Stripe Data Pipeline",
+      "level": "Mid-Level",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bangalore",
+      "workplaceType": "unspecified",
+      "department": "8122 Data Foundations",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8209970",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "9becd42b08b4a1a95cd966078a8c59b7bb5b464ab8af49d5eb92724a0461cdc4",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "Data Warehousing",
+        "Distributed Systems",
+        "Design Systems"
+      ],
+      "toolsAndTech": [
+        "Data Warehousing",
+        "Distributed Systems",
+        "Design Systems"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Software Engineer, Stripe Data Pipeline\n\nLocation: Bangalore\nDepartment: 8122 Data Foundations\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n Stripe Data Pipeline —The Stripe Data Pipeline (SDP) team owns a critical product that delivers all of a merchant's Stripe data directly into their data warehouse. We serve major technology companies and Fortune 100 enterprises, delivering petabytes of data daily with high reliability, low latency, and strong correctness guarantees. SDP is marching towards 99.99% availability and near real-time data freshness across multiple warehouse platforms. Merchants depend on this data for their own billing, reconciliation and analytics, and the quality of what we deliver has immediate, visible impact. The systems are distributed, multi-tenant, and operate under strict SLAs. You will work on hard problems at the intersection of data infrastructure, merchant-facing product, and operational excellence.\n\n What you'll do \n As a Software Engineer, you'll design and build platforms and system solutions that are configurable and scalable around the globe. You'll partner with many functions at Stripe, with the opportunity to both work on financial platform systems, as well as direct user-facing business impact.\n\n Responsibilities \n • Design, build, and maintain APIs, services, and systems across engineering teams at Stripe.\n\n • Work with engineers across the company to build new features at large scale.\n\n • Maintain a collaborative environment, engaging in discussions and decision-making processes with stakeholders within various domains at Stripe.\n\n Who you are \n We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\n\n Minimum requirements \n • 7+ years of experience in delivering, extending, and maintaining large-scale distributed systems\n\n • Love to design systems that are elegant abstractions over complex patterns and practices, especially in the financial industry.\n\n • Hold yourself and others to a high bar when working with production systems.\n\n • Take pride in working on projects to successful completion involving a wide variety of technologies and systems.\n\n • Think about systems, services, and platforms, and write high-quality code.\n\n • You have great product taste and a track record of taking complex problems and solving them elegantly.\n\n • You are capable of working in ambiguous, fast-moving environments and have a curiosity to learn the domain to a deep level.\n\n • Enjoy working with a diverse group of people with different expertise.\n\n Preferred qualifications \n • Familiarity with large-scale distributed systems\n\n • Experience working in high-growth teams similar to Stripe"
+    },
+    {
+      "id": "gh-8042913",
+      "title": "Solutions Architect (India)",
+      "level": "Staff",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "1153 Solutions Architecture (APAC)",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8042913",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "2e2e18458ab5aa74e238870f68a6a749579bc23cc7437ac425a15e15f85f0c5f",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [],
+      "toolsAndTech": [],
+      "responsibilities": [
+        "Support key technical engagements for Stripe in India",
+        "Drive thought leadership and be a trusted advisor for key business and technical stakeholders including CIO, CTO, COO, CRO, CDO, Head of Product Engineering, and Head of Payments.",
+        "Work to deeply understand the customer’s business objectives, and then design and apply Stripe’s solutions to their challenges. Develop and articulate the end to end customer transformation journey and create future roadmaps and architectures with deep 3rd party integrations in play.",
+        "Lead strategy engagements with users to align to business priorities, design solutions and secure the technical win by performing in-depth customer discovery, evangelizing the proposed solutions through executive briefings, readouts, presentations and solution demos.",
+        "Bring understanding of the regional market to our Product and Engineering organizations by acting as the “Voice of the User” to bring insights, trends and opportunities to the leadership, product and engineering teams.",
+        "Participate in sales forecasting, Quarterly Business Reviews and account/territory planning to strategically and tactically align for success.",
+        "Act as a crucial part of the sales team, providing technical insight and solutions to prospective and existing platform users. Guide and provide technical expertise on Stripe and its benefits.",
+        "Showcase the capability of Stripe's platform in solving business problems, highlighting features, benefits, and potential customizations."
+      ],
+      "requiredQualifications": [
+        "4+ years of experience in a similar customer-facing engineering role such as solution consultant, solutions architect, or sales engineer, for a global software enterprise.",
+        "Experience as a customer facing, domain expert in the payments space, presenting, and architecting solutions for platform customers.",
+        "Prior experience driving technical sales and supporting them and their customer’s unique requirements",
+        "Experience with integrating Stripe or other RESTful APIs into web applications.",
+        "Experience in systems design, building and deploying complex applications."
+      ],
+      "fullText": "Solutions Architect (India)\n\nLocation: Bengaluru\nDepartment: 1153 Solutions Architecture (APAC)\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the team \n The Solutions Architecture Team partners with our users to realize their full potential through the adoption of prescriptive solutions that drive their growth and success.\n\n We work with founders, C-level executives, finance leaders, product design and engineering teams at large global brands and platforms who are building financial services solutions with Stripe. We work closely with Account Executives, Professional Services, Customer Success Managers, Partners, Technical Account Managers Product, and Engineering teams to develop and execute on the account strategy for Stripe in market.\n\n What you’ll do \n You will be building trusted relationships with brand new founders to the C-suite, and solving mission-critical business challenges for our users. You will be building new business models and help expand existing ones with users of all shapes and sizes in the region. \n\n Responsibilities \n \n Support key technical engagements for Stripe in India\n\n Drive thought leadership and be a trusted advisor for key business and technical stakeholders including CIO, CTO, COO, CRO, CDO, Head of Product Engineering, and Head of Payments. \n\n Work to deeply understand the customer’s business objectives, and then design and apply Stripe’s solutions to their challenges. Develop and articulate the end to end customer transformation journey and create future roadmaps and architectures with deep 3rd party integrations in play.\n\n Lead strategy engagements with users to align to business priorities, design solutions and secure the technical win by performing in-depth customer discovery, evangelizing the proposed solutions through executive briefings, readouts, presentations and solution demos. \n\n Bring understanding of the regional market to our Product and Engineering organizations by acting as the “Voice of the User” to bring insights, trends and opportunities to the leadership, product and engineering teams. \n\n Participate in sales forecasting, Quarterly Business Reviews and account/territory planning to strategically and tactically align for success.\n\n Act as a crucial part of the sales team, providing technical insight and solutions to prospective and existing platform users. Guide and provide technical expertise on Stripe and its benefits.\n\n Showcase the capability of Stripe's platform in solving business problems, highlighting features, benefits, and potential customizations. \n\n Manage pre-sales projects, coordinating proof of concept development, and feasibility checks. Ensure all solutions proposed are viable, beneficial to our potential clients, and also accommodating to their customers.\n\n Who you are \n We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\n\n Mi"
+    },
+    {
+      "id": "gh-8070949",
+      "title": "Staff Engineer, Core Infrastructure",
+      "level": "Staff",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies — from the world's largest enterprises to the most ambitious startups — use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the...",
+      "location": "Bengaluru, India",
+      "workplaceType": "unspecified",
+      "department": "8129 Global Networking",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8070949",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "1fc5201d960e47b28a2d64e3027e4a555a01fc44fa8b42cfed4e42f28a34ee83",
+      "competencies": [
+        "golang",
+        "aws",
+        "kubernetes",
+        "databases",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "MongoDB",
+        "PostgreSQL",
+        "High Availability & Fault Tolerance",
+        "AWS",
+        "Linux",
+        "Kubernetes",
+        "CI/CD Pipelines",
+        "Distributed Systems",
+        "Feature Engineering",
+        "Azure",
+        "GCP",
+        "Grafana",
+        "Prometheus",
+        "Terraform"
+      ],
+      "toolsAndTech": [
+        "MongoDB",
+        "PostgreSQL",
+        "High Availability & Fault Tolerance",
+        "AWS",
+        "Linux",
+        "Kubernetes",
+        "CI/CD Pipelines",
+        "Distributed Systems",
+        "Feature Engineering",
+        "Azure",
+        "GCP",
+        "Grafana",
+        "Prometheus",
+        "Terraform"
+      ],
+      "responsibilities": [
+        "Define evidence-based readiness criteria for regional launches, traffic migrations, and failovers — replacing manual checklists with repeatable, globally consistent patterns",
+        "Proactively identify and mitigate risks on critical payment paths; use system data to drive ownership and validate that platform mitigations measurably reduce impact",
+        "Lead end-to-end cross-functional delivery for new-region infrastructure, including safe service behaviors for remote control planes",
+        "Build reusable validation tooling that accelerates infrastructure integration for new acquisitions and reduces high-priority blockers",
+        "Convert recurring operational friction into scalable platform capabilities used across teams",
+        "Lead technical conversations and define decision mechanisms across Core Infrastructure and product teams",
+        "Develop and communicate a multi-year technical strategy for REP with clearly defined quarterly milestones and success metrics",
+        "Debug production issues across services and levels of the stack"
+      ],
+      "requiredQualifications": [
+        "12+ years of professional experience in software or infrastructure engineering",
+        "Experience optimizing the reliability and security of distributed systems",
+        "Experience scaling and migrating systems with little to no downtime",
+        "Experience mentoring engineers at various stages of their careers",
+        "Experience with one or more major cloud providers — AWS, Azure, OCI, or GCP",
+        "Experience validating large-scale migrations, failovers, regional launches, regionalization, or control-plane behavior.",
+        "Experience designing or operating infrastructure with strict reliability, correctness, latency, or availability requirements.",
+        "Experience with networking, service discovery, traffic routing, databases, Kubernetes, Terraform, or cloud infrastructure."
+      ],
+      "fullText": "Staff Engineer, Core Infrastructure\n\nLocation: Bengaluru, India\nDepartment: 8129 Global Networking\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies — from the world's largest enterprises to the most ambitious startups — use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career.\n\n About the Organization \n The Core Infrastructure organization operates the foundational systems that power Stripe globally — including databases (MongoDB, PostgreSQL), high availability and disaster recovery (HADR), AWS cloud infrastructure, Linux servers, container orchestration, mesh networking, service discovery, and network edge infrastructure.\n\n Within Core Infra, the Regional Enablement Platform (REP) team helps Stripe launch and operate new regions without learning about broken dependencies from users. REP builds the regionalization, validation, deploy-safety, and operator tooling needed to answer practical launch-readiness questions: can critical payment paths run from the new region, which services still depend on a remote control plane, what breaks under packet loss or failover, and what must be fixed before deploys, launches, traffic shifts, or failovers proceed. The team uses traffic replay, synthetics, failover drills, dependency analysis, CI/CD gates, and incident data to turn those findings into platform fixes, service-owner asks, and reusable readiness checks across networking, HADR, and service teams.\n\n This role is based in Bangalore and serves as a senior technical anchor for Core Infrastructure in India, with direct cross-region influence across AMER, EU, and APAC.\n\n What you'll do \n As a Staff Engineer on REP, you will play a key leadership role in enabling Stripe's infrastructure to power all of our products, globally and at scale. You will decide how Stripe validates that a new region can safely take traffic and continue working through network loss, failover, and deploy changes. You will define the checks that must pass before launch or failover, build validation systems that replay real production paths against regional infrastructure, and turn those checks into CI/CD gates, operator workflows, and concrete fixes for service or platform owners. You will also help build Core Infrastructure's senior technical bench in Bangalore through design review, mentoring, and cross-region technical leadership. \n\n Responsibilities \n\n Define evidence-based readiness criteria for regional launches, traffic migrations, and failovers — replacing manual checklists with repeatable, globally consistent patterns\n\n Proactively identify and mitigate risks on critical payment paths; use system data to drive ownership and validate that platform mitigations measurably reduce impact\n\n Lead end-to-end cross-functional delivery for new-region infrastructure, including safe service behaviors for remote control planes\n\n Build reusable validation tooling that accelerates infrastructure integration for new acquisitions and reduces high-priority blockers\n\n Convert recurring operational friction into scalable platform capabilities used across teams\n\n Lead technical conversations and define decision mechanisms across Core Infrastr"
+    },
+    {
+      "id": "gh-8222459",
+      "title": "Staff Engineer, Revenue Experiences",
+      "level": "Staff",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "8121 Commerce Systems",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8222459",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "209c042e168dae9345e959128d8e6729c8865a0a6664d6a4dc6eb9b529f18d84",
+      "competencies": [
+        "react",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "ETL Pipelines",
+        "Next.js",
+        "Distributed Systems"
+      ],
+      "toolsAndTech": [
+        "ETL Pipelines",
+        "Next.js",
+        "Distributed Systems"
+      ],
+      "responsibilities": [
+        "Work cross-functionally with business leaders across the company as well as partner engineering teams.",
+        "Ensure our platform solutions and user billing data are high quality, meet the needs of our internal users, and position us to meet Stripe's growth.",
+        "Drive interoperability across platforms in User Billing and integrations across Stripe with product, accounting, sales, finance, and data science teams.",
+        "Scrutinize billing interfaces and data models, elevating our focus on correctness and ease of use within User Billing.",
+        "Establish best practices, frameworks, and repeatable processes that enable the team to execute effectively.",
+        "Foster a culture of learning and data-driven decision making on the team and to influence the broader organization.",
+        "Mentor and support the growth of engineers at different levels in their careers.",
+        "Proven track record of building large-scale, complex distributed systems; identifying shortcomings and optimization opportunities; and making data-driven cost performance tradeoffs to influence design decisions."
+      ],
+      "requiredQualifications": [
+        "Manage the technical leadership, execution, and roadmap for Revenue Experiences Engineering.",
+        "Partner closely with engineering, product, and design leadership to define our product strategy and user experience.",
+        "10+ years of hands-on experience building large-scale, distributed systems.",
+        "Experience building and operating infrastructure and tools that empower developers/product teams to deliver business value.",
+        "Experience influencing company strategy at the intersection of business needs and technology (you measure your success in terms of business impact, not lines of code).",
+        "Experience leading and creating strong technical teams that balance operational excellence, collaboration, and user needs.",
+        "Past experience mentoring and investing in the development of engineers.",
+        "Prior experience in the financial technology space, particularly in payment processing, accounting, or financial reporting."
+      ],
+      "fullText": "Staff Engineer, Revenue Experiences\n\nLocation: Bengaluru\nDepartment: 8121 Commerce Systems\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career. \n\n About the team \n The Revenue Experiences Engineering team is part of the Commerce Systems organization at Stripe. We focus on ensuring that our users, both internal and external, have a best-in-class experience with billing at Stripe. This includes working on the systems and processes needed to bill our largest and most complex customers, as well as designing and delivering experiences to help guide users through their billing, from fee explainability to deep diving on product usage optimization. We are a cross-functional technical team that seeks to bring clarity to a complex space. The team is at the crux of all Stripe products and builds user-facing as well as internal infrastructure.\n\n We build platforms and services to define and manage pricing, calculate and collect Stripe's revenue, and empower Stripe and our users to understand and manage revenue and costs. We work on customer-facing experiences, internal platforms, and data pipelines to empower Accounting, Finance, Strategy, Sales, and Stripe's Products to drive business value across the entire user and product lifecycle.\n\n What you’ll do \n We are seeking an experienced technical leader to join our India-based team and drive the technical roadmap for Revenue Experiences Engineering, collaborating deeply with partner teams across Commerce Systems in the US, EMEA, and India. In this role, you will work closely with engineering managers, senior engineers, and cross-functional partners to help design architecture, ensure technical excellence, and break down complex problems to make them more tractable with engineering teams. You will be involved in the building of the technical bench, mentoring and growing the next senior engineers within the broader organisation.\n\n You will work cross-functionally to align on the business challenges in delivering excellent billing and accounting experiences to our users. Often this will include influencing across organizations and grounding your arguments in solid data and a technical roadmap. As such, you will have excellent technical leadership and communication skills.\n\n You will also be hands-on in building key systems, while mentoring and leading other engineers. Join us in driving change in an area with tremendous opportunity.\n\n Responsibilities \n \n Manage the technical leadership, execution, and roadmap for Revenue Experiences Engineering.\n\n Work cross-functionally with business leaders across the company as well as partner engineering teams.\n\n Partner closely with engineering, product, and design leadership to define our product strategy and user experience.\n\n Ensure our platform solutions and user billing data are high quality, meet the needs of our internal users, and position us to meet Stripe's growth.\n\n Drive interoperability across platforms in User Billing and integrations across Stripe with product, accounting, sales, financ"
+    },
+    {
+      "id": "gh-8162185",
+      "title": "Staff Engineer, Support Experiences",
+      "level": "Staff",
+      "desc": "Who we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the inte...",
+      "location": "Bengaluru",
+      "workplaceType": "unspecified",
+      "department": "4145 Support Products - Eng",
+      "source": "Official Stripe India Greenhouse ATS Feed",
+      "sourceUrl": "https://stripe.com/jobs/search?gh_jid=8162185",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "18c54b025f48ced102f80deed14e6ace4a3b1682fe2b1afdf828692b782ed6f9",
+      "competencies": [
+        "java",
+        "react",
+        "typescript",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Generative AI",
+        "Distributed Systems",
+        "Next.js",
+        "JavaScript",
+        "TypeScript",
+        "Ruby",
+        "Java"
+      ],
+      "toolsAndTech": [
+        "Generative AI",
+        "Distributed Systems",
+        "Next.js",
+        "JavaScript",
+        "TypeScript",
+        "Ruby",
+        "Java"
+      ],
+      "responsibilities": [
+        "Design, build, and operate production systems, with an emphasis on extensibility, reliability, and usability",
+        "Write and review code regularly, setting the pace and elevating standards for the team",
+        "Collaborate with cross-functional stakeholders - navigating various types of organizational complexity with the support of your own leadership team",
+        "Partner with Engineering Management, Product Managers and key leaders across the company to create and drive toward the longer term vision",
+        "Improve engineering standards, tooling, and processes",
+        "Teach and mentor other engineers to become the next generation of leaders at Stripe",
+        "Ability to prioritize competing requirements and stakeholders to iteratively ship new product features, drive alignment and proactive communication.",
+        "Proven track record of technical leadership, including meaningfully contributing to the growth of other engineers."
+      ],
+      "requiredQualifications": [
+        "Build high-quality end-to-end product experiences, demonstrating deep care for users' needs and serving as a steward of crafting great experiences",
+        "Unblock the team to execute against both short-term and long-term roadmaps, making effective tradeoffs that consider business priorities, user experience, and a sustainable technical foundation",
+        "10+ years of professional backend or full-stack development experience, including actively writing and reviewing code.",
+        "Experience successfully setting and executing on long-term technical strategy for a large product area.",
+        "Experience building software systems for customer support or operations organizations.",
+        "Experience leading projects across multiple teams &amp; timezones.",
+        "Proficient in JavaScript /TypeScript, Ruby, Java, and React.",
+        "Experience designing, deploying, and owning Agentic LLM solutions (e.g., multi-step orchestrators, tool use/function calling) specifically for complex customer support or internal workflow automation."
+      ],
+      "fullText": "Staff Engineer, Support Experiences\n\nLocation: Bengaluru\nDepartment: 4145 Support Products - Eng\n\nWho we are \n About Stripe \n Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career. \n\n About the team \n The Support Experience engineering organization builds and improves Stripe’s user support from end to end: how users get help within our products, how they get in touch with us when they have questions, and how our teams use internal tools to answer those questions. We’re accountable for the quality and reliability of this support stack and we use data and firsthand experience to continuously improve it.\n\nProviding great support to users of all sizes is culturally important to everyone at Stripe. We partner closely with Stripe’s design, product, and operational teams across a wide surface\narea: the external-facing support interfaces (https://support.stripe.com/), self-serve content, entry points, internal tooling, case routing, and helping product teams across the company\nreduce support volume by improving our products. We are also using the latest generative AI technologies to re-imagine support experiences, and are developing AI assistants for Stripe’s\nusers and to help our operations teams be more productive.\n\n What you’ll do \n As a Staff Engineer on an established team, you will bring technical leadership and set the technical strategy and architecture for Stripe’s support products. You will mentor and grow\nsenior engineers, build a culture of technical excellence, and serve as a role model for our high engineering standards. As a technical leader, you will drive fast-paced, sustained product\ndelivery while upholding high standards for building reliable, scalable distributed systems that delight our users.\n\n Responsibilities \n \n Design, build, and operate production systems, with an emphasis on extensibility, reliability, and usability \n\n Write and review code regularly, setting the pace and elevating standards for the team \n\n Build high-quality end-to-end product experiences, demonstrating deep care for users' needs and serving as a steward of crafting great experiences \n\n Collaborate with cross-functional stakeholders - navigating various types of organizational complexity with the support of your own leadership team \n\n Partner with Engineering Management, Product Managers and key leaders across the company to create and drive toward the longer term vision \n\n Unblock the team to execute against both short-term and long-term roadmaps, making effective tradeoffs that consider business priorities, user experience, and a sustainable\ntechnical foundation \n\n Improve engineering standards, tooling, and processes \n\n Teach and mentor other engineers to become the next generation of leaders at Stripe \n\n Who you are \n We’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement. \n\n Minimum requirements \n \n 10+ years of professional backend or full-stack developme"
+    }
+  ]
+}

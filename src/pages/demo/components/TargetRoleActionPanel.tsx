@@ -158,6 +158,18 @@ export function TargetRoleActionPanel({
               );
             })()}
 
+            {selectedRole.sourceUrl && (
+              <a
+                href={selectedRole.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full mb-3 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-emerald-950/60 border border-emerald-500/60 text-emerald-300 hover:text-white hover:bg-emerald-900 text-xs font-bold uppercase tracking-wider transition-colors"
+              >
+                <span>Apply on Official ATS</span>
+                <span>↗</span>
+              </a>
+            )}
+
             {/* Trigger Button */}
             <button
               type="button"

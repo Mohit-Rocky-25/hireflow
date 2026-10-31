@@ -1,0 +1,58 @@
+name: 3-Day Live Market Data Sync
+
+on:
+  schedule:
+    # Runs every 3 days at 02:00 UTC
+    - cron: '0 2 */3 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions UI
+
+concurrency:
+  group: sync-market-data-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-commit:
+    name: Sync Live Public ATS Data (Levels.fyi Strategy)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Ingest Public ATS Feeds (Greenhouse & Lever)
+        run: npm run market:sync
+
+      - name: Verify TypeScript Integrity
+        run: npx tsc --noEmit
+
+      - name: Commit & Push Updated Live Data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage live market data changes
+          git add src/data/market/live-companies/
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No live market data changes detected. Working tree is clean."
+          else
+            echo "Detected live market data updates. Committing..."
+            git commit -m "data(market): sync 3-day live verified jobs [skip ci]"
+            git push origin ${{ github.ref_name }}
+            echo "Successfully pushed updated market data to ${{ github.ref_name }}."
+          fi

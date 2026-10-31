@@ -1,0 +1,490 @@
+{
+  "companyId": "coinbase",
+  "companyName": "Coinbase India",
+  "ats": "greenhouse",
+  "slug": "coinbase",
+  "tier": "TIER_S",
+  "sector": "Web3 & Global Crypto Infrastructure",
+  "headquarters": "Hyderabad / Remote India",
+  "website": "https://www.coinbase.com",
+  "lastSyncedAt": "2026-10-31T17:49:12.371Z",
+  "liveRoleCount": 8,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "gh-7985187",
+      "title": "Machine Learning Engineer",
+      "level": "Mid-Level",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Machine Learning",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/7985187?gh_jid=7985187",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "8050cc927ff4916ea966b63af6f365663616b02a5ce873c67fbb843041043aa1",
+      "competencies": [
+        "python",
+        "aws",
+        "ml",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Machine Learning",
+        "Python",
+        "System Design",
+        "Natural Language Processing",
+        "Deep Learning",
+        "AWS",
+        "Computer Vision",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Machine Learning",
+        "Python",
+        "System Design",
+        "Natural Language Processing",
+        "Deep Learning",
+        "AWS",
+        "Computer Vision",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Build and improve the orchestration layer that manages state transitions, context sharing, and intent routing across vendor and internal LLM frameworks in a distributed conversational environment.",
+        "Develop production-grade Python services that bridge advanced AI and ML capabilities with reliable customer-facing products.",
+        "Drive well-scoped ML projects from design through delivery, balancing technical trade-offs and collaborating across teams.",
+        "Contribute to system design, coding standards, and AI/ML development best practices across the team.",
+        "Participate in design reviews and help ensure features meet Coinbase standards for security, compliance, and performance.",
+        "Working knowledge in at least one domain such as NLP, information retrieval, computer vision, or statistical modeling.",
+        "Ability to write technical design documents and communicate ML system designs clearly to cross-functional stakeholders.",
+        "Uses generative AI responsibly, applying human oversight to deliver business-ready outputs and measurable improvements in efficiency, cost, and quality."
+      ],
+      "requiredQualifications": [
+        "Partner with engineers and cross-functional stakeholders to build secure, scalable, and high-performing AI-enabled experiences.",
+        "2+ years of professional experience in machine learning and software engineering, with experience shipping production-grade ML services.",
+        "Hands-on experience building with modern AI architectures such as LLMs and deep learning, and familiarity with tools such as LangGraph, LangSmith, Google ADK, Vertex AI, or AWS Bedrock.",
+        "Strong proficiency in Python and the ability to write clean, maintainable, well-tested production code."
+      ],
+      "fullText": "Machine Learning Engineer\n\nLocation: Remote - India\nDepartment: Machine Learning\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n The CX Intelligence team is part of Coinbase’s Enterprise Applications and Architecture org and builds the customer-facing and internal CX experiences that connect the Help Center, chatbots (CBCB), and agent workflows. The team owns the multi-agent platform that powers Coinbase chat, Help Center, and agent tooling, partnering closely with Conversation Design, CX, and engineering teams to deliver secure, compliant, and scalable AI-powered support. Our work helps customers get answers faster while enabling agents to resolve cases more effectively.\n\n We are hiring an IC4 Machine Learning Engineer to help evolve our conversational ecosystem by building a seamless hybrid vendor-internal chatbot experience. You will contribute to the design and implementation of a unified orchestration layer that coordinates interactions between vendor AI, internal multi-agent systems, and human participants. This role is ideal for someone who enjoys solving complex ML systems problems, building reliable handoff logic across LLM frameworks, and shipping AI-enabled products that are measurable and scalable.\n\n What you'll do: \n\n Build and improve the orchestration layer that manages state transitions, context sharing, and intent routing across vendor and internal LLM frameworks in a distributed conversational environment.\n\n Develop production-grade Python services that bridge advanced AI and ML capabilities with reliable customer-facing products.\n\n Drive well-scoped ML projects from design through delivery, balancing technical trade-offs and collaborating across teams.\n\n Contribute to system design, coding standards, and AI/ML development best practices across the team.\n\n Partner with engineers and cross-functional stakeholders to build secure, scalable, and high-performing AI-enabled experiences.\n\n Participate in design reviews and help ensure features meet Coinbase standards for security, compliance, and performance.\n\n Required Skills and Experience: \n\n 2+ years of professional experience in machine learning and software engineering, with experience shipping production-grade ML services.\n\n Hands-on experience building with modern AI architectures such as LLMs and deep learning, and familiarity with tools such as LangGraph, LangSmith, Google ADK, Vertex AI, or AWS Bedrock.\n\n Strong proficiency in Python and the ability to write clean, maintainable, well-tested production code.\n\n Working knowledge in at least one domain such as NLP, information retrieval, computer vision, or statistical modeling.\n\n Ability to write technical design documents and communicate ML system designs clearly to cross-functional stakeholders.\n\n Uses generative AI responsibly, applying human oversight to deliver business-ready outputs and measurable improvements in efficiency, cost, and quality.\n\n Pay Transparency Noti"
+    },
+    {
+      "id": "gh-8265918",
+      "title": "Senior Engineering Manager",
+      "level": "Engineering Manager",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Engineering - Managers",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8265918?gh_jid=8265918",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "35ffceffe9ab5918ce7ad0035a0863dc33eec4dbadea3507ff2adf9169b4d402",
+      "competencies": [
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Statistical Analysis & A/B Testing",
+        "Distributed Systems",
+        "Technical Leadership & Mentorship",
+        "Root Cause Analysis & Debugging",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Statistical Analysis & A/B Testing",
+        "Distributed Systems",
+        "Technical Leadership & Mentorship",
+        "Root Cause Analysis & Debugging",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Lead, coach, and grow engineers; support their development and career progression.",
+        "Partner with Product, Design, Engineering, and senior leaders to set a clear quarterly roadmap and deliver it iteratively.",
+        "Guide technical decisions and promote high-quality code, sound engineering practices, and reliable distributed systems.",
+        "Stay close to the work through design and code reviews, incident leadership, on-call participation, and troubleshooting when needed.",
+        "Own processes that improve engineering quality and help the team meet its service-level commitments.",
+        "Partner with recruiting to attract and hire strong engineers.",
+        "Strong engineering judgment and the ability to foster quality, maintainability, and effective development practices.",
+        "An execution-focused approach: able to work through ambiguity, balance near-term delivery with long-term planning, and turn complex goals into actionable work."
+      ],
+      "requiredQualifications": [
+        "7+ years of software engineering experience, ideally in data platform or infrastructure, including 2+ years in engineering management.",
+        "Experience building, delivering, and operating distributed systems at scale.",
+        "Experience leading technical change in a large, fast-moving organization."
+      ],
+      "fullText": "Senior Engineering Manager\n\nLocation: Remote - India\nDepartment: Engineering - Managers\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n The Data Platform team builds the foundations for storing, moving, managing, and using data at scale—including storage, streaming, data lakes, analytics, and experimentation. As an Engineering Manager, you’ll lead a team developing reliable data services and the privacy and governance capabilities that help teams use data responsibly. \n\n What you’ll do \n \n Lead, coach, and grow engineers; support their development and career progression.\n\n Partner with Product, Design, Engineering, and senior leaders to set a clear quarterly roadmap and deliver it iteratively.\n\n Guide technical decisions and promote high-quality code, sound engineering practices, and reliable distributed systems.\n\n Stay close to the work through design and code reviews, incident leadership, on-call participation, and troubleshooting when needed.\n\n Own processes that improve engineering quality and help the team meet its service-level commitments.\n\n Partner with recruiting to attract and hire strong engineers.\n\n Required Skills and Experience: \n \n 7+ years of software engineering experience, ideally in data platform or infrastructure, including 2+ years in engineering management.\n\n Experience building, delivering, and operating distributed systems at scale.\n\n Strong engineering judgment and the ability to foster quality, maintainability, and effective development practices.\n\n An execution-focused approach: able to work through ambiguity, balance near-term delivery with long-term planning, and turn complex goals into actionable work.\n\n A hands-on leadership style and willingness to engage in technical work and operational responsibilities.\n\n Experience leading technical change in a large, fast-moving organization.\n\n Familiarity with blockchain infrastructure, such as Bitcoin or Ethereum.\n\n Clear communication, ownership, and a strong customer focus.\n\n Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality.\n\n #LI-REMOTE\n\n Pay Transparency Notice: The target annual base salary for this position can range as detailed below. Total compensation may also include equity and bonus eligibility and benefits (including medical, dental, and vision).\n\n Annual base salary range (excluding equity and bonus): ₹9,424,000 &mdash; ₹9,424,500 INR \n Application Limit: Candidates may submit a maximum of 3 applications within a 6-month period.\n\n Equal Opportunity Employer: Coinbase is an Equal Opportunity Employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, protected veteran status, or genetic information. Applicants with criminal histories will be considered consiste"
+    },
+    {
+      "id": "gh-8054055",
+      "title": "Senior IT Automation Engineer",
+      "level": "Senior",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "IT",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8054055?gh_jid=8054055",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "7d6a218bb824a89955c476c5a3bea92ad0394e9cd59856837bf9c962faebf87c",
+      "competencies": [
+        "aws",
+        "devops",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Jira",
+        "Airflow",
+        "AWS",
+        "Git",
+        "CI/CD Pipelines",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Jira",
+        "Airflow",
+        "AWS",
+        "Git",
+        "CI/CD Pipelines",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Own the technical architecture of IT Tooling automations, driving design decisions on system structure, integration patterns, and tooling across n8n, Airflow, Temporal, and Jira",
+        "Establish architecture standards and code review practices that raise the team's overall engineering bar",
+        "Lead as technical DRI on the most complex, highest-impact automation projects, from discovery and design through production delivery",
+        "Partner with Security, Corporate Engineering, and IAM to resolve technical blockers and represent the team in cross-functional architecture discussions",
+        "Build shared frameworks and reusable components that reduce single points of failure across the platform",
+        "Produce architecture documentation and decision records that enable the team to scale with minimal dependency on any single individual",
+        "Deep expertise building and maintaining complex automations using n8n, Airflow, Temporal, Jira Automation, or Workato, paired with strong Git-based development workflows including branching, CI/CD, and code review",
+        "Ability to operate in ambiguous environments and translate loosely scoped problems into production-ready technical specifications"
+      ],
+      "requiredQualifications": [
+        "Manage your own workload with a high degree of independence, translating loosely scoped problems into production-ready technical specifications",
+        "5+ years of experience in IT engineering, automation, or systems engineering, with demonstrated ownership of architecture decisions, engineering standards, or platform-level systems that others build on top of",
+        "Working knowledge of Okta, Slack API, and Google Workspace administration sufficient to design secure, scalable automation architecture"
+      ],
+      "fullText": "Senior IT Automation Engineer\n\nLocation: Remote - India\nDepartment: IT\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n The IT Tooling team sits within IT Support &amp; Services (ITSS) and builds the automations that power ITSS's own operations. Our in-house bot, Ask IT, deflects the majority of company-wide IT requests before they reach a human. Beyond that, we automate ITSS's core day-to-day workflows — ticket triage, access reviews, onboarding and offboarding — which employees experience as self-service. You'll own technical domains within the IT Tooling platform and partner with regional IT teams across APAC, EMEA, and AMER through platforms including n8n, Jira, Okta, Airflow, and Temporal.\n\n What You'll Do \n\n Own the technical architecture of IT Tooling automations, driving design decisions on system structure, integration patterns, and tooling across n8n, Airflow, Temporal, and Jira\n\n Establish architecture standards and code review practices that raise the team's overall engineering bar\n\n Lead as technical DRI on the most complex, highest-impact automation projects, from discovery and design through production delivery\n\n Partner with Security, Corporate Engineering, and IAM to resolve technical blockers and represent the team in cross-functional architecture discussions\n\n Build shared frameworks and reusable components that reduce single points of failure across the platform\n\n Produce architecture documentation and decision records that enable the team to scale with minimal dependency on any single individual\n\n Manage your own workload with a high degree of independence, translating loosely scoped problems into production-ready technical specifications\n\n Required Skills and Experience \n \n 5+ years of experience in IT engineering, automation, or systems engineering, with demonstrated ownership of architecture decisions, engineering standards, or platform-level systems that others build on top of\n\n Deep expertise building and maintaining complex automations using n8n, Airflow, Temporal, Jira Automation, or Workato, paired with strong Git-based development workflows including branching, CI/CD, and code review\n\n Working knowledge of Okta, Slack API, and Google Workspace administration sufficient to design secure, scalable automation architecture\n\n Ability to operate in ambiguous environments and translate loosely scoped problems into production-ready technical specifications\n\n Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality.\n\n Pay Transparency Notice: The target annual base salary for this position can range as detailed below. Total compensation may also include equity and bonus eligibility and benefits (including medical, dental, and vision).\n\n Annual base salary range (excluding equity and bonus): ₹3,419,600 &mdash; ₹3,419,600 INR \n Application Limit: Candidates may"
+    },
+    {
+      "id": "gh-7739592",
+      "title": "Senior Machine Learning Engineer",
+      "level": "Senior",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Enterprise Applications",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/7739592?gh_jid=7739592",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "1ef4421c1902cbe12e6d4dcc9b4a861497463f697992e8cfa6d82ee0d6e1fb89",
+      "competencies": [
+        "python",
+        "aws",
+        "ml",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Machine Learning",
+        "Python",
+        "System Design",
+        "Natural Language Processing",
+        "Deep Learning",
+        "Generative AI",
+        "AWS",
+        "Computer Vision",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Machine Learning",
+        "Python",
+        "System Design",
+        "Natural Language Processing",
+        "Deep Learning",
+        "Generative AI",
+        "AWS",
+        "Computer Vision",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Architect and deploy the orchestration layer that manages state transitions, context sharing, and intent routing across vendor and internal LLM frameworks in a distributed conversational environment.",
+        "Build production-grade Python services that bridge advanced ML/AI research with reliable, measurable customer-facing products.",
+        "Lead end-to-end project execution for complex ML initiatives, managing priorities, technical trade-offs, and cross-functional dependencies from design through delivery.",
+        "Establish best practices for system design, coding standards, and AI/ML development workflows across the team.",
+        "Mentor engineers on architectural integrity and modern AI/ML patterns, raising the technical bar for the broader team.",
+        "Conduct design reviews to ensure every feature meets Coinbase's standards for security, scalability, and performance.",
+        "Hands-on expertise building with modern AI architectures (LLMs, deep learning) and the generative AI ecosystem, including frameworks such as LangGraph, LangSmith, Google ADK, Vertex AI, or AWS Bedrock.",
+        "Specialized knowledge in at least one domain: NLP, information retrieval, computer vision, or advanced statistical modeling."
+      ],
+      "requiredQualifications": [
+        "5+ years of professional experience in machine learning and software engineering, with a track record of shipping production-grade ML services at scale.",
+        "Deep proficiency in Python with demonstrated ability to write clean, maintainable, highly-tested production code."
+      ],
+      "fullText": "Senior Machine Learning Engineer\n\nLocation: Remote - India\nDepartment: Enterprise Applications\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n The CX Intelligence team is part of Coinbase’s Enterprise Applications and Architecture org and builds the customer-facing and internal CX experiences that connect the Help Center, chatbots (CBCB), and agent workflows. The team owns the multi-agent platform which powers coinbase chat, Help Center and agent tooling surfaces, partnering closely with Conversation Design, CX, and other Engg teams to deliver secure, compliant, and scalable AI-powered support. Our work provides the trusted and accurate automated and agent-assisted experiences—helping customers get answers faster while enabling human agents to resolve cases more effectively.\n\nWe are hiring an IC5 Machine Learning Engineer to drive the evolution of our conversational ecosystem by building a seamless hybrid vendor-internal chatbot experience. You will lead the design and implementation of a sophisticated unified orchestration layer that coordinates interactions between vendor AI, internal multi-agent systems, and human participants. This role is pivotal in managing complex state transitions, context sharing, and intent routing across a distributed environment. You’ll thrive here if you enjoy high ownership, architecting complex hand-off logic between disparate LLM frameworks, and building reliable AI-enabled products that are fast, measurable, and scalable.\n\n What you'll do: \n\n Architect and deploy the orchestration layer that manages state transitions, context sharing, and intent routing across vendor and internal LLM frameworks in a distributed conversational environment.\n\n Build production-grade Python services that bridge advanced ML/AI research with reliable, measurable customer-facing products.\n\n Lead end-to-end project execution for complex ML initiatives, managing priorities, technical trade-offs, and cross-functional dependencies from design through delivery.\n\n Establish best practices for system design, coding standards, and AI/ML development workflows across the team.\n\n Mentor engineers on architectural integrity and modern AI/ML patterns, raising the technical bar for the broader team.\n\n Conduct design reviews to ensure every feature meets Coinbase's standards for security, scalability, and performance.\n\n Required Skills and Experience: \n\n 5+ years of professional experience in machine learning and software engineering, with a track record of shipping production-grade ML services at scale.\n\n Hands-on expertise building with modern AI architectures (LLMs, deep learning) and the generative AI ecosystem, including frameworks such as LangGraph, LangSmith, Google ADK, Vertex AI, or AWS Bedrock.\n\n Deep proficiency in Python with demonstrated ability to write clean, maintainable, highly-tested production code.\n\n Specialized knowledge in at least one domain: NLP, information retrieval, compu"
+    },
+    {
+      "id": "gh-8325213",
+      "title": "Senior Software Engineer - Data Platform",
+      "level": "Senior",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Engineering - Data",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8325213?gh_jid=8325213",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "36436da92b50ab71addfb1916037cd971911e62f3af7b91134cca737ab53b522",
+      "competencies": [
+        "java",
+        "python",
+        "golang",
+        "ml",
+        "databases",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Machine Learning",
+        "Airflow",
+        "ETL Pipelines",
+        "Apache Spark",
+        "SQL",
+        "Kafka",
+        "Prometheus",
+        "Python",
+        "Go",
+        "Java",
+        "Object-Oriented Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Machine Learning",
+        "Airflow",
+        "ETL Pipelines",
+        "Apache Spark",
+        "SQL",
+        "Kafka",
+        "Prometheus",
+        "Python",
+        "Go",
+        "Java",
+        "Object-Oriented Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Design, build, and operate foundational data services, including storage (cloud warehouse, data lake), orchestration (Airflow), batch processing (Spark, SQL), and streaming (Kafka).",
+        "Build and maintain data integration and processing SDKs used by internal services and product teams.",
+        "Design self-service tools so users can manage and troubleshoot their own data pipelines.",
+        "Build services for data security, observability, quality, cataloging, and lineage.",
+        "Turn requests from analysts, ML, and security teams into reusable, scalable patterns.",
+        "Strong Python, Go, or Java backend development skills.",
+        "Familiarity with design patterns such as scale-out, caching, key/value, and columnar storage.",
+        "Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality."
+      ],
+      "requiredQualifications": [
+        "5+ years of experience in software engineering, including senior-level ownership.",
+        "Hands-on experience with data systems or data pipelines.",
+        "Working knowledge of SQL and Airflow for operational data analysis."
+      ],
+      "fullText": "Senior Software Engineer - Data Platform\n\nLocation: Remote - India\nDepartment: Engineering - Data\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n The Data Platform team builds and operates systems that centralize all of Coinbase's internal and third-party data, so teams across the company can access, process, and transform it for analytics, machine learning, and end-user experiences. As a senior engineer, you will work across the full stack of our systems: foundational processing and storage, scalable pipelines, and the frameworks and internal tools that make data easy to use. \n\n What you’ll do: \n\n Design, build, and operate foundational data services, including storage (cloud warehouse, data lake), orchestration (Airflow), batch processing (Spark, SQL), and streaming (Kafka).\n\n Build and maintain data integration and processing SDKs used by internal services and product teams.\n\n Design self-service tools so users can manage and troubleshoot their own data pipelines.\n\n Build services for data security, observability, quality, cataloging, and lineage.\n\n Turn requests from analysts, ML, and security teams into reusable, scalable patterns.\n\n Required Skills and Experience: \n\n 5+ years of experience in software engineering, including senior-level ownership.\n\n Strong Python, Go, or Java backend development skills.\n\n Hands-on experience with data systems or data pipelines.\n\n Familiarity with design patterns such as scale-out, caching, key/value, and columnar storage.\n\n Working knowledge of SQL and Airflow for operational data analysis.\n\n Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality.\n\n #LI-REMOTE\n\n Pay Transparency Notice: The target annual base salary for this position can range as detailed below. Total compensation may also include equity and bonus eligibility and benefits (including medical, dental, and vision).\n\n Annual base salary range (excluding equity and bonus): ₹6,612,000 &mdash; ₹6,612,600 INR \n Application Limit: Candidates may submit a maximum of 3 applications within a 6-month period.\n\n Equal Opportunity Employer: Coinbase is an Equal Opportunity Employer. All qualified applicants will receive consideration for employment without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, protected veteran status, or genetic information. Applicants with criminal histories will be considered consistent with applicable federal, state, and local laws. \n\n US Applicants: View Employee Rights , Know Your Rights , and E-Verify Notice of Participation. \n\n Accommodations: If you are an individual with a disability who needs a reasonable accommodation, email us your request and contact info at accommodations[at]coinbase.com. Need screen reading technology? Click here to download a free compatible screen reader and view the tut"
+    },
+    {
+      "id": "gh-8165441",
+      "title": "Software Engineer, Security Platform",
+      "level": "Mid-Level",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Security & Privacy",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8165441?gh_jid=8165441",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "0c8b723e474bd9bd3da2b2f9076d9699e06d262b21db23fd8e02320f586f6722",
+      "competencies": [
+        "java",
+        "golang",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Go",
+        "Java",
+        "Feature Engineering",
+        "System Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Go",
+        "Java",
+        "Feature Engineering",
+        "System Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Architect and develop platform for security platform engineering org",
+        "Provide technical structure to teams and work closely with management and stakeholders to define strategic roadmaps",
+        "Build new services to meet critical product and business needs using Golang / Java",
+        "Design scalable systems to solve novel problems with modern cloud technology and industry best practices.",
+        "Manage individual projects priorities, deadlines and deliverables with your technical expertise",
+        "Mentor and train other team members on design techniques and coding standards",
+        "Articulate a long term vision for maintaining and scaling our backend systems and the teams running them.",
+        "Work with engineers, designers, product managers and senior leadership to turn our product and technical vision into a tangible roadmap every quarter."
+      ],
+      "requiredQualifications": [
+        "You have at least 3+ years of experience in software engineering"
+      ],
+      "fullText": "Software Engineer, Security Platform\n\nLocation: Remote - India\nDepartment: Security & Privacy\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n Coinbase stores a large amount of digital currency making us a top tier target on the internet. Security is core to our mission and has been a key competitive differentiator for us as we scale. Security Platform Engineering ( SPE ) team is building platform capabilities for a variety of security use cases critical for security, compliance and privacy at Coinbase. Some of the key functional areas we are developing capabilities for are secrets and key management, identity access and management, onchain security, policy and risk management, vulnerabilities management enabling our product, compliance, security and services teams to protect Coinbase and our customers.\n\n What you’ll do: \n\n Architect and develop platform for security platform engineering org\n\n Provide technical structure to teams and work closely with management and stakeholders to define strategic roadmaps\n\n Build new services to meet critical product and business needs using Golang / Java\n\n Design scalable systems to solve novel problems with modern cloud technology and industry best practices.\n\n Manage individual projects priorities, deadlines and deliverables with your technical expertise\n\n Mentor and train other team members on design techniques and coding standards\n\n Articulate a long term vision for maintaining and scaling our backend systems and the teams running them.\n\n Work with engineers, designers, product managers and senior leadership to turn our product and technical vision into a tangible roadmap every quarter.\n\n Write high quality, well tested code to meet the needs of your customers. Debugging extremely difficult technical problems, and making systems and products both work better and are easier to deploy, own, operate and diagnose.\n\n Review all feature designs within your product area and across the company for cross-cutting projects. Be an owner of the security, safety, scale, operational integrity, and architectural clarity of these designs.\n\n Required Skills and Experience: \n\n You have at least 3+ years of experience in software engineering\n\n You’ve designed, built, scaled and maintained production services, and know how to compose a service oriented architecture.\n\n You write high quality, well tested code to meet the needs of your customers.\n\n You’re passionate about building an open financial system that brings the world together.\n\n You possess strong technical skills for system design and coding\n\n Excellent written and verbal communication skills, and a bias toward open, transparent cultural practices.\n\n Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality.\n\n Position ID: P77743\n\n #LI-Remote \n\n Pay Transparency Notice: The target annual base salary fo"
+    },
+    {
+      "id": "gh-8054153",
+      "title": "Staff Software Engineer, Customer Administration",
+      "level": "Staff",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Enterprise Applications",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8054153?gh_jid=8054153",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "08382c4117fc178513b085c56c581cb3fc66b9667b172ddb71ded3708dafb49e",
+      "competencies": [
+        "python",
+        "golang",
+        "aws",
+        "kubernetes",
+        "databases",
+        "devops",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Site Reliability Engineering",
+        "Prometheus",
+        "Distributed Systems",
+        "gRPC",
+        "GraphQL",
+        "Microservices",
+        "AWS",
+        "Kubernetes",
+        "Terraform",
+        "CI/CD Pipelines",
+        "Kafka",
+        "Redis",
+        "Distributed Cache Invalidation",
+        "SQL",
+        "Generative AI"
+      ],
+      "toolsAndTech": [
+        "Site Reliability Engineering",
+        "Prometheus",
+        "Distributed Systems",
+        "gRPC",
+        "GraphQL",
+        "Microservices",
+        "AWS",
+        "Kubernetes",
+        "Terraform",
+        "CI/CD Pipelines",
+        "Kafka",
+        "Redis",
+        "Distributed Cache Invalidation",
+        "SQL",
+        "Generative AI"
+      ],
+      "responsibilities": [
+        "Architect and deliver foundational platform capabilities including MCP tool registries, AI orchestration layers, risk-based access automation, and the away-team contribution model that enables product groups across Coinbase to build on the platform safely and at speed",
+        "Drive the evolution of Control Center into an AI-agent-ready, headless operations platform, designing and implementing MCP procedure constructs, agentic guardrails, HITL orchestration, and evaluation frameworks that enable both human and autonomous AI agents to execute sensitive customer operations securely",
+        "Partner with the Engineering Manager and Product counterparts to define architectural roadmaps, author TDDs, lead design reviews, decompose complex initiatives into deliverable milestones, and raise the engineering quality bar through code review and mentorship",
+        "Build and maintain highly reliable, secure, distributed backend services, owning SLO definitions, observability instrumentation, incident response, and operational readiness for Tier-1 platform systems",
+        "Collaborate across EAA engineering teams, Product Engineering, and Security Engineering to deliver cross-functional outcomes and drive shared platform primitives that eliminate duplicated infrastructure across the portfolio",
+        "Proven ability to independently lead ambiguous, high-impact technical initiatives from whiteboard to production, writing high-quality, well-tested code and setting the standard for others across complex, multi-team problem spaces",
+        "Track record of building secure, compliant internal tools or platforms, with deep appreciation for security controls, access management, audit logging, data governance, and engineering rigor in a regulated financial services environment",
+        "Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality."
+      ],
+      "requiredQualifications": [
+        "8+ years of hands-on software engineering experience, with a demonstrated track record of architecting and delivering large-scale, high-traffic distributed systems in production, including deep proficiency in backend service design, API development (gRPC, MCP, GraphQL), and scalable microservices architectures",
+        "Strong experience with cloud-native infrastructure and the modern backend stack: AWS, Kubernetes, Terraform, BuildKite/CircleCI, event-driven architectures (Kafka, MQ), distributed caching (Redis/Memcached), and proficiency in SQL and/or NoSQL databases",
+        "Experience building or integrating with agentic AI systems, including MCP servers, LLM orchestration layers, RAG pipelines, HITL workflows, or evaluation and guardrail frameworks for production agentic workloads",
+        "Proficiency in Go (Golang) as a primary backend language, with willingness to work across Python where applicable in the evolving AI stack"
+      ],
+      "fullText": "Staff Software Engineer, Customer Administration\n\nLocation: Remote - India\nDepartment: Enterprise Applications\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n Staff Software Engineer, Customer Administration \n\n The Customer Administration Engineering (CAE) team is a core pillar of Coinbase's Enterprise Applications and Architecture (EAA) org, responsible for building and operating the secure, foundational platforms that power customer data operations across Coinbase. Our flagship product, Control Center, is Coinbase's secure system of action for internal specialists across CX, Compliance, Legal, Global Investigations, Trust and Risk, and dozens of other teams. It serves approximately 7,000 internal users via its UI and powers a growing ecosystem of internal tools and AI automation via its backend APIs and MCP. We are at an exciting inflection point: evolving Control Center from a human-specialist UI into a modular, AI-agent-ready operations platform. As a Staff Software Engineer, you will be a technical anchor for the CAE team, driving architectural decisions, mentoring engineers, and leading the delivery of high-impact, cross-cutting platform capabilities.\n\n What You'll Do \n\n Architect and deliver foundational platform capabilities including MCP tool registries, AI orchestration layers, risk-based access automation, and the away-team contribution model that enables product groups across Coinbase to build on the platform safely and at speed\n\n Drive the evolution of Control Center into an AI-agent-ready, headless operations platform, designing and implementing MCP procedure constructs, agentic guardrails, HITL orchestration, and evaluation frameworks that enable both human and autonomous AI agents to execute sensitive customer operations securely\n\n Partner with the Engineering Manager and Product counterparts to define architectural roadmaps, author TDDs, lead design reviews, decompose complex initiatives into deliverable milestones, and raise the engineering quality bar through code review and mentorship\n\n Build and maintain highly reliable, secure, distributed backend services, owning SLO definitions, observability instrumentation, incident response, and operational readiness for Tier-1 platform systems\n\n Collaborate across EAA engineering teams, Product Engineering, and Security Engineering to deliver cross-functional outcomes and drive shared platform primitives that eliminate duplicated infrastructure across the portfolio\n\n Required Skills and Experience \n \n 8+ years of hands-on software engineering experience, with a demonstrated track record of architecting and delivering large-scale, high-traffic distributed systems in production, including deep proficiency in backend service design, API development (gRPC, MCP, GraphQL), and scalable microservices architectures\n\n Proven ability to independently lead ambiguous, high-impact technical initiatives from whiteboard to production, writing high"
+    },
+    {
+      "id": "gh-8167571",
+      "title": "Staff Software Engineer, Security Platform",
+      "level": "Staff",
+      "desc": "Ready to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build th...",
+      "location": "Remote - India",
+      "workplaceType": "remote",
+      "department": "Security & Privacy",
+      "source": "Official Coinbase India Greenhouse ATS Feed",
+      "sourceUrl": "https://www.coinbase.com/careers/positions/8167571?gh_jid=8167571",
+      "lastVerified": "2026-10-31T17:49:12.371Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "3477fc3fffa19070cc257682714789198fd2e3c331cc8dfd53c303085f4ec178",
+      "competencies": [
+        "java",
+        "golang",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Go",
+        "Java",
+        "Feature Engineering",
+        "System Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "toolsAndTech": [
+        "Go",
+        "Java",
+        "Feature Engineering",
+        "System Design",
+        "Generative AI",
+        "Security Compliance"
+      ],
+      "responsibilities": [
+        "Architect and develop platform for security platform engineering org",
+        "Provide technical structure to teams and work closely with management and stakeholders to define strategic roadmaps",
+        "Build new services to meet critical product and business needs using Golang / Java",
+        "Design scalable systems to solve novel problems with modern cloud technology and industry best practices.",
+        "Manage individual projects priorities, deadlines and deliverables with your technical expertise",
+        "Mentor and train other team members on design techniques and coding standards",
+        "Articulate a long term vision for maintaining and scaling our backend systems and the teams running them.",
+        "Work with engineers, designers, product managers and senior leadership to turn our product and technical vision into a tangible roadmap every quarter."
+      ],
+      "requiredQualifications": [
+        "You have at least 8+ years of experience in software engineering"
+      ],
+      "fullText": "Staff Software Engineer, Security Platform\n\nLocation: Remote - India\nDepartment: Security & Privacy\n\nReady to do the most impactful work of your career? At Coinbase , we are uncompromising on our mission to increase economic freedom. The bar is high, the environment is intense, and we like it that way. This isn't a place for complacency, it’s a place to be pushed past your perceived limits. If you're ready to build the future of finance alongside people who refuse to settle for \"good enough,\" you belong here. Coinbase is a remote-first, but not remote-only company. Expect to get together quarterly for intense in-person working sessions called “surges.” learn more about working at Coinbase .\n\n Coinbase stores a large amount of digital currency making us a top tier target on the internet. Security is core to our mission and has been a key competitive differentiator for us as we scale. Security Platform Engineering ( SPE ) team is building platform capabilities for a variety of security use cases critical for security, compliance and privacy at Coinbase. Some of the key functional areas we are developing capabilities for are secrets and key management, identity access and management, onchain security, policy and risk management, vulnerabilities management enabling our product, compliance, security and services teams to protect Coinbase and our customers.\n\n What you’ll do: \n\n Architect and develop platform for security platform engineering org\n\n Provide technical structure to teams and work closely with management and stakeholders to define strategic roadmaps\n\n Build new services to meet critical product and business needs using Golang / Java\n\n Design scalable systems to solve novel problems with modern cloud technology and industry best practices.\n\n Manage individual projects priorities, deadlines and deliverables with your technical expertise\n\n Mentor and train other team members on design techniques and coding standards\n\n Articulate a long term vision for maintaining and scaling our backend systems and the teams running them.\n\n Work with engineers, designers, product managers and senior leadership to turn our product and technical vision into a tangible roadmap every quarter.\n\n Write high quality, well tested code to meet the needs of your customers. Debugging extremely difficult technical problems, and making systems and products both work better and are easier to deploy, own, operate and diagnose.\n\n Review all feature designs within your product area and across the company for cross-cutting projects. Be an owner of the security, safety, scale, operational integrity, and architectural clarity of these designs.\n\n Required Skills and Experience: \n\n You have at least 8+ years of experience in software engineering\n\n You’ve designed, built, scaled and maintained production services, and know how to compose a service oriented architecture.\n\n You write high quality, well tested code to meet the needs of your customers.\n\n You’re passionate about building an open financial system that brings the world together.\n\n You possess strong technical skills for system design and coding\n\n Excellent written and verbal communication skills, and a bias toward open, transparent cultural practices.\n\n Utilizes generative AI responsibly, maintaining human oversight to deliver business-ready outputs and drive measurable improvements in workflow efficiency, cost, and quality.\n\n Position ID: P78176\n\n #LI-Remote \n\n Pay Transparency Notice: The target annual base sal"
+    }
+  ]
+}
