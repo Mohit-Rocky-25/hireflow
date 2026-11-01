@@ -1,5 +1,5 @@
 // ============================================================
-// HireFlow — In-Product Data Provenance & Legal Disclosures Modal
+// HireFloww — In-Product Data Provenance & Legal Disclosures Modal
 // Provides transparent public sourcing proof for 244+ companies,
 // deterministic engine logic explanation, and Nominative Fair Use legal shields.
 // ============================================================
@@ -230,7 +230,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                     How Does the Evaluation Engine Work?
                   </h3>
                   <p className="text-xs text-silver">
-                    HireFlo runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
+                    HireFlow runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
                   </p>
                 </div>
 
@@ -291,28 +291,28 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">1. Nominative Fair Use of Company Marks</span>
                     <p className="text-silver/90">
-                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, Barclays, Western Digital, BNY Mellon, Qualcomm, State Street, Standard Chartered, D.E. Shaw, Persistent Systems, and others) are the registered property of their respective owners. Their mention on HireFlo is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
+                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, Barclays, Western Digital, BNY Mellon, Qualcomm, State Street, Standard Chartered, D.E. Shaw, Persistent Systems, and others) are the registered property of their respective owners. Their mention on HireFlow is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">2. Public ATS Access & Anti-Circumvention (Zero-Credential Doctrine)</span>
                     <p className="text-silver/90">
-                      All live roles are ingested solely from unauthenticated, public JSON endpoints published openly by employers to attract applicants (Greenhouse and Lever career boards). HireFlow never accesses private APIs, bypasses paywalls, defeats authentication screens, or breaches access controls, fully complying with Section 43 & Section 66 of the Information Technology Act, 2000 and the landmark <em>hiQ Labs v. LinkedIn</em> open web precedent.
+                      All live roles are ingested solely from unauthenticated, public JSON endpoints published openly by employers to attract applicants (Greenhouse and Lever career boards). HireFloww never accesses private APIs, bypasses paywalls, defeats authentication screens, or breaches access controls, fully complying with Section 43 & Section 66 of the Information Technology Act, 2000 and the landmark <em>hiQ Labs v. LinkedIn</em> open web precedent.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">3. Complete Candidate Privacy Isolation (DPDP Act, 2023 & R8.2)</span>
                     <p className="text-silver/90">
-                      Under HireFlow's strict Zero-Egress Architecture (Rule R8.2), candidate resumes, text, and personal data are parsed and scored 100% locally in client browser memory. No candidate PII or resume text is ever sent to external cloud servers, third-party LLMs, or tracking databases, guaranteeing complete compliance with the Digital Personal Data Protection Act, 2023.
+                      Under HireFloww's strict Zero-Egress Architecture (Rule R8.2), candidate resumes, text, and personal data are parsed and scored 100% locally in client browser memory. No candidate PII or resume text is ever sent to external cloud servers, third-party LLMs, or tracking databases, guaranteeing complete compliance with the Digital Personal Data Protection Act, 2023.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">4. Educational Simulation Disclaimer</span>
                     <p className="text-silver/90">
-                      HireFlo is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
+                      HireFlow is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
                     </p>
                   </div>
 
@@ -329,7 +329,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between flex-wrap gap-3">
               <span className="text-[11px] font-mono text-silver">
-                HireFlo Integrity & Transparency Framework • v4.0.0
+                HireFlow Integrity & Transparency Framework • v4.0.0
               </span>
               <button
                 type="button"

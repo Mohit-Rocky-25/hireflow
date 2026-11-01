@@ -208,7 +208,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
               H
             </div>
             <span className="text-lg font-black text-white tracking-tight">
-              HIRE<span className="text-volt">FLO</span>
+              HIRE<span className="text-volt">FLOW</span>
             </span>
           </Link>
         </div>
