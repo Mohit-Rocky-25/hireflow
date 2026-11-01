@@ -38,7 +38,7 @@ import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 import {
   compareJDs,
   CompareJDsResult,

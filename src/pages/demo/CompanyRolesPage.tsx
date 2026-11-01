@@ -9,16 +9,13 @@ import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
 import {
-  findCompanyBySlug,
-  COMPANIES,
-  Role,
-  Company,
   deepAnalyzeCompetency,
   computeScore,
   generateImprovementPlan,
   runMarketIntelligenceEngine,
   analyzeRoleMatch,
-} from './talentLensData';
+} from './talentLensEngine';
+import { COMPANIES, findCompanyBySlug, type Company, type Role } from './talentLensData';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from './useTalentLensStore';
 import { useProfileStore } from '../../store/profileStore';
 
@@ -656,26 +653,26 @@ export function CompanyRolesPage() {
             {
               tag: 'Directory',
               value: `${COMPANIES.length}+`,
-              label: 'Verified Employers',
-              sub: 'Tier-S FAANG, Tier-A Unicorns & Cybersecurity',
+              label: 'Employer Profiles',
+              sub: 'FAANG, unicorns and cybersecurity firms (static catalogue, Oct 2026)',
             },
             {
-              tag: 'Calibrated Roles',
-              value: `${COMPANIES.reduce((a, c) => a + c.roles.length, 0)}+`,
-              label: 'Calibrated Roles',
-              sub: '10+ verified career tracks per employer',
+              tag: 'Role Listings',
+              value: `${COMPANIES.reduce((a: number, c: any) => a + c.roles.length, 0)}+`,
+              label: 'Role Listings',
+              sub: 'Representative career tracks based on public job postings',
             },
             {
-              tag: 'Zero-Egress Security',
+              tag: 'Zero Egress',
               value: 'Level 1',
-              label: 'Authenticity Guard',
-              sub: 'Structural parser & anti-gaming verification',
+              label: 'Offline Analysis',
+              sub: 'All analysis runs locally in your browser — no data leaves your device',
             },
             {
-              tag: 'Candidate Intelligence',
-              value: '100%',
-              label: 'Deterministic Math',
-              sub: 'Single source of truth with zero random drift',
+              tag: 'Scoring',
+              value: 'Local',
+              label: 'Deterministic Scoring',
+              sub: 'Rule-based scoring with no ML randomness — same input always yields the same score',
             },
           ].map((s) => (
             <div

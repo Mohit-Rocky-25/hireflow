@@ -31,7 +31,7 @@ import { selectCompanyHooks, hasVerifiedHooks } from '../engine/companyHooks';
 import { validateProofPointMetrics } from '../engine/slotResolver';
 import { ROLE_FAMILIES } from '../engine/fragments';
 import { LINKEDIN_CONNECT_LIMITS } from '../engine/config';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 
 interface TemplateInputsPanelProps {
@@ -97,7 +97,7 @@ export function TemplateInputsPanel({
     onChangeSlot('company', comp.name);
     if (comp.roles[0]) {
       onChangeSlot('role', comp.roles[0].title);
-      onChangeSlot('primary_skill', comp.roles[0].competencies.slice(0, 3).join(', '));
+      onChangeSlot('primary_skill', (comp.roles[0].competencies || []).slice(0, 3).join(', '));
     }
     const hooks = selectCompanyHooks(comp.name);
     if (hooks.admiredProjects[0]) {

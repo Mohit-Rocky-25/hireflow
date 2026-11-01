@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { Company, Role, AnalysisResult } from '../talentLensData';
-import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensData';
+import type { Company, Role, AnalysisResult } from '../talentLensEngine';
+import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensEngine';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';

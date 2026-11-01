@@ -31,3 +31,4 @@
   ```
 - **Finding:** Despite manual chunking in `vite.config.ts`, `data-talentlens` is listed as a `modulepreload` in `dist/index.html`. This forces the client to download the 10.1MB / 700kB gzip dataset on first page load before navigating to TalentLens.
 - **Remediation Target (Stage 3.1):** Break static imports from entry routes, extract a lightweight index for company listings, and lazy-load full company profiles dynamically on demand.
+

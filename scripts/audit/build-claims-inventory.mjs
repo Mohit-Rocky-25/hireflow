@@ -112,3 +112,4 @@ for (const h of hits) {
 fs.mkdirSync('docs/audit', { recursive: true });
 fs.writeFileSync('docs/audit/CLAIMS_INVENTORY.md', md, 'utf8');
 console.log(`Successfully indexed ${hits.length} claims hits across ${filesToScan.length} files into docs/audit/CLAIMS_INVENTORY.md`);
+

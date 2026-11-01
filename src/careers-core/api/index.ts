@@ -32,7 +32,7 @@ import type {
   EquivalenceLevel,
 } from '../schema/types';
 
-import { COMPANIES, type Company } from '../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES, type CatalogCompany as Company } from '../../data/companyCatalog';
 
 // In-memory extension store for careers.ext
 const EXTENSION_STORE = new Map<string, any>();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { Company } from '../talentLensData';
-import { TREND_ICON } from '../talentLensData';
+import { TREND_ICON } from '../talentLensEngine';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { getVerifiedCompanyUrl } from '../../../data/market/verifiedCompanyUrls';

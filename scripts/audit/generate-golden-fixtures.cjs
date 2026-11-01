@@ -632,3 +632,4 @@ th { background: #f1f5f9; font-weight: bold; }
 </body></html>`;
 
 renderPdf(html04, path.join(goldenDir, 'golden_resume_04_table_heavy.pdf'));
+

@@ -4,7 +4,7 @@
 // Never hallucinates or invents company facts
 // ============================================================
 
-import { COMPANIES, Company } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 
 export interface CompanyHookInfo {
   found: boolean;

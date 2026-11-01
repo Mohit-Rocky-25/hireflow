@@ -155410,26 +155410,6 @@ function detectProgressionSignals(text: string): { hasProgression: boolean; year
   return { hasProgression, yearsOfExperience, hasPremiumEdu, hasOpenSource, details };
 }
 
-// Re-export all computation, analysis, and evaluation functions from canonical talentLensEngine
-import { findCompanyBySlug as engineFindCompanyBySlug } from './talentLensEngine';
-export {
-  deepAnalyzeCompetency,
-  computeScore,
-  generateImprovementPlan,
-  runMarketIntelligenceEngine,
-  analyzeRoleMatch,
-  type AnalysisResult,
-  type CompetencyAnalysis,
-  type ImprovementPlan,
-  type MarketIntelligenceReport,
-  TREND_COLOR,
-  TREND_ICON,
-  STATUS_CONFIG,
-  INDUSTRIES,
-  TIERS,
-  getCompanySlug,
-} from './talentLensEngine';
-
 export const findCompanyBySlug = (slug: string): Company | undefined => {
-  return engineFindCompanyBySlug(slug, COMPANIES);
+  return COMPANIES.find((c) => c.id === slug || c.name.toLowerCase() === slug.toLowerCase());
 };

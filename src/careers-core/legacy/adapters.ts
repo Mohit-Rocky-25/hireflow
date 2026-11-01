@@ -12,10 +12,10 @@ import { IT_SERVICES_INDIA_LADDERS } from '../../data/careerLadders/companies/it
 import { CORE_ENGINEERING_LADDERS } from '../../data/careerLadders/companies/coreEngineering';
 import type { DegreeBranchOption } from '../../data/careerLadders/degreesAndBranches';
 import { DEGREE_BRANCH_CATALOG } from '../../data/careerLadders/degreesAndBranches';
-import type { Company } from '../../pages/demo/talentLensData';
+import type { CatalogCompany as Company } from '../../data/companyCatalog';
 import { PLATFORM_COMPETENCIES } from '../data/competencies';
 
-import { COMPANIES } from '../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../data/companyCatalog';
 import { synthesizeCompanyLadder } from '../../data/careerLadders/synthesizer';
 
 const RAW_COMPANY_LADDERS: CompanyLadder[] = [

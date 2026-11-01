@@ -5,11 +5,8 @@
 // ============================================================
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import type {
-  Company,
-  Role,
-  AnalysisResult,
-} from './talentLensData';
+import type { AnalysisResult } from './talentLensEngine';
+import type { Company, Role } from './talentLensData';
 
 let _companiesResolver: (() => Company[]) | null = null;
 export function setCompaniesResolver(resolver: () => Company[]) {

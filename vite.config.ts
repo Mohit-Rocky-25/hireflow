@@ -248,6 +248,12 @@ export default defineConfig({
           if (id.includes('talentLensData')) {
             return 'data-talentlens';
           }
+          if (id.includes('companyCatalog')) {
+            return 'data-company-catalog';
+          }
+          if (id.includes('src/scoring') || id.includes('src/data/ats') || id.includes('src/config/scoring')) {
+            return 'ats-scoring-spec';
+          }
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
               return 'vendor-react';

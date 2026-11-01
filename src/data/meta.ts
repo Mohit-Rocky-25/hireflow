@@ -33,3 +33,4 @@ export function getCompanyCountsSummary(): string {
   const { fullProfiles, basicListings } = PLATFORM_DATA_META.companyCounts;
   return `${fullProfiles} company profiles & ${basicListings} directory listings`;
 }
+

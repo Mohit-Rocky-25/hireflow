@@ -41,7 +41,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 
 // Types & Engine
