@@ -63,6 +63,20 @@ export function buildBriefText(brief: ProjectBrief): string {
     `SKILLS COVERED`,
     `-`.repeat(40),
     brief.coveredSkills.join(', '),
+    ...(brief.starterDirectory ? [
+      ``,
+      `STARTER DIRECTORY STRUCTURE`,
+      `-`.repeat(40),
+      brief.starterDirectory,
+    ] : []),
+    ...(brief.milestones && brief.milestones.length > 0 ? [
+      ``,
+      `PROJECT MILESTONES & ACCEPTANCE CRITERIA`,
+      `-`.repeat(40),
+      ...brief.milestones.map(
+        (m, i) => `Milestone ${m.stepNumber || i + 1}: ${m.title}\nDescription: ${m.description || '—'}\nDone when  : ${m.doneWhen}\n`
+      ),
+    ] : []),
     ``,
     `SCREENER VERIFICATION RUBRIC`,
     `-`.repeat(40),

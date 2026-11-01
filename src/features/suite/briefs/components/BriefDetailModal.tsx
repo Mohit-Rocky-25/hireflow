@@ -20,6 +20,7 @@ import {
   AlertCircle,
   Globe,
   CheckCircle2,
+  FolderTree,
 } from 'lucide-react';
 import { ProjectBrief, getBriefHoursRange } from '../bundleBriefs';
 import { domainColor, DIFFICULTY_BADGE, buildBriefText } from './briefHelpers';
@@ -279,6 +280,43 @@ export function BriefDetailModal({
               ))}
             </div>
           </section>
+
+          {/* Starter Directory Structure */}
+          {brief.starterDirectory && (
+            <section className="space-y-2">
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white">
+                <FolderTree className="w-3.5 h-3.5 text-volt" /> Starter Directory Structure
+              </h3>
+              <pre className="p-4 rounded bg-black border border-charcoal font-mono text-xs text-silver overflow-x-auto leading-relaxed select-all">
+                {brief.starterDirectory}
+              </pre>
+            </section>
+          )}
+
+          {/* Project Milestones */}
+          {brief.milestones && brief.milestones.length > 0 && (
+            <section className="space-y-2.5">
+              <h3 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white">
+                <CheckCircle2 className="w-3.5 h-3.5 text-volt" /> Project Milestones & Verification Criteria
+              </h3>
+              <div className="space-y-2">
+                {brief.milestones.map((m, i) => (
+                  <div key={i} className="bg-black p-3.5 rounded border border-charcoal space-y-1.5 text-xs">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-bold text-volt">
+                        Milestone {m.stepNumber || i + 1}: {m.title}
+                      </span>
+                    </div>
+                    {m.description && <p className="text-silver leading-relaxed">{m.description}</p>}
+                    <div className="flex items-start gap-1.5 text-[11px] text-emerald-400 font-mono pt-0.5">
+                      <span className="font-bold text-emerald-300 shrink-0">Done when:</span>
+                      <span>{m.doneWhen}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Automated Verification Kit */}
           <section className="space-y-2">

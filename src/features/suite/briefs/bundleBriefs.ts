@@ -26,6 +26,13 @@ export interface ProjectBrief {
   techStack: string[];
   verificationRubric: string[];
   portfolioBulletFormula: string;
+  milestones?: Array<{
+    stepNumber: number;
+    title: string;
+    description: string;
+    doneWhen: string;
+  }>;
+  starterDirectory?: string;
 }
 
 export interface BriefCoverageDetail {
@@ -63,14 +70,16 @@ const DIFFICULTY_WEIGHT: Record<BriefDifficulty, number> = {
  * Derives hours range as +/- 25% with explicit assumption per R7.5.
  */
 export function getBriefHoursRange(brief: ProjectBrief): { min: number; max: number; label: string; assumption: string } {
-  const min = Math.max(10, Math.round(brief.estimatedHours * 0.75));
-  const max = Math.round(brief.estimatedHours * 1.25);
+  const min = Math.max(35, Math.round(brief.estimatedHours * 0.8));
+  const max = Math.max(min + 15, Math.round(brief.estimatedHours * 1.25));
+  const minWeeks = Math.max(2, Math.round(min / 15));
+  const maxWeeks = Math.max(minWeeks + 1, Math.round(max / 15));
   const stack = (brief.techStack || []).slice(0, 2).join(' / ');
-  const assumption = `Assumes foundational familiarity with ${stack || 'core technologies'}`;
+  const assumption = `Realistic student pace (~12–15 h/week). Assumes foundational familiarity with ${stack || 'core technologies'}`;
   return {
     min,
     max,
-    label: `${min}–${max} h (estimate)`,
+    label: `${min}–${max} h (${minWeeks}–${maxWeeks} weeks)`,
     assumption,
   };
 }
