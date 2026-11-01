@@ -29,6 +29,7 @@ const YourDataPage = React.lazy(() => import('./pages/data/YourDataPage').then((
 const ScanHistoryPage = React.lazy(() => import('./pages/history/ScanHistoryPage').then((m) => ({ default: m.ScanHistoryPage })));
 const SavedJdLibraryPage = React.lazy(() => import('./pages/jd-library/SavedJdLibraryPage').then((m) => ({ default: m.SavedJdLibraryPage })));
 const MethodologyPage = React.lazy(() => import('./pages/methodology/MethodologyPage'));
+const LoginPage = React.lazy(() => import('./pages/auth/LoginPage').then((m) => ({ default: m.LoginPage })));
 
 // Pathways Suite (C2 behind PATHWAYS_ENABLED)
 import { FEATURES } from './config';
@@ -184,8 +185,8 @@ export default function App() {
             <Route path="/admin" element={<Navigate to="/tools" replace />} />
             <Route path="/candidate/*" element={<Navigate to="/tools" replace />} />
             <Route path="/candidate" element={<Navigate to="/tools" replace />} />
-            <Route path="/login" element={<Navigate to="/tools" replace />} />
-            <Route path="/register" element={<Navigate to="/tools" replace />} />
+            <Route path="/login" element={<LoginPage initialMode="signin" />} />
+            <Route path="/register" element={<LoginPage initialMode="signup" />} />
 
             {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />
