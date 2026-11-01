@@ -220,10 +220,20 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
 
     let pageLines: string[];
     if (isTwoColumn) {
-      // Column 1 top-to-bottom, then Column 2 top-to-bottom
-      const col1Lines = assembleLinesFromItems(items.filter(it => it.x < midX));
-      const col2Lines = assembleLinesFromItems(items.filter(it => it.x >= midX));
-      pageLines = [...col1Lines, '', ...col2Lines];
+      // Preserve full-width header band before splitting columns (Flaw 3.3)
+      const columnItems = items.filter(it => (it.x < leftMargin || it.x > rightMargin) && (it.width || 0) < pageWidth * 0.55);
+      const topColY = columnItems.length > 0 ? Math.max(...columnItems.map(it => it.y)) : pageHeight;
+
+      const headerItems = items.filter(it => it.y > topColY + 4 || (it.width || 0) >= pageWidth * 0.55);
+      const remainingItems = items.filter(it => !headerItems.includes(it));
+
+      const headerLines = assembleLinesFromItems(headerItems);
+      const col1Lines = assembleLinesFromItems(remainingItems.filter(it => it.x < midX));
+      const col2Lines = assembleLinesFromItems(remainingItems.filter(it => it.x >= midX));
+
+      pageLines = headerLines.length > 0
+        ? [...headerLines, '', ...col1Lines, '', ...col2Lines]
+        : [...col1Lines, '', ...col2Lines];
     } else {
       // Standard single-column top-to-bottom reading order
       pageLines = assembleLinesFromItems(items);

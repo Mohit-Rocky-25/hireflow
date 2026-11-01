@@ -36,7 +36,7 @@ import {
   ExperienceLevel,
   ExtractionMetaInfo,
 } from '../../features/ats/components/AtsInputSection';
-import { runAtsEngine, AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../features/ats/engine';
+import { runAtsEngine, AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../lib/ats';
 import { ScoreHeader } from '../../features/ats/components/ScoreHeader';
 import { FixTheseFirst } from '../../features/ats/components/FixTheseFirst';
 import { TabBar, ReportTabId } from '../../features/ats/components/TabBar';
@@ -142,7 +142,7 @@ export function ResumeChecker() {
 
   const jobRoleBridgeSkills = useMemo(() => {
     if (!engineResult?.skillResults) return [];
-    return engineResult.skillResults.map((s) => ({
+    return engineResult.skillResults.map((s: any) => ({
       name: s.canonical,
       isMandatory: s.required === 'must',
       status: (s.found && s.status === 'verified' ? 'verified' : 'gap') as 'verified' | 'gap',
@@ -681,7 +681,7 @@ export function ResumeChecker() {
                           {canonical.quickRoast.strengths.length === 0 ? (
                             <p className="text-sm text-neutral-400">No strong verified strengths detected.</p>
                           ) : (
-                            canonical.quickRoast.strengths.map((s, i) => (
+                            canonical.quickRoast.strengths.map((s: any, i: number) => (
                               <div key={i} className="p-4 bg-black rounded-lg border border-charcoal text-sm">
                                 <div className="font-bold text-white text-base">{s.title}</div>
                                 <div className="text-neutral-300 mt-1.5 italic leading-relaxed">&ldquo;{s.evidenceQuote}&rdquo;</div>
@@ -700,7 +700,7 @@ export function ResumeChecker() {
                           {canonical.quickRoast.gaps.length === 0 ? (
                             <p className="text-sm text-neutral-400">No critical skill gaps found.</p>
                           ) : (
-                            canonical.quickRoast.gaps.map((g, i) => (
+                            canonical.quickRoast.gaps.map((g: any, i: number) => (
                               <div key={i} className="p-4 bg-black rounded-lg border border-danger/40 text-sm">
                                 <div className="font-bold text-white text-base">{g.title}</div>
                                 <div className="text-danger mt-1 uppercase tracking-wider text-xs font-bold">Gap type: {g.gapType.replace('_', ' ')}</div>
@@ -717,7 +717,7 @@ export function ResumeChecker() {
                         <Sparkles className="w-5 h-5 text-volt stroke-[1.5px]" /> Top Prioritized Action Items
                       </h3>
                       <div className="space-y-3">
-                        {canonical.quickRoast.prioritizedActions.map((act, i) => (
+                        {canonical.quickRoast.prioritizedActions.map((act: any, i: number) => (
                           <div key={i} className="p-4 sm:p-5 bg-black rounded-lg border border-charcoal text-sm flex items-start gap-3.5">
                             <span className="w-7 h-7 rounded-full bg-near-black border border-charcoal text-volt font-bold text-sm flex items-center justify-center shrink-0">
                               {i + 1}

@@ -26,6 +26,8 @@ export * from './prompts';
 export * from './invariants';
 export * from './pipeline';
 export * from './canonicalAnalysis';
+export { runAtsEngine } from '../../features/ats/engine';
+export type { AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../features/ats/engine/types';
 
 import {
   SYSTEM_PROMPT,
