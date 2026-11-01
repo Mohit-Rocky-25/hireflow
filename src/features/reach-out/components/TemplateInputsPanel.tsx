@@ -82,6 +82,28 @@ export function TemplateInputsPanel({
   const companyHooks = selectCompanyHooks(currentCompany);
   const companyHasHooks = hasVerifiedHooks(currentCompany);
 
+
+  // Auto-trim helper for LinkedIn 300-char enforcement
+  const handleAutoTrim = () => {
+    if (slots.proof_point) {
+      let trimmed = slots.proof_point
+        .replace(/\b(responsible for|worked on|in order to|helped to|actively|successfully|currently)\b\s*/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const excess = readiness.charCount - 295;
+      if (excess > 0 && trimmed.length > excess + 10) {
+        trimmed = trimmed.slice(0, trimmed.length - excess).replace(/[,\s]+$/, '').trim();
+      }
+      onChangeSlot('proof_point', trimmed);
+    } else if (slots.personal_line) {
+      const excess = readiness.charCount - 295;
+      if (excess > 0 && slots.personal_line.length > excess + 5) {
+        const trimmed = slots.personal_line.slice(0, slots.personal_line.length - excess).replace(/[,\s]+$/, '').trim();
+        onChangeSlot('personal_line', trimmed);
+      }
+    }
+  };
+
   // 3 Hints for personal_line
   const personalLineHints = [
     'Mention a specific open source tool or production system they wrote about publicly.',
