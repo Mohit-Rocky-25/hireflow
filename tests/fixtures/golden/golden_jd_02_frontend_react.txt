@@ -1,0 +1,19 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Frontend Engineer (React & TypeScript)
+Level: Entry to Mid (1-3 years experience)
+Location: Remote / Bengaluru
+
+About the Role:
+Join our design systems and web application team building responsive, highly accessible user interfaces for our flagship analytics product.
+
+Key Responsibilities:
+- Build clean, modular components in React 19 and TypeScript.
+- Implement responsive UI with Tailwind CSS ensuring pixel-perfect layout and WCAG accessibility.
+- Manage client state efficiently using Zustand or Redux Toolkit.
+- Optimize web vitals (LCP, FID, CLS) and bundle size.
+
+Requirements:
+- Hands-on expertise with modern JavaScript/TypeScript and React ecosystem.
+- Deep knowledge of CSS, Tailwind CSS, DOM APIs, and responsive layout.
+- Experience writing automated component tests with React Testing Library / Vitest.
+- Understanding of web performance, caching, and REST/GraphQL APIs.

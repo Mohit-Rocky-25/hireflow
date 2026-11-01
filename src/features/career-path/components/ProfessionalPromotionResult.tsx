@@ -6,6 +6,9 @@ import {
   Sparkles,
   RotateCcw,
   Info,
+  GitBranch,
+  Code2,
+  Users,
 } from 'lucide-react';
 import type { PromotionPlan, PerformanceBracket } from '../../../lib/careerEngine';
 import { formatINR, formatINRRange } from '../../../lib/careerEngine';
@@ -31,6 +34,10 @@ export function ProfessionalPromotionResult({
   headingRef,
 }: ProfessionalPromotionResultProps) {
   const [showFormulaDetails, setShowFormulaDetails] = useState(false);
+
+  const isSeniorOrAbove =
+    profResult.targetLevel &&
+    ['SENIOR', 'STAFF', 'PRINCIPAL', 'DISTINGUISHED'].includes(profResult.targetLevel.equivalenceGroup);
 
   return (
     <div ref={sectionRef} className="space-y-8 animate-fade-in">
@@ -75,7 +82,7 @@ export function ProfessionalPromotionResult({
             </h3>
           </div>
           <span className="px-3 py-1 rounded-full text-xs font-mono font-black bg-volt/10 text-volt border border-volt/30">
-            {profResult.probability.percentage}% Success Probability
+            ~{profResult.probability.percentage}% Historical Feasibility
           </span>
         </div>
 
@@ -96,22 +103,22 @@ export function ProfessionalPromotionResult({
           </div>
 
           <div className="bg-surface-2/40 rounded p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase font-mono">Estimated Total Time</span>
+            <span className="text-xs font-bold text-muted uppercase font-mono">Estimated Progression Range</span>
             <span className="text-2xl font-mono font-black text-foreground block mt-1">
-              {profResult.totalTime.likely} Years
+              {profResult.totalTime.min}–{profResult.totalTime.max} Years
             </span>
             <span className="text-xs text-muted mt-1 block font-mono">
-              Range: {profResult.totalTime.min}–{profResult.totalTime.max} yrs
+              Median pace: ~{profResult.totalTime.likely} yrs (varies by performance and budget)
             </span>
           </div>
 
           <div className="bg-surface-2/40 rounded p-4 border border-border">
-            <span className="text-xs font-bold text-muted uppercase font-mono">Success Probability</span>
+            <span className="text-xs font-bold text-muted uppercase font-mono">Statistical Feasibility</span>
             <span className="text-2xl font-mono font-black text-volt block mt-1">
               {profResult.probability.percentage}%
             </span>
             <span className="text-xs text-muted mt-1 block">
-              Adjusted for {profPerformance} rating
+              Historical estimate for {profPerformance} rating; not a guarantee
             </span>
           </div>
         </div>
@@ -125,14 +132,14 @@ export function ProfessionalPromotionResult({
           >
             <Info className="w-3.5 h-3.5" />
             {showFormulaDetails
-              ? 'Hide Probability Model Details'
-              : 'View Probability Model & Stall Rates'}
+              ? 'Hide Feasibility Model Details'
+              : 'View Empirical Stall Rates & Methodology'}
           </button>
 
           {showFormulaDetails && (
             <div className="mt-3 bg-surface-2/40 rounded p-4 border border-border text-xs space-y-2">
               <span className="font-mono font-black text-foreground block uppercase">
-                Mathematical Probability Model
+                Empirical Feasibility Methodology
               </span>
               <p className="text-secondary leading-relaxed">
                 {profResult.probability.formulaExplanation}
@@ -144,7 +151,7 @@ export function ProfessionalPromotionResult({
                       {sr.companyId.toUpperCase()} • {sr.levelCode}
                     </span>
                     <span className="text-muted text-[10px] font-mono">
-                      Empirical Stall Rate: {sr.stallRate}%
+                      Historical Stall Rate: {sr.stallRate}%
                     </span>
                   </div>
                 ))}
@@ -165,7 +172,7 @@ export function ProfessionalPromotionResult({
             What will I earn? (Projected Compensation Jump &amp; Trajectory)
           </h3>
           <p className="text-xs text-secondary mt-0.5">
-            Real level compensation bands in INR from current level to target level.
+            market estimate for India (Bangalore / Hyderabad / NCR baseline, 2024–2026).
           </p>
         </div>
 
@@ -210,12 +217,17 @@ export function ProfessionalPromotionResult({
               profResult.compTimeline[0]?.salary || 0
             )} to ${formatINR(
               profResult.compTimeline[profResult.compTimeline.length - 1]?.salary || 0
-            )} over ${profResult.totalTime.likely} years.`}
+            )} over ${profResult.totalTime.min}–${profResult.totalTime.max} years.`}
             tableCaption="Projected Professional Career Compensation Timeline"
             gradientId="emeraldGradientProf"
             prefersReducedMotion={prefersReducedMotion}
           />
         </div>
+
+        {/* Disclaimer */}
+        <p className="text-[11px] text-muted leading-relaxed pt-1">
+          Salaries are crowdsourced estimates and may not reflect current offers. Verify through peer networks, LeetCode compensation threads or Glassdoor before negotiating.
+        </p>
       </div>
 
       {/* 3. WHEN WILL IT HAPPEN? */}
@@ -229,7 +241,7 @@ export function ProfessionalPromotionResult({
             When will it happen? (Promotion Plan Timeline)
           </h3>
           <p className="text-xs text-secondary mt-0.5">
-            Progression milestones based on verified company ladder data and calibration cycles.
+            Progression milestones based on verified company ladder data and calibration cycles. No step is guaranteed.
           </p>
         </div>
 
@@ -254,8 +266,7 @@ export function ProfessionalPromotionResult({
                 </div>
                 <div className="text-right">
                   <span className="text-xs font-mono font-black text-volt block">
-                    Duration: ~{step.durationYears.likely} yrs (range: {step.durationYears.min}–
-                    {step.durationYears.max} yrs)
+                    Typically ~{step.durationYears.min}–{step.durationYears.max} yrs (median ~{step.durationYears.likely} yrs, varies by performance &amp; budget)
                   </span>
                   <span className="text-[10px] text-muted font-mono">{step.cycleWindow}</span>
                 </div>
@@ -290,6 +301,44 @@ export function ProfessionalPromotionResult({
           ))}
         </div>
       </div>
+
+      {/* Branching Path: IC vs EM Notice if Senior+ */}
+      {isSeniorOrAbove && (
+        <div className="bg-surface rounded-md p-6 border border-border space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <GitBranch className="w-5 h-5 text-volt" />
+              <h3 className="text-sm font-black text-foreground uppercase tracking-wider font-mono">
+                Branching Path: Individual Contributor (IC) vs. Engineering Management (EM)
+              </h3>
+            </div>
+            <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30">
+              Senior+ Bifurcation
+            </span>
+          </div>
+          <p className="text-xs text-secondary leading-relaxed">
+            At {profResult.targetLevel.levelCode} and above, you can specialize into technical leadership (Staff / Principal Engineer) or people leadership (Engineering Manager / Director). Both tracks maintain equivalent salary bands.
+          </p>
+          <div className="grid sm:grid-cols-2 gap-3 pt-1">
+            <div className="p-3.5 rounded bg-surface-2/40 border border-border space-y-1 text-xs">
+              <span className="font-bold text-foreground flex items-center gap-1.5">
+                <Code2 className="w-3.5 h-3.5 text-volt" /> Technical IC Branch
+              </span>
+              <p className="text-[11px] text-secondary">
+                Focus on distributed system architecture, technical risk mitigation, code velocity, and multi-quarter architectural strategy.
+              </p>
+            </div>
+            <div className="p-3.5 rounded bg-surface-2/40 border border-border space-y-1 text-xs">
+              <span className="font-bold text-foreground flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-amber-400" /> People Management Branch
+              </span>
+              <p className="text-[11px] text-secondary">
+                Focus on engineering hiring, team retention, performance calibrations, sprint execution cadence, and cross-functional partnerships.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 4. WHAT SHOULD I DO NEXT? */}
       <div className="bg-surface rounded-md p-6 border border-border space-y-5">

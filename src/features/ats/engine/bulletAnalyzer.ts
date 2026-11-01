@@ -10,7 +10,7 @@ const STRONG_VERBS = new Set((actionVerbsData.strongVerbs as string[]).map(v => 
 const WEAK_PHRASES = (actionVerbsData.weakPhrases as string[]).map(p => p.toLowerCase());
 
 // Regex for quantifiable metrics: e.g. 40%, 10x, 500k, 2M, 45ms, 10,000 users, 1.2M requests, INR 50L, $100k, etc.
-const METRIC_REGEX = /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|\d+(?:,\d{3})*\s*(?:users|requests|qps|tps|transactions|dau|mau|records|clients|customers|downloads|stars|views|inr|usd|lakh|cr|crore)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
+const METRIC_REGEX = /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|(?:₹|rs\.?|\$)\s*\d+(?:,\d+)*(?:\.\d+)?|\d+(?:,\d+)*\s*(?:users|requests|qps|rps|tps|transactions|dau|mau|records|clients|customers|downloads|stars|views|inr|usd|lakh|lakhs|cr|crore|crores|lpa)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
 
 export function analyzeBullet(rawText: string): BulletAnalysis {
   const trimmed = rawText.replace(/^[*\-•▪●\d.]+\s*/, '').trim();

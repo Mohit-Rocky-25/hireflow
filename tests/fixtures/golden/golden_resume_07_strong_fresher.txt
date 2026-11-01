@@ -1,0 +1,30 @@
+SNEHA PATEL
+Ahmedabad, Gujarat | sneha.patel@example.com | +91 98760 11223 | github.com/snehapatel-eng | linkedin.com/in/snehapatel-dev
+
+EDUCATION
+Nirma University, Ahmedabad
+B.Tech in Computer Science and Engineering | CGPA: 9.24 / 10.0 (2022 - 2026)
+Honors in Distributed Computing | Dean's Academic List (All Semesters)
+
+EXPERIENCE
+Software Engineering Intern | Zomato | Gurugram
+May 2025 - July 2025
+- Architected restaurant menu cache eviction pipeline with Redis Pub/Sub, dropping stale cache reads by 92%.
+- Optimized Go HTTP service handling order status polling, reducing p99 latency from 140ms to 24ms.
+- Wrote unit and integration tests raising core checkout service test coverage from 64% to 89%.
+
+PROJECTS
+High-Throughput Distributed Cache | Go, Consistent Hashing, HTTP/2
+- Built in-memory distributed cache cluster with MurmurHash3 consistent hashing and virtual node partitioning.
+- Implemented LRU memory eviction and concurrent read-write locks supporting 65k QPS with zero lock contention.
+- Wrote comprehensive benchmark harness and integrated GitHub Actions CI pipeline with automated race detection.
+
+Full-Stack Realtime Collab Tool | TypeScript, Next.js 15, WebSockets, PostgreSQL, Tailwind
+- Created real-time collaborative workspace utilizing CRDTs for conflict-free multi-user text editing.
+- Implemented optimistic updates, presence awareness, and database connection pooling with PgBouncer.
+
+TECHNICAL COMPETENCIES
+- Languages: Go, Java 21, TypeScript, C++, SQL
+- Systems & Cloud: Docker, Kubernetes, Linux Internals, AWS (ECS, S3, RDS), Git
+- Databases & Storage: PostgreSQL, Redis, Apache Kafka, DynamoDB
+- Core Concepts: Data Structures & Algorithms, Distributed Systems, OS, DBMS, Computer Networks

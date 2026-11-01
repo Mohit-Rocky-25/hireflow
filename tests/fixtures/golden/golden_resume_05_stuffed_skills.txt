@@ -1,0 +1,17 @@
+RAJESH K
+rajesh.k@example.com | +91 90000 00000
+
+OBJECTIVE
+Looking for an entry-level software engineer job in a top tech company.
+
+SKILLS
+Java, Python, C, C++, C#, JavaScript, TypeScript, Go, Rust, Ruby, PHP, Swift, Kotlin, React, Angular, Vue, Next.js, Node.js, Express, Django, Flask, Spring Boot, FastAPI, Ruby on Rails, HTML, CSS, Tailwind CSS, Bootstrap, jQuery, Docker, Kubernetes, AWS, GCP, Azure, Jenkins, Terraform, Ansible, CI/CD, Kafka, RabbitMQ, Redis, Elasticsearch, GraphQL, REST APIs, Microservices, PostgreSQL, MySQL, MongoDB, Cassandra, DynamoDB, Oracle, SQLite, Git, Linux, Jira, Agile, Scrum, DSA, Machine Learning, Deep Learning, PyTorch, TensorFlow, NLP, Computer Vision, System Design, Distributed Systems, Android, iOS.
+
+EXPERIENCE
+Academic Projects:
+- Created a calculator website using HTML and CSS.
+- Submitted college assignment in Python.
+- Attended 2-day workshop on Cloud Computing.
+
+EDUCATION
+XYZ College of Engineering, B.Tech (2022 - 2026) | CGPA: 6.9

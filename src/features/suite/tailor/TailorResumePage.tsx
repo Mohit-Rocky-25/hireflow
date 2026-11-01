@@ -57,7 +57,7 @@ export function TailorResumePage() {
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-volt/10 text-volt border border-volt/30 uppercase tracking-wider">
                   Live Sync
                 </span>
-                <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+                <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
               </div>
               <p className="text-xs text-neutral-400 mt-0.5 leading-relaxed font-medium">
                 Craft, polish, and tailor your resume in real time. Bold subheadings, Google XYZ formulas, verified metric locking, 1-page overflow protection.

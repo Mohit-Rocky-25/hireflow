@@ -38,7 +38,7 @@ import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { useProfile } from '../profile/ProfileContext';
 import { ProfileStatusChip } from '../profile/components/ProfileStatusChip';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 import {
   compareJDs,
   CompareJDsResult,
@@ -284,7 +284,7 @@ export function CompareJDsPage() {
     <div className="min-h-screen bg-black text-white pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PublicNavbar />
 
-      {/* Top Bar with Profile Chip & Legal Shield */}
+      {/* Top Bar with Profile Chip & Disclosures */}
       <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
           <Link to="/tools" className="hover:text-volt transition-colors">Tools</Link>
@@ -294,7 +294,7 @@ export function CompareJDsPage() {
           <span className="text-volt font-bold">Compare Job Descriptions</span>
         </div>
         <div className="flex items-center gap-3">
-          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
           <ProfileStatusChip />
         </div>
       </div>
@@ -531,7 +531,7 @@ export function CompareJDsPage() {
                         )}
                       </div>
 
-                      {/* Quick Load from 244+ Verified Employers */}
+                      {/* Quick Load from Catalog Employers */}
                       <div className="bg-surface-elevated/70 border border-charcoal rounded p-3 space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-[11px] font-mono font-bold text-volt flex items-center gap-1.5 uppercase tracking-wide">
@@ -817,7 +817,7 @@ export function CompareJDsPage() {
         )}
       </div>
 
-      {/* Global Datalist for 244+ Companies Autocomplete */}
+      {/* Global Datalist for Catalog Companies Autocomplete */}
       <datalist id="compare-companies-datalist">
         {sortedCompanies.map((c) => (
           <option key={c.id} value={c.name} />

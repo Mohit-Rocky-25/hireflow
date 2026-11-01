@@ -1,16 +1,8 @@
 // ============================================================
 // HireFlow — TalentLens™ Flow Unit & Integration Tests
 // ============================================================
-import { describe, it, expect, beforeEach } from 'vitest';
-import {
-  COMPANIES,
-  getCompanySlug,
-  findCompanyBySlug,
-  deepAnalyzeCompetency,
-  computeScore,
-  generateImprovementPlan,
-  runMarketIntelligenceEngine,
-} from '../talentLensData';
+import { COMPANIES, findCompanyBySlug } from '../talentLensData';
+import { getCompanySlug, deepAnalyzeCompetency, computeScore, generateImprovementPlan, runMarketIntelligenceEngine } from '../talentLensEngine';
 import { useTalentLensStore, setCompaniesResolver } from '../useTalentLensStore';
 
 describe('TalentLens Flow & Data Layer', () => {

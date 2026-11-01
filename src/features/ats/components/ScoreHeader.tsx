@@ -36,7 +36,7 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
 
   // Honest band label
   const honestBandLabel = trace?.band ? `${trace.band.label} match` : (score >= 80 ? 'Strong match' : score >= 60 ? 'Partial match' : 'Weak match');
-  const cautionText = 'Simulation estimate: no employer sees this number; real ATS software does not publish universal scores.';
+  const cautionText = 'Score is based on a local rule-based engine that simulates keyword and structure screening. Real ATS systems differ by employer, vendor, and role. This score is a directional signal, not a guarantee.';
 
   // Top 3 reasons moving the score
   const topReasons = React.useMemo(() => {

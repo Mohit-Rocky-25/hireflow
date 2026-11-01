@@ -21,6 +21,10 @@ import {
   CheckCircle2,
   Target,
   Info,
+  GitBranch,
+  Code2,
+  Users,
+  AlertTriangle,
 } from 'lucide-react';
 import {
   getAllCompanies,
@@ -39,6 +43,7 @@ import type {
 } from '../../../data/careerLadders/types';
 import { formatINR, formatINRRange } from '../../../lib/careerEngine';
 import { PromotionBlockersChecklist } from './PromotionBlockersChecklist';
+import { ServicesToProductChecklist } from './ServicesToProductChecklist';
 
 export interface LadderLevelExplorerProps {
   initialCompanyId?: string;
@@ -87,6 +92,10 @@ export function LadderLevelExplorer({
     onLevelSelect?.(lvl, activeCompanyLadder);
   };
 
+  const isSeniorOrAbove =
+    activeDetailLevel &&
+    ['SENIOR', 'STAFF', 'PRINCIPAL', 'DISTINGUISHED'].includes(activeDetailLevel.equivalenceGroup);
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Market Segment & Filter Header */}
@@ -95,7 +104,7 @@ export function LadderLevelExplorer({
           <div>
             <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-xl font-black text-white">Explore Verified India Ladders</h2>
-              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+              <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
             </div>
             <p className="text-xs sm:text-sm text-silver mt-1">
               Real promotion cadences, committee review criteria, time-in-level statistics, and verified India CTC packages.
@@ -234,7 +243,7 @@ export function LadderLevelExplorer({
                         ) : null}
                       </div>
                       <p className="text-[11px] text-muted mt-0.5">
-                        {lvl.yoeTypicalMin}–{lvl.yoeTypicalMax} yrs exp • Median promo: <span className="font-mono">{lvl.timeInLevel.median}</span> yrs
+                        {lvl.yoeTypicalMin}–{lvl.yoeTypicalMax} yrs exp • Typically {lvl.timeInLevel.p25}–{lvl.timeInLevel.p75} yrs (median <span className="font-mono">{lvl.timeInLevel.median}</span> yrs)
                       </p>
                     </div>
                   </div>
@@ -243,7 +252,7 @@ export function LadderLevelExplorer({
                     <p className="text-xs font-mono font-black text-foreground">
                       {formatINRRange(lvl.comp.total.p25, lvl.comp.total.p75)}
                     </p>
-                    <span className="text-[10px] text-muted font-bold uppercase font-mono">Annual</span>
+                    <span className="text-[10px] text-muted font-bold uppercase font-mono">Annual CTC</span>
                   </div>
                 </div>
               );
@@ -314,16 +323,22 @@ export function LadderLevelExplorer({
                     {formatINRRange(activeDetailLevel.comp.total.p25, activeDetailLevel.comp.total.p75)}
                   </span>
                   <span className="text-[10px] text-muted block mt-0.5 font-mono">
-                    Median benchmark: {formatINR(activeDetailLevel.comp.total.p50)} • Verified India Office Data
+                    Median benchmark: {formatINR(activeDetailLevel.comp.total.p50)} • market estimate for India (Bangalore / Hyderabad / NCR baseline, 2024–2026)
                   </span>
                 </div>
               </div>
 
               {/* Detailed Compensation Breakdown in INR */}
               <div className="bg-surface-2/40 rounded p-4 border border-border space-y-2.5">
-                <h4 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
-                  Annual Compensation Breakdown (Per Year in INR)
-                </h4>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h4 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
+                    Annual Compensation Breakdown (Per Year in INR)
+                  </h4>
+                  <span className="text-[10px] text-muted font-mono">
+                    market estimate for India (Bangalore / Hyderabad / NCR baseline, 2024–2026)
+                  </span>
+                </div>
+
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs pt-1">
                   <div className="bg-surface p-2.5 rounded border border-border">
                     <span className="text-[10px] text-muted block font-bold uppercase font-mono">Fixed / Base</span>
@@ -334,8 +349,9 @@ export function LadderLevelExplorer({
                     <span className="font-mono font-black text-foreground">{formatINR(activeDetailLevel.comp.variable)}</span>
                   </div>
                   <div className="bg-surface p-2.5 rounded border border-border">
-                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Stock (Annual)</span>
+                    <span className="text-[10px] text-muted block font-bold uppercase font-mono">Stock (Annualized)</span>
                     <span className="font-mono font-black text-foreground">{formatINR(activeDetailLevel.comp.stock)}</span>
+                    <span className="text-[9px] text-muted block mt-0.5 font-mono">4-yr grant / 4</span>
                   </div>
                   <div className="bg-surface p-2.5 rounded border border-border">
                     <span className="text-[10px] text-muted block font-bold uppercase font-mono">Joining Bonus</span>
@@ -344,27 +360,78 @@ export function LadderLevelExplorer({
                     </span>
                   </div>
                 </div>
+
+                {/* Sourcing & Crowdsource Disclaimer */}
+                <div className="pt-2 border-t border-border/40 text-[11px] text-muted leading-relaxed">
+                  Salaries are crowdsourced estimates and may not reflect current offers. Verify through peer networks, LeetCode compensation threads or Glassdoor before negotiating.
+                </div>
               </div>
 
               {/* Time in Level & Velocity Stats */}
-              <div className="grid sm:grid-cols-4 gap-3 text-center">
-                <div className="p-3 bg-surface-2/40 rounded border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Fast-Track (p25)</span>
-                  <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p25} Years</span>
+              <div className="space-y-2">
+                <div className="grid sm:grid-cols-4 gap-3 text-center">
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Fast-Track (p25)</span>
+                    <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p25} Years</span>
+                  </div>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Typical (Median)</span>
+                    <span className="text-base font-mono font-black text-volt">{activeDetailLevel.timeInLevel.median} Years</span>
+                  </div>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Conservative (p75)</span>
+                    <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p75} Years</span>
+                  </div>
+                  <div className="p-3 bg-surface-2/40 rounded border border-border">
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Stall Rate</span>
+                    <span className="text-base font-mono font-black text-amber-400">~{activeDetailLevel.timeInLevel.stallRatePct}%</span>
+                  </div>
                 </div>
-                <div className="p-3 bg-surface-2/40 rounded border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Typical (Median)</span>
-                  <span className="text-base font-mono font-black text-volt">{activeDetailLevel.timeInLevel.median} Years</span>
-                </div>
-                <div className="p-3 bg-surface-2/40 rounded border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Conservative (p75)</span>
-                  <span className="text-base font-mono font-black text-foreground">{activeDetailLevel.timeInLevel.p75} Years</span>
-                </div>
-                <div className="p-3 bg-surface-2/40 rounded border border-border">
-                  <span className="text-[10px] font-bold text-muted block uppercase font-mono">Stall Rate</span>
-                  <span className="text-base font-mono font-black text-amber-400">~{activeDetailLevel.timeInLevel.stallRatePct}%</span>
+                <div className="p-2.5 rounded bg-black/60 border border-charcoal text-[11px] text-silver">
+                  <span className="font-bold text-white">Promotion Velocity Reality: </span>
+                  <span>
+                    Typically {activeDetailLevel.timeInLevel.p25}–{activeDetailLevel.timeInLevel.p75} years at this tier (varies by performance, headcount budget, and calibration committee review). No promotion is deterministic or guaranteed.
+                  </span>
                 </div>
               </div>
+
+              {/* Branching Career Paths: IC vs Management Bifurcation */}
+              {isSeniorOrAbove && (
+                <div className="p-4 rounded-lg bg-surface-2/40 border border-border space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <GitBranch className="w-4 h-4 text-volt" />
+                      <h4 className="text-xs font-black text-foreground uppercase tracking-wider font-mono">
+                        Branching Career Paths: IC Track vs. Management Track
+                      </h4>
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-volt/10 text-volt border border-volt/30">
+                      Bifurcation Point
+                    </span>
+                  </div>
+                  <p className="text-xs text-secondary leading-relaxed">
+                    From Senior Engineering ({activeDetailLevel.levelCode}) upwards, career trajectories bifurcate into parallel tracks with equivalent compensation parity:
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-3 pt-1">
+                    <div className="p-3 rounded bg-surface border border-border space-y-1">
+                      <span className="text-xs font-black text-foreground flex items-center gap-1.5">
+                        <Code2 className="w-3.5 h-3.5 text-volt" /> Technical IC Track (Staff / Principal)
+                      </span>
+                      <p className="text-[11px] text-muted">
+                        Deep architectural ownership, cross-pod technical strategy, high-leverage distributed systems design, and hands-on system modeling.
+                      </p>
+                    </div>
+                    <div className="p-3 rounded bg-surface border border-border space-y-1">
+                      <span className="text-xs font-black text-foreground flex items-center gap-1.5">
+                        <Users className="w-3.5 h-3.5 text-amber-400" /> Management Track (EM / Director)
+                      </span>
+                      <p className="text-[11px] text-muted">
+                        People growth &amp; mentorship, hiring pipeline, team delivery cadence, cross-functional stakeholder management, and org budget planning.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Promotion Requirements INTO this Level */}
               <div className="space-y-3 pt-2">
@@ -381,7 +448,7 @@ export function LadderLevelExplorer({
                     <p className="text-secondary leading-relaxed">{activeDetailLevel.promotionRequirements.impact}</p>
                   </div>
                   <div className="p-3 bg-surface-2/40 rounded border border-border space-y-1">
-                    <span className="font-extrabold text-foreground block uppercase font-mono text-[11px]">Leadership & Influence</span>
+                    <span className="font-extrabold text-foreground block uppercase font-mono text-[11px]">Leadership &amp; Influence</span>
                     <p className="text-secondary leading-relaxed">{activeDetailLevel.promotionRequirements.influence}</p>
                   </div>
                 </div>
@@ -406,14 +473,14 @@ export function LadderLevelExplorer({
                 </h3>
                 <div className="grid sm:grid-cols-2 gap-3 text-xs">
                   <div className="p-3 bg-surface-2/40 rounded border border-border">
-                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Cadence & Cycle Months</span>
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Cadence &amp; Cycle Months</span>
                     <p className="font-bold text-foreground mt-0.5">{activeDetailLevel.promotionProcess.cadence}</p>
                     <span className="text-[11px] text-secondary mt-1 block">
                       Type: {activeDetailLevel.promotionProcess.cycleType === 'cycle' ? 'Cycle-bound only' : 'Rolling & Cycle'}
                     </span>
                   </div>
                   <div className="p-3 bg-surface-2/40 rounded border border-border">
-                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Nominator & Decider</span>
+                    <span className="text-[10px] font-bold text-muted block uppercase font-mono">Nominator &amp; Decider</span>
                     <p className="font-bold text-foreground mt-0.5">{activeDetailLevel.promotionProcess.nominator}</p>
                     <span className="text-[11px] text-secondary mt-1 block">
                       Decider: {activeDetailLevel.promotionProcess.decider} ({activeDetailLevel.promotionProcess.calibrationLayers} layers)
@@ -437,7 +504,7 @@ export function LadderLevelExplorer({
                 >
                   <span className="flex items-center gap-2">
                     <Info className="w-3.5 h-3.5 text-volt" />
-                    Where does this data come from? (Verified Sources & Verification Date)
+                    Where does this data come from? (Verified Sources &amp; Verification Date)
                   </span>
                   {isSourcesOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -478,6 +545,11 @@ export function LadderLevelExplorer({
             <div className="text-center py-12 text-muted">Select a level on the left to inspect requirements.</div>
           )}
         </div>
+      </div>
+
+      {/* Services-to-Product Transition Checklist */}
+      <div className="pt-4">
+        <ServicesToProductChecklist />
       </div>
     </div>
   );

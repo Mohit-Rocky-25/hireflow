@@ -1,0 +1,18 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Data Analyst & ML Engineer
+Level: Fresher to 2 years experience
+Location: Gurugram / Mumbai
+
+About the Role:
+Transform large-scale telemetry data into actionable business intelligence and train machine learning models for customer segmentation.
+
+Key Responsibilities:
+- Write complex SQL queries and ETL pipelines for analytical data marts.
+- Develop predictive models in Python using Pandas, Scikit-Learn, and PyTorch.
+- Build automated visualization dashboards in Tableau, PowerBI, or Streamlit.
+- Monitor model drift and evaluate inference metrics (Precision, Recall, ROC-AUC).
+
+Requirements:
+- Strong foundations in Python, SQL, Statistics, and Linear Algebra.
+- Experience with data manipulation libraries (Pandas, NumPy) and ML frameworks.
+- Demonstrated ability to communicate data insights to technical and non-technical stakeholders.

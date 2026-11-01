@@ -10,7 +10,10 @@ import type {
   CompanyTier,
   StructuredBlocker,
 } from './types';
-import type { Company, Role } from '../../pages/demo/talentLensData';
+import type { CatalogCompany } from '../companyCatalog';
+import type { CatalogRoleSummary } from '../companyCatalog';
+type Company = (CatalogCompany | any);
+type Role = (CatalogRoleSummary | any);
 
 interface ParsedComp {
   p25: number;
@@ -131,10 +134,10 @@ export function synthesizeCompanyLadder(company: Company): CompanyLadder {
   const companyId = company.id.toLowerCase();
 
   // Find sample roles or fallbacks
-  const entryRole = roles.find((r) => /entry|junior|sde-?1|intern|associate/i.test(r.level || r.title)) || roles[0];
-  const midRole = roles.find((r) => /mid|sde-?2|swe ii|developer|software engineer/i.test(r.level || r.title)) || roles[Math.min(1, roles.length - 1)];
-  const seniorRole = roles.find((r) => /senior|sde-?3|lead|staff/i.test(r.level || r.title)) || roles[Math.min(2, roles.length - 1)];
-  const staffRole = roles.find((r) => /lead|staff|principal|architect|manager/i.test(r.level || r.title)) || roles[Math.min(3, roles.length - 1)];
+  const entryRole = roles.find((r: any) => /entry|junior|sde-?1|intern|associate/i.test(r.level || r.title)) || roles[0];
+  const midRole = roles.find((r: any) => /mid|sde-?2|swe ii|developer|software engineer/i.test(r.level || r.title)) || roles[Math.min(1, roles.length - 1)];
+  const seniorRole = roles.find((r: any) => /senior|sde-?3|lead|staff/i.test(r.level || r.title)) || roles[Math.min(2, roles.length - 1)];
+  const staffRole = roles.find((r: any) => /lead|staff|principal|architect|manager/i.test(r.level || r.title)) || roles[Math.min(3, roles.length - 1)];
 
   // Base salary calculations with strict monotonic compensation progression
   let rawSenior = parseSalaryToRupees(seniorRole?.compensation, 25, 45);

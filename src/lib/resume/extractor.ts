@@ -37,7 +37,7 @@ const MULTIPLIER_REGEX = /\b\d+(?:\.\d+)?\s*[xX]\b/g;
 const PERCENTAGE_REGEX = /\b\d+(?:\.\d+)?\s*(?:%|percent(?:age)?\b)/gi;
 
 // 4. Currency: e.g. "₹25L", "₹10 Crore", "$1.2M", "$50k", "$300,000", "Rs. 15 Lakhs", "12 LPA", "₹5,00,000", "$4.5B"
-const CURRENCY_REGEX = /(?:[₹$£€]|Rs\.?\s*)\s*\d+(?:,\d+)*(?:\.\d+)?(?:\s*(?:k|m|b|l|cr|lakhs?|crores?|lpa))?\b|\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:lpa|lakhs?|crores?)\b/gi;
+const CURRENCY_REGEX = /(?:[₹$£€]|Rs\.?\s*)\s*\d+(?:,\d+)*(?:\.\d+)?(?:\s*(?:k|m|b|l|cr|lakh|lakhs?|crore|crores?|lpa))?\b|\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:lpa|lakh|lakhs?|crore|crores?)\b/gi;
 
 // 5. Engineering units & rates: e.g. "28k req/s", "120ms", "45ms", "1.5s", "2.5 TB", "500 GB"
 const UNIT_RATE_REGEX = /\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:ms|sec|seconds?|s|minutes?|mins?|hours?|hrs?|days?|weeks?|months?|req\/s|requests?\/sec|qps|rps|tps|fps|kb|mb|gb|tb|pb)\b/gi;
@@ -46,7 +46,7 @@ const UNIT_RATE_REGEX = /\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:ms|sec|seconds?|s|minutes
 const COMPACT_NUM_REGEX = /\b\d+(?:\.\d+)?\s*[kKmMbB]\b/g;
 
 // 7. Large formatted numbers (>= 1,000): e.g. "15,000+", "1,200", "50,000"
-const FORMATTED_NUM_REGEX = /\b\d{1,3}(?:,\d{3})+(?:\+)?/g;
+const FORMATTED_NUM_REGEX = /\b(?:\d{1,3}(?:,\d{3})+|\d{1,2}(?:,\d{2})*,\d{3})(?:\+)?/g;
 
 // 8. Count metrics: numbers followed by "+" or performance nouns:
 // e.g. "40+", "120+", "450+", "12 REST API endpoints", "6-engineer", "85 unit tests", "4 cross-functional squad initiatives", "250 customer escalation tickets", "150 enterprise clients"

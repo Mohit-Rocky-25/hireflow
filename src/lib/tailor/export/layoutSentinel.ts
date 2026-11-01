@@ -20,6 +20,7 @@ const LETTER_HEIGHT_PX = 1056;
 const A4_HEIGHT_PX = 1123;
 
 export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelReport {
+  const targetPages = resume.layoutSettings.targetPages ?? 1;
   const settings = resume.layoutSettings;
 
   // Distinguish Letter vs A4 paper capacity (I-05)
@@ -68,15 +69,23 @@ export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelRepo
     }
   }
 
+  const targetCapacity = targetPages === 2 ? usablePageHeight * 2 : usablePageHeight;
   const estimatedPages = Math.max(1, Math.ceil(totalHeight / usablePageHeight));
-  const overflowPx = Math.max(0, totalHeight - usablePageHeight);
+  const overflowPx = Math.max(0, totalHeight - targetCapacity);
   const hasSpillRisk = overflowPx > 0;
 
   let densityStatus: LayoutSentinelReport['densityStatus'] = 'optimal_single_page';
   const recommendations: string[] = [];
 
   if (overflowPx === 0) {
-    if (totalHeight <= usablePageHeight * 0.88) {
+    if (targetPages === 2) {
+      densityStatus = totalHeight > usablePageHeight ? 'multi_page_balanced' : 'optimal_single_page';
+      recommendations.push(
+        totalHeight > usablePageHeight
+          ? '2-page target achieved with balanced multi-page distribution.'
+          : 'Content currently fits on 1 page; you can add further project details to utilize 2 pages.'
+      );
+    } else if (totalHeight <= usablePageHeight * 0.88) {
       densityStatus = 'optimal_single_page';
     } else {
       densityStatus = 'tight_fit';
@@ -84,7 +93,10 @@ export function evaluateLayoutHeight(resume: TailoredResume): LayoutSentinelRepo
     }
   } else {
     densityStatus = 'page_overflow';
-    recommendations.push(`Content spills ~${Math.ceil(overflowPx / 20)} line(s) onto page ${estimatedPages}. Click Auto-Fit 1P to compress layout.`);
+    const spillPage = targetPages === 1 ? 'page 2' : `page ${estimatedPages}`;
+    recommendations.push(
+      `Content spills ~${Math.ceil(overflowPx / 20)} line(s) onto ${spillPage}. Trim bullets or tighten density to fit ${targetPages} page${targetPages > 1 ? 's' : ''}.`
+    );
   }
 
   return {

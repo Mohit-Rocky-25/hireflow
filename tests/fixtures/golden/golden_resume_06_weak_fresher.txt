@@ -1,0 +1,22 @@
+AMIT KUMAR
+amit.k@example.com | +91 91111 22222 | Delhi, India
+
+OBJECTIVE
+Hardworking student seeking a challenging position to learn new technologies and grow in an IT company.
+
+EDUCATION
+ABC Institute of Technology, Greater Noida
+B.Tech CSE (2021 - 2025) | CGPA: 7.1
+
+PROJECTS
+Library Management System
+- Responsible for doing the frontend part of the website.
+- Handled database connections and worked on forms.
+- Assisted team members in testing and bug fixing.
+
+Online Food Delivery Clone
+- Worked on the UI and made pages using HTML, CSS and JS.
+- Helped in connecting backend APIs.
+
+SKILLS
+C, C++, Java, HTML, CSS, JavaScript, MySQL

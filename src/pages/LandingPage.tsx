@@ -7,6 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { PublicNavbar } from '../components/common/PublicNavbar';
 import { careers } from '../careers-core';
+import { PLATFORM_DATA_META, getCompanyCountsSummary } from '../data/meta';
 import { CompanyLogo } from '../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../components/common/DataProvenanceModal';
 
@@ -236,7 +237,7 @@ export function LandingPage() {
                       Campus Intelligence
                     </p>
                     <p className="text-[14px] sm:text-[15px] text-silver leading-relaxed">
-                      {TOTAL_FRESHER_PROGRAMS}+ verified fresher programs, actual CTC bands &amp; eligibility rules.
+                      {TOTAL_FRESHER_PROGRAMS}+ fresher intake guides, estimated CTC ranges & eligibility criteria.
                     </p>
                   </div>
                 </div>
@@ -244,13 +245,13 @@ export function LandingPage() {
             </div>
           </div>
 
-          {/* Calibrated Employers Strip with Authentic Vector Logos & Legal Shield */}
+          {/* Calibrated Employers Strip with Authentic Vector Logos & Disclosures */}
           <div className="mt-14 max-w-[1280px] mx-auto text-left">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
               <p className="text-[12px] font-semibold text-silver uppercase tracking-[1.4px]">
-                Calibrated Across {TOTAL_COMPANIES}+ Verified Employers &amp; Recruiters
+                {PLATFORM_DATA_META.companyCounts.fullProfiles} Detailed Company Profiles &amp; {PLATFORM_DATA_META.companyCounts.basicListings} Directory Listings
               </p>
-              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+              <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
             </div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
               {TOP_COMPANIES.map((company) => (
@@ -507,7 +508,7 @@ export function LandingPage() {
               <Link to="/methodology" className="text-silver hover:text-volt transition-colors">Methodology</Link>
               <Link to="/data" className="text-silver hover:text-volt transition-colors">Your Data</Link>
               <Link to="/demo" className="text-silver hover:text-volt transition-colors">TalentLens</Link>
-              <DataProvenanceModal triggerButtonText="Legal Shield" />
+              <DataProvenanceModal triggerButtonText="Disclosures" />
             </div>
 
             <p className="text-[13px] text-silver/60">

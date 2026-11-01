@@ -71,7 +71,7 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
 
   if (!factors.campusAccess && !factors.referral) {
     guidanceNotes.push(
-      'Off-Campus Reality: Blind portal applications often yield under 2% response rates. Your highest-ROI investment is targeting hackathons, referral outreach, or open-source programs.'
+      'Off-Campus Reality: Blind portal applications typically yield under 2% response rates (Jobscan 2024, SHRM 2023 talent benchmarks). Your highest-leverage strategy is targeting hackathons, direct referral outreach, or open-source contributions.'
     );
   }
 

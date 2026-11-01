@@ -1,3 +1,4 @@
+import { PLATFORM_DATA_META } from '../../data/meta';
 // ============================================================
 // HireFlow — Candidate Intelligence Page
 // Evidence-based candidate-vs-job analysis for recruiters
@@ -317,7 +318,7 @@ export function TalentLens() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded bg-volt/10 hover:bg-volt/20 text-volt border border-volt/30 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Browse All 244+ Companies &amp; 1,700+ Roles in TalentLens™ Catalog →</span>
+              <span>Browse All {PLATFORM_DATA_META.companyCounts.fullProfiles}+ Full Profiles ({PLATFORM_DATA_META.companyCounts.totalPlatformListings} Employers) in TalentLens Catalog →</span>
             </Link>
           </div>
         </div>
@@ -336,7 +337,7 @@ export function TalentLens() {
 
         <div className="flex items-center gap-3 flex-wrap">
           <HonestyExplainerModal tool="talentlens" />
-          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
           <ResumePreviewModal
             resumeText={activeResumeText}
             fileName={activeResumeFileName}

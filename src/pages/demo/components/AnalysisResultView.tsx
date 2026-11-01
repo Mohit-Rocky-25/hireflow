@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { Company, Role, AnalysisResult } from '../talentLensData';
-import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensData';
+import type { Company, Role, AnalysisResult } from '../talentLensEngine';
+import { STATUS_CONFIG, TREND_COLOR, TREND_ICON } from '../talentLensEngine';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
@@ -830,7 +830,7 @@ export function AnalysisResultView({
         </button>
       </div>
 
-      {/* Sourcing & Legal Shield Footer */}
+      {/* Sourcing & Disclosures Footer */}
       <div className="mb-6 p-4 rounded-lg bg-[#0e0e0e] border border-charcoal/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0" />
@@ -839,7 +839,7 @@ export function AnalysisResultView({
           </span>
         </div>
         <DataProvenanceModal
-          triggerButtonText="Data Sources & Legal Shield"
+          triggerButtonText="Data Sources & Disclosures"
           triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
         />
       </div>

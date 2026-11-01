@@ -52,7 +52,13 @@ export type EventScope = 'college' | 'national' | 'international';
 export type DeliveryMode = 'online' | 'offline' | 'hybrid';
 
 // ── Provenance & Freshness Enums (Stage 1) ──
-export type VerificationStatus = 'verified' | 'needs-recheck' | 'unverified';
+// Honest verification statuses (Stage 2.1)
+export type VerificationStatus =
+  | 'checked-manually'
+  | 'needs-recheck'
+  | 'expired'
+  | 'verified'
+  | 'unverified';
 export type OpportunityRecurrence = 'one-time' | 'annual' | 'rolling';
 export type FreshnessStatus = 'fresh' | 'aging' | 'stale';
 
@@ -210,6 +216,12 @@ export interface RawOpportunityRecord {
   targetRoles: string[];
   relatedSkills: string[];
   eligibility: string | null;
+  eligibleBatches?: string[];
+  eligibleBranches?: string[];
+  genderRestricted?: 'women_only' | 'none';
+  eligibilityNotes?: string;
+  checkedBy?: string;
+  checkedOn?: string;
   level?: CertificationLevel;
   scope?: EventScope;
   mode?: DeliveryMode;

@@ -155258,7 +155258,7 @@ export interface Role {
   lastVerified?: string | null;
   confidence?: 'high' | 'medium' | 'low';
   status?: 'verified' | 'needs-recheck' | 'unverified';
-  profileKind?: 'representative';
+  profileKind?: 'sourced' | 'estimate' | 'representative';
   competencyFit?: 'good' | 'approximate';
   uncoveredSkills?: string[];
   jobFamily?: 'software-eng' | 'data-ai' | 'quant' | 'embedded-hardware' | 'platform-infra' | 'consulting-solutions' | 'other';
@@ -155410,26 +155410,6 @@ function detectProgressionSignals(text: string): { hasProgression: boolean; year
   return { hasProgression, yearsOfExperience, hasPremiumEdu, hasOpenSource, details };
 }
 
-// Re-export all computation, analysis, and evaluation functions from canonical talentLensEngine
-import { findCompanyBySlug as engineFindCompanyBySlug } from './talentLensEngine';
-export {
-  deepAnalyzeCompetency,
-  computeScore,
-  generateImprovementPlan,
-  runMarketIntelligenceEngine,
-  analyzeRoleMatch,
-  type AnalysisResult,
-  type CompetencyAnalysis,
-  type ImprovementPlan,
-  type MarketIntelligenceReport,
-  TREND_COLOR,
-  TREND_ICON,
-  STATUS_CONFIG,
-  INDUSTRIES,
-  TIERS,
-  getCompanySlug,
-} from './talentLensEngine';
-
 export const findCompanyBySlug = (slug: string): Company | undefined => {
-  return engineFindCompanyBySlug(slug, COMPANIES);
+  return COMPANIES.find((c) => c.id === slug || c.name.toLowerCase() === slug.toLowerCase());
 };

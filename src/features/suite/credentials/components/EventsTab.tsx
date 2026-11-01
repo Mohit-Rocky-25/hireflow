@@ -94,6 +94,7 @@ export function EventsTab({
   const [selectedBranch, setSelectedBranch] = useState<string>('All');
   const [selectedTrust, setSelectedTrust] = useState<string>('All');
   const [selectedFlag, setSelectedFlag] = useState<string>('All');
+  const [selectedEligibility, setSelectedEligibility] = useState<string>('All');
   const [onlyHiringPipeline, setOnlyHiringPipeline] = useState(false);
   const [onlyIndianFlagships, setOnlyIndianFlagships] = useState(false);
   const [hideUnverified, setHideUnverified] = useState(false);
@@ -428,6 +429,23 @@ export function EventsTab({
             </select>
           </div>
 
+                    {/* Eligibility Filter */}
+          <div className="space-y-1.5">
+            <label className="text-xs font-black uppercase tracking-wider text-foreground block">
+              Eligibility
+            </label>
+            <select
+              value={selectedEligibility}
+              onChange={(e) => setSelectedEligibility(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-orange-500/50 focus:border-orange-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
+            >
+              <option value="All" className="bg-surface text-foreground font-bold">All Eligibility</option>
+              <option value="open" className="bg-surface text-foreground font-semibold">Open to All</option>
+              <option value="women_only" className="bg-surface text-foreground font-semibold">Women in Tech Only</option>
+              <option value="batch_restricted" className="bg-surface text-foreground font-semibold">Batch Restricted</option>
+            </select>
+          </div>
+
           {/* Special Flag */}
           <div className="space-y-1.5">
             <label className="text-xs font-black uppercase tracking-wider text-foreground block">
@@ -575,7 +593,7 @@ export function EventsTab({
                 setSelectedRole('All');
                 setSelectedBranch('All');
                 setSelectedTrust('All');
-                setSelectedFlag('All');
+                setSelectedFlag('All'); setSelectedEligibility('All');
                 setOnlyHiringPipeline(false);
                 setOnlyIndianFlagships(false);
                 setHideUnverified(false);
@@ -631,6 +649,16 @@ export function EventsTab({
                       </span>
                     )}
                     {renderTrustBadge(event)}
+                    {event.genderRestricted === 'women_only' && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30">
+                        Women Only
+                      </span>
+                    )}
+                    {(event.genderRestricted === 'women_only' || (event.eligibleBatches && event.eligibleBatches.length > 0)) && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30" title="Check eligibility before applying: specific branch, batch, or gender criteria apply">
+                        Check Eligibility
+                      </span>
+                    )}
                   </div>
 
                   <button
@@ -740,7 +768,7 @@ export function EventsTab({
                 setSelectedRole('All');
                 setSelectedBranch('All');
                 setSelectedTrust('All');
-                setSelectedFlag('All');
+                setSelectedFlag('All'); setSelectedEligibility('All');
                 setOnlyHiringPipeline(false);
                 setOnlyIndianFlagships(false);
               }}

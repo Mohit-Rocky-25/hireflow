@@ -41,7 +41,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
-import { COMPANIES } from '../../../pages/demo/talentLensData';
+import { CATALOG_COMPANIES as COMPANIES } from '../../../data/companyCatalog';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 
 // Types & Engine
@@ -265,6 +265,7 @@ export function ReachOutPage() {
   const [variantIndex, setVariantIndex] = useState<number>(0);
   const [copiedNote, setCopiedNote] = useState<boolean>(false);
   const [copiedSubject, setCopiedSubject] = useState<boolean>(false);
+  const [showOverLengthModal, setShowOverLengthModal] = useState<boolean>(false);
   const [showProvenance, setShowProvenance] = useState<boolean>(false);
 
   // When user switches channel, select a template from that channel
@@ -375,15 +376,39 @@ export function ReachOutPage() {
     setVariantIndex((prev) => prev + 1);
   };
 
-  // Copy helpers
-  const handleCopyNote = async () => {
+  // Auto-trim helper for LinkedIn 300-char limit
+  const handleAutoTrimLinkedIn = () => {
+    if (slots.proofPoint) {
+      let trimmed = slots.proofPoint
+        .replace(/\b(responsible for|worked on|in order to|helped to|actively|successfully|currently)\b\s*/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const excess = fitResult.charCount - 295;
+      if (excess > 0 && trimmed.length > excess + 10) {
+        trimmed = trimmed.slice(0, trimmed.length - excess).replace(/[,\s]+$/, '').trim();
+      }
+      setSlots((prev) => ({ ...prev, proofPoint: trimmed }));
+    }
+  };
+
+  const executeCopyText = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(fitResult.body);
+      await navigator.clipboard.writeText(text);
       setCopiedNote(true);
+      setShowOverLengthModal(false);
       setTimeout(() => setCopiedNote(false), 2000);
     } catch {
       // ignore
     }
+  };
+
+  // Copy helpers
+  const handleCopyNote = async () => {
+    if (selectedTemplate.channel === 'linkedin_connect' && fitResult.charCount > 300) {
+      setShowOverLengthModal(true);
+      return;
+    }
+    await executeCopyText(fitResult.body);
   };
 
   const handleCopySubject = async () => {
@@ -961,6 +986,23 @@ export function ReachOutPage() {
               </span>
             </div>
           </div>
+
+          {/* Over 300 chars warning and auto-trim button for LinkedIn Connect */}
+          {selectedTemplate.channel === 'linkedin_connect' && fitResult.charCount > 300 && (
+            <div className="bg-rose-950/30 border border-rose-500/40 rounded-lg p-2.5 flex items-center justify-between gap-2 text-xs text-rose-300">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                <span>Over 300 characters: this won't fit a free connection note.</span>
+              </div>
+              <button
+                type="button"
+                onClick={handleAutoTrimLinkedIn}
+                className="px-2.5 py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-200 text-[11px] font-semibold shrink-0 cursor-pointer"
+              >
+                Auto-trim to 300 chars
+              </button>
+            </div>
+          )}
 
           {/* Mandatory Limits Notice */}
           <div className="bg-black/60 border border-white/10 rounded-lg p-2.5 text-[11px] text-white/60 leading-relaxed mb-1">

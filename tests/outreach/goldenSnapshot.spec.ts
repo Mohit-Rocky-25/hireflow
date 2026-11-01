@@ -101,8 +101,8 @@ const CANONICAL_PERSONAS: Array<{ name: string; slots: OutreachSlotsV2 }> = [
 describe('Stage 6: Golden Snapshot Regression Suite', () => {
   const templates = templatesData as unknown as OutreachTemplateV2[];
 
-  it('renders all 85 templates across 5 personas and verifies golden SHA-256 snapshot', () => {
-    expect(templates).toHaveLength(85);
+  it('renders all 87 templates across 5 personas and verifies golden SHA-256 snapshot', () => {
+    expect(templates).toHaveLength(87);
     expect(CANONICAL_PERSONAS).toHaveLength(5);
 
     const corpus: string[] = [];
@@ -121,13 +121,13 @@ describe('Stage 6: Golden Snapshot Regression Suite', () => {
       }
     }
 
-    expect(corpus).toHaveLength(85 * 5); // 425 rendered combinations
+    expect(corpus).toHaveLength(87 * 5); // 435 rendered combinations
 
     const serialized = corpus.join('\n===ENTRY===\n');
     const hash = crypto.createHash('sha256').update(serialized, 'utf8').digest('hex');
 
     // Expected golden SHA-256 hash for deterministic corpus regression
-    const EXPECTED_GOLDEN_HASH = '7ca08f1bb550b7d7b983d80e9422da0c55f227b9fd3e0dc8958531a156e4ec79';
+    const EXPECTED_GOLDEN_HASH = '5fc260bafb5525d15fe6557c723fa115504b8e3c55d8efe6621a69d9054d617e';
 
     expect(hash).toBe(EXPECTED_GOLDEN_HASH);
   });

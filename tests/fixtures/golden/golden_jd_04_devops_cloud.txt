@@ -1,0 +1,19 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Cloud Platform / DevOps Engineer
+Level: Associate (0-2 years experience)
+Location: Bengaluru / Hyderabad
+
+About the Role:
+Scale, monitor, and automate cloud infrastructure supporting high-availability production workloads.
+
+Key Responsibilities:
+- Manage Kubernetes clusters, Helm charts, and containerized deployments.
+- Build automated CI/CD pipelines using GitHub Actions or GitLab CI.
+- Implement observability stacks with Prometheus, Grafana, and OpenTelemetry.
+- Enforce infrastructure-as-code (IaC) standards using Terraform.
+
+Requirements:
+- Understanding of Linux systems administration, networking, and shell scripting.
+- Experience with Docker, Kubernetes, and public cloud providers (AWS/GCP).
+- Familiarity with CI/CD concepts, Git, and automated testing gates.
+- Knowledge of cloud security, secrets management, and zero-trust concepts.

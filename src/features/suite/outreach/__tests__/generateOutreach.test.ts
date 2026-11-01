@@ -187,9 +187,9 @@ describe('Outreach Generator Engine', () => {
       }
     });
 
-    it('verifies total template catalog across all channels reflects the full authored matrix (85 templates)', () => {
+    it('verifies total template catalog across all channels reflects the full authored matrix (87 templates)', () => {
       const all = generateOutreach(testSlots, 'all');
-      expect(all).toHaveLength(85);
+      expect(all).toHaveLength(87);
     });
   });
 });

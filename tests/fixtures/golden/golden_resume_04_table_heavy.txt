@@ -1,0 +1,19 @@
+MEERA NAIR
+Bengaluru, India | meera.nair@example.com | +91 99887 76655 | github.com/meeranair
+
+ACADEMIC QUALIFICATIONS
+| Degree / Course | Institution | Board / University | Year | Percentage / CGPA |
+| B.Tech (ECE) | NIT Calicut | Autonomous | 2021-2025 | 8.62 CGPA |
+| Class XII | Kendriya Vidyalaya | CBSE | 2021 | 94.2% |
+| Class X | Kendriya Vidyalaya | CBSE | 2019 | 95.8% |
+
+PROJECT SUMMARY
+| Project Title | Technologies Used | Key Contribution | Outcome |
+| IoT Fleet Telemetry | C++, FreeRTOS, MQTT, AWS IoT | Designed firmware and telemetry parser | 99.4% uptime across 50 nodes |
+| Smart Grid Gateway | Python, Raspberry Pi, InfluxDB | Built edge data aggregator with TLS | 500ms real-time metric latency |
+
+TECHNICAL PROFICIENCIES
+| Domain | Proficient | Familiar |
+| Languages | C, C++, Python, Embedded C | Rust, Assembly |
+| Protocols | UART, SPI, I2C, CAN, MQTT | BLE, Zigbee |
+| Tools & Hardware | STM32, ESP32, Keil, Git, Linux | Oscilloscope, Logic Analyzer |

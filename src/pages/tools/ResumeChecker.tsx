@@ -446,7 +446,7 @@ export function ResumeChecker() {
             <span>Zero-Fabrication Analysis</span>
             <span className="text-charcoal-deep">|</span>
             <DataProvenanceModal
-              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonText="Data Sources & Disclosures"
               triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
             />
           </div>
@@ -796,7 +796,7 @@ export function ResumeChecker() {
             </span>
           </div>
           <DataProvenanceModal
-            triggerButtonText="Legal Shield & Sourcing"
+            triggerButtonText="Data Sources & Disclosures"
             triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors flex items-center gap-1.5 flex-shrink-0 cursor-pointer"
           />
         </div>

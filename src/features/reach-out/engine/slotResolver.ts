@@ -341,7 +341,7 @@ export function validateProofPointMetrics(proofPoint?: string): {
       hasNumber: false,
       hasScope,
       hasResult,
-      warning: 'Proof point lacks a concrete metric or number (e.g. 45% latency, 10k users, 200ms).',
+      warning: 'Proof point works best with a concrete metric, repository link, or clear technical achievement (e.g., 200ms latency, or GitHub repo link).',
     };
   }
 
@@ -350,7 +350,7 @@ export function validateProofPointMetrics(proofPoint?: string): {
     hasNumber,
     hasScope,
     hasResult,
-    warning: !hasNumber ? 'Tip: Adding quantified metrics or scale numbers can boost recruiter response rates.' : undefined,
+    warning: !hasNumber ? 'Tip: Where available, concrete metrics or repository links give recipients verifiable technical substance.' : undefined,
   };
 }
 

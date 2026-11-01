@@ -48,7 +48,15 @@ export function computeAtsScore(input: ScorerInput) {
   const tiersConfig = tiersData.tiers as Record<string, any>;
   const activeTier = tiersConfig[targetTier] || tiersConfig['top_product'];
 
-  const activeWeights = weights;
+  const isFresher = candidateYears <= 1;
+  const activeWeights = isFresher
+    ? {
+        ...weights,
+        seniorityFit: 0,
+        projectsAndOss: weights.projectsAndOss + 5,
+        evidenceDepth: weights.evidenceDepth + 5,
+      }
+    : weights;
 
   // 1. Must-Have Coverage (Evidence-Tiered Credit, Stage 2B)
   const mustSkills = skillResults.filter(s => s.required === 'must');
@@ -112,7 +120,6 @@ export function computeAtsScore(input: ScorerInput) {
   const seniorityFitScore = Math.round(seniorityScoreFactor * activeWeights.seniorityFit * 10) / 10;
 
   // 6. Format and Parse Quality (Weight 10)
-  const isFresher = candidateYears <= 1;
   const standardSections = isFresher ? ['education', 'skills', 'projects'] : ['experience', 'education', 'skills'];
   const presentSections = new Set(sections.map(s => s.type));
   const missingStandardSections = standardSections.filter(s => !presentSections.has(s));

@@ -40,7 +40,13 @@ export const OpportunityRecordZodSchema = z
       .url('sourceUrl must be a valid URL string or null')
       .nullable(),
 
-    verificationStatus: z.enum(['verified', 'needs-recheck', 'unverified']),
+    verificationStatus: z.enum(['checked-manually', 'needs-recheck', 'expired', 'verified', 'unverified']),
+    checkedBy: z.string().nullable().optional(),
+    checkedOn: z.string().nullable().optional(),
+    eligibleBatches: z.array(z.string()).optional(),
+    eligibleBranches: z.array(z.string()).optional(),
+    genderRestricted: z.enum(['women_only', 'none']).optional(),
+    eligibilityNotes: z.string().nullable().optional(),
     recurrence: z.enum(['one-time', 'annual', 'rolling']),
     datesChangeYearly: z.boolean(),
     eligibility: z.string().nullable(),
@@ -76,18 +82,17 @@ export function migrateOpportunityRecord(raw: any): OpportunityRecord {
     sourceUrl = rawUrl.trim();
   }
 
-  // 3. verificationStatus
-  let verificationStatus: VerificationStatus = 'unverified';
-  if (!lastVerified || !sourceUrl) {
-    verificationStatus = 'unverified';
-  } else if (raw.verificationStatus === 'verified' || raw.verificationStatus === 'needs-recheck' || raw.verificationStatus === 'unverified') {
-    verificationStatus = raw.verificationStatus;
-  } else if (raw.trust === 'verified_official' || raw.confidence === 'high' || raw.verification?.status === 'verified_official') {
-    verificationStatus = 'verified';
-  } else if (raw.trust === 'estimated' || raw.confidence === 'medium') {
-    verificationStatus = 'needs-recheck';
+  // 3. verificationStatus (Honesty Gate: needs-recheck is default unless manual human check documented)
+  let verificationStatus: VerificationStatus = 'needs-recheck';
+  const hasManualHumanCheck = Boolean(raw.checkedBy && raw.checkedOn && sourceUrl);
+
+  if (raw.verificationStatus === 'expired' || raw.status === 'expired') {
+    verificationStatus = 'expired';
+  } else if (hasManualHumanCheck || raw.verificationStatus === 'checked-manually') {
+    verificationStatus = 'checked-manually';
   } else {
-    verificationStatus = 'unverified';
+    // Revert unverified/synthesized "verified" flags back to honest needs-recheck
+    verificationStatus = 'needs-recheck';
   }
 
   // 4. recurrence
@@ -161,6 +166,12 @@ export function migrateOpportunityRecord(raw: any): OpportunityRecord {
     lastVerified,
     sourceUrl,
     verificationStatus,
+    checkedBy: raw.checkedBy || null,
+    checkedOn: raw.checkedOn || null,
+    eligibleBatches: raw.eligibleBatches || undefined,
+    eligibleBranches: raw.eligibleBranches || undefined,
+    genderRestricted: raw.genderRestricted || 'none',
+    eligibilityNotes: raw.eligibilityNotes || raw.eligibility || null,
     recurrence,
     datesChangeYearly,
     eligibility,

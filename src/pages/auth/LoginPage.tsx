@@ -1,3 +1,4 @@
+import { PLATFORM_DATA_META } from '../../data/meta';
 // ============================================================
 // HireFlow — Executive Suite & Candidate Intelligence Login Page
 // High-Classic, Luxury Dark Obsidian Theme with Total Google Auth
@@ -147,7 +148,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
       await autoSyncManager.pullFromCloud(user.id);
       autoSyncManager.scheduleSync(300);
 
-      toast('success', `Signed in with Google as ${selectedName}! Executive sync enabled.`);
+      toast('success', `Active as ${selectedName} (stored on this device only).`);
       navigate(redirectTo);
     } catch (err: any) {
       setErrorMessage(err.message || 'Google authentication interrupted.');
@@ -238,17 +239,17 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
               <div className="text-center space-y-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-volt/10 border border-volt/30 text-volt text-[11px] font-mono font-bold uppercase tracking-wider">
                   <Sparkles className="w-3 h-3" />
-                  <span>Executive Career Suite</span>
+                  <span>Offline Local Workspace</span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
-                  {mode === 'signin' ? 'Sign In to HireFlo' : 'Create Executive Account'}
+                  {mode === 'signin' ? 'Sign In to HireFlo' : 'Create Local Profile'}
                 </h1>
 
                 <p className="text-xs font-mono text-neutral-400 leading-relaxed max-w-xs mx-auto">
                   {mode === 'signin'
                     ? 'Sync candidate evaluations, calibrate ATS scores, and unlock verified India leveling data.'
-                    : 'Get unlimited access to ATS diagnostic algorithms, 244+ GCC benchmarks, and cloud sync.'}
+                    : 'Get unlimited access to ATS diagnostic algorithms and {PLATFORM_DATA_META.companyCounts.fullProfiles}+ employer benchmarks on your local device.'}
                 </p>
               </div>
 
@@ -311,7 +312,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
                       d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
                     />
                   </svg>
-                  <span className="tracking-wide">Continue with Google</span>
+                  {cloudAuth.isConfigured() ? <span className="tracking-wide">Continue with Google</span> : <span className="tracking-wide">Use Local Profile (stored on this device only)</span>}
                 </button>
 
                 <div className="flex items-center gap-3">
@@ -514,7 +515,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
             </div>
 
             <div className="pt-2 text-[10px] font-mono text-neutral-500 text-center">
-              Official Google OpenID Connect Protocol • Offline Local Safe Harbor
+              Local device profile • Stored in browser storage • Zero network egress
             </div>
           </div>
         </div>
