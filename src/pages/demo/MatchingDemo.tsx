@@ -19,7 +19,7 @@ import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from
 import { useProfileStore } from "../../store/profileStore";
 import { toast } from "../../components/ui/Toast";
 import { parseResumeFile } from "../../features/ats/fileParser";
-import { searchCompanies, deduplicateCompanies } from "../../lib/companySearchEngine";
+import { searchCompanies, deduplicateCompanies, isLiveAtsCompany } from "../../lib/companySearchEngine";
 import { getMarketSummary } from "../../data/market";
 import { CompanyLogo } from "../../components/common/CompanyLogo";
 import { DataProvenanceModal } from "../../components/common/DataProvenanceModal";
@@ -94,6 +94,7 @@ export function MatchingDemo() {
 
   // Clean and deduplicate company catalog to merge multi-entry companies and eliminate React key collisions
   const cleanCompanies = React.useMemo(() => deduplicateCompanies(COMPANIES), []);
+  const liveCount = React.useMemo(() => cleanCompanies.filter(isLiveAtsCompany).length, [cleanCompanies]);
 
   // Intelligent typo-tolerant, case-insensitive multi-field search engine
   const searchResult = React.useMemo(() => {
@@ -383,9 +384,11 @@ Include:
                   value={depthFilter}
                   onChange={e => setDepthFilter(e.target.value)}
                   className="h-10 px-3 bg-black border border-charcoal rounded text-xs text-white focus:outline-none focus:border-volt cursor-pointer uppercase font-semibold"
-                  aria-label="Filter by audit depth"
+                  aria-label="Filter by audit depth or live ATS feed"
                 >
-                  <option value="All">All Depths</option>
+                  <option value="All">All Profiles ({cleanCompanies.length})</option>
+                  <option value="live_ats">🟢 Live Public ATS ({liveCount})</option>
+                  <option value="benchmarks">🔵 Calibrated Benchmarks ({cleanCompanies.length - liveCount})</option>
                   <option value="deep">Deep (Campus Verified)</option>
                   <option value="standard">Standard (Careers)</option>
                   <option value="basic">Basic (Profile Only)</option>
@@ -393,6 +396,45 @@ Include:
                 <span className="text-xs text-silver ml-auto font-mono uppercase tracking-[1px] whitespace-nowrap">
                   {filteredCompanies.length} of {cleanCompanies.length} employer profiles
                 </span>
+              </div>
+
+              {/* Live ATS vs Benchmark Source Filter Pills */}
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-charcoal/80 flex-wrap text-xs font-mono">
+                <span className="text-silver uppercase tracking-wider text-[11px] font-bold">Catalog Source:</span>
+                <button
+                  type="button"
+                  onClick={() => setDepthFilter('All')}
+                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase transition-all cursor-pointer border ${
+                    depthFilter === 'All'
+                      ? 'bg-volt text-black border-volt shadow-[0_0_10px_rgba(245,255,0,0.2)]'
+                      : 'bg-black text-silver border-charcoal hover:text-white hover:border-neutral-600'
+                  }`}
+                >
+                  All ({cleanCompanies.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDepthFilter('live_ats')}
+                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase flex items-center gap-1.5 transition-all cursor-pointer border ${
+                    depthFilter === 'live_ats'
+                      ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.3)]'
+                      : 'bg-black text-emerald-400/80 border-emerald-500/40 hover:text-emerald-300 hover:border-emerald-400'
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Live ATS Feeds ({liveCount})</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDepthFilter('benchmarks')}
+                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase transition-all cursor-pointer border ${
+                    depthFilter === 'benchmarks'
+                      ? 'bg-sky-500/20 text-sky-300 border-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.25)]'
+                      : 'bg-black text-neutral-400 border-neutral-700 hover:text-white hover:border-neutral-500'
+                  }`}
+                >
+                  <span>Calibrated Benchmarks ({cleanCompanies.length - liveCount})</span>
+                </button>
               </div>
 
               {/* Typo Correction Banner ("Did you mean?") */}
@@ -481,9 +523,21 @@ Include:
                             <div className="text-[11px] text-silver font-mono">{company.hq}</div>
                           </div>
                         </div>
-                        <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
-                          {company.tier}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          {isLiveAtsCompany(company) ? (
+                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/50 flex items-center gap-1 shadow-[0_0_8px_rgba(52,211,153,0.18)]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                              <span>Live ATS</span>
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-neutral-400 border border-charcoal">
+                              Benchmark
+                            </span>
+                          )}
+                          <span className="text-[10px] font-semibold uppercase tracking-[1px] px-2 py-0.5 rounded bg-black text-silver border border-charcoal">
+                            {company.tier}
+                          </span>
+                        </div>
                       </div>
 
                       {/* Mini-Stats */}

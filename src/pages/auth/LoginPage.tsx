@@ -535,3 +535,4 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
     </div>
   );
 }
+

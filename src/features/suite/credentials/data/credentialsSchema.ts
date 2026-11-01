@@ -157,6 +157,7 @@ export function migrateOpportunityRecord(raw: any): OpportunityRecord {
 
   return {
     ...raw,
+    status: verificationStatus,
     lastVerified,
     sourceUrl,
     verificationStatus,

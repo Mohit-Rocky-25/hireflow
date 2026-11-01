@@ -177,7 +177,8 @@ describe('Career Ladder Dataset Integrity & Schema Validation (India Market)', (
           expect(item.lastVerifiedAt, `Invalid ISO date in ${item.id}`).toMatch(/^\d{4}-\d{2}-\d{2}$/);
         }
 
-        const stat = (item as any).status === 'verified' ? 'verified' : ((item as any).status === 'unverified' ? 'unverified' : 'needs-recheck');
+        const rawStatus = (item as any).verificationStatus || (item as any).status;
+        const stat = rawStatus === 'verified' ? 'verified' : (rawStatus === 'unverified' ? 'unverified' : 'needs-recheck');
         statusCounts[stat] = (statusCounts[stat] || 0) + 1;
       }
 

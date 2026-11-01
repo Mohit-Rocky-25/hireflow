@@ -461,6 +461,26 @@ export function evaluateCompanyMatch<T extends SearchableCompany>(
 // ────────────────────────────────────────────────────────────
 // Main Search Pipeline
 // ────────────────────────────────────────────────────────────
+
+export function isLiveAtsCompany(c: any): boolean {
+  return Boolean(
+    c.isLiveFeedActive ||
+    c.dataStatus === 'live_verified' ||
+    (c.roles && Array.isArray(c.roles) && c.roles.some((r: any) => r.isLiveVerified))
+  );
+}
+
+function checkDepthMatch(c: any, depthFilter: string): boolean {
+  if (!depthFilter || depthFilter === 'All') return true;
+  if (depthFilter === 'live_ats') {
+    return isLiveAtsCompany(c);
+  }
+  if (depthFilter === 'benchmarks') {
+    return !isLiveAtsCompany(c);
+  }
+  return c.depth === depthFilter;
+}
+
 export function searchCompanies<T extends SearchableCompany>(
   companies: T[],
   query: string,
@@ -487,7 +507,7 @@ export function searchCompanies<T extends SearchableCompany>(
     const filtered = companies.filter(c => {
       const matchIndustry = industryFilter === 'All' || c.industry?.includes(industryFilter);
       const matchTier = tierFilter === 'All' || c.tier === tierFilter;
-      const matchDepth = depthFilter === 'All' || c.depth === depthFilter;
+      const matchDepth = checkDepthMatch(c, depthFilter);
       return matchIndustry && matchTier && matchDepth;
     });
 
@@ -511,7 +531,7 @@ export function searchCompanies<T extends SearchableCompany>(
     // Check tier / industry / depth filters first
     const matchIndustry = industryFilter === 'All' || company.industry?.includes(industryFilter);
     const matchTier = tierFilter === 'All' || company.tier === tierFilter;
-    const matchDepth = depthFilter === 'All' || company.depth === depthFilter;
+    const matchDepth = checkDepthMatch(company, depthFilter);
     if (!matchIndustry || !matchTier || !matchDepth) continue;
 
     const match = evaluateCompanyMatch(company, trimmed);
