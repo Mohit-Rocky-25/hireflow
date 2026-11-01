@@ -38,12 +38,13 @@ const memStore = new Map<string, string>();
 function safeGet(key: string): string | null {
   try {
     if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem(`${PREFIX}${key}`);
+      const val = localStorage.getItem(`${PREFIX}${key}`);
+      if (val !== null) return val;
     }
     return memStore.get(`${PREFIX}${key}`) ?? null;
   } catch (err) {
     console.warn(`[Storage] Failed to read ${key}:`, err);
-    return null;
+    return memStore.get(`${PREFIX}${key}`) ?? null;
   }
 }
 
@@ -57,6 +58,27 @@ function safeSet(key: string, value: string): boolean {
     return true;
   } catch (err) {
     console.warn(`[Storage] Quota exceeded or error saving ${key}:`, err);
+    // In-memory fallback prevents data loss during active candidate session
+    memStore.set(`${PREFIX}${key}`, value);
+
+    // Auto-prune oldest scan records if quota exceeded to free browser storage
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const scanKey = `${PREFIX}scan_history`;
+        const rawHistory = localStorage.getItem(scanKey);
+        if (rawHistory) {
+          const history = JSON.parse(rawHistory);
+          if (Array.isArray(history) && history.length > 2) {
+            const trimmed = history.slice(0, 2);
+            localStorage.setItem(scanKey, JSON.stringify(trimmed));
+            localStorage.setItem(`${PREFIX}${key}`, value);
+            return true;
+          }
+        }
+      }
+    } catch {
+      // Fallback in memory preserved above
+    }
     return false;
   }
 }
