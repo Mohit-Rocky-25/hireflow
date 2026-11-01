@@ -1,0 +1,27 @@
+VIKRAM SINGH
+Bengaluru, Karnataka | vikram.singh@example.com | +91 97654 32109 | linkedin.com/in/vikram-singh-dev
+
+PROFESSIONAL SUMMARY
+Software Engineer with 2.5 years of experience at Tata Consultancy Services (TCS), specializing in Java enterprise applications, REST API maintenance, and Oracle SQL optimization for European banking client. Notice period: 90 days (negotiable to 30 days buyout).
+
+EXPERIENCE
+Tata Consultancy Services (TCS) | Bengaluru
+System Engineer (Full-time) | Oct 2023 - Present
+- Maintained core payment processing subsystem built on Spring Boot and Java 17 for a Tier-1 UK bank.
+- Resolved 140+ production incident tickets with strict 4-hour SLA turnaround; received Star Team Award.
+- Refactored legacy PL/SQL stored procedures, improving batch end-of-day settlement duration by 22%.
+- Migrated 12 on-premises SOAP service endpoints into containerized REST microservices deployed on OpenShift.
+
+PROJECTS (Self-Driven Product Up-skilling)
+Distributed Event-Driven Ledger | Java 21, Spring Boot 3, Kafka, Docker
+- Built an event-sourced payment ledger handling money transfers with outbox pattern and Kafka idempotency.
+- Demonstrated microservice resiliency using Resilience4j circuit breakers and OpenTelemetry distributed tracing.
+
+EDUCATION
+Visvesvaraya Technological University (VTU)
+B.E. in Information Science | CGPA: 7.9 / 10.0 (2019 - 2023)
+
+TECHNICAL SKILLS
+- Languages: Java (Core, Streams, Concurrency), SQL, JavaScript
+- Frameworks: Spring Boot, Spring Data JPA, Hibernate, JUnit 5, Mockito
+- Tools & Cloud: Docker, Kubernetes, Git, Jenkins, Oracle DB, PostgreSQL, Maven

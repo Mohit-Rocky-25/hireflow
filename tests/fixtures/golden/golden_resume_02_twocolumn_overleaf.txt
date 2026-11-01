@@ -1,0 +1,28 @@
+PRIYA VENKATESH
+Chennai, India | priya.v@example.com | +91 91234 56789 | github.com/priyav-code
+
+[LEFT COLUMN - EXPERIENCE & PROJECTS]
+EXPERIENCE
+Full Stack Developer Intern | Freshworks | Chennai (Jan 2025 - Jun 2025)
+- Designed ticketing automation workflows handling 50k events daily using Node.js and Redis.
+- Implemented role-based access control (RBAC) with JWT tokens and refreshed security audits.
+- Migrated legacy AngularJS modules to modern React with TypeScript.
+
+PROJECTS
+Next.js E-Commerce Engine | Next.js 15, PostgreSQL, Stripe
+- Built full-stack retail portal featuring server actions, Supabase Row-Level Security, and optimistic UI updates.
+- Integrated automated webhook handlers processing idempotent order payments with retry queues.
+
+Cloud Event Bus | Python, AWS Lambda, DynamoDB
+- Architected serverless event routing service managing asynchronous subscriber notifications.
+
+[RIGHT COLUMN - SKILLS & EDUCATION]
+EDUCATION
+Anna University, CEG Campus
+B.E. Computer Science (2021 - 2025) | CGPA: 9.1 / 10
+
+SKILLS
+- Languages: JavaScript, TypeScript, Python, Java
+- Frontend: React, Next.js, Redux Toolkit, Tailwind
+- Backend: Node.js, Express, FastAPI, Spring Boot
+- Cloud/DB: AWS, Docker, PostgreSQL, MongoDB, Redis

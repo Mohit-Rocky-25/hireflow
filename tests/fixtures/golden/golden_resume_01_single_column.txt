@@ -1,0 +1,29 @@
+ADITYA SHARMA
+Bengaluru, India | +91 98765 43210 | aditya.sharma@example.com | linkedin.com/in/aditya-sharma | github.com/aditya-dev
+
+EDUCATION
+Indian Institute of Information Technology, Allahabad
+B.Tech in Computer Science and Engineering | CGPA: 8.85 / 10.0 (2022 - 2026)
+
+EXPERIENCE
+Software Engineering Intern | Groww India | Bengaluru
+May 2025 - July 2025
+- Engineered real-time mutual fund transaction ledger processing 15,000 requests/minute using Go and Apache Kafka.
+- Reduced PostgreSQL query latency by 38% through composite indexing and query plan restructuring.
+- Built automated reconciliation pipeline verifying end-of-day balances across payment gateway webhooks.
+
+PROJECTS
+Distributed KV Store | Go, Raft Consensus, gRPC
+- Implemented leader election, log replication, and heartbeat fault-detection protocol adhering to Raft specification.
+- Benchmarked cluster throughput reaching 42,000 write ops/sec across 5 distributed node replicas with sub-15ms latency.
+- Containerized deployment using Docker and wrote end-to-end chaos testing harnesses simulating network partitions.
+
+HireFlow Resume Analyzer | TypeScript, React 19, Tailwind CSS
+- Developed client-side ATS scoring engine performing deterministic regex parsing and skill extraction.
+- Engineered multi-column PDF layout boundary detection to preserve reading order of candidate metadata.
+- Automated client-side performance audits achieving 100/100 Lighthouse score with zero external telemetry.
+
+TECHNICAL SKILLS
+Languages: Go, Java, TypeScript, C++, SQL, Python
+Frameworks & Libraries: Spring Boot, React, Next.js, Express, Tailwind CSS
+Databases & Tools: PostgreSQL, Redis, Apache Kafka, Docker, Kubernetes, Git, Linux

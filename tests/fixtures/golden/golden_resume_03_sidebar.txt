@@ -1,0 +1,34 @@
+ROHAN VERMA
+Pune, Maharashtra | rohan.verma@example.com | +91 98220 12345
+
+[SIDEBAR - 30% WIDTH]
+CONTACT
+Pune, India
+github.com/rohan-v
+linkedin.com/in/rohanverma
+
+TECHNICAL SKILLS
+- Core Java, Python, C++
+- Spring Boot 3, Hibernate
+- REST APIs, Microservices
+- MySQL, PostgreSQL, Redis
+- Git, Docker, Maven, CI/CD
+
+EDUCATION
+Pune Institute of Computer Technology (PICT)
+B.E. Information Technology (2022 - 2026) | CGPA: 8.4
+
+[MAIN CONTENT - 70% WIDTH]
+PROFILE
+Software engineering student specializing in Java enterprise microservices and scalable cloud backends.
+
+EXPERIENCE
+Backend Intern | Persistent Systems (May 2025 - Jul 2025)
+- Developed REST microservices using Spring Boot 3 and Java 21 for healthcare claims processing.
+- Wrote JUnit 5 and Mockito test suites achieving 88% branch coverage across domain logic.
+- Optimized JPA queries reducing database round-trips by 45%.
+
+ACADEMIC PROJECTS
+Scalable Banking Ledger | Java, Spring Cloud, Kafka
+- Implemented double-entry accounting ledger with ACID compliance and idempotency keys.
+- Handled bank transfer requests with distributed transactions and saga pattern compensation.

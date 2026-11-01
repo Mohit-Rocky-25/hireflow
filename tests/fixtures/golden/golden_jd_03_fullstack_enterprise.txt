@@ -1,0 +1,19 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Full Stack Software Engineer (Spring Boot & Next.js)
+Level: SDE (1-3 years experience)
+Location: Pune / Chennai
+
+About the Role:
+Develop end-to-end features spanning enterprise Spring Boot microservices, Next.js web applications, and relational database workflows.
+
+Key Responsibilities:
+- Architect backend REST services in Spring Boot 3 with JPA/Hibernate.
+- Develop responsive web applications using Next.js App Router and TypeScript.
+- Implement authentication, RBAC authorization, and secure API gateways.
+- Automate CI/CD test and build pipelines using GitHub Actions.
+
+Requirements:
+- Bachelor's degree in CS, IT, or equivalent practical experience.
+- Proficiency in Java and TypeScript/JavaScript.
+- Hands-on experience with Spring Boot, Next.js, and PostgreSQL.
+- Knowledge of microservice design patterns, security fundamentals, and Docker.

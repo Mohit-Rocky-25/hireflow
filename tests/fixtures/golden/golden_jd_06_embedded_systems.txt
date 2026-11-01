@@ -1,0 +1,19 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Embedded Software / Firmware Engineer
+Level: Graduate / 0-2 years
+Location: Bengaluru
+
+About the Role:
+Write low-level firmware, device drivers, and real-time operating system (RTOS) tasks powering smart IoT and industrial hardware devices.
+
+Key Responsibilities:
+- Develop production firmware in C and C++ for ARM Cortex-M microcontrollers.
+- Implement communication drivers for SPI, I2C, UART, and CAN bus protocols.
+- Debug timing, race conditions, and memory leaks using logic analyzers and JTAG.
+- Optimize power consumption and execution latency for resource-constrained chips.
+
+Requirements:
+- Degree in Electronics, Electrical, or Computer Engineering.
+- Deep proficiency in C, C++, and microcontrollers (STM32, ESP32, or NXP).
+- Understanding of RTOS principles (tasks, semaphores, queues, mutexes).
+- Hands-on lab experience with oscilloscopes and circuit schematics.

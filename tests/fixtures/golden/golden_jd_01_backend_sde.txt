@@ -1,0 +1,20 @@
+REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)
+Role: Software Development Engineer I (Backend)
+Level: SDE-1 (0-2 years experience)
+Location: Bengaluru / Hyderabad
+
+About the Role:
+We are looking for an SDE-1 to join our core backend engineering team. You will build and scale distributed microservices handling millions of daily customer requests.
+
+Key Responsibilities:
+- Design and develop scalable backend APIs using Java or Go.
+- Optimize database queries and schema designs across PostgreSQL and Redis.
+- Collaborate with frontend and mobile teams to define contract schemas.
+- Write unit, integration, and performance tests to maintain high reliability.
+
+Requirements:
+- Strong proficiency in Java, Go, or C++.
+- Solid understanding of Data Structures, Algorithms, and Object-Oriented Design.
+- Familiarity with relational databases (PostgreSQL/MySQL) and caching (Redis).
+- Hands-on experience with Git, Docker, and Linux environments.
+- Excellent communication and analytical skills.
