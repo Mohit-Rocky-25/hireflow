@@ -56,3 +56,4 @@ jobs:
             git push origin ${{ github.ref_name }}
             echo "Successfully pushed updated market data to ${{ github.ref_name }}."
           fi
+

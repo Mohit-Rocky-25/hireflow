@@ -159,6 +159,16 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   </p>
                 </div>
 
+                <div className="p-4 bg-emerald-950/40 border border-emerald-500/50 rounded-lg space-y-2">
+                  <div className="text-xs font-bold text-emerald-400 uppercase tracking-[1px] flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Flagship Live ATS Ingestion Engine (Greenhouse & Lever)
+                  </div>
+                  <p className="text-xs text-neutral-300 leading-relaxed">
+                    For flagship product and high-growth employers (CRED, Meesho, Stripe, MongoDB, InMobi, GitLab, Rubrik, Elastic, Coinbase, Datadog), roles are synced dynamically every 72 hours directly from the companies' public, unauthenticated career ATS endpoints. Zero synthetic assumptions. Each job posting carries cryptographic SHA-256 tamper-evident provenance and provides direct &ldquo;Apply on Official ATS ↗&rdquo; links.
+                  </p>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="p-4 bg-black border border-charcoal rounded-lg space-y-2">
                     <div className="text-[11px] font-bold text-white uppercase tracking-[1px] flex items-center gap-1.5">
@@ -286,14 +296,28 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">2. Educational Simulation Disclaimer</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">2. Public ATS Access & Anti-Circumvention (Zero-Credential Doctrine)</span>
+                    <p className="text-silver/90">
+                      All live roles are ingested solely from unauthenticated, public JSON endpoints published openly by employers to attract applicants (Greenhouse and Lever career boards). HireFlow never accesses private APIs, bypasses paywalls, defeats authentication screens, or breaches access controls, fully complying with Section 43 & Section 66 of the Information Technology Act, 2000 and the landmark <em>hiQ Labs v. LinkedIn</em> open web precedent.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
+                    <span className="font-bold text-white uppercase tracking-wider block">3. Complete Candidate Privacy Isolation (DPDP Act, 2023 & R8.2)</span>
+                    <p className="text-silver/90">
+                      Under HireFlow's strict Zero-Egress Architecture (Rule R8.2), candidate resumes, text, and personal data are parsed and scored 100% locally in client browser memory. No candidate PII or resume text is ever sent to external cloud servers, third-party LLMs, or tracking databases, guaranteeing complete compliance with the Digital Personal Data Protection Act, 2023.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
+                    <span className="font-bold text-white uppercase tracking-wider block">4. Educational Simulation Disclaimer</span>
                     <p className="text-silver/90">
                       HireFlo is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">3. Notice, Takedown & Profile Review</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">5. Notice, Takedown & Profile Review</span>
                     <p className="text-silver/90">
                       If you represent an employer and wish to update your graduate hiring profile, clarify recruitment eligibility criteria, or report an inaccuracy, please contact <span className="text-volt font-bold">compliance@hireflo.app</span> for review and updates within 48 hours.
                     </p>

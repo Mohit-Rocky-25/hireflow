@@ -169,3 +169,32 @@ This document registers the provenance, source URLs, confidence levels, and revi
 ---
 
 *Verified autonomously by HireFlow Market Provenance Harness (`scripts/check-market-data.ts`).*
+
+
+---
+
+## 3. Dynamic 3-Day Live ATS Market Feed Register
+
+In addition to static archetype baselines, HireFlow operates an automated 72-hour ingestion engine connecting directly to unauthenticated public career boards on Greenhouse and Lever:
+
+- **Ingestion Script:** `scripts/market/sync-live-jobs.ts`
+- **Scheduled CI Runner:** `.github/workflows/sync-market-data.yml` (Runs at 02:00 UTC every 3 days)
+- **Legal & Compliance Reference:** [`docs/LEGAL_AND_DATA_PROTECTION.md`](LEGAL_AND_DATA_PROTECTION.md)
+- **Zero API Keys:** Public machine-readable ATS endpoints require 0 developer tokens or paid subscriptions.
+- **Client Delivery:** Static code-split JSON chunks stored in `src/data/market/live-companies/` with zero runtime network egress.
+
+### Ingested Flagship Companies (Verified ATS Endpoints)
+
+| Company | ATS Provider | Public Board Slug | Verified Geographic Scope | Cryptographic Provenance |
+| :--- | :--- | :--- | :--- | :---: |
+| **CRED** | Lever | `cred` | Bengaluru, Karnataka | SHA-256 Digest |
+| **Meesho** | Lever | `meesho` | Bengaluru, Karnataka | SHA-256 Digest |
+| **Stripe India** | Greenhouse | `stripe` | Bengaluru, Karnataka | SHA-256 Digest |
+| **InMobi** | Greenhouse | `inmobi` | Bengaluru, Karnataka | SHA-256 Digest |
+| **MongoDB India** | Greenhouse | `mongodb` | Bengaluru / Gurgaon | SHA-256 Digest |
+| **GitLab India** | Greenhouse | `gitlab` | Remote - India Eligible | SHA-256 Digest |
+| **Rubrik India** | Greenhouse | `rubrik` | Bengaluru, Karnataka | SHA-256 Digest |
+| **Elastic India** | Greenhouse | `elastic` | Bengaluru / Pune | SHA-256 Digest |
+| **Coinbase India** | Greenhouse | `coinbase` | Hyderabad / Remote India | SHA-256 Digest |
+| **Datadog India** | Greenhouse | `datadog` | Bengaluru, Karnataka | SHA-256 Digest |
+| **Groww** | Greenhouse | `groww` | Bengaluru, Karnataka | SHA-256 Digest |

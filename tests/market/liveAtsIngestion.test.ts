@@ -109,3 +109,4 @@ describe('Live ATS Market Ingestion Pipeline (Option 3)', () => {
     expect(mongodb?.roles.length).toBe(LIVE_COMPANIES_MAP.mongodb.liveRoleCount);
   });
 });
+
