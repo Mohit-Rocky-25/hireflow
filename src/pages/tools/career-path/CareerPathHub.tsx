@@ -26,6 +26,7 @@ import { useProfile } from '../../../features/suite/profile/ProfileContext';
 import { getCandidateTierStatus } from '../../../features/suite/integration/trajectory';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
+import { PLATFORM_DATA_META } from '../../../data/meta';
 
 export function CareerPathHub() {
   const { profile, hasProfile } = useProfile();
@@ -324,13 +325,13 @@ export function CareerPathHub() {
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-silver font-normal leading-relaxed">
-                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 244+ tech organizations and 1,700+ calibrated roles.
+                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across {PLATFORM_DATA_META.companyCounts.fullProfiles}+ tech organizations and 1,700+ calibrated roles.
               </p>
 
               {/* Preview Chips */}
               <div className="mt-8 flex flex-wrap gap-2.5">
                 {[
-                  '244+ India Tech Companies',
+                  `${PLATFORM_DATA_META.companyCounts.fullProfiles}+ India Tech Companies`,
                   'Median, P25 & P75 INR CTC',
                   'Fixed Base + Variable + Equity Splits',
                   '6+ Structured Criteria per Level',
