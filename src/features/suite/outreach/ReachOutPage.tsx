@@ -479,6 +479,27 @@ export function ReachOutPage() {
         </div>
       </header>
 
+      {/* ── India Market Outreach Intelligence Banner (Flaw 2.2) ── */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-volt/5 to-transparent border-b border-amber-500/20 px-4 py-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-amber-200">
+            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wider">
+              India Market Signal
+            </span>
+            <span className="text-[11px] text-white/80">
+              Industry recruitment observations indicate off-campus outreach is most effective when channeled through <strong>College Alumni Referrals</strong> and senior peer introductions (<span className="text-volt">Warm Referral tab</span>).
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleChannelSwitch('warm_referral')}
+            className="text-[11px] font-semibold text-volt hover:underline shrink-0"
+          >
+            Switch to Warm Referral &rarr;
+          </button>
+        </div>
+      </div>
+
       {/* ── Channel Navigation Tabs (Channel-Wise Opening) ── */}
       <div className="border-b border-white/10 bg-black/40 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 py-2">
@@ -817,11 +838,11 @@ export function ReachOutPage() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-[10px] text-white/50 uppercase">
-                  Quantified Proof Point (Your Project/Benchmark)
+                  Technical Proof Point (Project, Architecture, or Metric)
                 </label>
                 {proofValidation.issue && (
                   <span className="text-[10px] text-amber-400 flex items-center gap-1 font-mono">
-                    <AlertTriangle className="w-3 h-3" /> Needs Metrics
+                    <AlertTriangle className="w-3 h-3" /> Needs Evidence
                   </span>
                 )}
               </div>
@@ -829,7 +850,7 @@ export function ReachOutPage() {
                 rows={2}
                 value={slots.proofPoint || ''}
                 onChange={(e) => handleSlotChange('proofPoint', e.target.value)}
-                placeholder="e.g. built Go distributed job queue handling 6,500 jobs/sec in benchmark"
+                placeholder="e.g. built Go job queue (6.5k jobs/s) OR engineered full-stack SaaS with PostgreSQL RLS (github.com/...)"
                 className={`w-full bg-black border rounded-lg px-3 py-1.5 text-xs text-white placeholder-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-volt ${
                   proofValidation.issue ? 'border-amber-500/50' : 'border-white/10'
                 }`}

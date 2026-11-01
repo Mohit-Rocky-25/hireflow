@@ -332,7 +332,10 @@ export function validateProofPointMetrics(proofPoint?: string): {
   const hasScope = /(pipeline|api|service|cluster|database|cache|users|queries|endpoints|system|app|component|suite)/.test(text);
   const hasResult = /(reduced|increased|optimized|cut|scaled|built|architected|accelerated|improved|saved|shipped|achieved|deployed)/.test(text);
 
-  if (!hasNumber) {
+  const hasLink = /(github\.com|gitlab\.com|https?:\/\/|[a-z0-9-]+\.(dev|io|app|vercel\.app))/.test(text);
+  const hasArchitecturalScope = hasScope && hasResult;
+
+  if (!hasNumber && !hasLink && !hasArchitecturalScope) {
     return {
       isValid: false,
       hasNumber: false,
@@ -344,9 +347,10 @@ export function validateProofPointMetrics(proofPoint?: string): {
 
   return {
     isValid: true,
-    hasNumber: true,
+    hasNumber,
     hasScope,
     hasResult,
+    warning: !hasNumber ? 'Tip: Adding quantified metrics or scale numbers can boost recruiter response rates.' : undefined,
   };
 }
 
