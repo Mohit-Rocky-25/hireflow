@@ -89,6 +89,21 @@ describe('TalentLens Flow & Data Layer', () => {
     expect(jpmorgan).toBeDefined();
     expect(jpmorgan?.name).toContain('Morgan');
 
+    const netflix = findCompanyBySlug('netflix');
+    expect(netflix).toBeDefined();
+    expect(netflix?.name).toBe('Netflix India');
+    expect(netflix?.roles.length).toBeGreaterThanOrEqual(2);
+
+    const paytm = findCompanyBySlug('paytm');
+    expect(paytm).toBeDefined();
+    expect(paytm?.name).toBe('Paytm (One97)');
+    expect(paytm?.roles.length).toBeGreaterThanOrEqual(3);
+
+    const intel = findCompanyBySlug('intel');
+    expect(intel).toBeDefined();
+    expect(intel?.name).toBe('Intel India');
+    expect(intel?.id).toBe('intel');
+
     const unknown = findCompanyBySlug('non-existent-company-xyz');
     expect(unknown).toBeUndefined();
   });

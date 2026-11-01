@@ -1203,19 +1203,33 @@ export const findCompanyBySlug = (slug: string, companyCatalog: Company[] = []):
   if (!slug) return undefined;
   const normalized = slug.toLowerCase().trim();
   const cleaned = normalized.replace(/[^a-z0-9]/g, '');
-  return companyCatalog.find((c) => {
+
+  // Pass 1: Strict exact match by ID, slug, or normalized alphanumeric name
+  const exact = companyCatalog.find((c) => {
     const slugName = getCompanySlug(c.name);
     const slugId = getCompanySlug(c.id);
     const cleanName = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');
     const cleanId = c.id.toLowerCase().replace(/[^a-z0-9]/g, '');
     return (
-      slugName === normalized ||
-      slugId === normalized ||
       c.id.toLowerCase() === normalized ||
-      cleanName === cleaned ||
+      slugId === normalized ||
+      slugName === normalized ||
       cleanId === cleaned ||
-      (cleaned.length >= 5 && (cleanName.includes(cleaned) || cleanId.includes(cleaned)))
+      cleanName === cleaned
+    );
+  });
+  if (exact) return exact;
+
+  // Pass 2: Whole-word or slug prefix match (guards against false positives like 'intel' matching 'Course5 Intelligence')
+  return companyCatalog.find((c) => {
+    const cleanName = c.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const cleanId = c.id.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const nameWords = c.name.toLowerCase().split(/[^a-z0-9]+/);
+    const idWords = c.id.toLowerCase().split(/[^a-z0-9]+/);
+    return (
+      nameWords.includes(cleaned) ||
+      idWords.includes(cleaned) ||
+      (cleaned.length >= 4 && (cleanId.startsWith(cleaned) || cleanName.startsWith(cleaned)))
     );
   });
 };
-

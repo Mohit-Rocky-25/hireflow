@@ -154272,6 +154272,958 @@ const RAW_COMPANIES = [
       }
     ]
   }
+,
+  {
+    "id": "netflix",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Netflix India",
+    "logo": "N",
+    "gradient": "from-red-950 via-zinc-900 to-black",
+    "industry": "Big Tech / Streaming & Media",
+    "hq": "Mumbai / Bengaluru",
+    "tier": "FAANG",
+    "hiring2023": 120,
+    "hiring2024": 150,
+    "trend": "stable",
+    "openRoles": 18,
+    "avgPackage": "₹55-120 LPA",
+    "glassdoor": 4.4,
+    "roles": [
+      {
+        "title": "Senior Software Engineer (L5)",
+        "level": "L5 (Senior)",
+        "competencies": [
+          "systemdesign",
+          "java",
+          "distributed_systems",
+          "concurrency",
+          "dsa"
+        ],
+        "reqLevel": {
+          "systemdesign": "expert",
+          "java": "expert",
+          "distributed_systems": "expert",
+          "concurrency": "strong",
+          "dsa": "strong"
+        },
+        "desc": "High freedom-and-responsibility engineering culture. Architect high-throughput distributed microservices serving global streaming, encoding, and recommendation infrastructure.",
+        "location": "Mumbai / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "3-6 years",
+        "aboutRole": "As a Senior Software Engineer at Netflix India, you will architect fault-tolerant, low-latency microservices powering customer discovery, video delivery, and personalization.",
+        "responsibilities": [
+          "Architect low-latency distributed microservices capable of handling millions of concurrent streaming events.",
+          "Drive end-to-end design, implementation, and canary verification across cloud-native Kubernetes and AWS infrastructure.",
+          "Partner cross-functionally with data science and media systems teams to optimize playback throughput."
+        ],
+        "requiredQualifications": [
+          "B.Tech/M.Tech in Computer Science or equivalent practical engineering experience.",
+          "3+ years experience designing distributed, high-concurrency backend services in Java, Go, or C++.",
+          "Deep mastery of distributed caching, data modeling, RPC protocols, and asynchronous event streams (Kafka/gRPC)."
+        ],
+        "source": "Netflix Official Careers 2026",
+        "sourceUrl": "https://jobs.netflix.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      },
+      {
+        "title": "Staff Software Engineer (L6)",
+        "level": "L6 (Staff / Principal)",
+        "competencies": [
+          "systemdesign",
+          "distributed_systems",
+          "architecture",
+          "cloud",
+          "java"
+        ],
+        "reqLevel": {
+          "systemdesign": "expert",
+          "distributed_systems": "expert",
+          "architecture": "expert",
+          "cloud": "expert",
+          "java": "expert"
+        },
+        "desc": "Cross-organizational technical leadership. Define multi-region resilience standards, service mesh architectures, and real-time streaming pipelines.",
+        "location": "Mumbai / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "6+ years",
+        "aboutRole": "As a Staff Software Engineer at Netflix India, you provide technical direction for mission-critical platform infrastructure and mentor senior staff across regional pods.",
+        "responsibilities": [
+          "Set architectural standards for global service mesh, traffic routing, and chaos engineering resilience.",
+          "Lead strategic multi-year modernization initiatives across container runtimes and storage clusters.",
+          "Mentor senior engineers and represent Netflix engineering in international tech summits and open-source foundations."
+        ],
+        "requiredQualifications": [
+          "6+ years experience architecting multi-region cloud-native platforms with sub-50ms global SLA guarantees.",
+          "Proven track record of technical leadership across high-throughput distributed systems.",
+          "Expertise in distributed consensus, chaos testing, observability (OpenTelemetry), and cloud economics."
+        ],
+        "source": "Netflix Official Careers 2026",
+        "sourceUrl": "https://jobs.netflix.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Netflix Official Careers 2026",
+    "sourceUrl": "https://jobs.netflix.com",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "paytm",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Paytm (One97)",
+    "logo": "P",
+    "gradient": "from-sky-950 via-zinc-900 to-black",
+    "industry": "Fintech / Payments",
+    "hq": "Noida / Bengaluru",
+    "tier": "Unicorn",
+    "hiring2023": 1400,
+    "hiring2024": 1100,
+    "trend": "stable",
+    "openRoles": 65,
+    "avgPackage": "₹14-38 LPA",
+    "glassdoor": 3.9,
+    "roles": [
+      {
+        "title": "Software Engineer (SDE-1)",
+        "level": "Software Engineer",
+        "competencies": [
+          "java",
+          "dsa",
+          "databases",
+          "systemdesign",
+          "rest_api"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "dsa": "strong",
+          "databases": "strong",
+          "systemdesign": "working",
+          "rest_api": "strong"
+        },
+        "desc": "Core payment services, UPI switch, wallet ledger and high-throughput checkout APIs handling millions of daily merchant transactions.",
+        "location": "Noida / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "As a Software Engineer at Paytm, you will work on India's premier digital payments backbone, building high-throughput services for payments, UPI, and financial services.",
+        "responsibilities": [
+          "Develop reliable, idempotent RESTful microservices in Java/Spring Boot for high-concurrency payment processing.",
+          "Optimize SQL queries and database indexes in MySQL and PostgreSQL to maintain sub-50ms transaction latency.",
+          "Implement unit and integration tests with JUnit and Mockito ensuring zero accounting drift."
+        ],
+        "requiredQualifications": [
+          "B.Tech in Computer Science, IT, or related technical discipline (2024-2026 batch).",
+          "Strong programming foundation in Core Java, Data Structures, Algorithms, and Object-Oriented Design.",
+          "Familiarity with relational databases, Redis caching, and version control (Git)."
+        ],
+        "source": "Paytm Official Careers 2026",
+        "sourceUrl": "https://paytm.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      },
+      {
+        "title": "Senior Software Engineer (SDE-2)",
+        "level": "Senior Software Engineer",
+        "competencies": [
+          "java",
+          "systemdesign",
+          "kafka",
+          "distributed_systems",
+          "databases"
+        ],
+        "reqLevel": {
+          "java": "expert",
+          "systemdesign": "strong",
+          "kafka": "strong",
+          "distributed_systems": "strong",
+          "databases": "expert"
+        },
+        "desc": "Design and scale distributed payment settlement pipelines, fraud detection hooks, and financial reconciliation ledgers.",
+        "location": "Noida / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "3-5 years",
+        "aboutRole": "Lead critical payment routing and settlement modules, ensuring 99.99% system availability during festive peak transaction volumes.",
+        "responsibilities": [
+          "Architect distributed transaction workflows using the Saga pattern and asynchronous Kafka message queues.",
+          "Prevent double-spending and race conditions through row-level locking and Redis distributed locks.",
+          "Conduct code reviews and mentor junior SDE-1 engineers across payment pod sprints."
+        ],
+        "requiredQualifications": [
+          "3+ years experience building mission-critical backend systems in Java/Spring Boot.",
+          "Demonstrated expertise with Kafka, Redis, distributed locks, and database transaction isolation levels.",
+          "Experience tuning JVM garbage collection and diagnosing production memory leaks."
+        ],
+        "source": "Paytm Official Careers 2026",
+        "sourceUrl": "https://paytm.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      },
+      {
+        "title": "Tech Lead",
+        "level": "Tech Lead",
+        "competencies": [
+          "systemdesign",
+          "architecture",
+          "java",
+          "microservices",
+          "kafka"
+        ],
+        "reqLevel": {
+          "systemdesign": "expert",
+          "architecture": "expert",
+          "java": "expert",
+          "microservices": "expert",
+          "kafka": "strong"
+        },
+        "desc": "Engineering pod leadership, payment gateway reliability, low-latency microservices, and regulatory PCI-DSS security compliance.",
+        "location": "Noida / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "5+ years",
+        "aboutRole": "Direct technical strategy for Paytm payment gateway infrastructure, collaborating with product managers and banking partners.",
+        "responsibilities": [
+          "Design multi-bank failover routing and dynamic retry mechanisms for merchant payment checkout.",
+          "Ensure complete compliance with RBI regulatory guidelines and PCI-DSS data protection standards.",
+          "Drive architectural review boards and define engineering velocity metrics."
+        ],
+        "requiredQualifications": [
+          "5+ years backend engineering experience with at least 1 year leading an engineering pod.",
+          "Proven track record delivering systems that process over 1,000 transactions per second.",
+          "Strong communication and stakeholder alignment capabilities."
+        ],
+        "source": "Paytm Official Careers 2026",
+        "sourceUrl": "https://paytm.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Paytm Official Careers 2026",
+    "sourceUrl": "https://paytm.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "zepto",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Zepto",
+    "logo": "Z",
+    "gradient": "from-purple-950 via-zinc-900 to-black",
+    "industry": "Quick Commerce",
+    "hq": "Mumbai / Bengaluru",
+    "tier": "Unicorn",
+    "hiring2023": 350,
+    "hiring2024": 450,
+    "trend": "up",
+    "openRoles": 40,
+    "avgPackage": "₹22-48 LPA",
+    "glassdoor": 4.1,
+    "roles": [
+      {
+        "title": "Software Development Engineer I (SDE-1)",
+        "level": "SDE-1",
+        "competencies": [
+          "golang",
+          "python",
+          "dsa",
+          "redis",
+          "postgres"
+        ],
+        "reqLevel": {
+          "golang": "strong",
+          "dsa": "strong",
+          "redis": "strong",
+          "postgres": "strong"
+        },
+        "desc": "Sub-10-minute grocery delivery dispatch systems, dark store picking routing, and real-time inventory allocation engines.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Build hyper-local supply chain and dark store fulfillment microservices in Go and Redis.",
+        "responsibilities": [
+          "Develop low-latency dispatch and picking algorithms.",
+          "Maintain 99.9% uptime during surge traffic hours."
+        ],
+        "requiredQualifications": [
+          "Strong DSA and Go/Python proficiency."
+        ],
+        "source": "Zepto Official Careers 2026",
+        "sourceUrl": "https://www.zeptonow.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Zepto Official Careers 2026",
+    "sourceUrl": "https://www.zeptonow.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "ola",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Ola",
+    "logo": "O",
+    "gradient": "from-lime-950 via-zinc-900 to-black",
+    "industry": "Mobility & EV",
+    "hq": "Bengaluru",
+    "tier": "Unicorn",
+    "hiring2023": 600,
+    "hiring2024": 500,
+    "trend": "stable",
+    "openRoles": 30,
+    "avgPackage": "₹18-42 LPA",
+    "glassdoor": 3.8,
+    "roles": [
+      {
+        "title": "Software Development Engineer I (SDE-1)",
+        "level": "SDE-1",
+        "competencies": [
+          "java",
+          "dsa",
+          "kafka",
+          "systemdesign",
+          "mysql"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "dsa": "strong",
+          "kafka": "strong",
+          "mysql": "strong"
+        },
+        "desc": "Ride-hailing dispatch matching, geofencing telemetry, driver incentive computation, and mapping algorithms.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Build real-time geospatial dispatch and fleet management systems at scale.",
+        "responsibilities": [
+          "Scale driver-rider matching microservices.",
+          "Process real-time vehicle GPS streams."
+        ],
+        "requiredQualifications": [
+          "Strong algorithms, Java/Go and MySQL skills."
+        ],
+        "source": "Ola Official Careers 2026",
+        "sourceUrl": "https://www.olacabs.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Ola Official Careers 2026",
+    "sourceUrl": "https://www.olacabs.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "myntra",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Myntra",
+    "logo": "M",
+    "gradient": "from-pink-950 via-zinc-900 to-black",
+    "industry": "E-commerce",
+    "hq": "Bengaluru",
+    "tier": "Unicorn",
+    "hiring2023": 400,
+    "hiring2024": 380,
+    "trend": "stable",
+    "openRoles": 25,
+    "avgPackage": "₹20-45 LPA",
+    "glassdoor": 4.2,
+    "roles": [
+      {
+        "title": "Software Development Engineer I (SDE-1)",
+        "level": "SDE-1",
+        "competencies": [
+          "java",
+          "react",
+          "dsa",
+          "systemdesign",
+          "kafka"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "react": "strong",
+          "dsa": "strong",
+          "kafka": "working"
+        },
+        "desc": "Fashion catalog search & discovery, high-conversion checkout funnel, and personal styling recommendation pipelines.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Work on India's premier fashion e-commerce storefront, catalog ingestion, and high-volume checkout.",
+        "responsibilities": [
+          "Engineer scalable consumer web interfaces and backend microservices.",
+          "Optimize product search latency."
+        ],
+        "requiredQualifications": [
+          "Solid computer science fundamentals in Java or TypeScript."
+        ],
+        "source": "Myntra Official Careers 2026",
+        "sourceUrl": "https://careers.myntra.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Myntra Official Careers 2026",
+    "sourceUrl": "https://careers.myntra.com",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "nykaa",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Nykaa",
+    "logo": "N",
+    "gradient": "from-rose-950 via-zinc-900 to-black",
+    "industry": "E-commerce",
+    "hq": "Mumbai / Gurugram",
+    "tier": "Unicorn",
+    "hiring2023": 300,
+    "hiring2024": 320,
+    "trend": "stable",
+    "openRoles": 22,
+    "avgPackage": "₹16-36 LPA",
+    "glassdoor": 4,
+    "roles": [
+      {
+        "title": "Software Engineer (SDE-1)",
+        "level": "Software Engineer",
+        "competencies": [
+          "java",
+          "python",
+          "dsa",
+          "react",
+          "mysql"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "dsa": "strong",
+          "mysql": "strong"
+        },
+        "desc": "Omnichannel retail order fulfillment, warehouse management, and beauty recommendation engines.",
+        "location": "Gurugram / Mumbai",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Build resilient e-commerce inventory reservation and order tracking microservices.",
+        "responsibilities": [
+          "Implement REST APIs and checkout workflows.",
+          "Maintain high availability during flash sales."
+        ],
+        "requiredQualifications": [
+          "Proficiency in Java or Python and relational databases."
+        ],
+        "source": "Nykaa Official Careers 2026",
+        "sourceUrl": "https://www.nykaa.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Nykaa Official Careers 2026",
+    "sourceUrl": "https://www.nykaa.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "sharechat",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "ShareChat (Mohalla Tech)",
+    "logo": "S",
+    "gradient": "from-amber-950 via-zinc-900 to-black",
+    "industry": "Social Media / Content",
+    "hq": "Bengaluru",
+    "tier": "Unicorn",
+    "hiring2023": 300,
+    "hiring2024": 250,
+    "trend": "stable",
+    "openRoles": 20,
+    "avgPackage": "₹24-52 LPA",
+    "glassdoor": 4,
+    "roles": [
+      {
+        "title": "Software Development Engineer I (SDE-1)",
+        "level": "SDE-1",
+        "competencies": [
+          "golang",
+          "dsa",
+          "kafka",
+          "redis",
+          "systemdesign"
+        ],
+        "reqLevel": {
+          "golang": "strong",
+          "dsa": "strong",
+          "kafka": "strong",
+          "redis": "strong"
+        },
+        "desc": "Short-video streaming feed, content moderation ML inference pipelines, and real-time social engagement counters.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Engineer real-time high-throughput social feed and messaging microservices in Go.",
+        "responsibilities": [
+          "Develop scalable feed ranking distribution pipelines.",
+          "Optimize caching and network egress."
+        ],
+        "requiredQualifications": [
+          "Strong algorithms and backend systems development in Go or Java."
+        ],
+        "source": "ShareChat Official Careers 2026",
+        "sourceUrl": "https://sharechat.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "ShareChat Official Careers 2026",
+    "sourceUrl": "https://sharechat.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "american-express",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "American Express India",
+    "logo": "A",
+    "gradient": "from-blue-950 via-zinc-900 to-black",
+    "industry": "GCC / Finance",
+    "hq": "Gurugram / Bengaluru",
+    "tier": "MNC",
+    "hiring2023": 800,
+    "hiring2024": 850,
+    "trend": "stable",
+    "openRoles": 50,
+    "avgPackage": "₹18-36 LPA",
+    "glassdoor": 4.3,
+    "roles": [
+      {
+        "title": "Engineer I (Band 28)",
+        "level": "Band 28 (Entry)",
+        "competencies": [
+          "java",
+          "spring_boot",
+          "dsa",
+          "oracle",
+          "microservices"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "spring_boot": "strong",
+          "dsa": "strong",
+          "oracle": "strong"
+        },
+        "desc": "Credit card settlement platforms, fraud detection services, and enterprise loyalty reward pipelines.",
+        "location": "Gurugram / Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Build secure, compliant financial transaction microservices for American Express cardholders globally.",
+        "responsibilities": [
+          "Develop Spring Boot enterprise services.",
+          "Ensure strict security compliance and zero transaction anomalies."
+        ],
+        "requiredQualifications": [
+          "B.Tech/MCA in Computer Science with strong Java proficiency."
+        ],
+        "source": "Amex Official Careers 2026",
+        "sourceUrl": "https://www.americanexpress.com/en-in/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Amex Official Careers 2026",
+    "sourceUrl": "https://www.americanexpress.com/en-in/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "target",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Target India",
+    "logo": "T",
+    "gradient": "from-red-950 via-zinc-900 to-black",
+    "industry": "GCC / Retail Tech",
+    "hq": "Bengaluru",
+    "tier": "MNC",
+    "hiring2023": 600,
+    "hiring2024": 650,
+    "trend": "stable",
+    "openRoles": 45,
+    "avgPackage": "₹16-32 LPA",
+    "glassdoor": 4.3,
+    "roles": [
+      {
+        "title": "Engineer (Software Development)",
+        "level": "Engineer (Entry)",
+        "competencies": [
+          "java",
+          "kotlin",
+          "dsa",
+          "kafka",
+          "postgres"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "dsa": "strong",
+          "kafka": "working",
+          "postgres": "strong"
+        },
+        "desc": "Global retail supply chain orchestration, store inventory tracking, and POS digital checkout platforms.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Design and implement modern microservices powering Target stores and digital guest orders worldwide.",
+        "responsibilities": [
+          "Build event-driven microservices with Kafka and Kotlin/Java.",
+          "Ensure high resilience across retail peak events."
+        ],
+        "requiredQualifications": [
+          "Degree in Computer Science with proficiency in Java, Kotlin, or Python."
+        ],
+        "source": "Target India Careers 2026",
+        "sourceUrl": "https://india.target.com/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Target India Careers 2026",
+    "sourceUrl": "https://india.target.com/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "visa",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Visa India",
+    "logo": "V",
+    "gradient": "from-amber-950 via-zinc-900 to-black",
+    "industry": "GCC / Payments",
+    "hq": "Bengaluru",
+    "tier": "MNC",
+    "hiring2023": 500,
+    "hiring2024": 550,
+    "trend": "stable",
+    "openRoles": 35,
+    "avgPackage": "₹20-42 LPA",
+    "glassdoor": 4.4,
+    "roles": [
+      {
+        "title": "Software Engineer",
+        "level": "Entry Level",
+        "competencies": [
+          "java",
+          "dsa",
+          "systemdesign",
+          "distributed_systems",
+          "security"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "dsa": "strong",
+          "systemdesign": "strong",
+          "security": "strong"
+        },
+        "desc": "VisaNet core authorization pipeline, tokenization services, and global fraud scoring engines.",
+        "location": "Bengaluru",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Build secure transaction engines with 99.999% availability for Visa's global payments network.",
+        "responsibilities": [
+          "Develop fault-tolerant payment microservices.",
+          "Implement cryptographic encryption and tokenization."
+        ],
+        "requiredQualifications": [
+          "B.Tech/M.Tech in CS with strong understanding of concurrency and network protocols."
+        ],
+        "source": "Visa Official Careers 2026",
+        "sourceUrl": "https://www.visa.co.in/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Visa Official Careers 2026",
+    "sourceUrl": "https://www.visa.co.in/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "mastercard",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Mastercard India",
+    "logo": "M",
+    "gradient": "from-orange-950 via-zinc-900 to-black",
+    "industry": "GCC / Payments",
+    "hq": "Pune / Gurugram",
+    "tier": "MNC",
+    "hiring2023": 650,
+    "hiring2024": 700,
+    "trend": "stable",
+    "openRoles": 40,
+    "avgPackage": "₹18-38 LPA",
+    "glassdoor": 4.3,
+    "roles": [
+      {
+        "title": "Software Engineer",
+        "level": "Software Engineer",
+        "competencies": [
+          "java",
+          "spring_boot",
+          "dsa",
+          "microservices",
+          "sql"
+        ],
+        "reqLevel": {
+          "java": "strong",
+          "spring_boot": "strong",
+          "dsa": "strong",
+          "sql": "strong"
+        },
+        "desc": "Payment gateway switching, cross-border remittance settlement, and biometric authentication APIs.",
+        "location": "Pune / Gurugram",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "Design and deliver cloud-native payment settlement microservices at Mastercard Tech Hubs.",
+        "responsibilities": [
+          "Develop Spring Boot REST APIs with low latency.",
+          "Ensure high code quality and test coverage."
+        ],
+        "requiredQualifications": [
+          "CS degree with strong Core Java, SQL, and algorithms background."
+        ],
+        "source": "Mastercard Careers 2026",
+        "sourceUrl": "https://careers.mastercard.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Mastercard Careers 2026",
+    "sourceUrl": "https://careers.mastercard.com",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  },
+  {
+    "id": "lnt",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Larsen & Toubro (L&T)",
+    "logo": "L",
+    "gradient": "from-blue-950 via-zinc-900 to-black",
+    "industry": "Core Engineering & Industrial Tech",
+    "hq": "Mumbai / Chennai",
+    "tier": "Enterprise",
+    "hiring2023": 2500,
+    "hiring2024": 2200,
+    "trend": "stable",
+    "openRoles": 80,
+    "avgPackage": "₹7-16 LPA",
+    "glassdoor": 4.1,
+    "roles": [
+      {
+        "title": "Graduate Engineer Trainee (GET)",
+        "level": "GET (Entry)",
+        "competencies": [
+          "c++",
+          "python",
+          "dsa",
+          "iot",
+          "sql"
+        ],
+        "reqLevel": {
+          "cplusplus": "working",
+          "python": "strong",
+          "dsa": "working",
+          "sql": "strong"
+        },
+        "desc": "Industrial automation telemetry, smart infrastructure digital twin modeling, and enterprise SCADA integrations.",
+        "location": "Mumbai / Chennai",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-1 years",
+        "aboutRole": "Join L&T's premier engineering cadre, building industrial IoT and enterprise software systems.",
+        "responsibilities": [
+          "Develop SCADA and telemetry data pipelines.",
+          "Implement automation software for critical infrastructure."
+        ],
+        "requiredQualifications": [
+          "B.Tech in Civil, Mech, EE, or CS with 65%+ throughout academics."
+        ],
+        "source": "L&T Official Careers 2026",
+        "sourceUrl": "https://www.larsentoubro.com/corporate/careers",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "L&T Official Careers 2026",
+    "sourceUrl": "https://www.larsentoubro.com/corporate/careers",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  }
+,
+  {
+    "id": "intel",
+    "depth": "deep",
+    "dataStatus": "sourced",
+    "name": "Intel India",
+    "logo": "I",
+    "gradient": "from-blue-950 via-zinc-900 to-black",
+    "industry": "Semiconductors & Systems",
+    "hq": "Bengaluru / Hyderabad",
+    "tier": "Tier S",
+    "hiring2023": 850,
+    "hiring2024": 920,
+    "trend": "stable",
+    "openRoles": 14,
+    "avgPackage": "₹18-42 LPA",
+    "glassdoor": 4.3,
+    "roles": [
+      {
+        "title": "Software Engineer (Grade 5)",
+        "level": "Grade 5 (Associate)",
+        "competencies": [
+          "dsa",
+          "cpp",
+          "systems",
+          "concurrency"
+        ],
+        "reqLevel": {
+          "dsa": "strong",
+          "cpp": "strong",
+          "systems": "working",
+          "concurrency": "working"
+        },
+        "desc": "Build foundational firmware, drivers, and low-level software systems powering Intel silicon platforms.",
+        "location": "Bengaluru / Hyderabad",
+        "employmentType": "Full-time",
+        "experienceLevel": "0-2 years",
+        "aboutRole": "As a Software Engineer (Grade 5) at Intel India, you will contribute to systems software, device drivers, and firmware validation across next-generation architecture.",
+        "responsibilities": [
+          "Develop and validate C/C++ device drivers, OS kernel modules, and silicon firmware.",
+          "Implement automated test suites and debug silicon pre-silicon / post-silicon bringup issues.",
+          "Collaborate with hardware and system validation engineers to optimize throughput."
+        ],
+        "requiredQualifications": [
+          "B.Tech/BE or M.Tech in Computer Science, Computer Engineering, or Electronics.",
+          "Proficiency in C/C++, operating systems internals, data structures, and multi-threaded programming."
+        ],
+        "source": "Intel Official Careers 2026",
+        "sourceUrl": "https://jobs.intel.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      },
+      {
+        "title": "Software Engineer II (Grade 6)",
+        "level": "Grade 6 (Mid)",
+        "competencies": [
+          "systems",
+          "cpp",
+          "systemdesign",
+          "linux",
+          "dsa"
+        ],
+        "reqLevel": {
+          "systems": "expert",
+          "cpp": "strong",
+          "systemdesign": "strong",
+          "linux": "strong",
+          "dsa": "strong"
+        },
+        "desc": "Lead module design and optimization for cloud, client, and edge silicon software stacks.",
+        "location": "Bengaluru / Hyderabad",
+        "employmentType": "Full-time",
+        "experienceLevel": "2-5 years",
+        "aboutRole": "Software Engineer II drives module design, platform performance tuning, and hardware-software co-design at Intel.",
+        "responsibilities": [
+          "Design robust subsystem architectures and optimize compiler or driver execution paths.",
+          "Triage complex race conditions and hardware interrupt interactions.",
+          "Mentor junior engineers and coordinate cross-geo platform integration."
+        ],
+        "requiredQualifications": [
+          "3+ years experience in low-level systems programming (C/C++, Rust, or kernel development).",
+          "Hands-on expertise with Linux kernel internals, device drivers, and memory management."
+        ],
+        "source": "Intel Official Careers 2026",
+        "sourceUrl": "https://jobs.intel.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      },
+      {
+        "title": "Senior Software Engineer (Grade 7)",
+        "level": "Grade 7 (Senior)",
+        "competencies": [
+          "architecture",
+          "systems",
+          "cpp",
+          "distributed_systems",
+          "systemdesign"
+        ],
+        "reqLevel": {
+          "architecture": "expert",
+          "systems": "expert",
+          "cpp": "expert",
+          "distributed_systems": "strong",
+          "systemdesign": "expert"
+        },
+        "desc": "Technical leader owning silicon-level software architecture, virtualization, and telemetry stacks.",
+        "location": "Bengaluru / Hyderabad",
+        "employmentType": "Full-time",
+        "experienceLevel": "5-8 years",
+        "aboutRole": "Senior Software Engineer (Grade 7) defines technical vision and architectures for enterprise platforms.",
+        "responsibilities": [
+          "Architect scalable software stacks for AI acceleration, GPU virtualization, and server processors.",
+          "Lead architectural reviews and resolve critical customer escalations.",
+          "Drive intellectual property disclosures and silicon software innovation."
+        ],
+        "requiredQualifications": [
+          "5+ years architecting enterprise systems software, virtualization hypervisors, or AI runtimes.",
+          "Track record of technical leadership and cross-functional hardware-software delivery."
+        ],
+        "source": "Intel Official Careers 2026",
+        "sourceUrl": "https://jobs.intel.com",
+        "lastVerified": "2026-10-30",
+        "confidence": "high",
+        "status": "verified"
+      }
+    ],
+    "source": "Intel Official Careers 2026",
+    "sourceUrl": "https://jobs.intel.com",
+    "lastVerified": "2026-10-30",
+    "confidence": "high",
+    "status": "verified"
+  }
 ];
 
 
