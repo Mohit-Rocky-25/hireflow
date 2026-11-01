@@ -1,6 +1,6 @@
 # HireFlow Scoring Validation Report
 
-Generated on: 2026-11-01T15:53:43.000Z
+Generated on: 2026-11-01T17:26:28.088Z
 Spec Version: 2.4.0 | Engine Version: 4.0.0 | Spec Fingerprint: ef9032360b87a2a7107578329df77c1f99eda2398e523d15d80d80b64eef8315
 
 > [!IMPORTANT]
@@ -19,10 +19,10 @@ Failed: 0
 | B. Metamorphic | Irrelevant Skill Non-Inflation | PASSED | Adding non-technical skills (Knitting, Origami) yielded score 92 vs baseline 96 (difference: -4). |
 | B. Metamorphic | Section Permutation Invariance | PASSED | Reordering sections yielded score 96 vs baseline 96 (within tolerance). |
 | B. Metamorphic | Alias Equivalence (K8s vs Kubernetes) | PASSED | K8s alias scored 96, Kubernetes scored 96 (exact equality). |
-| B. Metamorphic | Monotonicity Under Genuine Bullet Evidence | PASSED | Score with evidence (68) >= score with bare listing only (55). |
+| B. Metamorphic | Monotonicity Under Genuine Bullet Evidence | PASSED | Score with evidence (66) >= score with bare listing only (50). |
 | C. Adversarial | Keyword Stuffing Flagging & Deduction | PASSED | Keyword stuffing penalty correctly applied for 25 listed skills with 0 bullet proof. |
-| C. Adversarial | Buzzword-Only Bullets Without Substance | PASSED | Buzzword-laden resume scored 49 vs honest quantified baseline 96. |
-| C. Adversarial | Duplicated Bullets Resistance | PASSED | Spamming identical high-scoring bullet 4 times scored 49 vs honest varied baseline 96. |
+| C. Adversarial | Buzzword-Only Bullets Without Substance | PASSED | Buzzword-laden resume scored 45 vs honest quantified baseline 96. |
+| C. Adversarial | Duplicated Bullets Resistance | PASSED | Spamming identical high-scoring bullet 4 times scored 45 vs honest varied baseline 96. |
 | C. Adversarial | Metric Plausibility Diagnostics | PASSED | Captured metrics while flagging extreme numbers for candidate interview justification. |
 | D. Sensitivity | Rank Stability (Kendall's Tau under +/-20% weight perturbation) | PASSED | Kendall's Tau = 1.000 across 10 candidate profiles. Required: >= 0.80. |
 | E. Gold-Set Agreement | Spearman Rank Agreement (Synthetic Seed Framework) | PASSED | Spearman Rho = 0.843 on 15 synthetic seed examples. Notice: Synthetic seed only; no validation against real hiring outcomes has been performed until real labelled employer data is provided. |

@@ -111,7 +111,7 @@ describe('ATS Engine Stage 0 Property & Invariant Test Suite (C1 - C14)', () => 
 
     for (const pair of TEST_CORPUS) {
       const res = runAtsEngine(pair.resumeText, pair.jdText).result;
-      const quick = buildQuickSummary({ skillResults: res.skillResults, baseScore: res.score, wordCount: res.audit.wordCount });
+      const quick = buildQuickSummary({ skillResults: res.skillResults, baseScore: res.score, wordCount: res.audit.wordCount, candidateYears: res.seniorityFit.candidateYears, requiredYears: res.seniorityFit.requiredYears });
 
       // Band and quickSummary verdict should not disagree violently (e.g. Close vs Weak match)
       if (res.band === 'Weak match' && quick.verdict === 'Close') {
@@ -144,7 +144,13 @@ describe('ATS Engine Stage 0 Property & Invariant Test Suite (C1 - C14)', () => 
 
     for (const pair of TEST_CORPUS) {
       const res = runAtsEngine(pair.resumeText, pair.jdText).result;
-      const quick = buildQuickSummary({ skillResults: res.skillResults, baseScore: res.score, wordCount: res.audit.wordCount });
+      const quick = buildQuickSummary({
+        skillResults: res.skillResults,
+        baseScore: res.score,
+        wordCount: res.audit.wordCount,
+        candidateYears: res.seniorityFit.candidateYears,
+        requiredYears: res.seniorityFit.requiredYears,
+      });
 
       if (quick.topFixes.length > 0 && res.fixFirst.length > 0) {
         if (quick.topFixes[0].gain !== res.fixFirst[0].expectedScoreGain) {
