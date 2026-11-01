@@ -7,6 +7,9 @@
 import { ATS_PILLAR_WEIGHTS } from '../../config/scoring';
 import { ExplainedValue } from '../../types/explain';
 
+export type MacroMarketCycle = 'bull_run' | 'standard' | 'cautious_freeze';
+export type EmployerContext = 'campus_fresher' | 'it_services_tcs_infy' | 'product_startup';
+
 export interface WhatIfScenarioInput {
   currentSkills: string[];
   targetSkills: string[];
@@ -14,6 +17,8 @@ export interface WhatIfScenarioInput {
   projectsCount: number;
   addedSkills: string[];
   upgradeProjectToMetrics?: boolean;
+  marketCycle?: MacroMarketCycle;
+  employerContext?: EmployerContext;
 }
 
 export interface WhatIfScenarioResult {
@@ -23,6 +28,12 @@ export interface WhatIfScenarioResult {
   pillarDeltas: {
     hardSkills: { before: number; after: number; delta: number };
     evidenceQuality: { before: number; after: number; delta: number };
+  };
+  marketTenureYears: {
+    baselineYears: number;
+    realisticYears: number;
+    cycleNote: string;
+    servicesFrictionNote?: string;
   };
   explanation: ExplainedValue;
   actionableInsights: string[];
@@ -86,6 +97,24 @@ export function simulateWhatIfReadiness(input: WhatIfScenarioInput): WhatIfScena
     );
   }
 
+  // 4. Macroeconomic Cycle and Tenure Friction Calculations (Flaw 2.4)
+  const baselineYears = 2.0;
+  let realisticYears = 2.5;
+  let cycleNote = 'Standard Indian tech market: median fresher (L1) to SDE-2 (L2) progression is 2.0 to 2.5 years.';
+  if (input.marketCycle === 'cautious_freeze') {
+    realisticYears = 3.5;
+    cycleNote = 'Headcount & Promotion Freeze: Cautious macro environment stretches promotion velocity to 3.5+ years; bar for SDE-2 elevated to multi-quarter production ownership.';
+  } else if (input.marketCycle === 'bull_run') {
+    realisticYears = 1.8;
+    cycleNote = 'Market Expansion / Bull Run: Accelerated hiring and promotion velocity across growth startups (1.5–2.0 years).';
+  }
+
+  let servicesFrictionNote: string | undefined;
+  if (input.employerContext === 'it_services_tcs_infy') {
+    servicesFrictionNote = 'IT Services Transition Friction: Strict 90-day notice period policies cause high drop-off with startups. Recommended mitigation: target GCCs accepting 60-90 day joins or build verified GitHub portfolios and alumni referrals to secure buyout offers.';
+    insights.push(servicesFrictionNote);
+  }
+
   const explain: ExplainedValue = {
     id: 'what-if-readiness-delta',
     label: 'What-If Readiness Delta',
@@ -120,6 +149,12 @@ export function simulateWhatIfReadiness(input: WhatIfScenarioInput): WhatIfScena
         after: Math.round(simulatedEvidence),
         delta: Math.round(simulatedEvidence - input.currentEvidenceScore),
       },
+    },
+    marketTenureYears: {
+      baselineYears,
+      realisticYears,
+      cycleNote,
+      servicesFrictionNote,
     },
     explanation: explain,
     actionableInsights: insights,

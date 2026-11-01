@@ -36,6 +36,23 @@ describe('D20: Career Trajectory What-If & Academic Eligibility (D20.1 - D20.5)'
       expect(withMetrics.pillarDeltas.evidenceQuality.delta).toBe(25);
       expect(withMetrics.delta).toBeGreaterThan(10);
     });
+
+    it('models macro market cycles and IT services transition friction', () => {
+      const freezeResult = simulateWhatIfReadiness({
+        currentSkills: ['Java'],
+        targetSkills: ['Java', 'Spring Boot'],
+        currentEvidenceScore: 50,
+        projectsCount: 1,
+        addedSkills: ['Spring Boot'],
+        marketCycle: 'cautious_freeze',
+        employerContext: 'it_services_tcs_infy',
+      });
+
+      expect(freezeResult.marketTenureYears.realisticYears).toBe(3.5);
+      expect(freezeResult.marketTenureYears.cycleNote).toContain('Headcount & Promotion Freeze');
+      expect(freezeResult.marketTenureYears.servicesFrictionNote).toContain('90-day notice');
+      expect(freezeResult.actionableInsights.some((s) => s.includes('90-day notice'))).toBe(true);
+    });
   });
 
   describe('Corporate Eligibility Gate Evaluation', () => {
