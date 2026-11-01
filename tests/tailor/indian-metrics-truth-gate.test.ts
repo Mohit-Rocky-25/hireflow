@@ -104,3 +104,4 @@ describe('Stage 5.2: Truth Gate Factual Integrity Enforcement', () => {
     expect(res.violations.some(v => v.type === 'invented_metric')).toBe(true);
   });
 });
+
