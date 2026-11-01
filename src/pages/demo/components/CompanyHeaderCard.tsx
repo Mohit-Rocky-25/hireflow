@@ -65,7 +65,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
               <span>•</span>
               <span>{company.industry || 'Not available'}</span>
               <span>•</span>
-              <span className="font-bold text-white">{company.avgPackage || 'Not available'}</span>
+              <span className="font-bold text-white" title="Estimated range based on public community reports; not verified with employer">{company.avgPackage || 'Not available'} (est.)</span>
               {(() => {
                 const officialUrl = company.officialSiteUrl || getVerifiedCompanyUrl(company.id) || getVerifiedCompanyUrl(company.name);
                 if (!officialUrl) return null;
@@ -83,6 +83,14 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
                   </>
                 );
               })()}
+            </div>
+
+            {/* Hiring status honesty notice */}
+            <div className="mt-2 text-xs flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-mono text-neutral-300 bg-black border border-charcoal">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                <span>Hiring status unverified; check official careers portal</span>
+              </span>
             </div>
 
             {/* Sourced evidence chips if present */}
@@ -117,7 +125,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
               <div className="text-sm sm:text-base font-bold text-white">
                 {company.openRoles != null ? `${company.openRoles}+` : 'Not available'}
               </div>
-              <div className="text-xs text-neutral-400 uppercase tracking-wider mt-0.5">Open Roles</div>
+              <div className="text-xs text-neutral-400 uppercase tracking-wider mt-0.5">Role Catalog</div>
             </div>
             <div className="bg-black rounded-lg px-3.5 py-2 text-center border border-charcoal">
               <div className="text-sm sm:text-base font-bold text-white">

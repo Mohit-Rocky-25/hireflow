@@ -44,19 +44,23 @@ export function ExperiencedRoleCard({
               <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-black text-neutral-300 border border-charcoal">
                 {role.level || 'Standard'}
               </span>
+              {/* Provenance Badge (Requirement 8.1) */}
+              {role.sourceUrl ? (
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-near-black text-volt border border-volt/50 flex items-center gap-1 font-mono">
+                  Sourced ({role.lastVerified || 'Oct 2026'})
+                </span>
+              ) : role.profileKind === 'estimate' ? (
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-sky-300 border border-sky-500/40 font-mono">
+                  Estimate (Community reports)
+                </span>
+              ) : (
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-pale-yellow border border-pale-yellow/40 font-mono">
+                  Representative profile (Illustrative example)
+                </span>
+              )}
               {role.isLiveVerified && (
                 <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/50 flex items-center gap-1">
-                  ATS: Static Catalogue (Oct 2026)
-                </span>
-              )}
-              {role.profileKind === 'representative' && (
-                <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-near-black text-pale-yellow border border-pale-yellow/40">
-                  Representative profile
-                </span>
-              )}
-              {role.competencyFit === 'approximate' && (
-                <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded bg-black text-neutral-300 border border-charcoal">
-                  Approximate Fit
+                  ATS Catalog (Oct 2026)
                 </span>
               )}
             </div>
@@ -160,7 +164,12 @@ export function ExperiencedRoleCard({
             )}
             {(role as any).hiringProcess && (role as any).hiringProcess.length > 0 && (
               <div>
-                <h5 className="font-bold text-neutral-400 uppercase tracking-wider text-xs mb-1">Interview Process</h5>
+                <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
+                  <h5 className="font-bold text-neutral-400 uppercase tracking-wider text-xs">Interview Process</h5>
+                  <span className="text-[10px] text-pale-yellow font-mono px-2 py-0.5 rounded bg-near-black border border-pale-yellow/30">
+                    Representative interview loop for this role type; verify with recruiter
+                  </span>
+                </div>
                 <div className="flex items-center gap-2 text-xs font-bold mt-2 flex-wrap">
                   {(role as any).hiringProcess.map((step: string, i: number) => (
                     <React.Fragment key={i}>

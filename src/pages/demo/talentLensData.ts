@@ -155258,7 +155258,7 @@ export interface Role {
   lastVerified?: string | null;
   confidence?: 'high' | 'medium' | 'low';
   status?: 'verified' | 'needs-recheck' | 'unverified';
-  profileKind?: 'representative';
+  profileKind?: 'sourced' | 'estimate' | 'representative';
   competencyFit?: 'good' | 'approximate';
   uncoveredSkills?: string[];
   jobFamily?: 'software-eng' | 'data-ai' | 'quant' | 'embedded-hardware' | 'platform-infra' | 'consulting-solutions' | 'other';

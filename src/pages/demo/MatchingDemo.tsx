@@ -95,6 +95,8 @@ export function MatchingDemo() {
   // Clean and deduplicate company catalog to merge multi-entry companies and eliminate React key collisions
   const cleanCompanies = React.useMemo(() => deduplicateCompanies(COMPANIES), []);
   const liveCount = React.useMemo(() => cleanCompanies.filter(isLiveAtsCompany).length, [cleanCompanies]);
+  const fullProfilesCount = React.useMemo(() => cleanCompanies.filter(c => c.depth !== 'basic' && !c.isBasicListing).length, [cleanCompanies]);
+  const basicCount = cleanCompanies.length - fullProfilesCount;
 
   // Intelligent typo-tolerant, case-insensitive multi-field search engine
   const searchResult = React.useMemo(() => {
@@ -386,21 +388,31 @@ Include:
                   className="h-10 px-3 bg-black border border-charcoal rounded text-xs text-white focus:outline-none focus:border-volt cursor-pointer uppercase font-semibold"
                   aria-label="Filter by audit depth or employer ATS catalog"
                 >
-                  <option value="All">All Profiles ({cleanCompanies.length})</option>
-                  <option value="live_ats">🟢 Live Public ATS ({liveCount})</option>
-                  <option value="benchmarks">🔵 Calibrated Benchmarks ({cleanCompanies.length - liveCount})</option>
-                  <option value="deep">Deep (Campus Verified)</option>
-                  <option value="standard">Standard (Careers)</option>
-                  <option value="basic">Basic (Profile Only)</option>
+                  <option value="All">All Employers ({cleanCompanies.length})</option>
+                  <option value="full_only">Full Profiles Only ({fullProfilesCount})</option>
+                  <option value="basic_only">Basic Directory Listings ({basicCount})</option>
+                  <option value="live_ats">ATS Catalog ({liveCount})</option>
+                  <option value="benchmarks">Calibrated Benchmarks ({cleanCompanies.length - liveCount})</option>
                 </select>
                 <span className="text-xs text-silver ml-auto font-mono uppercase tracking-[1px] whitespace-nowrap">
                   {filteredCompanies.length} of {cleanCompanies.length} employer profiles
                 </span>
               </div>
 
-              {/* Live ATS vs Benchmark Source Filter Pills */}
+              {/* Full Profiles vs Basic Directory & Catalog Filter Pills */}
               <div className="flex items-center gap-2 mt-3 pt-3 border-t border-charcoal/80 flex-wrap text-xs font-mono">
-                <span className="text-silver uppercase tracking-wider text-[11px] font-bold">Catalog Source:</span>
+                <span className="text-silver uppercase tracking-wider text-[11px] font-bold">Catalog Tier:</span>
+                <button
+                  type="button"
+                  onClick={() => setDepthFilter('full_only')}
+                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase transition-all cursor-pointer border ${
+                    depthFilter === 'full_only'
+                      ? 'bg-volt text-black border-volt shadow-[0_0_10px_rgba(245,255,0,0.2)]'
+                      : 'bg-black text-silver border-charcoal hover:text-white hover:border-neutral-600'
+                  }`}
+                >
+                  Full Profiles Only ({fullProfilesCount})
+                </button>
                 <button
                   type="button"
                   onClick={() => setDepthFilter('All')}
@@ -410,7 +422,18 @@ Include:
                       : 'bg-black text-silver border-charcoal hover:text-white hover:border-neutral-600'
                   }`}
                 >
-                  All ({cleanCompanies.length})
+                  All Employers ({cleanCompanies.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDepthFilter('basic_only')}
+                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase transition-all cursor-pointer border ${
+                    depthFilter === 'basic_only'
+                      ? 'bg-amber-500/20 text-amber-300 border-amber-400'
+                      : 'bg-black text-neutral-400 border-charcoal hover:text-white'
+                  }`}
+                >
+                  Basic Directory ({basicCount})
                 </button>
                 <button
                   type="button"
@@ -422,18 +445,7 @@ Include:
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>ATS Catalog Listings ({liveCount})</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDepthFilter('benchmarks')}
-                  className={`px-3 py-1 rounded text-[11px] font-bold uppercase transition-all cursor-pointer border ${
-                    depthFilter === 'benchmarks'
-                      ? 'bg-sky-500/20 text-sky-300 border-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.25)]'
-                      : 'bg-black text-neutral-400 border-neutral-700 hover:text-white hover:border-neutral-500'
-                  }`}
-                >
-                  <span>Calibrated Benchmarks ({cleanCompanies.length - liveCount})</span>
+                  <span>ATS Catalog ({liveCount})</span>
                 </button>
               </div>
 

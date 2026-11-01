@@ -472,6 +472,12 @@ export function isLiveAtsCompany(c: any): boolean {
 
 function checkDepthMatch(c: any, depthFilter: string): boolean {
   if (!depthFilter || depthFilter === 'All') return true;
+  if (depthFilter === 'full_only') {
+    return c.depth !== 'basic' && !c.isBasicListing;
+  }
+  if (depthFilter === 'basic_only') {
+    return c.depth === 'basic' || Boolean(c.isBasicListing);
+  }
   if (depthFilter === 'live_ats') {
     return isLiveAtsCompany(c);
   }
