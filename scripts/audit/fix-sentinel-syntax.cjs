@@ -12,3 +12,4 @@ s = s.replace(/\r?\n\s*\}\s*else\s*\{\r?\n\s*densityStatus = 'page_overflow';\r?
 
 fs.writeFileSync('src/lib/tailor/export/layoutSentinel.ts', s);
 console.log('Fixed layoutSentinel.ts duplicate block');
+

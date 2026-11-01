@@ -10,3 +10,4 @@ content = content.replace(
 
 fs.writeFileSync(path, content, 'utf8');
 console.log('talentLensData.ts updated');
+

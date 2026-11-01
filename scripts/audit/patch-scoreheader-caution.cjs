@@ -8,3 +8,4 @@ s = s.replace(
 
 fs.writeFileSync('src/features/ats/components/ScoreHeader.tsx', s);
 console.log('Updated ScoreHeader cautionText');
+

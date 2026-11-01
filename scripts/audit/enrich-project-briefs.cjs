@@ -357,3 +357,4 @@ fs.writeFileSync(briefsPath, JSON.stringify(briefs, null, 2) + '\n', 'utf8');
 fs.writeFileSync(corpusPath, JSON.stringify(corpus, null, 2) + '\n', 'utf8');
 
 console.log(`Updated all ${briefs.length} briefs in project-briefs.json with milestones, starterDirectory, and rebalanced enterprise stack mix!`);
+

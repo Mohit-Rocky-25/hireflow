@@ -23,3 +23,4 @@ s = s.replace(
 
 fs.writeFileSync('src/features/ats/engine/scorer.ts', s);
 console.log('Updated scorer.ts with fresher weight redistribution');
+

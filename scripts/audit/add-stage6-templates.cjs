@@ -146,3 +146,4 @@ fs.writeFileSync(templatesPath, JSON.stringify(filtered, null, 2) + '\n', 'utf8'
 fs.writeFileSync(syncTemplatesPath, JSON.stringify(filtered, null, 2) + '\n', 'utf8');
 
 console.log(`Updated templates successfully: total count is now ${filtered.length}.`);
+

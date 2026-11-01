@@ -67,3 +67,4 @@ if (!content.includes('handleAutoTrimLinkedIn =')) {
 
 fs.writeFileSync(path, content, 'utf8');
 console.log('ReachOutPage.tsx updated successfully');
+

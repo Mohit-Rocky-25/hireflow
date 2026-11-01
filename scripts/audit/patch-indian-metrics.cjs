@@ -32,3 +32,4 @@ ex = ex.replace(
 );
 fs.writeFileSync('src/lib/resume/extractor.ts', ex);
 console.log('✓ extractor.ts updated with Indian formats');
+

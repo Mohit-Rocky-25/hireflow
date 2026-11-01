@@ -21,3 +21,4 @@ ts = ts.replace(
 
 fs.writeFileSync('src/lib/tailor/store/tailorStore.ts', ts);
 console.log('✓ tailorStore.ts cleaned of invented claims');
+

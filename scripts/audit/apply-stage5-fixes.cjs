@@ -145,3 +145,4 @@ fim = fim.replace(
 );
 fs.writeFileSync('src/components/common/FresherIntakeModal.tsx', fim);
 console.log('✓ FresherIntakeModal.tsx updated with plain tier labels');
+

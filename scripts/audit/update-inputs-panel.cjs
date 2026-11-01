@@ -83,3 +83,4 @@ content = content.replace(targetMeter, replacementMeter);
 
 fs.writeFileSync(path, content, 'utf8');
 console.log('TemplateInputsPanel.tsx updated successfully');
+

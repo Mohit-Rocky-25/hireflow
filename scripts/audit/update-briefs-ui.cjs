@@ -161,3 +161,4 @@ const modalReplacement = `          {/* Tech Stack */}
 modalContent = modalContent.replace(modalTarget, modalReplacement);
 fs.writeFileSync(modalPath, modalContent, 'utf8');
 console.log('BriefDetailModal.tsx updated');
+

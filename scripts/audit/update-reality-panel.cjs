@@ -6,3 +6,4 @@ content = content.replace(
 );
 fs.writeFileSync('src/components/common/RealityFactorsPanel.tsx', content, 'utf8');
 console.log('RealityFactorsPanel updated');
+
