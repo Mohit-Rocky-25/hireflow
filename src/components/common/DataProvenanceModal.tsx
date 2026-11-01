@@ -1,6 +1,6 @@
 // ============================================================
 // HireFlow — In-Product Data Provenance & Legal Disclosures Modal
-// Provides transparent public sourcing proof for 216+ companies,
+// Provides transparent public sourcing proof for 244+ companies,
 // deterministic engine logic explanation, and Nominative Fair Use legal shields.
 // ============================================================
 
@@ -99,7 +99,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   Data Provenance & Legal Disclosures
                 </h2>
                 <p className="text-xs text-silver mt-0.5 font-mono">
-                  Single Source of Truth • 216+ Verified Tech Employers • 1,570+ Calibrated Roles • Nominative Fair Use Shield
+                  Single Source of Truth • 244+ Verified Tech Employers • 1,700+ Calibrated Roles • Nominative Fair Use Shield
                 </p>
               </div>
             </div>
@@ -152,10 +152,10 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                 <div className="p-4 bg-near-black border border-charcoal rounded-lg">
                   <h3 className="font-bold text-white uppercase tracking-[1px] text-xs mb-2 flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-volt stroke-[1.5px]" />
-                    Where did we get the 216+ Company Roles and JDs?
+                    Where did we get the 244+ Company Roles and JDs?
                   </h3>
                   <p className="text-xs text-silver">
-                    We do not use generic AI hallucinations or fictional numbers. Every role in TalentLens and the ATS Roaster is built from three verifiable, publicly published touchpoints across 216+ enterprise tech employers and GCCs:
+                    We do not use generic AI hallucinations or fictional numbers. Every role in TalentLens and the ATS Roaster is built from three verifiable, publicly published touchpoints across 244+ enterprise tech employers and GCCs:
                   </p>
                 </div>
 
@@ -216,7 +216,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
 
                 <div className="p-3.5 bg-black border border-charcoal rounded-lg flex items-center justify-between text-xs font-mono">
                   <span className="text-silver">Employer Catalog Audited:</span>
-                  <span className="font-bold text-volt">216+ Individual Employers across 4 Tiers · 1,570+ Roles</span>
+                  <span className="font-bold text-volt">244+ Individual Employers across 4 Tiers · 1,700+ Roles</span>
                 </div>
               </div>
             )}

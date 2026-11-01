@@ -324,13 +324,13 @@ export function CareerPathHub() {
               </h2>
 
               <p className="mt-4 text-base sm:text-lg text-silver font-normal leading-relaxed">
-                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 216+ tech organizations and 1,570+ calibrated roles.
+                Explore real India-office leveling frameworks, verified INR CTC packages, and authentic promotion expectations across 244+ tech organizations and 1,700+ calibrated roles.
               </p>
 
               {/* Preview Chips */}
               <div className="mt-8 flex flex-wrap gap-2.5">
                 {[
-                  '216+ India Tech Companies',
+                  '244+ India Tech Companies',
                   'Median, P25 & P75 INR CTC',
                   'Fixed Base + Variable + Equity Splits',
                   '6+ Structured Criteria per Level',

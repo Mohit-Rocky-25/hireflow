@@ -531,7 +531,7 @@ export function CompareJDsPage() {
                         )}
                       </div>
 
-                      {/* Quick Load from 216+ Verified Employers */}
+                      {/* Quick Load from 244+ Verified Employers */}
                       <div className="bg-surface-elevated/70 border border-charcoal rounded p-3 space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-[11px] font-mono font-bold text-volt flex items-center gap-1.5 uppercase tracking-wide">
@@ -817,7 +817,7 @@ export function CompareJDsPage() {
         )}
       </div>
 
-      {/* Global Datalist for 216+ Companies Autocomplete */}
+      {/* Global Datalist for 244+ Companies Autocomplete */}
       <datalist id="compare-companies-datalist">
         {sortedCompanies.map((c) => (
           <option key={c.id} value={c.name} />
