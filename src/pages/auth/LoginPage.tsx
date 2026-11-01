@@ -1,3 +1,4 @@
+import { PLATFORM_DATA_META } from '../../data/meta';
 // ============================================================
 // HireFlow — Executive Suite & Candidate Intelligence Login Page
 // High-Classic, Luxury Dark Obsidian Theme with Total Google Auth
@@ -238,17 +239,17 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
               <div className="text-center space-y-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-volt/10 border border-volt/30 text-volt text-[11px] font-mono font-bold uppercase tracking-wider">
                   <Sparkles className="w-3 h-3" />
-                  <span>Executive Career Suite</span>
+                  <span>Offline Local Workspace</span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
-                  {mode === 'signin' ? 'Sign In to HireFlo' : 'Create Executive Account'}
+                  {mode === 'signin' ? 'Sign In to HireFlo' : 'Create Local Profile'}
                 </h1>
 
                 <p className="text-xs font-mono text-neutral-400 leading-relaxed max-w-xs mx-auto">
                   {mode === 'signin'
                     ? 'Sync candidate evaluations, calibrate ATS scores, and unlock verified India leveling data.'
-                    : 'Get unlimited access to ATS diagnostic algorithms, 244+ GCC benchmarks, and cloud sync.'}
+                    : 'Get unlimited access to ATS diagnostic algorithms and {PLATFORM_DATA_META.companyCounts.fullProfiles}+ employer benchmarks on your local device.'}
                 </p>
               </div>
 

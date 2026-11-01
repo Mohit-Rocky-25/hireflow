@@ -1,3 +1,4 @@
+import { PLATFORM_DATA_META, ATS_LABEL_TEXT } from '../../data/meta';
 // ============================================================
 // HireFloww — In-Product Data Provenance & Legal Disclosures Modal
 // Provides transparent public sourcing proof for 244+ companies,
@@ -152,17 +153,17 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                 <div className="p-4 bg-near-black border border-charcoal rounded-lg">
                   <h3 className="font-bold text-white uppercase tracking-[1px] text-xs mb-2 flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 text-volt stroke-[1.5px]" />
-                    Where did we get the 244+ Company Roles and JDs?
+                    Where did we get the Company Roles and JDs in the Catalog?
                   </h3>
                   <p className="text-xs text-silver">
-                    We do not use generic AI hallucinations or fictional numbers. Every role in TalentLens and the ATS Roaster is built from three verifiable, publicly published touchpoints across 244+ enterprise tech employers and GCCs:
+                    We do not use generic AI hallucinations or fictional numbers. Roles in TalentLens and the ATS Roaster are built from three verifiable, publicly published touchpoints across {PLATFORM_DATA_META.companyCounts.fullProfiles} full employer profiles ({PLATFORM_DATA_META.companyCounts.totalPlatformListings} total listings):
                   </p>
                 </div>
 
                 <div className="p-4 bg-emerald-950/40 border border-emerald-500/50 rounded-lg space-y-2">
                   <div className="text-xs font-bold text-emerald-400 uppercase tracking-[1px] flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    Flagship Live ATS Ingestion Engine (Greenhouse & Lever)
+                    Static ATS Employer Catalogue (Greenhouse, Lever, Workday)
                   </div>
                   <p className="text-xs text-neutral-300 leading-relaxed">
                     For flagship product and high-growth employers (CRED, Meesho, Stripe, MongoDB, InMobi, GitLab, Rubrik, Elastic, Coinbase, Datadog), roles are synced dynamically every 72 hours directly from the companies' public, unauthenticated career ATS endpoints. Zero synthetic assumptions. Each job posting carries cryptographic SHA-256 tamper-evident provenance and provides direct &ldquo;Apply on Official ATS ↗&rdquo; links.
@@ -216,7 +217,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
 
                 <div className="p-3.5 bg-black border border-charcoal rounded-lg flex items-center justify-between text-xs font-mono">
                   <span className="text-silver">Employer Catalog Audited:</span>
-                  <span className="font-bold text-volt">244+ Individual Employers across 4 Tiers · 1,700+ Roles</span>
+                  <span className="font-bold text-volt">{PLATFORM_DATA_META.companyCounts.fullProfiles} Full Profiles & {PLATFORM_DATA_META.companyCounts.basicListings} Directory Listings ({PLATFORM_DATA_META.companyCounts.totalPlatformListings} Total)</span>
                 </div>
               </div>
             )}
