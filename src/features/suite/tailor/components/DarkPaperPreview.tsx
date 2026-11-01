@@ -165,6 +165,37 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
             </button>
           </div>
 
+          {/* Target Pages Toggle (Stage 5.1) */}
+          <div className="flex items-center bg-surface p-0.5 rounded border border-charcoal">
+            <button
+              type="button"
+              onClick={() => {
+                setLayoutSetting('targetPages', 1);
+                autoFitOnePage();
+              }}
+              className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded transition cursor-pointer ${
+                (settings.targetPages ?? 1) === 1
+                  ? 'bg-volt text-black shadow-xs'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+              title="Target 1-page compact layout"
+            >
+              1 Page
+            </button>
+            <button
+              type="button"
+              onClick={() => setLayoutSetting('targetPages', 2)}
+              className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded transition cursor-pointer ${
+                settings.targetPages === 2
+                  ? 'bg-volt text-black shadow-xs'
+                  : 'text-neutral-400 hover:text-white'
+              }`}
+              title="Target 2-page detailed layout"
+            >
+              2 Pages
+            </button>
+          </div>
+
           {/* 1-Page Height Sentinel Badge */}
           <div className="flex items-center gap-1.5">
             <span
@@ -180,7 +211,9 @@ export function DarkPaperPreview({ resume, candidate, className = '' }: DarkPape
                 <CheckCircle2 className="w-3 h-3 text-volt" />
               )}
               <span>
-                {heightReport.estimatedPages === 1 ? '1 Page • Optimal Fit' : `${heightReport.estimatedPages} Pages • Spillover`}
+                {(settings.targetPages === 2)
+                ? (heightReport.estimatedPages <= 2 ? '2 Pages • Balanced' : `${heightReport.estimatedPages} Pages • Overflow`)
+                : (heightReport.estimatedPages === 1 ? '1 Page • Optimal Fit' : `${heightReport.estimatedPages} Pages • Spillover`)}
               </span>
             </span>
 

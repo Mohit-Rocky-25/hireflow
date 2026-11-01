@@ -14,7 +14,7 @@ import { ParsedSection, JdRequirement, SkillResult, EvidenceQuote } from './type
 import { Bm25Engine } from './bm25';
 
 // Metric regex for detecting metric-backed skill proficiency
-const METRIC_REGEX = /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|\d+(?:,\d{3})*\s*(?:users|requests|qps|tps|transactions|dau|mau|records|clients)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
+const METRIC_REGEX = /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|(?:₹|rs\.?|\$)\s*\d+(?:,\d+)*(?:\.\d+)?|\d+(?:,\d+)*\s*(?:users|requests|qps|rps|tps|transactions|dau|mau|records|clients|customers|downloads|stars|views|inr|usd|lakh|lakhs|cr|crore|crores|lpa)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
 
 // Negation regex to prevent false positive matches
 const NEGATION_REGEX = /\b(?:no\s+(?:prior\s+)?experience\s+with|without|never\s+used|did\s+not\s+use|migrated\s+away\s+from|replaced|limited\s+knowledge\s+of)\b/i;

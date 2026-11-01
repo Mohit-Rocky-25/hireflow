@@ -286,6 +286,7 @@ export interface LayoutSettings {
   margins: 'tight' | 'standard' | 'relaxed';         // 0.4in | 0.5in | 0.65in
   lineSpacing: 'dense' | 'standard' | 'loose';       // 1.15 | 1.25 | 1.35
   accentColor: string;                               // Hex color code
+  targetPages?: 1 | 2;                               // Target 1-page or 2-page layout
 }
 
 // ── Tailored Resume Output Model ──

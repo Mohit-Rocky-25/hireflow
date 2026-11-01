@@ -179,8 +179,8 @@ export function buildInitialTailoredSections(candidate: CandidateProfile): Tailo
           secondaryTitle: 'Technology Solutions',
           dateRange: 'Recent',
           bullets: [
-            { id: 'b_exp_def_1', text: 'Architected scalable services and REST APIs, sustaining high request throughput with zero downtime.', originalText: 'Architected scalable services and REST APIs.', isEditedByUser: false },
-            { id: 'b_exp_def_2', text: 'Optimized database query performance, reducing endpoint latency by 35% across key user workflows.', originalText: 'Optimized database query performance.', isEditedByUser: false }
+            { id: 'b_exp_def_1', text: 'Architected scalable services and REST APIs across core product workflows.', originalText: 'Architected scalable services and REST APIs.', isEditedByUser: false },
+            { id: 'b_exp_def_2', text: 'Optimized database query performance and index strategies across key user workflows.', originalText: 'Optimized database query performance.', isEditedByUser: false }
           ]
         }
       ];
@@ -528,7 +528,7 @@ export const useTailorStore = create<TailorState>((set, get) => ({
       const candidate = state.activeProject.candidate;
       const job = state.activeProject.job;
       const keyTech = job.domainKeywords?.[0] || 'core backend';
-      const bulletText = text || `Architected high-throughput ${keyTech} integration, optimizing API response throughput and achieving 99.9% uptime.`;
+      const bulletText = text || `Integrated ${keyTech} workflows according to project specifications.`;
 
       const sections = state.activeProject.tailoredResume.sections.map((sec) => {
         if (sec.id !== sectionId || !sec.content.entries) return sec;

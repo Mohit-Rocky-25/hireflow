@@ -189,10 +189,10 @@ export function FresherIntakeModal({ isOpen, onClose, onSave }: FresherIntakeMod
               onChange={(e) => setFormData({ ...formData, targetArchetype: e.target.value })}
               className="w-full h-9 px-3 bg-surface-2 border border-border rounded-xl text-xs text-text focus:outline-none focus:ring-1 focus:ring-primary"
             >
-              <option value="service_track">Tier C: IT Services & Multi-Track Drives (TCS, Infosys, Wipro)</option>
-              <option value="product_mnc_gcc">Tier B: Product MNCs & Global Capability Centers (Oracle, Cisco)</option>
-              <option value="indian_high_growth">Tier A: Indian High-Growth Scale-ups (Swiggy, Razorpay)</option>
-              <option value="big_tech_product">Tier S: Big Tech & Global Product (Google, Microsoft)</option>
+              <option value="service_track">IT services & consultancies (TCS, Infosys, Wipro)</option>
+              <option value="product_mnc_gcc">Enterprise & mid-market (Oracle, Cisco)</option>
+              <option value="indian_high_growth">High-growth unicorns (Swiggy, Razorpay)</option>
+              <option value="big_tech_product">Global product companies (Google, Microsoft)</option>
               <option value="quant_trading">Quant & High-Frequency Systems (Tower, Graviton)</option>
               <option value="early_growth_startup">Early-Stage Tech Startups</option>
             </select>

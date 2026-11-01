@@ -7,7 +7,7 @@ import { TruthGateInput, TruthGateOutput, TruthGateViolation } from './types';
 import { CLAIM_STRENGTH_LADDER, TAILOR_MIRRORING_LIMITS } from '../../config/thresholds';
 import { extractSkillsFromText } from '../matching/tokenizer';
 
-const METRIC_OR_NUMBER_REGEX = /\b(?:\d+(?:\.\d+)?%|\$\d+(?:\.\d+)?|₹\d+(?:\.\d+)?|\d+\s*(?:ms|s|sec|seconds|users|k|m|requests?|req\/s|qps|rps|tps|gb|tb|mb|₹|\$|lpa|stars|lines|records|queries))\b|\b\d{2,}\b/gi;
+const METRIC_OR_NUMBER_REGEX = /\b(?:\d+(?:\.\d+)?%|\$\d+(?:\.\d+)?|₹\d+(?:,\d+)*(?:\.\d+)?|Rs\.?\s*\d+(?:,\d+)*(?:\.\d+)?|\d+(?:,\d+)*(?:\.\d+)?\s*(?:ms|s|sec|seconds|users|k|m|requests?|req\/s|qps|rps|tps|gb|tb|mb|₹|\$|lpa|lakh|lakhs|crore|crores|cr|stars|lines|records|queries))\b|\b\d{1,2}(?:,\d{2})*,\d{3}\b|\b\d{2,}\b/gi;
 const YEAR_DATE_REGEX = /\b(?:19|20)\d{2}\b/g;
 
 /**
