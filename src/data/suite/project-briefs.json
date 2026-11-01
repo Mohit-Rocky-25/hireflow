@@ -3,7 +3,7 @@
     "id": "brief-ab-experimentation",
     "title": "Bayesian A/B Experimentation Engine",
     "domain": "ML Engineering",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -51,7 +51,7 @@
     "id": "brief-analytics-clickhouse",
     "title": "Multi-Tenant B2B Event Analytics Engine",
     "domain": "Data Engineering",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "ClickHouse",
@@ -99,7 +99,7 @@
     "id": "brief-api-gateway-scratch",
     "title": "API Gateway from Scratch with Plugin Architecture",
     "domain": "Distributed Systems",
-    "estimatedHours": 34,
+    "estimatedHours": 116,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -143,7 +143,7 @@
     "id": "brief-api-sdk-design",
     "title": "Developer-First API SDK with Type Safety & Auto-Generation",
     "domain": "Full-Stack Web",
-    "estimatedHours": 20,
+    "estimatedHours": 36,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -189,7 +189,7 @@
     "id": "brief-blockchain-defi",
     "title": "DeFi Lending Protocol Smart Contract on Ethereum",
     "domain": "Blockchain & Web3",
-    "estimatedHours": 34,
+    "estimatedHours": 116,
     "difficulty": "advanced",
     "coveredSkills": [
       "Solidity",
@@ -235,7 +235,7 @@
     "id": "brief-canary-deployment",
     "title": "Canary Deployment Controller with Automated Rollback",
     "domain": "Platform & DevOps",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -281,7 +281,7 @@
     "id": "brief-cdc-pipeline",
     "title": "Change Data Capture (CDC) & Event Sourcing Pipeline",
     "domain": "Data Engineering",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Debezium",
@@ -328,7 +328,7 @@
     "id": "brief-ci-cd-from-scratch",
     "title": "Minimal CI/CD System from Scratch with Build Agents",
     "domain": "Platform & DevOps",
-    "estimatedHours": 33,
+    "estimatedHours": 112,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -372,7 +372,7 @@
     "id": "brief-compiler-interpreter",
     "title": "Custom Programming Language Interpreter & AST Evaluator",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 36,
+    "estimatedHours": 122,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -412,7 +412,7 @@
     "id": "brief-computer-vision-api",
     "title": "Production Computer Vision API (Object Detection & OCR)",
     "domain": "AI/ML Applications",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -458,7 +458,7 @@
     "id": "brief-container-runtime",
     "title": "Minimal Container Runtime (Docker-like) in Go",
     "domain": "Systems Programming",
-    "estimatedHours": 35,
+    "estimatedHours": 119,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -500,7 +500,7 @@
     "id": "brief-credit-risk-model",
     "title": "Credit Risk Scoring & Loan Underwriting ML System",
     "domain": "FinTech Engineering",
-    "estimatedHours": 28,
+    "estimatedHours": 62,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -547,7 +547,7 @@
     "id": "brief-data-quality-framework",
     "title": "Automated Data Quality Monitoring & Anomaly Detection",
     "domain": "Data Engineering",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -593,7 +593,7 @@
     "id": "brief-database-engine",
     "title": "Embedded Relational Database Engine with Slotted-Page B-Tree & WAL",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 42,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "C++",
@@ -635,7 +635,7 @@
     "id": "brief-devsecops-pipeline",
     "title": "DevSecOps CI/CD Pipeline with SAST, SCA & Container Admission Gates",
     "domain": "Security & Platform",
-    "estimatedHours": 26,
+    "estimatedHours": 57,
     "difficulty": "intermediate",
     "coveredSkills": [
       "DevSecOps",
@@ -681,7 +681,7 @@
     "id": "brief-dist-cache-rust",
     "title": "Distributed In-Memory Key-Value Cache Engine in Rust with Consistent Hashing",
     "domain": "Systems Programming",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "Rust",
@@ -724,7 +724,7 @@
     "id": "brief-dist-rate-limiter",
     "title": "Distributed Sliding-Window Rate Limiting Gateway in Go & Redis",
     "domain": "Distributed Systems",
-    "estimatedHours": 25,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -768,7 +768,7 @@
     "id": "brief-embedding-search-engine",
     "title": "Semantic Code Search Engine with Tree-Sitter AST Chunking & Vector Retrieval",
     "domain": "AI/ML Applications",
-    "estimatedHours": 30,
+    "estimatedHours": 66,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -813,7 +813,7 @@
     "id": "brief-event-driven-saas",
     "title": "Multi-Tenant B2B SaaS Backend with Row-Level Security & Outbox Messaging",
     "domain": "Full-Stack Web",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -859,7 +859,7 @@
     "id": "brief-event-recon",
     "title": "Event-Driven Payment Reconciliation Engine with Double-Entry Ledger",
     "domain": "FinTech Engineering",
-    "estimatedHours": 36,
+    "estimatedHours": 122,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -904,7 +904,7 @@
     "id": "brief-event-sourcing",
     "title": "Event Sourcing & CQRS Core Engine with Optimistic Concurrency Control",
     "domain": "Distributed Systems",
-    "estimatedHours": 37,
+    "estimatedHours": 126,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -949,7 +949,7 @@
     "id": "brief-feature-flag-platform",
     "title": "Feature Flag & Progressive Rollout Platform with MurmurHash3 Bucketing",
     "domain": "Full-Stack Web",
-    "estimatedHours": 24,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -994,7 +994,7 @@
     "id": "brief-fraud-detection-ml",
     "title": "Real-Time Fraud Detection ML Pipeline with Sliding-Window Feature Store",
     "domain": "ML Engineering",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1044,7 +1044,7 @@
     "id": "brief-fullstack-ecommerce",
     "title": "Headless E-Commerce Platform with Optimistic UI & Atomic Inventory Locks",
     "domain": "Full-Stack Web",
-    "estimatedHours": 32,
+    "estimatedHours": 70,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -1092,7 +1092,7 @@
     "id": "brief-genai-code-reviewer",
     "title": "Automated Pull Request Code Reviewer with Prompt Injection Defense",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 26,
+    "estimatedHours": 57,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -1139,7 +1139,7 @@
     "id": "brief-gitignore-lsp",
     "title": "Language Server Protocol (LSP) Engine with AST Parsing & Glob Diagnostics",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 36,
+    "estimatedHours": 122,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -1181,7 +1181,7 @@
     "id": "brief-gitops-registry",
     "title": "GitOps Continuous Deployment Controller with Automated Drift Self-Healing",
     "domain": "Platform & DevOps",
-    "estimatedHours": 35,
+    "estimatedHours": 119,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -1226,7 +1226,7 @@
     "id": "brief-gpu-accelerated-inference",
     "title": "GPU & CPU Accelerated ML Inference Server with Dynamic Batching",
     "domain": "ML Engineering",
-    "estimatedHours": 37,
+    "estimatedHours": 126,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1273,7 +1273,7 @@
     "id": "brief-graph-analysis",
     "title": "Large-Scale Social Graph Analytics Platform with PageRank & Community Detection",
     "domain": "Data Engineering",
-    "estimatedHours": 42,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1320,7 +1320,7 @@
     "id": "brief-graphql-federation",
     "title": "Federated GraphQL Gateway with Distributed Query Planning & DataLoader Batching",
     "domain": "Full-Stack Web",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -1368,7 +1368,7 @@
     "id": "brief-graphql-to-sql-compiler",
     "title": "GraphQL-to-SQL AST Compiler & Query Optimizer with LATERAL Joins",
     "domain": "Full-Stack Web",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -1414,7 +1414,7 @@
     "id": "brief-high-throughput-logging",
     "title": "High-Throughput Log Processing & Alerting Daemon in Go with Ring Buffers",
     "domain": "Platform & DevOps",
-    "estimatedHours": 26,
+    "estimatedHours": 57,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -1460,7 +1460,7 @@
     "id": "brief-homomorphic-encryption",
     "title": "Confidential Database Query Engine with Homomorphic Encryption",
     "domain": "Security & Platform",
-    "estimatedHours": 45,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1505,7 +1505,7 @@
     "id": "brief-interview-prep-ai",
     "title": "Voice-Enabled Technical Interview Simulation Engine with Asynchronous Speech Processing & Evaluation",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 31,
+    "estimatedHours": 68,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -1554,7 +1554,7 @@
     "id": "brief-knowledge-graph",
     "title": "Domain Knowledge Graph Construction Pipeline with Relation Extraction & Cypher Graph Reasoning Engine",
     "domain": "AI/ML Applications",
-    "estimatedHours": 36,
+    "estimatedHours": 122,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1603,7 +1603,7 @@
     "id": "brief-kubernetes-operator",
     "title": "Custom Kubernetes Operator in Go with CRD Lifecycle Reconciler, Automated Failover & Backup Controller",
     "domain": "Platform & DevOps",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -1650,7 +1650,7 @@
     "id": "brief-llm-agent-workflow",
     "title": "Autonomous LLM Agent Orchestration Engine with ReAct Loop, Deterministic Tool Calling & State Checkpointing",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 37,
+    "estimatedHours": 126,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1699,7 +1699,7 @@
     "id": "brief-llm-evaluation-framework",
     "title": "Automated LLM Evaluation, Red-Teaming & Benchmark Harness with G-Eval, BERTScore & Adversarial Safety Scoring",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -1748,7 +1748,7 @@
     "id": "brief-llm-finetuning-peft",
     "title": "Domain-Specific LLM Fine-Tuning Pipeline with QLoRA, Token Packing & Automated Evaluation",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 39,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1796,7 +1796,7 @@
     "id": "brief-llm-finetuning-rlhf",
     "title": "LLM Preference Alignment Pipeline with Bradley-Terry Reward Modeling & Direct Preference Optimization",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 44,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -1845,7 +1845,7 @@
     "id": "brief-llm-gateway",
     "title": "High-Throughput Multi-Provider LLM Gateway with Semantic Prompt Caching, Automatic Failover & Token Rate Limiting",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -1894,7 +1894,7 @@
     "id": "brief-load-balancer",
     "title": "Layer Seven HTTP Reverse Proxy & Load Balancer in Go with Active Health Checks, Least-Connections & Circuit Breaking",
     "domain": "Distributed Systems",
-    "estimatedHours": 26,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -1941,7 +1941,7 @@
     "id": "brief-message-queue",
     "title": "Persistent Log-Structured Message Broker in Go with Segmented Storage, Consumer Groups & At-Least-Once Delivery",
     "domain": "Distributed Systems",
-    "estimatedHours": 32,
+    "estimatedHours": 83,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -1988,7 +1988,7 @@
     "id": "brief-micro-frontend-shell",
     "title": "Federated Micro-Frontend Host Shell with Module Federation, Shared Runtime State & Error Boundaries",
     "domain": "Full-Stack Web",
-    "estimatedHours": 25,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "React",
@@ -2034,7 +2034,7 @@
     "id": "brief-mlops-platform",
     "title": "End-to-End MLOps Pipeline Platform with Automated Experiment Tracking, Model Registry & Drift Detection",
     "domain": "ML Engineering",
-    "estimatedHours": 42,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -2083,7 +2083,7 @@
     "id": "brief-mobile-flutter-prod",
     "title": "Cross-Platform Mobile Application in Flutter with BLoC State Management, Offline SQLite Sync & CI/CD Fastlane Pipeline",
     "domain": "Mobile Engineering",
-    "estimatedHours": 30,
+    "estimatedHours": 66,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Flutter",
@@ -2132,7 +2132,7 @@
     "id": "brief-multimodal-ai-app",
     "title": "Cross-Modal Multimodal AI Reasoning Platform Fusing Vision, Speech Audio & Text in PyTorch and FastAPI",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 39,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -2183,7 +2183,7 @@
     "id": "brief-notification-service",
     "title": "High-Throughput Multi-Channel Notification Orchestration Service with Deduplication, Rate Limiting & Channel Fallback",
     "domain": "Full-Stack Web",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Node.js",
@@ -2232,7 +2232,7 @@
     "id": "brief-observability-sdk",
     "title": "In-Process Observability Telemetry SDK & Auto-Instrumentation Library in Go with OTLP Exporters",
     "domain": "Platform & DevOps",
-    "estimatedHours": 25,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -2278,7 +2278,7 @@
     "id": "brief-offline-first-sync",
     "title": "Offline-First Local Synchronization Protocol with CRDTs, IndexedDB & Bidirectional WebSocket Streaming",
     "domain": "Full-Stack Web",
-    "estimatedHours": 37,
+    "estimatedHours": 126,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -2326,7 +2326,7 @@
     "id": "brief-opentelemetry-observability",
     "title": "High-Throughput Distributed Tracing & APM Platform in Go with ClickHouse Columnar Storage & Grafana Flamegraphs",
     "domain": "Platform & DevOps",
-    "estimatedHours": 31,
+    "estimatedHours": 68,
     "difficulty": "intermediate",
     "coveredSkills": [
       "OpenTelemetry",
@@ -2373,7 +2373,7 @@
     "id": "brief-osint-data-platform",
     "title": "Distributed Web Intelligence Crawling & Change Detection Platform with Playwright, Celery & Redis Bloom Filters",
     "domain": "Data Engineering",
-    "estimatedHours": 30,
+    "estimatedHours": 66,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -2421,7 +2421,7 @@
     "id": "brief-peer-to-peer",
     "title": "Decentralized Peer-to-Peer File Distribution Engine in Go with Kademlia DHT & Rarest-First Swarm Scheduling",
     "domain": "Distributed Systems",
-    "estimatedHours": 41,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -2470,7 +2470,7 @@
     "id": "brief-personalization-engine",
     "title": "Real-Time User Personalization & Contextual Bandit Recommendation Engine with Kafka Streaming, Redis Feature Store & Scikit-learn",
     "domain": "ML Engineering",
-    "estimatedHours": 31,
+    "estimatedHours": 68,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -2518,7 +2518,7 @@
     "id": "brief-privacy-preserving-ml",
     "title": "Federated Learning System for Privacy-Preserving ML with PyTorch, Differential Privacy DP-SGD & gRPC Aggregation",
     "domain": "ML Engineering",
-    "estimatedHours": 45,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -2566,7 +2566,7 @@
     "id": "brief-progressive-web-app",
     "title": "Production Progressive Web App (PWA) with Workbox Service Worker, IndexedDB Offline Mutation Sync & Web Push Notifications",
     "domain": "Mobile Engineering",
-    "estimatedHours": 22,
+    "estimatedHours": 40,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -2614,7 +2614,7 @@
     "id": "brief-raft-consensus",
     "title": "Distributed Replicated Key-Value Store from Scratch in Go with Raft Consensus, LevelDB WAL & gRPC Cluster Transport",
     "domain": "Distributed Systems",
-    "estimatedHours": 46,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -2660,7 +2660,7 @@
     "id": "brief-rag-vector-search",
     "title": "Enterprise RAG Semantic Search & Hallucination Verification Engine with FastAPI, pgvector & Sentence-Transformers",
     "domain": "AI/ML Applications",
-    "estimatedHours": 28,
+    "estimatedHours": 62,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -2708,7 +2708,7 @@
     "id": "brief-react-native-offline",
     "title": "Offline-First Mobile Inspection Engine in React Native with WatermelonDB SQLite & Idempotent Delta Sync",
     "domain": "Mobile Engineering",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -2756,7 +2756,7 @@
     "id": "brief-realtime-analytics-dashboard",
     "title": "Real-Time Business Intelligence Analytics Dashboard with Node.js WebSockets, Redis Pub/Sub & PostgreSQL Rollups",
     "domain": "Full-Stack Web",
-    "estimatedHours": 26,
+    "estimatedHours": 57,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -2804,7 +2804,7 @@
     "id": "brief-realtime-code-execution",
     "title": "Secure Remote Code Execution Sandbox in Go with Linux Namespaces, cgroups v2 & seccomp BPF Syscall Filtering",
     "domain": "Security & Platform",
-    "estimatedHours": 42,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -2850,7 +2850,7 @@
     "id": "brief-realtime-collab",
     "title": "Real-Time Collaborative Document Canvas in TypeScript with Yjs CRDTs, WebSockets & IndexedDB Offline Sync",
     "domain": "Full-Stack Web",
-    "estimatedHours": 39,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -2898,7 +2898,7 @@
     "id": "brief-realtime-stock-platform",
     "title": "Real-Time Stock Market Data Platform & Alert Engine with Python, Kafka, TimescaleDB & Redis",
     "domain": "FinTech Engineering",
-    "estimatedHours": 30,
+    "estimatedHours": 66,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -2946,7 +2946,7 @@
     "id": "brief-recommendation-engine",
     "title": "Hybrid Recommendation Engine with PyTorch Two-Tower NCF, FAISS Vector Retrieval & FastAPI Scoring",
     "domain": "ML Engineering",
-    "estimatedHours": 32,
+    "estimatedHours": 70,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -2994,7 +2994,7 @@
     "id": "brief-schema-registry",
     "title": "Event Schema Registry & Contract Testing Platform with Python, Kafka, Apache Avro & FastAPI",
     "domain": "Data Engineering",
-    "estimatedHours": 24,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -3042,7 +3042,7 @@
     "id": "brief-search-engine",
     "title": "Full-Text Search Engine from Scratch in Go with Inverted Index, BM25 Scoring & Concurrent Segment Merging",
     "domain": "Distributed Systems",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -3088,7 +3088,7 @@
     "id": "brief-semantic-kernel-agent",
     "title": "Hierarchical Multi-Agent Orchestration Framework in Python with Semantic Kernel, Qdrant & FastAPI",
     "domain": "GenAI & LLM Engineering",
-    "estimatedHours": 37,
+    "estimatedHours": 126,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -3136,7 +3136,7 @@
     "id": "brief-serverless-backend",
     "title": "Serverless Event-Driven Order Processing Backend with AWS Lambda, DynamoDB, SQS & LocalStack",
     "domain": "Platform & DevOps",
-    "estimatedHours": 23,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -3184,7 +3184,7 @@
     "id": "brief-service-mesh",
     "title": "Service Mesh Zero-Trust Architecture with Istio, Envoy Sidecars, mTLS & SPIFFE Identity",
     "domain": "Platform & DevOps",
-    "estimatedHours": 42,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Kubernetes",
@@ -3232,7 +3232,7 @@
     "id": "brief-streaming-data-pipeline",
     "title": "Real-Time Lakehouse Streaming ETL Pipeline with Apache Spark, Delta Lake, Kafka & MinIO",
     "domain": "Data Engineering",
-    "estimatedHours": 41,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -3280,7 +3280,7 @@
     "id": "brief-supply-chain-optimization",
     "title": "Supply Chain Vehicle Routing Optimizer with Google OR-Tools, OpenStreetMap & FastAPI",
     "domain": "Algorithms & Applied Math",
-    "estimatedHours": 27,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -3326,7 +3326,7 @@
     "id": "brief-terraform-cloud-infra",
     "title": "Production Infrastructure as Code with Modular Terraform, TFLint & LocalStack Cloud Emulation",
     "domain": "Platform & DevOps",
-    "estimatedHours": 25,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Terraform",
@@ -3373,7 +3373,7 @@
     "id": "brief-time-series-forecasting",
     "title": "Production Time-Series Forecasting Platform with Prophet, XGBoost Ensembles & FastAPI",
     "domain": "ML Engineering",
-    "estimatedHours": 28,
+    "estimatedHours": 62,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -3421,7 +3421,7 @@
     "id": "brief-tls-certificate-manager",
     "title": "Automated TLS Certificate Manager with ACME Protocol (DNS-01 / HTTP-01 Challenges) & Dynamic Reload",
     "domain": "Security & Platform",
-    "estimatedHours": 26,
+    "estimatedHours": 57,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -3471,7 +3471,7 @@
     "id": "brief-upi-payment-gateway",
     "title": "UPI-Style Real-Time Payment Gateway with VPA Resolution, Dynamic Bank Routing & T+1 Settlement",
     "domain": "FinTech Engineering",
-    "estimatedHours": 38,
+    "estimatedHours": 129,
     "difficulty": "advanced",
     "coveredSkills": [
       "Java",
@@ -3521,7 +3521,7 @@
     "id": "brief-vector-db-from-scratch",
     "title": "HNSW Vector Database from Scratch with Cosine Similarity, Multi-Layer Graph Index & REST API",
     "domain": "AI/ML Applications",
-    "estimatedHours": 44,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -3569,7 +3569,7 @@
     "id": "brief-workflow-engine",
     "title": "Distributed Workflow Orchestration Engine with Event Sourcing, Saga Compensation & Crash Recovery",
     "domain": "Distributed Systems",
-    "estimatedHours": 43,
+    "estimatedHours": 130,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -3618,7 +3618,7 @@
     "id": "brief-zero-trust-proxy",
     "title": "Least-Privilege API Security Gateway with RS256 JWT Rotation, Redis Bloom Filter & Device Fingerprinting",
     "domain": "Security & Platform",
-    "estimatedHours": 27,
+    "estimatedHours": 59,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Node.js",
@@ -3667,7 +3667,7 @@
     "id": "cert-aws-ccp",
     "title": "AWS Certified Cloud Practitioner (CLF-C02) Hands-On Lab & Cloud Foundation Architecture",
     "domain": "Cloud Architecture & DevOps",
-    "estimatedHours": 16,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "AWS IAM",
@@ -3717,7 +3717,7 @@
     "id": "cert-aws-saa",
     "title": "AWS Certified Solutions Architect – Associate (SAA-C03) High-Availability & Disaster Recovery Architecture",
     "domain": "Cloud Architecture & DevOps",
-    "estimatedHours": 30,
+    "estimatedHours": 66,
     "difficulty": "intermediate",
     "coveredSkills": [
       "AWS VPC",
@@ -3767,7 +3767,7 @@
     "id": "cert-ckad",
     "title": "Certified Kubernetes Application Developer (CKAD) Performance-Based Lab & Container Architecture",
     "domain": "Cloud Native & Containers",
-    "estimatedHours": 36,
+    "estimatedHours": 122,
     "difficulty": "advanced",
     "coveredSkills": [
       "Kubernetes",
@@ -3814,7 +3814,7 @@
     "id": "cert-comptia-sec",
     "title": "CompTIA Security+ (SY0-701) Cybersecurity Defense Lab & Threat Analysis Framework",
     "domain": "Cybersecurity & Defense",
-    "estimatedHours": 28,
+    "estimatedHours": 62,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Linux",
@@ -3861,7 +3861,7 @@
     "id": "cert-gcp-ace",
     "title": "Google Cloud Associate Cloud Engineer (ACE) Infrastructure & Kubernetes Deployment Lab",
     "domain": "Cloud Infrastructure & Kubernetes",
-    "estimatedHours": 29,
+    "estimatedHours": 64,
     "difficulty": "intermediate",
     "coveredSkills": [
       "GCP",
@@ -3911,7 +3911,7 @@
     "id": "brief-http-socket-server",
     "title": "Multi-Threaded HTTP/1.1 Socket Server from Scratch",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 18,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Python",
@@ -3955,7 +3955,7 @@
     "id": "brief-kv-store-wal",
     "title": "In-Memory Key-Value Store with Write-Ahead Log (WAL) & Crash Recovery",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 19,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Go",
@@ -3999,7 +3999,7 @@
     "id": "brief-rate-limit-middleware",
     "title": "Token Bucket & Leaky Bucket API Middleware in TypeScript",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 16,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -4043,7 +4043,7 @@
     "id": "brief-bloom-filter-engine",
     "title": "Space-Efficient Bloom Filter & HyperLogLog Cardinality Estimator",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 17,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Python",
@@ -4088,7 +4088,7 @@
     "id": "brief-mini-sql-lexer",
     "title": "Mini SQL Lexer & Query Execution Engine for Tabular Datasets",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 20,
+    "estimatedHours": 36,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -4131,7 +4131,7 @@
     "id": "brief-git-internals-reader",
     "title": "Git Object Store Inspector & Tree Traverser from Scratch",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 18,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Go",
@@ -4175,7 +4175,7 @@
     "id": "brief-tar-gzip-decompressor",
     "title": "Streaming Tar Archive Inspector & Huffman Decompressor",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 19,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Python",
@@ -4219,7 +4219,7 @@
     "id": "brief-redis-resp-server",
     "title": "Redis RESP Protocol Parser & Concurrent TCP Command Server",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 20,
+    "estimatedHours": 36,
     "difficulty": "beginner",
     "coveredSkills": [
       "Go",
@@ -4264,7 +4264,7 @@
     "id": "brief-dag-task-runner",
     "title": "Directed Acyclic Graph (DAG) Task Orchestrator with Cycle Detection",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 18,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -4307,7 +4307,7 @@
     "id": "brief-threadsafe-lru-cache",
     "title": "Thread-Safe LRU/LFU In-Memory Cache with O(1) Eviction",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 17,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "Go",
@@ -4350,7 +4350,7 @@
     "id": "brief-markdown-ast-ssg",
     "title": "Markdown AST Parser & Static Site Generator with Metadata Frontmatter",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 18,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -4393,7 +4393,7 @@
     "id": "brief-json-schema-validator",
     "title": "Recursive JSON Schema Validator with Draft-7 Primitive Checks",
     "domain": "Computer Science Fundamentals",
-    "estimatedHours": 17,
+    "estimatedHours": 35,
     "difficulty": "beginner",
     "coveredSkills": [
       "TypeScript",
@@ -4436,7 +4436,7 @@
     "id": "brief-multiagent-code-reviewer",
     "title": "Multi-Agent Autonomous Code Review & Patch Generator",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 24,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4481,7 +4481,7 @@
     "id": "brief-hybrid-rag-reranker",
     "title": "Hybrid Dense-Sparse RAG Pipeline with Cross-Encoder Re-Ranking",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4527,7 +4527,7 @@
     "id": "brief-llm-firewall-guardrail",
     "title": "Real-Time LLM Security Firewall & Prompt Injection Guardrail",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4573,7 +4573,7 @@
     "id": "brief-self-reflective-retriever",
     "title": "Self-Reflective RAG (Self-RAG) Engine with Hallucination Grading",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 25,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -4619,7 +4619,7 @@
     "id": "brief-local-vllm-gateway",
     "title": "Local High-Throughput LLM Gateway with PagedAttention & Continuous Batching",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -4665,7 +4665,7 @@
     "id": "brief-semantic-vector-cache",
     "title": "Semantic Vector Cache for LLM API Cost & Latency Reduction",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 18,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4711,7 +4711,7 @@
     "id": "brief-lora-dataset-curator",
     "title": "Instruction Fine-Tuning Dataset Curator with Decontamination & Quality Filtering",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4757,7 +4757,7 @@
     "id": "brief-geval-eval-harness",
     "title": "Automated LLM Evaluation Harness with G-Eval & Faithfulness Scoring",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4803,7 +4803,7 @@
     "id": "brief-react-tool-gateway",
     "title": "ReAct Agent Tool Execution Engine with Sandboxed Python REPL",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -4849,7 +4849,7 @@
     "id": "brief-multimodal-invoice-parser",
     "title": "Multimodal Document Extraction Pipeline with Structured JSON Schema Enforcement",
     "domain": "Generative AI & LLMOps",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -4895,7 +4895,7 @@
     "id": "brief-idempotency-gateway",
     "title": "Distributed Idempotency Key Gateway with Redis & SHA-256 Fingerprinting",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -4941,7 +4941,7 @@
     "id": "brief-transactional-outbox-worker",
     "title": "Transactional Outbox Pattern with PostgreSQL CDC & Kafka Publishing",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "PostgreSQL",
@@ -4987,7 +4987,7 @@
     "id": "brief-webhook-retry-engine",
     "title": "Resilient Webhook Ingestion & Exponential Backoff Delivery Engine",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Node.js",
@@ -5033,7 +5033,7 @@
     "id": "brief-flash-sale-inventory",
     "title": "Ultra-Low Latency Flash Sale Inventory Reservation Engine",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 22,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Redis",
@@ -5079,7 +5079,7 @@
     "id": "brief-multi-region-url-shortener",
     "title": "Multi-Region URL Shortener with Distributed K-Sortable ID Generator",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 19,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5125,7 +5125,7 @@
     "id": "brief-sse-websocket-broadcaster",
     "title": "Real-Time WebSocket & SSE Pub/Sub Fanout Broadcaster",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -5171,7 +5171,7 @@
     "id": "brief-saga-orchestrator",
     "title": "Distributed Saga Pattern Orchestrator for Microservices Transactions",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 25,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "TypeScript",
@@ -5217,7 +5217,7 @@
     "id": "brief-grpc-mesh-resilience",
     "title": "High-Performance gRPC Microservice Mesh with Client-Side Load Balancing",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 22,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -5263,7 +5263,7 @@
     "id": "brief-dynamic-feature-gate",
     "title": "Dynamic Feature Flag & Experimentation Engine with Hash Ring Bucketing",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 18,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5309,7 +5309,7 @@
     "id": "brief-priority-job-scheduler",
     "title": "Distributed Priority Background Job Scheduler with Fair Queuing",
     "domain": "High-Scale Backend & Distributed Architecture",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5355,7 +5355,7 @@
     "id": "brief-double-entry-ledger",
     "title": "Immutable Double-Entry General Ledger with Multi-Currency Balance Invariants",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "PostgreSQL",
@@ -5401,7 +5401,7 @@
     "id": "brief-pg-webhook-reconciliation",
     "title": "Automated Payment Webhook Reconciliation & Discrepancy Detection Engine",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5447,7 +5447,7 @@
     "id": "brief-l2-orderbook-matcher",
     "title": "Ultra-Fast Limit Order Book & Matching Engine with Price-Time Priority",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 25,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -5493,7 +5493,7 @@
     "id": "brief-velocity-fraud-detector",
     "title": "Real-Time Velocity & Card Fraud Detection Engine with Sliding Windows",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5539,7 +5539,7 @@
     "id": "brief-market-ticker-websocket",
     "title": "Low-Latency Real-Time Financial Market Ticker & Candlestick Aggregator",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5585,7 +5585,7 @@
     "id": "brief-upi-settlement-engine",
     "title": "Immediate Payment Settlement & Batch Clearing System",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Java",
@@ -5631,7 +5631,7 @@
     "id": "brief-subscription-dunning-billing",
     "title": "Subscription Metered Billing & Automated Dunning Workflow Engine",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -5677,7 +5677,7 @@
     "id": "brief-eod-interest-batch",
     "title": "High-Throughput End-of-Day (EOD) Accrual & Interest Calculation Batch Job",
     "domain": "FinTech & High-Integrity Systems",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5723,7 +5723,7 @@
     "id": "brief-clickstream-clickhouse",
     "title": "Real-Time Clickstream Ingestion & Aggregation with ClickHouse & Kafka",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "ClickHouse",
@@ -5769,7 +5769,7 @@
     "id": "brief-parquet-duckdb-server",
     "title": "Serverless Analytical Query Engine over Parquet Data Lake with DuckDB",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "DuckDB",
@@ -5815,7 +5815,7 @@
     "id": "brief-cdc-pg-elasticsearch",
     "title": "Real-Time Change Data Capture (CDC) Sync from PostgreSQL to Elasticsearch",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 22,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "PostgreSQL",
@@ -5861,7 +5861,7 @@
     "id": "brief-distributed-etl-scheduler",
     "title": "Directed Acyclic Graph (DAG) Distributed ETL Orchestrator with Backfills",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Python",
@@ -5907,7 +5907,7 @@
     "id": "brief-stream-exact-dedup",
     "title": "High-Throughput Streaming Exact Deduplication with RocksDB State Store",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -5953,7 +5953,7 @@
     "id": "brief-data-quality-gate",
     "title": "Automated CI/CD Data Quality Gatekeeper & Schema Drift Detector",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 18,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -5999,7 +5999,7 @@
     "id": "brief-geospatial-h3-aggregator",
     "title": "Geospatial Ride Demand & Surge Heatmap Aggregator using Uber H3",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6045,7 +6045,7 @@
     "id": "brief-columnar-compactor",
     "title": "Append-Only Log to Columnar Parquet Compaction Worker",
     "domain": "Modern Data Engineering & Analytics Infra",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -6091,7 +6091,7 @@
     "id": "brief-k8s-crd-operator",
     "title": "Custom Kubernetes CRD & Controller Operator in Go",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -6137,7 +6137,7 @@
     "id": "brief-bluegreen-envoy-router",
     "title": "Automated Blue-Green & Canary Traffic Router with Envoy Proxy",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Envoy Proxy",
@@ -6183,7 +6183,7 @@
     "id": "brief-ephemeral-dev-sandbox",
     "title": "Ephemeral Preview Environment Provisioner with Docker & Reverse Proxy",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 23,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6229,7 +6229,7 @@
     "id": "brief-otel-apm-collector",
     "title": "OpenTelemetry APM Collector & Custom Distributed Trace Exporter",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "OpenTelemetry",
@@ -6275,7 +6275,7 @@
     "id": "brief-k8s-secret-sync",
     "title": "Kubernetes External Secrets Operator Syncing from HashiCorp Vault",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6321,7 +6321,7 @@
     "id": "brief-cloud-cost-anomaly",
     "title": "Real-Time Cloud Cost Anomaly Detector & Waste Reclamation Daemon",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 19,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -6367,7 +6367,7 @@
     "id": "brief-dns-failover-daemon",
     "title": "Distributed Health Check & Dynamic DNS Failover Daemon",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6413,7 +6413,7 @@
     "id": "brief-disaster-recovery-harness",
     "title": "Automated Database Disaster Recovery Drill & RPO/RTO Testing Harness",
     "domain": "Cloud Native & DevOps Engineering",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -6459,7 +6459,7 @@
     "id": "brief-oidc-pkce-server",
     "title": "OAuth 2.0 & OpenID Connect Authorization Server with PKCE Support",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -6505,7 +6505,7 @@
     "id": "brief-shamir-secret-vault",
     "title": "Shamir's Secret Sharing Threshold Key Custody Vault",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 21,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -6550,7 +6550,7 @@
     "id": "brief-ast-sast-scanner",
     "title": "Static Application Security Testing (SAST) Scanner with AST Pattern Matching",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 22,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Python",
@@ -6596,7 +6596,7 @@
     "id": "brief-pcap-network-detector",
     "title": "Real-Time PCAP Packet Sniffer & Port Scan Intrusion Detection Engine",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -6642,7 +6642,7 @@
     "id": "brief-merkle-airdrop-verifier",
     "title": "Cryptographic Merkle Tree Whitelist & Proof Verification Engine",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 19,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "TypeScript",
@@ -6687,7 +6687,7 @@
     "id": "brief-waf-reverse-proxy",
     "title": "Web Application Firewall (WAF) Reverse Proxy with OWASP Inspection Rules",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 22,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6733,7 +6733,7 @@
     "id": "brief-mtls-internal-ca",
     "title": "Mutual TLS (mTLS) Internal Certificate Authority & Automated Cert Rotator",
     "domain": "Applied Security & Cryptography",
-    "estimatedHours": 21,
+    "estimatedHours": 75,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Go",
@@ -6779,7 +6779,7 @@
     "id": "brief-offline-crdt-notes",
     "title": "Offline-First Collaborative Notes App with State-Based CRDTs",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "React Native",
@@ -6825,7 +6825,7 @@
     "id": "brief-virtualized-media-feed",
     "title": "60 FPS Infinite Virtualized Media Feed with Aggressive Memory Recycling",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 22,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "React Native",
@@ -6870,7 +6870,7 @@
     "id": "brief-background-geofence-optimizer",
     "title": "Battery-Optimized Background Geofencing & Location Telemetry Engine",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 21,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Kotlin",
@@ -6916,7 +6916,7 @@
     "id": "brief-secure-enclave-vault",
     "title": "Mobile Secure Enclave & Biometric Keychain Storage Vault",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 20,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "React Native",
@@ -6962,7 +6962,7 @@
     "id": "brief-offline-chat-optimistic",
     "title": "Offline-First Real-Time Chat Engine with Optimistic UI & Reconnect Sync",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 22,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "React Native",
@@ -7008,7 +7008,7 @@
     "id": "brief-mobile-perf-tracer",
     "title": "Mobile App Startup & Frame Jank Performance Profiling Harness",
     "domain": "Mobile Engineering & Cross-Platform",
-    "estimatedHours": 19,
+    "estimatedHours": 55,
     "difficulty": "intermediate",
     "coveredSkills": [
       "Android",
@@ -7054,7 +7054,7 @@
     "id": "brief-malloc-freelist-allocator",
     "title": "Custom Free-List Memory Allocator (malloc/free) with Boundary-Tag Coalescing",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "C",
@@ -7099,7 +7099,7 @@
     "id": "brief-epoll-async-eventloop",
     "title": "Async Single-Threaded Event Loop with Linux epoll from Scratch",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 25,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "C",
@@ -7144,7 +7144,7 @@
     "id": "brief-zerocopy-tcp-proxy",
     "title": "Zero-Copy High-Throughput TCP Proxy using Linux splice()",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 22,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "C",
@@ -7189,7 +7189,7 @@
     "id": "brief-fuse-virtual-filesystem",
     "title": "User-Space Virtual Filesystem (FUSE) for Encrypted Cloud Storage",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 24,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -7235,7 +7235,7 @@
     "id": "brief-work-stealing-pool",
     "title": "Lock-Free Work-Stealing Thread Pool Scheduler (Chase-Lev Algorithm)",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 23,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "C++",
@@ -7281,7 +7281,7 @@
     "id": "brief-btree-page-storage",
     "title": "On-Disk B+ Tree Page-Based Storage Engine with Buffer Pool Manager",
     "domain": "Systems Programming & Performance",
-    "estimatedHours": 25,
+    "estimatedHours": 90,
     "difficulty": "advanced",
     "coveredSkills": [
       "Go",
@@ -7320,6 +7320,278 @@
       "syntheticDataOnly": true,
       "piiRisk": false,
       "trademarkNotes": "Nominative fair use for interoperability and protocol compatibility identification.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-fintech-idempotent-ledger",
+    "title": "High-Integrity Double-Entry Accounting Ledger with Idempotency Keys",
+    "domain": "FinTech Engineering",
+    "estimatedHours": 68,
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "Redis",
+      "Distributed Transactions",
+      "REST APIs",
+      "Docker"
+    ],
+    "problemStatement": "Financial settlement engines cannot tolerate duplicate transactions caused by client network retries or concurrent payment requests. A distributed double-entry ledger enforces immutable debits and credits that always sum to zero, coupled with distributed Redis-backed idempotency keys and row-level pessimistic database locks to prevent balance overdrafts during peak concurrent checkouts.",
+    "useCases": "Wallet debit and credit processing for fintech platforms | Payment gateway transaction reconciliation | Multi-currency balance ledger with immutable audit journal",
+    "problemItSolves": "Preventing double-crediting during network retries with unique request idempotency keys | Enforcing ACID balance consistency with pessimistic row locking | Eliminating floating-point rounding errors through integer minor units (paise/cents) | Providing append-only transaction ledgers with cryptographic hash chaining",
+    "recruiterSignal": "Spring Boot 3 REST API demonstrating production-grade idempotency filter and distributed Redis lock | PostgreSQL schema implementing strict CHECK constraints for zero-sum transaction entries | Concurrency integration test firing 100 simultaneous debit requests against a single account with zero overdrafts",
+    "architecture": "Client HTTP requests pass through Spring Idempotency Filter; Filter acquires Redis distributed lock and checks cached response; Transaction Service opens PostgreSQL serializable transaction; Ledger engine verifies balance and inserts paired debit/credit records; Audit logger writes immutable entry.",
+    "scaleTargets": "Zero Balance Drift: 100% of journal entries maintain sum(debits) - sum(credits) == 0 across 10,000 transactions | Concurrency Isolation: Zero overdraft anomalies across 100 concurrent checkout threads | Endpoint Latency (p95): p95 latency < 25ms under 500 requests per second",
+    "techStack": [
+      "Java 21",
+      "Spring Boot 3.3+",
+      "PostgreSQL 16+",
+      "Redis 7+",
+      "Docker 26+",
+      "JUnit 5"
+    ],
+    "verificationRubric": [
+      "Execute integration test verifying idempotency key reuse returns cached HTTP response with zero duplicate ledger rows [Exit code 0 and duplicate count equals 0]",
+      "Run concurrent balance stress test with 100 threads against account balance of 1,000 units with 50-unit debits [Account terminates with exactly 0 balance and zero negative overdraft transactions]",
+      "Verify zero-sum double-entry invariant across all test ledger batches [Database integrity query verifies SUM(amount) == 0 with exit code 0]"
+    ],
+    "portfolioBulletFormula": "Engineered high-integrity double-entry accounting ledger in Java 21 and Spring Boot 3 with PostgreSQL and Redis; implemented distributed idempotency keys and row-level pessimistic locking, eliminating duplicate transaction anomalies across [CONCURRENT_THREADS] concurrent settlement threads with tail latency under [P95_LATENCY].",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no external financial transaction routing required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-multitenant-saas-rls",
+    "title": "Multi-Tenant Enterprise B2B SaaS Engine with Row-Level Security",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 72,
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Prisma",
+      "Docker",
+      "Authentication",
+      "Tailwind CSS"
+    ],
+    "problemStatement": "Modern enterprise B2B SaaS platforms must strictly isolate tenant organization data while sharing underlying database infrastructure. Using PostgreSQL Row-Level Security (RLS) driven by validated tenant session claims, this system ensures zero data leakage across multi-tenant workspaces, complete with audit trail logging, role-based workspace permissions, and real-time subscription management.",
+    "useCases": "Multi-tenant CRM and customer management workspace | Enterprise collaborative project tracker with department isolation | B2B billing and customer portal with role permissions",
+    "problemItSolves": "Preventing cross-tenant data leaks at the database engine level via PostgreSQL RLS policies | Managing tenant context propagation through Next.js middleware and connection pooling | Enforcing enterprise workspace invitation and permission hierarchy (Owner, Admin, Member, Viewer) | Logging tamper-evident audit trails for SOC2/ISO compliance readiness",
+    "recruiterSignal": "End-to-end Next.js 15 App Router codebase with PostgreSQL RLS migrations and Prisma client | Automated security test suite demonstrating database rejection of forged tenant queries | Clean UI with tenant switching and role-based feature gating",
+    "architecture": "Client authenticates via Next.js Auth; Session JWT contains verified tenant_id and role; Database connection sets local tenant context variable; PostgreSQL engine applies RLS filter to every SELECT/INSERT/UPDATE; React Server Components stream isolated workspace views.",
+    "scaleTargets": "Zero Tenant Leaks: 100% rejection rate for cross-tenant ID queries across 50 attack payloads | Tenant Query Overhead: Database RLS query latency overhead < 3ms compared to unsegmented queries | Page Load (LCP): Largest Contentful Paint < 1.2s on standard 4G mobile emulation",
+    "techStack": [
+      "TypeScript 5+",
+      "Next.js 15+",
+      "React 19",
+      "PostgreSQL 16+",
+      "Prisma 5+",
+      "Docker 26+",
+      "Tailwind CSS 3.4+"
+    ],
+    "verificationRubric": [
+      "Run tenant isolation test suite asserting User A cannot query Organization B data even with direct SQL parameter tampering [100% of unauthorized queries return empty or error]",
+      "Execute workspace role permission matrix tests verifying Viewer cannot perform mutation actions [Exit code 0 with all permission boundary assertions passing]",
+      "Run audit logging test verifying every workspace membership change writes an immutable audit record [Exit code 0 with verified audit log entries]"
+    ],
+    "portfolioBulletFormula": "Architected multi-tenant enterprise B2B SaaS platform in Next.js 15 and PostgreSQL with Row-Level Security (RLS); enforced cryptographic tenant context isolation across [TENANT_COUNT] virtual workspaces, eliminating cross-tenant leakage vulnerabilities while maintaining [LCP_LATENCY] page render latency.",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no external data harvesting or privileged network access required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-kafka-order-saga",
+    "title": "Event-Driven E-Commerce Order Saga with Outbox Pattern",
+    "domain": "High-Scale Backend & Distributed Architecture",
+    "estimatedHours": 115,
+    "difficulty": "advanced",
+    "coveredSkills": [
+      "Java",
+      "Spring Boot",
+      "Apache Kafka",
+      "PostgreSQL",
+      "Docker",
+      "Microservices",
+      "Event-Driven Architecture"
+    ],
+    "problemStatement": "Distributed transactions across microservices fail when payments, inventory reservations, and shipping dispatches are coupled via synchronous HTTP calls. The transactional outbox pattern paired with an asynchronous Kafka Saga orchestrator coordinates distributed operations and executes compensating rollback transactions when downstream payment or inventory steps fail.",
+    "useCases": "High-volume festive flash sale order checkout pipeline | Multi-service inventory allocation and refund handling | Distributed shipment booking and warehouse notification workflow",
+    "problemItSolves": "Eliminating dual-write anomalies between database updates and Kafka message publishing via Transactional Outbox | Orchestrating distributed compensations when inventory is depleted after payment capture | Guaranteeing at-least-once message delivery with idempotent consumer handling | Monitoring end-to-end distributed order state through OpenTelemetry trace propagation",
+    "recruiterSignal": "Complete Spring Boot and Apache Kafka event orchestrator with automated docker-compose environment | Deterministic test simulating payment failure triggering automatic inventory release compensation | Clean architectural documentation detailing outbox polling and consumer idempotency tables",
+    "architecture": "Order Service writes order and outbox record in single PostgreSQL ACID transaction; Debezium/Outbox Poller publishes ORDER_CREATED event to Kafka; Inventory and Payment consumers process event and emit completion; Orchestrator confirms or dispatches compensating rollback events on error.",
+    "scaleTargets": "Message Publishing Reliability: 100% of committed outbox records published to Kafka with zero dropped events | Saga Compensation Latency: Automatic rollback compensation executed within 500ms of failure signal | Ingestion Throughput: Sustained 1,500 order events per second across 3 Kafka partitions",
+    "techStack": [
+      "Java 21",
+      "Spring Boot 3.3+",
+      "Apache Kafka 3.7+",
+      "PostgreSQL 16+",
+      "Docker Compose",
+      "Testcontainers"
+    ],
+    "verificationRubric": [
+      "Run end-to-end happy path test: Order transitions through CREATED -> INVENTORY_RESERVED -> PAYMENT_COMPLETED -> FULFILLED [Exit code 0 and order status FULFILLED]",
+      "Execute failure compensation test: Simulate payment decline and verify compensating event INVENTORY_RELEASED restores stock [Exit code 0 and final inventory balance matches initial balance]",
+      "Run consumer idempotency test: Publish duplicate order event and assert consumer processes payload exactly once [Database transaction count equals 1 with zero duplicate mutations]"
+    ],
+    "portfolioBulletFormula": "Implemented event-driven e-commerce order saga orchestrator in Java 21, Spring Boot, and Apache Kafka using the Transactional Outbox pattern; guaranteed ACID consistency and automated compensating rollbacks across distributed microservices under [THROUGHPUT_RPS] events/sec throughput.",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no external financial or shipping API connections required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-nextjs-ecommerce-webhook",
+    "title": "Headless E-Commerce Gateway with Cryptographic Webhook Reconciliation",
+    "domain": "Full-Stack Web",
+    "estimatedHours": 62,
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Redis",
+      "Webhooks",
+      "Tailwind CSS"
+    ],
+    "problemStatement": "Payment gateways (Razorpay, Stripe) asynchronously notify merchant backends via webhooks that can be duplicated, delayed, or spoofed by bad actors. This system provides a resilient webhook processing pipeline using HMAC-SHA256 signature verification, Redis-based replay deduplication, and optimistic database reservation locks for seamless checkout workflows.",
+    "useCases": "Razorpay and Stripe webhook ingestion pipeline for D2C storefronts | Async payment capture and automated digital order fulfillment | Real-time order tracking dashboard with WebSocket updates",
+    "problemItSolves": "Defending against webhook forgery attacks via strict cryptographic HMAC payload verification | Handling network retry storms with Redis-based distributed idempotency deduplication | Resolving stock allocation race conditions using PostgreSQL optimistic concurrency checks | Emitting real-time order state updates to frontend shoppers via Server-Sent Events",
+    "recruiterSignal": "Next.js 15 App Router storefront with edge middleware, Redis caching, and PostgreSQL schema | Automated test suite verifying signature rejection for tampered webhook payloads | Comprehensive README detailing webhook security best practices and replay attack prevention",
+    "architecture": "Incoming webhook arrives at Next.js Route Handler; Handler computes HMAC signature against raw body; Redis checks event_id idempotency key; Worker updates order status in PostgreSQL inside optimistic lock; SSE endpoint pushes update to customer checkout screen.",
+    "scaleTargets": "Webhook Authentication: 100% rejection rate for forged or invalid signature payloads | Idempotency Deduplication: 0 duplicate order updates across 500 replayed webhook events | Processing Latency: Webhook response returned within 45ms to avoid gateway timeouts",
+    "techStack": [
+      "TypeScript 5+",
+      "Next.js 15+",
+      "React 19",
+      "PostgreSQL 16+",
+      "Redis 7+",
+      "Tailwind CSS",
+      "Docker"
+    ],
+    "verificationRubric": [
+      "Run signature validation test: Forged secret or altered body payload results in HTTP 401 Unauthorized [Exit code 0 with 10 passing security assertions]",
+      "Execute replay attack test: Send identical webhook payload 20 times and assert order fulfillment triggers only once [Exit code 0 and duplicate event count equals 19]",
+      "Verify inventory decrement concurrency test: Multiple simultaneous checkouts for last item correctly allow only 1 order [Inventory never drops below 0]"
+    ],
+    "portfolioBulletFormula": "Built headless e-commerce payment gateway in Next.js 15, TypeScript, and Redis with HMAC-SHA256 cryptographic webhook reconciliation; eliminated payment replay vulnerabilities and stock race conditions across [WEBHOOK_VOLUME] async events with tail response latency under [P95_LATENCY].",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no real monetary transactions or banking credentials required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-spring-enterprise-rbac",
+    "title": "Enterprise Hierarchical RBAC & Audit Engine",
+    "domain": "Applied Security & Cryptography",
+    "estimatedHours": 65,
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "PostgreSQL",
+      "JWT",
+      "Docker",
+      "REST APIs"
+    ],
+    "problemStatement": "Large enterprise platforms require granular role-based and attribute-based access control (RBAC/ABAC) across hundreds of API endpoints and user organizational departments. This service provides hierarchical role inheritance, dynamic policy evaluation, tamper-evident SHA-256 audit trails, and token revocation blacklisting.",
+    "useCases": "Internal enterprise tools with multi-level role hierarchies (Admin, Manager, Lead, Analyst) | Compliance-mandated sensitive data access auditing (financial and healthcare records) | Fine-grained resource-level permission authorization for SaaS platforms",
+    "problemItSolves": "Eliminating hardcoded permission checks with declarative role and permission inheritance trees | Preventing privilege escalation through token revocation blacklists stored in Redis | Creating immutable, tamper-evident audit logs with cryptographic hash chaining | Enforcing least-privilege resource access with method-level authorization security expressions",
+    "recruiterSignal": "Spring Boot 3 and Spring Security 6 microservice with JPA / Hibernate mappings and PostgreSQL | Security test suite validating access denial across 30 negative permission permutations | Production-grade JWT token issuer with refresh token rotation and revocation logic",
+    "architecture": "Incoming request carries Bearer JWT; Spring Security filter chain validates signature and checks Redis blacklist; Dynamic authorization manager evaluates role hierarchy; Method security interceptor checks resource ownership; Audit aspect logs access outcome with SHA-256 hash.",
+    "scaleTargets": "Authorization Decision Latency: Permission evaluation completed in < 2ms per request | Privilege Escalation Defense: 100% rejection rate across 40 unauthorized privilege escalation attempts | Audit Log Throughput: Sustained 2,000 audit records/sec with zero hash chain corruption",
+    "techStack": [
+      "Java 21",
+      "Spring Boot 3.3+",
+      "Spring Security 6+",
+      "PostgreSQL 16+",
+      "Redis 7+",
+      "Docker",
+      "JUnit 5"
+    ],
+    "verificationRubric": [
+      "Execute permission hierarchy test: Assert Manager inherits Analyst permissions but cannot access Admin endpoints [Exit code 0 and all hierarchy assertions pass]",
+      "Run token revocation test: Revoke user session and assert immediate HTTP 401 on next request even with non-expired JWT [Exit code 0 and token blocked by Redis blacklist]",
+      "Verify audit hash chain test: Query audit journal and assert SHA-256 chain continuity across 1,000 consecutive access events [Exit code 0 and zero integrity breaks]"
+    ],
+    "portfolioBulletFormula": "Engineered enterprise hierarchical RBAC and security auditing service in Java 21, Spring Boot 3, and Spring Security 6; implemented dynamic policy evaluation and cryptographic audit trails, preventing privilege escalation vulnerabilities across [ROLE_COUNT] distinct enterprise access roles.",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no actual enterprise user credentials or production network access required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
+      "status": "clear"
+    }
+  },
+  {
+    "id": "brief-distributed-rate-limiter-redis",
+    "title": "Distributed Sliding-Window Rate Limiter & API Shield",
+    "domain": "Platform & DevOps",
+    "estimatedHours": 58,
+    "difficulty": "intermediate",
+    "coveredSkills": [
+      "Go",
+      "Redis",
+      "Docker",
+      "Algorithms & Applied Math",
+      "REST APIs",
+      "Microservices"
+    ],
+    "problemStatement": "Public-facing APIs face sudden traffic spikes and brute-force abuse that degrade service availability. This API gateway rate limiter uses atomic Redis Lua scripts to execute sliding-window counter algorithms per client IP and API key, providing sub-millisecond enforcement, customizable tier quotas, and graceful HTTP 429 backoff headers.",
+    "useCases": "API gateway DDoS and brute-force credential stuffing mitigation | Tiered API quota enforcement for developer platform tiers (Free vs Pro vs Enterprise) | Microservice inter-service communication throttling",
+    "problemItSolves": "Eliminating the boundary reset burst flaw of fixed-window counters via sliding-window logs | Guaranteeing atomic counter updates under heavy concurrency with Redis Lua scripts | Supplying standard RFC 6585 rate limiting headers (X-RateLimit-Limit, X-RateLimit-Remaining, Retry-After) | Operating with sub-millisecond overhead to avoid degrading downstream microservice latency",
+    "recruiterSignal": "High-performance Go service utilizing Redis cluster connection pooling and Lua scripting | Benchmark suite validating sub-millisecond rate limiter overhead at 10,000 RPS | Integration tests asserting exact cutoff transitions from HTTP 200 to HTTP 429",
+    "architecture": "Client HTTP request reaches Gateway middleware; Middleware extracts client identifier and tier; Executes atomic Lua script in Redis; Lua script trims expired window entries and counts active events; If within quota, returns remaining tokens; If exceeded, returns HTTP 429 with Retry-After header.",
+    "scaleTargets": "Limiter Overhead: Middleware processing time < 1.2ms (p99) including Redis network hop | Algorithm Accuracy: Zero burst leakage beyond configured rate limit across 10,000 test requests | Throughput: Sustains 15,000 rate-checked requests per second on a single 4-core instance",
+    "techStack": [
+      "Go 1.22+",
+      "Redis 7.2+",
+      "Docker 26+",
+      "Chi Router / Gin",
+      "Testcontainers Go"
+    ],
+    "verificationRubric": [
+      "Run burst quota test: Send 105 requests for a 100 req/min quota and verify exactly 5 requests return HTTP 429 [Exit code 0 and 429 count equals 5]",
+      "Execute window sliding test: Verify allowed request slots dynamically replenish as the sliding window advances [Exit code 0 and replenished quota accepted]",
+      "Run Redis atomicity test: Execute 500 concurrent threads against single quota with zero race condition overages [Exit code 0 with zero quota violations]"
+    ],
+    "portfolioBulletFormula": "Architected distributed sliding-window rate limiter and API shield in Go and Redis using atomic Lua scripts; mitigated API abuse and burst traffic spikes across [RPS_CAPACITY] req/sec with sub-[LATENCY_MS]ms middleware evaluation overhead and RFC-compliant backoff headers.",
+    "lastReviewed": "2026-10-31",
+    "reviewBy": "2027-10-31",
+    "safetyLegal": {
+      "lawfulUseScope": "Standard educational engineering development; no real external target attack testing required.",
+      "syntheticDataOnly": true,
+      "piiRisk": false,
+      "trademarkNotes": "Nominative fair use for interoperability and architectural pattern demonstration.",
       "status": "clear"
     }
   }
