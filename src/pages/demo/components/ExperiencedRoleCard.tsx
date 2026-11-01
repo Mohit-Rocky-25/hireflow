@@ -46,8 +46,7 @@ export function ExperiencedRoleCard({
               </span>
               {role.isLiveVerified && (
                 <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/50 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Verified Live ATS
+                  ATS: Static Catalogue (Oct 2026)
                 </span>
               )}
               {role.profileKind === 'representative' && (

@@ -120,7 +120,7 @@ export function MatchingDemo() {
             <span>TalentLens™ · Evidence-First Placement Readiness</span>
             <span className="text-charcoal-deep">|</span>
             <DataProvenanceModal
-              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonText="Data Sources & Disclosures"
               triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
             />
           </div>
@@ -384,7 +384,7 @@ Include:
                   value={depthFilter}
                   onChange={e => setDepthFilter(e.target.value)}
                   className="h-10 px-3 bg-black border border-charcoal rounded text-xs text-white focus:outline-none focus:border-volt cursor-pointer uppercase font-semibold"
-                  aria-label="Filter by audit depth or live ATS feed"
+                  aria-label="Filter by audit depth or employer ATS catalog"
                 >
                   <option value="All">All Profiles ({cleanCompanies.length})</option>
                   <option value="live_ats">🟢 Live Public ATS ({liveCount})</option>
@@ -422,7 +422,7 @@ Include:
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Live ATS Feeds ({liveCount})</span>
+                  <span>ATS Catalog Listings ({liveCount})</span>
                 </button>
                 <button
                   type="button"
@@ -526,8 +526,7 @@ Include:
                         <div className="flex items-center gap-1.5">
                           {isLiveAtsCompany(company) ? (
                             <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/50 flex items-center gap-1 shadow-[0_0_8px_rgba(52,211,153,0.18)]">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              <span>Live ATS</span>
+                              <span>ATS Catalog (Oct 2026)</span>
                             </span>
                           ) : (
                             <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-black text-neutral-400 border border-charcoal">
@@ -723,7 +722,7 @@ Include:
           <div className="flex items-center gap-3 flex-shrink-0">
             <span className="text-silver/60">Nominative Fair Use • Non-Affiliated</span>
             <DataProvenanceModal
-              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonText="Data Sources & Disclosures"
               triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
             />
           </div>

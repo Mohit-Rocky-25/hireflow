@@ -164,7 +164,7 @@ export function BuildBriefsPage() {
         </div>
 
         <div className="flex items-center gap-3 shrink-0 flex-wrap">
-          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
           <Link
             to="/tools/jd-compare"
             className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded border border-charcoal bg-near-black hover:bg-hover-gray text-white hover:text-volt transition-colors"

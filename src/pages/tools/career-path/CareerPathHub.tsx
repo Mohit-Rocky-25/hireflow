@@ -313,7 +313,7 @@ export function CareerPathHub() {
                   <Building2 className="w-4 h-4 text-silver" />
                   <span>Tool 2 • Verified company levels &amp; pay</span>
                 </div>
-                <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+                <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
               </div>
 
               <h2

@@ -708,7 +708,7 @@ export function CompanyRolesPage() {
           <div className="flex items-center gap-3 flex-shrink-0">
             <span className="text-silver/60">Nominative Fair Use • Non-Affiliated</span>
             <DataProvenanceModal
-              triggerButtonText="Data Sources & Legal Shield"
+              triggerButtonText="Data Sources & Disclosures"
               triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"
             />
           </div>

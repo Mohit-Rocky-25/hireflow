@@ -284,7 +284,7 @@ export function CompareJDsPage() {
     <div className="min-h-screen bg-black text-white pt-28 pb-20 px-4 sm:px-6 md:px-8 relative">
       <PublicNavbar />
 
-      {/* Top Bar with Profile Chip & Legal Shield */}
+      {/* Top Bar with Profile Chip & Disclosures */}
       <div className="max-w-7xl mx-auto mb-6 flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-neutral-400">
           <Link to="/tools" className="hover:text-volt transition-colors">Tools</Link>
@@ -294,7 +294,7 @@ export function CompareJDsPage() {
           <span className="text-volt font-bold">Compare Job Descriptions</span>
         </div>
         <div className="flex items-center gap-3">
-          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
           <ProfileStatusChip />
         </div>
       </div>

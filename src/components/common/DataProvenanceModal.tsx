@@ -32,7 +32,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
   isOpen: controlledIsOpen,
   onClose: controlledOnClose,
   defaultTab = 'company-sources',
-  triggerButtonText = 'Data Provenance & Legal Disclosures',
+  triggerButtonText = 'Data Sources & Disclosures',
   triggerButtonClassName,
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
@@ -99,7 +99,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   Data Provenance & Legal Disclosures
                 </h2>
                 <p className="text-xs text-silver mt-0.5 font-mono">
-                  Single Source of Truth • 244+ Verified Tech Employers • 1,700+ Calibrated Roles • Nominative Fair Use Shield
+                  Independent Candidate Tools • Static Catalog Snapshot (October 2026) • Local Client-Side Processing
                 </p>
               </div>
             </div>
@@ -142,7 +142,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                 }`}
               >
                 <Scale className="w-3.5 h-3.5 stroke-[1.5px]" />
-                <span>3. Legal Shield & Trademarks</span>
+                <span>3. Disclosures & Privacy</span>
               </button>
             </div>
 
@@ -274,52 +274,46 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
               </div>
             )}
 
-            {/* TAB 3: Legal Shield */}
+            {/* TAB 3: Disclosures & Privacy Notice */}
+            {/* Not legal advice. Have this wording reviewed before public launch */}
             {activeTab === 'legal-shield' && (
               <div className="space-y-4 text-xs text-silver leading-relaxed">
                 <div className="p-4 bg-near-black border border-charcoal rounded-lg space-y-2">
                   <div className="text-xs font-bold text-white uppercase tracking-[1px] flex items-center gap-2">
                     <Scale className="w-4 h-4 text-volt stroke-[1.5px]" />
-                    Legal Safe Harbor & Nominative Fair Use Doctrine
+                    Data Disclosures & Privacy Notice
                   </div>
                   <p className="text-silver text-[11px] leading-relaxed">
-                    This platform operates under established intellectual property standards for educational career research:
+                    HireFlow is an independent student-built project for candidate career preparation. Please review these disclosures:
                   </p>
                 </div>
 
                 <div className="space-y-3 font-mono text-[11px]">
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">1. Nominative Fair Use of Company Marks</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">1. What Data Stays on Your Device</span>
                     <p className="text-silver/90">
-                      All company names, logos, and trademarks (Google, Microsoft, Amazon, TCS, Infosys, Wipro, Flipkart, Swiggy, Barclays, Western Digital, BNY Mellon, Qualcomm, State Street, Standard Chartered, D.E. Shaw, Persistent Systems, and others) are the registered property of their respective owners. Their mention on HireFlow is strictly for nominative, educational, and identification purposes under the <strong>Nominative Fair Use doctrine</strong> and <strong>Section 52 of the Indian Copyright Act (Fair Dealing for educational study and research)</strong>. Mention of these names does not imply any affiliation, sponsorship, or endorsement by these organizations.
+                      All resume text, target role selections, and audit results are stored locally in your browser memory (localStorage and IndexedDB). By default, HireFlow makes zero external network calls and transmits no candidate data to cloud servers or third-party trackers.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">2. Public ATS Access & Anti-Circumvention (Zero-Credential Doctrine)</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">2. Estimated & Sample Information</span>
                     <p className="text-silver/90">
-                      All live roles are ingested solely from unauthenticated, public JSON endpoints published openly by employers to attract applicants (Greenhouse and Lever career boards). HireFloww never accesses private APIs, bypasses paywalls, defeats authentication screens, or breaches access controls, fully complying with Section 43 & Section 66 of the Information Technology Act, 2000 and the landmark <em>hiQ Labs v. LinkedIn</em> open web precedent.
+                      Salary compensation bands, interview stages, and skill requirements are representative estimates compiled from public recruitment benchmarks and community submissions. They do not constitute official corporate evaluation rubrics or compensation offers.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">3. Complete Candidate Privacy Isolation (DPDP Act, 2023 & R8.2)</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">3. Company Data May Be Outdated</span>
                     <p className="text-silver/90">
-                      Under HireFloww's strict Zero-Egress Architecture (Rule R8.2), candidate resumes, text, and personal data are parsed and scored 100% locally in client browser memory. No candidate PII or resume text is ever sent to external cloud servers, third-party LLMs, or tracking databases, guaranteeing complete compliance with the Digital Personal Data Protection Act, 2023.
+                      Company listings, ATS families, and eligibility rules are based on a static catalogue snapshot (October 2026). Hiring programs, deadlines, and technical requirements change frequently. Always verify current openings and apply directly on each employer's official career portal.
                     </p>
                   </div>
 
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">4. Educational Simulation Disclaimer</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">4. No Affiliation & No Guarantee</span>
                     <p className="text-silver/90">
-                      HireFlow is an independent educational simulator. Match scores, interview rounds, and salary bands represent community-reported estimates and public recruitment benchmarks. They do not constitute official corporate evaluation rubrics or employment guarantees.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">5. Notice, Takedown & Profile Review</span>
-                    <p className="text-silver/90">
-                      If you represent an employer and wish to update your graduate hiring profile, clarify recruitment eligibility criteria, or report an inaccuracy, please contact <span className="text-volt font-bold">compliance@hireflo.app</span> for review and updates within 48 hours.
+                      HireFlow is not affiliated with, sponsored by, or endorsed by any listed company or ATS provider. Company names and marks are used solely for candidate identification. Using HireFlow does not guarantee interviews, referrals, or job offers.
                     </p>
                   </div>
                 </div>

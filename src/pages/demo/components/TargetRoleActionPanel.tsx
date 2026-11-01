@@ -227,7 +227,7 @@ export function TargetRoleActionPanel({
           </div>
         )}
 
-        {/* Corporate Sourcing & Legal Shield */}
+        {/* Corporate Sourcing & Disclosures */}
         <div className="mt-4 pt-3 border-t border-charcoal/80 flex items-center justify-between text-xs text-neutral-400">
           <span>Corporate Job Intelligence</span>
           <DataProvenanceModal

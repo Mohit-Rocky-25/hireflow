@@ -140,7 +140,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
       await autoSyncManager.pullFromCloud(user.id);
       autoSyncManager.scheduleSync(300);
 
-      toast('success', `Signed in with Google as ${name}! Cloud sync active.`);
+      toast('success', `Local profile active as ${name} (stored on this device only).`);
       onClose();
     } catch (err: any) {
       setErrorMessage(err.message || 'Google sign-in was interrupted.');
@@ -267,7 +267,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
                 d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
               />
             </svg>
-            <span className="tracking-wide">Continue with Google</span>
+            {cloudAuth.isConfigured() ? <span className="tracking-wide">Continue with Google</span> : <span className="tracking-wide">Use Local Profile (stored on this device only)</span>}
           </button>
 
           <div className="flex items-center gap-3 my-3">
@@ -382,9 +382,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
                     <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z" />
                     <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z" />
                   </svg>
-                  <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                    Google Identity Services
-                  </span>
+                  <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">Local Profile Selector (Offline Safe Harbor)</span>
                 </div>
                 <button
                   type="button"
@@ -429,7 +427,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
             </div>
 
             <div className="text-[10px] font-mono text-neutral-500 text-center pb-2">
-              Official OpenID Connect Safe Harbor
+              Stored on this device only • Zero network egress
             </div>
           </div>
         )}

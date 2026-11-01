@@ -13,6 +13,7 @@ import {
   Calendar,
   Clock,
   AlertTriangle,
+  AlertCircle,
   Copy,
   Check,
   ShieldCheck,
@@ -593,6 +594,24 @@ export function OpportunityDetailModal({
                   ))}
                 </div>
               </div>
+
+              {/* Eligibility Restrictions Notice */}
+              {(opportunity.genderRestricted === 'women_only' || (opportunity.eligibleBatches && opportunity.eligibleBatches.length > 0)) && (
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-bold text-amber-300 uppercase tracking-wider">
+                      Eligibility Notice — You May Not Be Eligible
+                    </h4>
+                    <p className="text-xs text-amber-200/90 leading-relaxed">
+                      {opportunity.genderRestricted === 'women_only' ? 'This opportunity is restricted to women engineering students. ' : ''}
+                      {opportunity.eligibleBatches && opportunity.eligibleBatches.length > 0 ? `Restricted to graduating batches: ${opportunity.eligibleBatches.join(', ')}. ` : ''}
+                      {opportunity.eligibleBranches && opportunity.eligibleBranches.length > 0 ? `Eligible branches: ${opportunity.eligibleBranches.join(', ')}. ` : ''}
+                      Please review the official registration portal before preparing or applying.
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Fee Waiver & Eligibility Callouts (Shown only when present) */}
               {(opportunity.feeWaiverNote || opportunity.eligibility) && (

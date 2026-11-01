@@ -147,7 +147,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
       await autoSyncManager.pullFromCloud(user.id);
       autoSyncManager.scheduleSync(300);
 
-      toast('success', `Signed in with Google as ${selectedName}! Executive sync enabled.`);
+      toast('success', `Active as ${selectedName} (stored on this device only).`);
       navigate(redirectTo);
     } catch (err: any) {
       setErrorMessage(err.message || 'Google authentication interrupted.');
@@ -311,7 +311,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
                       d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
                     />
                   </svg>
-                  <span className="tracking-wide">Continue with Google</span>
+                  {cloudAuth.isConfigured() ? <span className="tracking-wide">Continue with Google</span> : <span className="tracking-wide">Use Local Profile (stored on this device only)</span>}
                 </button>
 
                 <div className="flex items-center gap-3">
@@ -514,7 +514,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
             </div>
 
             <div className="pt-2 text-[10px] font-mono text-neutral-500 text-center">
-              Official Google OpenID Connect Protocol • Offline Local Safe Harbor
+              Local device profile • Stored in browser storage • Zero network egress
             </div>
           </div>
         </div>

@@ -95,7 +95,7 @@ export function LadderLevelExplorer({
           <div>
             <div className="flex items-center gap-3 flex-wrap">
               <h2 className="text-xl font-black text-white">Explore Verified India Ladders</h2>
-              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+              <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
             </div>
             <p className="text-xs sm:text-sm text-silver mt-1">
               Real promotion cadences, committee review criteria, time-in-level statistics, and verified India CTC packages.

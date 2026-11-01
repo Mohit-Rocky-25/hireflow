@@ -336,7 +336,7 @@ export function TalentLens() {
 
         <div className="flex items-center gap-3 flex-wrap">
           <HonestyExplainerModal tool="talentlens" />
-          <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+          <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
           <ResumePreviewModal
             resumeText={activeResumeText}
             fileName={activeResumeFileName}

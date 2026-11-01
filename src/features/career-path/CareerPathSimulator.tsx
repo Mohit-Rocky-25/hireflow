@@ -254,7 +254,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
               </p>
             </div>
 
-            {/* Navigation Tabs and Legal Shield */}
+            {/* Navigation Tabs and Disclosures */}
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 p-1 bg-near-black rounded border border-charcoal">
                 <button
@@ -283,7 +283,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                 </button>
               </div>
 
-              <DataProvenanceModal triggerButtonText="Data Sources & Legal Shield" />
+              <DataProvenanceModal triggerButtonText="Data Sources & Disclosures" />
             </div>
           </div>
         </div>
