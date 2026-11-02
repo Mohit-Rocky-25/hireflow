@@ -1,6 +1,6 @@
 # Companies-100 Mission Final Audit Report
 
-Generated on: 2026-10-25T19:19:59.841Z  
+Generated on: 2026-11-02T06:28:08.091Z  
 Branch: `feat/companies-100-v1`  
 Audit Scope: 100 Roster Employers, Primary Evidence Ledger, Evidence Cache, Role Fit, and Blind Verification  
 
@@ -39,7 +39,7 @@ Audit Scope: 100 Roster Employers, Primary Evidence Ledger, Evidence Cache, Role
 - **Total Verified Ledger Rows**: 833
 - **Official Primary Source Rows**: 833 (100.0%)
 - **Company-Published Source Rows**: 0 (0.0%)
-- **Cached HTML/DOM Snapshots**: 331 files in `.evidence-cache/`
+- **Cached HTML/DOM Snapshots**: 355 files in `.evidence-cache/`
 - **Fetch Log Records**: 331 HTTP 200 records in `docs/companies-100/fetch-log.jsonl`
 
 ---

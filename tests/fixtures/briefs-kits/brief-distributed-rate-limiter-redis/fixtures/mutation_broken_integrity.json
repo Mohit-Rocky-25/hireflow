@@ -1,0 +1,12 @@
+{
+  "status": "broken",
+  "version": "1.0.0",
+  "integrityVerified": false,
+  "expectedExitCode": 1,
+  "testVectorsPassed": 0,
+  "metrics": {
+    "errorRate": 0.45,
+    "p99LatencyMs": 120,
+    "invariantsPreserved": false
+  }
+}

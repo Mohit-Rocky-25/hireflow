@@ -1,6 +1,6 @@
 # HireFlow Brief Linter Baseline Report
 
-> **Audit Scope**: All 158 project briefs in catalog
+> **Audit Scope**: All 164 project briefs in catalog
 > **Total Findings**: 0
 
 ## Severity Distribution

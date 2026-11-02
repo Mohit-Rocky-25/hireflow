@@ -1,0 +1,25 @@
+{
+  "briefId": "brief-kafka-order-saga",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run end-to-end happy path test: Order transitions ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 and order status FULFILLED"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute failure compensation test: Simulate paymen",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 0 and final inventory balance matches initial balance"
+    },
+    {
+      "id": "check_3",
+      "name": "Run consumer idempotency test: Publish duplicate o",
+      "rubricIndex": 2,
+      "expectedOutcome": "Database transaction count equals 1 with zero duplicate mutations"
+    }
+  ]
+}

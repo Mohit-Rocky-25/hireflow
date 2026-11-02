@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VerificationKitResult",
+  "type": "object",
+  "required": [
+    "briefId",
+    "passed",
+    "totalChecks",
+    "passedChecks",
+    "failedChecks",
+    "checkResults"
+  ],
+  "properties": {
+    "briefId": {
+      "type": "string"
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "totalChecks": {
+      "type": "integer"
+    },
+    "passedChecks": {
+      "type": "integer"
+    },
+    "failedChecks": {
+      "type": "integer"
+    },
+    "checkResults": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "checkId",
+          "status",
+          "message"
+        ],
+        "properties": {
+          "checkId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

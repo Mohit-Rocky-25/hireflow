@@ -1,0 +1,25 @@
+{
+  "briefId": "brief-distributed-rate-limiter-redis",
+  "archetype": "infra-checks",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run burst quota test: Send 105 requests for a 100 ",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 and 429 count equals 5"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute window sliding test: Verify allowed reques",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 0 and replenished quota accepted"
+    },
+    {
+      "id": "check_3",
+      "name": "Run Redis atomicity test: Execute 500 concurrent t",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exit code 0 with zero quota violations"
+    }
+  ]
+}

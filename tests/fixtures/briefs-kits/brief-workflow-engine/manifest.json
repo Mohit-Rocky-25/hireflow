@@ -1,6 +1,6 @@
 {
   "briefId": "brief-workflow-engine",
-  "archetype": "http-benchmark",
+  "archetype": "pipeline-ci",
   "isSpecOnly": false,
   "checks": [
     {

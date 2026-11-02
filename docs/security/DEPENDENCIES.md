@@ -1,6 +1,6 @@
 # HIREFLOW AI — DEPENDENCY SECURITY AUDIT REPORT
 
-**Audit Date**: 2026-10-09  
+**Audit Date**: 2026-11-02  
 **Tool**: `npm audit`  
 **Lockfile Version**: 3 (`package-lock.json`)  
 
@@ -11,11 +11,11 @@
 | Severity | Count | Status |
 |---|---|---|
 | **Critical** | 0 | Clear |
-| **High** | 0 | Clear |
-| **Moderate** | 3 | Review |
+| **High** | 2 | Action Required |
+| **Moderate** | 0 | Review |
 | **Low** | 0 | Monitor |
 | **Info** | 0 | Informational |
-| **Total** | 3 | |
+| **Total** | 2 | |
 
 ---
 
@@ -23,9 +23,8 @@
 
 | Package | Severity | Via / Advisory | Fixed In | Range |
 |---|---|---|---|---|
-| **argparse** (Transitive) | MODERATE | sprintf-js | Fix Available | `1.0.0 - 1.0.10` |
-| **mammoth** (Direct) | MODERATE | argparse | Fix Available | `>=0.3.30` |
-| **sprintf-js** (Transitive) | MODERATE | sprintf-js vulnerable to denial of service through | Fix Available | `*` |
+| **vite** (Direct) | HIGH | launch-editor: escapeCmdArgs() omits % escaping on | Fix Available | `8.3.0 - 8.3.2` |
+| **zod** (Direct) | HIGH | Zod can exhaust memory while validating oversized  | Fix Available | `<4.6.6` |
 
 ---
 

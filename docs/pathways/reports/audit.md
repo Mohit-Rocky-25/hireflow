@@ -1,6 +1,6 @@
 # Pathways Comprehensive Data & Engine Audit Report
 
-- **Generated At**: 2026-10-26T11:34:54.432Z
+- **Generated At**: 2026-11-02T06:28:41.102Z
 - **Audit Tool**: `scripts/pathways/audit.mjs`
 - **Governed By**: `docs/pathways/CONSTITUTION.md`
 

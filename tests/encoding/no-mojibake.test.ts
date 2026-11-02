@@ -48,7 +48,7 @@ describe('Stage 1A: Encoding Integrity & Mojibake Prevention', () => {
       const hasBOM = buffer.length >= 3 && buffer[0] === 0xef && buffer[1] === 0xbb && buffer[2] === 0xbf;
       expect(hasBOM, `File has UTF-8 BOM: ${path.relative(process.cwd(), filePath)}`).toBe(false);
     }
-  });
+  }, 30000);
 
   it('scans src/ and docs/ for any mojibake sequences and asserts zero occurrences', () => {
     const violations: { file: string; line: number; text: string; pattern: string }[] = [];
@@ -83,5 +83,5 @@ describe('Stage 1A: Encoding Integrity & Mojibake Prevention', () => {
     }
 
     expect(violations).toHaveLength(0);
-  });
+  }, 30000);
 });

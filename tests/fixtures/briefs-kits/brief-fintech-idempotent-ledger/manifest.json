@@ -1,0 +1,25 @@
+{
+  "briefId": "brief-fintech-idempotent-ledger",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Execute integration test verifying idempotency key",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 and duplicate count equals 0"
+    },
+    {
+      "id": "check_2",
+      "name": "Run concurrent balance stress test with 100 thread",
+      "rubricIndex": 1,
+      "expectedOutcome": "Account terminates with exactly 0 balance and zero negative overdraft transactions"
+    },
+    {
+      "id": "check_3",
+      "name": "Verify zero-sum double-entry invariant across all ",
+      "rubricIndex": 2,
+      "expectedOutcome": "Database integrity query verifies SUM(amount) == 0 with exit code 0"
+    }
+  ]
+}

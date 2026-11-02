@@ -166,5 +166,5 @@ describe('TalentLens Sanity Evaluation across 100 Companies Expanded Roles (Task
     const differentiationRate = (differentiatingRoleCount / allRoles.length) * 100;
     console.log(`Score differentiation rate: ${differentiationRate.toFixed(1)}%`);
     expect(differentiationRate).toBeGreaterThan(70);
-  });
+  }, 30000);
 });

@@ -1,0 +1,25 @@
+{
+  "briefId": "brief-multitenant-saas-rls",
+  "archetype": "http-benchmark",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run tenant isolation test suite asserting User A c",
+      "rubricIndex": 0,
+      "expectedOutcome": "100% of unauthorized queries return empty or error"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute workspace role permission matrix tests ver",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 0 with all permission boundary assertions passing"
+    },
+    {
+      "id": "check_3",
+      "name": "Run audit logging test verifying every workspace m",
+      "rubricIndex": 2,
+      "expectedOutcome": "Exit code 0 with verified audit log entries"
+    }
+  ]
+}

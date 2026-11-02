@@ -1,6 +1,6 @@
 {
   "briefId": "brief-event-driven-saas",
-  "archetype": "http-benchmark",
+  "archetype": "data-ml-eval",
   "isSpecOnly": false,
   "checks": [
     {

@@ -1,6 +1,6 @@
 {
   "briefId": "brief-event-recon",
-  "archetype": "http-benchmark",
+  "archetype": "cli-correctness",
   "isSpecOnly": false,
   "checks": [
     {

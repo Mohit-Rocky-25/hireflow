@@ -1,0 +1,25 @@
+{
+  "briefId": "brief-nextjs-ecommerce-webhook",
+  "archetype": "cli-correctness",
+  "isSpecOnly": false,
+  "checks": [
+    {
+      "id": "check_1",
+      "name": "Run signature validation test: Forged secret or al",
+      "rubricIndex": 0,
+      "expectedOutcome": "Exit code 0 with 10 passing security assertions"
+    },
+    {
+      "id": "check_2",
+      "name": "Execute replay attack test: Send identical webhook",
+      "rubricIndex": 1,
+      "expectedOutcome": "Exit code 0 and duplicate event count equals 19"
+    },
+    {
+      "id": "check_3",
+      "name": "Verify inventory decrement concurrency test: Multi",
+      "rubricIndex": 2,
+      "expectedOutcome": "Inventory never drops below 0"
+    }
+  ]
+}

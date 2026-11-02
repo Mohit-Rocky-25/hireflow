@@ -1284,7 +1284,7 @@
       "curl -i http://localhost:8080/api/data -H 'X-API-Key: verify_key': Response contains HTTP 429 status and X-RateLimit-Limit, Remaining, and Retry-After headers [Response status is 429 and Retry-After header is present with positive integer value]",
       "python scripts/verify_dynamic_quota.py --key DYNAMIC_KEY_99 --limit 10 --burst 15: Gateway allows first 10 requests and transitions to HTTP 429 on exactly the 11th request [Request 10 returns 200, request 11 returns 429, and exit code is 0]"
     ],
-    "portfolioBulletFormula": "Built high-throughput gRPC rate-limiting microservice in Go 1.22 and Redis evaluating 35,000 requests/sec with p99 latency < 2.8ms across multi-tenant API clients.",
+    "portfolioBulletFormula": "Built high-throughput gRPC rate-limiting microservice in Go 1.22 and Redis evaluating [THROUGHPUT_RPS] requests/sec with p99 latency < [P99_LATENCY_MS]ms across multi-tenant API clients.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -1444,7 +1444,7 @@
       "npm run test:ratelimit -- --tenant tenant-abc --requests 100: Redis rate limiter throttles excess requests and returns HTTP 429 [Responses transition to HTTP 429 once tenant quota threshold is reached]",
       "node scripts/verify_dynamic_multitenancy.js --tenantA Tenant-Dynamic-X --tenantB Tenant-Dynamic-Y: Tenant X creates private resource; Tenant Y attempts direct query by ID and receives empty result set [Query by Tenant Y returns null/404 and exit code is 0]"
     ],
-    "portfolioBulletFormula": "Engineered multi-tenant enterprise backend in .NET 8 and EF Core with automated tenant RLS isolation and transactional outbox publisher publishing 8,500 events/sec to Kafka.",
+    "portfolioBulletFormula": "Engineered multi-tenant enterprise backend in .NET 8 and EF Core with automated tenant RLS isolation and transactional outbox publisher publishing [EVENT_RATE] events/sec to Kafka.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -1526,7 +1526,7 @@
       "curl http://localhost:8000/api/reports/breaks: API returns JSON detailing break buckets (fee_variance, missing_settlement, timing_delay) [Response status is 200 with break categories matching seeded counts]",
       "python scripts/verify_dynamic_recon.py --amount 12345.67 --bank-ref DYNAMIC_REF_77: Reconciliation engine flags unrecorded deposit as UNMATCHED_BANK_SETTLEMENT break [Engine creates break record with reference DYNAMIC_REF_77 and exit code 0]"
     ],
-    "portfolioBulletFormula": "Architected event-driven financial reconciliation microservice in Java 21 & Spring Boot 3.3 processing 12,000 tx/sec with zero ledger drift and automated Kafka compensation workflows.",
+    "portfolioBulletFormula": "Architected event-driven financial reconciliation microservice in Java 21 & Spring Boot 3.3 processing [TX_RATE] tx/sec with verified double-entry balance consistency and automated Kafka compensation workflows.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -6121,7 +6121,7 @@
       "python ./scripts/verify_brief-workflow-engine.sh --token task_tok_777 --count 2: Engine detects duplicate token and executes activity exactly once without double execution [Exactly 1 execution recorded across duplicate tokens with exit code 0]",
       "python ./scripts/verify_deterministic_replay.py --workflow-id wf_replay_999: Replay verifies steps 1 and 2 read from PostgreSQL event store; only steps 3, 4, and 5 dispatch to workers [Console confirms exactly 0 duplicate activity executions during recovery with exit code 0]"
     ],
-    "portfolioBulletFormula": "Implemented durable state-machine orchestration engine in Java 21 & Spring Boot with automated compensation rollbacks and zero orphaned workflows under process crashes.",
+    "portfolioBulletFormula": "Implemented durable state-machine orchestration engine in Java 21 & Spring Boot with automated compensation rollbacks and crash-resilient recovery across [WORKFLOW_COUNT] parallel workflows under node failures.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -11087,7 +11087,7 @@
       "Execute Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestRefreshTokenRotation: Uses refresh token to obtain new access token [Server issues new refresh token and immediately invalidates old token]",
       "Run Run verification harness tests/fixtures/briefs-kits/brief-oidc-pkce-server/verify.sh -run TestRefreshTokenReplayRevocation: Deliberately attempts to reuse already-invalidated refresh token [Server detects token family replay and revokes entire token lineage for security]"
     ],
-    "portfolioBulletFormula": "Developed RFC 7636 compliant OAuth 2.0 & OpenID Connect identity provider in Go with PKCE and JWT RS256 token signing; secured public client authorization flows, implementing refresh token rotation and automated replay attack mitigation.",
+    "portfolioBulletFormula": "Developed RFC 7636 compliant OAuth 2.0 & OpenID Connect identity provider in Go with PKCE and JWT RS256 token signing; secured public client authorization flows across [CLIENT_COUNT] clients, implementing refresh token rotation and automated replay attack mitigation under [LATENCY_MS]ms issuance.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -11165,7 +11165,7 @@
       "Execute Run verification harness tests/fixtures/briefs-kits/brief-shamir-secret-vault/verify.sh -run TestGaloisFieldArithmetic: Tests addition, multiplication, and inverse operations in $GF(256)$ [All 10 finite field algebraic identity tests pass cleanly]",
       "Run Run verification harness tests/fixtures/briefs-kits/brief-shamir-secret-vault/verify.sh -run TestBinaryKeySplitting: Splits and recovers a 4096-bit RSA private key [Reconstructed PEM key matches byte-for-byte with 0 bits divergence]"
     ],
-    "portfolioBulletFormula": "Implemented Shamir's Secret Sharing threshold key custody vault in Go using $GF(256)$ finite field arithmetic; enabled secure $M$-of-$N$ quorum recovery for master private keys, ensuring information-theoretic security with fault-tolerant quorum custody.",
+    "portfolioBulletFormula": "Implemented Shamir's Secret Sharing threshold key custody vault in Go using $GF(256)$ finite field arithmetic; enabled secure [THRESHOLD_M]-of-[TOTAL_N] quorum recovery for master private keys, ensuring information-theoretic security with fault-tolerant quorum custody under [LATENCY_MS]ms reconstruction latency.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -11559,7 +11559,7 @@
       "Execute Run verification harness tests/fixtures/briefs-kits/brief-mtls-internal-ca/verify.sh -run TestZeroDowntimeHotReload: Rotates active server certificate while wrk load test sends requests [Load test completes with 100% successful 2xx responses and zero dropped connections]",
       "Run openssl verify -CAfile certs/root_ca.pem -untrusted certs/intermediate_ca.pem certs/service.pem: Verifies certificate chain [OpenSSL reports certs/service.pem: OK]"
     ],
-    "portfolioBulletFormula": "Implemented internal PKI Certificate Authority and automated Mutual TLS (mTLS) rotator in Go; secured inter-service microservice communications with short-lived X.509 certificates and achieved continuous no detected-impact automated certificate renewal.",
+    "portfolioBulletFormula": "Implemented internal PKI Certificate Authority and automated Mutual TLS (mTLS) rotator in Go; secured inter-service microservice communications with short-lived X.509 certificates and achieved continuous hitless automated certificate renewals across [SERVICE_COUNT] microservices under [ROTATION_INTERVAL_DAYS]-day rotation schedules.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -11874,7 +11874,7 @@
       "Execute Run verification harness tests/fixtures/briefs-kits/brief-secure-enclave-vault/verify.sh -- tests/key_invalidation_on_new_biometric.test.ts: Simulates user adding a new fingerprint to OS settings [Key is automatically invalidated by OS Keystore, preventing unauthorized access]",
       "Run npx react-native run-android on emulator with biometric mock: Enrolls fingerprint and retrieves token [Prompts native biometric UI dialog and successfully decrypts token on fingerprint match]"
     ],
-    "portfolioBulletFormula": "Developed hardware-backed biometric security vault for React Native using iOS Keychain and Android Keystore; secured sensitive authentication tokens with AES-256-GCM and Secure Enclave isolation, mitigating credential theft on rooted devices.",
+    "portfolioBulletFormula": "Developed hardware-backed biometric security vault for React Native using iOS Keychain and Android Keystore; secured sensitive authentication tokens with AES-256-GCM and Secure Enclave isolation across [VAULT_RECORDS] credentials with auth latency under [DECRYPT_LATENCY_MS]ms, mitigating credential theft on rooted devices.",
     "lastReviewed": "2026-10-28",
     "reviewBy": "2027-10-28",
     "safetyLegal": {
@@ -12707,15 +12707,15 @@
       "Spring Boot 3.3+",
       "Apache Kafka 3.7+",
       "PostgreSQL 16+",
-      "Docker Compose",
-      "Testcontainers"
+      "Docker Compose 2+",
+      "Testcontainers 1.19+"
     ],
     "verificationRubric": [
       "Run end-to-end happy path test: Order transitions through CREATED -> INVENTORY_RESERVED -> PAYMENT_COMPLETED -> FULFILLED [Exit code 0 and order status FULFILLED]",
       "Execute failure compensation test: Simulate payment decline and verify compensating event INVENTORY_RELEASED restores stock [Exit code 0 and final inventory balance matches initial balance]",
       "Run consumer idempotency test: Publish duplicate order event and assert consumer processes payload exactly once [Database transaction count equals 1 with zero duplicate mutations]"
     ],
-    "portfolioBulletFormula": "Implemented event-driven e-commerce order saga orchestrator in Java 21, Spring Boot, and Apache Kafka using the Transactional Outbox pattern; guaranteed ACID consistency and automated compensating rollbacks across distributed microservices under [THROUGHPUT_RPS] events/sec throughput.",
+    "portfolioBulletFormula": "Implemented event-driven e-commerce order saga orchestrator in Java 21, Spring Boot, and Apache Kafka using the Transactional Outbox pattern; enforcing transactional consistency and automated compensating rollbacks across distributed microservices under [THROUGHPUT_RPS] events/sec throughput.",
     "lastReviewed": "2026-10-31",
     "reviewBy": "2027-10-31",
     "safetyLegal": {
@@ -12774,8 +12774,8 @@
       "React 19",
       "PostgreSQL 16+",
       "Redis 7+",
-      "Tailwind CSS",
-      "Docker"
+      "Tailwind CSS 3.4+",
+      "Docker 26+"
     ],
     "verificationRubric": [
       "Run signature validation test: Forged secret or altered body payload results in HTTP 401 Unauthorized [Exit code 0 with 10 passing security assertions]",
@@ -12829,7 +12829,7 @@
       "Docker",
       "REST APIs"
     ],
-    "problemStatement": "Large enterprise platforms require granular role-based and attribute-based access control (RBAC/ABAC) across hundreds of API endpoints and user organizational departments. This service provides hierarchical role inheritance, dynamic policy evaluation, tamper-evident SHA-256 audit trails, and token revocation blacklisting.",
+    "problemStatement": "Large enterprise platforms require granular role-based and attribute-based access control (RBAC/ABAC) across hundreds of API endpoints and user organizational departments. This service provides hierarchical role inheritance, dynamic policy evaluation, tamper-evident SHA-256 audit trails, and token revocation blacklisting.\n[Lawful Scope Notice: All authorization testing, policy simulation, and token revocation must be conducted exclusively on local development environments; testing unauthorized enterprise directories or third-party systems is strictly prohibited.]",
     "useCases": "Internal enterprise tools with multi-level role hierarchies (Admin, Manager, Lead, Analyst) | Compliance-mandated sensitive data access auditing (financial and healthcare records) | Fine-grained resource-level permission authorization for SaaS platforms",
     "problemItSolves": "Eliminating hardcoded permission checks with declarative role and permission inheritance trees | Preventing privilege escalation through token revocation blacklists stored in Redis | Creating immutable, tamper-evident audit logs with cryptographic hash chaining | Enforcing least-privilege resource access with method-level authorization security expressions",
     "recruiterSignal": "Spring Boot 3 and Spring Security 6 microservice with JPA / Hibernate mappings and PostgreSQL | Security test suite validating access denial across 30 negative permission permutations | Production-grade JWT token issuer with refresh token rotation and revocation logic",
@@ -12841,7 +12841,7 @@
       "Spring Security 6+",
       "PostgreSQL 16+",
       "Redis 7+",
-      "Docker",
+      "Docker 26+",
       "JUnit 5"
     ],
     "verificationRubric": [
@@ -12905,8 +12905,8 @@
       "Go 1.22+",
       "Redis 7.2+",
       "Docker 26+",
-      "Chi Router / Gin",
-      "Testcontainers Go"
+      "Chi Router 5+ / Gin 1.9+",
+      "Testcontainers Go 0.28+"
     ],
     "verificationRubric": [
       "Run burst quota test: Send 105 requests for a 100 req/min quota and verify exactly 5 requests return HTTP 429 [Exit code 0 and 429 count equals 5]",
