@@ -5,9 +5,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "node --env-file-if-exists=.env ./node_modules/vite/bin/vite.js",
+    "build": "tsc && node --env-file-if-exists=.env ./node_modules/vite/bin/vite.js build",
+    "preview": "node --env-file-if-exists=.env ./node_modules/vite/bin/vite.js preview",
     "market:sync": "npx tsx scripts/market/sync-live-jobs.ts",
     "briefs:lint": "npx tsx scripts/briefs/lint.ts",
     "briefs:fix": "npx tsx scripts/briefs/fix_engine.ts",
@@ -68,7 +68,8 @@
     "check:pathways-claims": "node scripts/pathways/check-claims.mjs",
     "pathways:apply-correction": "node scripts/pathways/apply-correction.mjs",
     "pathways:refresh-plan": "node scripts/pathways/refresh-plan.mjs",
-    "pathways:diff": "node scripts/pathways/diff-ledger.mjs"
+    "pathways:diff": "node scripts/pathways/diff-ledger.mjs",
+    "start": "node --env-file-if-exists=.env ./node_modules/vite/bin/vite.js"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
