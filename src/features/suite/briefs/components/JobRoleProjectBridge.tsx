@@ -2,7 +2,9 @@
 // HireFlow — Job Role Skill Blueprint & Project Brief Bridge
 // Dynamic gap-to-project recommendation section displayed on
 // ATS Resume Roaster and TalentLens scan results.
-// Pinpoints left-out skills and recommends production project briefs.
+// Pinpoints left-out skills and recommends 3 to 4 distinct
+// production project brief options so candidates can choose either
+// option to close their skill holes and ace technical interviews.
 // ============================================================
 
 import React, { useState, useMemo } from 'react';
@@ -14,7 +16,6 @@ import {
   Clock,
   ArrowRight,
   Hammer,
-  ShieldCheck,
   Eye,
   Layers,
   ChevronRight,
@@ -24,7 +25,6 @@ import {
   matchJobRoleToProjects,
   JobRoleSkillItem,
   JobRoleProjectMatchResult,
-  MatchedBriefRecommendation,
 } from '../engine/jobRoleProjectMatcher';
 import { ProjectBrief } from '../bundleBriefs';
 import { domainColor, DIFFICULTY_BADGE } from './briefHelpers';
@@ -82,13 +82,13 @@ export function JobRoleProjectBridge({
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-black border border-volt/40 text-[11px] font-mono font-bold uppercase tracking-wider text-volt">
             <Sparkles className="w-3.5 h-3.5 text-volt" />
-            <span>Target Role Skill Blueprint · Gap-To-Project Bridge</span>
+            <span>Target Role Skill Blueprint · Multi-Option Project Bridge</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-            Required Skills &amp; Recommended Project Briefs
+            Required Skills &amp; Recommended Project Paths
           </h2>
           <p className="text-xs sm:text-sm text-silver max-w-2xl leading-relaxed">
-            Skills extracted from your target job description matched against your resume evidence. Left-out skills are dynamically linked to production-grade project briefs engineered to fill holes and ace technical interviews.
+            Skills extracted from your target job description matched against your resume evidence. Left-out skills are mapped to 3–4 tailored, production-grade project options so you can choose the track and stack that fits you best.
           </p>
         </div>
 
@@ -194,28 +194,34 @@ export function JobRoleProjectBridge({
       <div className="pt-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-volt/10 border border-volt/30 text-[10px] font-mono font-bold uppercase tracking-wider text-volt mb-1.5">
+              <Sparkles className="w-3 h-3 text-volt" />
+              <span>Multi-Option Strategy · Choose Either Option</span>
+            </div>
             <h3 className="text-sm font-bold font-mono uppercase tracking-wider text-white flex items-center gap-2">
               <Hammer className="w-4 h-4 text-volt" />
-              <span>Recommended Project Briefs To Fill Skill Holes</span>
+              <span>Recommended Project Paths To Fill Skill Gaps ({matchResult.recommendations.length} Options)</span>
             </h3>
-            <p className="text-xs text-silver mt-0.5">
-              Production architectures from our 158-brief catalog, complete with verified scale targets and interview talking points.
+            <p className="text-xs text-silver mt-0.5 max-w-2xl">
+              Each option below is an independent, production-grade project that covers your target role skill gaps. Choose whichever technology stack or architectural focus best matches your background.
             </p>
           </div>
           <Link
             to="/tools/build-briefs"
             className="text-xs font-mono text-volt hover:underline inline-flex items-center gap-1 shrink-0"
           >
-            <span>Browse Full 158 Catalog</span>
+            <span>Browse Full Catalog</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {matchResult.recommendations.map((rec) => {
-            const { brief, matchedGapSkills, reinforcedSkills, hoursRange, interviewProofPoint } = rec;
+          {matchResult.recommendations.map((rec, recIdx) => {
+            const { brief, matchedGapSkills, reinforcedSkills, hoursRange, interviewProofPoint, pathLabel, pathFocus, coverageRatio } = rec;
             const dc = domainColor(brief.domain);
             const diffClass = DIFFICULTY_BADGE[brief.difficulty] ?? DIFFICULTY_BADGE.intermediate;
+            const optionTitle = pathLabel || `Option ${recIdx + 1} · ${brief.domain} Track`;
+            const percentCovered = coverageRatio !== undefined ? Math.round(coverageRatio * 100) : null;
 
             return (
               <div
@@ -223,6 +229,19 @@ export function JobRoleProjectBridge({
                 className="shiny-edge-card bg-black border border-charcoal rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-volt/60 transition-colors"
               >
                 <div className="space-y-3">
+                  {/* Track / Option Header Badge */}
+                  <div className="flex items-center justify-between gap-2 border-b border-charcoal/80 pb-2.5">
+                    <span className="px-2 py-1 rounded bg-[#161616] border border-volt/40 text-volt text-[11px] font-mono font-bold tracking-tight inline-flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-volt shrink-0" />
+                      <span>{optionTitle}</span>
+                    </span>
+                    {percentCovered !== null && percentCovered > 0 && (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-volt/10 text-volt border border-volt/30 font-semibold shrink-0">
+                        {percentCovered}% Gaps Closed
+                      </span>
+                    )}
+                  </div>
+
                   {/* Top Badges */}
                   <div className="flex items-center justify-between gap-2 flex-wrap text-[11px] font-mono">
                     <span className={`px-2 py-0.5 rounded border ${dc.border} ${dc.text} ${dc.bg} font-semibold uppercase tracking-wider`}>
@@ -244,6 +263,11 @@ export function JobRoleProjectBridge({
                     <h4 className="text-base font-bold text-white hover:text-volt transition-colors leading-snug">
                       {brief.title}
                     </h4>
+                    {pathFocus && (
+                      <p className="text-[11px] font-mono text-silver/90 mt-1 italic">
+                        {pathFocus}
+                      </p>
+                    )}
                     <p className="text-xs text-silver/80 mt-1.5 line-clamp-2 leading-relaxed">
                       {brief.problemStatement}
                     </p>
@@ -252,10 +276,15 @@ export function JobRoleProjectBridge({
                   {/* Targeted Gaps Filled (Pills) */}
                   {matchedGapSkills.length > 0 && (
                     <div className="p-2.5 rounded bg-near-black border border-volt/30 space-y-1.5">
-                      <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-volt flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-volt" />
-                        <span>Closes Your Left-Out Skill Holes:</span>
-                      </p>
+                      <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase tracking-wider">
+                        <span className="text-volt flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-volt" />
+                          <span>Closes Your Left-Out Skill Holes:</span>
+                        </span>
+                        <span className="text-silver/70">
+                          {matchedGapSkills.length} of {matchResult.gapCount || matchedGapSkills.length} skills
+                        </span>
+                      </div>
                       <div className="flex flex-wrap gap-1">
                         {matchedGapSkills.map((gap) => (
                           <span
@@ -266,6 +295,23 @@ export function JobRoleProjectBridge({
                           </span>
                         ))}
                       </div>
+                    </div>
+                  )}
+
+                  {/* Reinforced Candidate Skills */}
+                  {reinforcedSkills && reinforcedSkills.length > 0 && (
+                    <div className="px-2.5 py-1.5 rounded bg-black border border-charcoal/80 text-[11px] font-mono flex items-center gap-1.5 text-silver/80">
+                      <CheckCircle2 className="w-3 h-3 text-volt shrink-0" />
+                      <span className="text-[10px] uppercase font-bold text-volt/90">Leverages Your Strengths:</span>
+                      <span className="text-white truncate">{reinforcedSkills.slice(0, 3).join(', ')}</span>
+                    </div>
+                  )}
+
+                  {/* Tech Stack Pills */}
+                  {brief.techStack && brief.techStack.length > 0 && (
+                    <div className="text-[11px] font-mono text-silver/70 flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[10px] uppercase tracking-wider text-silver/50 font-bold">Stack:</span>
+                      <span className="text-silver/90">{brief.techStack.slice(0, 4).join(' · ')}</span>
                     </div>
                   )}
 
@@ -296,13 +342,22 @@ export function JobRoleProjectBridge({
                     to={`/tools/build-briefs?query=${encodeURIComponent(brief.title)}`}
                     className="px-3 py-1.5 rounded bg-volt text-black hover:bg-white text-xs font-mono font-bold uppercase tracking-wider inline-flex items-center gap-1.5 transition-colors"
                   >
-                    <span>Build Brief</span>
+                    <span>Choose Option</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* Bottom Candidate Guidance Callout */}
+        <div className="p-3.5 rounded-lg bg-black border border-volt/30 flex items-start sm:items-center gap-3 text-xs font-mono">
+          <CheckCircle2 className="w-4 h-4 text-volt shrink-0 mt-0.5 sm:mt-0" />
+          <div className="text-silver leading-relaxed">
+            <span className="text-volt font-bold uppercase tracking-wider">Candidate Tip: </span>
+            You only need to complete <span className="text-white font-semibold">one of these project paths</span> to demonstrate practical proof for technical screenings. Choose the architecture and language you are most enthusiastic about.
+          </div>
         </div>
       </div>
 
@@ -318,4 +373,3 @@ export function JobRoleProjectBridge({
     </section>
   );
 }
-

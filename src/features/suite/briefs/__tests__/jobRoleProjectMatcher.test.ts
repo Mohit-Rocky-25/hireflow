@@ -75,5 +75,102 @@ describe('Job Role Skill Blueprint & Project Brief Matcher Engine', () => {
     // Even with 0 gaps, top capstones are suggested
     expect(result.recommendations[0].brief.title.length).toBeGreaterThan(5);
   });
-});
 
+  it('ensures all 3 to 4 recommended project options cover candidate gap skills (no empty gap cards)', () => {
+    const inputSkills: JobRoleSkillItem[] = [
+      { name: 'Java', status: 'verified' },
+      { name: 'Spring Boot', status: 'verified' },
+      { name: 'Kafka', status: 'gap', isMandatory: true },
+      { name: 'Redis', status: 'gap', isMandatory: false },
+      { name: 'Docker', status: 'gap', isMandatory: true },
+    ];
+
+    const result = matchJobRoleToProjects({
+      skills: inputSkills,
+      roleTitle: 'Senior Backend Engineer',
+      maxRecommendations: 4,
+    });
+
+    expect(result.recommendations.length).toBe(4);
+
+    // Every single recommendation option MUST cover candidate gaps!
+    for (const rec of result.recommendations) {
+      expect(rec.matchedGapSkills.length).toBeGreaterThan(0);
+      expect(rec.pathLabel).toBeDefined();
+      expect(rec.pathFocus).toBeDefined();
+      expect(rec.coverageRatio).toBeGreaterThan(0);
+    }
+  });
+
+  it('personalizes project recommendations for different candidate backgrounds with the same gaps', () => {
+    const gaps: JobRoleSkillItem[] = [
+      { name: 'Kafka', status: 'gap', isMandatory: true },
+      { name: 'Redis', status: 'gap', isMandatory: false },
+      { name: 'Docker', status: 'gap', isMandatory: true },
+    ];
+
+    // Candidate A knows Java / Spring
+    const resultJava = matchJobRoleToProjects({
+      skills: [
+        { name: 'Java', status: 'verified' },
+        { name: 'Spring Boot', status: 'verified' },
+        ...gaps,
+      ],
+      roleTitle: 'Backend Engineer',
+      maxRecommendations: 4,
+    });
+
+    // Candidate B knows Python / FastAPI
+    const resultPython = matchJobRoleToProjects({
+      skills: [
+        { name: 'Python', status: 'verified' },
+        { name: 'FastAPI', status: 'verified' },
+        ...gaps,
+      ],
+      roleTitle: 'Backend Engineer',
+      maxRecommendations: 4,
+    });
+
+    // Both candidates get 4 valid options
+    expect(resultJava.recommendations.length).toBe(4);
+    expect(resultPython.recommendations.length).toBe(4);
+
+    // Candidate A's top recommendation aligns with Java / Spring
+    const javaTop = resultJava.recommendations[0];
+    const javaTech = (javaTop.brief.techStack || []).join(' ') + (javaTop.brief.coveredSkills || []).join(' ');
+    expect(javaTech.toLowerCase()).toContain('java');
+
+    // Candidate B's top recommendation aligns with Python
+    const pythonTop = resultPython.recommendations[0];
+    const pythonTech = (pythonTop.brief.techStack || []).join(' ') + (pythonTop.brief.coveredSkills || []).join(' ');
+    expect(pythonTech.toLowerCase()).toContain('python');
+
+    // Demonstrates non-repetitive, personalized matching across users
+    expect(javaTop.brief.id).not.toBe(pythonTop.brief.id);
+  });
+
+  it('gives multiple distinct architectural options when a candidate has a single gap skill', () => {
+    const inputSkills: JobRoleSkillItem[] = [
+      { name: 'TypeScript', status: 'verified' },
+      { name: 'Node.js', status: 'verified' },
+      { name: 'Docker', status: 'gap', isMandatory: true },
+    ];
+
+    const result = matchJobRoleToProjects({
+      skills: inputSkills,
+      roleTitle: 'Backend Engineer',
+      maxRecommendations: 4,
+    });
+
+    expect(result.recommendations.length).toBe(4);
+
+    // All 4 options cover Docker
+    for (const rec of result.recommendations) {
+      expect(rec.matchedGapSkills).toContain('Docker');
+    }
+
+    // All 4 options are distinct briefs
+    const uniqueIds = new Set(result.recommendations.map((r) => r.brief.id));
+    expect(uniqueIds.size).toBe(4);
+  });
+});
