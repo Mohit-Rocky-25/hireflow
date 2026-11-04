@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import './CinematicLoader.css';
 
-const LOADER_MIN_MS = 1800;
+const TOTAL_LOADER_DURATION_MS = 1700;
 
-const STATUS_MESSAGES = [
-  'Vortex engine initializing...',
-  'Extracting ATS heuristics from the cloud...',
-  'Synchronizing career trajectory maps...',
-  'Welcome to HireFloo AI',
+const STATUS_STAGES = [
+  { at: 0, text: 'STRIKE 1: INITIALIZING HIGH-VOLTAGE ATS PIPELINE...' },
+  { at: 35, text: 'STRIKE 2: CALIBRATING DETERMINISTIC TRUTH GATE...' },
+  { at: 70, text: 'STRIKE 3: SYNCHRONIZING VERIFIED ROLE TAXONOMIES...' },
+  { at: 92, text: 'ONLINE: HIREFLOO AI READY — ENGAGING SYSTEM' },
 ];
 
 export interface CinematicLoaderProps {
@@ -15,76 +15,64 @@ export interface CinematicLoaderProps {
   isAppReady?: boolean;
 }
 
-interface ShockwaveRing {
+interface Spark {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  maxLife: number;
+  size: number;
+  color: string;
+}
+
+interface Shockwave {
   x: number;
   y: number;
   radius: number;
   maxRadius: number;
   alpha: number;
   color: string;
-  lineWidth: number;
 }
 
-interface TornadoParticle {
-  y: number; // Height in funnel: 0 (bottom) to 1 (top)
-  angle: number; // Current radial angle in radians
-  speed: number; // Upward / downward speed
-  rotSpeed: number; // Angular speed
-  radiusNoise: number;
-  size: number;
-  alpha: number;
-  colorType: number; // 0: sky blue, 1: cyan, 2: pure cloud white, 3: electric indigo
-  prevX?: number;
-  prevY?: number;
-}
-
-interface ImpactSpark {
+interface BoltPoint {
   x: number;
   y: number;
-  vx: number;
-  vy: number;
-  alpha: number;
-  size: number;
-  color: string;
 }
 
 export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState(STATUS_MESSAGES[0]);
+  const [statusText, setStatusText] = useState(STATUS_STAGES[0].text);
   const [isExiting, setIsExiting] = useState(false);
-  const [screenShake, setScreenShake] = useState(0); // 0: none, 1, 2, 3
+  const [flashIntensity, setFlashIntensity] = useState(0);
+  const [isCharged, setIsCharged] = useState(false);
 
-  // Word drop stages:
-  // 0: in vortex, 1: falling, 2: landed & locked
-  const [hireStage, setHireStage] = useState<'vortex' | 'falling' | 'landed'>('vortex');
-  const [flowStage, setFlowStage] = useState<'vortex' | 'falling' | 'landed'>('vortex');
-  const [aiStage, setAiStage] = useState<'vortex' | 'falling' | 'landed'>('vortex');
-  const [grandLockup, setGrandLockup] = useState(false);
-
-  const startTimeRef = useRef<number>(Date.now());
-  const hasFinishedRef = useRef(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
-  const shockwavesRef = useRef<ShockwaveRing[]>([]);
-  const sparksRef = useRef<ImpactSpark[]>([]);
+  const hasFinishedRef = useRef(false);
 
   const finish = useCallback(() => {
     if (hasFinishedRef.current) return;
     hasFinishedRef.current = true;
+    setIsExiting(true);
+
     if (typeof window !== 'undefined' && window.sessionStorage) {
       try {
         window.sessionStorage.setItem('hf_seen_cinematic', 'true');
       } catch {}
     }
+
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.classList.add('hf-loaded');
     }
-    onFinish();
+
+    setTimeout(() => {
+      onFinish();
+    }, 380);
   }, [onFinish]);
 
-  // If already seen in this session, skip immediately
+  // Session check — skip if already seen
   useEffect(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       try {
@@ -95,7 +83,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
     }
   }, [finish]);
 
-  // Lock body scroll during cinematic intro
+  // Body scroll lock
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden';
@@ -109,363 +97,191 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
     };
   }, []);
 
-  // Hard safety watchdog
+  // Keyboard shortcut: ESC to skip
   useEffect(() => {
-    const watchdog = setTimeout(() => {
-      finish();
-    }, LOADER_MIN_MS + 900);
-    return () => clearTimeout(watchdog);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') finish();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [finish]);
 
-  // Keyboard shortcut to skip
+  // Progress counter and timeline
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === ' ') {
-        e.preventDefault();
-        finish();
-      }
-    };
-    window.addEventListener('keydown', handleKey);
-    return () => window.removeEventListener('keydown', handleKey);
-  }, [finish]);
-
-  // Mouse tilt parallax
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const normX = (e.clientX / window.innerWidth - 0.5) * 2;
-      const normY = (e.clientY / window.innerHeight - 0.5) * 2;
-      mouseRef.current.targetX = normX * 24;
-      mouseRef.current.targetY = normY * 14;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Spawn visual shockwave and spark burst
-  const triggerImpactVFX = useCallback((xRatio: number, yRatio: number, color: string) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const px = canvas.width * xRatio;
-    const py = canvas.height * yRatio;
-
-    // Add dual shockwave rings
-    shockwavesRef.current.push({
-      x: px,
-      y: py,
-      radius: 6,
-      maxRadius: 110,
-      alpha: 0.95,
-      color,
-      lineWidth: 3.5,
-    });
-    shockwavesRef.current.push({
-      x: px,
-      y: py,
-      radius: 2,
-      maxRadius: 75,
-      alpha: 0.8,
-      color: '#FFFFFF',
-      lineWidth: 2,
-    });
-
-    // Add radiant sparks
-    for (let i = 0; i < 28; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = 2.5 + Math.random() * 5.5;
-      sparksRef.current.push({
-        x: px,
-        y: py,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 1.2, // slight upward ejection
-        alpha: 1,
-        size: 1.5 + Math.random() * 2.8,
-        color: Math.random() > 0.4 ? color : '#FFFFFF',
-      });
-    }
-  }, []);
-
-  // Choreographed Timeline & Progress State Machine
-  useEffect(() => {
-    let hireFallingTriggered = false;
-    let hireLandedTriggered = false;
-    let flowFallingTriggered = false;
-    let flowLandedTriggered = false;
-    let aiFallingTriggered = false;
-    let aiLandedTriggered = false;
-    let lockupTriggered = false;
+    const startTime = Date.now();
 
     const interval = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, (elapsed / TOTAL_LOADER_DURATION_MS) * 100);
+      setProgress(pct);
 
-      // 1. Stage transitions for "HIRE"
-      if (elapsed >= 800 && !hireFallingTriggered) {
-        hireFallingTriggered = true;
-        setHireStage('falling');
-      }
-      if (elapsed >= 1100 && !hireLandedTriggered) {
-        hireLandedTriggered = true;
-        setHireStage('landed');
-        setScreenShake(1);
-        triggerImpactVFX(0.38, 0.82, 'rgba(2, 132, 199, 1)');
-        setTimeout(() => setScreenShake(0), 280);
-      }
-
-      // 2. Stage transitions for "FLOW"
-      if (elapsed >= 1550 && !flowFallingTriggered) {
-        flowFallingTriggered = true;
-        setFlowStage('falling');
-      }
-      if (elapsed >= 1850 && !flowLandedTriggered) {
-        flowLandedTriggered = true;
-        setFlowStage('landed');
-        setScreenShake(2);
-        triggerImpactVFX(0.52, 0.82, 'rgba(6, 182, 212, 1)');
-        setTimeout(() => setScreenShake(0), 280);
-      }
-
-      // 3. Stage transitions for "AI"
-      if (elapsed >= 2250 && !aiFallingTriggered) {
-        aiFallingTriggered = true;
-        setAiStage('falling');
-      }
-      if (elapsed >= 2500 && !aiLandedTriggered) {
-        aiLandedTriggered = true;
-        setAiStage('landed');
-        setScreenShake(3);
-        triggerImpactVFX(0.66, 0.82, 'rgba(99, 102, 241, 1)');
-        setTimeout(() => setScreenShake(0), 280);
-      }
-
-      // 4. Grand lockup & metallic shimmer
-      if (elapsed >= 2750 && !lockupTriggered) {
-        lockupTriggered = true;
-        setGrandLockup(true);
-      }
-
-      // Status text sync
-      if (elapsed < 900) setStatusText(STATUS_MESSAGES[0]);
-      else if (elapsed < 1700) setStatusText(STATUS_MESSAGES[1]);
-      else if (elapsed < 2400) setStatusText(STATUS_MESSAGES[2]);
-      else setStatusText(STATUS_MESSAGES[3]);
-
-      // Smooth progress curve
-      let targetProgress = 0;
-      if (elapsed < 800) targetProgress = (elapsed / 800) * 30;
-      else if (elapsed < 1600) targetProgress = 30 + ((elapsed - 800) / 800) * 30;
-      else if (elapsed < 2500) targetProgress = 60 + ((elapsed - 1600) / 900) * 28;
-      else if (elapsed < LOADER_MIN_MS) targetProgress = 88 + ((elapsed - 2500) / (LOADER_MIN_MS - 2500)) * 12;
-      else targetProgress = 100;
-
-      setProgress((prev) => {
-        if (prev >= 100 || elapsed >= LOADER_MIN_MS + 80) {
-          clearInterval(interval);
-          return 100;
+      for (let i = STATUS_STAGES.length - 1; i >= 0; i--) {
+        if (pct >= STATUS_STAGES[i].at) {
+          setStatusText(STATUS_STAGES[i].text);
+          break;
         }
-        return Math.min(100, prev + (targetProgress - prev) * 0.35);
-      });
-    }, 25);
+      }
+
+      if (pct >= 85 && !isCharged) {
+        setIsCharged(true);
+      }
+
+      if (pct >= 100) {
+        clearInterval(interval);
+        finish();
+      }
+    }, 16);
 
     return () => clearInterval(interval);
-  }, [triggerImpactVFX]);
+  }, [finish, isCharged]);
 
-  // Exit trigger
-  useEffect(() => {
-    if (progress >= 100 && !isExiting) {
-      setIsExiting(true);
-      setTimeout(() => finish(), 650);
-    }
-  }, [progress, isExiting, finish]);
-
-  // 3D Tornado Canvas Engine with Dynamic Lighting & VFX
+  // High-Tech Thunder Canvas Animation Engine
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     let animId: number;
-    let width = (canvas.width = canvas.parentElement?.clientWidth || 520);
-    let height = (canvas.height = canvas.parentElement?.clientHeight || 440);
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
     const handleResize = () => {
-      if (!canvas || !canvas.parentElement) return;
-      width = canvas.width = canvas.parentElement.clientWidth;
-      height = canvas.height = canvas.parentElement.clientHeight;
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     };
     window.addEventListener('resize', handleResize);
 
-    // Initialize 480 3D vortex particles
-    const particleCount = 480;
-    const particles: TornadoParticle[] = [];
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        y: Math.random(),
-        angle: Math.random() * Math.PI * 2,
-        speed: 0.0035 + Math.random() * 0.007,
-        rotSpeed: 0.045 + Math.random() * 0.065,
-        radiusNoise: 0.78 + Math.random() * 0.44,
-        size: 1.2 + Math.random() * 2.9,
-        alpha: 0.28 + Math.random() * 0.68,
-        colorType: Math.floor(Math.random() * 4),
+    const sparks: Spark[] = [];
+    const shockwaves: Shockwave[] = [];
+    let activeBolts: { points: BoltPoint[]; color: string; width: number; life: number }[] = [];
+    let lastBoltTime = 0;
+
+    // Helper: generate fractal branching lightning path
+    const generateBolt = (
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+      displacement: number,
+      minDisp: number = 6
+    ): BoltPoint[] => {
+      const points: BoltPoint[] = [];
+
+      const subdivide = (ax: number, ay: number, bx: number, by: number, disp: number) => {
+        if (disp < minDisp) {
+          points.push({ x: bx, y: by });
+          return;
+        }
+        const midX = (ax + bx) / 2 + (Math.random() - 0.5) * disp;
+        const midY = (ay + by) / 2 + (Math.random() - 0.5) * disp;
+
+        subdivide(ax, ay, midX, midY, disp * 0.55);
+        subdivide(midX, midY, bx, by, disp * 0.55);
+      };
+
+      points.push({ x: x1, y: y1 });
+      subdivide(x1, y1, x2, y2, displacement);
+      return points;
+    };
+
+    // Trigger a thunder strike towards the center emblem
+    const triggerStrike = (intensity: number = 1) => {
+      const centerX = width / 2;
+      const centerY = height / 2 - 20;
+
+      // Random starting point along the periphery (top or sides)
+      const fromTop = Math.random() > 0.3;
+      let startX: number, startY: number;
+
+      if (fromTop) {
+        startX = Math.random() * width;
+        startY = -20;
+      } else {
+        startX = Math.random() > 0.5 ? -20 : width + 20;
+        startY = Math.random() * (height * 0.6);
+      }
+
+      // Main bolt
+      const mainPath = generateBolt(startX, startY, centerX, centerY, width * 0.28, 5);
+      activeBolts.push({
+        points: mainPath,
+        color: '#F5FF00',
+        width: 3.5 * intensity,
+        life: 7,
       });
-    }
 
-    const colors = [
-      'rgba(2, 132, 199, ',   // Deep Sky Blue
-      'rgba(6, 182, 212, ',   // Vibrant Cyan
-      'rgba(255, 255, 255, ', // Cloud White
-      'rgba(99, 102, 241, ',  // Electric Indigo
-    ];
+      // Branching fork
+      if (Math.random() > 0.2) {
+        const forkIndex = Math.floor(mainPath.length * (0.35 + Math.random() * 0.3));
+        const forkOrigin = mainPath[forkIndex];
+        if (forkOrigin) {
+          const forkTargetX = forkOrigin.x + (Math.random() - 0.5) * (width * 0.4);
+          const forkTargetY = forkOrigin.y + (Math.random() * 0.4 + 0.1) * height;
+          const branchPath = generateBolt(forkOrigin.x, forkOrigin.y, forkTargetX, forkTargetY, width * 0.15, 6);
+          activeBolts.push({
+            points: branchPath,
+            color: '#00F0FF',
+            width: 1.8 * intensity,
+            life: 6,
+          });
+        }
+      }
 
-    let time = 0;
+      // Center impact sparks (efficient budget: 12-18 sparks max)
+      const sparkCount = Math.floor(12 * intensity);
+      for (let i = 0; i < sparkCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = (Math.random() * 5 + 3) * intensity;
+        sparks.push({
+          x: centerX,
+          y: centerY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          life: 0,
+          maxLife: 18 + Math.random() * 10,
+          size: Math.random() * 2.5 + 1.2,
+          color: Math.random() > 0.4 ? '#F5FF00' : '#00F0FF',
+        });
+      }
+
+      // Impact shockwave ring
+      shockwaves.push({
+        x: centerX,
+        y: centerY,
+        radius: 10,
+        maxRadius: Math.min(width, height) * 0.32,
+        alpha: 0.9,
+        color: intensity > 1.2 ? '#FFFFFF' : '#F5FF00',
+      });
+
+      // Screen flash
+      setFlashIntensity(Math.min(1, 0.4 * intensity));
+      setTimeout(() => setFlashIntensity(0), 75);
+    };
+
+    // Initial strike immediately
+    triggerStrike(1.2);
 
     const render = () => {
-      time += 0.025;
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.08;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.08;
-
       ctx.clearRect(0, 0, width, height);
+      const now = Date.now();
 
-      const centerX = width / 2 + mouseRef.current.x;
-      const topY = height * 0.08 + mouseRef.current.y * 0.4;
-      const bottomY = height * 0.78 + mouseRef.current.y * 0.4;
-      const funnelHeight = bottomY - topY;
-
-      // 1. Draw Tornado Core Volumetric Glow
-      const coreGrad = ctx.createRadialGradient(
-        centerX,
-        topY + funnelHeight * 0.42,
-        15,
-        centerX,
-        topY + funnelHeight * 0.42,
-        200
-      );
-      coreGrad.addColorStop(0, 'rgba(56, 189, 248, 0.32)');
-      coreGrad.addColorStop(0.45, 'rgba(186, 230, 253, 0.16)');
-      coreGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-      ctx.fillStyle = coreGrad;
-      ctx.beginPath();
-      ctx.arc(centerX, topY + funnelHeight * 0.42, 200, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 2. Swirling 3D Wind Filaments / Helical Ribbons
-      const minRadius = 16;
-      const maxRadius = 175;
-      const ribbonCount = 6;
-
-      for (let r = 0; r < ribbonCount; r++) {
-        ctx.beginPath();
-        const ribbonOffset = (r / ribbonCount) * Math.PI * 2 + time * 1.9;
-        let firstPoint = true;
-
-        for (let step = 0; step <= 45; step++) {
-          const t = step / 45; // 0 = bottom, 1 = top
-          const curY = bottomY - t * funnelHeight;
-          const curR = minRadius + Math.pow(t, 1.32) * (maxRadius - minRadius);
-          const angle = ribbonOffset + t * Math.PI * 7.2;
-
-          const px3D = Math.cos(angle) * curR;
-          const pz3D = Math.sin(angle) * curR;
-          const tiltFactor = 0.28;
-          const scrX = centerX + px3D;
-          const scrY = curY + pz3D * tiltFactor;
-
-          if (firstPoint) {
-            ctx.moveTo(scrX, scrY);
-            firstPoint = false;
-          } else {
-            ctx.lineTo(scrX, scrY);
-          }
-        }
-
-        const alphaRibbon = r % 2 === 0 ? 0.35 : 0.22;
-        ctx.strokeStyle = r % 3 === 0 
-          ? `rgba(6, 182, 212, ${alphaRibbon})` 
-          : r % 3 === 1 
-          ? `rgba(255, 255, 255, ${alphaRibbon * 1.3})`
-          : `rgba(99, 102, 241, ${alphaRibbon})`;
-        ctx.lineWidth = 1.6;
-        ctx.stroke();
+      // Periodic thunder strikes
+      if (now - lastBoltTime > 180 + Math.random() * 220) {
+        lastBoltTime = now;
+        triggerStrike(0.9 + Math.random() * 0.6);
       }
 
-      // 3. Electric Lightning Filaments (VFX Pro spark arcs inside funnel)
-      if (Math.random() < 0.28) {
-        const boltSteps = 6;
-        let boltX = centerX + (Math.random() - 0.5) * 40;
-        let boltY = topY + funnelHeight * (0.2 + Math.random() * 0.35);
+      // Draw shockwaves
+      for (let i = shockwaves.length - 1; i >= 0; i--) {
+        const sw = shockwaves[i];
+        sw.radius += (sw.maxRadius - sw.radius) * 0.12 + 2;
+        sw.alpha *= 0.88;
 
-        ctx.beginPath();
-        ctx.moveTo(boltX, boltY);
-        for (let b = 0; b < boltSteps; b++) {
-          boltX += (Math.random() - 0.5) * 26;
-          boltY += 14 + Math.random() * 12;
-          ctx.lineTo(boltX, boltY);
-        }
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-        ctx.lineWidth = 1.8;
-        ctx.shadowColor = '#38BDF8';
-        ctx.shadowBlur = 10;
-        ctx.stroke();
-        ctx.shadowBlur = 0; // reset
-      }
-
-      // 4. Render 3D Tornado Particles with Angular Velocity & Depth Occlusion
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-
-        p.y += p.speed;
-        if (p.y > 1) {
-          p.y = 0;
-          p.angle = Math.random() * Math.PI * 2;
-        }
-
-        const radiusT = Math.pow(p.y, 1.32);
-        const currentRadius = (minRadius + radiusT * (maxRadius - minRadius)) * p.radiusNoise;
-        const currentRotSpeed = p.rotSpeed * (1.85 - p.y * 0.95);
-        p.angle += currentRotSpeed;
-
-        const x3d = Math.cos(p.angle) * currentRadius;
-        const z3d = Math.sin(p.angle) * currentRadius;
-        const yPos = bottomY - p.y * funnelHeight;
-
-        const tiltFactor = 0.32;
-        const screenX = centerX + x3d;
-        const screenY = yPos + z3d * tiltFactor;
-
-        const depthNorm = (z3d / maxRadius + 1) / 2; // 0 (back) to 1 (front)
-        const effectiveSize = p.size * (0.65 + depthNorm * 0.7);
-        const effectiveAlpha = p.alpha * (0.25 + depthNorm * 0.75);
-
-        // Motion trail streak
-        if (p.prevX !== undefined && p.prevY !== undefined) {
-          ctx.beginPath();
-          ctx.moveTo(p.prevX, p.prevY);
-          ctx.lineTo(screenX, screenY);
-          ctx.strokeStyle = `${colors[p.colorType]}${effectiveAlpha * 0.85})`;
-          ctx.lineWidth = effectiveSize * 0.85;
-          ctx.lineCap = 'round';
-          ctx.stroke();
-        }
-
-        // Particle head
-        ctx.beginPath();
-        ctx.arc(screenX, screenY, effectiveSize, 0, Math.PI * 2);
-        ctx.fillStyle = `${colors[p.colorType]}${effectiveAlpha})`;
-        ctx.fill();
-
-        p.prevX = screenX;
-        p.prevY = screenY;
-      }
-
-      // 5. Render Shockwave Impact Rings
-      for (let s = shockwavesRef.current.length - 1; s >= 0; s--) {
-        const sw = shockwavesRef.current[s];
-        sw.radius += 3.8;
-        sw.alpha *= 0.94;
-
-        if (sw.radius >= sw.maxRadius || sw.alpha <= 0.02) {
-          shockwavesRef.current.splice(s, 1);
+        if (sw.alpha < 0.02 || sw.radius >= sw.maxRadius) {
+          shockwaves.splice(i, 1);
           continue;
         }
 
@@ -473,30 +289,88 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
         ctx.beginPath();
         ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
         ctx.strokeStyle = sw.color;
-        ctx.globalAlpha = sw.alpha;
-        ctx.lineWidth = sw.lineWidth;
+        ctx.globalAlpha = sw.alpha * 0.7;
+        ctx.lineWidth = 2;
         ctx.stroke();
         ctx.restore();
       }
 
-      // 6. Render Impact Sparks
-      for (let k = sparksRef.current.length - 1; k >= 0; k--) {
-        const sp = sparksRef.current[k];
-        sp.x += sp.vx;
-        sp.y += sp.vy;
-        sp.vy += 0.22; // gravity
-        sp.alpha *= 0.93;
+      // Draw lightning bolts (Multi-pass glow)
+      for (let b = activeBolts.length - 1; b >= 0; b--) {
+        const bolt = activeBolts[b];
+        bolt.life--;
 
-        if (sp.alpha <= 0.03) {
-          sparksRef.current.splice(k, 1);
+        if (bolt.life <= 0 || bolt.points.length < 2) {
+          activeBolts.splice(b, 1);
           continue;
         }
 
+        const opacity = bolt.life / 7;
+
+        // Pass 1: Neon outer energy glow
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+        for (let p = 1; p < bolt.points.length; p++) {
+          ctx.lineTo(bolt.points[p].x, bolt.points[p].y);
+        }
+        ctx.strokeStyle = bolt.color;
+        ctx.lineWidth = bolt.width * 3.5;
+        ctx.globalAlpha = opacity * 0.35;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'miter';
+        ctx.stroke();
+        ctx.restore();
+
+        // Pass 2: Main electric channel
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+        for (let p = 1; p < bolt.points.length; p++) {
+          ctx.lineTo(bolt.points[p].x, bolt.points[p].y);
+        }
+        ctx.strokeStyle = bolt.color;
+        ctx.lineWidth = bolt.width;
+        ctx.globalAlpha = opacity * 0.85;
+        ctx.stroke();
+        ctx.restore();
+
+        // Pass 3: Blinding pure white core
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
+        for (let p = 1; p < bolt.points.length; p++) {
+          ctx.lineTo(bolt.points[p].x, bolt.points[p].y);
+        }
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = Math.max(1, bolt.width * 0.4);
+        ctx.globalAlpha = opacity;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Draw kinetic sparks
+      for (let s = sparks.length - 1; s >= 0; s--) {
+        const sp = sparks[s];
+        sp.life++;
+        sp.x += sp.vx;
+        sp.y += sp.vy;
+        sp.vx *= 0.94;
+        sp.vy *= 0.94;
+
+        if (sp.life >= sp.maxLife) {
+          sparks.splice(s, 1);
+          continue;
+        }
+
+        const sparkAlpha = 1 - sp.life / sp.maxLife;
         ctx.save();
         ctx.beginPath();
         ctx.arc(sp.x, sp.y, sp.size, 0, Math.PI * 2);
         ctx.fillStyle = sp.color;
-        ctx.globalAlpha = sp.alpha;
+        ctx.globalAlpha = sparkAlpha;
+        ctx.shadowColor = sp.color;
+        ctx.shadowBlur = 6;
         ctx.fill();
         ctx.restore();
       }
@@ -513,121 +387,72 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
   }, []);
 
   return (
-    <div className={`hf-sky-loader ${isExiting ? 'hf-sky-exit' : ''}`}>
-      {/* Daylight Sky Atmosphere Backdrop */}
-      <div className="hf-sky-backdrop">
-        <div className="hf-sun-radiance" />
-        <div className="hf-light-beam" />
-        <div className="hf-cloud-layer hf-cloud-1" />
-        <div className="hf-cloud-layer hf-cloud-2" />
-        <div className="hf-cloud-layer hf-cloud-3" />
-        <div className="hf-wind-wisps" />
-      </div>
+    <div className={`hf-thunder-loader ${isExiting ? 'hf-thunder-exit' : ''}`}>
+      {/* Background Ambience & Cyber Grid */}
+      <div className="hf-thunder-backdrop" />
+      <div className="hf-cyber-grid" />
+      <div 
+        className="hf-thunder-flash" 
+        style={{ opacity: flashIntensity }} 
+      />
 
-      {/* Top Controls: Skip Button */}
-      <div className="hf-sky-top-bar">
-        <button type="button" onClick={finish} className="hf-sky-skip-btn" aria-label="Skip intro animation">
+      {/* Top Bar: Skip Button */}
+      <div className="hf-thunder-top-bar">
+        <button 
+          type="button" 
+          onClick={finish} 
+          className="hf-thunder-skip-btn" 
+          aria-label="Skip intro animation"
+        >
           <span>Skip</span>
-          <span className="hf-sky-kbd">ESC</span>
+          <span className="hf-thunder-kbd">ESC</span>
         </button>
       </div>
 
-      {/* Main 3D Choreography Stage */}
-      <div className={`hf-sky-stage ${screenShake > 0 ? `hf-shake-active-${screenShake}` : ''}`}>
+      {/* Canvas for Lightning Bolts & Particle Arcs */}
+      <canvas ref={canvasRef} className="hf-thunder-canvas" />
+
+      {/* Center Stage: Emblem & Brand Title */}
+      <div className="hf-thunder-stage">
         
-        {/* 3D Cyclone Funnel Arena */}
-        <div className="hf-tornado-wrapper">
-          {/* 3D Kinetic Vortex Gyro Rings */}
-          <div className="hf-vortex-rings-3d">
-            <div className="hf-vortex-ring ring-crown" />
-            <div className="hf-vortex-ring ring-upper" />
-            <div className="hf-vortex-ring ring-mid" />
-            <div className="hf-vortex-ring ring-throat" />
-            <div className="hf-vortex-ring ring-base" />
-            <div className="hf-vortex-eye-pulsar" />
+        {/* Core Electric Emblem */}
+        <div className={`hf-emblem-container ${isCharged ? 'hf-emblem-supercharged' : ''}`}>
+          <div className="hf-emblem-pulse-ring" />
+          <div className="hf-emblem-pulse-ring ring-outer" />
+          <div className="hf-emblem-box">
+            <span className="hf-emblem-glyph">H</span>
+            <div className="hf-emblem-arc-glow" />
           </div>
-
-          {/* 3D Orbiting Word Tokens Swirling inside the Funnel */}
-          <div className="hf-funnel-word-stream">
-            {hireStage === 'vortex' && (
-              <div className="hf-cyclone-word token-hire">
-                <span className="hf-vortex-letter-glow">HIRE</span>
-                <div className="hf-word-vortex-tail" />
-              </div>
-            )}
-            {flowStage === 'vortex' && (
-              <div className="hf-cyclone-word token-flow">
-                <span className="hf-vortex-letter-glow">FLO</span>
-                <div className="hf-word-vortex-tail" />
-              </div>
-            )}
-            {aiStage === 'vortex' && (
-              <div className="hf-cyclone-word token-ai">
-                <span className="hf-vortex-letter-glow">AI</span>
-                <div className="hf-word-vortex-tail tail-ai" />
-              </div>
-            )}
-          </div>
-
-          {/* High-Performance 3D Tornado Canvas */}
-          <canvas ref={canvasRef} className="hf-tornado-canvas" />
         </div>
 
-        {/* 3D Word Landing Ground Zone */}
-        <div className="hf-brand-emblem-zone">
-          <div className={`hf-brand-badge-pill ${grandLockup ? 'hf-badge-ignited' : ''}`}>
-            <span className="hf-spark-icon">✦</span>
-            <span>NEXT-GEN CAREER INTELLIGENCE</span>
+        {/* High-Tech Brand Lockup */}
+        <div className="hf-brand-title-wrap">
+          <h1 className="hf-brand-title">
+            HIRE<span className="text-volt">FLOO</span>
+          </h1>
+          <div className="hf-brand-badge">
+            <span className="hf-badge-bolt">⚡</span>
+            <span>HIGH-VOLTAGE ATS & CAREER INTELLIGENCE</span>
           </div>
-
-          {/* Word Landing Runway: Words Fall from Tornado One After Another */}
-          <div className="hf-brand-name-group">
-            
-            {/* WORD 1: HIRE */}
-            <div className={`hf-word-capsule slot-hire ${hireStage}`}>
-              <span className="hf-brand-title-text hf-text-hire">Hire</span>
-              {hireStage === 'landed' && <div className="hf-word-impact-flare" />}
-            </div>
-
-            {/* WORD 2: FLO */}
-            <div className={`hf-word-capsule slot-flow ${flowStage}`}>
-              <span className="hf-brand-title-text hf-title-accent">Flo</span>
-              {flowStage === 'landed' && <div className="hf-word-impact-flare flare-cyan" />}
-            </div>
-
-            {/* WORD 3: AI CHIP */}
-            <div className={`hf-word-capsule slot-ai ${aiStage}`}>
-              <span className="hf-brand-ai-chip">AI</span>
-              {aiStage === 'landed' && <div className="hf-word-impact-flare flare-indigo" />}
-            </div>
-
-          </div>
-
-          {/* Grand Shimmer Sweep across the Unified Brand Lockup */}
-          {grandLockup && <div className="hf-grand-sheen-sweep" />}
-
-          <p className={`hf-brand-tagline ${grandLockup ? 'hf-tagline-visible' : ''}`}>
-            Empowering modern candidates with real-time enterprise ATS simulation
-          </p>
         </div>
 
-        {/* Floating Glassmorphic Progress Console */}
-        <div className="hf-sky-console">
+        {/* Console Telemetry & Neon Meter */}
+        <div className="hf-console-wrap">
           <div className="hf-console-bar-track">
             <div 
               className="hf-console-bar-fill" 
               style={{ width: `${Math.min(100, progress)}%` }}
             >
-              <div className="hf-console-shimmer" />
+              <div className="hf-console-bar-head" />
             </div>
           </div>
 
-          <div className="hf-console-meta">
-            <div className="hf-status-indicator">
-              <span className="hf-status-dot" />
-              <span className="hf-status-text">{statusText}</span>
+          <div className="hf-console-telemetry">
+            <div className="hf-telemetry-left">
+              <span className="hf-telemetry-beacon" />
+              <span className="hf-telemetry-text">{statusText}</span>
             </div>
-            <span className="hf-percent-counter">{Math.floor(progress)}%</span>
+            <span className="hf-telemetry-percent">{Math.floor(progress)}%</span>
           </div>
         </div>
 

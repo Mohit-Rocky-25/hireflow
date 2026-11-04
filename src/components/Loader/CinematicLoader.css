@@ -1,9 +1,10 @@
 /* ============================================================
-   HireFlow AI — Cinematic High-Contrast Dark System Loader
-   Pure Black (#000000) Canvas with Neon Volt (#faff69)
+   HireFloo AI — High-Tech Classic Thunder & Lightning Loader
+   Pure Obsidian Black (#050508) with Electric Neon Volt (#F5FF00)
+   Optimized for all mobile phones, tablets, and high-DPI displays
    ============================================================ */
 
-.hf-sky-loader {
+.hf-thunder-loader {
   position: fixed;
   inset: 0;
   z-index: 999999;
@@ -11,172 +12,349 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
+  background-color: #050508;
   color: #ffffff;
   overflow: hidden;
   user-select: none;
   touch-action: none;
-  font-family: var(--font-sans, 'Inter', sans-serif);
-  transition: opacity 0.4s ease-out;
+  font-family: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-.hf-sky-exit {
+.hf-thunder-exit {
   opacity: 0;
+  transform: scale(1.04);
   pointer-events: none;
 }
 
-.hf-sky-backdrop {
+/* Background Cyber Grid & Vignette */
+.hf-thunder-backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-color: #000000;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 20, 30, 0.6) 0%, #050508 75%);
 }
 
-.hf-sun-radiance,
-.hf-light-beam,
-.hf-cloud-layer,
-.hf-wind-wisps {
-  display: none;
-}
-
-/* Top Bar & Skip Button */
-.hf-sky-top-bar {
+.hf-cyber-grid {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+}
+
+.hf-thunder-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: rgba(245, 255, 0, 0.16);
+  mix-blend-mode: screen;
+  transition: opacity 0.08s ease-out;
+  z-index: 5;
+}
+
+/* Lightning Canvas Layer */
+.hf-thunder-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Top Navigation Bar: Skip Button */
+.hf-thunder-top-bar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   z-index: 50;
 }
 
-.hf-sky-skip-btn {
+.hf-thunder-skip-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  color: #a0a0a0;
-  background: #141414;
-  border: 1px solid rgba(65, 65, 65, 0.8);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: color 150ms ease-out, border-color 150ms ease-out;
-}
-
-.hf-sky-skip-btn:hover {
-  color: #faff69;
-  border-color: #faff69;
-}
-
-.hf-sky-skip-btn:active {
-  color: #f4f692;
-  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.5) inset;
-}
-
-.hf-sky-kbd {
-  font-family: var(--font-mono, 'Inconsolata', monospace);
+  padding: 6px 14px;
   font-size: 11px;
-  color: #faff69;
+  font-weight: 700;
+  font-family: var(--font-mono, 'Inconsolata', monospace);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #888888;
+  background: rgba(15, 15, 20, 0.85);
+  border: 1px solid rgba(70, 70, 70, 0.7);
+  border-radius: 9999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 150ms ease-out;
+}
+
+.hf-thunder-skip-btn:hover {
+  color: #F5FF00;
+  border-color: #F5FF00;
+  background: rgba(245, 255, 0, 0.08);
+  box-shadow: 0 0 16px rgba(245, 255, 0, 0.25);
+}
+
+.hf-thunder-kbd {
+  font-size: 10px;
+  color: #F5FF00;
   background: #000000;
-  border: 1px solid rgba(65, 65, 65, 0.8);
-  padding: 2px 6px;
+  border: 1px solid rgba(245, 255, 0, 0.4);
+  padding: 1px 5px;
   border-radius: 4px;
 }
 
-/* Stage */
-.hf-sky-stage {
+/* Center Stage */
+.hf-thunder-stage {
   position: relative;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 900px;
+  max-width: 520px;
   width: 100%;
-  padding: 24px;
-}
-
-.hf-tornado-wrapper {
-  position: relative;
-  width: 440px;
-  height: 260px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hf-tornado-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* Brand Display Title */
-.hf-brand-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 16px;
-  margin-bottom: 24px;
-}
-
-.hf-word-hire {
-  font-size: 64px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -0.03em;
-  font-family: var(--font-sans, 'Inter', sans-serif);
-}
-
-.hf-word-flow {
-  font-size: 64px;
-  font-weight: 900;
-  color: #faff69;
-  letter-spacing: -0.03em;
-  font-family: var(--font-sans, 'Inter', sans-serif);
-}
-
-/* Status & Thin Neon Progress Bar */
-.hf-sky-status-bar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 380px;
-}
-
-.hf-sky-status-text {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  color: #a0a0a0;
+  padding: 20px;
   text-align: center;
 }
 
-.hf-sky-progress-track {
+/* Electric Emblem */
+.hf-emblem-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.hf-emblem-pulse-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 24px;
+  border: 1px solid rgba(245, 255, 0, 0.35);
+  animation: hf-ring-pulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.hf-emblem-pulse-ring.ring-outer {
+  inset: -16px;
+  border-radius: 28px;
+  border-color: rgba(0, 240, 255, 0.2);
+  animation: hf-ring-pulse 2s infinite ease-out 0.5s;
+}
+
+@keyframes hf-ring-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+}
+
+.hf-emblem-box {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  background: #09090D;
+  border: 2px solid rgba(245, 255, 0, 0.6);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 20px rgba(245, 255, 0, 0.22),
+    0 0 40px rgba(245, 255, 0, 0.1) inset;
+  transition: all 0.2s ease-out;
+}
+
+.hf-emblem-supercharged .hf-emblem-box {
+  border-color: #F5FF00;
+  box-shadow: 
+    0 0 35px rgba(245, 255, 0, 0.6),
+    0 0 50px rgba(0, 240, 255, 0.3) inset;
+  transform: scale(1.04);
+}
+
+.hf-emblem-glyph {
+  font-size: 40px;
+  font-weight: 900;
+  color: #F5FF00;
+  font-family: var(--font-sans, sans-serif);
+  line-height: 1;
+  text-shadow: 0 0 15px rgba(245, 255, 0, 0.8);
+}
+
+/* Brand Lockup */
+.hf-brand-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.hf-brand-title {
+  font-size: clamp(38px, 8vw, 56px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  font-family: var(--font-sans, sans-serif);
+  text-transform: uppercase;
+}
+
+.hf-brand-title .text-volt {
+  color: #F5FF00;
+  text-shadow: 0 0 24px rgba(245, 255, 0, 0.5);
+}
+
+.hf-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(245, 255, 0, 0.08);
+  border: 1px solid rgba(245, 255, 0, 0.25);
+  font-size: clamp(10px, 2.5vw, 11px);
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  color: #E2F100;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.hf-badge-bolt {
+  color: #F5FF00;
+  font-size: 12px;
+  animation: hf-bolt-flicker 1.5s infinite;
+}
+
+@keyframes hf-bolt-flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+  75% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Progress Console */
+.hf-console-wrap {
   width: 100%;
-  height: 3px;
-  background: #141414;
-  border: 1px solid rgba(65, 65, 65, 0.8);
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hf-console-bar-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(25, 25, 35, 0.8);
   border-radius: 4px;
   overflow: hidden;
+  border: 1px solid rgba(60, 60, 70, 0.4);
 }
 
-.hf-sky-progress-fill {
+.hf-console-bar-fill {
+  position: relative;
   height: 100%;
-  background: #faff69;
-  transition: width 0.2s ease-out;
+  background: linear-gradient(90deg, #00F0FF, #F5FF00);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(245, 255, 0, 0.8);
+  transition: width 0.12s linear;
 }
 
-.hf-sky-progress-pct {
-  font-family: var(--font-mono, 'Inconsolata', monospace);
-  font-size: 13px;
+.hf-console-bar-head {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+}
+
+.hf-console-telemetry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+.hf-telemetry-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hf-telemetry-beacon {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #F5FF00;
+  box-shadow: 0 0 8px #F5FF00;
+  animation: hf-beacon-blink 0.8s infinite alternate;
+}
+
+@keyframes hf-beacon-blink {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+.hf-telemetry-text {
+  color: #999999;
+  letter-spacing: 0.5px;
   font-weight: 600;
-  color: #faff69;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hf-telemetry-percent {
+  color: #F5FF00;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+  .hf-thunder-stage {
+    padding: 16px;
+  }
+  .hf-emblem-container {
+    width: 74px;
+    height: 74px;
+    margin-bottom: 18px;
+  }
+  .hf-emblem-box {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+  }
+  .hf-emblem-glyph {
+    font-size: 32px;
+  }
+  .hf-console-wrap {
+    max-width: 320px;
+  }
 }
