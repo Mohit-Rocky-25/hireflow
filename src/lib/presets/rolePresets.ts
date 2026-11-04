@@ -87,7 +87,7 @@ export function buildRequirementsFromPreset(preset: RolePresetFamily): {
 
   return {
     requirements,
-    baselineLabel: `HireFlow Fresher Baseline: ${preset.title}`,
+    baselineLabel: `HireFloo Fresher Baseline: ${preset.title}`,
   };
 }
 

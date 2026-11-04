@@ -33,7 +33,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
   const lines: string[] = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//HireFlo//Career Toolkit//EN',
+    'PRODID:-//HireFloo//Career Toolkit//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
   ];
@@ -42,7 +42,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
   const addEvent = (summary: string, dateStr: string, desc: string, uidSuffix: string) => {
     const icsDate = formatDateToICS(dateStr);
     lines.push('BEGIN:VEVENT');
-    lines.push(`UID:${cleanSlug}-${uidSuffix}-${icsDate}@hireflo.dev`);
+    lines.push(`UID:${cleanSlug}-${uidSuffix}-${icsDate}@hirefloo.dev`);
     lines.push(`DTSTAMP:${now}`);
     lines.push(`DTSTART;VALUE=DATE:${icsDate}`);
     lines.push(`SUMMARY:${summary}`);
@@ -56,7 +56,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
   addEvent(
     `🎯 ${config.examName} Examination`,
     config.examDate,
-    `${config.description || 'Target examination date.'}\\nOrganized via HireFlo Career Engine.`,
+    `${config.description || 'Target examination date.'}\\nOrganized via HireFloo Career Engine.`,
     'exam'
   );
 

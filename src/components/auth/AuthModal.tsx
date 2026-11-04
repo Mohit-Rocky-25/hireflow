@@ -1,5 +1,5 @@
 // ============================================================
-// HireFlow — High-Classic Luxury Executive Auth Modal
+// HireFloo — High-Classic Luxury Executive Auth Modal
 // Ultra-Refined Obsidian Theme with Total Google Auth Setup
 // ============================================================
 
@@ -71,7 +71,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
         await autoSyncManager.pullFromCloud(user.id);
         autoSyncManager.scheduleSync(300);
 
-        toast('success', `Welcome to HireFlow, ${fullName}! Auto-sync is active.`);
+        toast('success', `Welcome to HireFloo, ${fullName}! Auto-sync is active.`);
         onClose();
       } else {
         await cloudAuth.signIn(email, password);
@@ -156,7 +156,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
       const user = register(
         {
           displayName: 'Mohit Yadav (Executive Demo)',
-          email: 'mohit.yadav@hireflow.ai',
+          email: 'mohit.yadav@hirefloo.ai',
           role: 'CANDIDATE',
           avatarUrl: '',
         },
@@ -190,7 +190,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
               <span>Executive Career Suite</span>
             </div>
             <h2 className="text-xl font-black font-sans uppercase tracking-tight text-white flex items-center gap-2">
-              {mode === 'signin' ? 'Sign In to HireFlow' : 'Create Free Account'}
+              {mode === 'signin' ? 'Sign In to HireFloo' : 'Create Free Account'}
             </h2>
             <p className="text-xs font-mono text-neutral-400 mt-1">
               {mode === 'signin'

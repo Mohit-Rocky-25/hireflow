@@ -499,7 +499,7 @@ export function LandingPage() {
                 H
               </div>
               <span className="text-[18px] font-black text-white tracking-tight font-sans">
-                HIRE<span className="text-volt">FLOW</span>
+                HIRE<span className="text-volt">FLOO</span>
               </span>
             </div>
 
@@ -512,7 +512,7 @@ export function LandingPage() {
             </div>
 
             <p className="text-[13px] text-silver/60">
-              © 2026 HireFlo. Client-side career intelligence.
+              © 2026 HireFloo. Client-side career intelligence.
             </p>
           </div>
         </div>

@@ -1051,7 +1051,7 @@ export function analyzeRoleMatch(
           suggestedAction: 'Upload or paste an authentic technical resume containing your educational qualifications, project portfolio, and technical skills.',
           hypotheticalScoreGain: 'Enables calibrated readiness scoring and personalized gap analysis',
           bulletTemplate: 'Education: [Degree] from [Institution] | Technical Skills: [Languages, Frameworks] | Projects: [Title, Tools, Scale]',
-          resources: ['Use HireFlo Verified Engineering Sample Resume', 'Google XYZ Resume Formula Guide'],
+          resources: ['Use HireFloo Verified Engineering Sample Resume', 'Google XYZ Resume Formula Guide'],
         },
       ],
       marketIntel: {

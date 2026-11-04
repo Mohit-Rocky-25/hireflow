@@ -1,6 +1,6 @@
 import { PLATFORM_DATA_META } from '../../data/meta';
 // ============================================================
-// HireFlow — Executive Suite & Candidate Intelligence Login Page
+// HireFloo — Executive Suite & Candidate Intelligence Login Page
 // High-Classic, Luxury Dark Obsidian Theme with Total Google Auth
 // ============================================================
 
@@ -78,7 +78,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
         await autoSyncManager.pullFromCloud(user.id);
         autoSyncManager.scheduleSync(300);
 
-        toast('success', `Welcome to HireFlo, ${fullName}! Cloud auto-sync is active.`);
+        toast('success', `Welcome to HireFloo, ${fullName}! Cloud auto-sync is active.`);
         navigate(redirectTo);
       } else {
         await cloudAuth.signIn(email, password);
@@ -164,7 +164,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
       const user = register(
         {
           displayName: 'Mohit Yadav (Executive Demo)',
-          email: 'mohit.yadav@hireflo.ai',
+          email: 'mohit.yadav@hirefloo.ai',
           role: 'CANDIDATE',
           avatarUrl: '',
         },
@@ -209,7 +209,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
               H
             </div>
             <span className="text-lg font-black text-white tracking-tight">
-              HIRE<span className="text-volt">FLOW</span>
+              HIRE<span className="text-volt">FLOO</span>
             </span>
           </Link>
         </div>
@@ -243,7 +243,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase">
-                  {mode === 'signin' ? 'Sign In to HireFlo' : 'Create Local Profile'}
+                  {mode === 'signin' ? 'Sign In to HireFloo' : 'Create Local Profile'}
                 </h1>
 
                 <p className="text-xs font-mono text-neutral-400 leading-relaxed max-w-xs mx-auto">
@@ -456,9 +456,9 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-sm font-bold text-white">Choose an account to continue to HireFlo</h3>
+              <h3 className="text-sm font-bold text-white">Choose an account to continue to HireFloo</h3>
               <p className="text-[11px] font-mono text-neutral-400">
-                Secure OAuth authentication token signed for HireFlow Suite.
+                Secure OAuth authentication token signed for HireFloo Suite.
               </p>
             </div>
 
@@ -523,7 +523,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
 
       {/* Footer */}
       <footer className="relative z-10 w-full px-4 sm:px-8 py-5 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-neutral-500">
-        <div>&copy; {new Date().getFullYear()} HireFlo Platform Engineering. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} HireFloo Platform Engineering. All rights reserved.</div>
         <div className="flex items-center gap-4">
           <Link to="/methodology" className="hover:text-white transition-colors">
             Methodology

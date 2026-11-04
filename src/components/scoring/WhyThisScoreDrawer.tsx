@@ -60,7 +60,7 @@ export const WhyThisScoreDrawer: React.FC<WhyThisScoreDrawerProps> = ({
       ? 'ATS Resume Roaster — Resume Match Estimate'
       : trace.tool === 'talentlens'
       ? 'TalentLens — Market Readiness Estimate'
-      : 'HireFlo Simulation Engine');
+      : 'HireFloo Simulation Engine');
 
   const handleGenerateReport = (e: React.FormEvent) => {
     e.preventDefault();
