@@ -57,5 +57,10 @@ data/calibration/real/*
 
 # Companies 100 Evidence Cache (Raw fetched HTML/text)
 .evidence-cache/
+.chrome-test-profile/
+.refactor-nav/
+.screenshots/
+_quarantine/
+scratch/
 
 

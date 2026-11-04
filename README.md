@@ -1,109 +1,227 @@
-# HireFlow v3
+# HireFloo AI — Candidate Career & ATS Intelligence Suite
 
-HireFlow is a privacy-first, client-side career toolkit engineered for Indian engineering freshers and early-career software developers (Vite + React 19 + TypeScript + Tailwind CSS + Zustand).
+> **The Candidate-First AI Career Super-Platform.**  
+> *Deterministic ATS resume evaluation, zero-hallucination tailoring, career trajectories, verified build briefs, and company intelligence.*
 
-All processing occurs 100% locally in your browser. Your resume text, projects, and personal data never leave your device.
-
----
-
-## In-Scope Candidate Tools
-
-1. **ATS Resume Roaster (`/tools/resume-checker`)**
-   - Pure, deterministic Resume Strength evaluation across Hard Skills, Writing & Evidence, Fresher Readiness, and Format Safety.
-   - Verbatim resume citations with span highlighting and evidence levels ($L0$ listed through $L3$ measured outcome).
-   - Actionable feedback highlighting missing metrics, weak openers, and fluff words.
-
-2. **JD Compare (`/tools/jd-compare`)**
-   - Side-by-side comparison of two or more target Job Descriptions.
-   - Match Confidence evaluation (High / Medium / Low) based on direct evidence ratio.
-   - Architectural divergence analysis isolating shared core skills vs. role-specific requirements.
-   - Actionable 3-step bridge plan linking skill gaps directly to Project Build Briefs.
-
-3. **Tailor My Resume (`/tools/tailor`)**
-   - Non-destructive Resume Fact Ledger v2 editor.
-   - Truth Gate verification: never invents facts, upgrades claim verbs, or fabricates unearned credentials.
-   - Content-parity export supporting HTML preview, plain text, and `.docx` download.
-
-4. **Credential & Opportunity Engine (`/tools/credential-engine`)**
-   - Verified catalog of certifications, hackathons, and open-source programs for Indian students.
-   - Data freshness indicators (`getFreshness`) with direct source links and annual fee change notices.
-   - Safe copy locks preventing placeholder bullet claims until credentials are confirmed.
-
-5. **Project Build Briefs (`/tools/build-briefs`)**
-   - Full-stack and systems project specifications designed to close technical skill gaps.
-   - Deliverables with test commands, estimated hour ranges (+/-25%), and interview talking points.
-   - Suggested bundle generator using greedy set-cover to target multiple gaps simultaneously.
-
-6. **Career Trajectory (`/tools/career-path`)**
-   - Level ladders and compensation benchmarks for the Indian tech market (formatted in LPA and INR).
-   - 2-year fresher timeline focusing on practical engineering milestones.
-   - WCAG 2.1 AA accessible dark-theme charts and level progression trees.
-
-7. **TalentLens (`/tools/talent-lens`)**
-   - Deep company profiles, interview stage breakdowns, and role requirements for 100+ employers.
-   - Runtime provenance badges on company records with explicit verification dates and sources.
-   - Transparent disclosure on compiled role summaries.
-
-8. **Reach Out (`/tools/reach-out`)**
-   - Deterministic message generator for LinkedIn connection requests (strictly under 300 characters), cold emails, and referral inquiries.
-   - `[FILL_IN]` placeholders for missing facts with zero fabricated details.
+[![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-5.0-729B1B?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-10B981)](#security-privacy--zero-egress)
+[![Truth Gate](https://img.shields.io/badge/Integrity-Zero%20Hallucination-F59E0B)](#the-truth-gate-standard)
 
 ---
 
-## How Scores Work (And What They Do Not Mean)
+## Executive Summary
 
-> [!IMPORTANT]
-> **Resume Strength and JD Match are HireFlow's own automated estimates of resume quality and job alignment.**
-> Different companies use different hiring processes, custom parsers, and manual recruiter reviews. Humans make final hiring decisions. HireFlow makes **no claim** of predicting automated company rejection rates, and does not claim any fixed auto-rejection statistics.
+**HireFloo** is a client-side career intelligence platform and deterministic Applicant Tracking System (ATS) evaluation engine. Unlike standard generative "AI resume builders" that hallucinate fake metrics, invent unearned technologies, and degrade candidate credibility, HireFloo enforces mathematical evidence, verifiable factual integrity, and 100% client-side privacy.
 
----
-
-## Data Provenance Policy
-
-Every factual record in HireFlow's datasets carries explicit provenance fields (Principle P-6):
-- `source`: Primary origin of the information (e.g., official docs, campus placement cells).
-- `sourceUrl`: Web address of the primary source (when publicly accessible).
-- `lastVerified`: ISO date string of the last manual audit.
-- `confidence`: High, Medium, or Low based on source credibility.
-- `status`: Verified, Needs-Recheck, or Unverified.
+All parsing, evaluation, scoring, and document generation execute entirely in the candidate's browser sandbox. Your resume text, job descriptions, and personal notes **never leave your local machine**.
 
 ---
 
-## Known Limitations
+## Core Pillars & Prime Directives
 
-1. **Complex Layouts & Scanned PDFs:** HireFlow parses text layers directly in the browser via `pdfjs-dist`. Scanned, image-only PDFs without an embedded text layer cannot be read (OCR is not supported; paste text or upload `.docx`).
-2. **Indian Market Heuristics:** Fresher readiness thresholds (e.g., CGPA guidance, 10th/12th board visibility, single-page recommendations) are heuristic best-practices tailored for Indian engineering campus drives, not universal mandates.
-3. **Pure Client-Side Execution:** No multi-tenant backend server, cloud user accounts, or cross-device database synchronization exist. All data lives in local browser storage (`localStorage` / `IndexedDB`).
+1. **The Truth Gate Standard (Zero Hallucination)**:
+   Every metric, date, framework, or claim in a tailored resume must originate from the candidate's verified **Fact Ledger**. The engine strictly rejects invented achievements or unearned buzzwords.
+2. **100% Client-Side Privacy (Zero Egress)**:
+   Zero remote tracking, zero analytics beacons, zero server-side resume databases. Local browser storage (`localStorage` & `IndexedDB`) keeps candidate data safe.
+3. **Deterministic Evaluation**:
+   Given the same resume and job description, HireFloo's scoring mathematical engine produces the exact same calibrated scores, citations, and gap analyses every time.
+4. **Verifiable Data Provenance**:
+   Every salary benchmark, company interview loop, and curriculum credential carries provenance metadata: origin source, verification timestamp, and confidence rating.
 
 ---
 
-## Tech Stack & Architecture
+## The 9 Core Tools
 
-- **Framework**: React 19 + TypeScript (strict mode) + Vite
-- **Styling**: Tailwind CSS with dark theme tokens & scoped `@media print` A4 pagination
-- **State**: Zustand with typed schema migrations
-- **Parsers & Exporters**: `pdfjs-dist` (client-side text extraction), `pdf-lib` (pure-vector in-memory PDF synthesis), `mammoth` (DOCX extraction), `docx` (binary exporter)
-- **Validation**: Zod schema validation & Truth Gate invariants
-- **Evaluation Index**: Market Requirement & Value Index (MRVI) & Project Substance Index
-- **Testing**: Vitest (110 test files, 766 tests, zero flakiness)
+HireFloo delivers a unified decision suite accessible from the central **Tools Hub** (`/tools`):
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        HIREFLOO DECISION SUITE                         │
+├──────────────────────────┬──────────────────────────┬──────────────────┤
+│ 1. ATS Resume Roaster    │ 4. Project Build Briefs  │ 7. TalentLens    │
+│    (/tools/resume-checker)│    (/tools/build-briefs) │    (/demo)       │
+├──────────────────────────┼──────────────────────────┼──────────────────┤
+│ 2. Resume Tailor Studio  │ 5. Credential Engine     │ 8. Reach Out     │
+│    (/tools/tailor)       │    (/tools/credential)   │    (/tools/reach)│
+├──────────────────────────┼──────────────────────────┼──────────────────┤
+│ 3. Dual-Role JD Compare  │ 6. Career Trajectory     │ 9. Tools Hub     │
+│    (/tools/jd-compare)   │    (/tools/career-path)  │    (/tools)      │
+└──────────────────────────┴──────────────────────────┴──────────────────┘
+```
+
+### 1. ATS Resume Roaster (`/tools/resume-checker`)
+- **Deterministic 4-Pillar Rubric**: Evaluates resumes across *Hard Skills Alignment*, *Evidence & Impact*, *Fresher Readiness*, and *Format Safety*.
+- **Span-Level Citations**: Highlights verbatim text citations from the resume with calibrated evidence tiers ($L0$ ungrounded keyword through $L3$ quantified production outcome).
+- **Zero Buzzword Fluff**: Flags ambiguous claims, missing metrics, and weak action verbs with step-by-step rewrite suggestions.
+
+### 2. Resume Tailor Studio (`/tools/tailor`)
+- **Fact Ledger v2 Engine**: A structured, non-destructive candidate ledger that preserves your real experiences.
+- **Truth Gate Verification**: Synthesizes tailored bullet points while mathematically enforcing that no unearned technologies or inflated numbers are introduced.
+- **Multi-Format Export Parity**: Generates pixel-accurate HTML preview, clean plain-text ASCII, and true binary `.docx` Word documents.
+
+### 3. Dual-Role JD Comparison (`/tools/jd-compare`)
+- **Side-by-Side Architectural Analysis**: Compare two target Job Descriptions simultaneously.
+- **Skill Divergence Mapping**: Isolates common core competencies versus role-specific prerequisites.
+- **Actionable Gap Bridge**: Generates custom 3-step project learning paths to target missing requirements.
+
+### 4. Project Build Briefs & Set-Cover Bundler (`/tools/build-briefs`)
+- **83 Full-Scale Engineering Briefs**: Production-grade system specifications across 10 technical tracks (Distributed Systems, Cloud & DevOps, Data Engineering, FinTech, Systems/OS, etc.).
+- **Multi-Option Gap Coverage**: Suggests 3 to 4 distinct gap-closing projects so candidates can choose their preferred domain.
+- **Substance Checklists**: Complete with architectural constraints, verification commands, and real recruiter talking points.
+
+### 5. Credential & Opportunity Engine (`/tools/credential-engine`)
+- **Verified Opportunities**: 100+ accredited industry certifications, hackathons, and open-source fellowship roadmaps.
+- **India Fresher Playbooks**: Fee-waiver guides, application schedules, and eligibility checklists for tier-2/tier-3 engineering students.
+- **iCalendar (.ics) Sync**: One-click local calendar generation for application and examination deadlines.
+
+### 6. Career Trajectory & What-If Simulator (`/tools/career-path`)
+- **Compensation & Level Ladders**: Realistic Indian tech compensation benchmarks (LPA and INR) across 100+ verified companies.
+- **2-Year Engineering Milestones**: Structured fresher-to-SDE2 roadmap detailing expected technical autonomy and deliverables.
+- **What-If Career Simulator**: Interactive progression trees simulating promotion requirements and skill acquisition.
+
+### 7. TalentLens Company Intelligence (`/demo`)
+- **100+ Employer Profiles**: Deep hiring insights for top product companies, high-growth startups, and GCCs in India.
+- **Interview Stages & Hiring Bars**: Stage-by-stage interview breakdowns, DSA difficulty ratings, and evaluation criteria.
+- **Recruiter Perspective Simulation**: Dual-sided view revealing how hiring managers evaluate candidate profiles.
+
+### 8. Reach Out Cold Email & InMail Generator (`/tools/reach-out`)
+- **Concise Outreach**: Generates deterministic outreach notes for LinkedIn connection requests (strictly capped at 300 characters), cold emails, and referral inquiries.
+- **Honest Slot Resolution**: Uses explicit `[FILL_IN]` placeholders for missing facts without generating fake mutual connections.
+
+### 9. Central Tools Hub (`/tools`)
+- **Unified Launchpad**: Quick-action cards, live application status, local storage backup controls, and tool progress monitoring.
+
+---
+
+## Architecture & Technology Stack
+
+```
+HireFloo AI Architecture
+├── Client-Side Presentation
+│   ├── React 19 + TypeScript (Strict Mode)
+│   ├── Vite 8 Build System & HMR
+│   ├── Tailwind CSS v4 + Dark Luxury Design Tokens
+│   └── Lucide React + Recharts
+│
+├── Ingestion & Parser Pipelines
+│   ├── pdfjs-dist (Pure client-side PDF text-layer extraction)
+│   ├── mammoth (DOCX structure and typography extraction)
+│   ├── pdf-lib (Vector-accurate PDF synthesis)
+│   └── docx (Binary Word document compiler)
+│
+├── Evaluation & Reasoning Engine
+│   ├── Deterministic Scoring Rubrics (Zero-hallucination)
+│   ├── Mathematical Truth Gate & Fact Ledger Invariants
+│   ├── Zod v4 Runtime Schema Validation
+│   └── Greedy Set-Cover Project Matcher
+│
+└── Storage & Security Sandbox
+    ├── LocalStorage & IndexedDB Adapters
+    ├── Zero-Egress Network Isolation
+    └── Automated Pre-Commit Secret & Privacy Scanner
+```
+
+---
+
+## Repository Directory Topology
+
+```
+hireflow/
+├── .github/               # CI/CD workflows and automated quality checks
+├── .githooks/             # Pre-commit gates (secrets, typecheck, privacy)
+├── config/                # Platform limits, India market heuristics, constants
+├── data/                  # Standardized role taxonomies and skill registries
+├── docs/                  # Authoritative system specs and architecture guides
+│   ├── ats/               # ATS scoring models & construct validity
+│   ├── briefs/            # Engineering project brief catalog & DAG
+│   ├── careers/           # Career trajectory models & level maps
+│   ├── companies-100/     # 100-company hiring research & verification
+│   ├── scoring/           # Scoring specification & sensitivity models
+│   ├── security/          # Threat models, privacy audit & auth specs
+│   └── tailor/            # Resume tailor engine architecture & rules
+├── public/                # Static assets, Web App Manifest, download portal
+├── scripts/               # Build helpers, test runners, and taxonomy linters
+├── src/
+│   ├── components/        # Reusable UI components, modals, and navbar
+│   ├── config/            # Feature flags, scoring weights, wordlists
+│   ├── data/              # Live market datasets, company logos, curriculum
+│   ├── engine/            # Core matching, roaster, tailor & ledger engines
+│   ├── features/          # Modular feature domains (ATS, tailor, outreach)
+│   ├── lib/               # Storage adapters, parsers, and safe render utils
+│   ├── pages/             # Route views (Landing, ToolsHub, Roaster, Tailor)
+│   ├── scoring/           # Deterministic scoring specification & validators
+│   ├── store/             # Zustand state management stores
+│   └── styles/            # Tailwind theme tokens and print stylesheets
+└── tests/                 # Vitest test suites (Unit, Engine, Invariance)
+```
+
+---
+
+## Security, Privacy & Zero-Egress
+
+- **Zero Remote Tracking**: Completely free of Google Analytics, Mixpanel, Sentry, or third-party telemetry beacons.
+- **Zero Cloud Storage**: All candidate resumes, notes, and audit outputs remain strictly inside your browser's local memory.
+- **Automated Security Pre-Commit**: A multi-stage Git hook scans staged files on every commit to prevent sensitive key leakage and verify TypeScript compilation.
 
 ---
 
 ## Getting Started
 
+### Prerequisites
+- **Node.js**: `18.0.0` or higher
+- **npm**: `9.0.0` or higher
+
+### Installation & Launch
+
 ```powershell
-# Install dependencies
+# 1. Clone the repository
+git clone https://github.com/Mohit-Rocky-25/hireflow.git
+cd hireflow
+
+# 2. Install exact dependencies
 npm install
 
-# Start development server
+# 3. Start local development server
 npm run dev
-
-# Run full test suite
-npx vitest run
-
-# Validate dataset schemas & provenance
-npm run validate:data
-
-# Production build
-npm run build
 ```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## Quality Gates & Verification Commands
+
+```powershell
+# Run complete test suite
+npm run test
+
+# Run core evaluation & engine tests (289 tests)
+npm run test:engine
+
+# Run TypeScript compiler check (Zero-error gate)
+npm run typecheck
+
+# Run automated privacy and telemetry verification
+npm run privacy:check
+
+# Run full repository security audit
+npm run security:check
+
+# Production build compilation
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+---
+
+## License & Attribution
+
+- **Project**: HireFloo AI — Candidate Career & ATS Intelligence Suite
+- **Engineering**: Independent, privacy-first software system engineered for students and early-career developers.
+- **Trademarks**: All company names, logos, and trademarks referenced are the property of their respective owners and used solely for identification and educational reference.
