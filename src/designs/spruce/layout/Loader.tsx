@@ -36,10 +36,10 @@ export function Loader({ onFinish, isAppReady = true }: LoaderProps) {
   }, [isAppReady, onFinish]);
 
   const getStatusText = (pct: number) => {
-    if (pct < 30) return 'Initializing HireFloo career intelligence engine...';
+    if (pct < 30) return 'Initializing HireFlow career intelligence engine...';
     if (pct < 70) return 'Synchronizing role benchmarks & taxonomy gates...';
     if (pct < 95) return 'Calibrating deterministic placement models...';
-    return 'HireFloo Core Ready';
+    return 'HireFlow Core Ready';
   };
 
   return (
@@ -65,7 +65,7 @@ export function Loader({ onFinish, isAppReady = true }: LoaderProps) {
         {/* Wordmark */}
         <div className="sp-h3 flex items-center gap-1 font-bold">
           <span className="text-sp-ink">Hire</span>
-          <span className="text-sp-primary-text">Floo</span>
+          <span className="text-sp-primary-text">Flow</span>
         </div>
 
         {/* 4px Determinate Progress Bar */}

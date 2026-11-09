@@ -37,7 +37,7 @@ export function Footer() {
 
         {/* Bottom Disclosures & Copyright */}
         <div className="mt-8 pt-8 border-t border-sp-hairline flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sp-caption text-sp-muted">
-          <p>© {new Date().getFullYear()} HireFloo. Nominative Fair Use • Non-Affiliated.</p>
+          <p>© {new Date().getFullYear()} HireFlow. Nominative Fair Use • Non-Affiliated.</p>
           <p>Zero external egress • All analysis runs locally in your browser.</p>
         </div>
       </div>

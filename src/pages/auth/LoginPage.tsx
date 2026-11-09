@@ -1,5 +1,5 @@
 // ============================================================
-// HireFloo — Professional Candidate Intelligence Login Page
+// HireFlow — Professional Candidate Intelligence Login Page
 // Premium, production-grade Google Identity & Email Sign-In
 // ============================================================
 
@@ -73,7 +73,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
         await autoSyncManager.pullFromCloud(user.id);
         autoSyncManager.scheduleSync(300);
 
-        toast('success', `Welcome to HireFloo, ${fullName}! Your profile is ready.`);
+        toast('success', `Welcome to HireFlow, ${fullName}! Your profile is ready.`);
         navigate(redirectTo);
       } else {
         await cloudAuth.signIn(email, password);
@@ -182,7 +182,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
             <div className="w-7 h-7 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-white font-bold text-xs">
               H
             </div>
-            <span className="text-sm font-bold text-white tracking-tight">HireFloo</span>
+            <span className="text-sm font-bold text-white tracking-tight">HireFlow</span>
           </Link>
         </div>
 
@@ -229,7 +229,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
                   <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z" />
                 </svg>
                 <h3 className="text-base font-semibold text-white">Sign in with Google</h3>
-                <p className="text-xs text-neutral-400 mt-0.5">Choose an account to continue to HireFloo</p>
+                <p className="text-xs text-neutral-400 mt-0.5">Choose an account to continue to HireFlow</p>
               </div>
 
               {/* Account List */}
@@ -331,7 +331,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
 
               {/* Google Disclaimer Footnote */}
               <p className="text-[11px] text-neutral-500 leading-relaxed text-center pt-2 border-t border-white/[0.06]">
-                To continue, Google will share your name, email address, and profile picture with HireFloo. Review HireFloo&apos;s Privacy Policy and Terms of Service.
+                To continue, Google will share your name, email address, and profile picture with HireFlow. Review HireFlow&apos;s Privacy Policy and Terms of Service.
               </p>
             </div>
           ) : (
@@ -339,13 +339,13 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
             /* VIEW 2: Primary Professional Sign-In Card */
             /* ============================================================ */
             <div className="p-7 sm:p-8 space-y-5">
-              {/* Header with HireFloo Logo */}
+              {/* Header with HireFlow Logo */}
               <div className="flex items-center gap-2.5 pb-1">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-neutral-800 to-black border border-white/15 flex items-center justify-center font-black text-white text-base shadow-sm">
                   H
                 </div>
                 <div>
-                  <h2 className="text-base font-bold text-white tracking-tight">HireFloo</h2>
+                  <h2 className="text-base font-bold text-white tracking-tight">HireFlow</h2>
                   <span className="text-[11px] text-neutral-400">Candidate Career Intelligence</span>
                 </div>
               </div>
@@ -513,7 +513,7 @@ export function LoginPage({ initialMode = 'signin' }: LoginPageProps) {
 
       {/* Footer */}
       <footer className="relative z-10 w-full px-4 sm:px-8 py-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
-        <div>&copy; {new Date().getFullYear()} HireFloo. All rights reserved.</div>
+        <div>&copy; {new Date().getFullYear()} HireFlow. All rights reserved.</div>
         <div className="flex items-center gap-4">
           <Link to="/methodology" className="hover:text-white transition-colors">
             Methodology

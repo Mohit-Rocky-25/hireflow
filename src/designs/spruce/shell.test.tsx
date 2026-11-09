@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { MemoryRouter } from 'react-router-dom';
 import { SpruceShell, Navbar, Footer, PageHeader, Loader } from './layout';
 
-describe('HireFloo Spruce: Shell & Layout Tests (Stage 3)', () => {
+describe('HireFlow Spruce: Shell & Layout Tests (Stage 3)', () => {
   it('renders Navbar with logo and primary navigation links', () => {
     const html = renderToString(
       <MemoryRouter>
@@ -13,7 +13,7 @@ describe('HireFloo Spruce: Shell & Layout Tests (Stage 3)', () => {
     );
 
     expect(html).toContain('Hire');
-    expect(html).toContain('Floo');
+    expect(html).toContain('Flow');
     expect(html).toContain('Tools Hub');
     expect(html).toContain('TalentLens Demo');
     expect(html).toContain('Career Path');
@@ -80,6 +80,6 @@ describe('HireFloo Spruce: Shell & Layout Tests (Stage 3)', () => {
     expect(html).toContain('bg-sp-canvas');
     expect(html).toContain('bg-sp-mint-200');
     expect(html).toContain('Hire');
-    expect(html).toContain('Floo');
+    expect(html).toContain('Flow');
   });
 });

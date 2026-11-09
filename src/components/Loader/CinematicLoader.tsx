@@ -433,8 +433,8 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
       >
         
         {/* ============================================================
-            HIREFLOO BESPOKE "HF" MONOGRAM EMBLEM
-            Combines Letter H (Hire) + Letter F (Floo) with Lightning Core
+            HIREFLOW BESPOKE "HF" MONOGRAM EMBLEM
+            Combines Letter H (Hire) + Letter F (Flow) with Lightning Core
             ============================================================ */}
         <div 
           ref={emblemRef}
@@ -450,7 +450,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
             viewBox="0 0 100 100" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
-            aria-label="HireFloo HF Monogram"
+            aria-label="HireFlow HF Monogram"
           >
             <defs>
               <linearGradient id="hfNeonGrad" x1="0" y1="0" x2="1" y2="1">
@@ -514,7 +514,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
         {/* Brand Name Lockup */}
         <div className="hf-brand-wrap">
           <h1 className="hf-brand-title">
-            HIRE<span className="text-volt">FLOO</span>
+            HIRE<span className="text-volt">FLOW</span>
           </h1>
           <div className="hf-brand-tagline">
             <span className="hf-tagline-bolt">⚡</span>
@@ -537,7 +537,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
               {progress < 25 && 'GATHERING ATMOSPHERIC CHARGE...'}
               {progress >= 25 && progress < 65 && 'THUNDER STRIKE: ENERGIZING HF CORE...'}
               {progress >= 65 && progress < 90 && 'SYNCHRONIZING TAXONOMY TRUTH GATES...'}
-              {progress >= 90 && 'HIREFLOO CORE READY — ENGAGING'}
+              {progress >= 90 && 'HIREFLOW CORE READY — ENGAGING'}
             </span>
             <span className="hf-meta-pct">{Math.floor(progress)}%</span>
           </div>

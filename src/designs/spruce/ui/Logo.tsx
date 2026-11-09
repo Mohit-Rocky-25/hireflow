@@ -33,7 +33,7 @@ export function Logo({ size = 'md', showWordmark = true, className = '', ...prop
       {showWordmark && (
         <span className="sp-h4 tracking-tight flex items-center">
           <span className="text-sp-ink font-bold">Hire</span>
-          <span className="text-sp-primary-text font-bold">Floo</span>
+          <span className="text-sp-primary-text font-bold">Flow</span>
         </span>
       )}
     </div>

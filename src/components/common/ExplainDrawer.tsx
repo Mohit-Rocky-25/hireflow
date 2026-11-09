@@ -1,6 +1,6 @@
 /**
  * HireFlow v4: ExplainDrawer Component (X1.7, B6.3)
- * Transparent "How is this calculated?" inspect panel for every derived metric in HireFloo.
+ * Transparent "How is this calculated?" inspect panel for every derived metric in HireFlow.
  */
 
 import React from 'react';

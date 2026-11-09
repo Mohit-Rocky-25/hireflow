@@ -46,7 +46,7 @@ function parseTokens(cssContent: string) {
   };
 }
 
-describe('HireFloo Spruce: Design Tokens & WCAG 2.1 Contrast Tests', () => {
+describe('HireFlow Spruce: Design Tokens & WCAG 2.1 Contrast Tests', () => {
   const tokensPath = path.resolve(__dirname, 'tokens.css');
   const cssContent = fs.readFileSync(tokensPath, 'utf-8');
   const { light, dark } = parseTokens(cssContent);

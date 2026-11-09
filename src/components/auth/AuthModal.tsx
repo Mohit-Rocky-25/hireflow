@@ -1,5 +1,5 @@
 // ============================================================
-// HireFloo — Professional Candidate Authentication Dialog
+// HireFlow — Professional Candidate Authentication Dialog
 // Premium, production-grade Google Identity & Email Sign-In
 // ============================================================
 
@@ -73,7 +73,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
         await autoSyncManager.pullFromCloud(user.id);
         autoSyncManager.scheduleSync(300);
 
-        toast('success', `Welcome to HireFloo, ${fullName}! Your profile is ready.`);
+        toast('success', `Welcome to HireFlow, ${fullName}! Your profile is ready.`);
         onClose();
       } else {
         await cloudAuth.signIn(email, password);
@@ -197,7 +197,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
                 <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z" />
               </svg>
               <h3 className="text-base font-semibold text-white">Sign in with Google</h3>
-              <p className="text-xs text-neutral-400 mt-0.5">Choose an account to continue to HireFloo</p>
+              <p className="text-xs text-neutral-400 mt-0.5">Choose an account to continue to HireFlow</p>
             </div>
 
             {/* Account List */}
@@ -299,7 +299,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
 
             {/* Google Disclaimer Footnote */}
             <p className="text-[11px] text-neutral-500 leading-relaxed text-center pt-2 border-t border-white/[0.06]">
-              To continue, Google will share your name, email address, and profile picture with HireFloo. Review HireFloo&apos;s Privacy Policy and Terms of Service.
+              To continue, Google will share your name, email address, and profile picture with HireFlow. Review HireFlow&apos;s Privacy Policy and Terms of Service.
             </p>
           </div>
         ) : (
@@ -307,14 +307,14 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
           /* VIEW 2: Primary Professional Sign-In Modal */
           /* ============================================================ */
           <div className="p-7 space-y-5">
-            {/* Header with HireFloo Logo */}
+            {/* Header with HireFlow Logo */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-neutral-800 to-black border border-white/15 flex items-center justify-center font-black text-white text-base shadow-sm">
                   H
                 </div>
                 <div>
-                  <h2 className="text-base font-bold text-white tracking-tight">HireFloo</h2>
+                  <h2 className="text-base font-bold text-white tracking-tight">HireFlow</h2>
                   <span className="text-[11px] text-neutral-400">Candidate Career Intelligence</span>
                 </div>
               </div>

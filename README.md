@@ -1,4 +1,4 @@
-# HireFloo AI — Candidate Career & ATS Intelligence Suite
+# HireFlow AI — Candidate Career & ATS Intelligence Suite
 
 > **The Candidate-First AI Career Super-Platform.**  
 > *Deterministic ATS resume evaluation, zero-hallucination tailoring, career trajectories, verified build briefs, and company intelligence.*
@@ -15,7 +15,7 @@
 
 ## Executive Summary
 
-**HireFloo** is a client-side career intelligence platform and deterministic Applicant Tracking System (ATS) evaluation engine. Unlike standard generative "AI resume builders" that hallucinate fake metrics, invent unearned technologies, and degrade candidate credibility, HireFloo enforces mathematical evidence, verifiable factual integrity, and 100% client-side privacy.
+**HireFlow** is a client-side career intelligence platform and deterministic Applicant Tracking System (ATS) evaluation engine. Unlike standard generative "AI resume builders" that hallucinate fake metrics, invent unearned technologies, and degrade candidate credibility, HireFlow enforces mathematical evidence, verifiable factual integrity, and 100% client-side privacy.
 
 All parsing, evaluation, scoring, and document generation execute entirely in the candidate's browser sandbox. Your resume text, job descriptions, and personal notes **never leave your local machine**.
 
@@ -28,7 +28,7 @@ All parsing, evaluation, scoring, and document generation execute entirely in th
 2. **100% Client-Side Privacy (Zero Egress)**:
    Zero remote tracking, zero analytics beacons, zero server-side resume databases. Local browser storage (`localStorage` & `IndexedDB`) keeps candidate data safe.
 3. **Deterministic Evaluation**:
-   Given the same resume and job description, HireFloo's scoring mathematical engine produces the exact same calibrated scores, citations, and gap analyses every time.
+   Given the same resume and job description, HireFlow's scoring mathematical engine produces the exact same calibrated scores, citations, and gap analyses every time.
 4. **Verifiable Data Provenance**:
    Every salary benchmark, company interview loop, and curriculum credential carries provenance metadata: origin source, verification timestamp, and confidence rating.
 
@@ -36,11 +36,11 @@ All parsing, evaluation, scoring, and document generation execute entirely in th
 
 ## The 9 Core Tools
 
-HireFloo delivers a unified decision suite accessible from the central **Tools Hub** (`/tools`):
+HireFlow delivers a unified decision suite accessible from the central **Tools Hub** (`/tools`):
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        HIREFLOO DECISION SUITE                         │
+│                        HIREFLOW DECISION SUITE                         │
 ├──────────────────────────┬──────────────────────────┬──────────────────┤
 │ 1. ATS Resume Roaster    │ 4. Project Build Briefs  │ 7. TalentLens    │
 │    (/tools/resume-checker)│    (/tools/build-briefs) │    (/demo)       │
@@ -100,7 +100,7 @@ HireFloo delivers a unified decision suite accessible from the central **Tools H
 ## Architecture & Technology Stack
 
 ```
-HireFloo AI Architecture
+HireFlow AI Architecture
 ├── Client-Side Presentation
 │   ├── React 19 + TypeScript (Strict Mode)
 │   ├── Vite 8 Build System & HMR
@@ -222,6 +222,6 @@ npm run preview
 
 ## License & Attribution
 
-- **Project**: HireFloo AI — Candidate Career & ATS Intelligence Suite
+- **Project**: HireFlow AI — Candidate Career & ATS Intelligence Suite
 - **Engineering**: Independent, privacy-first software system engineered for students and early-career developers.
 - **Trademarks**: All company names, logos, and trademarks referenced are the property of their respective owners and used solely for identification and educational reference.

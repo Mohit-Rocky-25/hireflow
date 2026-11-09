@@ -38,7 +38,7 @@ export function QuickSummaryCard({
 
   const handleCopy = () => {
     const lines = [
-      `HireFloo Quick Summary`,
+      `HireFlow Quick Summary`,
       `Verdict: ${summary.verdict} — ${summary.verdictReason}`,
       score !== undefined ? `Match Score: ${score}%` : '',
       `Effort Split: ${summary.effortSplit.wording} wording fix(es), ${summary.effortSplit.learn} learning gap(s)`,

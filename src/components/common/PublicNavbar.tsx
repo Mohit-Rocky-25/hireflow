@@ -1,5 +1,5 @@
 // ============================================================
-// HireFloo — Canonical Public Navigation Bar
+// HireFlow — Canonical Public Navigation Bar
 // Left: Navigation & Tools Hub | Center: Core Categories
 // Right: High-Classic Luxury Executive Profile & Total Google Auth
 // ============================================================
@@ -119,7 +119,7 @@ export function PublicNavbar() {
                 H
               </div>
               <span className="text-[19px] font-black text-white tracking-tight font-sans">
-                HIRE<span className="text-volt">FLOO</span>
+                HIRE<span className="text-volt">FLOW</span>
               </span>
             </Link>
 

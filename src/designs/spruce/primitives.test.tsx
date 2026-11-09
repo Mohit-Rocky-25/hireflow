@@ -22,7 +22,7 @@ import {
   Logo,
 } from './ui';
 
-describe('HireFloo Spruce: Primitive Component Library Tests (Stage 2)', () => {
+describe('HireFlow Spruce: Primitive Component Library Tests (Stage 2)', () => {
   describe('Button Primitive', () => {
     it('renders all variants with proper semantic classes', () => {
       const primaryHtml = renderToString(<Button variant="primary">Primary</Button>);
@@ -157,7 +157,7 @@ describe('HireFloo Spruce: Primitive Component Library Tests (Stage 2)', () => {
       expect(html).toContain('var(--sp-forest)');
       expect(html).toContain('var(--sp-lime-hero)');
       expect(html).toContain('Hire');
-      expect(html).toContain('Floo');
+      expect(html).toContain('Flow');
     });
   });
 });

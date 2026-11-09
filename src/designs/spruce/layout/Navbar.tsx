@@ -26,7 +26,7 @@ export function Navbar({ onOpenMobileMenu }: NavbarProps) {
       <div className="max-w-[1200px] mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
         {/* Left: Logo & Quick Home/Back */}
         <div className="flex items-center gap-4 sm:gap-6">
-          <Link to="/" className="flex items-center gap-2" aria-label="HireFloo Home">
+          <Link to="/" className="flex items-center gap-2" aria-label="HireFlow Home">
             <Logo />
           </Link>
         </div>

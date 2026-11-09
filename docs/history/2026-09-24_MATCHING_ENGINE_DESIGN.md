@@ -1,4 +1,4 @@
-# HireFloo Architecture Checkpoint — September 24, 2026
+# HireFlow Architecture Checkpoint — September 24, 2026
 **Milestone:** v2 Core Matching Engine & Candidate Journey Architecture  
 **Author:** Mohit-Rocky-25  
 **Date:** September 24, 2026  
@@ -13,7 +13,7 @@ This architecture milestone documents the design decisions and technical specifi
 
 ## 2. Problem Statement & Context
 
-Between September 23 and September 25, the HireFloo platform was transitioned from an initial multi-portal skeleton to a high-precision, client-side career intelligence engine. 
+Between September 23 and September 25, the HireFlow platform was transitioned from an initial multi-portal skeleton to a high-precision, client-side career intelligence engine. 
 
 Key challenges identified on September 24:
 1. **Scoring Consistency:** Raw keyword overlap yielded excessive false positives on generic software engineering job descriptions.

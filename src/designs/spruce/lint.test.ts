@@ -17,7 +17,7 @@ function getAllTsxFiles(dir: string, fileList: string[] = []): string[] {
   return fileList;
 }
 
-describe('HireFloo Spruce: Codebase Linter & Architectural Isolation', () => {
+describe('HireFlow Spruce: Codebase Linter & Architectural Isolation', () => {
   const spruceDir = path.resolve(__dirname);
   const tsxFiles = getAllTsxFiles(spruceDir);
 

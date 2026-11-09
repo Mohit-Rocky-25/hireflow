@@ -1,6 +1,6 @@
 import { PLATFORM_DATA_META, ATS_LABEL_TEXT } from '../../data/meta';
 // ============================================================
-// HireFloo — In-Product Data Provenance & Legal Disclosures Modal
+// HireFlow — In-Product Data Provenance & Legal Disclosures Modal
 // Provides transparent public sourcing proof for 244+ companies,
 // deterministic engine logic explanation, and Nominative Fair Use legal shields.
 // ============================================================
@@ -231,7 +231,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                     How Does the Evaluation Engine Work?
                   </h3>
                   <p className="text-xs text-silver">
-                    HireFloo runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
+                    HireFlow runs a deterministic, 100% client-side evaluation engine. It never invents criteria or guesses grades:
                   </p>
                 </div>
 
@@ -285,7 +285,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                     Data Disclosures & Privacy Notice
                   </div>
                   <p className="text-silver text-[11px] leading-relaxed">
-                    HireFloo is an independent student-built project for candidate career preparation. Please review these disclosures:
+                    HireFlow is an independent student-built project for candidate career preparation. Please review these disclosures:
                   </p>
                 </div>
 
@@ -293,7 +293,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">1. What Data Stays on Your Device</span>
                     <p className="text-silver/90">
-                      All resume text, target role selections, and audit results are stored locally in your browser memory (localStorage and IndexedDB). By default, HireFloo makes zero external network calls and transmits no candidate data to cloud servers or third-party trackers.
+                      All resume text, target role selections, and audit results are stored locally in your browser memory (localStorage and IndexedDB). By default, HireFlow makes zero external network calls and transmits no candidate data to cloud servers or third-party trackers.
                     </p>
                   </div>
 
@@ -314,7 +314,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
                     <span className="font-bold text-white uppercase tracking-wider block">4. No Affiliation & No Guarantee</span>
                     <p className="text-silver/90">
-                      HireFloo is not affiliated with, sponsored by, or endorsed by any listed company or ATS provider. Company names and marks are used solely for candidate identification. Using HireFloo does not guarantee interviews, referrals, or job offers.
+                      HireFlow is not affiliated with, sponsored by, or endorsed by any listed company or ATS provider. Company names and marks are used solely for candidate identification. Using HireFlow does not guarantee interviews, referrals, or job offers.
                     </p>
                   </div>
                 </div>
@@ -324,7 +324,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-charcoal flex items-center justify-between flex-wrap gap-3">
               <span className="text-[11px] font-mono text-silver">
-                HireFloo Integrity & Transparency Framework • v4.0.0
+                HireFlow Integrity & Transparency Framework • v4.0.0
               </span>
               <button
                 type="button"
