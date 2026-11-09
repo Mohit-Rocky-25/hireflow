@@ -12,6 +12,10 @@ export const SpruceResumeCheckerPage = React.lazy(() =>
   import('./pages/ResumeChecker/ResumeCheckerPage').then((m) => ({ default: m.SpruceResumeCheckerPage }))
 );
 
+export const SpruceTailorPage = React.lazy(() =>
+  import('./pages/Tailor/TailorPage').then((m) => ({ default: m.SpruceTailorPage }))
+);
+
 export const SpruceGalleryPage = React.lazy(() =>
   import('./gallery/SpruceGalleryPage').then((m) => ({ default: m.SpruceGalleryPage }))
 );
