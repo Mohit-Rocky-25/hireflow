@@ -15,6 +15,24 @@ export function registerServiceWorker(onUpdate?: () => void): void {
 
   // Only register service worker in production to avoid intercepting dev HMR
   if (!import.meta.env.PROD) {
+    // In development mode, proactively unregister any stale service worker and clear caches
+    // so Vite dev server HMR and updated assets are always loaded immediately
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const reg of registrations) {
+          reg.unregister().then(() => {
+            console.info('[HireFlow Dev] Unregistered stale service worker.');
+          });
+        }
+      });
+      if ('caches' in window) {
+        caches.keys().then((keys) => {
+          for (const key of keys) {
+            caches.delete(key);
+          }
+        });
+      }
+    }
     return;
   }
 

@@ -1,10 +1,31 @@
 import { describe, it, expect } from 'vitest';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { companies100 } from '../../src/data/market/companies100/generated/companies';
 import { COMPANIES } from '../../src/pages/demo/talentLensData';
-import { normalizeCompanyKey } from '../../src/components/common/CompanyLogo';
+import { normalizeCompanyKey, CompanyLogo } from '../../src/components/common/CompanyLogo';
 import { EXTENDED_LOGO_COMPONENTS } from '../../src/components/common/companyLogosExtended';
 
 describe('CompanyLogo System Coverage & Visual Integrity', () => {
+  it('renders authentic SVG for Datadog, MongoDB, Elastic, GitLab, Rubrik, Coinbase and not initials', () => {
+    const liveAts = [
+      { id: 'datadog', name: 'Datadog India', initials: 'DI' },
+      { id: 'mongodb', name: 'MongoDB India', initials: 'MI' },
+      { id: 'elastic', name: 'Elastic India', initials: 'EI' },
+      { id: 'gitlab', name: 'GitLab India', initials: 'GI' },
+      { id: 'rubrik', name: 'Rubrik India', initials: 'RI' },
+      { id: 'coinbase', name: 'Coinbase India', initials: 'CI' },
+    ];
+
+    liveAts.forEach(c => {
+      const actualCompany = COMPANIES.find(comp => comp.id === c.id);
+      expect(actualCompany).toBeDefined();
+      const html = renderToString(React.createElement(CompanyLogo, { company: actualCompany }));
+      console.log(`Rendered actual from COMPANIES ${c.id}: ${html.substring(0, 120)}`);
+      expect(html).toContain('<svg');
+      expect(html).not.toContain(`>${c.initials}<`);
+    });
+  });
   it('resolves 100% of companies in companies100 to an authentic vector logo key', () => {
     const missing: string[] = [];
 
