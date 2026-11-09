@@ -1,7 +1,7 @@
 // ============================================================
 // Suite UI — Build Briefs (/tools/build-briefs)
 // Decision Group: "What do I build or fix?"
-// 79 deep-research, market-backed project briefs with:
+// 164 deep-research, market-backed project briefs with:
 //  - useCases, recruiterSignal, problemItSolves context
 //  - Rich detail modal with X close button
 //  - Download full brief as .txt + Copy to clipboard
@@ -64,6 +64,7 @@ export function BuildBriefsPage() {
   const [customGapsInput, setCustomGapsInput] = useState('Kafka, Go, Redis, Docker, System Design');
   const [selectedDomain,  setSelectedDomain]  = useState('all');
   const [selectedDiff,    setSelectedDiff]    = useState('all');
+  const [sortBy,          setSortBy]          = useState<'default' | 'title' | 'difficulty' | 'hours'>('default');
   const [searchQuery,     setSearchQuery]     = useState(incomingQuery);
   const [activeTab,       setActiveTab]       = useState<'bundle' | 'library'>(incomingQuery ? 'library' : 'bundle');
   const [activeBrief,     setActiveBrief]     = useState<ProjectBrief | null>(null);
@@ -115,7 +116,7 @@ export function BuildBriefsPage() {
   const uniqueDomains = useMemo(() => Array.from(new Set(ALL_PROJECT_BRIEFS.map((b) => b.domain))).sort(), []);
 
   const filteredLibrary = useMemo(() => {
-    return ALL_PROJECT_BRIEFS.filter((b) => {
+    const list = ALL_PROJECT_BRIEFS.filter((b) => {
       if (selectedDomain !== 'all' && b.domain !== selectedDomain) return false;
       if (selectedDiff   !== 'all' && b.difficulty !== selectedDiff) return false;
       if (searchQuery.trim()) {
@@ -129,7 +130,19 @@ export function BuildBriefsPage() {
       }
       return true;
     });
-  }, [selectedDomain, selectedDiff, searchQuery]);
+
+    if (sortBy === 'title') {
+      return [...list].sort((a, b) => a.title.localeCompare(b.title));
+    }
+    if (sortBy === 'difficulty') {
+      const diffOrder: Record<string, number> = { beginner: 1, intermediate: 2, advanced: 3 };
+      return [...list].sort((a, b) => (diffOrder[a.difficulty] || 0) - (diffOrder[b.difficulty] || 0));
+    }
+    if (sortBy === 'hours') {
+      return [...list].sort((a, b) => a.estimatedHours - b.estimatedHours);
+    }
+    return list;
+  }, [selectedDomain, selectedDiff, searchQuery, sortBy]);
 
   const domainCounts = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -159,7 +172,7 @@ export function BuildBriefsPage() {
             </span>
           </div>
           <p className="text-sm text-silver mt-1 max-w-2xl">
-            <strong className="text-white">79 deeply researched, market-backed project briefs</strong> — each with real-world use cases, recruiter shortlist signals, and architecture depth. Every brief closes a real JD skill gap.
+            <strong className="text-white">{ALL_PROJECT_BRIEFS.length} deeply researched, market-backed project briefs</strong> — each with real-world use cases, recruiter shortlist signals, and architecture depth. Every brief closes a real JD skill gap.
           </p>
         </div>
 
@@ -211,7 +224,9 @@ export function BuildBriefsPage() {
 
       {/* Domain quick-stats bar */}
       <div className="flex flex-wrap gap-2">
-        {Object.entries(domainCounts).sort((a,b) => b[1]-a[1]).map(([domain, count]) => (
+        {Object.entries(domainCounts)
+          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+          .map(([domain, count]) => (
           <button
             key={domain}
             onClick={() => { setSelectedDomain(domain); setActiveTab('library'); }}
@@ -391,6 +406,17 @@ export function BuildBriefsPage() {
                 <option value="beginner" className="bg-black text-white">Beginner</option>
                 <option value="intermediate" className="bg-black text-white">Intermediate</option>
                 <option value="advanced" className="bg-black text-white">Advanced</option>
+              </select>
+              <select
+                id="filter-sort"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="px-3 py-1.5 text-xs rounded bg-black border border-charcoal text-white focus:outline-none focus:border-volt font-medium cursor-pointer"
+              >
+                <option value="default" className="bg-black text-white">Sort: Recommended Order</option>
+                <option value="title" className="bg-black text-white">Sort: Title (A-Z)</option>
+                <option value="difficulty" className="bg-black text-white">Sort: Difficulty (Beginner First)</option>
+                <option value="hours" className="bg-black text-white">Sort: Duration (Shortest First)</option>
               </select>
               {(selectedDomain !== 'all' || selectedDiff !== 'all' || searchQuery) && (
                 <button

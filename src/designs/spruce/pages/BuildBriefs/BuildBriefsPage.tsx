@@ -52,6 +52,7 @@ export function SpruceBuildBriefsPage() {
   const [selectedTrack, setSelectedTrack] = useState<string>('fullstack');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedDomain, setSelectedDomain] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'default' | 'title' | 'difficulty' | 'hours'>('default');
   const [activeBrief, setActiveBrief] = useState<ProjectBrief | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -74,11 +75,11 @@ export function SpruceBuildBriefsPage() {
   const allDomains = useMemo(() => {
     const set = new Set<string>();
     ALL_PROJECT_BRIEFS.forEach((b) => set.add(b.domain));
-    return ['all', ...Array.from(set)];
+    return ['all', ...Array.from(set).sort()];
   }, []);
 
   const filteredLibrary = useMemo(() => {
-    return ALL_PROJECT_BRIEFS.filter((b) => {
+    const list = ALL_PROJECT_BRIEFS.filter((b) => {
       if (selectedDomain !== 'all' && b.domain !== selectedDomain) return false;
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -91,7 +92,19 @@ export function SpruceBuildBriefsPage() {
       }
       return true;
     });
-  }, [selectedDomain, searchQuery]);
+
+    if (sortBy === 'title') {
+      return [...list].sort((a, b) => a.title.localeCompare(b.title));
+    }
+    if (sortBy === 'difficulty') {
+      const diffOrder: Record<string, number> = { beginner: 1, intermediate: 2, advanced: 3 };
+      return [...list].sort((a, b) => (diffOrder[a.difficulty] || 0) - (diffOrder[b.difficulty] || 0));
+    }
+    if (sortBy === 'hours') {
+      return [...list].sort((a, b) => a.estimatedHours - b.estimatedHours);
+    }
+    return list;
+  }, [selectedDomain, searchQuery, sortBy]);
 
   const handleCopyBrief = (brief: ProjectBrief) => {
     const text = `PROJECT BRIEF: ${brief.title}\nDomain: ${brief.domain}\nDifficulty: ${brief.difficulty}\nEst. Hours: ${brief.estimatedHours}\nTech Stack: ${brief.techStack.join(', ')}\n\nProblem Statement:\n${brief.problemStatement}\n\nRecruiter Signal:\n${brief.recruiterSignal}\n\nScale Targets:\n${brief.scaleTargets}`;
@@ -122,7 +135,7 @@ export function SpruceBuildBriefsPage() {
           { label: 'Project Build Briefs' },
         ]}
         title="Project Build Briefs"
-        subtitle="79 deeply researched, market-backed engineering briefs. Every brief closes a real job description skill gap with verifiable architecture."
+        subtitle={`${ALL_PROJECT_BRIEFS.length} deeply researched, market-backed engineering briefs. Every brief closes a real job description skill gap with verifiable architecture.`}
       />
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8 space-y-8">
@@ -170,7 +183,7 @@ export function SpruceBuildBriefsPage() {
           />
 
           {activeTab === 'library' && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <FieldShell className="max-w-xs">
                 <TextInput
                   value={searchQuery}
@@ -178,6 +191,37 @@ export function SpruceBuildBriefsPage() {
                   placeholder="Filter by skill, tech, or title..."
                 />
               </FieldShell>
+
+              <select
+                value={selectedDomain}
+                onChange={(e) => setSelectedDomain(e.target.value)}
+                className="bg-sp-surface border border-sp-hairline text-sp-ink rounded-sp-md px-3 py-1.5 sp-caption font-bold focus:outline-none focus:border-sp-primary cursor-pointer"
+              >
+                <option value="all">All Domains ({allDomains.length - 1})</option>
+                {allDomains.filter((d) => d !== 'all').map((d) => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-sp-surface border border-sp-hairline text-sp-ink rounded-sp-md px-3 py-1.5 sp-caption font-bold focus:outline-none focus:border-sp-primary cursor-pointer"
+              >
+                <option value="default">Sort: Recommended</option>
+                <option value="title">Sort: Title (A-Z)</option>
+                <option value="difficulty">Sort: Difficulty</option>
+                <option value="hours">Sort: Duration</option>
+              </select>
+
+              {(selectedDomain !== 'all' || searchQuery || sortBy !== 'default') && (
+                <button
+                  onClick={() => { setSelectedDomain('all'); setSearchQuery(''); setSortBy('default'); }}
+                  className="sp-caption text-sp-primary-text font-bold hover:underline cursor-pointer"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           )}
         </div>
@@ -442,3 +486,4 @@ export function SpruceBuildBriefsPage() {
     </SpruceShell>
   );
 }
+
