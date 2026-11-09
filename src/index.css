@@ -2,6 +2,7 @@
 @import "@fontsource/inconsolata/600.css";
 @import "tailwindcss";
 @import "./styles/tokens.css";
+@import "./designs/spruce/tokens.css";
 
 /* ============================================================
    HireFlow — High-Contrast Dark Design System v2

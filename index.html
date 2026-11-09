@@ -11,6 +11,24 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>HireFloo AI — Candidate Career & ATS Intelligence Suite</title>
+    <script>
+      (function() {
+        try {
+          var d = localStorage.getItem('hireflow:v4:design') || 'spruce';
+          var m = localStorage.getItem('hireflow:v4:theme-mode') || 'light';
+          var t = 'light';
+          if (d === 'neon-volt') {
+            t = 'dark';
+          } else if (m === 'system') {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          } else {
+            t = m === 'dark' ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-design', d);
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
