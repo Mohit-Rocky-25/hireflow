@@ -277,6 +277,42 @@ export const EXTENDED_ALIASES: Record<string, string> = {
   urban_company: 'urbancompany',
   urbancompany: 'urbancompany',
   urbanclap: 'urbancompany',
+
+  // Live Sync ATS Employers & Financial Tech
+  datadog: 'datadog',
+  datadogindia: 'datadog',
+  mongodb: 'mongodb',
+  mongodbindia: 'mongodb',
+  elastic: 'elastic',
+  elasticindia: 'elastic',
+  elasticsearch: 'elastic',
+  gitlab: 'gitlab',
+  gitlabindia: 'gitlab',
+  rubrik: 'rubrik',
+  rubrikindia: 'rubrik',
+  coinbase: 'coinbase',
+  coinbaseindia: 'coinbase',
+  zepto: 'zepto',
+  zeptoindia: 'zepto',
+  kiranakart: 'zepto',
+  myntra: 'myntra',
+  myntradesigns: 'myntra',
+  myntraindia: 'myntra',
+  sharechat: 'sharechat',
+  mohallatech: 'sharechat',
+  mohalla: 'sharechat',
+  americanexpress: 'americanexpress',
+  americanexpressindia: 'americanexpress',
+  amex: 'americanexpress',
+  amexindia: 'americanexpress',
+  visa: 'visa',
+  visaindia: 'visa',
+  visainc: 'visa',
+  mastercard: 'mastercard',
+  mastercardindia: 'mastercard',
+  lnt: 'lnt',
+  larsentoubro: 'lnt',
+  lt: 'lnt',
 };
 
 export const EXTENDED_LOGO_COMPONENTS: Record<string, SvgComponent> = {
@@ -1169,6 +1205,126 @@ export const EXTENDED_LOGO_COMPONENTS: Record<string, SvgComponent> = {
         fill="#FFFFFF"
         d="M6 6.5h6c2.8 0 4.5 1.6 4.5 3.8 0 1.6-.9 2.8-2.2 3.4l3.2 4.3h-3.4l-2.8-3.8H8.8v3.8H6v-11.5zm2.8 2.5v3.2h3c1.2 0 1.8-.6 1.8-1.6s-.6-1.6-1.8-1.6h-3z"
       />
+    </svg>
+  ),
+
+  datadog: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4.5" fill="#632CA6" />
+      <path
+        fill="#FFFFFF"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M16.8 9.2c-.3-.8-.9-1.4-1.6-1.8.1-.4 0-.8-.3-1.1-.4-.4-1-.5-1.5-.2-.7-.4-1.5-.7-2.4-.7-1.3 0-2.5.6-3.3 1.5-.4-.2-.9-.1-1.2.2-.4.4-.4.9-.2 1.4-.9.7-1.5 1.7-1.6 2.8-.2 1.2.3 2.4 1.2 3.2.7.6 1.6.9 2.6.9h4.2c1.4 0 2.6-.9 3-2.3.2-.8.1-1.6-.2-2.3l.8-1.6zm-5.8 2.2a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-1.5 2.1c-.8 0-1.4-.5-1.5-1.1h3c-.1.6-.7 1.1-1.5 1.1z"
+      />
+    </svg>
+  ),
+
+  mongodb: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="none">
+      <path
+        fill="#00ED64"
+        d="M12.007 0C11.666 0 11.458 1.34 11.416 1.838c-.416 4.305-3.666 6.305-4.416 10.305-.75 4.25 1.25 8.333 4.583 11.857.334.357.75.357 1.084 0 3.333-3.524 5.333-7.607 4.583-11.857-.75-4-4-6-4.417-10.305C12.791 1.34 12.583 0 12.242 0h-.235zm-.05 13.5c-.3 0-.583-.28-.583-.58 0-.833.667-2.083 1.083-2.917.25-.416.417-.833.5-1.25.083 1.084.167 2.167 0 3.334-.167.833-.583 1.413-1 1.413z"
+      />
+      <path
+        fill="#FFFFFF"
+        opacity="0.3"
+        d="M12.007 0v24c.334 0 .75-.12 1.084-.357 3.333-3.524 5.333-7.607 4.583-11.857-.75-4-4-6-4.417-10.305C12.791 1.34 12.583 0 12.242 0h-.235z"
+      />
+    </svg>
+  ),
+
+  elastic: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="none">
+      <path fill="#FED10A" d="M12 2.5a9.5 9.5 0 0 0-8.2 4.8h16.4A9.5 9.5 0 0 0 12 2.5z" />
+      <path fill="#00BFB3" d="M2.5 10a9.47 9.47 0 0 0 0 4h19a9.47 9.47 0 0 0 0-4h-19z" />
+      <path fill="#F04E98" d="M3.8 16.7A9.5 9.5 0 0 0 12 21.5a9.5 9.5 0 0 0 8.2-4.8H3.8z" />
+    </svg>
+  ),
+
+  gitlab: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="none">
+      <path fill="#E24329" d="M12 20.9 15.5 10H8.5L12 20.9Z" />
+      <path fill="#FC6D26" d="M12 20.9 8.5 10H1.4L12 20.9Z" />
+      <path fill="#FCA326" d="M1.4 10 .2 13.8a1 1 0 0 0 .3 1.1L12 20.9 1.4 10Z" />
+      <path fill="#E24329" d="M1.4 10h7.1L5.9 2a.5.5 0 0 0-.9 0L1.4 10Z" />
+      <path fill="#FC6D26" d="m12 20.9 3.5-10.9h7.1L12 20.9Z" />
+      <path fill="#FCA326" d="m22.6 10 1.2 3.8a1 1 0 0 1-.3 1.1L12 20.9 22.6 10Z" />
+      <path fill="#E24329" d="M22.6 10h-7.1l2.6-8a.5.5 0 0 1 .9 0l3.6 8Z" />
+    </svg>
+  ),
+
+  rubrik: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4.5" fill="#002B49" />
+      <path fill="#00D4B2" d="M12 3.5 16.5 8 12 12.5 7.5 8 12 3.5Zm0 9 4.5 4.5-4.5 4.5-4.5-4.5 4.5-4.5Z" />
+      <path fill="#FFFFFF" opacity="0.4" d="M7.5 8 12 12.5 7.5 17 3 12.5 7.5 8Zm9 0 4.5 4.5-4.5 4.5-4.5-4.5 4.5-4.5Z" />
+    </svg>
+  ),
+
+  coinbase: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="12" fill="#0052FF" />
+      <path
+        fill="#FFFFFF"
+        d="M12 5.5a6.5 6.5 0 1 0 5.48 10.02.85.85 0 0 0-.25-1.18l-1.3-1a.85.85 0 0 0-1.16.14 4 4 0 1 1 0-4.96.85.85 0 0 0 1.16.14l1.3-1a.85.85 0 0 0 .25-1.18A6.47 6.47 0 0 0 12 5.5z"
+      />
+    </svg>
+  ),
+
+  zepto: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4.5" fill="#2E0249" />
+      <path fill="#FF2E93" d="M5.5 6h13l-8.5 8h8.5v4h-13l8.5-8H5.5V6z" />
+      <path fill="#FFD700" d="M14 6l-5 5h4l-3 3 7-5h-4l3-3h-2z" />
+    </svg>
+  ),
+
+  myntra: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="none">
+      <path fill="#FF3F6C" d="M3 18.5V8.2c0-1.5 1-2.8 2.5-3.1 1.6-.3 3.1.6 3.6 2.1l2.9 8.3-2.6 3.4-5.4.1c-.6-.1-1-.2-1-.5z" />
+      <path fill="#FFBF00" d="M21 18.5V8.2c0-1.5-1-2.8-2.5-3.1-1.6-.3-3.1.6-3.6 2.1l-2.9 8.3 2.6 3.4 5.4.1c.6-.1 1-.2 1-.5z" />
+      <path fill="#F16521" d="M12 15.5l-3-8.6c.7-1.4 2.2-2.3 3.8-2.3s3.1.9 3.8 2.3l-3 8.6c-.4.8-1.2.8-1.6 0z" />
+    </svg>
+  ),
+
+  sharechat: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4.5" fill="#0E1E38" />
+      <path fill="#00D285" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" />
+      <path fill="#FFFFFF" d="M8.5 10a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zm7 0a1.8 1.8 0 1 1 0 3.6 1.8 1.8 0 0 1 0-3.6zm-3.5 2.5a3.5 3.5 0 0 1-3.2 2 .5.5 0 0 1 0-1 2.5 2.5 0 0 0 2.2-1.5.5.5 0 1 1 1 .5z" />
+    </svg>
+  ),
+
+  americanexpress: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="3.5" fill="#006FCF" />
+      <path fill="#FFFFFF" d="M3.5 9h3l.8 1.8L8.1 9h3l-2.3 4.5L11.2 18H8.2l-.9-1.8-.9 1.8H3.5l2.4-4.5L3.5 9zm8.5 0h8v1.8h-5.5v1.4h5v1.7h-5v1.7h5.5V18H12V9z" />
+    </svg>
+  ),
+
+  visa: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className} fill="none">
+      <path fill="#1A1F71" d="M9.54 17.85l2.25-11.7h2.8l-2.25 11.7h-2.8zm7.39-11.45c-.56-.22-1.44-.45-2.54-.45-2.8 0-4.77 1.45-4.79 3.53-.02 1.54 1.41 2.4 2.49 2.91 1.11.53 1.48.87 1.48 1.34 0 .73-.9 1.06-1.74 1.06-1.16 0-1.78-.17-2.73-.58l-.38-.18-.41 2.48c.69.31 1.96.58 3.28.59 3.09 0 5.1-1.49 5.12-3.8.02-1.27-.78-2.23-2.49-3.03-1.04-.52-1.68-.87-1.68-1.4 0-.48.55-.98 1.73-.98.98 0 1.69.2 2.24.43l.27.12.42-2.52h-.26zM22.1 6.15h-2.16c-.67 0-1.17.19-1.47.88L14.28 17.85h2.95s.48-1.3.59-1.59c.32 0 3.19.03 3.6.03.08.38.34 1.56.34 1.56h2.6l-2.26-11.7zm-3.48 8.05c.23-.62 1.12-2.99 1.12-2.99l.32 1.52.28 1.47h-1.72zM7.22 6.15L4.47 14.1l-.3-1.47c-.52-1.72-2.13-3.59-3.94-4.52l2.55 9.74h2.97l4.42-11.7H7.22z" />
+      <path fill="#F7B600" d="M3.48 6.15H.03L0 6.32c3.08.77 5.12 2.63 5.96 4.88l-.86-4.3c-.15-.59-.58-.73-1.62-.75z" />
+    </svg>
+  ),
+
+  mastercard: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#141416" />
+      <circle cx="9" cy="12" r="5.5" fill="#EB001B" />
+      <circle cx="15" cy="12" r="5.5" fill="#F79E1B" />
+      <path fill="#FF5F00" d="M12 7.7a5.48 5.48 0 0 0-2 4.3 5.48 5.48 0 0 0 2 4.3 5.48 5.48 0 0 0 2-4.3 5.48 5.48 0 0 0-2-4.3z" />
+    </svg>
+  ),
+
+  lnt: ({ className }) => (
+    <svg viewBox="0 0 24 24" className={className}>
+      <rect width="24" height="24" rx="4" fill="#003399" />
+      <circle cx="12" cy="12" r="8" fill="none" stroke="#FFFFFF" strokeWidth="1.2" />
+      <path fill="#FFFFFF" d="M8.5 7.5h2.2v6.8h3.8v2.2H8.5V7.5z" />
+      <path fill="#FFFFFF" d="M12 7.5h6v2h-1.9v7h-2.2v-7H12v-2z" />
     </svg>
   ),
 };

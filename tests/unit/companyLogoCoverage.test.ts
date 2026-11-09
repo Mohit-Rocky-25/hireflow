@@ -33,6 +33,19 @@ describe('CompanyLogo System Coverage & Visual Integrity', () => {
       { id: 'fractal', name: 'Fractal Analytics Private Limited' },
       { id: 'nucleus_software', name: 'Nucleus Software Exports Limited' },
       { id: 'intellect_design', name: 'Intellect Design Arena Limited' },
+      { id: 'datadog', name: 'Datadog India' },
+      { id: 'mongodb', name: 'MongoDB India' },
+      { id: 'elastic', name: 'Elastic India' },
+      { id: 'gitlab', name: 'GitLab India' },
+      { id: 'rubrik', name: 'Rubrik India' },
+      { id: 'coinbase', name: 'Coinbase India' },
+      { id: 'zepto', name: 'Zepto' },
+      { id: 'myntra', name: 'Myntra' },
+      { id: 'sharechat', name: 'ShareChat (Mohalla Tech)' },
+      { id: 'american-express', name: 'American Express India' },
+      { id: 'visa', name: 'Visa India' },
+      { id: 'mastercard', name: 'Mastercard India' },
+      { id: 'lnt', name: 'Larsen & Toubro (L&T)' },
     ];
 
     reportedCompanies.forEach(c => {
