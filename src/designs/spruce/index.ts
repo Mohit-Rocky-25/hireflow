@@ -8,6 +8,10 @@ export const SpruceToolsHubPage = React.lazy(() =>
   import('./pages/ToolsHubPage').then((m) => ({ default: m.ToolsHubPage }))
 );
 
+export const SpruceResumeCheckerPage = React.lazy(() =>
+  import('./pages/ResumeChecker/ResumeCheckerPage').then((m) => ({ default: m.SpruceResumeCheckerPage }))
+);
+
 export const SpruceGalleryPage = React.lazy(() =>
   import('./gallery/SpruceGalleryPage').then((m) => ({ default: m.SpruceGalleryPage }))
 );

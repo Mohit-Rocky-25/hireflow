@@ -8,7 +8,7 @@ import { CinematicLoader } from './components/Loader/CinematicLoader';
 import { Loader as SpruceLoader } from './designs/spruce/layout/Loader';
 import { useTheme } from './lib/theme/useTheme';
 import { DesignGate } from './components/common/DesignGate';
-import { SpruceLandingPage, SpruceToolsHubPage, SpruceGalleryPage } from './designs/spruce';
+import { SpruceLandingPage, SpruceToolsHubPage, SpruceResumeCheckerPage, SpruceGalleryPage } from './designs/spruce';
 import { initSupabaseAuthListener } from './lib/supabase/client';
 import { autoSyncManager } from './lib/sync/autoSyncManager';
 
@@ -144,7 +144,7 @@ export default function App() {
 
             {/* Free ATS & Career Decision Suite Tools */}
             <Route path="/tools" element={<DesignGate spruce={SpruceToolsHubPage} default={ToolsHubPage} />} />
-            <Route path="/tools/resume-checker" element={<ResumeChecker />} />
+            <Route path="/tools/resume-checker" element={<DesignGate spruce={SpruceResumeCheckerPage} default={ResumeChecker} />} />
             <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
             <Route path="/tools/tailor" element={<TailorResumePage />} />
             <Route path="/tools/reach-out" element={<ReachOutPage />} />
