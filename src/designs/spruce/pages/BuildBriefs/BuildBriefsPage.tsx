@@ -274,8 +274,8 @@ export function SpruceBuildBriefsPage() {
               </div>
             </MintPanel>
 
-            {/* Grid of Recommended Project Brief Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Grid of Recommended Project Brief Cards (2x2 Grid) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {bundleResult.recommendedBriefs.map((brief, idx) => (
                 <Card
                   key={brief.id}
@@ -297,16 +297,16 @@ export function SpruceBuildBriefsPage() {
                       {brief.title}
                     </h3>
 
-                    <p className="sp-body-sm text-sp-muted line-clamp-3">
+                    <p className="sp-body-sm text-sp-muted line-clamp-2 leading-relaxed">
                       {brief.problemStatement}
                     </p>
                   </div>
 
-                  <div className="space-y-3 pt-3 border-t border-sp-hairline">
+                  <div className="pt-3 border-t border-sp-hairline grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <span className="sp-caption text-sp-body font-bold">Skills Addressed:</span>
+                      <span className="sp-caption text-sp-body font-bold block">Skills Addressed:</span>
                       <div className="flex flex-wrap gap-1">
-                        {brief.coveredSkills.slice(0, 3).map((s) => (
+                        {brief.coveredSkills.slice(0, 4).map((s) => (
                           <span
                             key={s}
                             className="sp-micro px-2 py-0.5 rounded-sp-xs bg-sp-mint-100 text-sp-primary-text font-semibold"
@@ -317,19 +317,62 @@ export function SpruceBuildBriefsPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2">
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="w-full justify-center"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActiveBrief(brief);
-                        }}
-                      >
-                        View Full Brief →
-                      </Button>
+                    <div className="space-y-1">
+                      <span className="sp-caption text-sp-body font-bold block">Tech Stack:</span>
+                      <div className="flex flex-wrap gap-1">
+                        {brief.techStack.slice(0, 4).map((t) => (
+                          <span
+                            key={t}
+                            className="sp-micro px-2 py-0.5 rounded-sp-xs bg-sp-canvas-soft border border-sp-hairline text-sp-body font-medium"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+                  </div>
+
+                  {brief.scaleTargets && (
+                    <div className="p-2.5 rounded-sp-md bg-sp-canvas-soft border border-sp-hairline text-sp-body sp-caption leading-snug line-clamp-2">
+                      <strong className="text-sp-ink font-bold">Scale Target: </strong>
+                      {brief.scaleTargets}
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 pt-2 border-t border-sp-hairline">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="flex-1 justify-center"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveBrief(brief);
+                      }}
+                    >
+                      View Full Brief →
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCopyBrief(brief);
+                      }}
+                      title="Copy brief details"
+                    >
+                      {copiedId === brief.id ? <Check className="w-4 h-4 text-sp-primary-text" /> : <Copy className="w-4 h-4" />}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDownloadBrief(brief);
+                      }}
+                      title="Download brief text"
+                    >
+                      <Download className="w-4 h-4" />
+                    </Button>
                   </div>
                 </Card>
               ))}

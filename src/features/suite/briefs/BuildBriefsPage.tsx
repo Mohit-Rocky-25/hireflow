@@ -345,9 +345,9 @@ export function BuildBriefsPage() {
         </button>
       </div>
 
-      {/* Tab: Bundle */}
+      {/* Tab: Bundle (2x2 Grid) */}
       {activeTab === 'bundle' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {bundleResult.recommendedBriefs.map((brief, idx) => {
             const coverageInfo = bundleResult.briefCoverageMap.find((m) => m.briefId === brief.id);
             return (

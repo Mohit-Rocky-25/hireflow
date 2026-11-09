@@ -80,38 +80,48 @@ export function BriefCard({
         </p>
       </div>
 
-      {/* Covered skills (bundle mode) */}
-      {coverageSkills && coverageSkills.length > 0 && (
-        <div className="pt-3 border-t border-charcoal space-y-1.5">
-          <span className="text-[11px] font-semibold text-silver">Target Skills Addressed:</span>
+      {/* Covered skills & Tech stack (responsive 2-col inside card to prevent lengthy stretching) */}
+      <div className="pt-3 border-t border-charcoal grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {coverageSkills && coverageSkills.length > 0 ? (
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-semibold text-silver">Target Skills Addressed:</span>
+            <div className="flex flex-wrap gap-1">
+              {coverageSkills.map((skill, i) => (
+                <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-near-black text-volt font-bold border border-charcoal">
+                  ✓ {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-1.5">
+            <span className="text-[11px] font-semibold text-silver">Estimated Commitment:</span>
+            <div className="text-xs text-white font-medium">{getBriefHoursRange(brief).label}</div>
+          </div>
+        )}
+
+        <div className="space-y-1.5">
+          <span className="text-[11px] font-semibold text-silver">Tech Stack:</span>
           <div className="flex flex-wrap gap-1">
-            {coverageSkills.map((skill, i) => (
-              <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-near-black text-volt font-bold border border-charcoal">
-                ✓ {skill}
+            {brief.techStack.slice(0, 5).map((tech, i) => (
+              <span key={i} className={`text-[10px] px-2 py-0.5 rounded border font-medium ${dc.bg} ${dc.text} ${dc.border}`}>
+                {tech}
               </span>
             ))}
+            {brief.techStack.length > 5 && (
+              <span className="text-[10px] px-2 py-0.5 rounded border bg-black border-charcoal text-silver font-medium">
+                +{brief.techStack.length - 5}
+              </span>
+            )}
           </div>
         </div>
-      )}
-
-      {/* Tech stack pills */}
-      <div className="flex flex-wrap gap-1">
-        {brief.techStack.slice(0, 5).map((tech, i) => (
-          <span key={i} className={`text-[10px] px-2 py-0.5 rounded border font-medium ${dc.bg} ${dc.text} ${dc.border}`}>
-            {tech}
-          </span>
-        ))}
-        {brief.techStack.length > 5 && (
-          <span className="text-[10px] px-2 py-0.5 rounded border bg-black border-charcoal text-silver font-medium">
-            +{brief.techStack.length - 5}
-          </span>
-        )}
       </div>
 
-      {/* Scale target */}
+      {/* Scale target (clamped to prevent lengthy card overflow) */}
       {brief.scaleTargets && (
         <div className="bg-near-black p-2.5 rounded border border-charcoal text-[11px] text-silver leading-snug">
-          <strong className="text-white">Scale: </strong>{brief.scaleTargets}
+          <strong className="text-white">Scale Target: </strong>
+          <span className="line-clamp-2">{brief.scaleTargets}</span>
         </div>
       )}
 
