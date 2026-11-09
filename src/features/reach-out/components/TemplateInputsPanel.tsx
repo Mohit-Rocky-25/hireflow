@@ -686,7 +686,7 @@ export function TemplateInputsPanel({
                   type="text"
                   value={slots.your_name || ''}
                   onChange={(e) => onChangeSlot('your_name', e.target.value)}
-                  placeholder="e.g. Mohit Yadav"
+                  placeholder="e.g. Alex Morgan"
                   className="w-full px-2 py-1 bg-neutral-950 border border-neutral-800 rounded text-neutral-100 text-[11px] focus:outline-none"
                 />
               </div>
@@ -696,7 +696,7 @@ export function TemplateInputsPanel({
                   type="email"
                   value={slots.your_email || ''}
                   onChange={(e) => onChangeSlot('your_email', e.target.value)}
-                  placeholder="e.g. mohit@example.com"
+                  placeholder="e.g. alex@example.com"
                   className="w-full px-2 py-1 bg-neutral-950 border border-neutral-800 rounded text-neutral-100 text-[11px] focus:outline-none"
                 />
               </div>
