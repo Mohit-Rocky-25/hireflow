@@ -5,6 +5,10 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-route
 import React, { useEffect, useState, useCallback, Suspense } from 'react';
 import { useStore } from './store/useStore';
 import { CinematicLoader } from './components/Loader/CinematicLoader';
+import { Loader as SpruceLoader } from './designs/spruce/layout/Loader';
+import { useTheme } from './lib/theme/useTheme';
+import { DesignGate } from './components/common/DesignGate';
+import { SpruceLandingPage, SpruceGalleryPage } from './designs/spruce';
 import { initSupabaseAuthListener } from './lib/supabase/client';
 import { autoSyncManager } from './lib/sync/autoSyncManager';
 
@@ -63,6 +67,7 @@ function RedirectWithSearch({ to }: { to: string }) {
 
 export default function App() {
   const { initDemoData, _initialized } = useStore();
+  const design = useTheme((s) => s.design);
   const [appReady, setAppReady] = useState(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       try {
@@ -120,13 +125,20 @@ export default function App() {
 
   return (
     <>
-      {!appReady && <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />}
+      {!appReady && (
+        design === 'spruce' ? (
+          <SpruceLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />
+        ) : (
+          <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />
+        )
+      )}
       <ProfileProvider>
         <BrowserRouter>
           <Suspense fallback={<RouteFallback />}>
             <Routes>
+              {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
               {/* Public Landing & Interactive Company Demo */}
-            <Route path="/" element={<LandingPage />} />
+              <Route path="/" element={<DesignGate spruce={SpruceLandingPage} default={LandingPage} />} />
             <Route path="/demo" element={<MatchingDemo />} />
             <Route path="/demo/company/:companySlug" element={<CompanyRolesPage />} />
 
