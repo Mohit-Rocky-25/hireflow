@@ -327,7 +327,7 @@ export function SpruceCompanyRolesPage() {
                 >
                   <div className="space-y-4 pt-2">
                     <p className="sp-body-sm text-sp-body leading-relaxed">
-                      Follow these tailored steps to maximize callback probability for {company.name}:
+                      Follow these tailored steps to improve your placement readiness for {company.name}:
                     </p>
                     <ol className="list-decimal list-inside space-y-2 sp-body-sm text-sp-body">
                       <li>
