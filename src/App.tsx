@@ -8,7 +8,20 @@ import { CinematicLoader } from './components/Loader/CinematicLoader';
 import { Loader as SpruceLoader } from './designs/spruce/layout/Loader';
 import { useTheme } from './lib/theme/useTheme';
 import { DesignGate } from './components/common/DesignGate';
-import { SpruceLandingPage, SpruceToolsHubPage, SpruceResumeCheckerPage, SpruceTailorPage, SpruceGalleryPage } from './designs/spruce';
+import {
+  SpruceLandingPage,
+  SpruceToolsHubPage,
+  SpruceResumeCheckerPage,
+  SpruceTailorPage,
+  SpruceReachOutPage,
+  SpruceBuildBriefsPage,
+  SpruceCredentialEnginePage,
+  SpruceCareerPathHubPage,
+  SpruceCompareJDsPage,
+  SpruceTalentLensPage,
+  SpruceCompanyRolesPage,
+  SpruceGalleryPage,
+} from './designs/spruce';
 import { initSupabaseAuthListener } from './lib/supabase/client';
 import { autoSyncManager } from './lib/sync/autoSyncManager';
 
@@ -139,17 +152,17 @@ export default function App() {
               {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
               {/* Public Landing & Interactive Company Demo */}
               <Route path="/" element={<DesignGate spruce={SpruceLandingPage} default={LandingPage} />} />
-            <Route path="/demo" element={<MatchingDemo />} />
-            <Route path="/demo/company/:companySlug" element={<CompanyRolesPage />} />
+              <Route path="/demo" element={<DesignGate spruce={SpruceTalentLensPage} default={MatchingDemo} />} />
+              <Route path="/demo/company/:companySlug" element={<DesignGate spruce={SpruceCompanyRolesPage} default={CompanyRolesPage} />} />
 
-            {/* Free ATS & Career Decision Suite Tools */}
-            <Route path="/tools" element={<DesignGate spruce={SpruceToolsHubPage} default={ToolsHubPage} />} />
-            <Route path="/tools/resume-checker" element={<DesignGate spruce={SpruceResumeCheckerPage} default={ResumeChecker} />} />
-            <Route path="/tools/jd-compare" element={<CompareJDsPage />} />
-            <Route path="/tools/tailor" element={<DesignGate spruce={SpruceTailorPage} default={TailorResumePage} />} />
-            <Route path="/tools/reach-out" element={<ReachOutPage />} />
-            <Route path="/tools/build-briefs" element={<BuildBriefsPage />} />
-            <Route path="/tools/career-path" element={<CareerPathHub />} />
+              {/* Free ATS & Career Decision Suite Tools */}
+              <Route path="/tools" element={<DesignGate spruce={SpruceToolsHubPage} default={ToolsHubPage} />} />
+              <Route path="/tools/resume-checker" element={<DesignGate spruce={SpruceResumeCheckerPage} default={ResumeChecker} />} />
+              <Route path="/tools/jd-compare" element={<DesignGate spruce={SpruceCompareJDsPage} default={CompareJDsPage} />} />
+              <Route path="/tools/tailor" element={<DesignGate spruce={SpruceTailorPage} default={TailorResumePage} />} />
+              <Route path="/tools/reach-out" element={<DesignGate spruce={SpruceReachOutPage} default={ReachOutPage} />} />
+              <Route path="/tools/build-briefs" element={<DesignGate spruce={SpruceBuildBriefsPage} default={BuildBriefsPage} />} />
+              <Route path="/tools/career-path" element={<DesignGate spruce={SpruceCareerPathHubPage} default={CareerPathHub} />} />
             <Route path="/tools/career-path/dream-job-roadmap" element={<DreamJobRoadmapPage />} />
             <Route path="/tools/career-path/company-levels" element={<CompanyLevelsPage />} />
             <Route path="/tools/career-path/promotion-simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
@@ -157,7 +170,7 @@ export default function App() {
             <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
             <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
             <Route path="/tools/talent-lens" element={<TalentLens />} />
-            <Route path="/tools/credential-engine" element={<CredentialOpportunityEnginePage />} />
+            <Route path="/tools/credential-engine" element={<DesignGate spruce={SpruceCredentialEnginePage} default={CredentialOpportunityEnginePage} />} />
             <Route path="/tools/credentials" element={<RedirectWithSearch to="/tools/credential-engine" />} />
             <Route path="/tools/opportunity-engine" element={<RedirectWithSearch to="/tools/credential-engine" />} />
             <Route path="/tools/resume-tailor" element={<RedirectWithSearch to="/tools/tailor" />} />
