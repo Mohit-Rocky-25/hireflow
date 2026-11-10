@@ -7,8 +7,8 @@
   "sector": "FinTech",
   "headquarters": "Bengaluru, Karnataka",
   "website": "https://cred.club",
-  "lastSyncedAt": "2026-11-07T08:33:13.906Z",
-  "liveRoleCount": 2,
+  "lastSyncedAt": "2026-11-10T09:29:37.161Z",
+  "liveRoleCount": 3,
   "status": "verified",
   "confidence": "high",
   "roles": [
@@ -23,7 +23,7 @@
       "department": "security & enterprise it",
       "source": "Official CRED Lever ATS Feed",
       "sourceUrl": "https://jobs.lever.co/cred/9a746e68-0858-4190-9144-54b19a2cbf2c",
-      "lastVerified": "2026-11-07T08:33:13.906Z",
+      "lastVerified": "2026-11-10T09:29:37.161Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "af87650a1d7d83c57f458ae67c3a537c2aa77f09b7a6da77e5a2d3010c71e35d",
@@ -78,6 +78,50 @@
       "fullText": "cloud security engineer\n\nWhat is CRED?\nCRED is an exclusive community for India’s most trustworthy and CREDitworthy individuals, where the members are rewarded for good financial behavior. CRED was born out of a need to bring back the focus on a long lost virtue, one of trust, the idea being to create a community centered around this virtue. a community that constantly strives to become more virtuous in this regard till they finally scale their behavior to create a utopia where being trustworthy is the norm and not the exception. to build a community like this requires a community of its own; a community special in its own way, working towards making this vision come true\nhere’s a thought experiment: what do you get when you put a group of incredibly passionate and driven people and entrust them with the complete freedom to chase down their goals in a completely uninhibited manner? answer: you get something close to what we have at CRED; CRED just has it better\n\n\nwhat you will do::\nwork across a diverse information security domain, with a strong focus on cloud, infrastructure, and data security\nidentify security issues (internal and external), work with stakeholders on mitigation, and design/implement solutions for complex security problems in aws-based systems\nown and continuously improve the cloud security posture management (cspm) program aligned with standards like nist 800-53 and iso 27001\nown the cloud workload protection program, including alert investigation and triage\ndrive the data security charter, including data classification, masking, and securing large-scale data stores\nautomate infrastructure security and build security tooling to reduce manual effort\nconduct security design, infrastructure, and architecture reviews\nbuild, operate, and maintain cloud security platforms to enhance prevention, detection, and response\ntranslate product requirements into threat models and identify security risks\nbuild in-house security frameworks to strengthen security culture across tech teams\nenable compliance across teams (pci dss, iso 27001, dpdpa) and promote best practices\ndrive security awareness and engineering maturity across the organisation\n\nyou should apply if you have::\n2–6 years of experience in information security Solid fundamentals on computer networks, operating systems (linux), containers and secure cloud architecture\nstrong programming skills in python, go, or bash\nsolid understanding of cloud security with hands-on experience in aws / gcp / azure\nexperience building and automating custom security tools\nunderstanding of microservices, ci/cd pipelines, containers, and securing containerised workloads\nstrong grasp of core security principles like least privilege, defence-in-depth, and zero trust\na data-driven mindset with the ability to influence stakeholders\nsecurity projects on github or technical blogs\nstrong communication skills and the ability to be a go-to security partner for engineers and product teams\na proactive approach to staying updated on security threats, breaches, tools, and research\nbasic understanding of llms, mcp, and ai agents and Interest in building ai-driven security workflows.\nfamiliarity with vulnerability management, patching cycles, and cvss\n\n\nhow is life at CRED?\n \nworking at CRED would instantly make you realize one thing: you are working with the best talent around you, not just in the role you occupy but everywhere you go. talk to someone around you; most likely you will be talking to a singer"
     },
     {
+      "id": "lever-913a6616-78c9-4ca3-8c92-67ddea8a80df",
+      "title": "fraud analyst",
+      "level": "Mid-Level",
+      "desc": "what is CRED?\n \nCRED is an exclusive community for India’s most trustworthy and creditworthy individuals, where the members are rewarded for good financial behavior. CRED was born out of a need to bring back the focus on a long lost virtue, one of trust, the idea being to create a community centered around this virtue....",
+      "location": "bengaluru",
+      "workplaceType": "unspecified",
+      "team": "lending",
+      "department": "data science",
+      "source": "Official CRED Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/cred/913a6616-78c9-4ca3-8c92-67ddea8a80df",
+      "lastVerified": "2026-11-10T09:29:37.161Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "3b40b8d2cd6aa58b486d666a8317aea8c4f65dadcc535be3c4be5d61e30e019e",
+      "competencies": [
+        "python",
+        "ml",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Machine Learning",
+        "SQL",
+        "Python"
+      ],
+      "toolsAndTech": [
+        "Machine Learning",
+        "SQL",
+        "Python"
+      ],
+      "responsibilities": [
+        "analyse large datasets to identify unusual patterns, behaviours and signals that could indicate emerging fraud.",
+        "investigate how fraudsters may be exploiting products, processes or system vulnerabilities.",
+        "develop hypotheses, test them through data and translate findings into practical fraud detection approaches.",
+        "work with data science and engineering to identify and close gaps in fraud detection and prevention.",
+        "identify new signals and approaches that can improve our ability to detect evolving fraud patterns.",
+        "build and iterate on detection logic and solutions as fraud patterns and attack methods change.",
+        "partner with product and engineering teams across cred to understand new product flows and identify potential fraud risks.",
+        "work closely with engineering to implement signals, controls and other prevention mechanisms."
+      ],
+      "requiredQualifications": [],
+      "fullText": "fraud analyst\n\nwhat is CRED?\n \nCRED is an exclusive community for India’s most trustworthy and creditworthy individuals, where the members are rewarded for good financial behavior. CRED was born out of a need to bring back the focus on a long lost virtue, one of trust, the idea being to create a community centered around this virtue. a community that constantly strives to become more virtuous in this regard till they finally scale their behavior to create a utopia where being trustworthy is the norm and not the exception. to build a community like this requires a community of its own; a community special in its own way, working towards making this vision come true. \n \nhere’s a thought experiment: what do you get when you put a group of incredibly passionate and driven people and entrust them with the complete freedom to chase down their goals in a completely uninhibited manner? answer: you get something close to what we have at CRED; CRED just has it better. \n \nhere’s what will be in store for you at CRED once you join as a part of the datascience fraud team:\n\nrole overview\nas a fraud analyst at CRED, you’ll work at the intersection of data, technology and fraud prevention to identify and prevent emerging fraud patterns across products.\nfraud patterns continue to evolve, making it important to identify and address emerging risks and vulnerabilities. you’ll think like an adversary -analyse data and system behaviour, spot unusual patterns and vulnerabilities, and work closely with data science, product and engineering teams to build practical solutions that prevent fraud.\nthis is a hands-on problem-solving role. you don’t need to be a fraud expert or a deep ml specialist. what matters is strong analytical and coding fundamentals, curiosity, and the ability to approach problems from first principles.\n\n\nwhat will you do?:\nanalyse large datasets to identify unusual patterns, behaviours and signals that could indicate emerging fraud.\ninvestigate how fraudsters may be exploiting products, processes or system vulnerabilities.\ndevelop hypotheses, test them through data and translate findings into practical fraud detection approaches.\nwork with data science and engineering to identify and close gaps in fraud detection and prevention.\nidentify new signals and approaches that can improve our ability to detect evolving fraud patterns.\nbuild and iterate on detection logic and solutions as fraud patterns and attack methods change.\npartner with product and engineering teams across cred to understand new product flows and identify potential fraud risks.\nwork closely with engineering to implement signals, controls and other prevention mechanisms.\noperate across different products and problem statements as fraud is a horizontal problem across CRED.\nstay curious about how systems work and how they can be exploited.\nlearn continuously as new fraud patterns, technologies and vulnerabilities emerge.\nbring an adversarial / \"hacker\" mindset to problem solving , think beyond the obvious solution and challenge existing assumptions.\n\nyou should apply if you::\nhave 1–2 years of experience in data science, analytics, engineering or a related technical role.\nhave strong sql and analytical skills and are comfortable working with large datasets.\nhave good hands-on python/coding experience.\nhave a basic understanding of data science /ML concepts such as features, models and how models are deployed. you do not need to be an ml specialist or have built fraud models before"
+    },
+    {
       "id": "lever-b3da0ae4-d0a8-45ce-a1e5-73be12b4bfe3",
       "title": "threat detection engineer",
       "level": "Mid-Level",
@@ -88,7 +132,7 @@
       "department": "security & enterprise it",
       "source": "Official CRED Lever ATS Feed",
       "sourceUrl": "https://jobs.lever.co/cred/b3da0ae4-d0a8-45ce-a1e5-73be12b4bfe3",
-      "lastVerified": "2026-11-07T08:33:13.906Z",
+      "lastVerified": "2026-11-10T09:29:37.161Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "08d1e57de9a66753021c4efbe29ee6553cf769659b1322b183c84b695dcf1013",
