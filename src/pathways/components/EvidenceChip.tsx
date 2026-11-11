@@ -5,6 +5,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
+import { X } from 'lucide-react';
 import type { EvidenceRef } from '../schema/types';
 
 interface EvidenceChipProps {
@@ -49,9 +50,10 @@ export const EvidenceChip: React.FC<EvidenceChipProps> = ({ evidence, label }) =
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="text-zinc-400 hover:text-white p-0.5"
+                className="text-zinc-400 hover:text-white p-0.5 cursor-pointer"
+                aria-label="Close evidence"
               >
-                ✕
+                <X className="w-3.5 h-3.5" aria-hidden="true" />
               </button>
             </div>
 

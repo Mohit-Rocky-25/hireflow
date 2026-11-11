@@ -5,6 +5,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { Calculator, Check, X, AlertTriangle } from 'lucide-react';
 import { PATHWAYS_PROGRAMS } from '../facts/programs.generated';
 import { evaluateEligibility, calculateCgpaGap } from '../engine/eligibility';
 import { usePathwaysProfileStore } from '../profile/profileStore';
@@ -105,7 +106,8 @@ export const PathwaysRadarPage: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h2 className="text-sm font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-                <span>⚡ CGPA Gap Bridge Calculator</span>
+                <Calculator className="w-4 h-4 text-volt" aria-hidden="true" />
+                <span>CGPA Gap Bridge Calculator</span>
               </h2>
               <p className="text-xs text-zinc-400 mt-0.5">
                 Calculates required future semester GPA using exact formula: R = (T·N - C·n) / (N - n)
@@ -150,12 +152,14 @@ export const PathwaysRadarPage: React.FC = () => {
             <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 flex flex-col justify-center">
               <span className="text-[10px] font-mono uppercase text-zinc-400">Required Future Average</span>
               {cgpaGapResult.isAchieved ? (
-                <div className="text-emerald-400 font-bold text-sm font-mono mt-1">
-                  ✓ Already Achieved ({profile.cgpa} ≥ {calcTargetCgpa})
+                <div className="text-emerald-400 font-bold text-sm font-mono mt-1 flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+                  <span>Already Achieved ({profile.cgpa} ≥ {calcTargetCgpa})</span>
                 </div>
               ) : !cgpaGapResult.isPossible ? (
-                <div className="text-rose-400 font-bold text-xs font-mono mt-1">
-                  ✕ Impossible on 10.0 scale ({cgpaGapResult.requiredRemainingCgpa})
+                <div className="text-rose-400 font-bold text-xs font-mono mt-1 flex items-center gap-1.5">
+                  <X className="w-3.5 h-3.5 text-rose-400" aria-hidden="true" />
+                  <span>Exceeds 10.0 scale ({cgpaGapResult.requiredRemainingCgpa})</span>
                 </div>
               ) : (
                 <div className="text-volt font-bold text-base font-mono mt-1">
@@ -259,7 +263,10 @@ export const PathwaysRadarPage: React.FC = () => {
                     {ev.caveats.length > 0 && (
                       <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-xs space-y-1 font-medium">
                         {ev.caveats.map((c, idx) => (
-                          <p key={idx} className="leading-relaxed">⚠ {c}</p>
+                          <p key={idx} className="leading-relaxed flex items-start gap-1.5">
+                            <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
+                            <span>{c}</span>
+                          </p>
                         ))}
                       </div>
                     )}

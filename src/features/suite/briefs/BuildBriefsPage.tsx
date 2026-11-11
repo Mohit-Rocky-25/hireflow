@@ -16,7 +16,6 @@ import {
   ArrowUp,
   Home,
   Hammer,
-  Sparkles,
   CheckCircle2,
   Clock,
   Layers,
@@ -93,10 +92,17 @@ export function BuildBriefsPage() {
   const bundleResult = useMemo(() => bundleBriefsForGaps(activeGaps, ALL_PROJECT_BRIEFS, 4), [activeGaps]);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem('hireflow_saved_briefs');
-      if (saved) setSavedBriefIds(JSON.parse(saved));
-    } catch { /* ignore */ }
+    const loadSaved = () => {
+      try {
+        const saved = localStorage.getItem('hireflow_saved_briefs');
+        if (saved) setSavedBriefIds(JSON.parse(saved));
+      } catch { /* ignore */ }
+    };
+    loadSaved();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('hireflow:cloud-synced', loadSaved);
+      return () => window.removeEventListener('hireflow:cloud-synced', loadSaved);
+    }
   }, []);
 
   const handleToggleSave = useCallback((id: string) => {
@@ -104,7 +110,12 @@ export function BuildBriefsPage() {
       ? savedBriefIds.filter((x) => x !== id)
       : [...savedBriefIds, id];
     setSavedBriefIds(updated);
-    try { localStorage.setItem('hireflow_saved_briefs', JSON.stringify(updated)); } catch { /* ignore */ }
+    try {
+      localStorage.setItem('hireflow_saved_briefs', JSON.stringify(updated));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('hireflow:data-changed'));
+      }
+    } catch { /* ignore */ }
   }, [savedBriefIds]);
 
   const handleCopyBullet = useCallback((id: string, text: string) => {
@@ -199,7 +210,7 @@ export function BuildBriefsPage() {
           <div className="flex items-center gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-volt shrink-0 animate-ping" />
             <span>
-              🎯 <strong className="text-volt uppercase tracking-wider">Filtered by Requirement:</strong>{' '}
+              <strong className="text-volt uppercase tracking-wider">Filtered by Requirement:</strong>{' '}
               <span className="text-white font-black underline decoration-volt decoration-2">{incomingQuery}</span>{' '}
               — showing matching 3-day project briefs.
             </span>
@@ -284,12 +295,13 @@ export function BuildBriefsPage() {
           {activeGaps.map((gap, i) => {
             const covered = bundleResult.coveredSkills.includes(gap);
             return (
-              <span key={i} className={`text-[11px] px-2 py-0.5 rounded font-bold border ${
+              <span key={i} className={`text-[11px] px-2 py-0.5 rounded font-bold border inline-flex items-center gap-1 ${
                 covered
                   ? 'bg-black text-volt border-charcoal'
                   : 'bg-black text-silver border-charcoal'
               }`}>
-                {covered ? '✓ ' : ''}{gap}
+                {covered && <Check className="w-3 h-3 text-volt inline" aria-hidden="true" />}
+                <span>{gap}</span>
               </span>
             );
           })}
@@ -300,7 +312,7 @@ export function BuildBriefsPage() {
       <div className="bg-near-black border border-charcoal rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-volt" />
+            <Hammer className="w-5 h-5 text-volt" />
             <span className="text-xs font-black uppercase tracking-wider text-volt">Suggested Bundle</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-white">

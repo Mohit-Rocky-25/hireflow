@@ -87,8 +87,9 @@ export function BriefCard({
             <span className="text-[11px] font-semibold text-silver">Target Skills Addressed:</span>
             <div className="flex flex-wrap gap-1">
               {coverageSkills.map((skill, i) => (
-                <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-near-black text-volt font-bold border border-charcoal">
-                  ✓ {skill}
+                <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-near-black text-volt font-bold border border-charcoal inline-flex items-center gap-1">
+                  <Check className="w-3 h-3 text-volt shrink-0" aria-hidden="true" />
+                  <span>{skill}</span>
                 </span>
               ))}
             </div>

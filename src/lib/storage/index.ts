@@ -127,6 +127,9 @@ export class HireFlowStorageAdapter {
 
     try {
       window.localStorage.setItem(qualifiedKey, serialized);
+      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: qualifiedKey } }));
+      }
       return true;
     } catch (err) {
       const isQuota =

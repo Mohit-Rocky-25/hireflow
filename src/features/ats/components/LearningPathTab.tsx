@@ -265,7 +265,7 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
                           <ul className="space-y-1 text-xs text-silver pl-1">
                             {item.evidenceOfDone.map((ev, i) => (
                               <li key={i} className="flex items-start gap-2">
-                                <span className="text-volt font-bold mt-0.5">✓</span>
+                                <Check className="w-3.5 h-3.5 text-volt mt-0.5 shrink-0" aria-hidden="true" />
                                 <span>{ev}</span>
                               </li>
                             ))}

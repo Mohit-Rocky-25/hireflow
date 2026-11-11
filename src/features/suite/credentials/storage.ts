@@ -25,6 +25,9 @@ function safeSet(val: string): boolean {
   try {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, val);
+      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: STORAGE_KEY } }));
+      }
       return true;
     }
     memStore.set(STORAGE_KEY, val);
@@ -132,6 +135,9 @@ export const CredentialsStorage = {
       const str = JSON.stringify(details);
       if (typeof localStorage !== 'undefined') {
         localStorage.setItem(`hireflow.suite.v1.truth.${opportunityId}`, str);
+        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+          window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: `hireflow.suite.v1.truth.${opportunityId}` } }));
+        }
       } else {
         memStore.set(`hireflow.suite.v1.truth.${opportunityId}`, str);
       }

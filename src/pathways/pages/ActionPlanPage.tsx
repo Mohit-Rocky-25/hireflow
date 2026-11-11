@@ -5,6 +5,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { Check, AlertTriangle, X } from 'lucide-react';
 import { PATHWAYS_PROGRAMS } from '../facts/programs.generated';
 import { generateActionPlan } from '../engine/plan';
 import { resolveLocalReadiness } from '../engine/readiness';
@@ -103,7 +104,7 @@ export const ActionPlanPage: React.FC = () => {
               onClick={handleCopyPlan}
               className="px-3 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-white transition-colors"
             >
-              {copiedStatus ? '✓ Copied!' : 'Copy Plan'}
+              {copiedStatus ? 'Copied' : 'Copy Plan'}
             </button>
             <button
               onClick={() => setShowAssumptionsModal(true)}
@@ -187,7 +188,7 @@ export const ActionPlanPage: React.FC = () => {
         {/* Draft Assumptions Disclosure Banner */}
         {planResult?.draftAssumptionsInUse && (
           <div className="p-3.5 bg-amber-950/40 border border-amber-500/40 rounded-xl flex items-start gap-3">
-            <span className="text-amber-400 text-base leading-none">⚠️</span>
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
             <div className="text-xs space-y-1">
               <div className="font-semibold text-amber-300">Draft Assumptions In Use</div>
               <p className="text-zinc-400">
@@ -282,8 +283,9 @@ export const ActionPlanPage: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="p-3 bg-zinc-950/50 rounded-lg border border-zinc-800/80 text-xs text-emerald-400">
-                ✓ No active eligibility blockers identified for {targetProgram?.facts.officialName}.
+              <div className="p-3 bg-zinc-950/50 rounded-lg border border-zinc-800/80 text-xs text-emerald-400 flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
+                <span>No active eligibility blockers identified for {targetProgram?.facts.officialName}.</span>
               </div>
             )}
           </section>
@@ -406,9 +408,11 @@ export const ActionPlanPage: React.FC = () => {
               </h3>
               <button
                 onClick={() => setShowAssumptionsModal(false)}
-                className="text-zinc-400 hover:text-white text-xs font-mono"
+                className="text-zinc-400 hover:text-white text-xs font-mono inline-flex items-center gap-1 cursor-pointer"
+                aria-label="Close assumptions modal"
               >
-                ✕ Close
+                <X className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Close</span>
               </button>
             </div>
 

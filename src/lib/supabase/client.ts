@@ -36,11 +36,47 @@ export interface CloudUserData {
 }
 
 export interface CloudPayload {
+  // 1. Candidate Profile & Fresher Intake
   profile: any;
+  preferences?: any;
+  fresherIntake?: any;
+
+  // 2. ATS Resume Roaster & Scan History
   atsEvaluation: any;
   scanHistory: any[];
+  savedReports?: any[];
   savedJds: any[];
+  actionabilityGaps?: any[];
+  realityFactors?: any;
+  learningPathSkills?: Record<string, boolean>;
+
+  // 3. Tailor My Resume Ledger
   tailorLedger: any;
+
+  // 4. Credentials & Opportunity Engine ("My Plan")
+  credentialsPlan?: any[];
+  credentialTruthDetails?: Record<string, any>;
+
+  // 5. Build Briefs / Proof Projects Progress
+  briefProgress?: any;
+  savedBriefs?: any[];
+
+  // 6. Career Trajectory & Target Roles
+  savedRoles?: any[];
+  careerPathFilters?: any;
+
+  // 7. TalentLens Calibration Session
+  talentLensSession?: any;
+  talentLensSavedRoles?: any[];
+
+  // 8. Reach Out Studio Drafts & Preferences
+  outreachDrafts?: any;
+  outreachSelectedTemplate?: string;
+  outreachPremiumMode?: boolean;
+
+  // 9. Feedback & Notes
+  feedback?: any;
+
   updatedAt: string;
 }
 

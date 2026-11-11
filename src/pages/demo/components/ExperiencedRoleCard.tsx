@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Check, AlertTriangle, Zap } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -76,7 +77,7 @@ export function ExperiencedRoleCard({
                 : 'border-charcoal bg-black text-transparent'
             }`}
           >
-            {isSelected && <span className="text-xs font-black">✓</span>}
+            {isSelected && <Check className="w-3.5 h-3.5 text-volt" aria-hidden="true" />}
           </div>
         </div>
 
@@ -184,7 +185,7 @@ export function ExperiencedRoleCard({
             )}
 
             <div className="pt-3 border-t border-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-neutral-400">
-              <span>Touchpoints: Official {company.name} Careers / Public Intake Criteria</span>
+              <span>Data: {company.name} public career pages · Oct 2026 snapshot</span>
               <span className="text-neutral-500">Fair dealing under Indian Copyright Act §52 & Nominative Fair Use</span>
             </div>
           </div>
@@ -210,14 +211,17 @@ export function ExperiencedRoleCard({
 
           {!resumeText.trim() ? (
             <div className="p-3 bg-near-black border border-charcoal rounded-lg mb-3 text-xs text-pale-yellow">
-              <p className="font-semibold mb-1 uppercase tracking-wider">⚠ Add resume first</p>
+              <p className="font-semibold mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
+                Add resume first
+              </p>
               <Link to="/demo" className="text-volt font-bold underline uppercase tracking-wider">
                 ← Click here to add your resume in Step 1
               </Link>
             </div>
           ) : (
             <div className="p-3 bg-near-black border border-charcoal rounded-lg mb-3 flex items-center gap-2 text-xs text-volt font-semibold uppercase tracking-wider font-mono">
-              <span className="font-bold text-xs">[✓]</span>
+              <Check className="w-3.5 h-3.5 text-volt shrink-0" aria-hidden="true" />
               <span>Resume loaded ({resumeText.split(/\s+/).length} words)</span>
             </div>
           )}
@@ -231,12 +235,12 @@ export function ExperiencedRoleCard({
             {analyzing ? (
               <>
                 <span className="inline-block w-4 h-4 border-2 border-black group-hover:border-white border-t-transparent rounded-full animate-spin" />
-                <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
+                <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
               </>
             ) : (
               <>
-                <span className="text-base font-black !text-black group-hover:!text-white">⚡</span>
-                <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
+                <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
+                <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
               </>
             )}
           </button>

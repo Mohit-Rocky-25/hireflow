@@ -272,7 +272,7 @@ export function OpenSourceTab({
                   : 'bg-surface border-border text-foreground hover:bg-surface-2'
               }`}
             >
-              <span>🇮🇳</span>
+              <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-surface-2 border border-border">IN</span>
               <span>{onlyIndian ? 'Showing Indian Programs' : 'Filter Indian Only'}</span>
             </button>
           </div>
@@ -321,11 +321,11 @@ export function OpenSourceTab({
               className="w-full px-3 py-2.5 rounded-xl bg-surface-2 hover:bg-surface border-2 border-border/90 hover:border-emerald-500/50 focus:border-emerald-500 text-sm font-bold text-foreground focus:outline-none transition-all cursor-pointer shadow-2xs"
             >
               <option value="All" className="bg-surface text-foreground font-bold">All Statuses</option>
-              <option value="open_now" className="bg-surface text-foreground font-semibold">🟢 Open Now (October)</option>
-              <option value="start_now" className="bg-surface text-foreground font-semibold">⏳ Preparation Window Open</option>
-              <option value="paid_stipend" className="bg-surface text-foreground font-semibold">💰 Paid Stipend</option>
-              <option value="hidden_gem" className="bg-surface text-foreground font-semibold">💎 Hidden Gem (High Signal)</option>
-              <option value="evidence_builder" className="bg-surface text-foreground font-semibold">⭐ High Evidence Builder</option>
+              <option value="open_now" className="bg-surface text-foreground font-semibold">Open Now (Active Cohort)</option>
+              <option value="start_now" className="bg-surface text-foreground font-semibold">Preparation Window Open</option>
+              <option value="paid_stipend" className="bg-surface text-foreground font-semibold">Paid Stipend</option>
+              <option value="hidden_gem" className="bg-surface text-foreground font-semibold">High Signal Opportunity</option>
+              <option value="evidence_builder" className="bg-surface text-foreground font-semibold">High Evidence Builder</option>
             </select>
           </div>
 

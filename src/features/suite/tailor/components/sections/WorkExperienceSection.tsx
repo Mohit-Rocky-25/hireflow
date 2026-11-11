@@ -176,7 +176,7 @@ export function WorkExperienceSection({
                   <div className="flex items-center gap-1.5 flex-wrap">
                     {entry.bullets && entry.bullets.length > 0 && (
                       <span className="px-2 py-0.5 rounded-md bg-neutral-900 text-[10px] font-mono text-emerald-400 border border-emerald-500/20 font-bold">
-                        ✓ Google XYZ
+                        Google XYZ
                       </span>
                     )}
                     <span className="text-[10px] text-neutral-500">

@@ -57,7 +57,7 @@ export function JobRequirementsSection({
                         : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
                     }`}
                   >
-                    {status === 'DIRECT' ? '✓ Direct Match' : status === 'TRANSFERABLE' ? '⇄ Transferable' : '○ Missing Evidence'}
+                    {status === 'DIRECT' ? 'Direct Match' : status === 'TRANSFERABLE' ? 'Transferable' : 'Missing Evidence'}
                   </span>
 
                   <span className="text-[10px] font-mono text-neutral-400 uppercase font-bold">

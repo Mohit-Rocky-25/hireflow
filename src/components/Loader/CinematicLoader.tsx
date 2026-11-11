@@ -517,8 +517,7 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
             HIRE<span className="text-volt">FLOW</span>
           </h1>
           <div className="hf-brand-tagline">
-            <span className="hf-tagline-bolt">⚡</span>
-            <span>HIGH-VOLTAGE ATS & CAREER INTELLIGENCE</span>
+            <span>CANDIDATE-SIDE CAREER INTELLIGENCE</span>
           </div>
         </div>
 
@@ -534,10 +533,10 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
           </div>
           <div className="hf-meter-meta">
             <span className="hf-meta-status">
-              {progress < 25 && 'GATHERING ATMOSPHERIC CHARGE...'}
-              {progress >= 25 && progress < 65 && 'THUNDER STRIKE: ENERGIZING HF CORE...'}
-              {progress >= 65 && progress < 90 && 'SYNCHRONIZING TAXONOMY TRUTH GATES...'}
-              {progress >= 90 && 'HIREFLOW CORE READY — ENGAGING'}
+              {progress < 25 && 'INITIALIZING CANDIDATE SUITE...'}
+              {progress >= 25 && progress < 65 && 'CALIBRATING TAXONOMY AND SCORING GATES...'}
+              {progress >= 65 && progress < 90 && 'SYNCHRONIZING VERIFIED BENCHMARKS...'}
+              {progress >= 90 && 'HIREFLOW READY'}
             </span>
             <span className="hf-meta-pct">{Math.floor(progress)}%</span>
           </div>

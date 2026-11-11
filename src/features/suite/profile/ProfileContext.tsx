@@ -38,6 +38,17 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     reloadProfile();
+
+    const handleCloudSync = () => {
+      reloadProfile();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('hireflow:cloud-synced', handleCloudSync);
+      return () => {
+        window.removeEventListener('hireflow:cloud-synced', handleCloudSync);
+      };
+    }
   }, [reloadProfile]);
 
   const saveFromResumeText = useCallback((resumeText: string, manual?: ManualProfileFields): CandidateProfile => {

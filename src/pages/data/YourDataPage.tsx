@@ -32,6 +32,7 @@ import {
   FileCheck,
   Cloud,
   Share2,
+  Check,
 } from 'lucide-react';
 
 export function YourDataPage() {
@@ -336,7 +337,7 @@ export function YourDataPage() {
                     >
                       <span className="font-medium text-neutral-200">{sec.key}</span>
                       <span className="text-neutral-400">
-                        {sec.itemsInFile} items {sec.isValid ? '✓' : '⚠️'}
+                        {sec.itemsInFile} items ({sec.isValid ? 'Valid' : 'Warning'})
                       </span>
                     </div>
                   ))}

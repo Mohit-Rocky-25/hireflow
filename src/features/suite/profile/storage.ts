@@ -52,6 +52,9 @@ function safeSet(key: string, value: string): boolean {
   try {
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(`${PREFIX}${key}`, value);
+      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
+        window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: `${PREFIX}${key}` } }));
+      }
       return true;
     }
     memStore.set(`${PREFIX}${key}`, value);

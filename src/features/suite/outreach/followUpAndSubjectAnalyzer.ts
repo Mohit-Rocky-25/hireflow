@@ -64,7 +64,7 @@ ${candidate}`,
 Hope you are having a productive week.
 
 Since reaching out last week about the ${role} position, I put together a working prototype solving a common ${company} engineering challenge:
-👉 ${link}
+${link}
 
 It implements ${skill} with verified performance benchmarks and zero third-party bloat. Even if hiring is on pause, I would love to hear any technical thoughts your team might have.
 

@@ -335,7 +335,7 @@ export function HandmadeResumeEditor({ initialFocus }: HandmadeResumeEditorProps
             title="Automatically adjust font size, margins, and density to guarantee optimal 1-page fit"
           >
             <Zap className="w-3.5 h-3.5 text-black" />
-            <span>{fitToast ? '✓ Optimized to 1 Page!' : 'Auto-Fit 1 Page'}</span>
+            <span>{fitToast ? 'Optimized to 1 Page' : 'Auto-Fit 1 Page'}</span>
           </button>
         </div>
 

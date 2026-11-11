@@ -6,7 +6,7 @@
 // ============================================================
 
 import React, { useState, useEffect } from 'react';
-import { GraduationCap, Sparkles, X, Check, BookOpen, Building2 } from 'lucide-react';
+import { GraduationCap, X, Check, BookOpen, Building2, ShieldCheck } from 'lucide-react';
 import { ArchetypeId } from '../../data/market/types';
 
 export interface FresherIntakeData {
@@ -199,7 +199,8 @@ export function FresherIntakeModal({ isOpen, onClose, onSave }: FresherIntakeMod
           </div>
 
           <p className="text-[11px] text-text-muted leading-relaxed bg-surface-2/40 p-2.5 rounded-xl border border-border">
-            🔒 <strong>Zero-Egress Privacy:</strong> This profile is saved strictly on your local browser. It is used only to show calibrated cutoffs and remove irrelevant experience requirements.
+            <ShieldCheck className="w-3.5 h-3.5 text-accent inline mr-1 align-sub" aria-hidden="true" />
+            <strong>Zero-Egress Privacy:</strong> This profile is saved strictly on your local browser. It is used only to show calibrated cutoffs and remove irrelevant experience requirements.
           </p>
 
           {/* Footer Buttons */}

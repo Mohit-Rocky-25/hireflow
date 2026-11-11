@@ -13,7 +13,8 @@ import { toast } from '../ui/Toast';
 import {
   CheckCircle2,
   ChevronRight,
-  Sparkles,
+  Check,
+  Plus,
   ExternalLink,
   PlusCircle,
   RotateCw,
@@ -161,7 +162,7 @@ export function GuidedImprovementLoop({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-emerald-400" />
+            <RotateCw className="h-5 w-5 text-emerald-400" />
             <h3 className="text-base font-semibold text-white">Guided Improvement Loop</h3>
           </div>
           <p className="mt-0.5 text-xs text-slate-400">
@@ -182,7 +183,7 @@ export function GuidedImprovementLoop({
                   : 'bg-slate-800 text-slate-500'
               }`}
             >
-              {s < activeStep ? '✓' : s}
+              {s < activeStep ? <Check className="w-3.5 h-3.5 inline" aria-hidden="true" /> : s}
             </div>
           ))}
         </div>
@@ -222,7 +223,7 @@ export function GuidedImprovementLoop({
                       isSelected ? 'border-emerald-500 bg-emerald-600 text-white' : 'border-slate-700'
                     }`}
                   >
-                    {isSelected && '✓'}
+                    {isSelected && <Check className="w-3.5 h-3.5" aria-hidden="true" />}
                   </div>
                 </div>
               );
@@ -366,7 +367,7 @@ export function GuidedImprovementLoop({
                           : 'border-slate-800 bg-slate-900 text-slate-400 hover:border-slate-700'
                       }`}
                     >
-                      <span>{isChecked ? '✓' : '+'}</span>
+                      <span>{isChecked ? <Check className="w-3 h-3 inline" aria-hidden="true" /> : <Plus className="w-3 h-3 inline" aria-hidden="true" />}</span>
                       <span>{id}</span>
                     </button>
                   );

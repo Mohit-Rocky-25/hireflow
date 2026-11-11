@@ -5,6 +5,7 @@
 // ============================================================
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Check } from 'lucide-react';
 import { PublicNavbar } from '../components/common/PublicNavbar';
 import { careers } from '../careers-core';
 import { PLATFORM_DATA_META, getCompanyCountsSummary } from '../data/meta';
@@ -328,16 +329,16 @@ export function LandingPage() {
             
             <ul className="space-y-4 text-[14px] sm:text-[15px] text-white font-medium">
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
+                <Check className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
                 <span>Enterprise ATS simulation</span>
               </li>
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
+                <Check className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
                 <span>Identifies semantic keyword gaps</span>
               </li>
               <li className="flex items-center gap-3 justify-center lg:justify-start">
-                <span className="font-mono text-volt font-bold text-[13px] shrink-0">[✓]</span>
-                <span>No-BS actionable feedback</span>
+                <Check className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
+                <span>Actionable, calibrated feedback</span>
               </li>
             </ul>
           </div>

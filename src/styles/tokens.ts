@@ -1,26 +1,136 @@
 // ============================================================
-// HireFlow v2 — Design Tokens & WCAG Contrast Standards (DESIGN.md)
-// High-contrast pure black (#000000), neon volt (#faff69), charcoal
+// HireFlow v4 — Design Tokens & WCAG Contrast Standards
+// Strict semantic tokens, OKLCH neutral ramps, zero glow
 // ============================================================
 
+export const SEMANTIC_TOKENS_DARK = {
+  bg: '#090907',
+  surface1: '#10100d',
+  surface2: '#161613',
+  surface3: '#1f201b',
+  surfaceInverse: '#f2f2ef',
+
+  borderSubtle: '#282824',
+  borderDefault: '#3d3d37',
+  borderStrong: '#55554d',
+
+  textPrimary: '#f2f2ef',
+  textSecondary: '#a5a59e',
+  textTertiary: '#72726a',
+  textDisabled: '#484841',
+  textOnAccent: '#12140a',
+
+  accent: '#faff69',
+  accentHover: '#eaf054',
+  accentPressed: '#d6dc3e',
+  accentSubtle: 'rgba(250, 255, 105, 0.12)',
+
+  focusRing: '#faff69',
+  overlayScrim: 'rgba(0, 0, 0, 0.75)',
+
+  // Status Trios
+  successBg: '#122013',
+  successBorder: '#224825',
+  successText: '#6ee7b7',
+
+  warningBg: '#241c0a',
+  warningBorder: '#4a3810',
+  warningText: '#fde047',
+
+  dangerBg: '#261012',
+  dangerBorder: '#522024',
+  dangerText: '#f87171',
+
+  infoBg: '#0f1a24',
+  infoBorder: '#1d364a',
+  infoText: '#7dd3fc',
+
+  chart: {
+    bg: '#090907',
+    gridLines: '#282824',
+    axisText: '#72726a',
+    tooltipBg: '#10100d',
+    tooltipText: '#f2f2ef',
+    series1: '#faff69',
+    series2: '#5eead4',
+    series3: '#93c5fd',
+    series4: '#c084fc',
+    series5: '#fb923c',
+    series6: '#f472b6',
+  },
+} as const;
+
+export const SEMANTIC_TOKENS_LIGHT = {
+  bg: '#fafaf7',
+  surface1: '#ffffff',
+  surface2: '#f2f3ef',
+  surface3: '#e6e8e2',
+  surfaceInverse: '#141513',
+
+  borderSubtle: '#e2e4dc',
+  borderDefault: '#cbcfc4',
+  borderStrong: '#9da394',
+
+  textPrimary: '#1a1c18',
+  textSecondary: '#4e544a',
+  textTertiary: '#757d6f',
+  textDisabled: '#a4aca0',
+  textOnAccent: '#ffffff',
+
+  accent: '#6d7600',
+  accentHover: '#5c6400',
+  accentPressed: '#4c5300',
+  accentSubtle: 'rgba(109, 118, 0, 0.12)',
+
+  focusRing: '#6d7600',
+  overlayScrim: 'rgba(0, 0, 0, 0.5)',
+
+  successBg: '#edf9f0',
+  successBorder: '#b6e7c3',
+  successText: '#156f34',
+
+  warningBg: '#fef9e8',
+  warningBorder: '#f9e190',
+  warningText: '#8a6500',
+
+  dangerBg: '#fdf2f2',
+  dangerBorder: '#f8b4b4',
+  dangerText: '#b91c1c',
+
+  infoBg: '#f0f7ff',
+  infoBorder: '#b8daff',
+  infoText: '#0353a4',
+
+  chart: {
+    bg: '#fafaf7',
+    gridLines: '#e2e4dc',
+    axisText: '#757d6f',
+    tooltipBg: '#141513',
+    tooltipText: '#ffffff',
+    series1: '#6d7600',
+    series2: '#0d9488',
+    series3: '#2563eb',
+    series4: '#7c3aed',
+    series5: '#ea580c',
+    series6: '#db2777',
+  },
+} as const;
+
+// Backwards-compatible DARK_TOKENS contract for existing tests
 export const DARK_TOKENS = {
-  // Surfaces & Backgrounds (§2)
-  bgPrimary: '#000000',     // Pure black canvas
-  bgCard: '#141414',        // Near-black container surface
-  bgCardElevated: '#1f1f1f',// Elevated hover surface
-  bgInput: '#141414',       // Near-black input field
+  bgPrimary: '#000000',
+  bgCard: '#141414',
+  bgCardElevated: '#1f1f1f',
+  bgInput: '#141414',
 
-  // Text & Typography (§2, §3)
-  textPrimary: '#ffffff',   // Pure white high-emphasis text (21:1 on pure black)
-  textSecondary: '#a0a0a0', // Silver secondary text (8:1 on pure black)
-  textMuted: '#a0a0a0',     // Secondary metadata text (>= 4.5:1 against bgCard)
-  textSubtle: '#a0a0a0',    // Secondary metadata text
+  textPrimary: '#ffffff',
+  textSecondary: '#a0a0a0',
+  textMuted: '#a0a0a0',
+  textSubtle: '#a0a0a0',
 
-  // Borders & Dividers (§2)
   borderSubtle: '#343434',
   borderHighlight: '#faff69',
 
-  // Core Brand Colors (§2)
   volt: '#faff69',
   forest: '#166534',
   forestDark: '#14572f',
@@ -29,34 +139,29 @@ export const DARK_TOKENS = {
   charcoalDeep: '#343434',
   nearBlack: '#141414',
 
-  // Semantic Status Colors (Stage 1B: No new hues except danger)
-  successText: '#faff69',   // Volt text on dark surface
-  successBg: '#161600',     // Dark olive surface
-  warningText: '#f4f692',   // Pale yellow text on dark surface
-  warningBg: '#161600',     // Dark olive surface
-  dangerText: '#f87171',    // Muted coral red error text (passes 4.5:1 on black & dark surface)
-  dangerBg: '#2a0c0c',      // Dark crimson container surface
-  infoText: '#a0a0a0',      // Silver info text
-  infoBg: '#141414',        // Near-black surface
+  successText: '#faff69',
+  successBg: '#161600',
+  warningText: '#f4f692',
+  warningBg: '#161600',
+  dangerText: '#f87171',
+  dangerBg: '#2a0c0c',
+  infoText: '#a0a0a0',
+  infoBg: '#141414',
 
-  // Career Trajectory & Data Visualization Chart Tokens (Single-hue luminance ramp)
   chart: {
     bg: '#000000',
     gridLines: '#343434',
-    axisText: '#a0a0a0',     // Silver axis labels (8:1 on pure black)
+    axisText: '#a0a0a0',
     tooltipBg: '#141414',
     tooltipText: '#ffffff',
-    series1: '#faff69',     // Volt (brightest)
-    series2: '#f4f692',     // Pale yellow
-    series3: '#ffffff',     // White
-    series4: '#a0a0a0',     // Silver
-    series5: '#6b7280',     // Charcoal-mid
+    series1: '#faff69',
+    series2: '#f4f692',
+    series3: '#ffffff',
+    series4: '#a0a0a0',
+    series5: '#6b7280',
   },
 } as const;
 
-/**
- * Parses hex color string (#RGB, #RRGGBB) into RGB components.
- */
 export function hexToRgb(hex: string): { r: number; g: number; b: number } {
   const cleanHex = hex.replace('#', '');
   if (cleanHex.length === 3) {
@@ -73,10 +178,6 @@ export function hexToRgb(hex: string): { r: number; g: number; b: number } {
   };
 }
 
-/**
- * Calculates relative luminance for WCAG 2.1 compliance.
- * https://www.w3.org/TR/WCAG21/#dfn-relative-luminance
- */
 export function getRelativeLuminance(rgb: { r: number; g: number; b: number }): number {
   const [r, g, b] = [rgb.r, rgb.g, rgb.b].map((c) => {
     const sRGB = c / 255;
@@ -85,10 +186,6 @@ export function getRelativeLuminance(rgb: { r: number; g: number; b: number }): 
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-/**
- * Calculates WCAG contrast ratio between foreground and background.
- * Output range: 1.0 to 21.0
- */
 export function calculateContrastRatio(fgHex: string, bgHex: string): number {
   const lum1 = getRelativeLuminance(hexToRgb(fgHex));
   const lum2 = getRelativeLuminance(hexToRgb(bgHex));

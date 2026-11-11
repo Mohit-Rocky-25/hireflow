@@ -135,7 +135,7 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
           {readouts.blockers.map((b, idx) => (
             <div key={`b_${idx}`} className="p-2.5 rounded bg-rose-950/20 border border-rose-900/40 text-rose-300 space-y-1">
               <div className="flex items-center justify-between font-bold">
-                <span className="text-rose-400">⛔ [{b.ruleId}] {b.message}</span>
+                <span className="text-rose-400">[{b.ruleId}] {b.message}</span>
                 <span className="text-[10px] uppercase text-rose-500">Blocker</span>
               </div>
               {b.suggestedFix && (
@@ -148,7 +148,7 @@ export function TwoReadoutsStrip({ readouts, onOpenSequenceDrawer }: TwoReadouts
           {readouts.warnings.map((w, idx) => (
             <div key={`w_${idx}`} className="p-2.5 rounded bg-amber-950/20 border border-amber-900/40 text-amber-300 space-y-1">
               <div className="flex items-center justify-between font-bold">
-                <span className="text-amber-400">⚠️ [{w.ruleId}] {w.message}</span>
+                <span className="text-amber-400">[{w.ruleId}] {w.message}</span>
                 <span className="text-[10px] uppercase text-amber-500">Warning</span>
               </div>
               {w.suggestedFix && (

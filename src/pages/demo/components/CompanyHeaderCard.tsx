@@ -129,7 +129,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             </div>
             <div className="bg-black rounded-lg px-3.5 py-2 text-center border border-charcoal">
               <div className="text-sm sm:text-base font-bold text-white">
-                {company.glassdoor != null ? `★ ${company.glassdoor}` : 'Not available'}
+                {company.glassdoor != null ? `${company.glassdoor} / 5` : 'Not available'}
               </div>
               <div className="text-xs text-neutral-400 uppercase tracking-wider mt-0.5">Glassdoor</div>
             </div>

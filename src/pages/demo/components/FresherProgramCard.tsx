@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Check, Zap } from 'lucide-react';
 import { DataBadge } from '../../../careers-core';
 import type { FresherProgram } from '../../../careers-core';
 import type { Company } from '../talentLensData';
@@ -88,7 +89,7 @@ export function FresherProgramCard({
           >
             {isSelected ? (
               <>
-                <span className="text-volt font-bold text-xs">[✓]</span>
+                <Check className="w-3.5 h-3.5 text-volt shrink-0" aria-hidden="true" />
                 <span>Selected</span>
               </>
             ) : (
@@ -186,7 +187,7 @@ export function FresherProgramCard({
                 {company.name} — {prog.programName}
               </div>
               <div className="text-xs text-silver font-mono">
-                {Object.keys(prog.competencyProfile).length} competencies ready for deep screening
+                {Object.keys(prog.competencyProfile).length} competencies ready for calibration
               </div>
             </div>
           </div>
@@ -194,21 +195,21 @@ export function FresherProgramCard({
           {!resumeText.trim() ? (
             <div className="p-3 bg-near-black border border-charcoal rounded mb-3 text-xs space-y-2">
               <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-[1px] font-mono">
-                <span className="text-volt font-bold">[!]</span> Resume needed for AI screening
+                <span className="text-volt font-bold">[!]</span> Resume needed for calibration
               </div>
               <button
                 type="button"
                 onClick={onLoadSampleResume}
                 className="group w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
               >
-                <span className="font-mono font-bold text-xs">⚡</span>
+                <Zap className="w-3.5 h-3.5 text-black group-hover:text-white shrink-0" aria-hidden="true" />
                 <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify Now</span>
               </button>
             </div>
           ) : (
             <div className="p-2.5 bg-near-black border border-charcoal rounded mb-3 flex items-center justify-between text-xs text-volt font-bold uppercase tracking-[1px] font-mono">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-[12px]">[✓]</span>
+                <Check className="w-3.5 h-3.5 text-volt shrink-0" aria-hidden="true" />
                 <span>
                   {activeResume?.ledger?.rawText === resumeText
                     ? `Profile: ${activeResume.label}`
@@ -233,12 +234,12 @@ export function FresherProgramCard({
             {analyzing ? (
               <>
                 <span className="inline-block w-3.5 h-3.5 border-2 border-black group-hover:border-white border-t-transparent rounded-full animate-spin" />
-                <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
+                <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
               </>
             ) : (
               <>
-                <span className="font-mono text-sm font-black !text-black group-hover:!text-white">⚡</span>
-                <span className="!text-black group-hover:!text-white font-black">Run Deep AI Analysis</span>
+                <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
+                <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
               </>
             )}
           </button>

@@ -63,6 +63,123 @@ import { ProfileDrawer } from './features/suite/profile/components/ProfileDrawer
 import { LocalhostNavigator } from './components/common/LocalhostNavigator';
 import { PwaUpdateToast } from './components/common/PwaUpdateToast';
 import { OfflineIndicator } from './components/common/OfflineIndicator';
+import { ErrorState } from './components/ui/Components';
+
+const ROUTE_TITLES: Record<string, string> = {
+  '/': 'HireFlow — Free Candidate-Side Career Toolkit',
+  '/demo': 'TalentLens — Role Benchmark & Fit Evaluation | HireFlow',
+  '/tools': 'Central Tools Hub | HireFlow',
+  '/tools/resume-checker': 'ATS Resume Roaster — 7-Dimension Evaluation | HireFlow',
+  '/tools/jd-compare': 'Compare JDs — Head-to-Head Evaluation | HireFlow',
+  '/tools/tailor': 'Tailor My Resume — Grounded Adaptation Studio | HireFlow',
+  '/tools/reach-out': 'Reach Out — Channel-Calibrated Networking Studio | HireFlow',
+  '/tools/build-briefs': 'Project Briefs — Production Portfolio Engine | HireFlow',
+  '/tools/career-path': 'Career Trajectory — Career Ladder Simulator | HireFlow',
+  '/tools/career-path/dream-job-roadmap': 'Dream Job Roadmap | HireFlow',
+  '/tools/career-path/company-levels': 'Company Engineering Levels & Ladders | HireFlow',
+  '/tools/talent-lens': 'TalentLens Workspace | HireFlow',
+  '/tools/credential-engine': 'Credential & Opportunity Engine | HireFlow',
+  '/data': 'Data Management & Zero-Egress Privacy | HireFlow',
+  '/history': 'Scan History & Audit Log | HireFlow',
+  '/jd-library': 'Saved Job Descriptions | HireFlow',
+  '/methodology': 'Scoring Spec & Methodology | HireFlow',
+  '/login': 'Candidate Portal Authentication | HireFlow',
+  '/register': 'Candidate Account Registration | HireFlow',
+};
+
+function RouteChangeHandler() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    const exact = ROUTE_TITLES[location.pathname];
+    if (exact) {
+      document.title = exact;
+    } else if (location.pathname.startsWith('/demo/company/')) {
+      document.title = 'Company Roles & Eligibility Calibration | HireFlow';
+    } else if (location.pathname.startsWith('/tools/pathways')) {
+      document.title = 'Pathways — Campus Intelligence & Readiness | HireFlow';
+    } else {
+      document.title = 'HireFlow — Candidate Career Decision Suite';
+    }
+
+    const targetHeading = document.querySelector('h1') as HTMLElement | null;
+    if (targetHeading) {
+      if (!targetHeading.hasAttribute('tabIndex')) {
+        targetHeading.setAttribute('tabIndex', '-1');
+      }
+      targetHeading.focus({ preventScroll: true });
+    }
+  }, [location.pathname]);
+
+  return null;
+}
+
+function SkipToContent() {
+  return (
+    <a
+      href="#main-content"
+      className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[999999] focus:px-4 focus:py-2 focus:bg-volt focus:text-black focus:rounded-md focus:font-bold focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-volt"
+    >
+      Skip to content
+    </a>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <div className="min-h-screen bg-black text-white flex items-center justify-center p-6" id="main-content">
+      <ErrorState
+        title="Page not found"
+        message="The page or tool route you requested does not exist or has been moved."
+        actionLabel="Go to Central Tools Hub"
+        onAction={() => {
+          window.location.href = '/tools';
+        }}
+      />
+    </div>
+  );
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ToolErrorBoundary extends React.Component<{ children: React.ReactNode }, ErrorBoundaryState> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('HireFlow Error Boundary caught an exception:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-black text-white flex items-center justify-center p-6" id="main-content">
+          <ErrorState
+            title="Something went wrong"
+            message={this.state.error?.message || 'An unexpected error occurred in this view.'}
+            actionLabel="Return to Tools Hub"
+            onAction={() => {
+              this.setState({ hasError: false, error: null });
+              window.location.href = '/tools';
+            }}
+          />
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function RouteFallback() {
   return (
@@ -137,7 +254,8 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ToolErrorBoundary>
+      <SkipToContent />
       {!appReady && (
         design === 'spruce' ? (
           <SpruceLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />
@@ -147,6 +265,7 @@ export default function App() {
       )}
       <ProfileProvider>
         <BrowserRouter>
+          <RouteChangeHandler />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
@@ -213,8 +332,8 @@ export default function App() {
             <Route path="/login" element={<LoginPage initialMode="signin" />} />
             <Route path="/register" element={<LoginPage initialMode="signup" />} />
 
-            {/* Catch-all */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* Catch-all: robust 404 handler with ErrorState primitive (R-WAY-3) */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
         <ProfileDrawer />
@@ -224,6 +343,6 @@ export default function App() {
           <OfflineIndicator />
         </BrowserRouter>
       </ProfileProvider>
-    </>
+    </ToolErrorBoundary>
   );
 }

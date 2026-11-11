@@ -12,7 +12,7 @@ import {
   CheckCircle2,
   AlertTriangle,
   XCircle,
-  Sparkles,
+  Check,
   ArrowRight,
   X,
   Binary,
@@ -199,7 +199,9 @@ export function AnnotatedResumeView({
                 <div>
                   <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Contact Extracted</div>
                   <div className="text-xs font-bold text-slate-200 mt-1">
-                    {parsedResume.contact.email ? '✓ Email' : '✗ Email'} · {parsedResume.contact.phone ? '✓ Phone' : '✗ Phone'}
+                    <span>{parsedResume.contact.email ? 'Email Found' : 'Email Missing'}</span>
+                    <span> · </span>
+                    <span>{parsedResume.contact.phone ? 'Phone Found' : 'Phone Missing'}</span>
                   </div>
                 </div>
                 <div>
@@ -239,7 +241,7 @@ export function AnnotatedResumeView({
                       }`}
                     >
                       <div className="text-xs font-bold">{sec.label}</div>
-                      <div className="text-[11px] font-semibold mt-0.5">{sec.found ? '✓ Parsed' : '— Missing'}</div>
+                      <div className="text-[11px] font-semibold mt-0.5">{sec.found ? 'Parsed' : 'Missing'}</div>
                     </div>
                   ))}
                 </div>
@@ -305,7 +307,7 @@ export function AnnotatedResumeView({
               {activeAnnotation.suggestedRewrite && (
                 <div className="rounded-lg border border-emerald-500/30 bg-emerald-950/20 p-3 space-y-2">
                   <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-xs">
-                    <Sparkles className="h-3.5 w-3.5" />
+                    <FileText className="h-3.5 w-3.5" />
                     <span>Suggested High-Impact Rewrite</span>
                   </div>
                   <p className="font-mono text-emerald-300 text-xs bg-slate-950/80 p-2 rounded border border-emerald-500/20">

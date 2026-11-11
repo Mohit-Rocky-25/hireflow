@@ -281,7 +281,7 @@ export function SavedJdLibraryPage() {
                               : 'border-charcoal bg-surface-elevated text-neutral-300 hover:text-white hover:bg-neutral-800'
                           }`}
                         >
-                          {isSelectedForCompare ? '✓ Compare' : '+ Compare'}
+                          {isSelectedForCompare ? 'Selected' : 'Compare'}
                         </button>
                         <button
                           type="button"

@@ -5,6 +5,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { Check, X } from 'lucide-react';
 import { evaluateOffer, compareOffers } from '../engine/offer';
 import type { OfferInput, TaxRegime, PfContributionMode } from '../schema/types';
 import { formatRupees, formatLpa } from '../utils/money';
@@ -414,8 +415,9 @@ export const OfferEvaluatorPage: React.FC = () => {
               Employed for {result.firstFinancialYear.monthsInFirstFy} months in FY1 • Partial Gross: {formatRupees(result.firstFinancialYear.partialGrossEarned)}
             </div>
             {result.firstFinancialYear.taxReliefRuleApplied && (
-              <div className="text-emerald-400 mt-0.5">
-                ✓ {result.firstFinancialYear.taxReliefRuleApplied}
+              <div className="text-emerald-400 mt-0.5 inline-flex items-center gap-1">
+                <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+                <span>{result.firstFinancialYear.taxReliefRuleApplied}</span>
               </div>
             )}
           </div>
@@ -546,9 +548,11 @@ export const OfferEvaluatorPage: React.FC = () => {
               </h3>
               <button
                 onClick={() => setShowCompareModal(false)}
-                className="text-zinc-400 hover:text-white text-xs font-mono"
+                className="text-zinc-400 hover:text-white text-xs font-mono inline-flex items-center gap-1 cursor-pointer"
+                aria-label="Close comparison modal"
               >
-                ✕ Close
+                <X className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Close</span>
               </button>
             </div>
 

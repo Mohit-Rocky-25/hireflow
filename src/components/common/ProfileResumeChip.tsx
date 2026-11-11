@@ -6,6 +6,7 @@
  */
 
 import React, { useState } from 'react';
+import { Check } from 'lucide-react';
 import { useProfileStore, ActiveResume } from '../../store/profileStore';
 import { EmptyState } from './EmptyState';
 import { Drawer } from './Drawer';
@@ -179,8 +180,9 @@ export function ProfileResumeChip({
                       <div className="flex items-center gap-2">
                         <span className="font-semibold text-white text-sm">{v.label}</span>
                         {isSelected && (
-                          <span className="inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-[10px] bg-emerald-900/60 text-emerald-300 font-mono">
-                            ✓ Active
+                          <span className="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] bg-emerald-900/60 text-emerald-300 font-mono">
+                            <Check className="w-3 h-3" aria-hidden="true" />
+                            Active
                           </span>
                         )}
                       </div>

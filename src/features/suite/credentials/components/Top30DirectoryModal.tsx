@@ -135,7 +135,7 @@ export function Top30DirectoryModal({
                   : 'bg-surface-2 border-border text-text-secondary hover:text-foreground'
               }`}
             >
-              <span>🇮🇳</span>
+              <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-surface-2 border border-border">IN</span>
               <span>Indian Flagships</span>
             </button>
 
@@ -197,7 +197,7 @@ export function Top30DirectoryModal({
                     <td className="py-3 px-3 font-mono font-bold text-primary">#{opp.rank}</td>
                     <td className="py-3 px-3 font-bold text-foreground group-hover:text-primary transition-colors">
                       <div className="flex items-center gap-1.5">
-                        {isIndianFlag && <span title="Indian Flagship">🇮🇳</span>}
+                        {isIndianFlag && <span title="Indian Flagship" className="font-mono text-[9px] px-1 py-0.2 rounded bg-surface-2 border border-border">IN</span>}
                         <span>{opp.name}</span>
                       </div>
                     </td>

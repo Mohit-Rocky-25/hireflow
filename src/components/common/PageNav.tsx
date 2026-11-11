@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Home, ArrowLeft } from 'lucide-react';
 
 interface PageNavProps {
   onBack?: () => void;
@@ -63,7 +64,7 @@ export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = fal
         aria-label="Go home"
       >
         <div className={sweepOverlay} />
-        <span className="font-mono text-sm leading-none relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">⌂</span>
+        <Home className="w-3.5 h-3.5 relative z-10 group-active:text-white group-focus-visible:text-white transition-colors" aria-hidden="true" />
         <span className="relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">Home</span>
       </button>
 
@@ -73,7 +74,7 @@ export function PageNav({ onBack, fallbackRoute = '/tools', preferFallback = fal
         aria-label="Go back"
       >
         <div className={sweepOverlay} />
-        <span className="font-mono text-sm leading-none relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">←</span>
+        <ArrowLeft className="w-3.5 h-3.5 relative z-10 group-active:text-white group-focus-visible:text-white transition-colors" aria-hidden="true" />
         <span className="relative z-10 group-active:text-white group-focus-visible:text-white transition-colors">Back</span>
       </button>
     </div>

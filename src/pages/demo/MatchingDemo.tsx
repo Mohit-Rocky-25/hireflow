@@ -6,6 +6,7 @@
 // ============================================================
 import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Check, Star } from "lucide-react";
 import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
   INDUSTRIES,
@@ -13,6 +14,7 @@ import {
   TREND_COLOR,
   TREND_ICON,
   getCompanySlug,
+  formatCompetencyName,
 } from "./talentLensEngine";
 import { COMPANIES, findCompanyBySlug } from "./talentLensData";
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from "./useTalentLensStore";
@@ -139,7 +141,7 @@ export function MatchingDemo() {
           {[
             { n: 1, label: "Your Resume" },
             { n: 2, label: "Company & Role" },
-            { n: 3, label: "AI Analysis" }
+            { n: 3, label: "Readiness Calibration" }
           ].map((s, i) => (
             <div key={s.n} className="flex items-center">
               <button
@@ -162,7 +164,11 @@ export function MatchingDemo() {
                       : "bg-near-black text-silver"
                   }`}
                 >
-                  {s.n === 1 && resumeText.trim() && step !== 1 ? "✓" : s.n}
+                  {s.n === 1 && resumeText.trim() && step !== 1 ? (
+                    <Check className="w-2.5 h-2.5" aria-hidden="true" />
+                  ) : (
+                    s.n
+                  )}
                 </span>
                 {s.label}
               </button>
@@ -196,7 +202,7 @@ export function MatchingDemo() {
                 <div className="mb-5 p-4 rounded bg-black border border-charcoal flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 text-sm font-bold">
-                      ★
+                      <Star className="w-4 h-4 text-volt" aria-hidden="true" />
                     </div>
                     <div>
                       <div className="text-[13px] font-bold text-white flex items-center gap-2 uppercase tracking-[1px]">
@@ -218,7 +224,7 @@ export function MatchingDemo() {
                     }}
                     className="px-3 py-1.5 rounded bg-forest text-white text-xs font-bold uppercase tracking-[1px] hover:bg-[#3a3a3a] border border-[#141414] transition-colors flex items-center gap-1.5 cursor-pointer"
                   >
-                    <span className="text-xs">✓</span>
+                    <Check className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                     {resumeText === activeResume.ledger.rawText ? 'Profile Active' : 'Load Profile'}
                   </button>
                 </div>
@@ -287,7 +293,7 @@ Include:
                   return (
                     <div className="mt-4 p-3 bg-black border border-volt/60 rounded flex items-center justify-between gap-2.5 flex-wrap">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-volt font-bold">✓</span>
+                        <Check className="w-3.5 h-3.5 text-volt shrink-0" aria-hidden="true" />
                         <span className="text-xs text-volt font-semibold uppercase tracking-[1px]">
                           {validity.wordCount} words loaded · Structure verified ({validity.sectionsFound.slice(0, 3).join(', ')})
                         </span>
@@ -453,7 +459,7 @@ Include:
               {searchResult.didYouMean && searchResult.isFuzzyMatch && (
                 <div className="mt-3 pt-3 border-t border-charcoal flex items-center justify-between flex-wrap gap-2 bg-black -mx-4 -mb-4 p-3 px-4 rounded-b-lg">
                   <div className="flex items-center gap-2 text-xs text-white">
-                    <span className="text-volt font-bold text-xs">★</span>
+                    <Check className="w-3.5 h-3.5 text-volt shrink-0" aria-hidden="true" />
                     <span>
                       Showing results for <strong className="text-volt font-bold">{searchResult.didYouMean}</strong> (auto-corrected from &lsquo;{companySearch}&rsquo;)
                     </span>
@@ -567,7 +573,10 @@ Include:
                           <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Open Roles</div>
                         </div>
                         <div className="bg-black rounded p-2 text-center border border-charcoal">
-                          <div className="text-xs font-bold text-white font-mono">★ {company.glassdoor || '4.2'}</div>
+                          <div className="text-xs font-bold text-white font-mono flex items-center justify-center gap-1">
+                            <Star className="w-3 h-3 text-volt" aria-hidden="true" />
+                            <span>{company.glassdoor || '4.2'}</span>
+                          </div>
                           <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Rating</div>
                         </div>
                       </div>
@@ -581,7 +590,7 @@ Include:
                         <div className="flex items-center justify-between">
                           <span className="text-silver font-bold uppercase tracking-[1px] text-[10px]">Top Skills:</span>
                           <span className="font-semibold text-white uppercase truncate max-w-[170px]">
-                            {topSkills.join(', ') || 'General Engineering'}
+                            {topSkills.map(formatCompetencyName).join(', ') || 'General Engineering'}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
@@ -600,7 +609,7 @@ Include:
                           <div className="flex items-center justify-between pt-1 border-t border-charcoal">
                             <span className="text-silver font-bold uppercase tracking-[1px] text-[10px]">Key Gap:</span>
                             <span className="font-bold text-danger uppercase tracking-[1px] text-[10px]">
-                              {biggestGap}
+                              {formatCompetencyName(biggestGap)}
                             </span>
                           </div>
                         )}
@@ -692,10 +701,10 @@ Include:
               sub: "Representative career tracks based on public job postings",
             },
             {
-              tag: "Zero Egress",
-              value: "Level 1",
-              label: "Offline Analysis",
-              sub: "All analysis runs locally in your browser — no data leaves your device",
+              tag: "Privacy",
+              value: "Local",
+              label: "In-Browser Evaluation",
+              sub: "All analysis runs locally in your browser — no resume data leaves your device",
             },
             {
               tag: "Scoring",

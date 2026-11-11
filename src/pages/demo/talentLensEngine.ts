@@ -96,6 +96,42 @@ export const getCompanySlug = (name: string): string => {
     .replace(/^-+|-+$/g, '');
 };
 
+export function formatCompetencyName(comp: string): string {
+  if (!comp) return '';
+  const normalized = comp.toLowerCase().trim();
+  const map: Record<string, string> = {
+    dsa: 'DSA',
+    systemdesign: 'System Design',
+    java: 'Java',
+    python: 'Python',
+    golang: 'Go',
+    go: 'Go',
+    nodejs: 'Node.js',
+    react: 'React',
+    typescript: 'TypeScript',
+    javascript: 'JavaScript',
+    aws: 'AWS',
+    gcp: 'GCP',
+    azure: 'Azure',
+    kubernetes: 'Kubernetes',
+    docker: 'Docker',
+    ml: 'Machine Learning',
+    ai: 'AI & ML',
+    databases: 'Databases & SQL',
+    sql: 'SQL',
+    nosql: 'NoSQL',
+    leadership: 'Tech Leadership',
+    devops: 'DevOps & CI/CD',
+    security: 'Application Security',
+    graphql: 'GraphQL',
+    microservices: 'Microservices',
+    frontend: 'Frontend',
+    backend: 'Backend',
+    fullstack: 'Full Stack',
+  };
+  return map[normalized] || comp.charAt(0).toUpperCase() + comp.slice(1);
+}
+
 export function getSentences(text: string): string[] {
   return text.split(/[.!\n]/).map((s) => s.trim()).filter((s) => s.length > 10);
 }
@@ -716,25 +752,25 @@ export function runMarketIntelligenceEngine(
 
     if (foundRedFlags.length > 0) {
       status = 'critical';
-      icon = '🚨';
+      icon = 'critical';
       const flagList = foundRedFlags.slice(0, 2).join(', ');
       finding = `Practice note: Resume references ${flagList}. Production environments at ${company.name} typically emphasize ${foundModern.slice(0, 2).join(', ') || intel.currentStandard.slice(0, 2).join(', ')}.`;
     } else if (compScore >= 70 || foundEmerging.length >= 2) {
       status = 'cutting-edge';
-      icon = '⚡';
+      icon = 'cutting-edge';
       finding = `Demonstrates modern ${comp.toUpperCase()} usage: ${foundModern.slice(0, 3).join(', ')}${foundEmerging.length ? ` + emerging: ${foundEmerging[0]}` : ''}. Aligns with contemporary engineering standards.`;
     } else if (compScore >= 40 || foundModern.length >= 2) {
       status = 'current';
-      icon = '✓';
+      icon = 'current';
       finding = `${comp.toUpperCase()} usage appears current (${foundModern.slice(0, 2).join(', ')}) with baseline production familiarity. ${company.tier} expectations: ${intel.productionPatterns.slice(0, 3).join(', ')}.`;
     } else if (foundOutdated.length > 0) {
       status = 'dated';
-      icon = '⚠';
+      icon = 'dated';
       const outdatedList = foundOutdated.slice(0, 2).join(', ');
       finding = `${comp.toUpperCase()} stack appears dated (${outdatedList}). ${intel.marketAdoption2024} Add at least 2 modern practices to enhance competitiveness.`;
     } else {
       status = 'current';
-      icon = '◑';
+      icon = 'current';
       finding = `${comp.toUpperCase()} signals are present but insufficient to assess production depth. Market standard: ${intel.marketAdoption2024}`;
     }
 
@@ -1062,7 +1098,7 @@ export function analyzeRoleMatch(
         findings: [
           {
             category: 'Document Authenticity',
-            icon: '⚠️',
+            icon: 'critical',
             status: 'critical',
             finding: 'Non-Resume Input Detected',
             marketContext: validity.reason || 'TalentLens requires an authentic engineering resume to evaluate.',

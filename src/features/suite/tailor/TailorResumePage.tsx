@@ -135,7 +135,7 @@ export function TailorResumePage() {
               <div className="flex items-center gap-2.5">
                 <span className="w-2 h-2 rounded-full bg-volt shrink-0 animate-ping" />
                 <div>
-                  <span className="text-volt font-bold uppercase tracking-wider text-xs">🎯 Target:</span>{' '}
+                  <span className="text-volt font-bold uppercase tracking-wider text-xs">Target:</span>{' '}
                   <span className="text-white font-black underline decoration-volt decoration-2">{targetFocus}</span>
                   <span className="text-neutral-400 ml-2 hidden md:inline text-xs">
                     {modeParam === 'upgrade' ? '— Bullet elevation' : '— ATS requirement imported'}

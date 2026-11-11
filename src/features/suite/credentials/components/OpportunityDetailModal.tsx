@@ -17,7 +17,6 @@ import {
   Copy,
   Check,
   ShieldCheck,
-  Sparkles,
   BookOpen,
   Layers,
   GraduationCap,
@@ -402,7 +401,7 @@ export function OpportunityDetailModal({
                     : 'text-text-secondary hover:text-foreground hover:bg-surface-2'
                 }`}
               >
-                <Sparkles className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5" />
                 <span>5. Resume Evidence</span>
               </button>
               <button
@@ -519,7 +518,7 @@ export function OpportunityDetailModal({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-5 rounded-2xl bg-surface-2 border border-border space-y-2">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-primary" />
+                    <Target className="w-4 h-4 text-primary" />
                     Who should take it
                   </h3>
                   <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
@@ -668,15 +667,17 @@ export function OpportunityDetailModal({
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-                    <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-text-secondary font-medium">
-                      🎓 {verifiedTimeline.academicYearFit}
+                    <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-text-secondary font-medium inline-flex items-center gap-1">
+                      <GraduationCap className="w-3.5 h-3.5 text-text-secondary" aria-hidden="true" />
+                      <span>{verifiedTimeline.academicYearFit}</span>
                     </span>
                     <span className="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       <span>{verifiedTimeline.currentStatusText}</span>
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-text-secondary font-medium">
-                      ⏱ Lead prep: {verifiedTimeline.preparationLeadTime}
+                    <span className="px-2.5 py-1 rounded-lg bg-surface border border-border text-text-secondary font-medium inline-flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5 text-text-secondary" aria-hidden="true" />
+                      <span>Lead prep: {verifiedTimeline.preparationLeadTime}</span>
                     </span>
                   </div>
                 </div>
@@ -1175,7 +1176,7 @@ export function OpportunityDetailModal({
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="p-1.5 rounded-lg bg-primary text-black shadow-2xs">
-                      <Sparkles className="w-4 h-4" />
+                      <Award className="w-4 h-4" />
                     </span>
                     <h3 className="text-sm sm:text-base font-black text-foreground tracking-tight">
                       Performative Resume Evidence & Verifiable Proof Toolkit
@@ -1750,7 +1751,7 @@ export function OpportunityDetailModal({
                       key={idx}
                       className="p-3 rounded-xl bg-surface border border-rose-500/20 text-xs text-text-secondary leading-relaxed flex items-start gap-2.5"
                     >
-                      <span className="font-bold text-rose-500 shrink-0">⚠</span>
+                      <AlertTriangle className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" aria-hidden="true" />
                       <span>{pitfall}</span>
                     </div>
                   ))}

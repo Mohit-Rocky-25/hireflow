@@ -166,7 +166,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                     Static ATS Employer Catalogue (Greenhouse, Lever, Workday)
                   </div>
                   <p className="text-xs text-neutral-300 leading-relaxed">
-                    For flagship product and high-growth employers (CRED, Meesho, Stripe, MongoDB, InMobi, GitLab, Rubrik, Elastic, Coinbase, Datadog), roles are synced dynamically every 72 hours directly from the companies' public, unauthenticated career ATS endpoints. Zero synthetic assumptions. Each job posting carries cryptographic SHA-256 tamper-evident provenance and provides direct &ldquo;Apply on Official ATS ↗&rdquo; links.
+                    For flagship product and high-growth employers (CRED, Meesho, Stripe, MongoDB, InMobi, GitLab, Rubrik, Elastic, Coinbase, Datadog), roles are synced dynamically every 72 hours directly from the companies' public, unauthenticated career ATS endpoints. Zero synthetic assumptions. Each job posting carries cryptographic SHA-256 tamper-evident provenance.
                   </p>
                 </div>
 

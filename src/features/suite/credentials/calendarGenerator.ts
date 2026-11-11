@@ -54,7 +54,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
 
   // 1. Primary Exam Event
   addEvent(
-    `🎯 ${config.examName} Examination`,
+    `${config.examName} Examination`,
     config.examDate,
     `${config.description || 'Target examination date.'}\\nOrganized via HireFlow Career Engine.`,
     'exam'
@@ -63,7 +63,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
   // 2. Registration Deadline (if provided)
   if (config.registrationDeadline) {
     addEvent(
-      `⚠️ Registration Deadline: ${config.examName}`,
+      `Registration Deadline: ${config.examName}`,
       config.registrationDeadline,
       `Last date to complete registration and fee payment for ${config.examName}.`,
       'reg'
@@ -73,7 +73,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
   // 3. Admit Card Release (if provided)
   if (config.admitCardDate) {
     addEvent(
-      `📋 Admit Card Release: ${config.examName}`,
+      `Admit Card Release: ${config.examName}`,
       config.admitCardDate,
       `Download and verify exam center details for ${config.examName}.`,
       'admit'
@@ -86,7 +86,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
     const thirtyDaysBefore = new Date(examD.getTime() - 30 * 24 * 60 * 60 * 1000);
     const thirtyStr = thirtyDaysBefore.toISOString().split('T')[0];
     addEvent(
-      `🚀 30-Day Sprint: ${config.examName}`,
+      `30-Day Sprint: ${config.examName}`,
       thirtyStr,
       `Begin full-length mock tests and formula revisions for ${config.examName}.`,
       'm30'
@@ -96,7 +96,7 @@ export function generateExamCalendarIcs(config: ExamCalendarConfig): string {
     const sevenDaysBefore = new Date(examD.getTime() - 7 * 24 * 60 * 60 * 1000);
     const sevenStr = sevenDaysBefore.toISOString().split('T')[0];
     addEvent(
-      `🔥 7-Day Final Review: ${config.examName}`,
+      `7-Day Final Review: ${config.examName}`,
       sevenStr,
       `Final weak-area review and previous year questions (PYQs) for ${config.examName}.`,
       'm7'

@@ -12,13 +12,14 @@ import {
   RefreshCw,
   LogOut,
   ChevronDown,
-  Sparkles,
   LayoutGrid,
   ShieldCheck,
   FileText,
   Clock,
   ArrowRight,
   Bookmark,
+  Menu,
+  X,
 } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 import { autoSyncManager, SyncState } from '../../lib/sync/autoSyncManager';
@@ -123,7 +124,7 @@ export function PublicNavbar() {
               </span>
             </Link>
 
-            {/* 🌟 TOOLS HUB — Positioned on the Left Side! */}
+            {/* TOOLS HUB — Positioned on the Left Side */}
             <Link
               to="/tools"
               className="group hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider text-black bg-volt hover:bg-[#1a1a1a] hover:text-white border border-volt transition-all shadow-[0_0_15px_rgba(245,255,0,0.18)] hover:shadow-[0_0_24px_rgba(245,255,0,0.35)] select-none cursor-pointer"
@@ -185,9 +186,6 @@ export function PublicNavbar() {
                   </svg>
 
                   <span className="tracking-wide">Sign In</span>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-volt/10 text-volt border border-volt/30 font-semibold">
-                    PRO
-                  </span>
                 </button>
 
                 <Link
@@ -237,13 +235,10 @@ export function PublicNavbar() {
                     />
                   </div>
 
-                  {/* Display Name + PRO Badge */}
+                  {/* Display Name */}
                   <div className="flex items-center gap-1.5">
                     <span className="text-white font-bold tracking-tight text-xs max-w-[110px] truncate uppercase">
                       {currentUser.displayName.split(' ')[0]}
-                    </span>
-                    <span className="hidden sm:inline-flex items-center text-[9px] font-mono font-bold tracking-wider uppercase px-1.5 py-0.5 rounded bg-volt/10 text-volt border border-volt/30">
-                      PRO
                     </span>
                   </div>
 
@@ -254,7 +249,7 @@ export function PublicNavbar() {
                   />
                 </button>
 
-                {/* 🌟 Ultra-Premium Executive Dropdown */}
+                {/* Ultra-Premium Executive Dropdown */}
                 {userDropdownOpen && (
                   <div className="absolute right-0 mt-2.5 w-72 bg-[#0c0c0e]/98 backdrop-blur-2xl border border-neutral-700/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] p-4 z-50 animate-fade-in text-xs font-mono">
                     {/* Header */}
@@ -363,10 +358,10 @@ export function PublicNavbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-volt transition-colors focus-visible:outline-2 focus-visible:outline-volt font-mono text-base cursor-pointer"
+              className="lg:hidden w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-volt transition-colors focus-visible:outline-2 focus-visible:outline-volt cursor-pointer"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? '✕' : '☰'}
+              {mobileMenuOpen ? <X className="w-4 h-4" aria-hidden="true" /> : <Menu className="w-4 h-4" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -386,7 +381,6 @@ export function PublicNavbar() {
                     }}
                     className="flex-1 py-2 px-3 rounded-lg bg-volt text-black font-bold text-xs uppercase flex items-center justify-center gap-2"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-black" />
                     <span>Sign In</span>
                   </button>
                   <Link

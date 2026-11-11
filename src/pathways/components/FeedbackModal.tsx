@@ -4,6 +4,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
+import { X, Check } from 'lucide-react';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -64,9 +65,10 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="text-zinc-400 hover:text-white text-lg p-1"
+            className="text-zinc-400 hover:text-white p-1 cursor-pointer"
+            aria-label="Close modal"
           >
-            ✕
+            <X className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
 
@@ -137,7 +139,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               onClick={handleCopy}
               className="px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 text-xs font-mono text-zinc-200 hover:bg-zinc-800"
             >
-              {copied ? 'Copied! ✓' : 'Copy Payload'}
+              {copied ? 'Copied' : 'Copy Payload'}
             </button>
             <button
               type="button"

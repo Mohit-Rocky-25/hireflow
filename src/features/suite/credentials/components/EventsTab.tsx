@@ -303,7 +303,7 @@ export function EventsTab({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/15 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-xs font-black uppercase tracking-wider">
-              <span>🇮🇳 National & Collegiate Flagship Hub</span>
+              <span>National & Collegiate Flagship Hub</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
               Premier Hackathons, Codathons & Direct Hiring Pathways
@@ -334,7 +334,7 @@ export function EventsTab({
                   : 'bg-surface border-border text-foreground hover:bg-surface-2'
               }`}
             >
-              <span>🇮🇳</span>
+              <span className="font-mono text-xs font-bold px-1.5 py-0.5 rounded bg-surface-2 border border-border">IN</span>
               <span>{onlyIndianFlagships ? 'Showing Indian Flagships' : 'Filter Indian Only'}</span>
             </button>
           </div>
@@ -674,10 +674,10 @@ export function EventsTab({
                 <h3 className="text-base font-black text-white leading-snug mb-1.5 group-hover:text-volt transition-colors line-clamp-2">
                   {event.name}
                 </h3>
-                <p className="text-xs font-semibold text-silver flex items-center gap-1.5 mb-2.5">
+                <div className="text-xs font-semibold text-silver flex items-center gap-1.5 mb-2.5">
                   <CompanyLogo company={event.organizer} size="xs" showBorder={false} interactive={false} />
                   <span>{event.organizer}</span>
-                </p>
+                </div>
                 <p className="text-xs text-silver leading-relaxed line-clamp-2">
                   {event.whatItProves}
                 </p>

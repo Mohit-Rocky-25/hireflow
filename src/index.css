@@ -1,8 +1,106 @@
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/jetbrains-mono";
 @import "@fontsource-variable/inter";
 @import "@fontsource/inconsolata/600.css";
 @import "tailwindcss";
 @import "./styles/tokens.css";
 @import "./designs/spruce/tokens.css";
+
+/* ── Fluid Typography Roles (R-TYPE-2, R-TYPE-3) ── */
+.text-role-display {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.text-role-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 3vw + 0.5rem, 2.75rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.text-role-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 2vw + 0.5rem, 2rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.text-role-h3 {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.text-role-h4 {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.text-role-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 68ch;
+}
+
+.text-role-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 68ch;
+}
+
+.text-role-body-sm {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.text-role-caption {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.text-role-overline {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.text-role-mono-data {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.text-role-metric-hero {
+  font-family: var(--font-mono);
+  font-size: clamp(2.5rem, 4vw + 1rem, 4rem);
+  line-height: 1;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
 
 /* ============================================================
    HireFlow — High-Contrast Dark Design System v2
@@ -21,7 +119,7 @@ html {
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-gutter: stable;
-  background-color: #000000;
+  background-color: var(--color-background, #090907);
   color-scheme: dark;
 }
 
@@ -29,8 +127,8 @@ body {
   min-height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--color-background, #090907);
+  color: var(--color-foreground, #f2f2ef);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.5;
@@ -41,10 +139,10 @@ body {
 
 #root {
   min-height: 100%;
-  background-color: #000000;
+  background-color: var(--color-background, #090907);
 }
 
-/* ── Universal Dark Form Controls (Eliminates OS white popup menus & blinding white screens) ── */
+/* Universal Dark Form Controls */
 select,
 input,
 textarea {
@@ -52,48 +150,47 @@ textarea {
 }
 
 select {
-  background-color: #121212 !important;
-  color: #ffffff !important;
+  background-color: var(--color-surface) !important;
+  color: var(--color-foreground) !important;
 }
 
 select option,
 select optgroup {
-  background-color: #121212 !important;
-  color: #ffffff !important;
+  background-color: var(--color-surface) !important;
+  color: var(--color-foreground) !important;
   padding: 8px 12px !important;
 }
 
 select option:hover,
 select option:focus,
 select option:checked {
-  background-color: #242424 !important;
-  color: #faff69 !important;
+  background-color: var(--color-surface-2) !important;
+  color: var(--color-primary) !important;
 }
 
-
-/* ── Universal High-Contrast Text Color Rules (WCAG AAA on Dark Canvas) ── */
+/* Universal High-Contrast Text Color Rules (WCAG AAA on Dark Canvas) */
 .text-foreground {
-  color: #ffffff !important;
+  color: var(--color-foreground) !important;
 }
 
 .text-secondary {
-  color: #a0a0a0 !important;
+  color: var(--color-text-secondary) !important;
 }
 
 .text-muted {
-  color: #a0a0a0 !important;
+  color: var(--color-text-muted) !important;
 }
 
 .text-muted-foreground {
-  color: #a0a0a0 !important;
+  color: var(--color-text-muted) !important;
 }
 
 a.text-muted {
-  color: #a0a0a0 !important;
+  color: var(--color-text-muted) !important;
 }
 
 a.text-muted:hover {
-  color: #faff69 !important;
+  color: var(--color-primary) !important;
 }
 
 /* ── Interactive Links (§2, §4, §7) ── */
@@ -271,119 +368,37 @@ button.bg-volt:hover[class*="hover:!text-volt"] svg {
 }
 
 /* ============================================================
-   HireFlow — Shiny Multi-Color Iridescent Edge UI System
-   Luxury Dark UI Specular Sheen & Chromatic Gradient Edges
+   HireFlow — Token-Driven Surface Architecture (R-COLOR-4, R-TEX-1)
+   Crisp 1px borders, surface lightness steps, zero iridescent glow
    ============================================================ */
 
-/* ── 1. Base Multi-Color Edge Box & Card Styles ── */
 .shiny-box,
 .shiny-edge-card,
 .card-shiny,
-[data-card],
-div[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-a[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-md"][class*="bg-surface"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-div[class*="rounded-md"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]),
-a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]) {
+[data-card] {
   position: relative;
-  background:
-    linear-gradient(180deg, #131313 0%, #0a0a0a 100%) padding-box,
-    linear-gradient(
-      135deg,
-      rgba(250, 255, 105, 0.40) 0%,
-      rgba(56, 189, 248, 0.35) 25%,
-      rgba(168, 85, 247, 0.35) 50%,
-      rgba(16, 185, 129, 0.35) 75%,
-      rgba(244, 63, 94, 0.40) 100%
-    ) border-box !important;
-  border: 1px solid transparent !important;
-  box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
-    0 8px 30px -8px rgba(0, 0, 0, 0.8) !important;
-  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background-color: var(--color-surface-1, #10100d);
+  border: 1px solid var(--color-border-subtle, #282824);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--duration-hover, 150ms) var(--ease-standard),
+              border-color var(--duration-hover, 150ms) var(--ease-standard);
 }
 
-/* ── 2. Hover Interaction: Vibrant Chromatic Aura & Specular Flare ── */
 .shiny-box:hover,
 .shiny-edge-card:hover,
 .card-shiny:hover,
-[data-card]:hover,
-div[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-a[class*="rounded-2xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-a[class*="rounded-xl"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-a[class*="rounded-lg"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-xl"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not(input):not(textarea):not(select):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-md"][class*="bg-surface"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-div[class*="rounded-md"][class*="bg-near-black"][class*="border"]:not(.no-shiny):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover,
-a[class*="rounded-lg"][class*="bg-black"][class*="border"]:not(.no-shiny):not([class*="w-7"]):not([class*="w-8"]):not([class*="w-9"]):not([class*="w-10"]):not([class*="w-12"]):not([class*="w-14"]):not([class*="bg-volt"]):not([class*="bg-primary"]):not([class*="bg-forest"]):hover {
-  background:
-    linear-gradient(180deg, #181818 0%, #0d0d0d 100%) padding-box,
-    linear-gradient(
-      135deg,
-      rgba(250, 255, 105, 0.90) 0%,
-      rgba(56, 189, 248, 0.85) 25%,
-      rgba(168, 85, 247, 0.85) 50%,
-      rgba(16, 185, 129, 0.85) 75%,
-      rgba(244, 63, 94, 0.90) 100%
-    ) border-box !important;
-  box-shadow:
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.30),
-    0 0 25px -4px rgba(250, 255, 105, 0.20),
-    0 0 35px -6px rgba(56, 189, 248, 0.18),
-    0 0 45px -8px rgba(168, 85, 247, 0.16),
-    0 18px 45px -10px rgba(0, 0, 0, 0.95) !important;
-  transform: translateY(-2px);
+[data-card]:hover {
+  background-color: var(--color-surface-2, #161613);
+  border-color: var(--color-border-default, #3d3d37);
 }
 
-/* ── 3. Selected / Featured State ── */
 .shiny-box.selected,
 .shiny-edge-card.selected,
 .shiny-edge-highlight,
 [data-card-selected="true"] {
-  background:
-    linear-gradient(180deg, #1b1b1b 0%, #0e0e0e 100%) padding-box,
-    linear-gradient(
-      135deg,
-      rgba(250, 255, 105, 1) 0%,
-      rgba(56, 189, 248, 0.95) 25%,
-      rgba(168, 85, 247, 0.95) 50%,
-      rgba(16, 185, 129, 0.95) 75%,
-      rgba(244, 63, 94, 1) 100%
-    ) border-box !important;
-  box-shadow:
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.35),
-    0 0 30px -4px rgba(250, 255, 105, 0.28),
-    0 0 40px -6px rgba(56, 189, 248, 0.22),
-    0 0 50px -8px rgba(168, 85, 247, 0.20),
-    0 20px 50px -10px rgba(0, 0, 0, 0.98) !important;
-}
-
-/* ── 4. Dynamic Chromatic Shimmer Keyframes & Modifier ── */
-@keyframes shiny-edge-flow {
-  0% {
-    background-position: 0% 50%, 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%, 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%, 0% 50%;
-  }
-}
-
-.shiny-edge-animated {
-  background-size: 100% 100%, 300% 300% !important;
-  animation: shiny-edge-flow 8s ease infinite !important;
+  background-color: var(--color-surface-2, #161613);
+  border-color: var(--color-accent, #faff69);
 }
 
 /* ============================================================

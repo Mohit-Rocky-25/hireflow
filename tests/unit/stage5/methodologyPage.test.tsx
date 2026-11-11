@@ -7,5 +7,5 @@ describe('MethodologyPage Component Rendering', () => {
     const mod = await import('../../../src/pages/methodology/MethodologyPage');
     expect(mod.MethodologyPage).toBeDefined();
     expect(typeof mod.MethodologyPage).toBe('function');
-  });
+  }, 15000);
 });

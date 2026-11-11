@@ -1,127 +1,242 @@
 /* ============================================================
-   HireFlow — High-Contrast Dark Design System v2 Tokens
-   Pure Black (#000000) Canvas, Neon Volt (#faff69), Charcoal Borders
-   Strictly adheres to DESIGN.md and Project Specifications
+   HireFlow — High-Contrast Dark & Light Design System Tokens
+   Token-driven, OKLCH palette, strict accessibility & hierarchy
    ============================================================ */
 
 @theme {
-  /* ── Core Brand & Accent Colors (§2) ── */
+  /* ── Strict Semantic Color Tokens (R-COLOR-3) ── */
+  --color-bg:               #090907;
+  --color-surface-1:        #10100d;
+  --color-surface-2:        #161613;
+  --color-surface-3:        #1f201b;
+  --color-surface-inverse:  #f2f2ef;
+
+  --color-border-subtle:    #282824;
+  --color-border-default:   #3d3d37;
+  --color-border-strong:    #55554d;
+
+  --color-text-primary:     #f2f2ef;
+  --color-text-secondary:   #a5a59e;
+  --color-text-tertiary:    #72726a;
+  --color-text-disabled:    #484841;
+  --color-text-on-accent:   #12140a;
+
+  --color-accent:           #faff69;
+  --color-accent-hover:     #eaf054;
+  --color-accent-pressed:   #d6dc3e;
+  --color-accent-subtle:    rgba(250, 255, 105, 0.12);
+
+  --color-focus-ring:       #faff69;
+  --color-overlay-scrim:    rgba(0, 0, 0, 0.75);
+
+  /* ── Status Trios (bg, border, text) (R-COLOR-3) ── */
+  --color-success-bg:       #122013;
+  --color-success-border:   #224825;
+  --color-success-text:     #6ee7b7;
+
+  --color-warning-bg:       #241c0a;
+  --color-warning-border:   #4a3810;
+  --color-warning-text:     #fde047;
+
+  --color-danger-bg:        #261012;
+  --color-danger-border:    #522024;
+  --color-danger-text:      #f87171;
+
+  --color-info-bg:          #0f1a24;
+  --color-info-border:      #1d364a;
+  --color-info-text:        #7dd3fc;
+
+  /* ── Data-Viz 6 Categorical & 7 Sequential (R-COLOR-6) ── */
+  --color-chart-cat-1:      #faff69;
+  --color-chart-cat-2:      #5eead4;
+  --color-chart-cat-3:      #93c5fd;
+  --color-chart-cat-4:      #c084fc;
+  --color-chart-cat-5:      #fb923c;
+  --color-chart-cat-6:      #f472b6;
+
+  --color-chart-seq-1:      #1f201b;
+  --color-chart-seq-2:      #33332e;
+  --color-chart-seq-3:      #484841;
+  --color-chart-seq-4:      #72726a;
+  --color-chart-seq-5:      #a5a59e;
+  --color-chart-seq-6:      #d8d8d3;
+  --color-chart-seq-7:      #faff69;
+
+  --color-chart-axis:       #72726a;
+  --color-chart-grid:       #282824;
+  --color-chart-tooltip-bg: #10100d;
+  --color-chart-tooltip-text: #f2f2ef;
+
+  /* ── Score & Verdict States (R-COLOR-7) ── */
+  --color-score-poor:       #f87171;
+  --color-score-fair:       #fde047;
+  --color-score-good:       #93c5fd;
+  --color-score-strong:     #faff69;
+
+  /* ── Spacing Scale: 4, 8, 12, 16, 24, 32, 48, 64, 96 (R-SCALE-1) ── */
+  --spacing-1:  4px;
+  --spacing-2:  8px;
+  --spacing-3:  12px;
+  --spacing-4:  16px;
+  --spacing-6:  24px;
+  --spacing-8:  32px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-24: 96px;
+
+  /* ── Radius: Three values plus full (R-SCALE-1) ── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+
+  /* Aliases for compatibility */
+  --radius-none: 0px;
+  --radius-xs:   4px;
+  --radius-xl:   12px;
+  --radius-2xl:  12px;
+  --radius-3xl:  12px;
+
+  /* ── Shadows: Two levels (R-SCALE-1) ── */
+  --shadow-sm:   0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  --shadow-md:   0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-level-1: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  --shadow-level-2: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  --shadow-level-3: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-level-4: none;
+  --shadow-level-5: none;
+  --shadow-inset:   none;
+
+  /* ── Border widths: 1 and 2 (R-SCALE-1) ── */
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+
+  /* ── Typography & Fallback Stacks (R-TYPE-1) ── */
+  --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans:    'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --font-code:    'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  /* ── Motion Tokens (R-MOTION-1) ── */
+  --duration-press: 90ms;
+  --duration-hover: 150ms;
+  --duration-state: 220ms;
+  --duration-panel: 320ms;
+  --duration-hero:  600ms;
+
+  --ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasised: cubic-bezier(0.3, 0, 0, 1);
+  --ease-exit:       cubic-bezier(0.4, 0, 1, 1);
+
+  /* ── Compatibility Aliases for Design 1 (Neon Volt Theme) ── */
   --color-volt:           #faff69;
   --color-forest:         #166534;
   --color-forest-dark:    #14572f;
   --color-pale-yellow:    #f4f692;
   --color-olive-border:   #4f5100;
   --color-olive-dark:     #161600;
-
-  /* ── Canvas, Surfaces & Borders (§2) ── */
-  --color-black:          #000000;
-  --color-near-black:     #141414;
-  --color-charcoal:       rgba(65, 65, 65, 0.8);
-  --color-charcoal-deep:  #343434;
-  --color-hover-gray:     #3a3a3a;
-
-  /* ── Neutrals & Text (§2) ── */
-  --color-white:          #ffffff;
-  --color-silver:         #a0a0a0;
-  --color-mid-gray:       #585858;
-  --color-border-gray:    #414141;
-
-  /* ── Deliberate Deviations (Stage 1B) ── */
-  --color-danger:         #ef4444;
-  --color-danger-bg:      rgba(239, 68, 68, 0.15);
-
-  /* ── Semantic Aliases (Required by Stage 1A) ── */
-  --color-bg-page:        #000000;
-  --color-bg-surface:     #141414;
-  --color-bg-surface-hover: #1f1f1f;
-  --color-text-primary:   #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-on-accent: #151515;
-  --color-border-default: rgba(65, 65, 65, 0.8);
-  --color-border-subtle:  #343434;
-  --color-accent:         #faff69;
-  --color-accent-active:  #f4f692;
-  --color-action-primary: #166534;
-  --color-focus-ring:     #faff69;
-
-  /* ── Modern Semantic Token Aliases (Universal Visibility) ── */
-  --color-foreground:           #ffffff;
-  --color-secondary:            #a0a0a0;
-  --color-muted:                #a0a0a0;
-  --color-muted-foreground:     #a0a0a0;
-  --color-card:                 #141414;
-  --color-card-foreground:      #ffffff;
-  --color-popover:              #141414;
-  --color-popover-foreground:   #ffffff;
-
-  /* ── Pre-existing Semantic Token Aliases (Backwards Compatibility) ── */
+  --color-black:          #090907;
+  --color-near-black:     #10100d;
+  --color-charcoal:       #282824;
+  --color-charcoal-deep:  #33332e;
+  --color-hover-gray:     #1f201b;
+  --color-white:          #f2f2ef;
+  --color-silver:         #a5a59e;
+  --color-mid-gray:       #72726a;
+  --color-border-gray:    #3d3d37;
+  --color-danger:         #f87171;
+  --color-card:           #10100d;
+  --color-surface:        #10100d;
+  --color-surface-hover:  #161613;
+  --color-text:           #f2f2ef;
+  --color-text-muted:     #a5a59e;
+  --color-border:         #282824;
+  --color-background:     #090907;
+  --color-foreground:     #f2f2ef;
   --color-primary:        #faff69;
-  --color-primary-hover:  #f4f692;
-  --color-primary-active: #e2e850;
-  --color-primary-light:  rgba(250, 255, 105, 0.12);
-  --color-primary-glow:   none;
+}
 
-  --color-ai:             #faff69;
-  --color-ai-dark:        #166534;
-  --color-ai-light:       rgba(250, 255, 105, 0.12);
-  --color-ai-glow:        none;
+/* ── Explicit CSS Custom Properties on Root & Dark Selectors ── */
+:root,
+:root[data-theme="dark"],
+:root[data-design="neon-volt"] {
+  --color-bg:               #090907;
+  --color-surface-1:        #10100d;
+  --color-surface-2:        #161613;
+  --color-surface-3:        #1f201b;
+  --color-surface-inverse:  #f2f2ef;
 
-  --color-bg:             #000000;
-  --color-surface:        #141414;
-  --color-surface-2:      #1f1f1f;
-  --color-surface-3:      #2a2a2a;
+  --color-border-subtle:    #282824;
+  --color-border-default:   #3d3d37;
+  --color-border-strong:    #55554d;
 
-  --color-text:           #ffffff;
-  --color-text-muted:     #888888;
+  --color-text-primary:     #f2f2ef;
+  --color-text-secondary:   #a5a59e;
+  --color-text-tertiary:    #72726a;
+  --color-text-disabled:    #484841;
+  --color-text-on-accent:   #12140a;
 
-  --color-border:         rgba(65, 65, 65, 0.8);
-  --color-border-strong:  #555555;
-  --color-border-accent:  #faff69;
+  --color-accent:           #faff69;
+  --color-accent-hover:     #eaf054;
+  --color-accent-pressed:   #d6dc3e;
+  --color-accent-subtle:    rgba(250, 255, 105, 0.12);
 
-  --color-success:        #faff69;
-  --color-success-bg:     rgba(250, 255, 105, 0.10);
-  --color-warning:        #f4f692;
-  --color-warning-bg:     rgba(244, 246, 146, 0.10);
-  --color-info:           #a0a0a0;
-  --color-info-bg:        rgba(160, 160, 160, 0.10);
+  --color-focus-ring:       #faff69;
+  --color-overlay-scrim:    rgba(0, 0, 0, 0.75);
 
-  --color-header-btn:       #faff69;
-  --color-header-btn-hover: #1d1d1d;
-  --color-header-btn-text:  #151515;
+  --color-success-bg:       #122013;
+  --color-success-border:   #224825;
+  --color-success-text:     #6ee7b7;
 
-  /* ── Strict Radius Tokens: ONLY 4px, 8px, 9999px (§5, Stage 1A) ── */
-  --radius-none: 0px;
-  --radius-xs:   4px;
-  --radius-sm:   4px;
-  --radius-md:   4px;
-  --radius-lg:   8px;
-  --radius-xl:   8px;
-  --radius-2xl:  8px;
-  --radius-3xl:  8px;
-  --radius-full: 9999px;
+  --color-warning-bg:       #241c0a;
+  --color-warning-border:   #4a3810;
+  --color-warning-text:     #fde047;
 
-  /* ── Shadows: DESIGN.md Levels 1–4 (§6) ── */
-  --shadow-level-1: rgba(0, 0, 0, 0.1) 0px 1px 3px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
-  --shadow-level-2: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-level-3: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-level-4: 0px 4px 25px rgba(0, 0, 0, 0.14) inset;
-  --shadow-inset:   0px 4px 25px rgba(0, 0, 0, 0.14) inset;
+  --color-danger-bg:        #261012;
+  --color-danger-border:    #522024;
+  --color-danger-text:      #f87171;
 
-  --shadow-xs:      rgba(0, 0, 0, 0.1) 0px 1px 3px;
-  --shadow-sm:      0px 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-lg:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl:      0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-2xl:     0px 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-glow-orange: none;
-  --shadow-glow-violet: none;
+  --color-info-bg:          #0f1a24;
+  --color-info-border:      #1d364a;
+  --color-info-text:        #7dd3fc;
 
-  /* ── Typography & Self-hosted Fonts (§3) ── */
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
-  --font-mono: 'Inter Variable', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
-  --font-code: 'Inconsolata', ui-monospace, Consolas, monospace;
+  --color-volt:           #faff69;
+  --color-forest:         #166534;
+  --color-forest-dark:    #14572f;
+  --color-pale-yellow:    #f4f692;
+  --color-olive-border:   #4f5100;
+  --color-olive-dark:     #161600;
+  --color-black:          #090907;
+  --color-near-black:     #10100d;
+  --color-charcoal:       #282824;
+  --color-charcoal-deep:  #33332e;
+  --color-hover-gray:     #1f201b;
+  --color-white:          #f2f2ef;
+  --color-silver:         #a5a59e;
+  --color-mid-gray:       #72726a;
+  --color-border-gray:    #3d3d37;
+  --color-danger:         #f87171;
+  --color-card:           #10100d;
+  --color-surface:        #10100d;
+  --color-surface-hover:  #161613;
+  --color-text:           #f2f2ef;
+  --color-text-muted:     #a5a59e;
+  --color-border:         #282824;
+  --color-background:     #090907;
+  --color-foreground:     #f2f2ef;
+  --color-primary:        #faff69;
+}
 
-  /* ── Transitions & Motion: 120–180ms ease-out (§5) ── */
-  --animate-fade-in: fadeIn 0.15s ease-out;
-  --animate-scale-in: scaleIn 0.15s ease-out;
+/* ── Strict Dark Theme Enforcement (Neon Volt is Dark-First & Dark-Only) ── */
+
+/* ── Reduced Motion Preference (R-MOTION-1) ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

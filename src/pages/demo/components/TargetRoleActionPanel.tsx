@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Check, Zap } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { validateResumeAuthenticity } from '../../../lib/resumeValidator';
+import { formatCompetencyName } from '../talentLensEngine';
 
 export interface TargetRoleActionPanelProps {
   company: Company;
@@ -28,12 +30,12 @@ export function TargetRoleActionPanel({
     <div className="hidden lg:block w-[380px] shrink-0 sticky top-[96px]">
       <div className="bg-near-black border border-charcoal rounded-xl p-5 sm:p-6 shadow-level-1">
         <div className="flex items-center gap-3 mb-4 pb-3 border-b border-charcoal">
-          <div className="w-10 h-10 rounded-lg bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 font-bold text-base">
-            AI
+          <div className="w-10 h-10 rounded-lg bg-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 font-bold text-base font-mono">
+            TL
           </div>
           <div>
-            <h3 className="font-bold text-white text-base uppercase tracking-tight">Target Verification</h3>
-            <p className="text-xs text-neutral-400">6-Layer Anti-Gaming Engine</p>
+            <h3 className="font-bold text-white text-base uppercase tracking-tight">Target Calibration</h3>
+            <p className="text-xs text-neutral-400 font-mono">6-Layer Competency Framework</p>
           </div>
         </div>
 
@@ -76,7 +78,7 @@ export function TargetRoleActionPanel({
                     key={comp}
                     className="text-xs font-semibold px-2.5 py-0.5 rounded bg-black border border-charcoal text-neutral-200 uppercase tracking-wide"
                   >
-                    {comp}
+                    {formatCompetencyName(comp).toUpperCase()}
                   </span>
                 ))}
               </div>
@@ -86,7 +88,7 @@ export function TargetRoleActionPanel({
             {!resumeText.trim() ? (
               <div className="p-4 bg-black border border-charcoal rounded-lg mb-4 text-xs space-y-2.5">
                 <div className="font-semibold text-pale-yellow flex items-center gap-1.5 uppercase tracking-wider">
-                  <span className="text-xs font-bold text-pale-yellow">[i]</span> Resume needed for AI screening
+                  <span className="text-xs font-bold text-pale-yellow">[i]</span> Resume needed for calibration
                 </div>
                 <p className="text-xs text-neutral-300 leading-relaxed">
                   Benchmark your profile against {company.name}&rsquo;s criteria. Add your resume or test immediately with our verified engineering sample resume.
@@ -97,7 +99,7 @@ export function TargetRoleActionPanel({
                     onClick={onLoadSampleResume}
                     className="group w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-lg bg-volt !text-black font-bold text-xs uppercase tracking-wider border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
                   >
-                    <span className="text-sm font-bold !text-black group-hover:!text-white">★</span>
+                    <Zap className="w-3.5 h-3.5 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
                     <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify</span>
                   </button>
                   <Link
@@ -114,7 +116,7 @@ export function TargetRoleActionPanel({
                 return (
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg mb-4 flex items-center justify-between gap-2 text-xs text-white">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-volt font-bold text-sm">✓</span>
+                      <Check className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
                       <div>
                         <div className="font-bold uppercase tracking-wider text-xs text-volt">Resume verified in state</div>
                         <div className="text-xs text-neutral-400 font-mono mt-0.5">
@@ -158,18 +160,6 @@ export function TargetRoleActionPanel({
               );
             })()}
 
-            {selectedRole.sourceUrl && (
-              <a
-                href={selectedRole.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full mb-3 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-emerald-950/60 border border-emerald-500/60 text-emerald-300 hover:text-white hover:bg-emerald-900 text-xs font-bold uppercase tracking-wider transition-colors"
-              >
-                <span>Apply on Official ATS</span>
-                <span>↗</span>
-              </a>
-            )}
-
             {/* Trigger Button */}
             <button
               type="button"
@@ -185,13 +175,13 @@ export function TargetRoleActionPanel({
               {analyzing ? (
                 <>
                   <span className="inline-block w-4 h-4 border-2 border-black group-hover:border-white border-t-transparent rounded-full animate-spin" />
-                  <span className="!text-black group-hover:!text-white font-black">Analyzing deeply...</span>
+                  <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
                 </>
               ) : (
                 <>
-                  <span className="text-base font-black !text-black group-hover:!text-white">⚡</span>
+                  <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
                   <span className="!text-black group-hover:!text-white font-black">
-                    {!validateResumeAuthenticity(resumeText).isValid ? 'Run AI Analysis (Score: 0%)' : 'Run Deep AI Analysis'}
+                    {!validateResumeAuthenticity(resumeText).isValid ? 'Evaluate Fit (Score: 0%)' : 'Analyse My Fit'}
                   </span>
                 </>
               )}
@@ -206,7 +196,7 @@ export function TargetRoleActionPanel({
               Select a role first
             </div>
             <p className="text-xs sm:text-sm text-neutral-300 mb-4 leading-relaxed">
-              Click any role from {company.name}&lsquo;s list on the left to inspect requirements and run AI screening.
+              Click any role from {company.name}&lsquo;s list on the left to inspect requirements and calibrate fit.
             </p>
             <button
               disabled

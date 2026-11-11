@@ -1,4 +1,5 @@
 import React from 'react';
+import { FolderOpen } from 'lucide-react';
 
 export interface EmptyStateProps {
   title: string;
@@ -19,21 +20,21 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-8 text-center bg-near-black border border-charcoal rounded-lg space-y-3 ${className}`}
+      className={`flex flex-col items-center justify-center p-8 text-center bg-surface-1 border border-border-default rounded-lg space-y-3 ${className}`}
     >
       {icon ? (
-        <div className="text-silver mb-1 stroke-[1.5px]">{icon}</div>
+        <div className="text-text-secondary mb-1 stroke-[1.5px]">{icon}</div>
       ) : (
-        <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-silver text-lg mb-1">
-          📁
+        <div className="w-10 h-10 rounded bg-surface-2 border border-border-subtle flex items-center justify-center text-text-secondary mb-1">
+          <FolderOpen className="w-5 h-5" aria-hidden="true" />
         </div>
       )}
-      <h4 className="text-[16px] font-bold text-white">{title}</h4>
-      <p className="text-[14px] text-silver max-w-sm leading-relaxed">{message}</p>
+      <h4 className="text-role-h4 font-bold text-text-primary">{title}</h4>
+      <p className="text-role-body-sm text-text-secondary max-w-sm leading-relaxed">{message}</p>
       {actionLabel && onAction && (
         <button
           onClick={onAction}
-          className="mt-2 px-4 py-2 text-[13px] font-bold text-text-on-accent bg-volt hover:bg-[#1d1d1d] hover:text-white border border-volt rounded transition-colors active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt"
+          className="mt-2 px-4 py-2 text-role-body-sm font-semibold text-text-on-accent bg-accent hover:bg-accent-hover active:bg-accent-pressed border border-accent rounded transition-colors focus-visible:ring-2 focus-visible:ring-focus-ring cursor-pointer"
         >
           {actionLabel}
         </button>

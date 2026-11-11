@@ -5,7 +5,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
-import { Flag, X, Check, AlertCircle } from 'lucide-react';
+import { Flag, X, Check, AlertCircle, ShieldCheck } from 'lucide-react';
 import { useFeedbackStore } from '../../store/feedbackStore';
 
 export interface ReportErrorModalProps {
@@ -139,8 +139,9 @@ export function ReportErrorModal({
                   />
                 </div>
 
-                <div className="text-[11px] text-zinc-400 font-mono bg-black p-2.5 rounded border border-charcoal">
-                  🔒 Zero-egress privacy guarantee: Report is persisted only into your local audit store.
+                <div className="text-[11px] text-zinc-400 font-mono bg-black p-2.5 rounded border border-charcoal flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-accent shrink-0" aria-hidden="true" />
+                  <span>Zero-egress privacy guarantee: Report is persisted only into your local audit store.</span>
                 </div>
 
                 <div className="flex items-center justify-end gap-3 pt-2">

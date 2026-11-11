@@ -287,3 +287,19 @@ registerBackupSection<ProfileStoreData>({
     }
   },
 });
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('hireflow:cloud-synced', () => {
+    try {
+      const refreshed = storage.get<ProfileStoreData>(STORAGE_KEY, ProfileStoreSchema);
+      if (refreshed) {
+        useProfileStore.setState({
+          activeResume: refreshed.activeResume,
+          resumeVersions: refreshed.resumeVersions,
+          lastTarget: refreshed.lastTarget,
+          preferences: refreshed.preferences,
+        });
+      }
+    } catch { /* ignore */ }
+  });
+}

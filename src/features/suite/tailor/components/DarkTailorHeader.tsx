@@ -200,14 +200,14 @@ export function DarkTailorHeader({
               className="px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-300 hover:text-volt hover:bg-surface-elevated transition"
               title="Load Fresher Software Engineer Profile (Fictional Candidate A)"
             >
-              🎓 College Fresher
+              College Fresher
             </button>
             <button
               onClick={() => loadPresetFixture('security')}
               className="px-2.5 py-1 rounded text-xs font-mono uppercase tracking-wider text-neutral-300 hover:text-volt hover:bg-surface-elevated transition"
               title="Load Senior Cybersecurity Engineer Profile (Fictional Security Lead)"
             >
-              🛡️ Security Lead
+              Security Lead
             </button>
           </div>
 

@@ -5,6 +5,7 @@
 // ============================================================
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { Check } from 'lucide-react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
@@ -357,7 +358,7 @@ export function CompanyRolesPage() {
             {[
               { n: 1, label: '1. Your Resume', to: '/demo' },
               { n: 2, label: '2. Company & Role', onClick: handleBackToRoles },
-              { n: 3, label: '3. AI Analysis', disabled: !result },
+              { n: 3, label: '3. Readiness Calibration', disabled: !result },
             ].map((s) => (
               <React.Fragment key={s.n}>
                 {s.n === 1 ? (
@@ -369,7 +370,7 @@ export function CompanyRolesPage() {
                         : 'text-silver hover:text-white'
                     }`}
                   >
-                    <span className="text-volt font-bold">✓</span>
+                    <Check className="w-3.5 h-3.5 text-volt inline shrink-0" aria-hidden="true" />
                     {s.label}
                   </Link>
                 ) : s.n === 2 ? (
@@ -381,7 +382,7 @@ export function CompanyRolesPage() {
                         : 'bg-black text-volt border border-charcoal'
                     }`}
                   >
-                    <span>{activeStep > 2 ? '✓' : ''}</span>
+                    {activeStep > 2 ? <Check className="w-3.5 h-3.5 inline shrink-0" aria-hidden="true" /> : null}
                     {s.label}
                   </button>
                 ) : (
@@ -663,10 +664,10 @@ export function CompanyRolesPage() {
               sub: 'Representative career tracks based on public job postings',
             },
             {
-              tag: 'Zero Egress',
-              value: 'Level 1',
-              label: 'Offline Analysis',
-              sub: 'All analysis runs locally in your browser — no data leaves your device',
+              tag: 'Privacy',
+              value: 'Local',
+              label: 'In-Browser Evaluation',
+              sub: 'All analysis runs locally in your browser — no resume data leaves your device',
             },
             {
               tag: 'Scoring',

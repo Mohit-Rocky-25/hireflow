@@ -6,7 +6,9 @@ import {
   AlertCircle,
   Clock,
   ArrowRight,
-  Sparkles,
+  Check,
+  X,
+  Minus,
 } from 'lucide-react';
 import { HeadToHeadComparison } from '../compareJDs';
 import { CompanyLogo } from '../../../../components/common/CompanyLogo';
@@ -386,13 +388,14 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
               {roleAExclusive.map((skill) => (
                 <span
                   key={skill.skillId}
-                  className={`px-2 py-0.5 rounded-md text-xs font-medium border ${
+                  className={`px-2 py-0.5 rounded-md text-xs font-medium border inline-flex items-center gap-1 ${
                     skill.found
                       ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
                       : 'bg-surface-3 text-text-muted border-border/60'
                   }`}
                 >
-                  {skill.name} {skill.found ? '✓' : ''}
+                  <span>{skill.name}</span>
+                  {skill.found && <Check className="w-3 h-3 text-emerald-400 inline" aria-hidden="true" />}
                 </span>
               ))}
               {roleAExclusive.length === 0 && (
@@ -422,7 +425,7 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
                 return (
                   <span
                     key={skill.skillId}
-                    className={`px-2 py-0.5 rounded-md text-xs font-medium border ${
+                    className={`px-2 py-0.5 rounded-md text-xs font-medium border inline-flex items-center gap-1 ${
                       isBothMatched
                         ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20'
                         : isBothMissing
@@ -430,7 +433,14 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
                         : 'bg-surface-3 text-text-secondary border-border/60'
                     }`}
                   >
-                    {skill.name} {isBothMatched ? '✓' : isBothMissing ? '✗' : '~'}
+                    <span>{skill.name}</span>
+                    {isBothMatched ? (
+                      <Check className="w-3 h-3 text-emerald-400 inline" aria-hidden="true" />
+                    ) : isBothMissing ? (
+                      <X className="w-3 h-3 text-rose-400 inline" aria-hidden="true" />
+                    ) : (
+                      <Minus className="w-3 h-3 text-text-muted inline" aria-hidden="true" />
+                    )}
                   </span>
                 );
               })}
@@ -457,13 +467,14 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
               {roleBExclusive.map((skill) => (
                 <span
                   key={skill.skillId}
-                  className={`px-2 py-0.5 rounded-md text-xs font-medium border ${
+                  className={`px-2 py-0.5 rounded-md text-xs font-medium border inline-flex items-center gap-1 ${
                     skill.found
                       ? 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20'
                       : 'bg-surface-3 text-text-muted border-border/60'
                   }`}
                 >
-                  {skill.name} {skill.found ? '✓' : ''}
+                  <span>{skill.name}</span>
+                  {skill.found && <Check className="w-3 h-3 text-indigo-400 inline" aria-hidden="true" />}
                 </span>
               ))}
               {roleBExclusive.length === 0 && (
@@ -484,7 +495,7 @@ export function HeadToHeadView({ h2h }: { h2h: HeadToHeadComparison }) {
             </p>
           </div>
           <span className="text-xs font-bold text-primary flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5" /> High-ROI Actions
+            <Target className="w-3.5 h-3.5" /> High-ROI Actions
           </span>
         </div>
 

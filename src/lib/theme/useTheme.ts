@@ -28,13 +28,14 @@ function getSystemTheme(): 'light' | 'dark' {
 }
 
 export function applyThemeAndDesign(mode: Mode, design: Design): 'light' | 'dark' {
-  if (typeof document === 'undefined') return 'light';
+  if (typeof document === 'undefined') return 'dark';
 
-  let resolved: 'light' | 'dark' = 'light';
-  if (design === 'neon-volt') {
-    resolved = 'dark';
-  } else {
+  let resolved: 'light' | 'dark' = 'dark';
+  if (design === 'spruce') {
     resolved = mode === 'system' ? getSystemTheme() : mode;
+  } else {
+    // Design 1: Neon Volt is strictly dark-only (supportsModes: false)
+    resolved = 'dark';
   }
 
   document.documentElement.setAttribute('data-theme', resolved);
@@ -46,16 +47,16 @@ export const useTheme = create<ThemeState>((set, get) => {
   const initialMode =
     (typeof localStorage !== 'undefined'
       ? (localStorage.getItem(THEME_KEY) as Mode)
-      : null) || 'light';
+      : null) || 'dark';
   const initialDesign =
     (typeof localStorage !== 'undefined'
       ? (localStorage.getItem(DESIGN_KEY) as Design)
-      : null) || 'spruce';
+      : null) || 'neon-volt';
 
   const resolved =
     typeof document !== 'undefined'
       ? applyThemeAndDesign(initialMode, initialDesign)
-      : 'light';
+      : 'dark';
 
   if (typeof window !== 'undefined') {
     window
