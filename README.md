@@ -12,7 +12,15 @@ HireFlow is a pre-release production candidate. It is free for all students and 
 
 ## Features
 
-HireFlow consists of nine specialized candidate-side career tools:
+HireFlow consists of specialized candidate-side career tools and an integrated Candidate Career Operating System (v5):
+
+### Candidate Career Operating System (v5)
+- Candidate Command Center (`/portal`): Central unified view of candidate progress across all 11 evaluation tools. Features an aggregated KPI Strip (Target Readiness, Target Tracker, Unresolved Gaps, Resume Versions, Active Plan Items), Target Watchlist with pinned companies and roles, an immutable Audit Journal timeline, an interactive Execution Plan with progress tracking, and an Outreach Vault for saved message drafts.
+- Resume Matrix (`/portal/resumes`): Manages specialized resumes partitioned by role tracks (e.g., Backend Engineering, Distributed Systems, Data Science). Supports parent-child version branching, lineage trees, designated head and primary pointers, and word-level diff comparisons across revisions.
+- Historical Resume Inspector (`/portal/audits/:auditId`): Dual-pane audit inspector displaying the exact frozen resume text paired side-by-side with job description findings, matched skills, gaps, and category scores from historical evaluations.
+- Client-Side Dossier Exporter: Generates complete, print-ready PDF, Word (.docx), and JSON dossiers directly inside the browser using client-side libraries (`pdf-lib` and `docx`). Functions entirely offline with zero server rendering or telemetry.
+- Offline Outbox and Sync Engine: Client-first architecture utilizing IndexedDB and local key-value storage. Audit records and snapshots are content-addressed via cryptographic SHA-256 hashes. Outbox operations queue locally while offline and synchronize idempotently to Supabase when online. Cross-tab consistency is maintained via BroadcastChannel.
+- Zero-Egress Guest Sandbox: Unauthenticated visitors retain full access to all evaluation tools in an air-gapped sandbox without any network calls to backend services, authentication providers, or external trackers. Authenticating via Google OAuth unlocks cloud persistence and multi-device synchronization.
 
 ### ATS Resume Roaster
 - Input: Plain-text or uploaded PDF/DOCX candidate resume and an optional target Job Description.
@@ -257,22 +265,34 @@ A 2-level architectural overview of the codebase:
 ```text
 hireflow/
 ├── docs/                   # Engineering specifications, baseline snapshots, and validation reports
+├── e2e/                    # Playwright end-to-end test scenarios (zero-egress, portal, inspector, matrix)
 ├── public/                 # Static assets, Web App Manifest, offline fonts, and service worker scripts
-├── scripts/                # Node and tsx verification scripts, audits, and build pipelines
+├── scripts/                # Node and tsx verification scripts, bundle checks, audits, and build pipelines
+├── sql/                    # PostgreSQL and Supabase migration schemas with RLS policies
 ├── src/
+│   ├── __guarantees__/     # Architectural invariants (zero-egress, determinism, tokens, bundle exclusions)
 │   ├── assets/             # Bundled local vector graphics and icons
 │   ├── careers-core/       # Core career pathway graph data structures and query algorithms
 │   ├── components/         # Shared UI primitives, navigation bars, modals, and error boundaries
 │   ├── data/               # Curated employer catalogs, ATS rules, and benchmark datasets
 │   ├── designs/            # Alternate design systems (including Design 2: Spruce)
+│   ├── domain/             # Candidate OS domain types, limits, and ID constructors
 │   ├── engine/             # Headless scoring calculation engines and text analysis rules
-│   ├── features/           # Feature implementations (ATS Roaster, Tailor, Credentials, Briefs)
-│   ├── lib/                # Utility helpers, safe storage adapters, and string sanitizers
+│   ├── features/           # Feature implementations:
+│   │   ├── ats/            # ATS Resume Roaster engine and components
+│   │   ├── auth/           # OAuth boundary, session state, and auth gate
+│   │   ├── dossier/        # Client-side PDF and DOCX dossier generation
+│   │   ├── inspector/      # Dual-pane historical resume and findings inspector
+│   │   ├── journal/        # Immutable audit journal and delta computation
+│   │   ├── portal/         # Candidate Command Center, KPI strip, watchlist, execution plan
+│   │   └── resumes/        # Resume matrix, version trees, branching, and lineage
+│   ├── lib/                # Storage adapters, crypto utilities, text diffing, and sanitizers
 │   ├── pages/              # Primary route view components (Landing, Tools Hub, Data, TalentLens)
 │   ├── pathways/           # Career transition radar and offer evaluator modules
 │   ├── styles/             # Design token CSS custom properties and typed theme exports
+│   ├── sync/               # Offline outbox queue, engine, Supabase transport, and sync pill
 │   └── App.tsx             # Root router configuration, error boundary, and skip-to-content logic
-├── tests/                  # Integration, unit, invariant, and accessibility test suites
+├── tests/                  # Integration, unit, invariant, golden, and accessibility test suites
 ├── index.html              # Single-page application entry point with self-hosted font preloads
 ├── package.json            # Project manifest, script definitions, and pinned dependencies
 └── vite.config.ts          # Vite configuration with chunk splitting and PWA precaching

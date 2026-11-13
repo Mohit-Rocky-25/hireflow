@@ -48,6 +48,14 @@ const SavedJdLibraryPage = React.lazy(() => import('./pages/jd-library/SavedJdLi
 const MethodologyPage = React.lazy(() => import('./pages/methodology/MethodologyPage'));
 const LoginPage = React.lazy(() => import('./pages/auth/LoginPage').then((m) => ({ default: m.LoginPage })));
 
+// Candidate Career Operating System (v5)
+import { AuthProvider } from './features/auth/AuthProvider';
+import { RequireAuth } from './features/auth/RequireAuth';
+const AuthCallbackPage = React.lazy(() => import('./features/auth/AuthCallbackPage').then((m) => ({ default: m.AuthCallbackPage })));
+const PortalPage = React.lazy(() => import('./features/portal/PortalPage').then((m) => ({ default: m.PortalPage })));
+const ResumeMatrixPage = React.lazy(() => import('./features/resumes/ResumeMatrixPage').then((m) => ({ default: m.ResumeMatrixPage })));
+const HistoricalResumeInspector = React.lazy(() => import('./features/inspector/HistoricalResumeInspector').then((m) => ({ default: m.HistoricalResumeInspector })));
+
 // Pathways Suite (C2 behind PATHWAYS_ENABLED)
 import { FEATURES } from './config';
 const PathwaysRadarPage = React.lazy(() => import('./pathways/pages/PathwaysRadarPage').then((m) => ({ default: m.PathwaysRadarPage })));
@@ -85,6 +93,8 @@ const ROUTE_TITLES: Record<string, string> = {
   '/methodology': 'Scoring Spec & Methodology | HireFlow',
   '/login': 'Candidate Portal Authentication | HireFlow',
   '/register': 'Candidate Account Registration | HireFlow',
+  '/portal': 'Candidate Command Center | HireFlow',
+  '/portal/resumes': 'Resume Matrix | HireFlow',
 };
 
 function RouteChangeHandler() {
@@ -263,12 +273,19 @@ export default function App() {
           <CinematicLoader onFinish={handleLoadingFinish} isAppReady={_initialized} />
         )
       )}
+      <AuthProvider>
       <ProfileProvider>
         <BrowserRouter>
           <RouteChangeHandler />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
               {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
+              {/* Candidate Career Operating System (v5) */}
+              <Route path="/auth/callback" element={<AuthCallbackPage />} />
+              <Route path="/portal" element={<RequireAuth component={PortalPage} />} />
+              <Route path="/portal/resumes" element={<RequireAuth component={ResumeMatrixPage} />} />
+              <Route path="/portal/audits/:auditId" element={<RequireAuth component={HistoricalResumeInspector} />} />
+
               {/* Public Landing & Interactive Company Demo */}
               <Route path="/" element={<DesignGate spruce={SpruceLandingPage} default={LandingPage} />} />
               <Route path="/demo" element={<DesignGate spruce={SpruceTalentLensPage} default={MatchingDemo} />} />
@@ -343,6 +360,7 @@ export default function App() {
           <OfflineIndicator />
         </BrowserRouter>
       </ProfileProvider>
+      </AuthProvider>
     </ToolErrorBoundary>
   );
 }

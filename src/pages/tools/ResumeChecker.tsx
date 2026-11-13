@@ -57,6 +57,18 @@ import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
 import { autoSyncManager } from '../../lib/sync/autoSyncManager';
+import { ResumePicker } from '../../features/resumes/ResumePicker';
+import { useResumeStore } from '../../features/resumes/useResumeStore';
+import { useAuditStore } from '../../features/journal/useAuditStore';
+import { usePortalStore } from '../../features/portal/usePortalStore';
+import { useHandoffStore } from '../../features/handoff/useHandoffStore';
+import { atsToAuditInput } from '../../features/ats/journalAdapter';
+import { makeTargetKey } from '../../domain/ids';
+import { sha256Hex } from '../../lib/crypto/sha256';
+import { normalizeText } from '../../lib/text/normalize';
+import { kvGet } from '../../lib/storage/kv';
+import { getSnapshotKey } from '../../lib/storage/namespace';
+import type { AuditEntry, TextSnapshot, Uuid } from '../../domain/types';
 
 const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -101,6 +113,15 @@ export function ResumeChecker() {
     return undefined;
   }, [queryCompanyId, jobText]);
 
+  const detectedRoleTitle = useMemo(() => {
+    if (queryCompanyId) return `${queryCompanyId} Target Role`;
+    const match = jobText.match(/(?:Role|Title|Position):\s*([^\r\n,]+)/i);
+    if (match && match[1]) return match[1].trim();
+    const firstLine = jobText.trim().split('\n')[0]?.trim();
+    if (firstLine && firstLine.length < 60 && !firstLine.includes(':')) return firstLine;
+    return 'Target Role';
+  }, [queryCompanyId, jobText]);
+
   const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
     if (initialStoredResume) return initialStoredFileName || DEMO_TALENTLENS_RESUME.fileName;
     if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.fileName;
@@ -140,6 +161,76 @@ export function ResumeChecker() {
   const [confirmedRequirements, setConfirmedRequirements] = useState<ConfirmedRequirement[] | null>(null);
   const [parsedJdData, setParsedJdData] = useState<ReturnType<typeof parseJD> | null>(null);
 
+  // Candidate OS State
+  const [selectedResumeMeta, setSelectedResumeMeta] = useState<{ workspaceId: Uuid | null; versionId: Uuid | null; label: string }>({
+    workspaceId: null,
+    versionId: null,
+    label: 'Custom Resume',
+  });
+  const [latestAuditEntry, setLatestAuditEntry] = useState<AuditEntry | null>(null);
+  const [lastTargetAudit, setLastTargetAudit] = useState<AuditEntry | null>(null);
+  const [dismissTargetBanner, setDismissTargetBanner] = useState(false);
+
+  // Consume handoff from other tools (Tailor, Matrix, Watchlist)
+  useEffect(() => {
+    const handoff = useHandoffStore.getState().consume('/tools/resume-checker');
+    if (handoff) {
+      if (handoff.resumeVersionId) {
+        const ver = useResumeStore.getState().versions[handoff.resumeVersionId];
+        if (ver) {
+          void kvGet<TextSnapshot>(getSnapshotKey(ver.snapshotHash)).then((snap) => {
+            if (snap) {
+              setResumeText(snap.text);
+              setResumeFileName(ver.label);
+              setSelectedResumeMeta({
+                workspaceId: ver.workspaceId,
+                versionId: ver.id,
+                label: ver.label,
+              });
+            }
+          });
+        }
+      }
+      if (handoff.jdSnapshotHash) {
+        void kvGet<TextSnapshot>(getSnapshotKey(handoff.jdSnapshotHash)).then((snap) => {
+          if (snap) {
+            setJobText(snap.text);
+            setJobFileName('Saved Target JD');
+          }
+        });
+      }
+    }
+  }, []);
+
+  // Detect previous scan for this target
+  useEffect(() => {
+    if (!jobText.trim()) {
+      setLastTargetAudit(null);
+      return;
+    }
+    void (async () => {
+      try {
+        const snapHash = await sha256Hex(normalizeText(jobText));
+        const tKey = await makeTargetKey({
+          company: detectedTargetCompany,
+          roleTitle: detectedRoleTitle,
+          jdSnapshotHash: snapHash,
+        });
+        const entries = Object.values(useAuditStore.getState().entries);
+        const matching = entries
+          .filter((e) => e.targetKey === tKey && e.kind === 'ats_roast')
+          .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        if (matching.length > 0) {
+          setLastTargetAudit(matching[0]);
+        } else {
+          setLastTargetAudit(null);
+        }
+      } catch {
+        setLastTargetAudit(null);
+      }
+    })();
+  }, [jobText, detectedTargetCompany, detectedRoleTitle]);
+
   const jobRoleBridgeSkills = useMemo(() => {
     if (!engineResult?.skillResults) return [];
     return engineResult.skillResults.map((s: any) => ({
@@ -149,14 +240,7 @@ export function ResumeChecker() {
     }));
   }, [engineResult?.skillResults]);
 
-  const detectedRoleTitle = useMemo(() => {
-    if (queryCompanyId) return `${queryCompanyId} Target Role`;
-    const match = jobText.match(/(?:Role|Title|Position):\s*([^\r\n,]+)/i);
-    if (match && match[1]) return match[1].trim();
-    const firstLine = jobText.trim().split('\n')[0]?.trim();
-    if (firstLine && firstLine.length < 60 && !firstLine.includes(':')) return firstLine;
-    return 'Target Role';
-  }, [queryCompanyId, jobText]);
+
 
 
   // Campus UI removed for TalentLens JD single source
@@ -327,7 +411,9 @@ export function ResumeChecker() {
     setTimeout(() => {
       try {
         const activeRequirements = confirmedList || confirmedRequirements || undefined;
-        const response = runAtsEngine(resumeText, jobText, {
+        const normalizedResume = normalizeText(resumeText);
+        const normalizedJd = normalizeText(jobText);
+        const response = runAtsEngine(normalizedResume, normalizedJd, {
           tier: mappedTier,
           level: mappedLevel,
           resumeSource,
@@ -341,6 +427,27 @@ export function ResumeChecker() {
         }
 
         setEngineResult(response.result);
+
+        // Record into Candidate OS Audit Journal
+        void (async () => {
+          try {
+            const auditInput = atsToAuditInput({
+              result: response.result,
+              resumeText: normalizedResume,
+              jdText: normalizedJd,
+              source: (resumeSource === 'uploaded' ? 'upload' : 'paste') as any,
+              workspaceId: selectedResumeMeta.workspaceId,
+              resumeVersionId: selectedResumeMeta.versionId,
+              resumeLabel: selectedResumeMeta.label,
+              targetCompany: detectedTargetCompany,
+              targetRole: detectedRoleTitle,
+            });
+            const { entry } = await useAuditStore.getState().record(auditInput);
+            setLatestAuditEntry(entry);
+          } catch (recordErr) {
+            console.warn('Candidate OS audit record notice:', recordErr);
+          }
+        })();
 
         const missing = (response.result.skillResults || [])
           .filter((s: any) => s.status === 'missing')
@@ -464,6 +571,68 @@ export function ResumeChecker() {
         {/* Input Panel Section */}
         {!engineResult && (
           <div className="space-y-6">
+            {/* Earlier Scan Banner */}
+            {lastTargetAudit && !dismissTargetBanner && (
+              <div className="max-w-6xl mx-auto p-3.5 rounded bg-[#10100d] border border-neutral-800 text-xs font-mono text-neutral-300 flex items-center justify-between gap-3 animate-fade-in">
+                <div className="flex items-center gap-2">
+                  <span className="text-[#faff69] font-semibold">Earlier scan on file:</span>
+                  <span>
+                    Last scored {lastTargetAudit.overallScore}/100 on {new Date(lastTargetAudit.createdAt).toLocaleDateString()} with {lastTargetAudit.gaps.length} open gaps.
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setDismissTargetBanner(true)}
+                  className="text-neutral-500 hover:text-neutral-300 transition-colors cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+
+            {/* Candidate OS Resume & Target Selector Toolbar */}
+            <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 p-3 bg-[#10100d] border border-neutral-800 rounded text-xs font-mono">
+              <div className="flex items-center gap-3">
+                <span className="text-neutral-400">Resume Source:</span>
+                <ResumePicker
+                  onSelectResume={(text, meta) => {
+                    if (text) {
+                      setResumeText(text);
+                      setResumeFileName(meta.label);
+                      setSelectedResumeMeta(meta);
+                    }
+                  }}
+                />
+              </div>
+              {Object.keys(usePortalStore.getState().watchlist).length > 0 && (
+                <div className="flex items-center gap-2">
+                  <span className="text-neutral-400">Target from Watchlist:</span>
+                  <select
+                    onChange={async (e) => {
+                      const val = e.target.value;
+                      if (!val) return;
+                      const target = usePortalStore.getState().watchlist[val];
+                      if (target && target.jdSnapshotHash) {
+                        const snap = await kvGet<TextSnapshot>(getSnapshotKey(target.jdSnapshotHash));
+                        if (snap) {
+                          setJobText(snap.text);
+                          setJobFileName(`${target.companyName} - ${target.roleTitle || 'General'}`);
+                        }
+                      }
+                    }}
+                    className="bg-[#141410] border border-neutral-800 text-neutral-300 rounded px-2.5 py-1 text-xs outline-none focus:border-[#faff69]"
+                  >
+                    <option value="">Select saved target...</option>
+                    {Object.values(usePortalStore.getState().watchlist).map((t) => (
+                      <option key={t.id} value={t.id}>
+                        {t.companyName} — {t.roleTitle || 'General'}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+
             <AtsInputSection
               resumeText={resumeText}
               jobText={jobText}
@@ -744,6 +913,80 @@ export function ResumeChecker() {
                 {/* PRESENTATION MODE 2: DEEP ROASTER */}
                 {presentationMode === 'deep' && (
               <>
+                {/* Candidate OS Progression & Actions */}
+                {latestAuditEntry && (
+                  <div className="p-4 rounded bg-[#10100d] border border-neutral-800 text-xs font-mono mb-6 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        {latestAuditEntry.delta ? (
+                          <span className={`px-2.5 py-1 rounded font-bold text-sm ${
+                            latestAuditEntry.delta.overallDeltaPts > 0
+                              ? 'bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/30'
+                              : latestAuditEntry.delta.overallDeltaPts < 0
+                              ? 'bg-red-500/10 text-red-400 border border-red-500/30'
+                              : 'bg-neutral-800 text-neutral-300'
+                          }`}>
+                            {latestAuditEntry.delta.overallDeltaPts >= 0 ? `+${latestAuditEntry.delta.overallDeltaPts}%` : `${latestAuditEntry.delta.overallDeltaPts}%`}
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 rounded bg-neutral-800 text-neutral-400 text-[10px] uppercase">
+                            Baseline Scan
+                          </span>
+                        )}
+                        <span className="text-neutral-300 font-semibold">
+                          {latestAuditEntry.delta
+                            ? `${latestAuditEntry.delta.resolvedGapIds.length} gaps resolved · ${latestAuditEntry.delta.newGapIds.length} new`
+                            : `${latestAuditEntry.gaps.length} open gaps identified`}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            usePortalStore.getState().addWatchlistTarget({
+                              targetKey: latestAuditEntry.targetKey,
+                              companyName: detectedTargetCompany || 'Target Company',
+                              roleTitle: detectedRoleTitle || undefined,
+                              jdSnapshotHash: latestAuditEntry.jd.snapshotHash,
+                            });
+                          }}
+                          className="px-3 py-1.5 rounded border border-neutral-700 bg-[#141410] text-neutral-200 hover:text-[#faff69] hover:border-[#faff69]/40 transition-colors cursor-pointer"
+                        >
+                          Save to Watchlist
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            useHandoffStore.getState().set({
+                              from: '/tools/resume-checker',
+                              to: '/tools/tailor',
+                              resumeVersionId: latestAuditEntry.resume.versionId || undefined,
+                              jdSnapshotHash: latestAuditEntry.jd.snapshotHash,
+                              targetKey: latestAuditEntry.targetKey,
+                            });
+                            navigate('/tools/tailor');
+                          }}
+                          className="px-3 py-1.5 rounded font-semibold bg-[#faff69] text-[#090907] hover:bg-[#faff69]/90 transition-colors cursor-pointer"
+                        >
+                          Tailor this resume
+                        </button>
+                        <Link
+                          to="/portal"
+                          className="px-3 py-1.5 rounded border border-neutral-700 text-neutral-400 hover:text-white transition-colors"
+                        >
+                          Open Portal
+                        </Link>
+                      </div>
+                    </div>
+                    {latestAuditEntry.delta && (
+                      <div className="text-[10px] text-neutral-500">
+                        Progression compared to baseline audit ({latestAuditEntry.delta.baselineAuditId.slice(0, 8)}) recorded on {new Date(latestAuditEntry.delta.baselineCreatedAt).toLocaleDateString()}.
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Layout Section A: Score Header */}
                 <ScoreHeader result={engineResult} headerRef={headerRef} />
 

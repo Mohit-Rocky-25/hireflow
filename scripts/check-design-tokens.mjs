@@ -96,6 +96,10 @@ const DOCUMENTED_EXCEPTIONS = [
     reason: 'Core parsers, AST tokenizers, and text regex matchers',
   },
   {
+    pattern: 'src/sync/',
+    reason: 'Sync subsystem status indicator pill with realtime transport state',
+  },
+  {
     pattern: 'src/data/',
     reason: 'Curated employer catalog data records',
   },

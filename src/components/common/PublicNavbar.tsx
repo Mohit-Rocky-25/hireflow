@@ -139,6 +139,12 @@ export function PublicNavbar() {
           {/* ── Center: High-Contrast Category Links ── */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             <Link
+              to="/portal"
+              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
+            >
+              PORTAL
+            </Link>
+            <Link
               to="/demo"
               className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
             >

@@ -5,7 +5,7 @@
 // ============================================================
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { Check, Star } from 'lucide-react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
 import type { FresherProgram } from '../../careers-core';
@@ -19,6 +19,12 @@ import {
 import { COMPANIES, findCompanyBySlug, type Company, type Role } from './talentLensData';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from './useTalentLensStore';
 import { useProfileStore } from '../../store/profileStore';
+import { talentlensToAuditInput } from '../../features/talentlens/journalAdapter';
+import { useAuditStore } from '../../features/journal/useAuditStore';
+import { usePortalStore } from '../../features/portal/usePortalStore';
+import { useResumeStore } from '../../features/resumes/useResumeStore';
+import { ResumePicker } from '../../features/resumes/ResumePicker';
+import type { AuditEntry, Uuid } from '../../domain/types';
 
 import { CompanyHeaderCard } from './components/CompanyHeaderCard';
 import { FresherProgramCard } from './components/FresherProgramCard';
@@ -154,6 +160,12 @@ export function CompanyRolesPage() {
   const [roleSearch, setRoleSearch] = useState('');
   const [analyzing, setAnalyzing] = useState(false);
   const [analysisPhase, setAnalysisPhase] = useState('');
+  const [selectedResumeMeta, setSelectedResumeMeta] = useState<{ workspaceId: Uuid | null; versionId: Uuid | null; label: string }>({
+    workspaceId: null,
+    versionId: null,
+    label: 'Current Resume',
+  });
+  const [latestTlAuditEntry, setLatestTlAuditEntry] = useState<AuditEntry | null>(null);
 
   // View state: 'roles' vs 'analysis'
   const isAnalysisView = searchParams.get('view') === 'analysis' && result !== null;
@@ -277,6 +289,27 @@ export function CompanyRolesPage() {
       setAnalyzing(false);
       setStep(3);
       setSearchParams({ view: 'analysis' });
+
+      // Record in Candidate OS Audit Journal
+      void (async () => {
+        try {
+          const jdRawText = selectedRole.desc || selectedRole.fullText || `${selectedRole.title} at ${company.name}. Competencies: ${selectedRole.competencies.join(', ')}`;
+          const auditInput = talentlensToAuditInput({
+            result: analysisResult,
+            resumeText,
+            jdText: jdRawText,
+            company,
+            role: selectedRole,
+            workspaceId: selectedResumeMeta.workspaceId,
+            resumeVersionId: selectedResumeMeta.versionId,
+            resumeLabel: selectedResumeMeta.label,
+          });
+          const { entry } = await useAuditStore.getState().record(auditInput);
+          setLatestTlAuditEntry(entry);
+        } catch (err) {
+          console.warn('TalentLens journal record notice:', err);
+        }
+      })();
 
       // Smooth scroll to top of analysis
       window.scrollTo({ top: 120, behavior: 'smooth' });
@@ -638,14 +671,44 @@ export function CompanyRolesPage() {
 
         {/* ── STEP 3: ANALYSIS RESULTS VIEW ── */}
         {isAnalysisView && result && selectedRole && (
-          <AnalysisResultView
-            result={result}
-            selectedRole={selectedRole}
-            company={company}
-            onBackToRoles={handleBackToRoles}
-            onChangeCompany={handleChangeCompany}
-            onNewResume={handleNewResume}
-          />
+          <div>
+            {latestTlAuditEntry && (
+              <div className="p-4 rounded bg-[#10100d] border border-neutral-800 text-xs font-mono mb-6 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  {latestTlAuditEntry.delta ? (
+                    <span className="px-2.5 py-1 rounded font-bold text-sm bg-[#faff69]/10 text-[#faff69] border border-[#faff69]/30">
+                      {latestTlAuditEntry.delta.overallDeltaPts >= 0 ? `+${latestTlAuditEntry.delta.overallDeltaPts}%` : `${latestTlAuditEntry.delta.overallDeltaPts}%`}
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded bg-neutral-800 text-neutral-400 text-[10px] uppercase">
+                      Baseline Evaluation
+                    </span>
+                  )}
+                  <span className="text-neutral-300 font-semibold">
+                    {latestTlAuditEntry.delta
+                      ? `${latestTlAuditEntry.delta.resolvedGapIds.length} gaps resolved · ${latestTlAuditEntry.delta.newGapIds.length} new`
+                      : `${latestTlAuditEntry.gaps.length} target gaps identified`}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to="/portal"
+                    className="px-3 py-1.5 rounded border border-neutral-700 bg-[#141410] text-neutral-300 hover:text-white transition-colors"
+                  >
+                    Open in Portal
+                  </Link>
+                </div>
+              </div>
+            )}
+            <AnalysisResultView
+              result={result}
+              selectedRole={selectedRole}
+              company={company}
+              onBackToRoles={handleBackToRoles}
+              onChangeCompany={handleChangeCompany}
+              onNewResume={handleNewResume}
+            />
+          </div>
         )}
 
         {/* 4-Stat Strip at bottom — Clean Linear Telemetry (No Vibe-Coded Icon Squircles) */}

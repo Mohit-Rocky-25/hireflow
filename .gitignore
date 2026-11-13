@@ -48,7 +48,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Refactoring workspace
+# Playwright
+test-results/
+playwright-report/
+
 .refactor/
 
 # Real candidate calibration data (Personal Data)
