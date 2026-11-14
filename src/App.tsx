@@ -51,8 +51,11 @@ const LoginPage = React.lazy(() => import('./pages/auth/LoginPage').then((m) => 
 // Candidate Career Operating System (v5)
 import { AuthProvider } from './features/auth/AuthProvider';
 import { RequireAuth } from './features/auth/RequireAuth';
+import { PortalRedirect } from './features/my-space/portalRedirectMap';
+import { MySpaceSheet } from './features/my-space/MySpaceSheet';
+import { SignInDialog } from './features/auth/SignInDialog';
+import { useAuthStore } from './features/auth/useAuthStore';
 const AuthCallbackPage = React.lazy(() => import('./features/auth/AuthCallbackPage').then((m) => ({ default: m.AuthCallbackPage })));
-const PortalPage = React.lazy(() => import('./features/portal/PortalPage').then((m) => ({ default: m.PortalPage })));
 const ResumeMatrixPage = React.lazy(() => import('./features/resumes/ResumeMatrixPage').then((m) => ({ default: m.ResumeMatrixPage })));
 const HistoricalResumeInspector = React.lazy(() => import('./features/inspector/HistoricalResumeInspector').then((m) => ({ default: m.HistoricalResumeInspector })));
 
@@ -91,10 +94,8 @@ const ROUTE_TITLES: Record<string, string> = {
   '/history': 'Scan History & Audit Log | HireFlow',
   '/jd-library': 'Saved Job Descriptions | HireFlow',
   '/methodology': 'Scoring Spec & Methodology | HireFlow',
-  '/login': 'Candidate Portal Authentication | HireFlow',
+  '/login': 'Candidate Sign In | HireFlow',
   '/register': 'Candidate Account Registration | HireFlow',
-  '/portal': 'Candidate Command Center | HireFlow',
-  '/portal/resumes': 'Resume Matrix | HireFlow',
 };
 
 function RouteChangeHandler() {
@@ -208,6 +209,7 @@ function RedirectWithSearch({ to }: { to: string }) {
 export default function App() {
   const { initDemoData, _initialized } = useStore();
   const design = useTheme((s) => s.design);
+  const { isSignInOpen, closeSignIn } = useAuthStore();
   const [appReady, setAppReady] = useState(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       try {
@@ -282,9 +284,10 @@ export default function App() {
               {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
               {/* Candidate Career Operating System (v5) */}
               <Route path="/auth/callback" element={<AuthCallbackPage />} />
-              <Route path="/portal" element={<RequireAuth component={PortalPage} />} />
-              <Route path="/portal/resumes" element={<RequireAuth component={ResumeMatrixPage} />} />
-              <Route path="/portal/audits/:auditId" element={<RequireAuth component={HistoricalResumeInspector} />} />
+              <Route path="/portal" element={<PortalRedirect />} />
+              <Route path="/portal/resumes" element={<PortalRedirect />} />
+              <Route path="/portal/audits/:auditId" element={<PortalRedirect />} />
+              <Route path="/portal/*" element={<PortalRedirect />} />
 
               {/* Public Landing & Interactive Company Demo */}
               <Route path="/" element={<DesignGate spruce={SpruceLandingPage} default={LandingPage} />} />
@@ -305,6 +308,8 @@ export default function App() {
             <Route path="/tools/career-path/company-ladder" element={<Navigate to="/tools/career-path/company-levels" replace />} />
             <Route path="/tools/career-path/simulator" element={<Navigate to="/tools/career-path/dream-job-roadmap" replace />} />
             <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
+            <Route path="/talentlens" element={<Navigate to="/demo" replace />} />
+            <Route path="/talent-lens" element={<Navigate to="/demo" replace />} />
             <Route path="/tools/talent-lens" element={<TalentLens />} />
             <Route path="/tools/credential-engine" element={<DesignGate spruce={SpruceCredentialEnginePage} default={CredentialOpportunityEnginePage} />} />
             <Route path="/tools/credentials" element={<RedirectWithSearch to="/tools/credential-engine" />} />
@@ -336,8 +341,6 @@ export default function App() {
             <Route path="/tools/pathways/about-data" element={FEATURES.PATHWAYS_ENABLED ? <AboutDataPage /> : <Navigate to="/tools" replace />} />
 
             {/* Legacy Fallbacks (graceful redirects for old bookmarks) */}
-            <Route path="/portal/*" element={<Navigate to="/tools" replace />} />
-            <Route path="/portal" element={<Navigate to="/tools" replace />} />
             <Route path="/company/*" element={<Navigate to="/tools" replace />} />
             <Route path="/company" element={<Navigate to="/tools" replace />} />
             <Route path="/interviewer/*" element={<Navigate to="/tools" replace />} />
@@ -354,10 +357,12 @@ export default function App() {
           </Routes>
         </Suspense>
         <ProfileDrawer />
-          <ToastContainer />
-          <LocalhostNavigator />
-          <PwaUpdateToast />
-          <OfflineIndicator />
+        <MySpaceSheet />
+        <SignInDialog isOpen={isSignInOpen} onClose={closeSignIn} />
+        <ToastContainer />
+        <LocalhostNavigator />
+        <PwaUpdateToast />
+        <OfflineIndicator />
         </BrowserRouter>
       </ProfileProvider>
       </AuthProvider>

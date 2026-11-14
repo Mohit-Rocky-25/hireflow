@@ -60,10 +60,12 @@ import { autoSyncManager } from '../../lib/sync/autoSyncManager';
 import { ResumePicker } from '../../features/resumes/ResumePicker';
 import { useResumeStore } from '../../features/resumes/useResumeStore';
 import { useAuditStore } from '../../features/journal/useAuditStore';
-import { usePortalStore } from '../../features/portal/usePortalStore';
+import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
 import { useHandoffStore } from '../../features/handoff/useHandoffStore';
 import { atsToAuditInput } from '../../features/ats/journalAdapter';
-import { makeTargetKey } from '../../domain/ids';
+import { exportDossier } from '../../features/dossier/exportDossier';
+import { ExportDossierButton } from '../../features/dossier/ExportDossierButton';
+import { slug, makeTargetKey } from '../../domain/ids';
 import { sha256Hex } from '../../lib/crypto/sha256';
 import { normalizeText } from '../../lib/text/normalize';
 import { kvGet } from '../../lib/storage/kv';
@@ -604,28 +606,28 @@ export function ResumeChecker() {
                   }}
                 />
               </div>
-              {Object.keys(usePortalStore.getState().watchlist).length > 0 && (
+              {Object.keys(useMySpaceStore.getState().watchlist).length > 0 && (
                 <div className="flex items-center gap-2">
                   <span className="text-neutral-400">Target from Watchlist:</span>
                   <select
                     onChange={async (e) => {
                       const val = e.target.value;
                       if (!val) return;
-                      const target = usePortalStore.getState().watchlist[val];
+                      const target = useMySpaceStore.getState().watchlist[val];
                       if (target && target.jdSnapshotHash) {
                         const snap = await kvGet<TextSnapshot>(getSnapshotKey(target.jdSnapshotHash));
                         if (snap) {
                           setJobText(snap.text);
-                          setJobFileName(`${target.companyName} - ${target.roleTitle || 'General'}`);
+                          setJobFileName(`${target.companyName}, ${target.roleTitle || 'General'}`);
                         }
                       }
                     }}
                     className="bg-[#141410] border border-neutral-800 text-neutral-300 rounded px-2.5 py-1 text-xs outline-none focus:border-[#faff69]"
                   >
                     <option value="">Select saved target...</option>
-                    {Object.values(usePortalStore.getState().watchlist).map((t) => (
+                    {Object.values(useMySpaceStore.getState().watchlist).map((t) => (
                       <option key={t.id} value={t.id}>
-                        {t.companyName} — {t.roleTitle || 'General'}
+                        {t.companyName}, {t.roleTitle || 'General'}
                       </option>
                     ))}
                   </select>
@@ -683,7 +685,67 @@ export function ResumeChecker() {
         )}
 
         {/* Results Screen */}
-        {engineResult && (
+        {engineResult && (() => {
+          const effectiveAudit: AuditEntry = latestAuditEntry || {
+            schemaVersion: 1,
+            id: 'audit-' + Date.now(),
+            targetKey: `ats:${detectedTargetCompany ? slug(detectedTargetCompany) : 'target'}:${detectedRoleTitle ? slug(detectedRoleTitle) : 'role'}`,
+            kind: 'ats_roast',
+            engineVersion: '4.0.0',
+            runKey: 'local-ats-run',
+            overallScore: engineResult.score,
+            createdAt: new Date().toISOString(),
+            resume: {
+              workspaceId: null,
+              versionId: null,
+              label: resumeFileName || 'Scanned Resume',
+              snapshotHash: 'res-snapshot-local',
+            },
+            jd: {
+              origin: 'pasted',
+              company: detectedTargetCompany || undefined,
+              roleTitle: detectedRoleTitle || undefined,
+              snapshotHash: 'jd-snapshot-local',
+            },
+            breakdown: [
+              { key: 'must_have', label: 'Must-Have Coverage', score: Math.round(((engineResult.subscores?.mustHaveCoverage ?? 0) / 30) * 100) },
+              { key: 'evidence', label: 'Evidence Quality', score: Math.round(((engineResult.subscores?.evidenceDepth ?? 0) / 20) * 100) },
+              { key: 'seniority', label: 'Seniority Fit', score: Math.round(((engineResult.subscores?.seniorityFit ?? 0) / 10) * 100) },
+              { key: 'relevance', label: 'Project Relevance', score: Math.round(((engineResult.subscores?.projectsAndOss ?? 0) / 10) * 100) },
+              { key: 'formatting', label: 'Formatting Safety', score: Math.round(((engineResult.subscores?.formatAndParse ?? 0) / 10) * 100) },
+            ],
+            strengths: (canonical?.quickRoast?.strengths || [])
+              .map((s: any) => s.title || String(s))
+              .concat(
+                (engineResult.skillResults || [])
+                  .filter((s) => s.status === 'verified')
+                  .slice(0, 3)
+                  .map((s) => `${s.canonical}: verified`)
+              )
+              .slice(0, 5),
+            gaps: (engineResult.skillResults || [])
+              .filter((s) => s.status === 'missing' && s.required === 'must')
+              .map((m, idx) => ({
+                id: `gap-${idx}`,
+                category: 'skill' as const,
+                label: m.canonical || 'Requirement gap',
+                severity: 3 as const,
+                detail: `Must-have skill "${m.canonical}" not satisfied.`,
+              })),
+            delta: null,
+            findingsJson: {
+              kind: 'ats_roast',
+              engineResult,
+              canonical,
+              quickSummary,
+              targetCompany: detectedTargetCompany,
+              targetRole: detectedRoleTitle,
+              bridgeSkills: jobRoleBridgeSkills,
+            },
+            evidence: [],
+          };
+
+          return (
           <div className="space-y-8 animate-fade-in">
             {/* Quick Summary Card Pinned at the Top */}
             {quickSummary && (
@@ -707,7 +769,7 @@ export function ResumeChecker() {
               showSnippetBanner={true}
             />
 
-            {/* Top Re-Scan Action Bar with Mode Switcher */}
+            {/* Top Re-Scan Action Bar with Mode Switcher & Download Button */}
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-lg bg-near-black border border-charcoal shadow-level-1 print:hidden">
               <div className="flex items-center gap-3 min-w-0 text-sm">
                 <span className="text-xs font-bold text-silver uppercase tracking-[1.4px]">Target:</span>
@@ -732,7 +794,16 @@ export function ResumeChecker() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3 flex-wrap">
+                {/* Prominently Highlighted Download Complete Report Action */}
+                <ExportDossierButton
+                  audit={effectiveAudit}
+                  resumeText={resumeText}
+                  jdText={jobText}
+                  highlighted={true}
+                  label="Download ATS Roast Report"
+                />
+
                 {/* Mode Switcher Toggle */}
                 <div className="inline-flex rounded bg-black p-1 border border-charcoal">
                   <button
@@ -827,14 +898,21 @@ export function ResumeChecker() {
                         <span className="font-bold text-white">{canonical.applicationGuidance}</span>
                       </p>
 
-                      <div className="flex justify-center gap-3">
+                      <div className="flex justify-center items-center gap-3 flex-wrap">
+                        <ExportDossierButton
+                          audit={effectiveAudit}
+                          resumeText={resumeText}
+                          jdText={jobText}
+                          highlighted={true}
+                          label="Download ATS Roast Report"
+                        />
                         <button
                           type="button"
                           onClick={() => setPresentationMode('deep')}
-                          className="group px-5 py-2.5 bg-volt !text-black text-xs font-bold uppercase tracking-[1.4px] rounded border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors inline-flex items-center gap-2 cursor-pointer"
+                          className="group px-5 py-2.5 bg-black text-white text-xs font-bold uppercase tracking-[1.4px] rounded border border-charcoal hover:border-volt hover:text-volt transition-colors inline-flex items-center gap-2 cursor-pointer font-mono"
                         >
-                          <span className="!text-black group-hover:!text-white font-black">Inspect Full Deep Breakdown</span>
-                          <ArrowUpRight className="w-4 h-4 stroke-[2px] !text-black group-hover:!text-white" />
+                          <span>Inspect Full Deep Breakdown</span>
+                          <ArrowUpRight className="w-4 h-4 stroke-[2px]" />
                         </button>
                       </div>
                     </div>
@@ -944,7 +1022,7 @@ export function ResumeChecker() {
                         <button
                           type="button"
                           onClick={() => {
-                            usePortalStore.getState().addWatchlistTarget({
+                            useMySpaceStore.getState().addWatchlistTarget({
                               targetKey: latestAuditEntry.targetKey,
                               companyName: detectedTargetCompany || 'Target Company',
                               roleTitle: detectedRoleTitle || undefined,
@@ -971,11 +1049,18 @@ export function ResumeChecker() {
                         >
                           Tailor this resume
                         </button>
+                        <ExportDossierButton
+                          audit={effectiveAudit}
+                          resumeText={resumeText}
+                          jdText={jobText}
+                          highlighted={true}
+                          label="Download ATS Roast Report"
+                        />
                         <Link
-                          to="/portal"
+                          to="/?my=scans"
                           className="px-3 py-1.5 rounded border border-neutral-700 text-neutral-400 hover:text-white transition-colors"
                         >
-                          Open Portal
+                          View in My Space
                         </Link>
                       </div>
                     </div>
@@ -1028,7 +1113,8 @@ export function ResumeChecker() {
               </>
             )}
           </div>
-        )}
+          );
+        })()}
 
         {/* Legal & Data Provenance Strip */}
         <div className="mt-12 p-4 rounded-lg bg-near-black border border-charcoal flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">

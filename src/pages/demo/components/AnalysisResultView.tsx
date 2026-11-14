@@ -10,11 +10,17 @@ import { RealityFactorsPanel } from '../../../components/common/RealityFactorsPa
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../../components/scoring';
 import { useTalentLensStore, DEMO_TALENTLENS_RESUME } from '../useTalentLensStore';
+import type { AuditEntry } from '@/domain/types';
+import { ExportDossierButton } from '@/features/dossier/ExportDossierButton';
+import { slug } from '@/domain/ids';
 
 export interface AnalysisResultViewProps {
   result: AnalysisResult;
   selectedRole: Role;
   company: Company;
+  audit?: AuditEntry | null;
+  resumeText?: string;
+  jdText?: string;
   onBackToRoles: () => void;
   onChangeCompany: () => void;
   onNewResume: () => void;
@@ -24,6 +30,9 @@ export function AnalysisResultView({
   result,
   selectedRole,
   company,
+  audit,
+  resumeText,
+  jdText,
   onBackToRoles,
   onChangeCompany,
   onNewResume,
@@ -61,6 +70,63 @@ export function AnalysisResultView({
     : roleFitStatus === 'Potential fit with evidence gaps'
     ? 'bg-black text-pale-yellow border-pale-yellow/40'
     : 'bg-black text-danger border-danger/50';
+
+  const effectiveJdText = jdText || selectedRole.desc || selectedRole.fullText || `${selectedRole.title} at ${company.name}. Competencies: ${selectedRole.competencies?.join(', ') || ''}`;
+  const effectiveAudit: AuditEntry = audit || {
+    schemaVersion: 1,
+    id: 'tl-audit-' + Date.now(),
+    targetKey: `tl:${company.id || slug(company.name)}:${slug(selectedRole.title)}`,
+    kind: 'talentlens',
+    engineVersion: '4.1.0',
+    runKey: 'local-tl-run',
+    overallScore: result.score,
+    createdAt: new Date().toISOString(),
+    resume: {
+      workspaceId: null,
+      versionId: null,
+      label: 'Current Resume',
+      snapshotHash: 'tl-resume-snap',
+    },
+    jd: {
+      origin: 'talentlens',
+      company: company.name,
+      roleTitle: selectedRole.title,
+      snapshotHash: 'tl-jd-snap',
+    },
+    breakdown: (result.breakdown || []).map((b) => ({
+      key: b.competency.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+      label: formatCompetencyName(b.competency),
+      score: Math.round((b.analysis?.confidence ?? 0) * 100),
+      weight: 1,
+      status: b.analysis?.status,
+      reqLevel: b.reqLevel,
+      confidence: b.analysis?.confidence,
+      layerScores: b.analysis?.layerScores,
+      evidenceQuotes: b.analysis?.contextSentences || b.analysis?.evidence || [],
+      gaps: b.analysis?.gaps || [],
+    })),
+    strengths: (result.breakdown || [])
+      .filter((b) => b.analysis?.status === 'expert' || b.analysis?.status === 'strong')
+      .map((b) => `${formatCompetencyName(b.competency)}: ${b.analysis?.evidence?.[0] || 'Strong verified match'}`),
+    gaps: (result.breakdown || [])
+      .filter((b) => b.analysis?.status === 'absent' || b.analysis?.status === 'working')
+      .map((b, idx) => ({
+        id: `gap-${idx}`,
+        category: 'skill' as const,
+        label: formatCompetencyName(b.competency),
+        severity: (b.reqLevel === 'expert' || b.reqLevel === 'strong' ? 3 : 2) as 3 | 2,
+        detail: b.analysis?.gaps?.join('; ') || `Requires ${b.reqLevel} level competency`,
+      })),
+    delta: null,
+    findingsJson: {
+      kind: 'talentlens',
+      result,
+      selectedRole,
+      company,
+      roleFitStatus,
+    },
+    evidence: [],
+  };
 
   return (
     <div className="max-w-[960px] mx-auto animate-fade-in text-white">
@@ -188,7 +254,16 @@ export function AnalysisResultView({
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
+            {!isInvalid && (
+              <ExportDossierButton
+                audit={effectiveAudit}
+                resumeText={resumeText}
+                jdText={effectiveJdText}
+                highlighted={true}
+                label="Download TalentLens Report"
+              />
+            )}
             {!isInvalid && (
               <button
                 type="button"
@@ -514,27 +589,25 @@ export function AnalysisResultView({
             {
               label: 'Hires 2024',
               value: company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—',
-              sub: company.trend ? `${TREND_ICON[company.trend] || '→'} from ${
-                company.hiring2023 != null ? company.hiring2023.toLocaleString() : '—'
-              } (2023)` : 'Directional Trend',
-              subColor: company.trend === 'up' ? 'text-volt' : company.trend === 'down' ? 'text-danger' : 'text-pale-yellow',
+              sub: company.hiring2024 != null ? 'Public estimate 2024-25 (AI-extracted, unverified)' : 'Estimate unavailable',
+              subColor: 'text-neutral-400',
             },
             {
               label: 'Open Roles',
               value: company.openRoles != null ? `${company.openRoles}+` : `${company.roles?.length || 1}+`,
-              sub: company.industry || 'Technology',
+              sub: 'Public portal listings 2024-25 (estimate)',
               subColor: 'text-neutral-400',
             },
             {
               label: 'Avg Package',
               value: company.avgPackage || 'Market Competitive',
-              sub: company.tier ? `${company.tier} Tier` : 'Estimated Band',
+              sub: 'Compensation band 2024-25 (AI-extracted, unverified)',
               subColor: 'text-neutral-400',
             },
             {
               label: 'Glassdoor',
               value: company.glassdoor ? `${company.glassdoor} / 5` : '4.2 / 5',
-              sub: company.glassdoor ? 'Employee Rating' : 'Industry Average',
+              sub: 'Public aggregate rating (unverified)',
               subColor: 'text-neutral-400',
             },
           ].map(({ label, value, sub, subColor }) => (
@@ -580,7 +653,12 @@ export function AnalysisResultView({
                       {formatCompetencyName(b.competency)}
                     </span>
                     <span className="text-xs font-semibold bg-[#141414] border border-charcoal text-neutral-300 px-2.5 py-0.5 rounded">
-                      Required: {b.reqLevel}
+                      Role requires: {b.reqLevel}
+                    </span>
+                    <span className="text-[11px] font-medium text-neutral-400">
+                      ({selectedRole.fullText?.toLowerCase().includes(b.competency.toLowerCase()) || selectedRole.desc?.toLowerCase().includes(b.competency.toLowerCase())
+                        ? 'from job description'
+                        : 'expected at this company tier (inferred)'})
                     </span>
                     {b.analysis.antiGamingFlag && (
                       <span className="text-xs bg-black text-pale-yellow px-2.5 py-0.5 rounded font-bold border border-pale-yellow/40 flex items-center gap-1">
@@ -589,6 +667,7 @@ export function AnalysisResultView({
                     )}
                   </div>
                   <div className="flex items-center gap-2.5">
+                    <span className="text-xs text-neutral-400">Your resume shows:</span>
                     <span className={`text-sm font-bold ${
                       isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
                     }`}>{statusLabel}</span>
@@ -634,9 +713,9 @@ export function AnalysisResultView({
                     {b.analysis.contextSentences.slice(0, 2).map((s, i) => (
                       <p
                         key={i}
-                        className="text-xs sm:text-sm text-neutral-200 leading-relaxed italic"
+                        className="text-xs sm:text-sm text-neutral-200 leading-relaxed italic break-words"
                       >
-                        &ldquo;{s.length > 120 ? s.substring(0, 120) + '...' : s}&rdquo;
+                        &ldquo;{s}&rdquo;
                       </p>
                     ))}
                   </div>
@@ -827,15 +906,26 @@ export function AnalysisResultView({
       </div>
 
       {/* Step 3 Action Buttons */}
-      <div className="flex flex-wrap gap-3.5 justify-center pt-2 pb-8">
+      <div className="flex flex-wrap gap-3.5 justify-center items-center pt-2 pb-8">
         <button
           type="button"
           onClick={onBackToRoles}
-          className="group flex items-center gap-2 px-6 py-3 rounded-lg bg-volt !text-black font-bold text-sm hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all shadow-sm cursor-pointer uppercase tracking-wider"
+          className="group flex items-center gap-2 px-6 py-3 rounded-lg border border-charcoal bg-black text-white hover:text-volt hover:border-volt transition-all shadow-sm cursor-pointer uppercase tracking-wider font-semibold text-sm"
         >
-          <span className="font-bold text-base !text-black group-hover:!text-volt">←</span>
-          <span className="!text-black group-hover:!text-volt font-black">Back to Roles</span>
+          <span className="font-bold text-base">←</span>
+          <span>Back to Roles</span>
         </button>
+
+        {!isInvalid && (
+          <ExportDossierButton
+            audit={effectiveAudit}
+            resumeText={resumeText}
+            jdText={effectiveJdText}
+            highlighted={true}
+            label="Download TalentLens Report"
+          />
+        )}
+
         <button
           type="button"
           onClick={onChangeCompany}

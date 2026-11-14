@@ -1,6 +1,6 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import { useAuthStore } from './useAuthStore';
-import { PortalGate } from '@/features/portal/PortalGate';
 
 interface RequireAuthProps {
   children?: React.ReactNode;
@@ -17,7 +17,7 @@ export const RequireAuth: React.FC<RequireAuthProps> = ({
   const isAuthenticated = propAuth ?? (status === 'authenticated');
 
   if (!isAuthenticated) {
-    return <PortalGate />;
+    return <Navigate to="/" replace />;
   }
 
   if (Component) {

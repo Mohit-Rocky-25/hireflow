@@ -2,7 +2,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
-import { usePortalStore } from '@/features/portal/usePortalStore';
+import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
 import { useProfileStore } from '@/features/profile/useProfileStore';
 import { useHandoffStore } from '@/features/handoff/useHandoffStore';
 import { useAuthStore } from '@/features/auth/useAuthStore';
@@ -17,7 +17,7 @@ describe('Stage 4: Stores & Resume Matrix', () => {
     useAuthStore.setState({ status: 'guest', userId: null, email: null });
     useResumeStore.setState({ workspaces: {}, versions: {}, activeWorkspaceId: null });
     useAuditStore.setState({ entries: {}, events: {}, gapStatus: {} });
-    usePortalStore.setState({ watchlist: {}, planItems: {}, outreachDrafts: {} });
+    useMySpaceStore.setState({ watchlist: {}, planItems: {}, outreachDrafts: {} });
     useProfileStore.setState({
       profile: {
         displayName: 'Candidate',

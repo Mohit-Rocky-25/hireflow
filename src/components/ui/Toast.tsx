@@ -6,15 +6,21 @@ import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 
+export interface ToastAction {
+  label: string;
+  onClick: () => void;
+}
+
 interface Toast {
   id: string;
   type: ToastType;
   message: string;
   duration?: number;
+  action?: ToastAction;
 }
 
 interface ToastContextType {
-  addToast: (type: ToastType, message: string, duration?: number) => void;
+  addToast: (type: ToastType, message: string, duration?: number, action?: ToastAction) => void;
 }
 
 const ToastContext = createContext<ToastContextType>({ addToast: () => {} });
@@ -24,20 +30,20 @@ export function useToast() {
 }
 
 // Global toast function
-let globalAddToast: ((type: ToastType, message: string, duration?: number) => void) | null = null;
+let globalAddToast: ((type: ToastType, message: string, duration?: number, action?: ToastAction) => void) | null = null;
 
-export function toast(type: ToastType, message: string, duration?: number) {
+export function toast(type: ToastType, message: string, duration?: number, action?: ToastAction) {
   if (globalAddToast) {
-    globalAddToast(type, message, duration);
+    globalAddToast(type, message, duration, action);
   }
 }
 
 export function ToastContainer() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const addToast = useCallback((type: ToastType, message: string, duration = 4000) => {
+  const addToast = useCallback((type: ToastType, message: string, duration = 4000, action?: ToastAction) => {
     const id = Date.now().toString(36) + Math.random().toString(36).substring(2, 7);
-    setToasts((prev) => [...prev, { id, type, message, duration }]);
+    setToasts((prev) => [...prev, { id, type, message, duration, action }]);
     if (duration > 0) {
       setTimeout(() => {
         setToasts((prev) => prev.filter((t) => t.id !== id));
@@ -75,14 +81,26 @@ export function ToastContainer() {
       {toasts.map((t) => (
         <div
           key={t.id}
-          className="flex items-start gap-3 px-4 py-3 bg-near-black rounded border border-charcoal shadow-level-3 animate-fade-in text-white"
+          className="flex items-center gap-3 px-4 py-3 bg-near-black rounded border border-charcoal shadow-level-3 animate-fade-in text-white"
         >
-          <span className="mt-0.5 shrink-0">{icons[t.type]}</span>
+          <span className="shrink-0">{icons[t.type]}</span>
           <p className="text-sm text-white flex-1 font-sans">{t.message}</p>
+          {t.action && (
+            <button
+              type="button"
+              onClick={() => {
+                t.action?.onClick();
+                removeToast(t.id);
+              }}
+              className="shrink-0 px-2.5 py-1 text-xs font-semibold rounded bg-[#faff69] text-[#090907] hover:bg-[#e6eb55] transition-colors cursor-pointer"
+            >
+              {t.action.label}
+            </button>
+          )}
           <button
             onClick={() => removeToast(t.id)}
             aria-label="Close notification"
-            className="shrink-0 p-1 rounded text-silver hover:text-volt transition-colors"
+            className="shrink-0 p-1 rounded text-silver hover:text-volt transition-colors cursor-pointer"
           >
             <X className="w-4 h-4 stroke-[1.5px]" />
           </button>

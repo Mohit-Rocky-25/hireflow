@@ -147,7 +147,10 @@ export function MatchingDemo() {
               <button
                 type="button"
                 onClick={() => {
-                  if (s.n === 1 || resumeText.trim()) setStep(s.n as 1 | 2 | 3);
+                  if (s.n === 2 && !resumeText.trim()) {
+                    setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName);
+                  }
+                  setStep(s.n as 1 | 2 | 3);
                 }}
                 className={`flex items-center gap-2 px-4 py-2 rounded text-xs font-semibold uppercase tracking-[1px] transition-colors cursor-pointer ${
                   step === s.n
@@ -337,9 +340,13 @@ Include:
               <div className="mt-6 flex justify-end">
                 <button
                   type="button"
-                  disabled={!resumeText.trim()}
-                  onClick={() => setStep(2)}
-                  className="group px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
+                  onClick={() => {
+                    if (!resumeText.trim()) {
+                      setResume(DEMO_TALENTLENS_RESUME.text, DEMO_TALENTLENS_RESUME.fileName);
+                    }
+                    setStep(2);
+                  }}
+                  className="group px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
                 >
                   <span className="!text-black group-hover:!text-white font-black">Select Company &amp; Role</span>
                   <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>

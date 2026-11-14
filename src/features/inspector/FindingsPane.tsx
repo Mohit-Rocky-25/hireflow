@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { AuditEntry } from '@/domain/types';
-import { usePortalStore } from '@/features/portal/usePortalStore';
+import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
 import { BarChart3, AlertCircle, CheckCircle2, FileText, Code2, Plus, Check } from 'lucide-react';
 
 interface FindingsPaneProps {
@@ -20,8 +20,8 @@ export const FindingsPane: React.FC<FindingsPaneProps> = ({
   selectedFindingId,
   onSelectFinding,
 }) => {
-  const addPlanItem = usePortalStore((s) => s.addPlanItem);
-  const planItems = usePortalStore((s) => s.planItems);
+  const addPlanItem = useMySpaceStore((s) => s.addPlanItem);
+  const planItems = useMySpaceStore((s) => s.planItems);
 
   const [addedGapIds, setAddedGapIds] = useState<Set<string>>(() => {
     const existing = new Set<string>();

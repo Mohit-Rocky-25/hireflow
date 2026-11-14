@@ -32,3 +32,4 @@ export function rankForGaps<T extends CatalogItem>(gaps: readonly Gap[], catalog
   ranked.sort((a, b) => b.score - a.score || a.order - b.order);
   return ranked.slice(0, topN).map(({ item, score, matchedGapIds }) => ({ item, score, matchedGapIds }));
 }
+

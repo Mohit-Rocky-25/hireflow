@@ -1,481 +1,333 @@
-// ============================================================
-// HireFlow — Canonical Public Navigation Bar
-// Left: Navigation & Tools Hub | Center: Core Categories
-// Right: High-Classic Luxury Executive Profile & Total Google Auth
-// ============================================================
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
-  Cloud,
-  CheckCircle2,
-  RefreshCw,
   LogOut,
   ChevronDown,
   LayoutGrid,
-  ShieldCheck,
-  FileText,
-  Clock,
-  ArrowRight,
-  Bookmark,
   Menu,
   X,
+  Trash2,
+  RefreshCw,
+  SlidersHorizontal,
+  Home,
+  ArrowLeft,
+  ArrowRight,
 } from 'lucide-react';
-import { useStore } from '../../store/useStore';
-import { autoSyncManager, SyncState } from '../../lib/sync/autoSyncManager';
-import { AuthModal } from '../auth/AuthModal';
-import { toast } from '../ui/Toast';
+import { useAuthStore } from '@/features/auth/useAuthStore';
+import { useResumeStore } from '@/features/resumes/useResumeStore';
+import { useSyncStore } from '@/sync/useSyncStore';
 
 export function PublicNavbar() {
   const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { status, email, displayName, avatarUrl, isDemo, demoStorage, signOut, deleteAllCloudData, openSignIn } = useAuthStore();
+  const { workspaces, activeWorkspaceId, setActive } = useResumeStore();
+  const syncStatus = useSyncStore((s) => s.status);
 
-  const currentUser = useStore((s) => s.currentUser);
-  const logout = useStore((s) => s.logout);
+  const [chipMenuOpen, setChipMenuOpen] = useState(false);
+  const [compactLinksOpen, setCompactLinksOpen] = useState(false);
 
-  const [syncState, setSyncState] = useState<SyncState>('idle');
-  const [lastSyncedAt, setLastSyncedAt] = useState<string | null>(null);
+  const chipRef = useRef<HTMLDivElement>(null);
+  const compactRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const unsub = autoSyncManager.subscribe((state, lastTime) => {
-      setSyncState(state);
-      setLastSyncedAt(lastTime);
-    });
-    return unsub;
-  }, []);
+  const isAuthenticated = status === 'authenticated';
+  const isMySpaceOpen = Boolean(searchParams.get('my'));
 
-  // Close dropdown on click outside
+  const syncStatusText =
+    demoStorage === 'local'
+      ? 'Saved on this device only'
+      : syncStatus === 'synced'
+      ? 'Synced to your account'
+      : syncStatus === 'syncing'
+      ? 'Syncing changes...'
+      : syncStatus === 'offline'
+      ? 'Offline, changes saved locally'
+      : 'Synced to your account';
+
+  // Click outside listeners
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setUserDropdownOpen(false);
+      if (chipRef.current && !chipRef.current.contains(event.target as Node)) {
+        setChipMenuOpen(false);
+      }
+      if (compactRef.current && !compactRef.current.contains(event.target as Node)) {
+        setCompactLinksOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleManualSync = async () => {
-    toast('info', 'Syncing your evaluations and resumes to the cloud...');
-    const ok = await autoSyncManager.triggerPushSync();
-    if (ok) {
-      toast('success', 'All evaluations and candidate facts synced across your devices!');
+  const toggleMySpace = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    const next = new URLSearchParams(searchParams);
+    if (isMySpaceOpen) {
+      next.delete('my');
+      next.delete('audit');
     } else {
-      toast('warning', 'Sync deferred. Data safely saved in local ledger.');
+      next.set('my', 'overview');
+    }
+    setSearchParams(next);
+  };
+
+  const handleSignOut = async () => {
+    setChipMenuOpen(false);
+    await signOut();
+    if (isMySpaceOpen) {
+      const next = new URLSearchParams(searchParams);
+      next.delete('my');
+      next.delete('audit');
+      setSearchParams(next);
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    setUserDropdownOpen(false);
-    toast('info', 'Signed out. Your candidate profile and data remain safely stored locally.');
+  const handleDeleteCloudData = async () => {
+    if (window.confirm('Delete all your synced data from cloud storage?')) {
+      setChipMenuOpen(false);
+      await deleteAllCloudData();
+    }
   };
 
+  const firstName = (displayName || 'Mohit').split(' ')[0];
+  const workspaceList = Object.values(workspaces);
+
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-[#070709] border-b border-charcoal/90 backdrop-blur-md">
-        <div className="w-full px-4 sm:px-6 lg:px-8 h-[68px] flex items-center justify-between">
-          
-          {/* ── Left: Controls, Logo, and TOOLS HUB Button ── */}
-          <div className="flex items-center gap-3 sm:gap-5">
-            {/* History controls */}
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                title="Go to Home"
-                aria-label="Go to home"
-                onClick={() => navigate('/')}
-                className="w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt"
-              >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5h-5a1 1 0 0 1-1-1v-4.5h-3V20a1 1 0 0 1-1 1.5h-5A1.5 1.5 0 0 1 3 20z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                title="Go back"
-                aria-label="Go back"
-                onClick={() => navigate(-1)}
-                className="w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                title="Go forward"
-                aria-label="Go forward"
-                onClick={() => navigate(1)}
-                className="w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-white hover:bg-hover-gray active:text-pale-yellow active:shadow-inset transition-colors cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-volt font-mono text-sm leading-none"
-              >
-                →
-              </button>
-            </div>
+    <header className="fixed top-3.5 left-1/2 -translate-x-1/2 z-50 w-[min(1240px,94vw)] max-w-full h-[60px] max-md:h-[54px] max-md:top-2 flex items-center justify-between gap-4 px-3 sm:px-4 rounded-full border border-[#24241c] bg-[#0e0e0b]/85 backdrop-blur-md text-[#f1f1e8] shadow-lg">
+      {/* ── Left: Home, Back, Forward, Logo, and TOOLS HUB ── */}
+      <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-1.5">
+          {/* Home button */}
+          <button
+            type="button"
+            title="Go to Home"
+            aria-label="Go to home"
+            onClick={() => navigate('/')}
+            className="w-8 h-8 rounded-full border border-[#24241c] bg-[#16160f]/60 flex items-center justify-center text-[#9b9b8c] hover:text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors focus-visible:outline-2 focus-visible:outline-[#faff69] cursor-pointer"
+          >
+            <Home className="w-3.5 h-3.5" />
+          </button>
 
-            {/* Logo */}
-            <Link to="/" className="flex items-center gap-2.5 group select-none">
-              <div className="w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-volt font-black text-sm group-hover:border-volt transition-colors">
-                H
-              </div>
-              <span className="text-[19px] font-black text-white tracking-tight font-sans">
-                HIRE<span className="text-volt">FLOW</span>
-              </span>
-            </Link>
+          {/* Back button */}
+          <button
+            type="button"
+            title="Go back"
+            aria-label="Go back"
+            onClick={() => navigate(-1)}
+            className="w-8 h-8 rounded-full border border-[#24241c] bg-[#16160f]/60 flex items-center justify-center text-[#9b9b8c] hover:text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors focus-visible:outline-2 focus-visible:outline-[#faff69] cursor-pointer"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+          </button>
 
-            {/* TOOLS HUB — Positioned on the Left Side */}
-            <Link
-              to="/tools"
-              className="group hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold uppercase tracking-wider text-black bg-volt hover:bg-[#1a1a1a] hover:text-white border border-volt transition-all shadow-[0_0_15px_rgba(245,255,0,0.18)] hover:shadow-[0_0_24px_rgba(245,255,0,0.35)] select-none cursor-pointer"
-              title="Open Central Tools Hub"
-            >
-              <LayoutGrid className="w-3.5 h-3.5 text-black group-hover:text-volt transition-colors" />
-              <span className="text-black group-hover:text-white font-black">TOOLS HUB</span>
-              <span className="font-mono text-xs text-black group-hover:text-volt transition-colors">→</span>
-            </Link>
-          </div>
-
-          {/* ── Center: High-Contrast Category Links ── */}
-          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-            <Link
-              to="/portal"
-              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
-            >
-              PORTAL
-            </Link>
-            <Link
-              to="/demo"
-              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
-            >
-              TALENTLENS
-            </Link>
-            <Link
-              to="/tools/resume-checker"
-              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
-            >
-              ATS ROASTER
-            </Link>
-            <Link
-              to="/tools/career-path"
-              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
-            >
-              CAREER TRAJECTORY
-            </Link>
-            <Link
-              to="/tools/credential-engine"
-              className="text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt active:text-pale-yellow transition-colors"
-            >
-              OPPORTUNITIES
-            </Link>
-          </div>
-
-          {/* ── Right: High-Classic Luxury Executive Profile & Total Google Auth ── */}
-          <div className="flex items-center gap-3">
-            {!currentUser ? (
-              /* Case 1: Logged Out — High-Classic Executive Sign In */
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="relative group inline-flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider text-white bg-gradient-to-b from-[#1c1c20] via-[#121215] to-[#0a0a0d] border border-neutral-700/80 hover:border-volt/80 shadow-[0_2px_12px_rgba(0,0,0,0.6)] hover:shadow-[0_0_20px_rgba(245,255,0,0.22)] transition-all duration-200 cursor-pointer overflow-hidden"
-                  title="Sign In with Google or Email"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
-                  
-                  {/* Google 'G' Mark */}
-                  <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24">
-                    <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z" />
-                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5.1 3.7-8.8z" />
-                    <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z" />
-                    <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z" />
-                  </svg>
-
-                  <span className="tracking-wide">Sign In</span>
-                </button>
-
-                <Link
-                  to="/login"
-                  className="hidden md:inline-flex items-center text-[11px] font-mono text-neutral-400 hover:text-white transition-colors"
-                  title="Open Dedicated Login Portal"
-                >
-                  Portal ↗
-                </Link>
-              </div>
-            ) : (
-              /* Case 2: Logged In (e.g. Mohit) — Ultra-Premium Executive Profile Pill */
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  type="button"
-                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className={`group inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs font-mono transition-all duration-200 cursor-pointer border ${
-                    userDropdownOpen
-                      ? 'bg-[#18181b] border-volt shadow-[0_0_20px_rgba(245,255,0,0.25)]'
-                      : 'bg-gradient-to-b from-[#18181b] to-[#0e0e11] border-neutral-700/80 hover:border-volt/70 hover:shadow-[0_0_16px_rgba(245,255,0,0.18)]'
-                  }`}
-                  aria-expanded={userDropdownOpen}
-                >
-                  {/* Luxury Monogram with Glowing Ring & Sync Beacon */}
-                  <div className="relative">
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-neutral-800 via-neutral-900 to-black border border-volt/50 flex items-center justify-center text-volt font-black text-xs shadow-inner group-hover:scale-105 transition-transform">
-                      {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'M'}
-                    </div>
-                    {/* Live Sync Beacon */}
-                    <span
-                      className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-black ${
-                        syncState === 'syncing'
-                          ? 'bg-volt animate-spin'
-                          : syncState === 'synced'
-                          ? 'bg-emerald-400 animate-pulse'
-                          : syncState === 'offline'
-                          ? 'bg-amber-400'
-                          : 'bg-emerald-400'
-                      }`}
-                      title={
-                        syncState === 'syncing'
-                          ? 'Syncing to cloud...'
-                          : syncState === 'synced'
-                          ? 'Encrypted cloud sync active'
-                          : 'Offline storage'
-                      }
-                    />
-                  </div>
-
-                  {/* Display Name */}
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-white font-bold tracking-tight text-xs max-w-[110px] truncate uppercase">
-                      {currentUser.displayName.split(' ')[0]}
-                    </span>
-                  </div>
-
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 text-neutral-400 group-hover:text-volt transition-transform duration-200 ${
-                      userDropdownOpen ? 'rotate-180 text-volt' : ''
-                    }`}
-                  />
-                </button>
-
-                {/* Ultra-Premium Executive Dropdown */}
-                {userDropdownOpen && (
-                  <div className="absolute right-0 mt-2.5 w-72 bg-[#0c0c0e]/98 backdrop-blur-2xl border border-neutral-700/80 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] p-4 z-50 animate-fade-in text-xs font-mono">
-                    {/* Header */}
-                    <div className="pb-3 border-b border-white/[0.08]">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-volt text-black font-black flex items-center justify-center text-sm shadow-md flex-shrink-0">
-                          {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'M'}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-black text-white text-sm truncate uppercase tracking-tight">
-                            {currentUser.displayName}
-                          </div>
-                          <div className="text-[11px] text-neutral-400 truncate">
-                            {currentUser.email || 'Verified Candidate'}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Google / Cloud Sync Status */}
-                      <div className="mt-3 p-2 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-[10px] text-emerald-400">
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                          <span>Cloud Sync Calibrated</span>
-                        </div>
-                        {lastSyncedAt && (
-                          <span className="text-[9px] text-neutral-500">{lastSyncedAt}</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Quick Executive Shortcuts */}
-                    <div className="py-2.5 space-y-1">
-                      <button
-                        type="button"
-                        onClick={handleManualSync}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-white/[0.05] text-neutral-300 hover:text-white flex items-center justify-between transition-colors group cursor-pointer"
-                      >
-                        <span className="flex items-center gap-2.5">
-                          <RefreshCw className="w-3.5 h-3.5 text-volt group-hover:rotate-180 transition-transform" />
-                          <span>Sync Cloud Now</span>
-                        </span>
-                        <span className="text-[10px] font-mono text-neutral-500 bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-800">
-                          Instant
-                        </span>
-                      </button>
-
-                      <Link
-                        to="/data"
-                        onClick={() => setUserDropdownOpen(false)}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-white/[0.05] text-neutral-300 hover:text-white flex items-center gap-2.5 transition-colors"
-                      >
-                        <FileText className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Saved Resumes &amp; Scores</span>
-                      </Link>
-
-                      <Link
-                        to="/history"
-                        onClick={() => setUserDropdownOpen(false)}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-white/[0.05] text-neutral-300 hover:text-white flex items-center gap-2.5 transition-colors"
-                      >
-                        <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Audit Scan History</span>
-                      </Link>
-
-                      <Link
-                        to="/jd-library"
-                        onClick={() => setUserDropdownOpen(false)}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-white/[0.05] text-neutral-300 hover:text-white flex items-center gap-2.5 transition-colors"
-                      >
-                        <Bookmark className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Saved JD Library</span>
-                      </Link>
-
-                      <Link
-                        to="/tools"
-                        onClick={() => setUserDropdownOpen(false)}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-white/[0.05] text-neutral-300 hover:text-white flex items-center gap-2.5 transition-colors"
-                      >
-                        <LayoutGrid className="w-3.5 h-3.5 text-neutral-400" />
-                        <span>Central Tools Hub</span>
-                      </Link>
-                    </div>
-
-                    {/* Sign Out Action */}
-                    <div className="pt-2.5 border-t border-white/[0.08]">
-                      <button
-                        type="button"
-                        onClick={handleLogout}
-                        className="w-full text-left px-2.5 py-2 rounded-xl hover:bg-rose-500/10 text-rose-400 flex items-center justify-between transition-colors cursor-pointer group"
-                      >
-                        <span className="flex items-center gap-2">
-                          <LogOut className="w-3.5 h-3.5" />
-                          <span>Sign Out</span>
-                        </span>
-                        <span className="text-[10px] text-neutral-500 group-hover:text-rose-400">
-                          Keep local data
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Mobile Hamburger */}
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden w-8 h-8 rounded-lg bg-near-black border border-charcoal flex items-center justify-center text-silver hover:text-volt transition-colors focus-visible:outline-2 focus-visible:outline-volt cursor-pointer"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-4 h-4" aria-hidden="true" /> : <Menu className="w-4 h-4" aria-hidden="true" />}
-            </button>
-          </div>
+          {/* Forward button */}
+          <button
+            type="button"
+            title="Go forward"
+            aria-label="Go forward"
+            onClick={() => navigate(1)}
+            className="w-8 h-8 rounded-full border border-[#24241c] bg-[#16160f]/60 flex items-center justify-center text-[#9b9b8c] hover:text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors focus-visible:outline-2 focus-visible:outline-[#faff69] cursor-pointer max-sm:hidden"
+          >
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-charcoal bg-[#070709] px-4 py-4 space-y-3 shadow-level-3 animate-fade-in font-mono">
-            {/* Mobile Account Row */}
-            <div className="p-3 rounded-xl bg-black/60 border border-white/[0.08] flex items-center justify-between">
-              {!currentUser ? (
-                <div className="w-full flex items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      setIsAuthModalOpen(true);
-                    }}
-                    className="flex-1 py-2 px-3 rounded-lg bg-volt text-black font-bold text-xs uppercase flex items-center justify-center gap-2"
-                  >
-                    <span>Sign In</span>
-                  </button>
-                  <Link
-                    to="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-2 px-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white text-xs uppercase font-bold"
-                  >
-                    Portal ↗
-                  </Link>
-                </div>
-              ) : (
-                <div className="w-full flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-volt text-black font-black flex items-center justify-center text-xs">
-                      {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'M'}
-                    </div>
-                    <div>
-                      <div className="font-bold text-white text-xs">{currentUser.displayName}</div>
-                      <div className="text-[10px] text-emerald-400">● Cloud Synced</div>
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="text-xs text-rose-400 hover:text-rose-300 font-bold"
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 text-[17px] font-extrabold tracking-tight text-[#f1f1e8] hover:opacity-90 transition-opacity">
+          <span className="w-[30px] h-[30px] rounded-lg border border-[#24241c] bg-[#16160f] flex items-center justify-center text-sm font-black text-[#faff69]">
+            H
+          </span>
+          <span className="max-sm:hidden tracking-wider text-[15px]">HIREFLOW</span>
+        </Link>
 
-            {/* Mobile Nav Links */}
-            <div className="flex flex-col gap-1">
-              <Link
-                to="/tools"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-black bg-volt flex items-center justify-between"
-              >
-                <span>OPEN TOOLS HUB</span>
-                <span>→</span>
-              </Link>
+        {/* Tools Hub Pill */}
+        <Link
+          to="/tools"
+          className="h-[36px] px-3.5 sm:px-4 rounded-full bg-[#faff69] text-[#090907] font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#ebf059] transition-colors shadow-sm select-none shrink-0"
+        >
+          <LayoutGrid className="w-3.5 h-3.5" />
+          <span>Tools Hub</span>
+          <span className="font-mono text-xs">&rarr;</span>
+        </Link>
+      </div>
+
+      {/* ── Center: Desktop Navigation Links (Visible >= 1100px) ── */}
+      <nav className="hidden min-[1100px]:flex items-center gap-6 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#f1f1e8]/90">
+        <Link to="/demo" className="hover:text-[#faff69] transition-colors">
+          TalentLens
+        </Link>
+        <Link to="/tools/resume-checker" className="hover:text-[#faff69] transition-colors">
+          ATS Roaster
+        </Link>
+        <Link to="/tools/career-path" className="hover:text-[#faff69] transition-colors">
+          Career Trajectory
+        </Link>
+        <Link to="/tools/credential-engine" className="hover:text-[#faff69] transition-colors">
+          Opportunities
+        </Link>
+      </nav>
+
+      {/* ── Right: Compact Nav Menu (under 1100px) + Sign In or My Space + Account Chip ── */}
+      <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        {/* Compact dropdown trigger below 1100px */}
+        <div className="relative min-[1100px]:hidden" ref={compactRef}>
+          <button
+            type="button"
+            aria-label="Navigation menu"
+            onClick={() => setCompactLinksOpen(!compactLinksOpen)}
+            className="w-9 h-9 rounded-full border border-[#24241c] flex items-center justify-center text-[#9b9b8c] hover:text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors"
+          >
+            {compactLinksOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
+
+          {compactLinksOpen && (
+            <div className="absolute right-0 top-12 w-48 py-2 rounded-xl border border-[#24241c] bg-[#10100d] shadow-xl text-xs font-semibold uppercase tracking-wider space-y-1 z-50">
               <Link
                 to="/demo"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
+                onClick={() => setCompactLinksOpen(false)}
+                className="block px-4 py-2 text-[#9b9b8c] hover:text-[#faff69] hover:bg-[#16160f] transition-colors"
               >
-                <span>TALENTLENS SIMULATOR</span>
-                <span className="font-mono text-silver text-xs">→</span>
+                TalentLens
               </Link>
               <Link
                 to="/tools/resume-checker"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
+                onClick={() => setCompactLinksOpen(false)}
+                className="block px-4 py-2 text-[#9b9b8c] hover:text-[#faff69] hover:bg-[#16160f] transition-colors"
               >
-                <span>ATS ROASTER</span>
-                <span className="font-mono text-silver text-xs">→</span>
+                ATS Roaster
               </Link>
               <Link
                 to="/tools/career-path"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
+                onClick={() => setCompactLinksOpen(false)}
+                className="block px-4 py-2 text-[#9b9b8c] hover:text-[#faff69] hover:bg-[#16160f] transition-colors"
               >
-                <span>CAREER TRAJECTORY</span>
-                <span className="font-mono text-silver text-xs">→</span>
+                Career Trajectory
               </Link>
               <Link
                 to="/tools/credential-engine"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
+                onClick={() => setCompactLinksOpen(false)}
+                className="block px-4 py-2 text-[#9b9b8c] hover:text-[#faff69] hover:bg-[#16160f] transition-colors"
               >
-                <span>CREDENTIAL & OPPORTUNITY ENGINE</span>
-                <span className="font-mono text-silver text-xs">→</span>
-              </Link>
-              <Link
-                to="/data"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3.5 py-2.5 rounded text-[12px] font-semibold uppercase tracking-[1.4px] text-white hover:text-volt hover:bg-near-black flex items-center justify-between transition-colors"
-              >
-                <span>YOUR DATA & PRIVACY</span>
-                <span className="font-mono text-silver text-xs">→</span>
+                Opportunities
               </Link>
             </div>
-          </div>
-        )}
-      </nav>
+          )}
+        </div>
 
-      {/* Auth Modal */}
-      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-    </>
+        {!isAuthenticated ? (
+          /* Case 1: Guest -> Sign in button */
+          <button
+            type="button"
+            onClick={openSignIn}
+            className="h-[38px] px-4 rounded-full border border-[#24241c] bg-[#16160f] text-[#f1f1e8] font-semibold text-[13px] hover:border-[#faff69]/50 hover:text-[#faff69] transition-colors cursor-pointer"
+          >
+            Sign in
+          </button>
+        ) : (
+          /* Case 2: Signed in -> My Space button + Account Chip */
+          <>
+            <button
+              type="button"
+              onClick={toggleMySpace}
+              aria-expanded={isMySpaceOpen}
+              className={`h-[38px] px-3.5 sm:px-4 rounded-full border text-[13px] font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+                isMySpaceOpen
+                  ? 'border-[#faff69] text-[#faff69] bg-[#16160f]'
+                  : 'border-[#24241c] bg-[#16160f] text-[#f1f1e8] hover:border-[#faff69]/50 hover:text-[#faff69]'
+              }`}
+            >
+              <span>My Space</span>
+            </button>
+
+            {/* Account Chip */}
+            <div className="relative" ref={chipRef}>
+              <button
+                type="button"
+                onClick={() => setChipMenuOpen(!chipMenuOpen)}
+                aria-expanded={chipMenuOpen}
+                aria-label="Account menu"
+                className="h-[38px] pl-1 pr-3 max-sm:pr-1 rounded-full border border-[#24241c] bg-[#10100d] hover:border-[#faff69]/40 flex items-center gap-2 transition-colors cursor-pointer"
+              >
+                {avatarUrl ? (
+                  <img src={avatarUrl} alt="" className="w-7 h-7 rounded-full object-cover" />
+                ) : (
+                  <div className="w-7 h-7 rounded-full bg-[#faff69]/10 text-[#faff69] flex items-center justify-center font-bold text-xs">
+                    {firstName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <span className="text-[13px] font-semibold text-[#f1f1e8] max-sm:hidden">
+                  {firstName}
+                </span>
+                {isDemo && (
+                  <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-[#24241c] text-[#9b9b8c] border border-[#333328] max-sm:hidden">
+                    Demo
+                  </span>
+                )}
+              </button>
+
+              {/* Account Chip Menu */}
+              {chipMenuOpen && (
+                <div className="absolute right-0 top-12 w-64 p-3 rounded-2xl border border-[#24241c] bg-[#10100d] shadow-2xl text-xs z-50 animate-in fade-in zoom-in-95 duration-100">
+                  <div className="pb-2.5 mb-2.5 border-b border-[#24241c]">
+                    <div className="font-semibold text-sm text-[#f1f1e8]">{displayName || 'Mohit'}</div>
+                    {email && (
+                      <div className="text-[11px] text-[#9b9b8c] font-mono truncate mt-0.5">
+                        {email}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Active Resume Track Select */}
+                  {workspaceList.length > 0 && (
+                    <div className="mb-3">
+                      <label className="block text-[11px] font-mono uppercase text-[#6d6d61] mb-1.5">
+                        Active Resume Track
+                      </label>
+                      <select
+                        value={activeWorkspaceId || workspaceList[0]?.id}
+                        onChange={(e) => setActive(e.target.value)}
+                        className="w-full px-2.5 py-1.5 rounded-lg bg-[#16160f] border border-[#24241c] text-[#f1f1e8] text-xs outline-none focus:border-[#faff69]"
+                      >
+                        {workspaceList.map((ws) => (
+                          <option key={ws.id} value={ws.id}>
+                            {ws.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {/* Sync Status in Plain Words */}
+                  <div className="mb-3 px-2 py-1.5 rounded-lg bg-[#16160f] border border-[#24241c] text-[#9b9b8c] flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#faff69] shrink-0" />
+                    <span className="text-[11.5px] leading-tight">{syncStatusText}</span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="space-y-1 pt-1 border-t border-[#24241c]">
+                    {demoStorage === 'cloud' && (
+                      <button
+                        type="button"
+                        onClick={handleDeleteCloudData}
+                        className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-rose-400 hover:bg-rose-950/20 transition-colors text-left"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>Delete my cloud data</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[#9b9b8c] hover:text-[#f1f1e8] hover:bg-[#16160f] transition-colors text-left"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Sign out</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
   );
 }

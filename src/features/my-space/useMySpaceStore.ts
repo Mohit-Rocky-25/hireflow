@@ -26,24 +26,29 @@ function makeId(): Uuid {
   });
 }
 
-export interface PortalStoreState {
+export interface MySpaceStoreState {
   watchlist: Record<Uuid, WatchlistTarget>;
   planItems: Record<Uuid, PlanItem>;
   outreachDrafts: Record<Uuid, OutreachDraft>;
 
   addWatchlistTarget: (t: Omit<WatchlistTarget, 'id' | 'addedAt' | 'archivedAt'>) => WatchlistTarget;
   removeWatchlistTarget: (id: Uuid) => void;
+  restoreWatchlistTarget: (target: WatchlistTarget) => void;
 
   addPlanItem: (p: Omit<PlanItem, 'id' | 'createdAt' | 'updatedAt' | 'completedAt'>) => PlanItem;
   updatePlanItemStatus: (id: Uuid, status: PlanStatus) => void;
   removePlanItem: (id: Uuid) => void;
+  restorePlanItem: (item: PlanItem) => void;
 
   saveOutreachDraft: (d: Omit<OutreachDraft, 'id' | 'createdAt' | 'updatedAt'>) => OutreachDraft;
   updateOutreachStatus: (id: Uuid, status: OutreachStatus) => void;
   removeOutreachDraft: (id: Uuid) => void;
+  restoreOutreachDraft: (draft: OutreachDraft) => void;
+
+  resetAll: () => void;
 }
 
-export const usePortalStore = create<PortalStoreState>()(
+export const useMySpaceStore = create<MySpaceStoreState>()(
   persist(
     (set, get) => ({
       watchlist: {},
@@ -67,15 +72,15 @@ export const usePortalStore = create<PortalStoreState>()(
         const auth = useAuthStore.getState();
         if (auth.status === 'authenticated' && auth.userId) {
           void enqueueOp(auth.userId, {
-            opId: `tgt-${id}`,
+            opId: `target-add-${id}-${now}`,
             table: 'watchlist_targets',
             op: 'upsert',
             pk: { id },
-            payload: targetToRow(target),
+            payload: targetToRow(target) as unknown as Record<string, unknown>,
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
         }
 
         return target;
@@ -92,15 +97,36 @@ export const usePortalStore = create<PortalStoreState>()(
         if (auth.status === 'authenticated' && auth.userId) {
           const now = new Date().toISOString();
           void enqueueOp(auth.userId, {
-            opId: `tgt-del-${id}`,
+            opId: `target-del-${id}-${now}`,
             table: 'watchlist_targets',
             op: 'delete',
             pk: { id },
-            payload: null,
+            payload: {},
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
+        }
+      },
+
+      restoreWatchlistTarget: (target) => {
+        set((state) => ({
+          watchlist: { ...state.watchlist, [target.id]: target },
+        }));
+
+        const auth = useAuthStore.getState();
+        if (auth.status === 'authenticated' && auth.userId) {
+          const now = new Date().toISOString();
+          void enqueueOp(auth.userId, {
+            opId: `target-restore-${target.id}-${now}`,
+            table: 'watchlist_targets',
+            op: 'upsert',
+            pk: { id: target.id },
+            payload: targetToRow(target) as unknown as Record<string, unknown>,
+            clientUpdatedAt: now,
+            attempts: 0,
+            enqueuedAt: now,
+          }).then(() => void syncEngine.flush());
         }
       },
 
@@ -122,49 +148,48 @@ export const usePortalStore = create<PortalStoreState>()(
         const auth = useAuthStore.getState();
         if (auth.status === 'authenticated' && auth.userId) {
           void enqueueOp(auth.userId, {
-            opId: `plan-${id}`,
+            opId: `plan-add-${id}-${now}`,
             table: 'plan_items',
             op: 'upsert',
             pk: { id },
-            payload: planItemToRow(item),
+            payload: planItemToRow(item) as unknown as Record<string, unknown>,
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
         }
 
         return item;
       },
 
       updatePlanItemStatus: (id, status) => {
+        const item = get().planItems[id];
+        if (!item) return;
+
         const now = new Date().toISOString();
-        set((state) => {
-          const item = state.planItems[id];
-          if (!item) return state;
-          const updated: PlanItem = {
-            ...item,
-            status,
-            updatedAt: now,
-            completedAt: status === 'done' ? now : null,
-          };
-          return { planItems: { ...state.planItems, [id]: updated } };
-        });
+        const updated: PlanItem = {
+          ...item,
+          status,
+          updatedAt: now,
+          completedAt: status === 'done' ? (item.completedAt || now) : null,
+        };
+
+        set((state) => ({
+          planItems: { ...state.planItems, [id]: updated },
+        }));
 
         const auth = useAuthStore.getState();
         if (auth.status === 'authenticated' && auth.userId) {
-          const item = get().planItems[id];
-          if (item) {
-            void enqueueOp(auth.userId, {
-              opId: `plan-${id}-${now}`,
-              table: 'plan_items',
-              op: 'upsert',
-              pk: { id },
-              payload: planItemToRow(item),
-              clientUpdatedAt: now,
-              attempts: 0,
-              enqueuedAt: now,
-            }).then(() => syncEngine.scheduleFlush());
-          }
+          void enqueueOp(auth.userId, {
+            opId: `plan-status-${id}-${now}`,
+            table: 'plan_items',
+            op: 'upsert',
+            pk: { id },
+            payload: planItemToRow(updated) as unknown as Record<string, unknown>,
+            clientUpdatedAt: now,
+            attempts: 0,
+            enqueuedAt: now,
+          }).then(() => void syncEngine.flush());
         }
       },
 
@@ -179,15 +204,36 @@ export const usePortalStore = create<PortalStoreState>()(
         if (auth.status === 'authenticated' && auth.userId) {
           const now = new Date().toISOString();
           void enqueueOp(auth.userId, {
-            opId: `plan-del-${id}`,
+            opId: `plan-del-${id}-${now}`,
             table: 'plan_items',
             op: 'delete',
             pk: { id },
-            payload: null,
+            payload: {},
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
+        }
+      },
+
+      restorePlanItem: (item) => {
+        set((state) => ({
+          planItems: { ...state.planItems, [item.id]: item },
+        }));
+
+        const auth = useAuthStore.getState();
+        if (auth.status === 'authenticated' && auth.userId) {
+          const now = new Date().toISOString();
+          void enqueueOp(auth.userId, {
+            opId: `plan-restore-${item.id}-${now}`,
+            table: 'plan_items',
+            op: 'upsert',
+            pk: { id: item.id },
+            payload: planItemToRow(item) as unknown as Record<string, unknown>,
+            clientUpdatedAt: now,
+            attempts: 0,
+            enqueuedAt: now,
+          }).then(() => void syncEngine.flush());
         }
       },
 
@@ -208,48 +254,47 @@ export const usePortalStore = create<PortalStoreState>()(
         const auth = useAuthStore.getState();
         if (auth.status === 'authenticated' && auth.userId) {
           void enqueueOp(auth.userId, {
-            opId: `outreach-${id}`,
+            opId: `outreach-add-${id}-${now}`,
             table: 'outreach_drafts',
             op: 'upsert',
             pk: { id },
-            payload: outreachToRow(draft),
+            payload: outreachToRow(draft) as unknown as Record<string, unknown>,
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
         }
 
         return draft;
       },
 
       updateOutreachStatus: (id, status) => {
+        const draft = get().outreachDrafts[id];
+        if (!draft) return;
+
         const now = new Date().toISOString();
-        set((state) => {
-          const draft = state.outreachDrafts[id];
-          if (!draft) return state;
-          return {
-            outreachDrafts: {
-              ...state.outreachDrafts,
-              [id]: { ...draft, status, updatedAt: now },
-            },
-          };
-        });
+        const updated: OutreachDraft = {
+          ...draft,
+          status,
+          updatedAt: now,
+        };
+
+        set((state) => ({
+          outreachDrafts: { ...state.outreachDrafts, [id]: updated },
+        }));
 
         const auth = useAuthStore.getState();
         if (auth.status === 'authenticated' && auth.userId) {
-          const draft = get().outreachDrafts[id];
-          if (draft) {
-            void enqueueOp(auth.userId, {
-              opId: `outreach-${id}-${now}`,
-              table: 'outreach_drafts',
-              op: 'upsert',
-              pk: { id },
-              payload: outreachToRow(draft),
-              clientUpdatedAt: now,
-              attempts: 0,
-              enqueuedAt: now,
-            }).then(() => syncEngine.scheduleFlush());
-          }
+          void enqueueOp(auth.userId, {
+            opId: `outreach-status-${id}-${now}`,
+            table: 'outreach_drafts',
+            op: 'upsert',
+            pk: { id },
+            payload: outreachToRow(updated) as unknown as Record<string, unknown>,
+            clientUpdatedAt: now,
+            attempts: 0,
+            enqueuedAt: now,
+          }).then(() => void syncEngine.flush());
         }
       },
 
@@ -264,22 +309,46 @@ export const usePortalStore = create<PortalStoreState>()(
         if (auth.status === 'authenticated' && auth.userId) {
           const now = new Date().toISOString();
           void enqueueOp(auth.userId, {
-            opId: `outreach-del-${id}`,
+            opId: `outreach-del-${id}-${now}`,
             table: 'outreach_drafts',
             op: 'delete',
             pk: { id },
-            payload: null,
+            payload: {},
             clientUpdatedAt: now,
             attempts: 0,
             enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
+          }).then(() => void syncEngine.flush());
         }
+      },
+
+      restoreOutreachDraft: (draft) => {
+        set((state) => ({
+          outreachDrafts: { ...state.outreachDrafts, [draft.id]: draft },
+        }));
+
+        const auth = useAuthStore.getState();
+        if (auth.status === 'authenticated' && auth.userId) {
+          const now = new Date().toISOString();
+          void enqueueOp(auth.userId, {
+            opId: `outreach-restore-${draft.id}-${now}`,
+            table: 'outreach_drafts',
+            op: 'upsert',
+            pk: { id: draft.id },
+            payload: outreachToRow(draft) as unknown as Record<string, unknown>,
+            clientUpdatedAt: now,
+            attempts: 0,
+            enqueuedAt: now,
+          }).then(() => void syncEngine.flush());
+        }
+      },
+
+      resetAll: () => {
+        set({ watchlist: {}, planItems: {}, outreachDrafts: {} });
       },
     }),
     {
-      name: getStorageKey('portal', null),
+      name: getStorageKey('myspace_state_v1', null),
       storage: createJSONStorage(() => asyncZustandStorage),
-      version: 1,
     }
   )
 );

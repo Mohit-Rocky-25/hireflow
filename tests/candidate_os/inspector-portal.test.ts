@@ -2,8 +2,8 @@
 import { describe, expect, it } from 'vitest';
 import type { AuditEntry, EvidenceSpan, JournalEvent, WatchlistTarget } from '@/domain/types';
 import { buildHighlightSegments, firstSpanOf } from '@/features/inspector/buildHighlightSegments';
-import { rankForGaps } from '@/features/portal/gapMatcher';
-import { averageRecentDelta, buildTimeline, buildWatchlistRows, groupByDay } from '@/features/portal/portalSelectors';
+import { rankForGaps } from '@/features/my-space/gapMatcher';
+import { averageRecentDelta, buildTimeline, buildWatchlistRows, groupByDay } from '@/features/my-space/mySpaceSelectors';
 import { gap } from './fixtures';
 
 const sp = (start: number, end: number, findingId: string, kind: EvidenceSpan['kind'] = 'match'): EvidenceSpan => ({ start, end, findingId, kind });

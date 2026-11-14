@@ -102,7 +102,7 @@ export function LandingPage() {
             <p className="text-[16px] sm:text-[18px] md:text-[20px] text-silver leading-relaxed mb-10 max-w-[680px] mx-auto font-normal">
               Simulate ATS resume filters, map your career trajectory, and test your resume against{' '}
               <strong className="text-white font-bold">{TOTAL_COMPANIES}+</strong> verified employers and{' '}
-              <strong className="text-white font-bold">{TOTAL_ROLES.toLocaleString()}+</strong> calibrated roles across active recruiters — all completely free.
+              <strong className="text-white font-bold">{TOTAL_ROLES.toLocaleString()}+</strong> calibrated roles across active recruiters, completely free.
             </p>
 
             {/* Hero CTAs */}

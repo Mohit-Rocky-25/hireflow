@@ -88,7 +88,13 @@ export const InspectorHeader: React.FC<InspectorHeaderProps> = ({
             )}
           </div>
 
-          <ExportDossierButton audit={audit} resumeText={resumeText} jdText={jdText} />
+          <ExportDossierButton
+            audit={audit}
+            resumeText={resumeText}
+            jdText={jdText}
+            highlighted={true}
+            label="Download Complete Report"
+          />
 
           <button
             type="button"

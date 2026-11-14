@@ -3,8 +3,8 @@ import type { Database } from '@/lib/supabase/database.types';
 
 let clientPromise: Promise<SupabaseClient<Database>> | null = null;
 
-const envUrl = import.meta.env.VITE_SUPABASE_URL;
-const envAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const envUrl = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_URL : process.env.VITE_SUPABASE_URL;
+const envAnonKey = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_ANON_KEY : process.env.VITE_SUPABASE_ANON_KEY;
 
 export const isAuthConfigured = Boolean(envUrl && envAnonKey);
 

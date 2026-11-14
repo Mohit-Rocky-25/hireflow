@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HireFlow My Space: design reference</title>
+<style>
+:root{
+  --bg:#090907; --surface:#10100d; --raised:#16160f; --line:#24241c; --line-soft:#1b1b15;
+  --text:#f1f1e8; --muted:#9b9b8c; --faint:#6d6d61;
+  --accent:#faff69; --accent-ink:#090907; --accent-wash:rgba(250,255,105,.10);
+  --warn:#ff8a70; --ok:#faff69;
+  --r-sm:8px; --r-md:12px; --r-lg:20px;
+  --font:Inter,"Helvetica Neue",Arial,system-ui,sans-serif; --mono:ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font:15px/1.55 var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.tnum{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* page behind the sheet */
+.page{position:absolute;inset:0;padding:120px 6vw;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;opacity:.55;filter:saturate(.7)}
+.page i{display:block;height:200px;border:1px solid var(--line-soft);border-radius:var(--r-md);background:var(--surface)}
+.scrim{position:absolute;inset:0;background:rgba(5,5,4,.62);backdrop-filter:blur(3px)}
+
+/* floating nav */
+.nav{position:absolute;z-index:5;top:14px;left:50%;transform:translateX(-50%);width:min(1240px,94vw);height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 12px 0 10px;border:1px solid var(--line);border-radius:999px;background:rgba(14,14,11,.82);backdrop-filter:blur(14px)}
+.nav .l,.nav .r{display:flex;align-items:center;gap:10px;min-width:0}
+.ic{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);color:var(--muted);display:grid;place-items:center}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.02em;font-size:17px}
+.mark{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;font-size:14px;color:var(--accent)}
+.hub,.myspace{white-space:nowrap}
+.hub{background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:13px;letter-spacing:.04em;padding:9px 16px;border-radius:999px;text-transform:uppercase}
+.links{display:flex;gap:26px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--text)}
+.links a{opacity:.9}
+.myspace{height:38px;padding:0 16px;border:1px solid var(--line);border-radius:999px;font-weight:600;font-size:13px;display:flex;align-items:center;gap:8px;background:var(--raised)}
+.myspace[aria-expanded=true]{border-color:var(--accent);color:var(--accent)}
+.chip{display:flex;align-items:center;gap:9px;height:38px;padding:0 14px 0 5px;border-radius:999px;border:1px solid var(--line);font-weight:600;font-size:13px}
+.av{width:28px;height:28px;border-radius:50%;background:var(--accent-wash);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:13px}
+
+/* sheet */
+.sheet{position:absolute;z-index:4;left:50%;top:88px;transform:translateX(-50%);width:min(1240px,94vw);height:calc(100dvh - 104px);display:grid;grid-template-columns:232px 1fr;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+.rail{border-right:1px solid var(--line-soft);padding:24px 14px;display:flex;flex-direction:column;gap:2px;background:var(--surface)}
+.rail h6{font:600 11px/1 var(--mono);letter-spacing:.14em;color:var(--faint);text-transform:uppercase;padding:0 12px 14px}
+.rail a{position:relative;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:var(--r-sm);color:var(--muted);font-weight:500}
+.rail a[aria-current=page]{color:var(--text);background:var(--raised)}
+.rail a[aria-current=page]::before{content:"";position:absolute;left:-14px;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;background:var(--accent)}
+.rail small{color:var(--faint);font-variant-numeric:tabular-nums}
+.rail .in{display:none;width:38px;height:38px;font-size:12px;letter-spacing:.02em;border-radius:50%;border:1px solid var(--line);place-items:center;font-weight:600;font-size:13px}
+body[data-v=scans] .sheet{grid-template-columns:76px 1fr}
+body[data-v=scans] .rail{padding:24px 12px;align-items:center}
+body[data-v=scans] .rail h6,body[data-v=scans] .rail .lb,body[data-v=scans] .rail small,body[data-v=scans] .rail .foot{display:none}
+body[data-v=scans] .rail a{padding:6px;justify-content:center}
+body[data-v=scans] .rail .in{display:grid}
+body[data-v=scans] .rail a[aria-current=page] .in{border-color:var(--accent);color:var(--accent)}
+body[data-v=scans] .rail a[aria-current=page]{background:none}
+body[data-v=scans] .rail a[aria-current=page]::before{left:-12px}
+.rail .foot{margin-top:auto;padding:12px;color:var(--faint);font-size:12.5px;line-height:1.45;border-top:1px solid var(--line-soft)}
+.rail .foot b{color:var(--muted);font-weight:600;display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.close{position:absolute;right:16px;top:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);color:var(--muted);display:grid;place-items:center}
+
+.main{overflow:auto;padding:44px 56px 56px;position:relative}
+.eyebrow{font:600 11px/1 var(--mono);letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+h1{font-size:44px;line-height:1.05;letter-spacing:-.02em;font-weight:700;margin:12px 0 18px}
+.lede{font-size:19px;line-height:1.5;color:#d9d9cd;max-width:58ch}
+.lede b{color:var(--text);font-weight:600}
+.lede em{font-style:normal;color:var(--accent)}
+
+.overview{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:56px}
+.next{margin:30px 0 8px;display:flex;gap:18px;align-items:center;padding:20px 22px;border:1px solid var(--line);border-radius:var(--r-md);background:linear-gradient(180deg,var(--surface),var(--bg))}
+.next p{flex:1;color:var(--muted);font-size:14.5px}
+.next p b{display:block;color:var(--text);font-size:16px;font-weight:600;margin-bottom:2px}
+.btn{height:42px;padding:0 20px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{border:1px solid var(--line);color:var(--text)}
+.sec{margin-top:36px}
+.sec header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sec h3{font-size:15px;font-weight:600}
+.sec header a{font-size:13px;color:var(--muted)}
+.row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.row .t{font-weight:500}
+.row .m{color:var(--faint);font-size:13px}
+.score{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;white-space:nowrap}
+.score small{color:var(--faint);font-weight:400}
+.delta{margin-left:10px;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--accent-wash);padding:2px 8px;border-radius:999px}
+.delta.neg{color:var(--warn);background:rgba(255,138,112,.1)}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.state{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.state i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--faint)}
+.state.prog i{border-color:var(--accent);background:linear-gradient(90deg,var(--accent) 50%,transparent 50%)}
+.state.done i{background:var(--accent);border-color:var(--accent)}
+
+.aside{position:sticky;top:0;align-self:start;padding-top:6px}
+.big{display:flex;align-items:baseline;gap:8px}
+.big span{font-size:84px;line-height:.95;font-weight:700;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.big small{color:var(--faint);font-size:16px}
+.aside .cap{margin:8px 0 22px;color:var(--muted);font-size:13.5px}
+.spark{display:block;width:100%;height:74px;margin-bottom:8px}
+.legend{display:flex;justify-content:space-between;color:var(--faint);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* scans */
+.scans{display:grid;grid-template-columns:268px minmax(0,1fr);height:100%}
+.list{border-right:1px solid var(--line-soft);overflow:auto;padding:26px 0}
+.grp{padding:0 18px 10px}
+.grp h4{font-size:14px;font-weight:600;margin-bottom:2px}
+.grp p{color:var(--faint);font-size:12.5px;margin-bottom:8px}
+.it{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:var(--r-sm);color:var(--muted);font-size:13.5px}
+.it.sel{background:var(--raised);color:var(--text)}
+.it b{font-variant-numeric:tabular-nums;color:var(--text);font-weight:600}
+.detail{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.dh{padding:22px 32px 18px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.dh h2{font-size:21px;letter-spacing:-.01em;margin:6px 0 4px}
+.dh p{color:var(--muted);font-size:13.5px}
+.dh .acts{display:flex;gap:10px;align-items:center;margin-right:44px;flex:none}
+.panes{display:grid;grid-template-columns:1.05fr 1fr;flex:1;min-height:0}
+.resume{padding:24px 32px;overflow:auto;border-right:1px solid var(--line-soft);font-size:14px;line-height:1.75;color:#cfcfc3;white-space:pre-wrap}
+.resume .cap2{font:600 11px/1 var(--mono);letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin-bottom:14px;white-space:normal}
+mark{background:none;color:var(--text);box-shadow:inset 0 -2px 0 var(--accent)}
+mark.weak{box-shadow:inset 0 -2px 0 var(--warn)}
+.find{padding:22px 32px;overflow:auto}
+.tabs{display:flex;gap:20px;border-bottom:1px solid var(--line-soft);margin:-4px 0 18px}
+.tabs a{padding:8px 0 12px;color:var(--muted);font-size:14px;white-space:nowrap}
+.tabs a[aria-selected=true]{color:var(--text);box-shadow:inset 0 -2px 0 var(--accent)}
+.g{padding:12px 0;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;gap:14px;align-items:center}
+.g .t{font-weight:500}.g .m{font-size:12.5px;color:var(--faint)}
+.gh{font:600 11px/1 var(--mono);letter-spacing:.14em;color:var(--faint);text-transform:uppercase;margin:18px 0 4px}
+
+/* sign in */
+.modal{position:absolute;z-index:6;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,92vw);padding:34px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:0 40px 120px rgba(0,0,0,.65)}
+.modal h2{font-size:26px;letter-spacing:-.02em;margin:10px 0 8px}
+.modal p{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+.modal .btn{width:100%;display:block;margin-bottom:10px}
+.note{display:flex;gap:10px;margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);color:var(--muted);font-size:13px;line-height:1.45}
+
+[data-view]{display:none}
+body[data-v=overview] [data-view=overview],body[data-v=signin] [data-view=signin]{display:block}
+body[data-v=scans] [data-view=scans]{display:grid}
+body[data-v=signin] .sheet-only{display:none}
+.hide{display:none!important}
+
+@media (max-width:1100px){.links{display:none}.overview{grid-template-columns:1fr}.aside{position:static;margin-top:8px}}
+@media (max-width:767px){
+  .nav{height:54px;top:8px;width:calc(100vw - 16px)} .nav .ic,.chip span:not(.av),.brand{display:none}.nav .hub{padding:8px 13px;font-size:12px}.myspace{padding:0 13px} .chip{padding:0 5px}
+  .sheet{top:0;left:0;transform:none;width:100vw;height:100dvh;border-radius:0;grid-template-columns:1fr;grid-template-rows:1fr auto}
+  .rail{order:2;flex-direction:row;padding:6px 6px calc(6px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);overflow-x:auto}
+  .rail h6,.rail .foot{display:none} .rail a{flex:1;justify-content:center;min-height:48px;white-space:nowrap;font-size:13px} .rail small{display:none} .rail a[aria-current=page]::before{left:12px;right:12px;top:auto;bottom:0;height:3px;width:auto;border-radius:3px 3px 0 0}
+  .main{padding:78px 20px 24px} h1{font-size:34px} .lede{font-size:17px} .big span{font-size:64px}
+  .next{flex-direction:column;align-items:stretch} .close{top:10px;right:10px}
+}
+</style>
+</head>
+<body data-v="overview">
+
+<div class="page" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="scrim"></div>
+
+<header class="nav">
+  <div class="l">
+    <button class="ic" aria-label="Back">&larr;</button><button class="ic" aria-label="Forward">&rarr;</button>
+    <a class="brand"><span class="mark">H</span>HIREFLOW</a>
+    <a class="hub">Tools Hub &rarr;</a>
+  </div>
+  <nav class="links"><a>TalentLens</a><a>ATS Roaster</a><a>Career Trajectory</a><a>Opportunities</a></nav>
+  <div class="r">
+    <button class="myspace sheet-only" aria-expanded="true">My Space</button>
+    <button class="myspace hide" id="signin-btn">Sign in</button>
+    <div class="chip"><span class="av">M</span><span>Mohit</span></div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section class="sheet sheet-only" role="dialog" aria-modal="true" aria-label="My Space">
+  <aside class="rail">
+    <h6>My Space</h6>
+    <a aria-current="page" id="r-overview"><span class="in" aria-hidden="true">Ov</span><span class="lb">Overview</span></a>
+    <a id="r-scans"><span class="in" aria-hidden="true">Sc</span><span class="lb">Scans</span><small>4</small></a>
+    <a><span class="in" aria-hidden="true">Ta</span><span class="lb">Targets</span><small>2</small></a>
+    <a><span class="in" aria-hidden="true">Pl</span><span class="lb">Plan</span><small>3</small></a>
+    <a><span class="in" aria-hidden="true">Ou</span><span class="lb">Outreach</span><small>2</small></a>
+    <a><span class="in" aria-hidden="true">Re</span><span class="lb">Resumes</span><small>2</small></a>
+    <a><span class="in" aria-hidden="true">Pr</span><span class="lb">Profile</span></a>
+    <div class="foot"><b><span class="dot"></span>Synced</b>Saved to your demo account. Demo data is shared, so keep personal details out.</div>
+  </aside>
+  <button class="close" aria-label="Close My Space">&times;</button>
+
+  <div class="main" data-view="overview">
+    <div class="overview">
+      <div>
+        <div class="eyebrow">My Space</div>
+        <h1>Mohit</h1>
+        <p class="lede">Your best fit is <b>Razorpay, Software Development Engineer II</b>, at <b class="tnum">71 of 100</b>, <em>up 7 since your last scan</em>. Three gaps are still open.</p>
+
+        <div class="next">
+          <p><b>Re-scan Razorpay</b>You finished the Transactional Outbox brief. A new scan confirms whether it closed those two gaps.</p>
+          <button class="btn primary">Re-scan now</button>
+        </div>
+
+        <div class="sec">
+          <header><h3>Recent scans</h3><a>See all scans</a></header>
+          <div class="row"><div><div class="t">Razorpay, Software Development Engineer II</div><div class="m">ATS Roaster, Backend &amp; Distributed Systems v3, today</div></div><div class="score tnum">71 <small>of 100</small><span class="delta">+7%</span></div></div>
+          <div class="row"><div><div class="t">Razorpay, Software Development Engineer II</div><div class="m">ATS Roaster, version 2, 9 Nov</div></div><div class="score tnum">64 <small>of 100</small><span class="delta">+12%</span></div></div>
+          <div class="row"><div><div class="t">Google, Software Engineer II (Systems)</div><div class="m">TalentLens analysis, 6 Nov</div></div><div class="score tnum">48 <small>of 100</small></div></div>
+        </div>
+
+        <div class="sec">
+          <header><h3>In your plan</h3><a>See plan</a></header>
+          <div class="row"><div><div class="t">AWS Certified Solutions Architect Associate</div><div class="m">Credential, closes the AWS gap</div></div><span class="state prog"><i></i>In progress</span></div>
+          <div class="row"><div><div class="t">Benchmark Redis Redlock under split-brain scenarios</div><div class="m">Build brief, closes the distributed locking gap</div></div><span class="state"><i></i>Planned</span></div>
+          <div class="row"><div><div class="t">Build a transactional outbox in Go with CDC</div><div class="m">Build brief, closed 2 gaps</div></div><span class="state done"><i></i>Done</span></div>
+        </div>
+      </div>
+
+      <aside class="aside">
+        <div class="eyebrow">Razorpay trend</div>
+        <div class="big" style="margin-top:14px"><span>71</span><small>of 100</small></div>
+        <p class="cap">Three scans since 2 Nov</p>
+        <svg class="spark" viewBox="0 0 270 74" preserveAspectRatio="none" aria-label="Score trend: 52, 64, 71">
+          <line x1="0" y1="73" x2="270" y2="73" stroke="#24241c"/>
+          <polyline points="6,60 135,30 264,10" fill="none" stroke="#faff69" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="6" cy="60" r="4" fill="#090907" stroke="#6d6d61" stroke-width="2"/><circle cx="135" cy="30" r="4" fill="#090907" stroke="#6d6d61" stroke-width="2"/><circle cx="264" cy="10" r="5" fill="#faff69"/>
+        </svg>
+        <div class="legend"><span>52</span><span>64</span><span>71</span></div>
+        <div class="eyebrow" style="margin:34px 0 4px">Still open for Razorpay</div>
+        <div class="g"><div class="t">Distributed locking</div><span class="tag">In your plan</span></div>
+        <div class="g"><div class="t">AWS</div><span class="tag">In your plan</span></div>
+        <div class="g"><div class="t">Redis evidence</div><span class="tag">Not planned</span></div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- SCANS -->
+  <div class="scans" data-view="scans">
+    <div class="list">
+      <div class="grp"><h4>Razorpay</h4><p>Software Development Engineer II</p>
+        <div class="it sel"><span>Version 3, today</span><b>71</b></div><div class="it"><span>Version 2, 9 Nov</span><b>64</b></div><div class="it"><span>Version 1, 2 Nov</span><b>52</b></div></div>
+      <div class="grp" style="margin-top:18px"><h4>Google</h4><p>Software Engineer II (Systems)</p>
+        <div class="it"><span>TalentLens, 6 Nov</span><b>48</b></div></div>
+    </div>
+    <div class="detail">
+      <div class="dh">
+        <div><div class="eyebrow">ATS Roaster, scanned today</div><h2>Razorpay, Software Development Engineer II</h2><p>Resume: Backend &amp; Distributed Systems, version 3. Fingerprint 8f3a91c2.</p></div>
+        <div class="acts"><span class="score tnum" style="font-size:26px">71<small> of 100</small><span class="delta">+7%</span></span><button class="btn ghost">Compare</button><button class="btn primary">Export dossier</button></div>
+      </div>
+      <div class="panes">
+        <div class="resume"><div class="cap2">Resume exactly as scanned</div>Y. Mohit Sai
+Backend engineer, distributed systems
+
+Experience
+Built a payments reconciliation service in Go handling <mark>5k messages per second</mark> with a <mark>transactional outbox</mark> and change data capture into Kafka.
+Implemented <mark>Raft consensus</mark> in Go as a learning project, with leader election and log compaction.
+Improved p99 latency of a Spring Boot API by <mark class="weak">40 percent</mark>.
+
+Skills
+Go, Java, Spring Boot, PostgreSQL, <mark>Kafka</mark>, Docker, <mark class="weak">Redis</mark></div>
+        <div class="find">
+          <div class="tabs"><a>Overview</a><a>Breakdown</a><a aria-selected="true">Gaps</a><a>Job description</a></div>
+          <div class="gh">Resolved since the last scan</div>
+          <div class="g"><div><div class="t">Transactional outbox pattern</div><div class="m">Now evidenced in Experience</div></div><span class="tag">Resolved</span></div>
+          <div class="g"><div><div class="t">Change data capture</div><div class="m">Now evidenced in Experience</div></div><span class="tag">Resolved</span></div>
+          <div class="gh">Still open</div>
+          <div class="g"><div><div class="t">Distributed locking</div><div class="m">Required in the job description</div></div><span class="tag">In your plan</span></div>
+          <div class="g"><div><div class="t">AWS</div><div class="m">Required in the job description</div></div><span class="tag">In your plan</span></div>
+          <div class="g"><div><div class="t">Redis (weak evidence)</div><div class="m">Listed in Skills, not shown in a project</div></div><button class="btn ghost" style="height:34px;padding:0 14px;font-size:13px">Add to plan</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGN IN -->
+<div class="modal" data-view="signin" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="eyebrow">HireFlow</div>
+  <h2>Sign in to keep your work</h2>
+  <p>Your scans, targets and plan are saved to your account and follow you across devices.</p>
+  <button class="btn primary">Continue with the demo account</button>
+  <div class="note"><span class="dot" style="margin-top:6px;flex:none"></span><span>The demo account is shared and comes with sample data, so please do not enter personal details. Guests can still use every tool without signing in; nothing leaves your device.</span></div>
+</div>
+
+<script>
+const v=(location.hash||'#overview').slice(1);document.body.dataset.v=v;
+if(v==='scans'){document.getElementById('r-overview').removeAttribute('aria-current');document.getElementById('r-scans').setAttribute('aria-current','page');}
+if(v==='signin'){document.querySelector('.chip').classList.add('hide');document.getElementById('signin-btn').classList.remove('hide');document.querySelector('.scrim').style.opacity=.9}
+</script>
+</body>
+</html>
+

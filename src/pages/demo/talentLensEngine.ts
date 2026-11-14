@@ -22,6 +22,7 @@ import { CANONICAL_SCORING_SPEC } from '../../scoring/spec';
 import { MARKET_ENTRIES, MarketEntry } from '../../data/market';
 import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
+import { buildSkillStates, classifySkillKind, SkillState } from './engine/skillStateEngine';
 
 export interface Role {
   title: string;
@@ -128,6 +129,7 @@ export function formatCompetencyName(comp: string): string {
     frontend: 'Frontend',
     backend: 'Backend',
     fullstack: 'Full Stack',
+    web: 'Web Architecture / Full-Stack',
   };
   return map[normalized] || comp.charAt(0).toUpperCase() + comp.slice(1);
 }
@@ -694,9 +696,18 @@ export function runMarketIntelligenceEngine(
   resumeText: string,
   competencies: string[],
   company: { name: string; tier: string; industry: string },
-  role: { title: string }
+  role: { title: string },
+  skillStatesOverride?: SkillState[]
 ): MarketIntelligenceReport {
   const text = resumeText.toLowerCase();
+
+  const skillStates: SkillState[] = skillStatesOverride || buildSkillStates({
+    resumeText,
+    competencies,
+    company,
+    role,
+  });
+  const skillStateMap = new Map(skillStates.map((s) => [s.id.toLowerCase().trim(), s]));
 
   const findings: MarketIntelligenceReport['findings'] = [];
   const modernPractices: string[] = [];
@@ -710,8 +721,13 @@ export function runMarketIntelligenceEngine(
   let fundamentalScore = 0;
 
   competencies.forEach((comp) => {
-    const intel = MARKET_INTELLIGENCE[comp];
+    const compKey = comp.toLowerCase().trim();
+    const intel = MARKET_INTELLIGENCE[compKey] || MARKET_INTELLIGENCE[comp];
     if (!intel) return;
+
+    const sState = skillStateMap.get(compKey);
+    const isNotFound = sState ? sState.status === 'not-found' : false;
+    const isMentioned = sState ? sState.status === 'mentioned' : false;
 
     const foundModern = intel.currentStandard.filter((s) => text.includes(s));
     const foundOutdated = intel.outdated.filter((s) => text.includes(s));
@@ -750,7 +766,11 @@ export function runMarketIntelligenceEngine(
     let icon: string;
     let finding: string;
 
-    if (foundRedFlags.length > 0) {
+    if (isNotFound) {
+      status = 'critical';
+      icon = 'critical';
+      finding = `No evidence found in the resume for ${comp.toUpperCase()}. Market standard: ${intel.marketAdoption2024}`;
+    } else if (foundRedFlags.length > 0) {
       status = 'critical';
       icon = 'critical';
       const flagList = foundRedFlags.slice(0, 2).join(', ');
@@ -768,15 +788,29 @@ export function runMarketIntelligenceEngine(
       icon = 'dated';
       const outdatedList = foundOutdated.slice(0, 2).join(', ');
       finding = `${comp.toUpperCase()} stack appears dated (${outdatedList}). ${intel.marketAdoption2024} Add at least 2 modern practices to enhance competitiveness.`;
+    } else if (isMentioned) {
+      status = 'current';
+      icon = 'current';
+      finding = `Mentioned, not demonstrated: ${comp.toUpperCase()} appears without practical operational evidence. Market standard: ${intel.marketAdoption2024}`;
     } else {
       status = 'current';
       icon = 'current';
-      finding = `${comp.toUpperCase()} signals are present but insufficient to assess production depth. Market standard: ${intel.marketAdoption2024}`;
+      finding = `${comp.toUpperCase()} demonstration: Baseline evidence detected. Market standard: ${intel.marketAdoption2024}`;
     }
 
     if (intel.currentStandard.every((s) => !text.includes(s))) {
       missingForMarket.push(`${comp.toUpperCase()}: No contemporary standard practices found (reference: ${intel.currentStandard.slice(0, 3).join(', ')})`);
     }
+
+    const evidenceList = isNotFound
+      ? []
+      : [
+          ...foundModern.slice(0, 3).map((m) => `Current: "${m}"`),
+          ...foundEmerging.slice(0, 2).map((e) => `Emerging: "${e}"`),
+          ...foundProduction.slice(0, 2).map((p) => `Production pattern: "${p}"`),
+          ...foundOutdated.slice(0, 2).map((o) => `Dated reference: "${o}"`),
+          ...foundRedFlags.slice(0, 2).map((r) => `Practice note: "${r}"`),
+        ].filter(Boolean).slice(0, 5);
 
     findings.push({
       category: comp.toUpperCase(),
@@ -784,13 +818,7 @@ export function runMarketIntelligenceEngine(
       status,
       finding,
       marketContext: intel.marketAdoption2024,
-      evidence: [
-        ...foundModern.slice(0, 3).map((m) => `Current: "${m}"`),
-        ...foundEmerging.slice(0, 2).map((e) => `Emerging: "${e}"`),
-        ...foundProduction.slice(0, 2).map((p) => `Production pattern: "${p}"`),
-        ...foundOutdated.slice(0, 2).map((o) => `Dated reference: "${o}"`),
-        ...foundRedFlags.slice(0, 2).map((r) => `Practice note: "${r}"`),
-      ].filter(Boolean).slice(0, 5),
+      evidence: evidenceList,
     });
   });
 
@@ -820,10 +848,18 @@ export function runMarketIntelligenceEngine(
     buildVerdict = `Core stack is current with good foundational breadth. 4-8 weeks of targeted project modernization would strengthen application standing.`;
   } else if (overallMarketFit >= 35) {
     marketPosition = 'Needs Modernization';
-    buildVerdict = `Several key technologies appear legacy relative to modern industry practices. Focus on documenting ${outdatedSignals.length} modern engineering practices.`;
+    if (outdatedSignals.length === 0) {
+      buildVerdict = `Limited modern signals were detected in the resume across target competencies, though no legacy anti-patterns were found. Focus on demonstrating contemporary production practices.`;
+    } else {
+      buildVerdict = `Several key technologies appear legacy relative to modern industry practices. Focus on documenting ${outdatedSignals.length} modern engineering practices.`;
+    }
   } else {
     marketPosition = 'Significantly Behind';
-    buildVerdict = `Stack shows limited alignment with modern production workflows. Structured 3-6 month plan recommended covering current frameworks and automated testing.`;
+    if (outdatedSignals.length === 0) {
+      buildVerdict = `Limited modern signals were detected across target competencies for ${company.name}, though no legacy anti-patterns were found. Demonstrating contemporary frameworks and automated testing is recommended.`;
+    } else {
+      buildVerdict = `Stack shows limited alignment with modern production workflows. Structured 3-6 month plan recommended covering current frameworks and automated testing.`;
+    }
   }
 
   return {
@@ -841,13 +877,14 @@ export function runMarketIntelligenceEngine(
 /**
  * Generates prioritized improvement plans classified by closability.
  * Follows Rule F14 & Rule F12: Never promises "gap closed"; always says "builds evidence for".
- * Includes what-if delta rescore ranges and bullet templates with placeholders.
+ * Includes cumulative rescore paths and clean bracket placeholders [placeholder].
  */
 export function generateImprovementPlan(
   breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[],
   company: { name: string; tier: string; industry: string },
   role: { title: string; desc: string },
-  score: number
+  score: number,
+  skillStatesOverride?: SkillState[]
 ): {
   priority: 'critical' | 'high' | 'medium';
   title: string;
@@ -872,7 +909,7 @@ export function generateImprovementPlan(
   }[] = [];
 
   const SKILL_RESOURCES: Record<string, string[]> = {
-    dsa: ['NeetCode 150 → Blind 75 patterns (NeetCode.io, free)', 'CTCI — Gayle Laakmann McDowell', 'Codeforces Div.2 A-D practice rounds'],
+    dsa: ['NeetCode 150 patterns (NeetCode.io, free)', 'CTCI — Gayle Laakmann McDowell', 'Codeforces Div.2 A-D practice rounds'],
     systemdesign: ['Designing Data-Intensive Applications — Martin Kleppmann', 'System Design Interview Vol.1 — Alex Xu', 'ByteByteGo public engineering architecture guides'],
     java: ['Effective Java 3rd Ed. — Joshua Bloch', 'Production Spring Boot guides (Baeldung.com)', 'Build high-throughput microservice in Java 17+ with metrics'],
     python: ['Fluent Python 2nd Ed. — Luciano Ramalho', 'FastAPI production tutorials (Real Python)', 'Deploy ML inference endpoint with FastAPI and Docker'],
@@ -883,30 +920,63 @@ export function generateImprovementPlan(
     aws: ['AWS Solutions Architect Associate SAA-C03 curriculum', 'Cloud Resume Challenge (cloudresumechallenge.dev)', 'Deploy serverless app with API Gateway, Lambda, and DynamoDB'],
   };
 
-  // 1. Missing Must-Have Competencies (90+ days for fundamentals, 30 days for domain technologies)
+  let cumulativeCurrent = score;
+  let actionCount = 0;
+
+  // 1. Missing Must-Have Competencies
   breakdown
     .filter((b) => b.analysis.status === 'absent')
     .forEach((b) => {
-      const isFundamental = ['dsa', 'systemdesign', 'algorithms'].includes(b.competency);
-      const closability = isFundamental ? '90+ days' : '30 days';
-      const timeframe = isFundamental ? '12-week roadmap' : '4-6 weeks';
-      const minGain = 3;
-      const maxGain = 6;
-      const projectedMin = Math.min(100, score + minGain);
-      const projectedMax = Math.min(100, score + maxGain);
+      const compKey = b.competency.toLowerCase().trim();
+      const kind = classifySkillKind(compKey);
+      const isSoftSkill = kind === 'soft-skill';
+      const isFundamental = ['dsa', 'systemdesign', 'algorithms'].includes(compKey);
+      const closability = isFundamental ? '90+ days' : isSoftSkill ? '30 days' : '30 days';
+      const timeframe = isFundamental ? '12-week roadmap' : isSoftSkill ? '2-3 weeks' : '4-6 weeks';
+
+      actionCount++;
+      const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
+      const stepGainMin = Math.max(1, stepGain - 1);
+      const stepGainMax = stepGain + 1;
+      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+      const gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+      cumulativeCurrent = nextScore;
+
+      let suggestedAction: string;
+      let bulletTemplate: string;
+      let resources: string[];
+      let detail: string;
+
+      if (isSoftSkill) {
+        // Soft skills receive authoring artifact template, NEVER deploy project (Fixes D5)
+        suggestedAction = `Author a written technical artifact (architecture RFC, system design walkthrough, or technical post-mortem) demonstrating structured communication and decision rationale.`;
+        bulletTemplate = `Authored technical architecture specification for [system/initiative], aligning [stakeholders] on [key design decision].`;
+        resources = ['Google Technical Writing Course', 'Architecture Decision Record (ADR) templates', 'Writing effective RFCs for software systems'];
+        detail = `"${role.title}" requires effective technical communication. Resume currently lacks documented engineering RFCs or design specs. Action plan: (1) Author an architecture specification, (2) Document trade-offs with explicit constraints, (3) Link public technical documentation in resume.`;
+      } else if (isFundamental) {
+        suggestedAction = `Complete structured algorithmic patterns (two pointers, trees, graphs) and document problem-solving approaches.`;
+        bulletTemplate = `Optimized core [algorithmic subsystem] using [pattern/data structure], reducing time complexity from [O(n^2)] to [O(n log n)].`;
+        resources = SKILL_RESOURCES[compKey] || ['NeetCode 150 patterns', 'Designing Data-Intensive Applications — Martin Kleppmann'];
+        detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
+      } else {
+        suggestedAction = `Deploy an open-source project showcasing production patterns in ${b.competency.toUpperCase()} with automated tests.`;
+        bulletTemplate = `Built [feature/system] with ${b.competency.toUpperCase()}, achieving [your measured result] across [scale] requests/users.`;
+        resources = SKILL_RESOURCES[compKey] || [`Official ${b.competency} documentation`, `Build 2 practical projects with ${b.competency}`, 'Open-source contributions'];
+        detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
+      }
 
       plans.push({
         priority: 'critical',
-        title: `Build Evidence for Missing Competency: ${b.competency.toUpperCase()}`,
-        detail: `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`,
+        title: isSoftSkill
+          ? `Build Evidence for Technical Communication & Documentation Depth`
+          : `Build Evidence for Missing Competency: ${b.competency.toUpperCase()}`,
+        detail,
         timeframe,
         closability,
-        suggestedAction: isFundamental
-          ? `Complete structured algorithmic patterns (two pointers, trees, graphs) and document problem-solving approaches.`
-          : `Deploy an open-source project showcasing production patterns in ${b.competency.toUpperCase()} with automated tests.`,
-        hypotheticalScoreGain: `+${minGain} to +${maxGain} pts (Estimate: ${projectedMin} to ${projectedMax}) if you add real evidence`,
-        bulletTemplate: `Built {{feature/system}} with ${b.competency.toUpperCase()}, achieving {{result you measured}} across {{scale}} requests/users.`,
-        resources: SKILL_RESOURCES[b.competency] || [`Official ${b.competency} documentation`, `Build 2 practical projects with ${b.competency}`, `Open-source contributions`],
+        suggestedAction,
+        hypotheticalScoreGain: gainDisplay,
+        bulletTemplate,
+        resources,
       });
     });
 
@@ -914,20 +984,21 @@ export function generateImprovementPlan(
   breakdown
     .filter((b) => b.analysis.status === 'working' && (b.reqLevel === 'expert' || b.reqLevel === 'strong'))
     .forEach((b) => {
-      const minGain = 2;
-      const maxGain = 4;
-      const projectedMin = Math.min(100, score + minGain);
-      const projectedMax = Math.min(100, score + maxGain);
+      actionCount++;
+      const stepGain = 2;
+      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+      const gainDisplay = `+1 to +3 pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+      cumulativeCurrent = nextScore;
 
       plans.push({
         priority: 'high',
-        title: `Deepen ${b.competency.toUpperCase()} Evidence: Skills List → Active Project Bullets`,
+        title: `Deepen ${b.competency.toUpperCase()} Evidence: Skills List -> Active Project Bullets`,
         detail: `Resume references ${b.competency.toUpperCase()} primarily in list format. To increase evaluation confidence at ${company.name}, articulate technical decisions and measurable outcomes in project bullets.`,
         timeframe: '7-14 days focused rewrite',
         closability: '7 days',
         suggestedAction: `Rewrite project bullets to name specific tools, versions, and system scale metrics achieved with ${b.competency.toUpperCase()}.`,
-        hypotheticalScoreGain: `+${minGain} to +${maxGain} pts (Estimate: ${projectedMin} to ${projectedMax}) if you add real evidence`,
-        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect {{specific component}}, improving {{measured metric}} by {{result you measured}}.`,
+        hypotheticalScoreGain: gainDisplay,
+        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect [specific component], improving [measured metric] by [result you measured].`,
         resources: [`Deploy project with documented scale`, `Add benchmarks/tests to repository`, `Write engineering post on lessons learned`],
       });
     });
@@ -938,13 +1009,13 @@ export function generateImprovementPlan(
     .forEach((b) => {
       plans.push({
         priority: 'high',
-        title: `Rewrite ${b.competency.toUpperCase()} Mentions — Excessive List Format Detected`,
+        title: `Rewrite ${b.competency.toUpperCase()} Mentions - Excessive List Format Detected`,
         detail: `TalentLens detected that "${b.competency.toUpperCase()}" appears repeatedly outside project descriptions. Embed technical skills directly into project narratives with action verbs.`,
         timeframe: '3-5 days',
         closability: '7 days',
         suggestedAction: `Remove raw skill keyword repetitions and integrate into STAR bullet points.`,
         hypotheticalScoreGain: `+2 to +4 pts (improves parser friendliness & evidence quality)`,
-        bulletTemplate: `Engineered {{module}} using ${b.competency.toUpperCase()}, optimizing {{metric}} by {{result you measured}}.`,
+        bulletTemplate: `Engineered [module] using ${b.competency.toUpperCase()}, optimizing [metric] by [result you measured].`,
         resources: ['Google XYZ bullet format guide', 'Clean code resume principles'],
       });
     });
@@ -962,7 +1033,7 @@ export function generateImprovementPlan(
       closability: '7 days',
       suggestedAction: `Review each bullet point and attach a measured outcome (e.g. p99 latency reduction, user volume, test coverage).`,
       hypotheticalScoreGain: '+3 to +5 pts in Evidence Quality if you add real metrics',
-      bulletTemplate: `Optimized {{subsystem}} resulting in {{result you measured}} (reduced p99 from {{before}} to {{after}}).`,
+      bulletTemplate: `Optimized [subsystem] resulting in [result you measured] (reduced p99 from [before] to [after]).`,
       resources: ['STAR method for technical resumes', 'Engineering metric framing guides'],
     });
   }

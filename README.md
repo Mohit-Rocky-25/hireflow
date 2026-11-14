@@ -327,6 +327,25 @@ HireFlow utilizes a token-driven, high-contrast design system:
 
 ---
 
+## Report Integrity & Validation
+
+HireFlow enforces strict deterministic integrity guarantees across all TalentLens benchmark reports and Candidate Career Dossiers. The pure validation harness in `src/pages/demo/engine/reportValidator.ts` validates that every claim in the report is grounded in extracted data:
+
+1. Consistency: Skills marked absent or not found are never described as having signals present in market intelligence or verified candidate strengths.
+2. Coverage: Recommended project drops only show skills verified in the project's real technology stack, never copying candidate gaps.
+3. Relevance: Project drops are gated by composite relevance (gap coverage, company domain fit, and stack fit), rejecting domain-irrelevant projects and displaying honest empty-state notices when library matches are unavailable.
+4. Source Provenance: All company metrics (hires, open roles, average compensation bands, review ratings) include explicit source, period, or estimate annotations. Ungrounded verification claims are strictly prohibited.
+5. Template Integrity: Action plan templates match skill categories (soft skills receive written artifact templates rather than code deployment templates), and raw double-curly placeholders never reach UI rendering or document exports.
+6. Numerical Coherence: Score gains in critical action paths follow cumulative step trajectories without duplicate identical ranges, and tech currency assessments agree with modern vs. legacy signal detection.
+7. Evidence Uniqueness: A single extracted evidence sentence can serve as primary demonstrated proof for at most one competency, preventing duplicate citation across distinct skills.
+
+To execute the complete report integrity and grounding test suite:
+```bash
+npm run test -- tests/talentlens/reportIntegrity.test.ts
+```
+
+---
+
 ## License & Copyright
 
 Copyright (c) 2026 Mohit Sai. All rights reserved.

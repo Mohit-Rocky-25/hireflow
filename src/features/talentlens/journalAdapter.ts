@@ -1,7 +1,7 @@
 import type { RecordAuditInput } from '@/features/journal/auditRecorder';
 import type { Gap, EvidenceSpan, ScoreBreakdownItem, Uuid } from '@/domain/types';
 import { makeGapId } from '@/domain/ids';
-import type { analyzeRoleMatch } from '@/pages/demo/talentLensEngine';
+import { formatCompetencyName, type analyzeRoleMatch } from '@/pages/demo/talentLensEngine';
 
 export type TalentLensAnalysisResult = ReturnType<typeof analyzeRoleMatch>;
 
@@ -9,8 +9,8 @@ export interface TalentLensAuditAdapterInput {
   result: TalentLensAnalysisResult;
   resumeText: string;
   jdText: string;
-  company: { id?: string; name: string; tier?: string; industry?: string };
-  role: { title: string; level?: string; competencies?: string[] };
+  company: { id?: string; name: string; tier?: string; industry?: string; hiring2024?: number; hiring2023?: number; openRoles?: number; avgPackage?: string; glassdoor?: number; trend?: string; roles?: any[] };
+  role: { title: string; level?: string; competencies?: string[]; desc?: string };
   workspaceId?: Uuid | null;
   resumeVersionId?: Uuid | null;
   resumeLabel?: string;
@@ -30,12 +30,18 @@ export function talentlensToAuditInput(input: TalentLensAuditAdapterInput): Reco
     datasetVersion,
   } = input;
 
-  // 1. Build Breakdown
+  // 1. Build Breakdown with formatted competency labels and accurate confidence scores
   const breakdown: ScoreBreakdownItem[] = (result.breakdown || []).map((b) => ({
     key: b.competency.toLowerCase().replace(/[^a-z0-9]/g, '_'),
-    label: b.competency,
-    score: Math.round((b.analysis?.confidence ?? 0) * 100),
+    label: formatCompetencyName(b.competency),
+    score: Math.round(b.analysis?.confidence ?? 0),
     weight: 1,
+    status: b.analysis?.status,
+    reqLevel: b.reqLevel,
+    confidence: b.analysis?.confidence,
+    layerScores: b.analysis?.layerScores,
+    evidenceQuotes: b.analysis?.contextSentences || b.analysis?.evidence || [],
+    gaps: b.analysis?.gaps || [],
   }));
 
   // 2. Build Gaps
@@ -51,7 +57,7 @@ export function talentlensToAuditInput(input: TalentLensAuditAdapterInput): Reco
         gaps.push({
           id,
           category: 'skill',
-          label: b.competency,
+          label: formatCompetencyName(b.competency),
           severity: isMust ? 3 : 2,
           detail: b.analysis.gaps?.join('; ') || `Requirement level: ${b.reqLevel}`,
         });
@@ -78,7 +84,7 @@ export function talentlensToAuditInput(input: TalentLensAuditAdapterInput): Reco
 
   const strengths: string[] = (result.breakdown || [])
     .filter((b) => b.analysis?.status === 'expert' || b.analysis?.status === 'strong')
-    .map((b) => b.competency);
+    .map((b) => formatCompetencyName(b.competency));
 
   const rawScore = result.score ?? result.trace?.compositeDisplay ?? 0;
 
@@ -104,6 +110,16 @@ export function talentlensToAuditInput(input: TalentLensAuditAdapterInput): Reco
     gaps,
     strengths,
     evidence,
-    findings: result as unknown as Record<string, unknown>,
+    findings: {
+      kind: 'talentlens',
+      result,
+      company,
+      selectedRole: role,
+      roleFitStatus: result.readinessLabel,
+      marketIntel: result.marketIntel,
+      plans: result.plans,
+      breakdown: result.breakdown,
+      trace: result.trace,
+    },
   };
 }

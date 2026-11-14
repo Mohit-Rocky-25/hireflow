@@ -13,7 +13,7 @@ interface HistoricalResumeInspectorProps {
   onClose?: () => void;
 }
 
-const InspectorView: React.FC<HistoricalResumeInspectorProps> = ({
+export const InspectorView: React.FC<HistoricalResumeInspectorProps> = ({
   auditId: propAuditId,
   onClose: propOnClose,
 }) => {
@@ -21,7 +21,7 @@ const InspectorView: React.FC<HistoricalResumeInspectorProps> = ({
   const navigate = useNavigate();
 
   const auditId = propAuditId || routeAuditId;
-  const handleClose = propOnClose || (() => navigate('/portal'));
+  const handleClose = propOnClose || (() => navigate('/?my=scans'));
 
   const {
     audit,

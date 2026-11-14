@@ -19,6 +19,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       return;
     }
 
+    if (typeof localStorage !== 'undefined') {
+      const demoMode = localStorage.getItem('hireflow:v5:demo-mode');
+      if (demoMode === 'local') {
+        // Local demo mode requires zero network egress
+        return;
+      }
+    }
+
     if (!isAuthConfigured) {
       return;
     }
@@ -26,7 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const hasAuthHint = typeof localStorage !== 'undefined' && localStorage.getItem(AUTH_HINT_KEY) === '1';
     const isCallbackPage = typeof window !== 'undefined' && window.location.pathname === '/auth/callback';
 
-    // Zero-egress rule C2: Do NOT contact Supabase if guest has no saved auth hint and is not on the callback page!
+    // Zero-egress rule C2: Do NOT contact Supabase if guest has no saved auth hint and is not on callback page
     if (!hasAuthHint && !isCallbackPage) {
       return;
     }
@@ -38,46 +46,75 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (error || !session) {
           if (typeof localStorage !== 'undefined') {
             localStorage.removeItem(AUTH_HINT_KEY);
+            localStorage.removeItem('hireflow:v5:demo-mode');
           }
-          useAuthStore.setState({ status: 'guest', userId: null, email: null });
+          useAuthStore.setState({
+            status: 'guest',
+            userId: null,
+            email: null,
+            displayName: null,
+            isDemo: false,
+            demoStorage: null,
+          });
         } else {
+          const isDemoUser = session.user.email === import.meta.env.VITE_DEMO_EMAIL;
           useAuthStore.setState({
             status: 'authenticated',
             userId: session.user.id,
             email: session.user.email ?? null,
+            displayName: session.user.user_metadata?.full_name || session.user.user_metadata?.name || 'Mohit',
+            avatarUrl: session.user.user_metadata?.avatar_url || null,
+            isDemo: isDemoUser,
+            demoStorage: isDemoUser ? 'cloud' : null,
           });
           if (typeof localStorage !== 'undefined') {
             localStorage.setItem(AUTH_HINT_KEY, '1');
+            if (isDemoUser) {
+              localStorage.setItem('hireflow:v5:demo-mode', 'cloud');
+            }
           }
         }
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
           if (session?.user) {
+            const isDemoUser = session.user.email === import.meta.env.VITE_DEMO_EMAIL;
             useAuthStore.setState({
               status: 'authenticated',
               userId: session.user.id,
               email: session.user.email ?? null,
+              displayName: session.user.user_metadata?.full_name || session.user.user_metadata?.name || 'Mohit',
+              avatarUrl: session.user.user_metadata?.avatar_url || null,
+              isDemo: isDemoUser,
+              demoStorage: isDemoUser ? 'cloud' : null,
             });
             if (typeof localStorage !== 'undefined') {
               localStorage.setItem(AUTH_HINT_KEY, '1');
+              if (isDemoUser) {
+                localStorage.setItem('hireflow:v5:demo-mode', 'cloud');
+              }
             }
           } else {
+            if (typeof localStorage !== 'undefined') {
+              localStorage.removeItem(AUTH_HINT_KEY);
+              localStorage.removeItem('hireflow:v5:demo-mode');
+            }
             useAuthStore.setState({
               status: 'guest',
               userId: null,
               email: null,
+              displayName: null,
+              avatarUrl: null,
+              isDemo: false,
+              demoStorage: null,
             });
-            if (typeof localStorage !== 'undefined') {
-              localStorage.removeItem(AUTH_HINT_KEY);
-            }
           }
         });
 
         return () => {
           subscription.unsubscribe();
         };
-      } catch {
-        useAuthStore.setState({ status: 'guest', userId: null, email: null });
+      } catch (err) {
+        console.error('Auth initialization error:', err);
       }
     })();
   }, []);

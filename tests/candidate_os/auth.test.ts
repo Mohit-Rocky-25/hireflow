@@ -43,11 +43,11 @@ describe('Stage 2: Auth and Guest Boundary', () => {
       'mailto:test@example.com'
     ];
 
-    it('rejects at least 12 hostile returnTo inputs and defaults to /portal', () => {
+    it('rejects at least 12 hostile returnTo inputs and defaults to /', () => {
       expect(hostileInputs.length).toBeGreaterThanOrEqual(12);
       for (const hostile of hostileInputs) {
         const validated = validateReturnTo(hostile);
-        expect(validated).toBe('/portal');
+        expect(validated).toBe('/');
       }
     });
 

@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useAuditStore } from '@/features/journal/useAuditStore';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
-import { usePortalStore } from '@/features/portal/usePortalStore';
+import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
 import { useHandoffStore } from '@/features/handoff/useHandoffStore';
-import { rankForGaps } from '@/features/portal/gapMatcher';
+import { rankForGaps } from '@/features/my-space/gapMatcher';
 import { applyRescan, markGapAddressed } from '@/features/journal/gapStatus';
 import { getOutbox } from '@/sync/outbox';
 import { useAuthStore } from '@/features/auth/useAuthStore';
@@ -12,7 +12,7 @@ import type { Gap, AuditEntry, PlanItem } from '@/domain/types';
 describe('Stage 5: Verification of Wiring & Guarantees', () => {
   beforeEach(() => {
     useAuditStore.setState({ entries: {}, events: {}, gapStatus: {} });
-    usePortalStore.setState({ watchlist: {}, plan: {}, drafts: {} });
+    useMySpaceStore.setState({ watchlist: {}, planItems: {}, outreachDrafts: {} });
     useHandoffStore.setState({ current: null });
     useAuthStore.setState({ status: 'guest', userId: null });
   });

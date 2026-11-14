@@ -21,7 +21,7 @@ import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from
 import { useProfileStore } from '../../store/profileStore';
 import { talentlensToAuditInput } from '../../features/talentlens/journalAdapter';
 import { useAuditStore } from '../../features/journal/useAuditStore';
-import { usePortalStore } from '../../features/portal/usePortalStore';
+import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
 import { useResumeStore } from '../../features/resumes/useResumeStore';
 import { ResumePicker } from '../../features/resumes/ResumePicker';
 import type { AuditEntry, Uuid } from '../../domain/types';
@@ -54,6 +54,7 @@ export function CompanyRolesPage() {
     setResult,
     setStep,
     resetToNewResume,
+    resetToCompanies,
   } = useTalentLensStore();
 
   // Auto-populate active profile resume if talentLens store is currently empty
@@ -322,13 +323,13 @@ export function CompanyRolesPage() {
   };
 
   const handleChangeCompany = () => {
-    setStep(2);
-    navigate('/demo');
+    resetToCompanies();
+    navigate('/demo?step=2');
   };
 
   const handleNewResume = () => {
     resetToNewResume();
-    navigate('/demo');
+    navigate('/demo?step=1');
   };
 
   // Unknown company state
@@ -584,7 +585,7 @@ export function CompanyRolesPage() {
                   )}
 
                   {/* Fresher Program Cards */}
-                  {filteredPrograms.map((prog) => {
+                  {filteredPrograms.map((prog, idx) => {
                     const isSelected =
                       !!selectedRole &&
                       (selectedRole.title === `${prog.roleTitle} (${prog.programName})` ||
@@ -593,7 +594,7 @@ export function CompanyRolesPage() {
 
                     return (
                       <FresherProgramCard
-                        key={prog.id}
+                        key={`${prog.id}-${prog.programName || prog.roleTitle}-${idx}`}
                         prog={prog}
                         company={company}
                         isSelected={isSelected}
@@ -704,6 +705,9 @@ export function CompanyRolesPage() {
               result={result}
               selectedRole={selectedRole}
               company={company}
+              audit={latestTlAuditEntry}
+              resumeText={resumeText}
+              jdText={selectedRole?.desc || selectedRole?.fullText || `${selectedRole?.title} at ${company.name}`}
               onBackToRoles={handleBackToRoles}
               onChangeCompany={handleChangeCompany}
               onNewResume={handleNewResume}

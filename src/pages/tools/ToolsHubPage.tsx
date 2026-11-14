@@ -7,6 +7,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { careers } from '../../careers-core';
+import { useAuthStore } from '../../features/auth/useAuthStore';
+import { useAuditStore } from '../../features/journal/useAuditStore';
+import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
+import { formatDelta } from '../../features/journal/deltaEngine';
 
 
 interface ToolItem {
@@ -30,6 +34,36 @@ interface DecisionGroup {
 
 export function ToolsHubPage() {
   const [searchQuery, setSearchQuery] = useState('');
+
+  const authStatus = useAuthStore((s) => s.status);
+  const isAuthenticated = authStatus === 'authenticated';
+  const audits = useAuditStore((s) => s.entries);
+  const planItems = useMySpaceStore((s) => s.planItems);
+  const outreachDrafts = useMySpaceStore((s) => s.outreachDrafts);
+  const watchlist = useMySpaceStore((s) => s.watchlist);
+
+  const auditsList = Object.values(audits).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const latestAudit = auditsList[0];
+  const planCount = Object.keys(planItems).length;
+  const draftsCount = Object.keys(outreachDrafts).length;
+  const targetsCount = Object.values(watchlist).filter((t) => !t.archivedAt).length;
+
+  const getCardStatus = (toolId: string) => {
+    if (!isAuthenticated) return null;
+    if (toolId === 'resume-checker' && latestAudit) {
+      return `Last scan ${latestAudit.overallScore}`;
+    }
+    if ((toolId === 'credential-engine' || toolId === 'build-briefs') && planCount > 0) {
+      return `${planCount} in your plan`;
+    }
+    if (toolId === 'reach-out' && draftsCount > 0) {
+      return `${draftsCount} ${draftsCount === 1 ? 'draft' : 'drafts'}`;
+    }
+    if ((toolId === 'careers-explorer' || toolId === 'career-path') && targetsCount > 0) {
+      return `${targetsCount} ${targetsCount === 1 ? 'target' : 'targets'}`;
+    }
+    return null;
+  };
 
   const decisionGroups: DecisionGroup[] = [
     {
@@ -104,6 +138,16 @@ export function ToolsHubPage() {
       title: 'Discovery & Direction',
       description: 'Explore career ladders and evaluate target roles side-by-side.',
       tools: [
+        {
+          id: 'talentlens',
+          pill: 'Placement',
+          title: 'TalentLens™ Fit Simulator',
+          badge: '100+ Employers · 6-Layer AI',
+          description: 'Calibrate your candidate placement readiness against real engineering hiring rubrics and enterprise roles.',
+          link: '/demo',
+          cta: 'Launch Simulator',
+          tags: ['Role Benchmark', 'Gap Diagnosis', 'Readiness Score'],
+        },
         {
           id: 'career-path',
           pill: 'Trajectory',
@@ -183,6 +227,31 @@ export function ToolsHubPage() {
           </div>
         </div>
 
+        {/* Pick up where you left off (signed-in only with scan data) */}
+        {isAuthenticated && latestAudit && (
+          <div className="p-4 rounded-xl border border-[#24241c] bg-[#10100d] flex max-sm:flex-col sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-mono text-xs uppercase tracking-wider text-[#6d6d61]">
+                Pick up where you left off
+              </span>
+              <span className="text-sm font-semibold text-[#f1f1e8]">
+                {[latestAudit.jd.company, latestAudit.jd.roleTitle].filter(Boolean).join(', ')}, {latestAudit.overallScore} of 100
+              </span>
+              {latestAudit.delta?.overallDeltaPts !== undefined && latestAudit.delta?.overallDeltaPts !== null && (
+                <span className="text-xs font-semibold text-[#faff69] px-2 py-0.5 rounded-full bg-[#faff69]/10">
+                  {formatDelta(latestAudit.delta.overallDeltaPts)}
+                </span>
+              )}
+            </div>
+            <Link
+              to={`/tools/resume-checker?company=${encodeURIComponent(latestAudit.jd.company || '')}`}
+              className="px-4 py-2 rounded-full bg-[#faff69] text-[#090907] font-bold text-xs uppercase tracking-wider hover:bg-[#ebf059] transition-colors shrink-0"
+            >
+              Continue &rarr;
+            </Link>
+          </div>
+        )}
+
         {/* Decision Groups Container */}
         <div className="space-y-16">
           {filteredGroups.map((group) => (
@@ -221,9 +290,16 @@ export function ToolsHubPage() {
                           </span>
                           <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                         </div>
-                        <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
-                          {tool.badge}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          {getCardStatus(tool.id) && (
+                            <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold text-[#faff69] bg-[#faff69]/10 border border-[#faff69]/30">
+                              {getCardStatus(tool.id)}
+                            </span>
+                          )}
+                          <span className="px-2.5 py-0.5 rounded text-[11px] font-semibold uppercase tracking-[1.2px] bg-black text-silver border border-charcoal">
+                            {tool.badge}
+                          </span>
+                        </div>
                       </div>
 
                       <div>
