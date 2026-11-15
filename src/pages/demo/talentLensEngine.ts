@@ -23,6 +23,7 @@ import { MARKET_ENTRIES, MarketEntry } from '../../data/market';
 import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from './engine/skillStateEngine';
+import { generateEvidenceSafeRewrites, BulletRewrite } from './engine/bulletRewriteEngine';
 
 export interface Role {
   title: string;
@@ -883,7 +884,8 @@ export function generateImprovementPlan(
   company: { name: string; tier: string; industry: string },
   role: { title: string; desc: string },
   score: number,
-  skillStatesOverride?: SkillState[]
+  skillStatesOverride?: SkillState[],
+  matchedProjects?: Array<{ title: string; closes?: string[]; id?: string; deliverables?: string[] }>
 ): {
   priority: 'critical' | 'high' | 'medium';
   title: string;
@@ -921,10 +923,58 @@ export function generateImprovementPlan(
 
   let cumulativeCurrent = score;
   let actionCount = 0;
+  const handledSkills = new Set<string>();
+
+  // 0. Project drops closing multiple gaps (closes consistency - no double counting)
+  if (matchedProjects && matchedProjects.length > 0) {
+    for (const proj of matchedProjects) {
+      const closes = proj.closes || [];
+      if (closes.length === 0) continue;
+
+      const matchingAbsent = closes.filter((c) =>
+        breakdown.some(
+          (b) =>
+            (b.competency.toLowerCase() === c.toLowerCase() ||
+              b.competency.toLowerCase().includes(c.toLowerCase()) ||
+              c.toLowerCase().includes(b.competency.toLowerCase())) &&
+            (b.analysis.status === 'absent' || b.analysis.status === 'working')
+        )
+      );
+
+      const unclosedGaps = matchingAbsent.filter((c) => !handledSkills.has(c.toLowerCase()));
+      if (unclosedGaps.length === 0) continue;
+
+      for (const s of unclosedGaps) {
+        handledSkills.add(s.toLowerCase());
+      }
+
+      actionCount++;
+      const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
+      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+      const gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+      cumulativeCurrent = nextScore;
+
+      plans.push({
+        priority: 'critical',
+        title: `Build ${proj.title}`,
+        detail: `Deploy ${proj.title} to demonstrate verified production implementation for: ${unclosedGaps.map((u) => u.toUpperCase()).join(', ')}.`,
+        timeframe: '2-4 weeks',
+        closability: '30 days',
+        suggestedAction: `Implement and deploy ${proj.title} adhering to production standards with test suite and metrics.`,
+        hypotheticalScoreGain: gainDisplay,
+        bulletTemplate: `Engineered ${proj.title} using ${unclosedGaps.join(', ')}, achieving {{measured metric}} across {{scale}} requests/users.`,
+        resources: [
+          `GitHub repository template for ${proj.title}`,
+          `Benchmarking and test harness suite`,
+          `Production architecture documentation`,
+        ],
+      });
+    }
+  }
 
   // 1. Missing Must-Have Competencies
   breakdown
-    .filter((b) => b.analysis.status === 'absent')
+    .filter((b) => b.analysis.status === 'absent' && !handledSkills.has(b.competency.toLowerCase().trim()))
     .forEach((b) => {
       const compKey = b.competency.toLowerCase().trim();
       const kind = classifySkillKind(compKey);
@@ -939,10 +989,8 @@ export function generateImprovementPlan(
       } else {
         actionCount++;
         const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
-        const stepGainMin = Math.max(1, stepGain - 1);
-        const stepGainMax = stepGain + 1;
         const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+        gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
         cumulativeCurrent = nextScore;
       }
 
@@ -986,12 +1034,12 @@ export function generateImprovementPlan(
 
   // 2. Partial Evidence (Working level -> Strong/Expert) - Closable in 7 to 30 days
   breakdown
-    .filter((b) => b.analysis.status === 'working' && (b.reqLevel === 'expert' || b.reqLevel === 'strong'))
+    .filter((b) => b.analysis.status === 'working' && (b.reqLevel === 'expert' || b.reqLevel === 'strong') && !handledSkills.has(b.competency.toLowerCase().trim()))
     .forEach((b) => {
       actionCount++;
       const stepGain = 2;
       const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+1 to +3 pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+      const gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
       plans.push({
@@ -1018,7 +1066,7 @@ export function generateImprovementPlan(
         timeframe: '3-5 days',
         closability: '7 days',
         suggestedAction: `Remove raw skill keyword repetitions and integrate into STAR bullet points.`,
-        hypotheticalScoreGain: `+2 to +4 pts (calibrated estimate, per action, not additive; parser friendliness)`,
+        hypotheticalScoreGain: 'not scored',
         bulletTemplate: `Engineered {{module}} using ${b.competency.toUpperCase()}, optimizing {{metric}} by {{result you measured}}.`,
         resources: ['Google XYZ bullet format guide', 'Clean code resume principles'],
       });
@@ -1036,7 +1084,7 @@ export function generateImprovementPlan(
       timeframe: '3-5 days',
       closability: '7 days',
       suggestedAction: `Review each bullet point and attach a measured outcome (e.g. p99 latency reduction, user volume, test coverage).`,
-      hypotheticalScoreGain: '+3 to +5 pts in Evidence Quality (calibrated estimate, per action, not additive)',
+      hypotheticalScoreGain: 'not scored',
       bulletTemplate: `Optimized {{subsystem}} resulting in {{result you measured}} (reduced p99 from {{before}} to {{after}}).`,
       resources: ['STAR method for technical resumes', 'Engineering metric framing guides'],
     });
@@ -1064,7 +1112,7 @@ export function generateImprovementPlan(
     timeframe: '2-4 weeks',
     closability: '30 days',
     suggestedAction: 'Align project portfolio with primary stack components used at target company tier.',
-    hypotheticalScoreGain: 'Contextual relevance in technical interview rounds (calibrated guidance, not additive)',
+    hypotheticalScoreGain: 'not scored',
     bulletTemplate: `Built {{project}} aligning with ${company.name} engineering stack; validated with {{test suite / metric}}.`,
     resources: [`"${company.name} engineering blog"`, `Public interview experience archives`],
   });
@@ -1091,6 +1139,7 @@ export interface AnalysisResult {
   isValidResume?: boolean;
   invalidReason?: string;
   invalidIssues?: string[];
+  bulletRewrites?: BulletRewrite[];
 }
 
 /**
@@ -1283,6 +1332,7 @@ export function analyzeRoleMatch(
   const score = trace.compositeDisplay;
   const plans = generateImprovementPlan(breakdown, company, role, score);
   const marketIntel = runMarketIntelligenceEngine(resumeText, role.competencies, company, role);
+  const bulletRewrites = generateEvidenceSafeRewrites(resumeText, role.competencies);
 
   // Label from CANONICAL_SCORING_SPEC thresholds
   const { labelThresholds } = CANONICAL_SCORING_SPEC;
@@ -1311,6 +1361,7 @@ export function analyzeRoleMatch(
     readinessLabel,
     band: trace.band,
     eligibilityStatus,
+    bulletRewrites,
   };
 }
 

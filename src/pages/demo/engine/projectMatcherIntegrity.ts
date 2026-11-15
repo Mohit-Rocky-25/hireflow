@@ -135,6 +135,9 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   rest: ['rest', 'rest api', 'rest apis', 'api design'],
   rest_api: ['rest', 'rest api', 'rest apis', 'api design'],
   testing: ['testing', 'benchmarking', 'unit tests', 'integration tests', 'testing & reliability'],
+  nodejs: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
+  node: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
+  swift: ['swift', 'ios', 'xcode', 'swiftui', 'mobile'],
 };
 
 export function getCanonicalSkillName(skill: string): string {

@@ -2,7 +2,8 @@ import type { AuditEntry, Gap, IsoDate, JdOrigin, PlanItem, PlanKind, PlanStatus
 import { formatDelta } from '@/features/journal/deltaEngine';
 import { matchProjectsWithIntegrity } from '@/pages/demo/engine/projectMatcherIntegrity';
 import { buildSkillStates, extractResumeParseSummary, classifySkillKind, normalizeTier, ResumeParseSummary, SkillState } from '@/pages/demo/engine/skillStateEngine';
-import { validateReport } from '@/pages/demo/engine/reportValidator';
+import { validateReport, sanitizeReportPlaceholders } from '@/pages/demo/engine/reportValidator';
+import { generateEvidenceSafeRewrites, BulletRewrite } from '@/pages/demo/engine/bulletRewriteEngine';
 import { runAtsEngine } from '@/features/ats/engine';
 import { runMarketIntelligenceEngine, formatCompetencyName, generateImprovementPlan } from '@/pages/demo/talentLensEngine';
 import { findCompanyBySlug } from '@/pages/demo/talentLensData';
@@ -21,6 +22,7 @@ export interface BreakdownItemModel {
   score: number;
   reqLevel?: string;
   status?: string;
+  statusLabel?: string;
   confidence?: number;
   confidenceTag?: 'High' | 'Medium' | 'Low';
   kind?: string;
@@ -182,7 +184,9 @@ export interface DossierModel {
   learningPath: {
     stages: LearningStageModel[];
     plans: LearningPlanModel[];
+    bulletRewrites?: BulletRewrite[];
   };
+  bulletRewrites?: BulletRewrite[];
   realityFactors: string[];
   planned: Array<{ title: string; kind: PlanKind; status: PlanStatus }>;
   companyContext?: CompanyHiringContextModel;
@@ -315,16 +319,21 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       const compName = b.competency || b.key || b.label || '';
       const kind = b.kind || classifySkillKind(compName);
       const isSoftSkill = kind === 'soft-skill';
+      const itemScore = b.score ?? b.analysis?.confidence ?? 0;
       const status = isSoftSkill
         ? 'not-assessed'
-        : b.status || b.analysis?.status || (b.score >= 75 ? 'demonstrated' : b.score >= 50 ? 'mentioned' : 'not-found');
-      const confidenceTag = isSoftSkill ? 'Low' : b.confidenceTag || (b.score >= 75 ? 'High' : b.score >= 50 ? 'Medium' : 'Low');
+        : b.status || b.analysis?.status || (itemScore >= 75 ? 'demonstrated' : itemScore >= 50 ? 'mentioned' : 'not-found');
+      const confidenceTag = isSoftSkill
+        ? 'Low'
+        : b.confidenceTag || (itemScore >= 75 || status === 'strong' || status === 'expert' || status === 'demonstrated' ? 'High' : itemScore >= 50 || status === 'working' ? 'Medium' : 'Low');
+      const statusLabel = isSoftSkill ? 'Not assessed' : (b.statusLabel || (status === 'not-assessed' ? 'Not assessed' : undefined));
       breakdown.push({
         key: compName.toLowerCase().replace(/[^a-z0-9]/g, '_'),
         label: formatCompetencyName(compName),
-        score: isSoftSkill ? 0 : Math.round(b.score ?? b.analysis?.confidence ?? 0),
+        score: isSoftSkill ? 0 : Math.round(itemScore),
         reqLevel: b.reqLevel || 'strong',
         status,
+        statusLabel,
         confidenceTag,
         kind,
         layerScores: b.layerScores || b.analysis?.layerScores || { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 },
@@ -339,19 +348,25 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       const compName = b.label || b.key;
       const kind = bAny.kind || classifySkillKind(compName);
       const isSoftSkill = kind === 'soft-skill';
+      const itemScore = b.score ?? bAny.confidence ?? 0;
       const status = isSoftSkill
         ? 'not-assessed'
-        : bAny.status || (b.score >= 75 ? 'expert' : b.score >= 50 ? 'working' : 'absent');
+        : bAny.status || (itemScore >= 75 ? 'expert' : itemScore >= 50 ? 'working' : 'absent');
+      const confidenceTag = isSoftSkill
+        ? 'Low'
+        : bAny.confidenceTag || (itemScore >= 75 || status === 'strong' || status === 'expert' || status === 'demonstrated' ? 'High' : itemScore >= 50 || status === 'working' ? 'Medium' : 'Low');
+      const statusLabel = isSoftSkill ? 'Not assessed' : (bAny.statusLabel || (status === 'not-assessed' ? 'Not assessed' : undefined));
       breakdown.push({
         key: b.key,
         label: formatCompetencyName(compName),
-        score: isSoftSkill ? 0 : b.score,
+        score: isSoftSkill ? 0 : itemScore,
         reqLevel: bAny.reqLevel || 'strong',
         status,
-        confidenceTag: isSoftSkill ? 'Low' : bAny.confidenceTag || (b.score >= 75 ? 'High' : b.score >= 50 ? 'Medium' : 'Low'),
+        statusLabel,
+        confidenceTag,
         kind,
-        confidence: bAny.confidence || b.score,
-        layerScores: bAny.layerScores || { l1: b.score, l2: b.score, l3: b.score, l4: b.score, l5: b.score },
+        confidence: itemScore,
+        layerScores: bAny.layerScores || { l1: itemScore, l2: itemScore, l3: itemScore, l4: itemScore, l5: itemScore },
         evidenceQuotes: bAny.evidenceQuotes || [],
         gaps: bAny.gaps || [],
         deltaPts: d?.breakdownDeltaPts?.[b.key] ?? null,
@@ -645,7 +660,9 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
         })) as any,
         tlCompany || { id: 'company', name: companyName, tier },
         tlRole || { title: roleTitle, level, competencies: breakdown.map((b) => b.key) },
-        score
+        score,
+        skillStatesForEvaluation,
+        projectDrops
       );
       for (const p of generated) {
         learningPlans.push({
@@ -767,7 +784,9 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     learningPath: {
       stages: learningStages,
       plans: learningPlans,
+      bulletRewrites: tlResult?.bulletRewrites || generateEvidenceSafeRewrites(i.resumeText, breakdown.map((b) => b.key)),
     },
+    bulletRewrites: tlResult?.bulletRewrites || generateEvidenceSafeRewrites(i.resumeText, breakdown.map((b) => b.key)),
     realityFactors,
     planned: i.planItems.filter((p) => p.targetKey === entry.targetKey).map((p) => ({ title: p.title, kind: p.kind, status: p.status })),
     companyContext,
@@ -775,7 +794,8 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
   };
 
   const fullModel = { ...model, summary: executiveSummary(model, entry.kind) };
-  const { sanitizedReport } = validateReport(fullModel);
+  const sanitizedModel = sanitizeReportPlaceholders(fullModel);
+  const { sanitizedReport } = validateReport(sanitizedModel);
   return sanitizedReport;
 }
 

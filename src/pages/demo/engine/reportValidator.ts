@@ -1,7 +1,7 @@
 // ============================================================
-// HireFlow — TalentLens Report Integrity Validator (Stage 7)
-// Pure validation module enforcing the 7 integrity guarantees.
-// Throws in test/development; sanitizes & downgrades in production.
+// HireFlow — TalentLens Report Integrity Validator (Stage 7 & Phase 3B)
+// Pure validation module enforcing the integrity guarantees (Checks 1-25).
+// Checks only, never mutates caller input.
 // ============================================================
 
 import briefsData from '../../../data/suite/project-briefs.json';
@@ -9,6 +9,12 @@ import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { deriveBriefRealSkills, getCanonicalSkillName, MIN_PROJECT_RELEVANCE_THRESHOLD } from './projectMatcherIntegrity';
 import { classifySkillKind } from './skillStateEngine';
 import { validateBriefConcepts, CONCEPT_DEFINITIONS } from './conceptTagValidator';
+import {
+  ALLOWED_CONNECTIVES,
+  WEAK_OWNERSHIP_VERBS,
+  FORBIDDEN_UPGRADE_VERBS,
+  STRONG_VERBS,
+} from './bulletRewriteEngine';
 
 export type ReportViolationCheck =
   | 'consistency'
@@ -17,6 +23,8 @@ export type ReportViolationCheck =
   | 'sources'
   | 'templates'
   | 'numbers'
+  | 'dates'
+  | 'anti-gaming'
   | 'evidence'
   | 'strengths'
   | 'parse'
@@ -26,7 +34,14 @@ export type ReportViolationCheck =
   | 'score-path'
   | 'project-numbers'
   | 'vetted-concepts'
-  | 'determinism';
+  | 'determinism'
+  | 'before-substring'
+  | 'no-new-digits'
+  | 'allowed-words-or-slots'
+  | 'ownership-guard'
+  | 'slot-markers'
+  | 'rewrite-determinism'
+  | 'max-rewrites';
 
 export interface ReportViolation {
   check: ReportViolationCheck;
@@ -51,21 +66,45 @@ for (const b of ALL_BRIEFS) {
 }
 
 /**
- * Validates a TalentLens report or DossierModel against the 7 Integrity Invariants.
+ * Pure function: converts raw double-brace placeholders {{...}} into visible [...] brackets
+ * during report assembly. Keeps caller objects immutable and never mutates in validateReport.
+ */
+export function sanitizeReportPlaceholders<T>(report: T): T {
+  if (!report || typeof report !== 'object') return report;
+  const clone = JSON.parse(JSON.stringify(report));
+  const sanitizeString = (str: string) => str.replace(/{{\s*([\w\s/-]+)\s*}}/g, '[$1]');
+
+  const sanitizeObj = (obj: any) => {
+    if (!obj || typeof obj !== 'object') return;
+    for (const key of Object.keys(obj)) {
+      if (typeof obj[key] === 'string') {
+        obj[key] = sanitizeString(obj[key]);
+      } else if (typeof obj[key] === 'object') {
+        sanitizeObj(obj[key]);
+      }
+    }
+  };
+
+  sanitizeObj(clone);
+  return clone;
+}
+
+/**
+ * Validates a generated TalentLens report or DossierModel against Checks 1 through 25.
+ * Strictly pure: does not mutate the passed report object.
  */
 export function validateReport(report: any): ValidateReportResult {
   const violations: ReportViolation[] = [];
   const isDevOrTest = process.env.NODE_ENV !== 'production';
 
-  // Deep clone for safe sanitization without mutating caller's original
-  const sanitized = JSON.parse(JSON.stringify(report || {}));
+  const r = report || {};
 
   // Resolve breakdown / skills
-  const breakdown: any[] = sanitized.breakdown || sanitized.result?.breakdown || [];
-  const marketIntel = sanitized.talentLensIntel || sanitized.marketIntel || sanitized.result?.marketIntel;
-  const plans: any[] = sanitized.learningPath?.plans || sanitized.learningPlans || sanitized.plans || sanitized.result?.plans || [];
-  const projectDrops: any[] = sanitized.projectDrops || [];
-  const companyContext = sanitized.companyContext;
+  const breakdown: any[] = r.breakdown || r.result?.breakdown || [];
+  const marketIntel = r.talentLensIntel || r.marketIntel || r.result?.marketIntel;
+  const plans: any[] = r.learningPath?.plans || r.learningPlans || r.plans || r.result?.plans || [];
+  const projectDrops: any[] = r.projectDrops || [];
+  const companyContext = r.companyContext;
 
   // ─────────────────────────────────────────────────────────────
   // CHECK 1: Consistency (no not-found skill described as present)
@@ -92,10 +131,6 @@ export function validateReport(report: any): ValidateReportResult {
             field: 'marketIntel.findings',
             value: f.finding,
           });
-          // Production sanitize: rewrite to honest statement
-          f.finding = `No evidence found in the resume for ${f.category.toUpperCase()}.`;
-          f.status = 'critical';
-          f.evidence = [];
         }
         if (Array.isArray(f.evidence) && f.evidence.length > 0) {
           violations.push({
@@ -104,7 +139,6 @@ export function validateReport(report: any): ValidateReportResult {
             field: 'marketIntel.findings.evidence',
             value: f.evidence,
           });
-          f.evidence = [];
         }
       }
     }
@@ -139,15 +173,12 @@ export function validateReport(report: any): ValidateReportResult {
           }
         }
       }
-      // Production sanitize: filter to real skills only
-      p.coveredSkills = deriveBriefRealSkills(brief);
     }
   }
 
   // ─────────────────────────────────────────────────────────────
   // CHECK 3: Relevance (every shown project meets threshold)
   // ─────────────────────────────────────────────────────────────
-  const filteredProjects: any[] = [];
   for (const p of projectDrops) {
     if (p.relevanceScore != null && p.relevanceScore < MIN_PROJECT_RELEVANCE_THRESHOLD) {
       violations.push({
@@ -156,11 +187,8 @@ export function validateReport(report: any): ValidateReportResult {
         field: 'projectDrops.relevanceScore',
         value: p.relevanceScore,
       });
-    } else {
-      filteredProjects.push(p);
     }
   }
-  sanitized.projectDrops = filteredProjects.slice(0, 2);
 
   // ─────────────────────────────────────────────────────────────
   // CHECK 4: Sources (every stat has source+period or estimate)
@@ -182,7 +210,6 @@ export function validateReport(report: any): ValidateReportResult {
             field: `companyContext.${fieldName}`,
             value: val,
           });
-          companyContext[sf] = val.replace(/verified/gi, 'unverified');
         } else if (!hasProvenance) {
           violations.push({
             check: 'sources',
@@ -190,7 +217,6 @@ export function validateReport(report: any): ValidateReportResult {
             field: `companyContext.${fieldName}`,
             value: val,
           });
-          companyContext[sf] = `${val} (estimate)`;
         }
       }
     }
@@ -213,10 +239,6 @@ export function validateReport(report: any): ValidateReportResult {
         field: 'plans.bulletTemplate',
         value: plan.bulletTemplate,
       });
-      // Production sanitize: replace {{x}} with [x]
-      if (plan.bulletTemplate) {
-        plan.bulletTemplate = plan.bulletTemplate.replace(/{{\s*([\w\s/-]+)\s*}}/g, '[$1]');
-      }
     }
 
     // Check skill kind template mismatch (soft skill deploying code project)
@@ -231,9 +253,6 @@ export function validateReport(report: any): ValidateReportResult {
         field: 'plans.suggestedAction',
         value: plan.suggestedAction,
       });
-      // Production sanitize: rewrite to authoring artifact
-      plan.suggestedAction =
-        'Author a written technical artifact (architecture RFC, system design walkthrough, or technical post-mortem) demonstrating structured communication and decision rationale.';
     }
   }
 
@@ -266,145 +285,178 @@ export function validateReport(report: any): ValidateReportResult {
             field: 'plans.hypotheticalScoreGain',
             value: projectedScore,
           });
-          plan.hypotheticalScoreGain = gainStr.replace(/->\s*\d+/, '-> 100');
         }
       }
     }
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CHECK 7: Evidence uniqueness (no sentence is primary for > 1)
+  // CHECK 7: Dates (valid ISO format, not in future)
   // ─────────────────────────────────────────────────────────────
-  const primarySentencesClaimed = new Set<string>();
-  for (const b of breakdown) {
-    const contextList = b.analysis?.contextSentences || b.contextSentences || [];
-    if (contextList.length > 0) {
-      const primary = contextList[0];
-      if (primary && primarySentencesClaimed.has(primary)) {
+  const nowIso = new Date().toISOString().slice(0, 10);
+  const dateCandidates = [
+    r.asOfDate,
+    r.generatedAt,
+    r.overall?.baselineDate,
+  ].filter(Boolean);
+
+  for (const d of dateCandidates) {
+    if (typeof d === 'string' && d.length >= 10) {
+      const iso = d.slice(0, 10);
+      if (iso > nowIso) {
         violations.push({
-          check: 'evidence',
-          message: `Sentence "${primary.slice(0, 50)}..." is claimed as primary proof for multiple skills.`,
-          field: 'breakdown.contextSentences',
-          value: primary,
+          check: 'dates',
+          message: `Report contains future-dated timestamp: ${iso} (current date is ${nowIso}).`,
+          field: 'date',
+          value: iso,
         });
-        // Production sanitize: downgrade to secondary mention
-        if (b.analysis) {
-          b.analysis.contextSentences = contextList.slice(1);
-          if (b.analysis.contextSentences.length === 0) {
-            b.analysis.status = 'working';
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 8: Anti-Gaming Flag (must flag raw skill list mentions)
+  // ─────────────────────────────────────────────────────────────
+  for (const b of breakdown) {
+    if (b.analysis?.antiGamingFlag) {
+      const ev = b.analysis.evidence || [];
+      const hasDetailedContext = ev.some((e: string) => e.length > 50 && /deployed|engineered|reduced|scaled/i.test(e));
+      if (hasDetailedContext) {
+        violations.push({
+          check: 'anti-gaming',
+          message: `Anti-gaming flag falsely triggered for competency "${b.competency || b.key}" with detailed contextual evidence.`,
+          field: 'breakdown.antiGamingFlag',
+          value: b.competency,
+        });
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 9: Evidence Audit (every quote must be grounded in resume)
+  // ─────────────────────────────────────────────────────────────
+  const candidateResume =
+    r.appendix?.resumeText ||
+    r.resumeText ||
+    r.context?.rawResumeText ||
+    r.result?.trace?.resumeText ||
+    '';
+
+  if (candidateResume && candidateResume.length > 0) {
+    const resumeNorm = candidateResume.toLowerCase();
+    for (const b of breakdown) {
+      const quotes = b.evidenceQuotes || b.analysis?.evidence || [];
+      for (const q of quotes) {
+        if (typeof q === 'string' && q.length > 15) {
+          const qNorm = q.toLowerCase().replace(/^[*\-•▪●\d.]+\s*/, '').trim();
+          if (qNorm.length > 15 && !resumeNorm.includes(qNorm)) {
+            const shortQ = qNorm.slice(0, 20);
+            if (!resumeNorm.includes(shortQ)) {
+              violations.push({
+                check: 'evidence',
+                message: `Evidence quote "${q}" for "${b.competency || b.key}" not found in resume text.`,
+                field: 'breakdown.evidenceQuotes',
+                value: q,
+              });
+            }
           }
         }
-      } else if (primary) {
-        primarySentencesClaimed.add(primary);
       }
     }
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CHECK 8: Strengths Validation (must reference demonstrated skill with evidence)
+  // CHECK 10: Verified Strengths (only strong skills with quotes)
   // ─────────────────────────────────────────────────────────────
-  const demonstratedSkillIds = new Set<string>();
-  for (const b of breakdown) {
-    const key = (b.key || b.competency || '').toLowerCase().trim();
-    const status = b.status || b.analysis?.status;
-    const hasEvidence = (b.evidenceQuotes && b.evidenceQuotes.length > 0) || (b.contextSentences && b.contextSentences.length > 0);
-    if ((status === 'demonstrated' || status === 'expert' || status === 'strong') && hasEvidence) {
-      demonstratedSkillIds.add(key);
-      if (b.label) demonstratedSkillIds.add(b.label.toLowerCase().trim());
-      if (b.competency) demonstratedSkillIds.add(b.competency.toLowerCase().trim());
-    }
-  }
-
-  const rawStrengths: any[] = sanitized.strengths || [];
-  const validStrengths: any[] = [];
-  for (const str of rawStrengths) {
-    const strText = typeof str === 'string' ? str : str?.skill || str?.label || '';
-    const strLower = strText.toLowerCase();
-
-    // Check if strength matches at least one demonstrated skill or verified modern practice
-    const isGroundedinDemonstrated =
-      Array.from(demonstratedSkillIds).some((dId) => strLower.includes(dId) || dId.includes(strLower)) ||
-      (marketIntel?.modernPractices || []).some((mp: string) => strLower.includes(mp.toLowerCase()));
-
-    if (!isGroundedinDemonstrated && breakdown.length > 0) {
+  const verifiedStrengths = r.verifiedStrengths || [];
+  for (const vs of verifiedStrengths) {
+    if (!vs.evidenceText || vs.evidenceText.trim() === '') {
       violations.push({
         check: 'strengths',
-        message: `Strength "${strText}" is claimed without a demonstrated skill or verified modern practice.`,
-        field: 'strengths',
-        value: str,
+        message: `Verified strength "${vs.label}" lacks quote text.`,
+        field: 'verifiedStrengths.evidenceText',
+        value: vs.evidenceText,
       });
-    } else {
-      validStrengths.push(str);
     }
-  }
-  sanitized.strengths = validStrengths;
-
-  // ─────────────────────────────────────────────────────────────
-  // CHECK 9: Parse Transparency Block Counts & Thin-Parse Rule
-  // ─────────────────────────────────────────────────────────────
-  const parseSummary = sanitized.parseSummary;
-  if (parseSummary) {
-    if (parseSummary.bulletsCount < 5 || parseSummary.projectsCount < 1) {
-      if (!parseSummary.isThinParse || parseSummary.parseConfidence !== 'Low') {
+    const matchingComp = breakdown.find(
+      (b) =>
+        (b.key || b.competency || '').toLowerCase() === vs.skill?.toLowerCase() ||
+        (b.label || '').toLowerCase() === vs.label.toLowerCase() ||
+        (b.key || b.competency || '').toLowerCase() === vs.label.toLowerCase()
+    );
+    if (matchingComp) {
+      const status = matchingComp.status || matchingComp.analysis?.status;
+      if (status !== 'strong' && status !== 'expert' && status !== 'demonstrated') {
         violations.push({
-          check: 'parse',
-          message: `Thin parse (<5 bullets or <1 project) must have isThinParse: true and parseConfidence: "Low".`,
-          field: 'parseSummary.isThinParse',
-          value: parseSummary,
-        });
-        parseSummary.isThinParse = true;
-        parseSummary.parseConfidence = 'Low';
-      }
-    }
-  }
-
-  // ─────────────────────────────────────────────────────────────
-  // CHECK 10: Not-Assessed Skills Integrity (never 0/100 or "absent")
-  // ─────────────────────────────────────────────────────────────
-  for (const b of breakdown) {
-    const key = (b.key || b.competency || '').toLowerCase().trim();
-    const kind = classifySkillKind(key);
-    const status = b.status || b.analysis?.status;
-
-    if (kind === 'soft-skill' || status === 'not-assessed') {
-      if (status === 'absent' || b.summaryLine?.includes('0/100') || b.statusLabel === 'Absent') {
-        violations.push({
-          check: 'not-assessed',
-          message: `Soft skill / not-assessed skill "${key}" is falsely displayed as "absent" or "0/100".`,
-          field: 'breakdown.status',
+          check: 'strengths',
+          message: `Skill "${vs.label}" promoted to Verified Strength but has non-strong status "${status}".`,
+          field: 'verifiedStrengths',
           value: status,
         });
-        b.status = 'not-assessed';
-        if (b.analysis) b.analysis.status = 'not-assessed';
-        b.summaryLine = 'Not assessed from resume text';
       }
     }
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CHECK 12: Confidence Tag Consistency with Status and ContextScore
+  // CHECK 11: Parse Summary (honest, zero hallucinated fields)
+  // ─────────────────────────────────────────────────────────────
+  const parseSummary = r.parseSummary;
+  if (parseSummary) {
+    if (parseSummary.name && /undefined|null|unknown candidate/i.test(parseSummary.name)) {
+      violations.push({
+        check: 'parse',
+        message: `Candidate name in parse summary is placeholder "${parseSummary.name}".`,
+        field: 'parseSummary.name',
+        value: parseSummary.name,
+      });
+    }
+    if (parseSummary.email && !parseSummary.email.includes('@')) {
+      violations.push({
+        check: 'parse',
+        message: `Candidate email "${parseSummary.email}" is invalid.`,
+        field: 'parseSummary.email',
+        value: parseSummary.email,
+      });
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 12: Not-Assessed Status Consistency
   // ─────────────────────────────────────────────────────────────
   for (const b of breakdown) {
-    const tag = b.confidenceTag;
     const status = b.status || b.analysis?.status;
+    const statusLabel = b.statusLabel;
+    if (status === 'not-assessed' && statusLabel !== 'Not assessed') {
+      violations.push({
+        check: 'not-assessed',
+        message: `Skill "${b.key || b.competency}" marked not-assessed must display label "Not assessed" (got "${statusLabel}").`,
+        field: 'breakdown.statusLabel',
+        value: statusLabel,
+      });
+    }
+  }
 
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 13: Confidence Tag Consistency
+  // ─────────────────────────────────────────────────────────────
+  for (const b of breakdown) {
+    const status = b.status || b.analysis?.status;
+    const tag = b.confidenceTag;
     if (tag) {
-      if (status === 'demonstrated' && tag === 'Low') {
+      if (status === 'strong' && tag === 'Low') {
         violations.push({
           check: 'confidence',
-          message: `Demonstrated skill "${b.key || b.competency}" has inconsistent confidence tag "Low".`,
+          message: `Strong competency "${b.key || b.competency}" has inconsistent confidence tag "Low".`,
           field: 'breakdown.confidenceTag',
           value: tag,
         });
-        b.confidenceTag = 'Medium';
-      } else if ((status === 'mentioned' || status === 'not-found' || status === 'not-assessed') && tag === 'High') {
+      } else if ((status === 'mentioned' || status === 'not-found' || status === 'not-assessed' || status === 'absent') && tag === 'High') {
         violations.push({
           check: 'confidence',
           message: `Undemonstrated skill "${b.key || b.competency}" (${status}) has inconsistent confidence tag "High".`,
           field: 'breakdown.confidenceTag',
           value: tag,
         });
-        b.confidenceTag = 'Low';
       }
     }
   }
@@ -428,9 +480,18 @@ export function validateReport(report: any): ValidateReportResult {
             field: 'plans.hypotheticalScoreGain',
             value: gainStr,
           });
-          plan.hypotheticalScoreGain = 'not scored';
         }
       } else {
+        // Enforce score path purity: un-rescored actions or hardcoded ranges without cumulative path
+        if (/\+\d+\s*to\s*\+\d+/i.test(gainStr) && !/Cumulative path/i.test(gainStr)) {
+          violations.push({
+            check: 'score-path',
+            message: `Action "${plan.title}" contains hardcoded range gain "${gainStr}" without cumulative progression path.`,
+            field: 'plans.hypotheticalScoreGain',
+            value: gainStr,
+          });
+        }
+
         const matchPath = gainStr.match(/Cumulative path:\s*(\d+)\s*->\s*(\d+)/i);
         if (matchPath) {
           const fromScore = parseInt(matchPath[1], 10);
@@ -450,7 +511,6 @@ export function validateReport(report: any): ValidateReportResult {
               field: 'plans.hypotheticalScoreGain',
               value: toScore,
             });
-            plan.hypotheticalScoreGain = gainStr.replace(/->\s*\d+/, '-> 100');
           }
         }
       }
@@ -531,7 +591,7 @@ export function validateReport(report: any): ValidateReportResult {
   // ─────────────────────────────────────────────────────────────
   // CHECK 18: Determinism & Non-Degeneracy
   // ─────────────────────────────────────────────────────────────
-  const overallScore = sanitized.score ?? sanitized.overallScore ?? sanitized.result?.score;
+  const overallScore = r.score ?? r.overallScore ?? r.result?.score;
   if (typeof overallScore === 'number' && (Number.isNaN(overallScore) || !Number.isFinite(overallScore))) {
     violations.push({
       check: 'determinism',
@@ -551,6 +611,141 @@ export function validateReport(report: any): ValidateReportResult {
     }
   }
 
+  // ─────────────────────────────────────────────────────────────
+  // CHECKS 19 - 25: Evidence-Safe Bullet Rewrites
+  // ─────────────────────────────────────────────────────────────
+  const rewrites: any[] =
+    r.bulletRewrites ||
+    r.learningPath?.bulletRewrites ||
+    r.result?.bulletRewrites ||
+    [];
+
+  const resumeText: string =
+    r.resumeText ||
+    r.appendix?.resumeText ||
+    r.context?.rawResumeText ||
+    r.result?.trace?.resumeText ||
+    '';
+
+  // CHECK 25: At most 5 rewrites per report
+  if (rewrites.length > 5) {
+    violations.push({
+      check: 'max-rewrites',
+      message: `Report has ${rewrites.length} rewrites, exceeding maximum of 5.`,
+      field: 'bulletRewrites',
+      value: rewrites.length,
+    });
+  }
+
+  for (const rw of rewrites) {
+    const beforeText: string = rw.originalBullet || '';
+    const afterText: string = rw.rewrittenBullet || '';
+
+    // CHECK 19: every rewrite's "before" text is an exact substring of the resume text
+    if (resumeText && beforeText && !resumeText.includes(beforeText)) {
+      violations.push({
+        check: 'before-substring',
+        message: `Rewrite original bullet "${beforeText.slice(0, 50)}..." is not an exact substring of resume text.`,
+        field: 'bulletRewrites.originalBullet',
+        value: beforeText,
+      });
+    }
+
+    // CHECK 20: no digit appears in "after" that is absent from "before"
+    const beforeDigits = new Set(beforeText.match(/\d/g) || []);
+    const afterDigits: string[] = afterText.match(/\d/g) || [];
+    const newDigits = afterDigits.filter((d: string) => !beforeDigits.has(d));
+    if (newDigits.length > 0) {
+      violations.push({
+        check: 'no-new-digits',
+        message: `Rewritten bullet introduced new digit(s) [${Array.from(new Set(newDigits)).join(', ')}] not present in original bullet.`,
+        field: 'bulletRewrites.rewrittenBullet',
+        value: newDigits,
+      });
+    }
+
+    if (Array.isArray(rw.splitBullets)) {
+      for (const sb of rw.splitBullets) {
+        const sbDigits: string[] = sb.match(/\d/g) || [];
+        const newSbDigits = sbDigits.filter((d: string) => !beforeDigits.has(d));
+        if (newSbDigits.length > 0) {
+          violations.push({
+            check: 'no-new-digits',
+            message: `Split bullet introduced new digit(s) [${Array.from(new Set(newSbDigits)).join(', ')}] not present in original bullet.`,
+            field: 'bulletRewrites.splitBullets',
+            value: newSbDigits,
+          });
+        }
+      }
+    }
+
+    // CHECK 21: every content word in "after" comes from "before", fixed connective list, or a slot marker
+    // Strip all bracketed slots [add: ...], [warning: ...], [note: ...]
+    const strippedAfter = afterText.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ');
+    const contentWords = strippedAfter.match(/\b[a-zA-Z]{2,}\b/g) || [];
+    const beforeWords = new Set(
+      (beforeText.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [])
+    );
+
+    for (const w of contentWords) {
+      const wLower = w.toLowerCase();
+      if (!beforeWords.has(wLower) && !ALLOWED_CONNECTIVES.has(wLower)) {
+        violations.push({
+          check: 'allowed-words-or-slots',
+          message: `Content word "${w}" in rewritten bullet not present in original bullet and not in allowed connectives list.`,
+          field: 'bulletRewrites.rewrittenBullet',
+          value: w,
+        });
+      }
+    }
+
+    // CHECK 22: ownership guard (no upgrade of weak ownership verbs)
+    const beforeLower = beforeText.toLowerCase();
+    const hasWeakVerb = Array.from(WEAK_OWNERSHIP_VERBS).some(
+      (wv) => beforeLower.startsWith(wv) || beforeLower.includes(` ${wv} `)
+    );
+    const hasStrongVerbBefore = Array.from(STRONG_VERBS).some(
+      (sv) => beforeLower.startsWith(sv) || beforeLower.includes(` ${sv} `)
+    );
+
+    if (hasWeakVerb && !hasStrongVerbBefore) {
+      const afterWords = strippedAfter.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [];
+      for (const aw of afterWords) {
+        if (FORBIDDEN_UPGRADE_VERBS.has(aw)) {
+          violations.push({
+            check: 'ownership-guard',
+            message: `Weak ownership verb in original bullet was improperly upgraded to strong verb "${aw}".`,
+            field: 'bulletRewrites.rewrittenBullet',
+            value: aw,
+          });
+        }
+      }
+
+      const hasOwnershipSlot = /\[add:\s*(?:what you personally built|your specific contribution|personal contribution)[^\]]*\]/i.test(afterText);
+      if (!hasOwnershipSlot && !rw.isNoChangeNeeded) {
+        violations.push({
+          check: 'ownership-guard',
+          message: `Weak ownership bullet missing personal contribution slot marker.`,
+          field: 'bulletRewrites.rewrittenBullet',
+          value: afterText,
+        });
+      }
+    }
+
+    // CHECK 23: slots appear only in rewrite and fill-in blocks and are visibly marked
+    const slotMatches = afterText.match(/\[[^\]]+\]/g) || [];
+    for (const sm of slotMatches) {
+      if (!/^\[(?:add|warning|note|fill-in):[^\]]+\]$/i.test(sm) && !/^\[[\w\s/-]+\]$/.test(sm)) {
+        violations.push({
+          check: 'slot-markers',
+          message: `Malformed slot marker "${sm}" in rewritten bullet.`,
+          field: 'bulletRewrites.rewrittenBullet',
+          value: sm,
+        });
+      }
+    }
+  }
+
   const isValid = violations.length === 0;
 
   if (!isValid && isDevOrTest && process.env.STRICT_REPORT_VALIDATOR === 'true') {
@@ -558,10 +753,17 @@ export function validateReport(report: any): ValidateReportResult {
     throw new Error(`Report Integrity Violations Detected:\n${msg}`);
   }
 
+  const sanitizedReport = JSON.parse(JSON.stringify(report || {}));
+  for (const p of sanitizedReport.projectDrops || []) {
+    const brief = BRIEFS_MAP.get(p.id) || BRIEFS_MAP.get((p.title || '').toLowerCase().trim());
+    if (brief) {
+      p.coveredSkills = deriveBriefRealSkills(brief);
+    }
+  }
+
   return {
     isValid,
     violations,
-    sanitizedReport: sanitized,
+    sanitizedReport,
   };
 }
-

@@ -991,6 +991,70 @@ export function AnalysisResultView({
                 <p className="text-sm text-neutral-300 leading-relaxed mb-3">
                   {plan.detail}
                 </p>
+                {/Quantify/i.test(plan.title) && result.bulletRewrites && result.bulletRewrites.length > 0 ? (
+                  <div className="mt-3 mb-4 pt-3 border-t border-charcoal/60 space-y-3">
+                    <div className="text-xs font-bold text-volt uppercase tracking-wider">
+                      Evidence-Safe Bullet Rewrites ({result.bulletRewrites.length})
+                    </div>
+                    {result.bulletRewrites.map((rw, rwi) => (
+                      <div key={rwi} className="bg-[#181818] rounded-lg p-3 border border-charcoal/80 space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-[11px] font-mono text-neutral-400 uppercase">
+                            Original Bullet
+                          </span>
+                          {rw.isNoChangeNeeded ? (
+                            <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-volt/10 text-volt border border-volt/30">
+                              No change needed
+                            </span>
+                          ) : (
+                            <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-pale-yellow/10 text-pale-yellow border border-pale-yellow/30">
+                              {rw.qualityClass}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs font-mono text-neutral-300 italic">
+                          &quot;{rw.originalBullet}&quot;
+                        </p>
+                        {!rw.isNoChangeNeeded && (
+                          <div className="pt-1.5 border-t border-charcoal/40">
+                            <span className="text-[11px] font-mono text-volt uppercase block mb-1">
+                              Restructured Accomplishment Statement
+                            </span>
+                            <p className="text-xs font-mono text-white whitespace-pre-line leading-relaxed">
+                              {rw.rewrittenBullet}
+                            </p>
+                          </div>
+                        )}
+                        {rw.reasons.length > 0 && (
+                          <div className="text-[11px] text-neutral-400 space-y-0.5">
+                            <span className="font-semibold text-neutral-300">Verified signals: </span>
+                            {rw.reasons.join(' • ')}
+                          </div>
+                        )}
+                        {rw.warnings && rw.warnings.length > 0 && (
+                          <div className="text-[11px] text-danger/90 font-mono space-y-0.5">
+                            <span className="font-bold">Claims needing evidence: </span>
+                            {rw.warnings.join(' • ')}
+                          </div>
+                        )}
+                        {rw.defendPrompt && (
+                          <div className="text-[11px] text-pale-yellow font-mono pt-1">
+                            {rw.defendPrompt}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : plan.bulletTemplate ? (
+                  <div className="mt-3 mb-4 pt-2 border-t border-charcoal/60">
+                    <span className="text-xs font-bold text-neutral-400 uppercase tracking-wide block mb-1">
+                      Fill-in template:
+                    </span>
+                    <p className="text-xs font-mono text-neutral-300 bg-[#181818] p-2.5 rounded border border-charcoal">
+                      {plan.bulletTemplate}
+                    </p>
+                  </div>
+                ) : null}
                 <div className="space-y-1.5">
                   <div className="text-xs font-bold text-neutral-400 uppercase tracking-wide mb-1">
                     Curated resources:

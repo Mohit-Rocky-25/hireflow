@@ -689,7 +689,23 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     for (const plan of model.learningPath.plans) {
       const detailLines = wrapText(plan.detail, 98);
       const actionLines = plan.suggestedAction ? wrapText(`Suggested Action: ${plan.suggestedAction}`, 98) : [];
-      const bulletLines = plan.bulletTemplate ? wrapText(`Portfolio STAR Bullet: "${plan.bulletTemplate}"`, 98) : [];
+      let bulletLines: string[] = [];
+      if (/Quantify/i.test(plan.title) && model.bulletRewrites && model.bulletRewrites.length > 0) {
+        bulletLines.push('Evidence-Safe Bullet Rewrites:');
+        for (const rw of model.bulletRewrites.slice(0, 3)) {
+          bulletLines.push(...wrapText(`  * Before: "${rw.originalBullet}"`, 95));
+          if (rw.isNoChangeNeeded) {
+            bulletLines.push('    Status: No change needed (verified strong signals)');
+          } else {
+            bulletLines.push(...wrapText(`    After: "${rw.rewrittenBullet.replace(/\n/g, ' ')}"`, 95));
+          }
+          if (rw.defendPrompt) {
+            bulletLines.push(...wrapText(`    Defend: ${rw.defendPrompt}`, 95));
+          }
+        }
+      } else if (plan.bulletTemplate) {
+        bulletLines = wrapText(`Fill-in template: "${plan.bulletTemplate}"`, 98);
+      }
       const resourceLines: string[] = [];
       if (plan.resources && plan.resources.length > 0) {
         for (const [ri, r] of plan.resources.entries()) {
