@@ -17,7 +17,7 @@ const RESUMES = {
 };
 
 describe('Stage 0 Dataset Census and Generality Audit', () => {
-  it('performs full dataset census and runs baseline validator sweep across all companies', { timeout: 120000 }, () => {
+  it('performs full dataset census and runs baseline validator sweep across all companies and roles', { timeout: 300000 }, () => {
     let totalRoles = 0;
     const tiers = new Map<string, number>();
     const industries = new Map<string, number>();
@@ -38,26 +38,27 @@ describe('Stage 0 Dataset Census and Generality Audit', () => {
     expect(COMPANIES.length).toBeGreaterThanOrEqual(230);
     expect(totalRoles).toBeGreaterThanOrEqual(1700);
 
-    // Run baseline validator sweep across ALL 235 companies (all first roles + all campus/entry roles) x 5 resumes
+    // Run baseline validator sweep across ALL 1,728 roles x 5 resume archetypes = 8,640 permutations
     let permutations = 0;
     const violationsByCheck: Record<string, number> = {};
     const violationsByTier: Record<string, number> = {};
 
     for (const company of COMPANIES) {
-      const tier = company.tier || 'UNKNOWN';
-      const role = company.roles?.[0] || {
+      const tier = company.tier || 'Enterprise';
+      const rolesToSweep = company.roles && company.roles.length > 0 ? company.roles : [{
         title: 'Software Engineer',
         level: 'Entry',
         desc: 'General engineering responsibilities.',
         competencies: ['dsa', 'systemdesign'],
         reqLevel: { dsa: 'strong', systemdesign: 'strong' },
-      };
+      }];
 
-      for (const [, resumeText] of Object.entries(RESUMES)) {
-        permutations++;
-        const competencies = role.competencies || ['dsa', 'systemdesign'];
-        const skillStates = buildSkillStates({
-          resumeText,
+      for (const role of rolesToSweep) {
+        for (const [, resumeText] of Object.entries(RESUMES)) {
+          permutations++;
+          const competencies = role.competencies || ['dsa', 'systemdesign'];
+          const skillStates = buildSkillStates({
+            resumeText,
           competencies,
           role: {
             title: role.title,
@@ -135,10 +136,12 @@ describe('Stage 0 Dataset Census and Generality Audit', () => {
         }
       }
     }
+    }
 
-    console.log(`[SWEEP] Permutations evaluated across all companies: ${permutations}`);
+    console.log(`[SWEEP] Permutations evaluated across all roles: ${permutations}`);
     console.log('[SWEEP] Violations by check:', JSON.stringify(violationsByCheck));
     console.log('[SWEEP] Violations by tier:', JSON.stringify(violationsByTier));
+    expect(permutations).toBeGreaterThanOrEqual(8600);
   });
 
   it('audits unclassified skills across all 1728 roles in dataset', () => {

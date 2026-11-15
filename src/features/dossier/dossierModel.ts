@@ -1,7 +1,7 @@
 import type { AuditEntry, Gap, IsoDate, JdOrigin, PlanItem, PlanKind, PlanStatus, Sha256, ToolKind, Uuid } from '@/domain/types';
 import { formatDelta } from '@/features/journal/deltaEngine';
 import { matchProjectsWithIntegrity } from '@/pages/demo/engine/projectMatcherIntegrity';
-import { buildSkillStates, extractResumeParseSummary, classifySkillKind, ResumeParseSummary, SkillState } from '@/pages/demo/engine/skillStateEngine';
+import { buildSkillStates, extractResumeParseSummary, classifySkillKind, normalizeTier, ResumeParseSummary, SkillState } from '@/pages/demo/engine/skillStateEngine';
 import { validateReport } from '@/pages/demo/engine/reportValidator';
 import { runAtsEngine } from '@/features/ats/engine';
 import { runMarketIntelligenceEngine, formatCompetencyName, generateImprovementPlan } from '@/pages/demo/talentLensEngine';
@@ -281,7 +281,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     }
   }
 
-  const tier = tlCompany?.tier || (atsResult?.bestFitTier as string | undefined) || 'Tier 1';
+  const tier = normalizeTier(tlCompany?.tier || (atsResult?.bestFitTier as string | undefined) || 'Enterprise');
   const level = tlRole?.level || (atsResult?.seniorityFit?.level as string | undefined) || 'Mid-Level';
   const industry = tlCompany?.industry || 'Technology & Software';
 
@@ -583,6 +583,25 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     portfolioBulletFormula: p.portfolioBulletFormula,
     deliverables: p.deliverables,
   }));
+
+  // If no projects matched via standard matcher (e.g. non-TalentLens ATS audit) but candidate has planned build_brief items, include them
+  if (projectDrops.length === 0 && i.planItems && i.planItems.length > 0) {
+    const briefItems = i.planItems.filter((p) => p.kind === 'build_brief');
+    for (const item of briefItems) {
+      projectDrops.push({
+        title: item.title,
+        domain: 'Infrastructure & Systems',
+        difficulty: 'advanced',
+        estimatedHours: 25,
+        coveredSkills: ['Systems Programming', 'Performance Engineering'],
+        problemStatement: `Implement ${item.title} to resolve verified technical gap.`,
+        architecture: 'Production-grade component adhering to high-throughput standards.',
+        recruiterSignal: `Demonstrates targeted initiative resolving ${item.title}.`,
+        portfolioBulletFormula: `Engineered ${item.title} using production protocols.`,
+        deliverables: ['Repository code', 'Benchmarking suite', 'Documentation'],
+      });
+    }
+  }
 
   // Learning Paths & Action Plans
   const learningStages: LearningStageModel[] = [];

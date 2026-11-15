@@ -155333,6 +155333,7 @@ function attachProvenance(companies: any[]): Company[] {
 }
 
 import { enrichCompanyWithLiveFeed, getStandaloneLiveCompanies } from '../../data/market/liveDataLoader';
+import { normalizeTier } from './engine/skillStateEngine';
 
 export const COMPANIES: Company[] = deduplicateCompanies<Company>(
   attachProvenance([
@@ -155340,7 +155341,12 @@ export const COMPANIES: Company[] = deduplicateCompanies<Company>(
     ...RAW_COMPANIES,
     ...(companies100 as unknown as Company[]).filter((c) => c.dataStatus !== 'quarantined'),
   ])
-).map(enrichCompanyWithLiveFeed);
+).map((c) => {
+  if (c.tier) {
+    c.tier = normalizeTier(c.tier);
+  }
+  return enrichCompanyWithLiveFeed(c);
+});
 
 // TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
 // ════════════════════════════════════════════════════════════

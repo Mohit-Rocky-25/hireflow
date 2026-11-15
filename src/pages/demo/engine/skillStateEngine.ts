@@ -14,6 +14,96 @@ export type SkillEvidenceStrength = 'demonstrated' | 'mentioned';
 export type SkillStatus = 'demonstrated' | 'mentioned' | 'not-found' | 'not-assessed';
 export type SkillConfidenceTag = 'High' | 'Medium' | 'Low';
 
+export type CanonicalTier =
+  | 'FAANG'
+  | 'Tech Giant'
+  | 'Unicorn'
+  | 'Startup'
+  | 'Product MNC'
+  | 'MNC'
+  | 'Enterprise'
+  | 'IT Services'
+  | 'GCC'
+  | 'Tier S';
+
+export const CANONICAL_TIERS: CanonicalTier[] = [
+  'FAANG',
+  'Tech Giant',
+  'Unicorn',
+  'Startup',
+  'Product MNC',
+  'MNC',
+  'Enterprise',
+  'IT Services',
+  'GCC',
+  'Tier S',
+];
+
+export const TIER_NORMALIZATION_MAP: Record<string, CanonicalTier> = {
+  // FAANG
+  faang: 'FAANG',
+  // Tech Giant
+  'tech giant': 'Tech Giant',
+  tech_giant: 'Tech Giant',
+  techgiant: 'Tech Giant',
+  // Unicorn
+  unicorn: 'Unicorn',
+  // Startup
+  startup: 'Startup',
+  bootstrapped: 'Startup',
+  // Product MNC
+  'product mnc': 'Product MNC',
+  product_mnc: 'Product MNC',
+  productmnc: 'Product MNC',
+  'top product': 'Product MNC',
+  top_product: 'Product MNC',
+  topproduct: 'Product MNC',
+  product: 'Product MNC',
+  // MNC
+  mnc: 'MNC',
+  // Enterprise
+  enterprise: 'Enterprise',
+  // IT Services
+  'it services': 'IT Services',
+  it_services: 'IT Services',
+  itservices: 'IT Services',
+  service: 'IT Services',
+  tier_2_service: 'IT Services',
+  'tier 2 service': 'IT Services',
+  // GCC
+  gcc: 'GCC',
+  // Tier S
+  'tier s': 'Tier S',
+  tier_s: 'Tier S',
+  tiers: 'Tier S',
+};
+
+/**
+ * Normalizes company tier variants into canonical tiers.
+ * Fails loudly in tests on unknown tiers; degrades safely with a warning in production.
+ */
+export function normalizeTier(rawTier: string | undefined): CanonicalTier {
+  if (!rawTier) {
+    return 'Enterprise';
+  }
+  const clean = rawTier.toLowerCase().trim().replace(/[-_]/g, ' ').replace(/\s+/g, ' ');
+  const mapped =
+    TIER_NORMALIZATION_MAP[clean] ||
+    TIER_NORMALIZATION_MAP[clean.replace(/\s+/g, '_')] ||
+    TIER_NORMALIZATION_MAP[clean.replace(/\s+/g, '')];
+
+  if (mapped) {
+    return mapped;
+  }
+  if (process.env.NODE_ENV === 'test') {
+    throw new Error(
+      `Unknown company tier: "${rawTier}". Must map to one of canonical tiers: ${CANONICAL_TIERS.join(', ')}`
+    );
+  }
+  console.warn(`[TierNormalization] Unknown tier "${rawTier}", defaulting to Enterprise.`);
+  return 'Enterprise';
+}
+
 export const EXCLUDE_NOT_ASSESSED_FROM_SCORE = false;
 
 // Stage 3 Context-Based Evidence Scoring Constants

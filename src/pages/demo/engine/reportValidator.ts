@@ -20,7 +20,8 @@ export type ReportViolationCheck =
   | 'strengths'
   | 'parse'
   | 'not-assessed'
-  | 'confidence';
+  | 'confidence'
+  | 'stack-coverage';
 
 export interface ReportViolation {
   check: ReportViolationCheck;
@@ -105,7 +106,7 @@ export function validateReport(report: any): ValidateReportResult {
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CHECK 2: Coverage (project's covers is subset of real stack)
+  // CHECK 2 & 14: Stack Coverage (project's covered skills are subset of techStack only)
   // ─────────────────────────────────────────────────────────────
   for (const p of projectDrops) {
     const brief = BRIEFS_MAP.get(p.id) || BRIEFS_MAP.get((p.title || '').toLowerCase().trim());
@@ -116,7 +117,7 @@ export function validateReport(report: any): ValidateReportResult {
         const inReal = realSkills.some((rs) => rs.includes(covLower) || covLower.includes(rs));
         if (!inReal) {
           violations.push({
-            check: 'coverage',
+            check: 'stack-coverage',
             message: `Project "${p.title}" claims to cover "${cov}" which is absent from its real stack.`,
             field: 'projectDrops.coveredSkills',
             value: cov,

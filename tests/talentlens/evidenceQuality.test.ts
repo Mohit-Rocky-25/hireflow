@@ -4,6 +4,8 @@ import {
   computeContextScore,
   classifySkillKind,
   extractResumeParseSummary,
+  normalizeTier,
+  CANONICAL_TIERS,
   DEMONSTRATED_CONTEXT_THRESHOLD,
   HIGH_CONFIDENCE_THRESHOLD,
 } from '../../src/pages/demo/engine/skillStateEngine';
@@ -11,7 +13,10 @@ import {
   matchProjectsWithIntegrity,
   doesProjectCoverSkill,
   deriveBriefRealSkills,
+  computeStackFit,
 } from '../../src/pages/demo/engine/projectMatcherIntegrity';
+import { validateReport } from '../../src/pages/demo/engine/reportValidator';
+import { generateImprovementPlan } from '../../src/pages/demo/talentLensEngine';
 import briefsData from '../../src/data/suite/project-briefs.json';
 
 describe('TalentLens Evidence Quality and Generality (Phase 2)', () => {
@@ -152,22 +157,52 @@ B.Tech in Computer Science, 2026
     expect(normalSummary.bulletsCount).toBeGreaterThan(0);
   });
 
-  it('Check 13: Static scan verifies no hardcoded company names in engine logic', () => {
+  it('Check 13: Static scan verifies no hardcoded company names in engine logic across entire src', () => {
     const fs = require('fs');
     const path = require('path');
-    const engineDir = path.resolve(__dirname, '../../src/pages/demo/engine');
-    const files = fs.readdirSync(engineDir).filter((f: string) => f.endsWith('.ts'));
+
+    function walk(dir: string): string[] {
+      let results: string[] = [];
+      const list = fs.readdirSync(dir);
+      for (const file of list) {
+        const fullPath = path.join(dir, file);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+          if (file === 'node_modules' || file === '.git' || file === 'data' || file === '__tests__') continue;
+          results = results.concat(walk(fullPath));
+        } else if ((file.endsWith('.ts') || file.endsWith('.tsx')) && !file.endsWith('.test.ts') && !file.endsWith('.test.tsx')) {
+          if (file.includes('talentLensData.ts') || file.includes('companyCatalog.ts') || file.includes('mockCompanies.ts')) continue;
+          results.push(fullPath);
+        }
+      }
+      return results;
+    }
+
+    const srcDir = path.resolve(__dirname, '../../src');
+    const files = walk(srcDir);
+    expect(files.length).toBeGreaterThan(50);
 
     const forbiddenCompanies = ['cred', 'razorpay', 'phonepe', 'groww', 'zerodha', 'paytm', 'tower', 'graviton', 'alphagrep'];
+    const fastRegex = new RegExp(`/(?:[^/]*\\b(?:${forbiddenCompanies.join('|')})\\b[^/]*)/i|===?\\s*['"](?:${forbiddenCompanies.join('|')})['"]`, 'i');
 
     for (const file of files) {
-      const content = fs.readFileSync(path.join(engineDir, file), 'utf-8');
-      // Look for regex matching company names (e.g. /cred|razorpay/i)
-      for (const comp of forbiddenCompanies) {
-        const regexCheck = new RegExp(`/[^/]*\\b${comp}\\b[^/]*/i`, 'i');
-        const match = content.match(regexCheck);
-        expect(match, `Forbidden company "${comp}" found in regex in ${file}: ${match?.[0]}`).toBeNull();
-      }
+      const content = fs.readFileSync(file, 'utf-8');
+      if (!fastRegex.test(content)) continue;
+
+      const lines = content.split('\n');
+      lines.forEach((line: string, idx: number) => {
+        const cleanLine = line.trim();
+        if (cleanLine.startsWith('//') || cleanLine.startsWith('*') || cleanLine.startsWith('import ')) return;
+
+        for (const comp of forbiddenCompanies) {
+          const regexCheck = new RegExp(`/[^/]*\\b${comp}\\b[^/]*/i`, 'i');
+          const regexMatch = cleanLine.match(regexCheck);
+          expect(regexMatch, `Forbidden company "${comp}" found in regex in ${file}:${idx + 1}: ${regexMatch?.[0]}`).toBeNull();
+
+          const eqMatch = cleanLine.match(new RegExp(`===?\\s*['"]${comp}['"]`, 'i'));
+          expect(eqMatch, `Forbidden company "${comp}" found in equality condition in ${file}:${idx + 1}: ${eqMatch?.[0]}`).toBeNull();
+        }
+      });
     }
   });
 
@@ -230,7 +265,7 @@ Quality Control Inspector at Precision Mechanical Components
       expect(st.status).toBe('not-found');
     }
 
-    // 5. CRED campus role fixture: double-entry ledger recommended
+    // 5. CRED campus role fixture: double-entry ledger recommended, non-Go ledger excluded
     const matchCred = matchProjectsWithIntegrity({
       skillStates: [
         { id: 'golang', status: 'not-found' } as any,
@@ -241,5 +276,112 @@ Quality Control Inspector at Precision Mechanical Components
     });
     expect(matchCred.hasMatches).toBe(true);
     expect(matchCred.projects.some((p) => p.id === 'brief-double-entry-ledger')).toBe(true);
+    expect(matchCred.projects.some((p) => p.id === 'brief-fintech-idempotent-ledger')).toBe(false);
+  });
+
+  it('Check 14: Validates every shown project covered skill is derived from techStack only', () => {
+    const doubleEntry = (briefsData as any[]).find((b) => b.id === 'brief-double-entry-ledger')!;
+    const derivedSkills = deriveBriefRealSkills(doubleEntry);
+
+    // Derived skills must contain Go, PostgreSQL, Docker, Testing
+    expect(derivedSkills).toContain('Go');
+    expect(derivedSkills).toContain('PostgreSQL');
+    expect(derivedSkills).toContain('Docker');
+    // Must NOT contain ungrounded conceptual skills like Accounting or ACID from declared coveredSkills
+    expect(derivedSkills).not.toContain('Accounting');
+    expect(derivedSkills).not.toContain('ACID');
+
+    // Run report validation on a report with contaminated coveredSkills
+    const fakeReport = {
+      breakdown: [{ key: 'dsa', status: 'demonstrated', score: 85, evidenceQuotes: ['Solved graph algorithms.'] }],
+      projectDrops: [
+        {
+          id: 'brief-double-entry-ledger',
+          title: 'Double-Entry General Ledger Engine',
+          coveredSkills: ['Go', 'PostgreSQL', 'Artificial Intelligence'], // Artificial Intelligence is not in stack!
+          relevanceScore: 0.85,
+        },
+      ],
+    };
+
+    const valResult = validateReport(fakeReport);
+    expect(valResult.isValid).toBe(false);
+    const stackViolations = valResult.violations.filter((v) => v.check === 'stack-coverage');
+    expect(stackViolations.length).toBeGreaterThan(0);
+    // Sanitize restores valid stack-derived skills only
+    expect(valResult.sanitizedReport.projectDrops[0].coveredSkills).not.toContain('Artificial Intelligence');
+  });
+
+  it('Principled StackFit regression: Go-gap excludes Java ledger, Databases-gap admits both', () => {
+    // Case A: Role with Go gap (requires Go)
+    const goGapMatch = matchProjectsWithIntegrity({
+      skillStates: [
+        { id: 'golang', status: 'not-found' } as any,
+        { id: 'databases', status: 'not-found' } as any,
+      ],
+      company: { industry: 'Fintech', tier: 'Unicorn' },
+      role: { title: 'Backend Engineer (Go)', level: 'Entry' },
+    });
+
+    const goProjectIds = goGapMatch.projects.map((p) => p.id);
+    expect(goProjectIds).toContain('brief-double-entry-ledger');
+    expect(goProjectIds).not.toContain('brief-fintech-idempotent-ledger');
+
+    // Case B: Role with Databases gap only (no language gap)
+    // Both ledger projects cover databases (PostgreSQL) and are eligible without stack-fit penalty
+    const doubleEntryBrief = (briefsData as any[]).find((b) => b.id === 'brief-double-entry-ledger')!;
+    const idempotentLedgerBrief = (briefsData as any[]).find((b) => b.id === 'brief-fintech-idempotent-ledger')!;
+    const deSkills = deriveBriefRealSkills(doubleEntryBrief);
+    const idempSkills = deriveBriefRealSkills(idempotentLedgerBrief);
+    const dbGaps = [{ id: 'databases', status: 'not-found' } as any];
+
+    const deStackFit = computeStackFit(deSkills, dbGaps);
+    const idempStackFit = computeStackFit(idempSkills, dbGaps);
+
+    expect(deStackFit).toBeGreaterThanOrEqual(0.70);
+    expect(idempStackFit).toBeGreaterThanOrEqual(0.70);
+  });
+
+  it('Stage C: Normalizes all 13 dataset tier variants into 10 canonical tiers', () => {
+    expect(normalizeTier('FAANG')).toBe('FAANG');
+    expect(normalizeTier('Tech Giant')).toBe('Tech Giant');
+    expect(normalizeTier('TECH_GIANT')).toBe('Tech Giant');
+    expect(normalizeTier('Unicorn')).toBe('Unicorn');
+    expect(normalizeTier('UNICORN')).toBe('Unicorn');
+    expect(normalizeTier('Startup')).toBe('Startup');
+    expect(normalizeTier('STARTUP')).toBe('Startup');
+    expect(normalizeTier('PRODUCT_MNC')).toBe('Product MNC');
+    expect(normalizeTier('Product MNC')).toBe('Product MNC');
+    expect(normalizeTier('MNC')).toBe('MNC');
+    expect(normalizeTier('Enterprise')).toBe('Enterprise');
+    expect(normalizeTier('IT Services')).toBe('IT Services');
+    expect(normalizeTier('IT_SERVICES')).toBe('IT Services');
+    expect(normalizeTier('GCC')).toBe('GCC');
+    expect(normalizeTier('Tier S')).toBe('Tier S');
+
+    expect(CANONICAL_TIERS.length).toBe(10);
+
+    // Unknown tier throws loudly in test environment
+    expect(() => normalizeTier('UnknownTierX')).toThrow(/Unknown company tier/);
+  });
+
+  it('Stage F: Score gain honesty asserts calibrated estimate label on all action plans', () => {
+    const company = { name: 'Acme Corp', tier: 'Unicorn', industry: 'Fintech' };
+    const role = { title: 'Software Engineer', level: 'Entry', competencies: ['dsa', 'golang'] };
+    const breakdown = [
+      {
+        competency: 'golang',
+        analysis: { status: 'absent', confidence: 0, layerScores: { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 }, evidence: [], contextSentences: [], gaps: [] },
+        reqLevel: 'strong',
+      },
+    ];
+
+    const plans = generateImprovementPlan(breakdown as any, company as any, role as any, 50);
+    expect(plans.length).toBeGreaterThan(0);
+    for (const p of plans) {
+      if (p.priority === 'critical' || p.priority === 'high') {
+        expect(p.hypotheticalScoreGain).toContain('calibrated estimate, per action, not additive');
+      }
+    }
   });
 });

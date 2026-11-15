@@ -22,7 +22,7 @@ import { CANONICAL_SCORING_SPEC } from '../../scoring/spec';
 import { MARKET_ENTRIES, MarketEntry } from '../../data/market';
 import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
-import { buildSkillStates, classifySkillKind, SkillState } from './engine/skillStateEngine';
+import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from './engine/skillStateEngine';
 
 export interface Role {
   title: string;
@@ -524,18 +524,18 @@ export function computeScore(
 
   // 2. Resolve archetype from company tier/industry (Task 6.4)
   let archetype = 'product_mnc_gcc';
-  const tier = (company?.tier || '').toUpperCase();
+  const canonicalTier = company?.tier ? normalizeTier(company.tier) : 'Enterprise';
   const ind = (company?.industry || '').toLowerCase();
 
-  if (tier === 'TIER S' || tier === 'QUANT' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
+  if (canonicalTier === 'Tier S' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
     archetype = 'quant_trading';
-  } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
+  } else if (canonicalTier === 'FAANG' || canonicalTier === 'Tech Giant') {
     archetype = 'big_tech_product';
-  } else if (tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)) {
+  } else if (canonicalTier === 'Unicorn' || /quick commerce|food tech|mobility/i.test(ind)) {
     archetype = 'indian_high_growth';
-  } else if (tier === 'IT SERVICES' || tier === 'IT_SERVICES') {
+  } else if (canonicalTier === 'IT Services') {
     archetype = 'service_track';
-  } else if (tier === 'STARTUP' || tier === 'BOOTSTRAPPED') {
+  } else if (canonicalTier === 'Startup') {
     archetype = 'early_growth_startup';
   } else {
     archetype = 'product_mnc_gcc';
@@ -942,7 +942,7 @@ export function generateImprovementPlan(
         const stepGainMin = Math.max(1, stepGain - 1);
         const stepGainMax = stepGain + 1;
         const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
         cumulativeCurrent = nextScore;
       }
 
@@ -991,7 +991,7 @@ export function generateImprovementPlan(
       actionCount++;
       const stepGain = 2;
       const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+1 to +3 pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+      const gainDisplay = `+1 to +3 pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
       cumulativeCurrent = nextScore;
 
       plans.push({
@@ -1018,7 +1018,7 @@ export function generateImprovementPlan(
         timeframe: '3-5 days',
         closability: '7 days',
         suggestedAction: `Remove raw skill keyword repetitions and integrate into STAR bullet points.`,
-        hypotheticalScoreGain: `+2 to +4 pts (improves parser friendliness & evidence quality)`,
+        hypotheticalScoreGain: `+2 to +4 pts (calibrated estimate, per action, not additive; parser friendliness)`,
         bulletTemplate: `Engineered [module] using ${b.competency.toUpperCase()}, optimizing [metric] by [result you measured].`,
         resources: ['Google XYZ bullet format guide', 'Clean code resume principles'],
       });
@@ -1036,31 +1036,36 @@ export function generateImprovementPlan(
       timeframe: '3-5 days',
       closability: '7 days',
       suggestedAction: `Review each bullet point and attach a measured outcome (e.g. p99 latency reduction, user volume, test coverage).`,
-      hypotheticalScoreGain: '+3 to +5 pts in Evidence Quality if you add real metrics',
+      hypotheticalScoreGain: '+3 to +5 pts in Evidence Quality (calibrated estimate, per action, not additive)',
       bulletTemplate: `Optimized [subsystem] resulting in [result you measured] (reduced p99 from [before] to [after]).`,
       resources: ['STAR method for technical resumes', 'Engineering metric framing guides'],
     });
   }
 
-  // Tier guidance roadmap
+  // Tier guidance roadmap across all 10 canonical tiers
+  const canonicalTier = company.tier ? normalizeTier(company.tier) : 'Enterprise';
   const tierAdvice: Record<string, string> = {
-    FAANG: `${company.name} screening pipeline typically evaluates: algorithmic correctness, clean modular code, and behavioral depth. Current readiness estimate: ${score}%.`,
+    FAANG: `${company.name} screening pipeline typically evaluates algorithmic correctness, clean modular code, and behavioral depth. Current readiness estimate: ${score}%.`,
+    'Tech Giant': `${company.name} evaluates large-scale distributed systems, system design trade-offs, and proven architectural fundamentals.`,
     Unicorn: `${company.name} emphasizes product execution velocity and end-to-end feature ownership. Prepare working demo links and architecture stories.`,
-    MNC: `${company.name} values disciplined engineering practices, automated testing (JUnit/Jest), and robust enterprise architecture.`,
-    'IT Services': `${company.name} recruitment evaluates foundational programming syntax, standard ATS document layout, and NQT assessment standing.`,
     Startup: `${company.name} evaluates live URLs, shipped GitHub projects, and autonomous full-stack execution velocity.`,
+    'Product MNC': `${company.name} values robust engineering standards, automated test coverage, and scalable modular design.`,
+    MNC: `${company.name} values disciplined engineering practices, automated testing (JUnit/Jest), and robust enterprise architecture.`,
     Enterprise: `${company.name} prioritizes clean OOP patterns, database query performance, and long-term maintainability.`,
+    'IT Services': `${company.name} recruitment evaluates foundational programming syntax, standard ATS document layout, and NQT assessment standing.`,
+    GCC: `${company.name} GCC operations prioritize business domain integration, resilient services, and cross-timezone collaboration.`,
+    'Tier S': `${company.name} applies an elite mathematical and systems filter; focuses on low-latency systems, memory models, and algorithmic precision.`,
   };
 
   plans.push({
     priority: 'medium',
     title: `${company.name} Technical Preparation Direction`,
-    detail: tierAdvice[company.tier] || `Review public engineering publications for ${company.name} to understand architectural stack priorities.`,
+    detail: tierAdvice[canonicalTier] || `Review public engineering publications for ${company.name} to understand architectural stack priorities.`,
     timeframe: '2-4 weeks',
     closability: '30 days',
     suggestedAction: 'Align project portfolio with primary stack components used at target company tier.',
-    hypotheticalScoreGain: 'Increases contextual relevance in technical interview rounds',
-    bulletTemplate: `Built {{project}} aligning with ${company.name} engineering stack; validated with {{test suite / metric}}.`,
+    hypotheticalScoreGain: 'Contextual relevance in technical interview rounds (calibrated guidance, not additive)',
+    bulletTemplate: `Built [project] aligning with ${company.name} engineering stack; validated with [test suite / metric].`,
     resources: [`"${company.name} engineering blog"`, `Public interview experience archives`],
   });
 
@@ -1223,18 +1228,18 @@ export function analyzeRoleMatch(
 
   // 2. Resolve archetype (Task 6.4)
   let archetype = 'product_mnc_gcc';
-  const tier = (company.tier || '').toUpperCase();
+  const canonicalTier = company.tier ? normalizeTier(company.tier) : 'Enterprise';
   const ind = (company.industry || '').toLowerCase();
 
-  if (tier === 'TIER S' || tier === 'QUANT' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
+  if (canonicalTier === 'Tier S' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
     archetype = 'quant_trading';
-  } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
+  } else if (canonicalTier === 'FAANG' || canonicalTier === 'Tech Giant') {
     archetype = 'big_tech_product';
-  } else if (tier === 'UNICORN' || /quick commerce|food tech|mobility/i.test(ind)) {
+  } else if (canonicalTier === 'Unicorn' || /quick commerce|food tech|mobility/i.test(ind)) {
     archetype = 'indian_high_growth';
-  } else if (tier === 'IT SERVICES' || tier === 'IT_SERVICES') {
+  } else if (canonicalTier === 'IT Services') {
     archetype = 'service_track';
-  } else if (tier === 'STARTUP' || tier === 'BOOTSTRAPPED') {
+  } else if (canonicalTier === 'Startup') {
     archetype = 'early_growth_startup';
   } else {
     archetype = 'product_mnc_gcc';

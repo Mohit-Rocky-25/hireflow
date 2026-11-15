@@ -149,17 +149,12 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
 
 /**
  * Derives the true, verified list of skills taught/used by a project brief.
- * Strictly computed from its techStack and coveredSkills.
- * NEVER copied from candidate gaps.
+ * Strictly computed from its techStack only via canonical mapping.
+ * Never includes ungrounded conceptual skills or candidate gaps.
  */
 export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
-  const combined = [
-    ...(brief.techStack || []),
-    ...(brief.coveredSkills || []),
-  ];
-
   const unique = new Set<string>();
-  for (const item of combined) {
+  for (const item of brief.techStack || []) {
     const canon = getCanonicalSkillName(item);
     if (canon) unique.add(canon);
   }
@@ -216,36 +211,46 @@ function computeDomainFit(
 }
 
 /**
- * Computes tech stack fit between project and target role
+ * Computes tech stack fit between project and target role without blanket shortcuts.
+ * Evaluates candidate gaps strictly: if the candidate lacks a required primary language,
+ * a project lacking that language receives 0.0 stack fit (no free credit for other gaps).
  */
 export function computeStackFit(
   briefSkills: string[],
   gapSkills: SkillState[],
-  roleTitle?: string
+  _roleTitle?: string
 ): number {
-  const briefSkillsLower = briefSkills.map((s) => s.toLowerCase());
+  const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
+  const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
 
-  // Check if role requires specific primary languages (e.g. Go, Java, Python)
-  const roleRequiresGo = gapSkills.some((g) => g.id === 'golang' || g.id === 'go');
-  const briefHasGo = briefSkillsLower.some((s) => s.includes('go') || s === 'golang');
+  if (languageGaps.length > 0) {
+    // If the candidate lacks one or more primary languages, a recommended project
+    // MUST cover at least one of those language gaps in its verified tech stack.
+    // Absolutely NO free credit for non-language gaps.
+    const coversLanguageGap = languageGaps.some((lg) =>
+      doesProjectCoverSkill(briefSkills, lg.id)
+    );
 
-  if (roleRequiresGo) {
-    if (briefHasGo) return 1.0;
-    // If candidate has non-language gaps (like databases or system design) that this project covers,
-    // stack fit is partial (0.50), not a total disqualifier (0.20)
-    const hasNonLanguageGap = gapSkills.some((g) => g.id !== 'golang' && g.id !== 'go');
-    return hasNonLanguageGap ? 0.50 : 0.20;
+    if (!coversLanguageGap) {
+      // Disqualified due to stack-fit penalty for missing primary language
+      return 0.0;
+    }
+
+    const nonLanguageGaps = gapSkills.filter((g) => !PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
+    if (nonLanguageGaps.length === 0) {
+      return 1.0;
+    }
+    const coveredNonLang = nonLanguageGaps.filter((g) => doesProjectCoverSkill(briefSkills, g.id)).length;
+    return 0.80 + 0.20 * (coveredNonLang / nonLanguageGaps.length);
   }
 
-  const roleRequiresJava = gapSkills.some((g) => g.id === 'java');
-  const briefHasJava = briefSkillsLower.some((s) => s.includes('java') || s.includes('spring'));
-  if (roleRequiresJava) {
-    if (briefHasJava) return 1.0;
-    const hasNonLanguageGap = gapSkills.some((g) => g.id !== 'java');
-    return hasNonLanguageGap ? 0.50 : 0.25;
+  // If candidate has NO primary language gaps (e.g. only databases, system design):
+  // stackFit is computed strictly over the gap skills the project actually covers, with NO free credit
+  const coveredGaps = gapSkills.filter((g) => doesProjectCoverSkill(briefSkills, g.id));
+  if (coveredGaps.length === 0) {
+    return 0.0;
   }
-
-  return 0.75;
+  return 0.70 + 0.30 * (coveredGaps.length / gapSkills.length);
 }
 
 /**
