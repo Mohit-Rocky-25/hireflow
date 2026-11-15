@@ -332,7 +332,10 @@ export function classifySkillKind(skillId: string): SkillKind {
   if (SKILL_KIND_MAP[norm]) return SKILL_KIND_MAP[norm];
 
   // Pattern-based classification
-  if (/leader|manage|communicat|collaborat|mentor|present|teamwork|ownership|adaptab/i.test(norm)) return 'soft-skill';
+  if (
+    /leader|communicat|collaborat|mentor|present|teamwork|ownership|adaptab/i.test(norm) ||
+    (/\bmanage(ment)?\b/i.test(rawLower) && !/manager|database|state|cache|cert/i.test(norm))
+  ) return 'soft-skill';
   if (/sql|db|postgres|mongo|redis|cassandra|store|data(base)?/i.test(norm)) return 'database';
   if (/react|angular|vue|spring|django|flask|fastapi|node|express|nest|dotnet|\.net|spark|airflow/i.test(norm)) return 'framework';
   if (/java|python|golang|go|rust|c\+\+|cpp|csharp|c#|kotlin|swift|ruby|php|scala|bash|shell/i.test(norm)) return 'language';

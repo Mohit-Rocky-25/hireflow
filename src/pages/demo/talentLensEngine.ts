@@ -25,6 +25,7 @@ import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from './engine/skillStateEngine';
 import { generateEvidenceSafeRewrites, BulletRewrite } from './engine/bulletRewriteEngine';
 import { normalizeLevel, mapLevelToJdSeniority } from './engine/levelNormalizer';
+import { matchProjectsWithIntegrity } from './engine/projectMatcherIntegrity';
 
 export interface Role {
   title: string;
@@ -883,10 +884,11 @@ export function runMarketIntelligenceEngine(
 export function generateImprovementPlan(
   breakdown: { competency: string; reqLevel: string; analysis: ReturnType<typeof deepAnalyzeCompetency> }[],
   company: { name: string; tier: string; industry: string },
-  role: { title: string; desc: string },
+  role: { title: string; desc: string; level?: string; competencies?: string[] },
   score: number,
   skillStatesOverride?: SkillState[],
-  matchedProjects?: Array<{ title: string; closes?: string[]; id?: string; deliverables?: string[] }>
+  matchedProjects?: Array<{ title: string; closes?: string[]; id?: string; deliverables?: string[] }>,
+  resumeText?: string
 ): {
   priority: 'critical' | 'high' | 'medium';
   title: string;
@@ -898,6 +900,32 @@ export function generateImprovementPlan(
   bulletTemplate: string;
   resources: string[];
 }[] {
+  const isThinResume =
+    score === 0 ||
+    (resumeText != null &&
+      (resumeText.trim().split(/\s+/).length < 25 ||
+        (breakdown.every((b) => b.analysis.status === 'absent') &&
+          !resumeText.toLowerCase().includes('experience') &&
+          !resumeText.toLowerCase().includes('projects'))));
+
+  if (isThinResume) {
+    return [
+      {
+        priority: 'critical',
+        title: 'Provide a genuine technical resume',
+        detail:
+          'Resume contains insufficient technical content or project evidence to evaluate competency score progression. Provide a genuine technical resume with academic or personal projects, coursework, and technical skills before score progression can be evaluated.',
+        timeframe: 'Immediate',
+        closability: 'not closable by resume alone',
+        suggestedAction:
+          'Provide a genuine technical resume with verified project implementations, engineering details, and technical coursework.',
+        hypotheticalScoreGain: 'not scored',
+        bulletTemplate: 'Provide resume with verified technical projects and coursework.',
+        resources: ['Resume writing guide for software engineering', 'Technical project bullet templates'],
+      },
+    ];
+  }
+
   const plans: {
     priority: 'critical' | 'high' | 'medium';
     title: string;
@@ -925,6 +953,55 @@ export function generateImprovementPlan(
   let cumulativeCurrent = score;
   let actionCount = 0;
   const handledSkills = new Set<string>();
+
+  const simulatedResumeData = resumeText ? parseResumeToScoringInput(resumeText) : null;
+  const reqLevels: Record<string, string> = {};
+  for (const b of breakdown) {
+    reqLevels[b.competency] = b.reqLevel || 'strong';
+  }
+  const confirmedRequirements: ConfirmedRequirement[] = Object.entries(reqLevels).map(([compKey, level], idx) => {
+    const isMust = level === 'expert' || level === 'strong';
+    return {
+      id: `talentlens_req_${idx + 1}_${compKey}`,
+      text: compKey,
+      category: isMust ? 'must' : 'preferred',
+      confidence: 1.0,
+      sourceSentence: `${role?.title || 'Target Role'} competency requirement for ${compKey} (${level} level).`,
+      inTaxonomy: true,
+    };
+  });
+
+  const progression = detectProgressionSignals(resumeText || '');
+  const experienceLevel = progression.yearsOfExperience >= 2.0 ? '2+ yrs' : '0-2 yrs';
+  const roleLevel = (role as any)?.level;
+  const canonicalRoleLevel = normalizeLevel(roleLevel);
+  const jdLevel = mapLevelToJdSeniority(canonicalRoleLevel);
+
+  const computeNextScore = (newBullet: string, fallbackGain: number): { nextScore: number; stepGain: number; isRescored: boolean } => {
+    if (!simulatedResumeData) {
+      const stepGain = fallbackGain;
+      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+      return { nextScore, stepGain, isRescored: false };
+    }
+    simulatedResumeData.projectBullets.push(newBullet);
+    const context: ScoringContext = {
+      experienceLevel,
+      roleFamily: 'Backend',
+      jdPresent: true,
+      confirmedRequirements,
+      jdLevel,
+      archetype: 'indian_high_growth',
+      candidateYearsExperience: progression.yearsOfExperience,
+      requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,
+    };
+    const rescoreTrace = runScoringEngine(context, simulatedResumeData, {
+      tool: 'talentlens',
+      spec: CANONICAL_SCORING_SPEC,
+    });
+    const stepGain = Math.max(1, rescoreTrace.compositeDisplay - cumulativeCurrent);
+    const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+    return { nextScore, stepGain, isRescored: true };
+  };
 
   // 0. Project drops closing multiple gaps (closes consistency - no double counting)
   if (matchedProjects && matchedProjects.length > 0) {
@@ -962,9 +1039,13 @@ export function generateImprovementPlan(
       }
 
       actionCount++;
-      const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
-      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+      const fallback = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
+      const { nextScore, stepGain, isRescored } = computeNextScore(
+        `Engineered ${proj.title} using ${unclosedGaps.join(', ')} with automated unit test suite and benchmarks.`,
+        fallback
+      );
+      const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+      const gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
       plans.push({
@@ -975,7 +1056,7 @@ export function generateImprovementPlan(
         closability: '30 days',
         suggestedAction: `Implement and deploy ${proj.title} adhering to production standards with test suite and metrics.`,
         hypotheticalScoreGain: gainDisplay,
-        bulletTemplate: `Engineered ${proj.title} using ${unclosedGaps.join(', ')}, achieving {{measured metric}} across {{scale}} requests/users.`,
+        bulletTemplate: `Engineered ${proj.title} using ${unclosedGaps.join(', ')}, achieving [fill-in: measured metric] across [fill-in: scale] requests/users.`,
         resources: [
           `GitHub repository template for ${proj.title}`,
           `Benchmarking and test harness suite`,
@@ -1005,9 +1086,13 @@ export function generateImprovementPlan(
         gainDisplay = 'not scored';
       } else {
         actionCount++;
-        const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
-        const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-        gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+        const fallback = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
+        const { nextScore, stepGain, isRescored } = computeNextScore(
+          `Implemented ${b.competency.toUpperCase()} production components with verified unit tests and benchmarks.`,
+          fallback
+        );
+        const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+        gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
         cumulativeCurrent = nextScore;
       }
 
@@ -1019,17 +1104,17 @@ export function generateImprovementPlan(
       if (isSoftSkill) {
         // Soft skills receive authoring artifact template, NEVER deploy project (Fixes D5)
         suggestedAction = `Author a written technical artifact (architecture RFC, system design walkthrough, or technical post-mortem) demonstrating structured communication and decision rationale.`;
-        bulletTemplate = `Authored technical architecture specification for {{system/initiative}}, aligning {{stakeholders}} on {{key design decision}}.`;
+        bulletTemplate = `Authored technical architecture specification for [fill-in: system/initiative], aligning [fill-in: stakeholders] on [fill-in: key design decision].`;
         resources = ['Google Technical Writing Course', 'Architecture Decision Record (ADR) templates', 'Writing effective RFCs for software systems'];
         detail = `"${role.title}" requires effective technical communication. Resume currently lacks documented engineering RFCs or design specs. Action plan: (1) Author an architecture specification, (2) Document trade-offs with explicit constraints, (3) Link public technical documentation in resume.`;
       } else if (isFundamental) {
         suggestedAction = `Complete structured algorithmic patterns (two pointers, trees, graphs) and document problem-solving approaches.`;
-        bulletTemplate = `Optimized core {{algorithmic subsystem}} using {{pattern/data structure}}, reducing time complexity from {{O(n^2)}} to {{O(n log n)}}.`;
+        bulletTemplate = `Optimized core [fill-in: algorithmic subsystem] using [fill-in: pattern/data structure], reducing time complexity from [fill-in: O(n^2)] to [fill-in: O(n log n)].`;
         resources = SKILL_RESOURCES[compKey] || ['NeetCode 150 patterns', 'Designing Data-Intensive Applications — Martin Kleppmann'];
         detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       } else {
         suggestedAction = `Deploy an open-source project showcasing production patterns in ${b.competency.toUpperCase()} with automated tests.`;
-        bulletTemplate = `Built {{feature/system}} with ${b.competency.toUpperCase()}, achieving {{your measured result}} across {{scale}} requests/users.`;
+        bulletTemplate = `Built [fill-in: feature/system] with ${b.competency.toUpperCase()}, achieving [fill-in: your measured result] across [fill-in: scale] requests/users.`;
         resources = SKILL_RESOURCES[compKey] || [`Official ${b.competency} documentation`, `Build 2 practical projects with ${b.competency}`, 'Open-source contributions'];
         detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       }
@@ -1054,9 +1139,12 @@ export function generateImprovementPlan(
     .filter((b) => b.analysis.status === 'working' && (b.reqLevel === 'expert' || b.reqLevel === 'strong') && !handledSkills.has(b.competency.toLowerCase().trim()))
     .forEach((b) => {
       actionCount++;
-      const stepGain = 2;
-      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+${stepGain} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+      const { nextScore, stepGain, isRescored } = computeNextScore(
+        `Optimized ${b.competency.toUpperCase()} implementation with documented production metrics.`,
+        2
+      );
+      const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+      const gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
       plans.push({
@@ -1067,7 +1155,7 @@ export function generateImprovementPlan(
         closability: '7 days',
         suggestedAction: `Rewrite project bullets to name specific tools, versions, and system scale metrics achieved with ${b.competency.toUpperCase()}.`,
         hypotheticalScoreGain: gainDisplay,
-        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect {{specific component}}, improving {{measured metric}} by {{result you measured}}.`,
+        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect [fill-in: specific component], improving [fill-in: measured metric] by [fill-in: result you measured].`,
         resources: [`Deploy project with documented scale`, `Add benchmarks/tests to repository`, `Write engineering post on lessons learned`],
       });
     });
@@ -1084,7 +1172,7 @@ export function generateImprovementPlan(
         closability: '7 days',
         suggestedAction: `Remove raw skill keyword repetitions and integrate into STAR bullet points.`,
         hypotheticalScoreGain: 'not scored',
-        bulletTemplate: `Engineered {{module}} using ${b.competency.toUpperCase()}, optimizing {{metric}} by {{result you measured}}.`,
+        bulletTemplate: `Engineered [fill-in: module] using ${b.competency.toUpperCase()}, optimizing [fill-in: metric] by [fill-in: result you measured].`,
         resources: ['Google XYZ bullet format guide', 'Clean code resume principles'],
       });
     });
@@ -1102,7 +1190,7 @@ export function generateImprovementPlan(
       closability: '7 days',
       suggestedAction: `Review each bullet point and attach a measured outcome (e.g. p99 latency reduction, user volume, test coverage).`,
       hypotheticalScoreGain: 'not scored',
-      bulletTemplate: `Optimized {{subsystem}} resulting in {{result you measured}} (reduced p99 from {{before}} to {{after}}).`,
+      bulletTemplate: `Optimized [fill-in: subsystem] resulting in [fill-in: result you measured] (reduced p99 from [fill-in: before] to [fill-in: after]).`,
       resources: ['STAR method for technical resumes', 'Engineering metric framing guides'],
     });
   }
@@ -1130,7 +1218,7 @@ export function generateImprovementPlan(
     closability: '30 days',
     suggestedAction: 'Align project portfolio with primary stack components used at target company tier.',
     hypotheticalScoreGain: 'not scored',
-    bulletTemplate: `Built {{project}} aligning with ${company.name} engineering stack; validated with {{test suite / metric}}.`,
+    bulletTemplate: `Built [fill-in: project] aligning with ${company.name} engineering stack; validated with [fill-in: test suite / metric].`,
     resources: [`"${company.name} engineering blog"`, `Public interview experience archives`],
   });
 
@@ -1157,6 +1245,97 @@ export interface AnalysisResult {
   invalidReason?: string;
   invalidIssues?: string[];
   bulletRewrites?: BulletRewrite[];
+  projectDrops?: any[];
+  projects?: any[];
+}
+
+/**
+ * Authoritative scoring runner for a resume against a target role.
+ * Executes the core scoring engine and returns compositeDisplay (0-100).
+ */
+export function calculateCalibratedReadinessScore(
+  resumeText: string,
+  company: Company,
+  role: Role,
+  intake?: EligibilityCandidateInput
+): number {
+  const validity = validateResumeAuthenticity(resumeText);
+  if (!validity.isValid) return 0;
+
+  const reqLevelMap = (role.reqLevel as unknown as Record<string, string>) || {};
+  const resumeData = parseResumeToScoringInput(resumeText);
+
+  // 1. Resolve role family
+  const compNames = role.competencies.join(' ').toLowerCase();
+  const title = (role.title || '').toLowerCase();
+  let roleFamily: ScoringContext['roleFamily'] = 'General';
+  if (/frontend|react|ui|web/i.test(title) || /react|typescript/i.test(compNames)) {
+    roleFamily = 'Frontend';
+  } else if (/backend|api|server|cloud/i.test(title) || /java|golang|python|spring/i.test(compNames)) {
+    roleFamily = 'Backend';
+  } else if (/data|ml|ai|machine learning/i.test(title) || /ml|python|pytorch/i.test(compNames)) {
+    roleFamily = 'Data/ML';
+  } else if (/mobile|android|ios/i.test(title) || /kotlin|swift/i.test(compNames)) {
+    roleFamily = 'Mobile';
+  } else if (/devops|sre|infra/i.test(title) || /kubernetes|aws|docker/i.test(compNames)) {
+    roleFamily = 'DevOps';
+  }
+
+  // 2. Resolve archetype
+  let archetype = 'product_mnc_gcc';
+  const canonicalTier = company.tier ? normalizeTier(company.tier) : 'Enterprise';
+  const ind = (company.industry || '').toLowerCase();
+
+  if (canonicalTier === 'Tier S' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
+    archetype = 'quant_trading';
+  } else if (canonicalTier === 'FAANG' || canonicalTier === 'Tech Giant') {
+    archetype = 'big_tech_product';
+  } else if (canonicalTier === 'Unicorn' || /quick commerce|food tech|mobility/i.test(ind)) {
+    archetype = 'indian_high_growth';
+  } else if (canonicalTier === 'IT Services') {
+    archetype = 'service_track';
+  } else if (canonicalTier === 'Startup') {
+    archetype = 'early_growth_startup';
+  } else {
+    archetype = 'product_mnc_gcc';
+  }
+
+  // 3. Build confirmed requirements
+  const confirmedRequirements: ConfirmedRequirement[] = role.competencies.map((compKey, idx) => {
+    const level = reqLevelMap[compKey] || 'working';
+    const isMust = level === 'expert' || level === 'strong';
+    return {
+      id: `tl_req_${idx + 1}_${compKey}`,
+      text: compKey,
+      category: isMust ? 'must' : 'preferred',
+      confidence: 1.0,
+      sourceSentence: `${role.title} requirement for ${compKey} (${level} level).`,
+      inTaxonomy: true,
+    };
+  });
+
+  const progression = detectProgressionSignals(resumeText);
+  const experienceLevel = progression.yearsOfExperience >= 2.0 ? '2+ yrs' : '0-2 yrs';
+
+  const context: ScoringContext = {
+    experienceLevel,
+    roleFamily,
+    jdPresent: true,
+    confirmedRequirements,
+    jdLevel: mapLevelToJdSeniority(normalizeLevel(role?.level)),
+    archetype,
+    candidateYearsExperience: progression.yearsOfExperience,
+    requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,
+    candidateCgpa: intake?.cgpa,
+    candidateBatchYear: intake?.batchYear,
+  };
+
+  const trace = runScoringEngine(context, resumeData, {
+    tool: 'talentlens',
+    spec: CANONICAL_SCORING_SPEC,
+  });
+
+  return trace.compositeDisplay;
 }
 
 /**
@@ -1231,7 +1410,7 @@ export function analyzeRoleMatch(
           timeframe: 'Immediate',
           closability: 'not closable by resume alone',
           suggestedAction: 'Upload or paste an authentic technical resume containing your educational qualifications, project portfolio, and technical skills.',
-          hypotheticalScoreGain: 'Enables calibrated readiness scoring and personalized gap analysis',
+          hypotheticalScoreGain: 'not scored',
           bulletTemplate: 'Education: [Degree] from [Institution] | Technical Skills: [Languages, Frameworks] | Projects: [Title, Tools, Scale]',
           resources: ['Use HireFlow Verified Engineering Sample Resume', 'Google XYZ Resume Formula Guide'],
         },
@@ -1347,7 +1526,30 @@ export function analyzeRoleMatch(
   });
 
   const score = trace.compositeDisplay;
-  const plans = generateImprovementPlan(breakdown, company, role, score);
+
+  const skillStates = buildSkillStates({
+    resumeText,
+    competencies: role.competencies || ['dsa', 'systemdesign'],
+    role,
+    company,
+  });
+
+  const projectMatch = matchProjectsWithIntegrity({
+    skillStates,
+    company,
+    role,
+    breakdown,
+  });
+
+  const plans = generateImprovementPlan(
+    breakdown,
+    company,
+    role,
+    score,
+    skillStates,
+    projectMatch.projects,
+    resumeText
+  );
   const marketIntel = runMarketIntelligenceEngine(resumeText, role.competencies, company, role);
   const bulletRewrites = generateEvidenceSafeRewrites(resumeText, role.competencies);
 
@@ -1379,6 +1581,8 @@ export function analyzeRoleMatch(
     band: trace.band,
     eligibilityStatus,
     bulletRewrites,
+    projectDrops: projectMatch.projects,
+    projects: projectMatch.projects,
   };
 }
 

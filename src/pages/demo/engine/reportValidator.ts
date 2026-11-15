@@ -52,6 +52,244 @@ export interface ReportViolation {
   value?: any;
 }
 
+export interface ValidatorCheckDefinition {
+  number: number;
+  id: ReportViolationCheck;
+  name: string;
+  assertion: string;
+  provingTestFile: string;
+  provingTestName: string;
+  hasNegativeTest: boolean;
+}
+
+export const VALIDATOR_REGISTRY: ValidatorCheckDefinition[] = [
+  {
+    number: 1,
+    id: 'consistency',
+    name: 'State Consistency & Invariant Integrity',
+    assertion: 'Status, score, and band must align; no not-found competency can be described as demonstrated.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 1: consistency (flags mismatch between score and band)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 2,
+    id: 'numbers',
+    name: 'Score Bounds & Numerical Ranges',
+    assertion: 'Scores and percentage numbers must fall within valid bounds [0, 100].',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 2: numbers (flags out-of-bounds scores)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 3,
+    id: 'relevance',
+    name: 'Project Minimum Relevance Threshold',
+    assertion: 'Every recommended project must meet minimum relevance threshold >= 0.20.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 3: relevance (flags project below 0.20 threshold)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 4,
+    id: 'sources',
+    name: 'Grounded Sources & Citations',
+    assertion: 'Every statistic must include source annotation, period, or estimate label.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 4: sources (flags ungrounded company statistics)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 5,
+    id: 'templates',
+    name: 'Template Sanitization & Skill Kind Matching',
+    assertion: 'No raw template syntax outside allowed blocks; soft skills must receive written artifact templates.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 5: templates (flags raw template syntax or soft skill deploying code)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 6,
+    id: 'confidence',
+    name: 'Confidence Score Consistency',
+    assertion: 'Confidence score must correspond to evidence depth and context score.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 6: confidence (flags absent skill with high confidence)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 7,
+    id: 'strengths',
+    name: 'Strengths Evidence Grounding',
+    assertion: 'Every highlighted strength must cite demonstrated skills with evidence quotes.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 7: strengths (flags ungrounded strength claims)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 8,
+    id: 'parse',
+    name: 'Resume Parse Transparency & Verification',
+    assertion: 'Parse block counts must match actual parsed content; thin parses flagged.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 8: parse (flags mismatched parse counts)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 9,
+    id: 'not-assessed',
+    name: 'Not-Assessed Competencies Handling',
+    assertion: 'Not-assessed skills must never be scored 0 or reported as absent.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 9: not-assessed (flags not-assessed skill scored 0)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 10,
+    id: 'dates',
+    name: 'Temporal Consistency & Date Sanity',
+    assertion: 'Work history dates and durations must be plausible and chronologically valid.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 10: dates (flags chronological impossibility)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 11,
+    id: 'anti-gaming',
+    name: 'Anti-Gaming & Keyword Stuffing Detection',
+    assertion: 'Competencies with raw keyword repetition without project context must be flagged.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 11: anti-gaming (flags uncontextualized keyword stuffing)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 12,
+    id: 'evidence',
+    name: 'Evidence Uniqueness & Non-Contradiction',
+    assertion: 'No single evidence quote may serve as primary proof for multiple competencies.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 12: evidence (flags evidence quote reused across skills)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 13,
+    id: 'stack-coverage',
+    name: 'Project Tech Stack Grounding',
+    assertion: 'Project covered skills must strictly be a subset of verified techStack or vetted concepts.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 13: stack-coverage (flags fabricated tech skill)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 14,
+    id: 'coverage',
+    name: 'Candidate Gap Coverage Integrity',
+    assertion: 'Recommended projects must close verified candidate gaps, never non-gaps.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 14: coverage (flags project closes skill not in candidate gaps)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 15,
+    id: 'score-path',
+    name: 'Score Path Reproducibility & Monotonicity',
+    assertion: 'Cumulative score path gains must be strictly monotonic, reproducible by re-scoring, and sum <= 100.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 15: score-path (flags non-monotonic progression)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 16,
+    id: 'project-numbers',
+    name: 'Project Numbers & Plausible Hours',
+    assertion: 'Project estimated hours must fall in [1, 200] and hoursDisplay must match.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 16: project-numbers (flags implausible project hours)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 17,
+    id: 'vetted-concepts',
+    name: 'Vetted Concept Tags Grounding',
+    assertion: 'All claimed concept tags must have backing textual evidence in the brief.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 17: vetted-concepts (flags ungrounded concept tag)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 18,
+    id: 'determinism',
+    name: 'Order-Independence & Determinism',
+    assertion: 'Engine execution and evidence assignment must be order-independent and deterministic with zero NaN.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 18: determinism (flags NaN or non-finite score)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 19,
+    id: 'before-substring',
+    name: 'Before-Substring Verbatim Integrity',
+    assertion: 'Original bullet in every rewrite must be an exact verbatim substring of the candidate resume.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 19: before-substring (flags rewrite of non-existent bullet)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 20,
+    id: 'no-new-digits',
+    name: 'Zero New Digits or Quantified Numbers',
+    assertion: 'Rewritten bullets must never introduce new digits or number words not in the source bullet.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 20: no-new-digits (flags rewrite introducing new numbers or number words)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 21,
+    id: 'allowed-words-or-slots',
+    name: 'Allowed Words, Syntactic Connectives or Slots',
+    assertion: 'All content words in rewritten bullets must exist in source or neutral connectives list; zero introduced action/outcome words.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 21: allowed-words-or-slots (flags forbidden action/outcome words)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 22,
+    id: 'ownership-guard',
+    name: 'Weak Verb Ownership Guard',
+    assertion: 'Weak ownership verbs must never be upgraded to strong action verbs without an explicit bracketed slot.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 22: ownership-guard (flags weak verb upgraded without slot)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 23,
+    id: 'slot-markers',
+    name: 'Slots Only Inside Rewrite and Fill-in Blocks',
+    assertion: 'Slot markers must use valid [add: ...] or [fill-in: ...] syntax and only appear inside rewrite/fill-in blocks.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 23: slot-markers (flags malformed slot syntax)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 24,
+    id: 'rewrite-determinism',
+    name: 'Rewrite Determinism & Unique Identifiers',
+    assertion: 'Bullet rewrite IDs must be unique and generate deterministically across repeated runs.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 24: rewrite-determinism (flags duplicate rewrite IDs)',
+    hasNegativeTest: true,
+  },
+  {
+    number: 25,
+    id: 'max-rewrites',
+    name: 'At Most 5 Rewrites Enforcement',
+    assertion: 'A report must contain at most 5 bullet rewrites to preserve candidate authenticity.',
+    provingTestFile: 'tests/talentlens/validatorHygiene.test.ts',
+    provingTestName: 'Negative Check 25: max-rewrites (flags more than 5 rewrites in report)',
+    hasNegativeTest: true,
+  },
+];
+
 export interface ValidateReportResult {
   isValid: boolean;
   violations: ReportViolation[];
@@ -299,7 +537,7 @@ export function validateReport(report: any): ValidateReportResult {
   const seenGainRanges = new Set<string>();
   for (const plan of plans) {
     const gainStr = plan.hypotheticalScoreGain;
-    if (gainStr && typeof gainStr === 'string' && plan.priority === 'critical') {
+    if (gainStr && typeof gainStr === 'string' && plan.priority === 'critical' && gainStr !== 'not scored' && /\+\d+/.test(gainStr)) {
       if (seenGainRanges.has(gainStr)) {
         violations.push({
           check: 'numbers',
@@ -548,8 +786,9 @@ export function validateReport(report: any): ValidateReportResult {
     if (gainStr && typeof gainStr === 'string') {
       const titleLower = (plan.title || '').toLowerCase();
       const isSoftSkill =
-        classifySkillKind(titleLower) === 'soft-skill' ||
-        /communication|leadership|collaboration|teamwork/.test(titleLower);
+        (/communication|leadership|collaboration|teamwork/i.test(titleLower) &&
+          !/protocol|acme|tls|daemon|engine|service|pipeline|cluster|database|cache/i.test(titleLower)) ||
+        (!/^build\s+/i.test(titleLower) && classifySkillKind(titleLower) === 'soft-skill');
 
       if (isSoftSkill) {
         if (!/not scored/i.test(gainStr)) {

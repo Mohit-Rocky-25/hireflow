@@ -109,7 +109,7 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
   });
 
   describe('E.2: Comprehensive Negative Tests for All Checks 1-25', () => {
-    it('Negative Check 1 & 5: skill-state-valid (flags absent skill claiming evidence)', () => {
+    it('Negative Check 1: consistency (flags mismatch between score and band)', () => {
       const badReport = {
         breakdown: [{ competency: 'golang', status: 'absent', score: 0 }],
         marketIntel: {
@@ -120,7 +120,7 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'consistency')).toBe(true);
     });
 
-    it('Negative Check 2 & 4: numbers (flags out-of-bounds score)', () => {
+    it('Negative Check 2: numbers (flags out-of-bounds scores)', () => {
       const badReport = {
         overallScore: 105, // > 100
         breakdown: [],
@@ -129,15 +129,51 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'numbers')).toBe(true);
     });
 
-    it('Negative Check 6: confidence-valid (flags invalid confidence tag)', () => {
+    it('Negative Check 3: relevance (flags project below 0.20 threshold)', () => {
       const badReport = {
-        breakdown: [{ competency: 'react', status: 'demonstrated', score: 85, confidenceTag: 'SuperHigh' }],
+        projectDrops: [
+          { title: 'Low Relevance Project', relevanceScore: 0.15 },
+        ],
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'relevance')).toBe(true);
+    });
+
+    it('Negative Check 4: sources (flags ungrounded company statistics)', () => {
+      const badReport = {
+        companyContext: {
+          hires2024: '100 hires', // missing source/period/estimate annotation
+        },
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'sources')).toBe(true);
+    });
+
+    it('Negative Check 5: templates (flags raw template syntax or soft skill deploying code)', () => {
+      const badReport = {
+        learningPath: {
+          plans: [
+            {
+              title: 'Build Communication',
+              suggestedAction: 'Deploy code project',
+              bulletTemplate: 'Deploy {{code}}', // raw double braces
+            },
+          ],
+        },
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'templates')).toBe(true);
+    });
+
+    it('Negative Check 6: confidence (flags absent skill with high confidence)', () => {
+      const badReport = {
+        breakdown: [{ competency: 'react', status: 'absent', score: 0, confidenceTag: 'High' }],
       };
       const res = validateReport(badReport);
       expect(res.violations.some((v) => v.check === 'confidence')).toBe(true);
     });
 
-    it('Negative Check 7 & 10: strengths-subset (flags non-demonstrated strength)', () => {
+    it('Negative Check 7: strengths (flags non-demonstrated strength)', () => {
       const badReport = {
         breakdown: [{ competency: 'python', status: 'absent', score: 0 }],
         strengths: ['python'],
@@ -155,7 +191,7 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'parse')).toBe(true);
     });
 
-    it('Negative Check 9 & 12: not-assessed (flags soft skill marked demonstrated without code claims)', () => {
+    it('Negative Check 9: not-assessed (flags soft skill marked demonstrated without code claims)', () => {
       const badReport = {
         breakdown: [{ competency: 'leadership', status: 'demonstrated', score: 90 }],
       };
@@ -163,54 +199,45 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'not-assessed')).toBe(true);
     });
 
-    it('Negative Check 10 & 18: score-path (flags non-monotonic score path)', () => {
+    it('Negative Check 10: dates (flags chronological impossibility)', () => {
       const badReport = {
-        overallScore: 50,
-        learningPath: {
-          plans: [
-            { hypotheticalScoreGain: 'Cumulative path: 50 -> 45' }, // drops from 50 to 45
-          ],
-        },
+        asOfDate: '2099-01-01', // future date
       };
       const res = validateReport(badReport);
-      expect(res.violations.some((v) => v.check === 'score-path')).toBe(true);
+      expect(res.violations.some((v) => v.check === 'dates')).toBe(true);
     });
 
-    it('Negative Check 11 & 16: project-numbers (flags zero or negative project hours)', () => {
+    it('Negative Check 11: anti-gaming (flags uncontextualized keyword stuffing)', () => {
       const badReport = {
-        projectDrops: [
-          { title: 'Invalid Project', estimatedHours: 0, hoursDisplay: '~0 hrs' },
-        ],
-      };
-      const res = validateReport(badReport);
-      expect(res.violations.some((v) => v.check === 'project-numbers')).toBe(true);
-    });
-
-    it('Negative Check 12 & 17: vetted-concepts (flags ungrounded concept tag)', () => {
-      const badReport = {
-        projectDrops: [
+        breakdown: [
           {
-            id: 'brief-fintech-idempotent-ledger',
-            title: 'Immutable Double-Entry General Ledger',
-            coveredSkills: ['Systems Programming'], // not in techStack and lacks proof in text
+            competency: 'kubernetes',
+            analysis: {
+              antiGamingFlag: true,
+              evidence: ['deployed, engineered, and scaled production services with zero downtime and verified metrics'],
+            },
           },
         ],
       };
       const res = validateReport(badReport);
-      expect(res.violations.some((v) => v.check === 'vetted-concepts')).toBe(true);
+      expect(res.violations.some((v) => v.check === 'anti-gaming')).toBe(true);
     });
 
-    it('Negative Check 13 & 17: relevance (flags project below 0.20 threshold)', () => {
+    it('Negative Check 12: evidence (flags evidence quote reused across skills)', () => {
       const badReport = {
-        projectDrops: [
-          { title: 'Low Relevance Project', relevanceScore: 0.15 },
+        resumeText: 'Real resume with brief text.',
+        breakdown: [
+          {
+            competency: 'golang',
+            evidenceQuotes: ['This is a completely fabricated quote that does not exist anywhere in the candidate resume text.'],
+          },
         ],
       };
       const res = validateReport(badReport);
-      expect(res.violations.some((v) => v.check === 'relevance')).toBe(true);
+      expect(res.violations.some((v) => v.check === 'evidence')).toBe(true);
     });
 
-    it('Negative Check 14: stack-coverage (flags fabricated tech skill)', () => {
+    it('Negative Check 13: stack-coverage (flags fabricated tech skill)', () => {
       const badReport = {
         projectDrops: [
           {
@@ -224,7 +251,7 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'stack-coverage')).toBe(true);
     });
 
-    it('Negative Check 15: coverage (flags project closes skill not in candidate gaps)', () => {
+    it('Negative Check 14: coverage (flags project closes skill not in candidate gaps)', () => {
       const badReport = {
         breakdown: [{ competency: 'golang', status: 'absent' }],
         projectDrops: [
@@ -236,6 +263,51 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       };
       const res = validateReport(badReport);
       expect(res.violations.some((v) => v.check === 'coverage')).toBe(true);
+    });
+
+    it('Negative Check 15: score-path (flags non-monotonic score path)', () => {
+      const badReport = {
+        overallScore: 50,
+        learningPath: {
+          plans: [
+            { hypotheticalScoreGain: 'Cumulative path: 50 -> 45' }, // drops from 50 to 45
+          ],
+        },
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'score-path')).toBe(true);
+    });
+
+    it('Negative Check 16: project-numbers (flags zero or negative project hours)', () => {
+      const badReport = {
+        projectDrops: [
+          { title: 'Invalid Project', estimatedHours: 0, hoursDisplay: '~0 hrs' },
+        ],
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'project-numbers')).toBe(true);
+    });
+
+    it('Negative Check 17: vetted-concepts (flags ungrounded concept tag)', () => {
+      const badReport = {
+        projectDrops: [
+          {
+            id: 'brief-fintech-idempotent-ledger',
+            title: 'Immutable Double-Entry General Ledger',
+            coveredSkills: ['Systems Programming'], // not in techStack and lacks proof in text
+          },
+        ],
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'vetted-concepts')).toBe(true);
+    });
+
+    it('Negative Check 18: determinism (flags NaN or non-finite score)', () => {
+      const badReport = {
+        score: NaN,
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'determinism')).toBe(true);
     });
 
     it('Negative Check 19: before-substring (flags rewrite of non-existent bullet)', () => {

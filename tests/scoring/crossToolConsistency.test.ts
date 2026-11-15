@@ -269,7 +269,7 @@ describe('Cross-Tool Consistency (Task 4.7)', () => {
       expect(plan.bulletTemplate).toBeDefined();
 
       // Ensure bullet templates use placeholders instead of invented metrics
-      expect(plan.bulletTemplate).toMatch(/\{\{.*\}\}/);
+      expect(plan.bulletTemplate).toMatch(/\{\{.*\}\}|\[fill-in:.*\]/);
       expect(plan.bulletTemplate).not.toContain('42%');
       expect(plan.bulletTemplate).not.toContain('10M');
     }

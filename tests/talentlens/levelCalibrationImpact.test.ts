@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { COMPANIES } from '../../src/pages/demo/talentLensData';
-import { analyzeRoleMatch } from '../../src/pages/demo/talentLensEngine';
+import { calculateCalibratedReadinessScore } from '../../src/pages/demo/talentLensEngine';
 import { normalizeLevel, mapLevelToJdSeniority } from '../../src/pages/demo/engine/levelNormalizer';
 
 const ARCHETYPES = {
@@ -74,15 +74,15 @@ describe('Level Calibration Impact Audit', () => {
         const rowDeltas: number[] = [];
 
         for (const [archKey, resumeText] of Object.entries(ARCHETYPES) as [keyof typeof ARCHETYPES, string][]) {
-          const resOld = analyzeRoleMatch(resumeText, c, roleOld);
-          const resNew = analyzeRoleMatch(resumeText, c, roleNew);
-          const delta = resNew.score - resOld.score;
+          const scoreOld = calculateCalibratedReadinessScore(resumeText, c, roleOld);
+          const scoreNew = calculateCalibratedReadinessScore(resumeText, c, roleNew);
+          const delta = scoreNew - scoreOld;
 
           archetypeDeltas[archKey].push(delta);
           rowDeltas.push(delta);
 
-          const bandOld = (resOld.band as any)?.name || (typeof resOld.band === 'string' ? resOld.band : getFitBand(resOld.score));
-          const bandNew = (resNew.band as any)?.name || (typeof resNew.band === 'string' ? resNew.band : getFitBand(resNew.score));
+          const bandOld = getFitBand(scoreOld);
+          const bandNew = getFitBand(scoreNew);
           beforeBands[bandOld] = (beforeBands[bandOld] || 0) + 1;
           afterBands[bandNew] = (afterBands[bandNew] || 0) + 1;
         }

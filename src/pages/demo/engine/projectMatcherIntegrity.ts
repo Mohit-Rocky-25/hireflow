@@ -52,13 +52,22 @@ export interface ProjectRecommendationResult {
 const ALL_BRIEFS: ProjectBrief[] = briefsData as ProjectBrief[];
 
 // Skill normalization map
-const SKILL_CANONICAL_MAP: Record<string, string> = {
+export const SKILL_CANONICAL_MAP: Record<string, string> = {
   go: 'Go',
   golang: 'Go',
   java: 'Java',
   python: 'Python',
   typescript: 'TypeScript',
   javascript: 'JavaScript',
+  'c++': 'C++',
+  cpp: 'C++',
+  'c#': 'C#',
+  csharp: 'C#',
+  '.net': '.NET',
+  dotnet: '.NET',
+  r: 'R',
+  'ci/cd': 'CI/CD',
+  cicd: 'CI/CD',
   react: 'React',
   'react.js': 'React',
   'node.js': 'Node.js',
@@ -155,6 +164,15 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   react: [
     'react', 'react.js', 'reactjs', 'next.js', 'nextjs', 'frontend', 'ui', 'web'
   ],
+  'c++': ['c++', 'cpp', 'c / c++', 'c/c++'],
+  cpp: ['c++', 'cpp', 'c / c++', 'c/c++'],
+  'c#': ['c#', 'csharp', '.net', 'dotnet'],
+  csharp: ['c#', 'csharp', '.net', 'dotnet'],
+  '.net': ['.net', 'dotnet', 'c#', 'asp.net', 'csharp'],
+  dotnet: ['.net', 'dotnet', 'c#', 'asp.net', 'csharp'],
+  'ci/cd': ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
+  cicd: ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
+  r: ['r', 'r programming'],
 };
 
 export function getCanonicalSkillName(skill: string): string {
@@ -195,6 +213,28 @@ export function matchSkillToken(projectSkill: string, targetSkill: string): bool
   if (tNorm.includes(' ') && pNorm.includes(tNorm)) return true;
   if (pNorm.includes(' ') && tNorm.includes(pNorm)) return true;
 
+  // Handle special punctuation tokens like c++, c#, .net, r, ci/cd, node.js
+  if (['c++', 'cpp', 'c#', 'csharp', '.net', 'dotnet', 'r', 'ci/cd', 'cicd', 'node.js', 'nodejs'].includes(tNorm)) {
+    if (tNorm === 'c++' || tNorm === 'cpp') {
+      return /(?:^|[\s,;(/&])(?:c\+\+|cpp)(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+    if (tNorm === 'c#' || tNorm === 'csharp') {
+      return /(?:^|[\s,;(/&])(?:c#|csharp)(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+    if (tNorm === '.net' || tNorm === 'dotnet') {
+      return /(?:^|[\s,;(/&])(?:\.net|dotnet)(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+    if (tNorm === 'ci/cd' || tNorm === 'cicd') {
+      return /(?:^|[\s,;(/&])(?:ci\/cd|cicd)(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+    if (tNorm === 'node.js' || tNorm === 'nodejs') {
+      return /(?:^|[\s,;(/&])(?:node\.js|nodejs)(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+    if (tNorm === 'r') {
+      return /(?:^|[\s,;(/&])r(?:$|[\s,;)/&])/i.test(projectSkill);
+    }
+  }
+
   // For distinct tokens require word boundary
   const regT = getTokenRegex(tNorm);
   if (regT.test(pNorm)) return true;
@@ -202,20 +242,36 @@ export function matchSkillToken(projectSkill: string, targetSkill: string): bool
   return false;
 }
 
+const BRIEF_GAP_COVERAGE_CACHE = new Map<string, boolean>();
+
 /**
  * Checks whether a project's real skills cover a specific candidate skill gap.
  */
-export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: string): boolean {
+export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: string, briefId?: string): boolean {
   const gNorm = gapSkillId.toLowerCase().trim().replace(/[-_]/g, ' ');
   const gClean = gapSkillId.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+
+  if (briefId) {
+    const cacheKey = `${briefId}::${gClean}`;
+    const cached = BRIEF_GAP_COVERAGE_CACHE.get(cacheKey);
+    if (cached !== undefined) return cached;
+  }
+
   const aliases = SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
 
-  return projectRealSkills.some((ps) => {
+  const result = projectRealSkills.some((ps) => {
     // Check target gap ID directly
     if (matchSkillToken(ps, gNorm) || matchSkillToken(ps, gClean)) return true;
     // Check all known aliases
     return aliases.some((alias) => matchSkillToken(ps, alias));
   });
+
+  if (briefId) {
+    const cacheKey = `${briefId}::${gClean}`;
+    BRIEF_GAP_COVERAGE_CACHE.set(cacheKey, result);
+  }
+
+  return result;
 }
 
 const BRIEF_REAL_SKILLS_CACHE = new Map<string, string[]>();
@@ -309,7 +365,8 @@ function computeDomainFit(
 export function computeStackFit(
   briefSkills: string[],
   gapSkills: SkillState[],
-  _roleTitle?: string
+  _roleTitle?: string,
+  briefId?: string
 ): number {
   const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
   const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
@@ -319,7 +376,7 @@ export function computeStackFit(
     // MUST cover at least one of those language gaps in its verified tech stack.
     // Absolutely NO free credit for non-language gaps.
     const coversLanguageGap = languageGaps.some((lg) =>
-      doesProjectCoverSkill(briefSkills, lg.id)
+      doesProjectCoverSkill(briefSkills, lg.id, briefId)
     );
 
     if (!coversLanguageGap) {
@@ -331,13 +388,13 @@ export function computeStackFit(
     if (nonLanguageGaps.length === 0) {
       return 1.0;
     }
-    const coveredNonLang = nonLanguageGaps.filter((g) => doesProjectCoverSkill(briefSkills, g.id)).length;
+    const coveredNonLang = nonLanguageGaps.filter((g) => doesProjectCoverSkill(briefSkills, g.id, briefId)).length;
     return 0.80 + 0.20 * (coveredNonLang / nonLanguageGaps.length);
   }
 
   // If candidate has NO primary language gaps (e.g. only databases, system design):
   // stackFit is computed strictly over the gap skills the project actually covers, with NO free credit
-  const coveredGaps = gapSkills.filter((g) => doesProjectCoverSkill(briefSkills, g.id));
+  const coveredGaps = gapSkills.filter((g) => doesProjectCoverSkill(briefSkills, g.id, briefId));
   if (coveredGaps.length === 0) {
     return 0.0;
   }
@@ -357,11 +414,35 @@ export function matchProjectsWithIntegrity(params: {
   skillStates: SkillState[];
   company?: { name?: string; industry?: string; tier?: string };
   role?: { title?: string; level?: string };
+  breakdown?: Array<{ competency: string; analysis?: { status: string }; status?: string }>;
 }): ProjectRecommendationResult {
-  const { skillStates, company, role } = params;
+  const { skillStates, company, role, breakdown } = params;
+
+  // Skills already confirmed strong/expert in competency analysis are NOT candidate gaps
+  const strongCompetencies = new Set<string>();
+  if (breakdown) {
+    for (const b of breakdown) {
+      const st = b.status || b.analysis?.status;
+      if (st === 'strong' || st === 'expert') {
+        const comp = (b.competency || '').toLowerCase().trim();
+        strongCompetencies.add(comp);
+        const canon = getCanonicalSkillName(comp);
+        if (canon) strongCompetencies.add(canon.toLowerCase().trim());
+        const fmt = formatCompetencyName(comp);
+        if (fmt) strongCompetencies.add(fmt.toLowerCase().trim());
+      }
+    }
+  }
 
   // Candidate gaps that need proof-of-work
-  const gapSkills = skillStates.filter((s) => s.status === 'not-found' || s.status === 'mentioned');
+  const gapSkills = skillStates.filter((s) => {
+    if (s.status !== 'not-found' && s.status !== 'mentioned') return false;
+    const sId = s.id.toLowerCase().trim();
+    if (strongCompetencies.has(sId)) return false;
+    const canon = getCanonicalSkillName(sId);
+    if (canon && strongCompetencies.has(canon.toLowerCase().trim())) return false;
+    return true;
+  });
 
   interface EvaluatedProject {
     brief: ProjectBrief;
@@ -386,14 +467,14 @@ export function matchProjectsWithIntegrity(params: {
     // Compute which candidate gaps are closed by this project's real skills
     const closedGaps: string[] = [];
     for (const gap of gapSkills) {
-      if (doesProjectCoverSkill(realSkills, gap.id)) {
+      if (doesProjectCoverSkill(realSkills, gap.id, brief.id)) {
         closedGaps.push(formatCompetencyName(gap.id));
       }
     }
 
     const gapCoverage = gapSkills.length > 0 ? (closedGaps.length / gapSkills.length) : 0.5;
     const domainFit = computeDomainFit(brief.domain, company?.industry, role?.title);
-    const stackFit = computeStackFit(realSkills, gapSkills, role?.title);
+    const stackFit = computeStackFit(realSkills, gapSkills, role?.title, brief.id);
 
     const relevance = gapCoverage * domainFit * stackFit;
 
