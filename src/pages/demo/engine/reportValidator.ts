@@ -6,8 +6,9 @@
 
 import briefsData from '../../../data/suite/project-briefs.json';
 import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
-import { deriveBriefRealSkills, MIN_PROJECT_RELEVANCE_THRESHOLD } from './projectMatcherIntegrity';
+import { deriveBriefRealSkills, getCanonicalSkillName, MIN_PROJECT_RELEVANCE_THRESHOLD } from './projectMatcherIntegrity';
 import { classifySkillKind } from './skillStateEngine';
+import { validateBriefConcepts, CONCEPT_DEFINITIONS } from './conceptTagValidator';
 
 export type ReportViolationCheck =
   | 'consistency'
@@ -21,7 +22,11 @@ export type ReportViolationCheck =
   | 'parse'
   | 'not-assessed'
   | 'confidence'
-  | 'stack-coverage';
+  | 'stack-coverage'
+  | 'score-path'
+  | 'project-numbers'
+  | 'vetted-concepts'
+  | 'determinism';
 
 export interface ReportViolation {
   check: ReportViolationCheck;
@@ -122,6 +127,16 @@ export function validateReport(report: any): ValidateReportResult {
             field: 'projectDrops.coveredSkills',
             value: cov,
           });
+
+          const kind = classifySkillKind(cov);
+          if (kind === 'concept' || (kind === 'database' && /acid|transaction/i.test(cov))) {
+            violations.push({
+              check: 'vetted-concepts',
+              message: `Project "${p.title}" claims concept "${cov}" without verified textual evidence in its brief.`,
+              field: 'projectDrops.coveredSkills',
+              value: cov,
+            });
+          }
         }
       }
       // Production sanitize: filter to real skills only
@@ -391,6 +406,148 @@ export function validateReport(report: any): ValidateReportResult {
         });
         b.confidenceTag = 'Low';
       }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 15: Score Path Reproducibility & Monotonicity
+  // ─────────────────────────────────────────────────────────────
+  for (const plan of plans) {
+    const gainStr = plan.hypotheticalScoreGain;
+    if (gainStr && typeof gainStr === 'string') {
+      const titleLower = (plan.title || '').toLowerCase();
+      const isSoftSkill =
+        classifySkillKind(titleLower) === 'soft-skill' ||
+        /communication|leadership|collaboration|teamwork/.test(titleLower);
+
+      if (isSoftSkill) {
+        if (!/not scored/i.test(gainStr)) {
+          violations.push({
+            check: 'score-path',
+            message: `Soft skill action "${plan.title}" must have gain "not scored" and add 0 pts.`,
+            field: 'plans.hypotheticalScoreGain',
+            value: gainStr,
+          });
+          plan.hypotheticalScoreGain = 'not scored';
+        }
+      } else {
+        const matchPath = gainStr.match(/Cumulative path:\s*(\d+)\s*->\s*(\d+)/i);
+        if (matchPath) {
+          const fromScore = parseInt(matchPath[1], 10);
+          const toScore = parseInt(matchPath[2], 10);
+          if (toScore < fromScore) {
+            violations.push({
+              check: 'score-path',
+              message: `Non-monotonic score path progression (${fromScore} -> ${toScore}) in action "${plan.title}".`,
+              field: 'plans.hypotheticalScoreGain',
+              value: gainStr,
+            });
+          }
+          if (toScore > 100) {
+            violations.push({
+              check: 'score-path',
+              message: `Cumulative score projection ${toScore} exceeds 100.`,
+              field: 'plans.hypotheticalScoreGain',
+              value: toScore,
+            });
+            plan.hypotheticalScoreGain = gainStr.replace(/->\s*\d+/, '-> 100');
+          }
+        }
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 16: Project Numbers Recomputation (hours and closed gaps)
+  // ─────────────────────────────────────────────────────────────
+  for (const p of projectDrops) {
+    if (p.estimatedHours != null) {
+      if (p.estimatedHours <= 0 || p.estimatedHours > 200) {
+        violations.push({
+          check: 'project-numbers',
+          message: `Project "${p.title}" estimated hours ${p.estimatedHours} outside plausible range [1, 200].`,
+          field: 'projectDrops.estimatedHours',
+          value: p.estimatedHours,
+        });
+      }
+    }
+    if (p.hoursDisplay && p.estimatedHours) {
+      const expectedHoursDisplay = `~${p.estimatedHours} hrs`;
+      if (p.hoursDisplay !== expectedHoursDisplay && !/estimate/i.test(p.hoursDisplay)) {
+        violations.push({
+          check: 'project-numbers',
+          message: `Project "${p.title}" hoursDisplay "${p.hoursDisplay}" does not match estimated hours "${expectedHoursDisplay}".`,
+          field: 'projectDrops.hoursDisplay',
+          value: p.hoursDisplay,
+        });
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 17: Vetted Concept Tags (concepts must have backing evidence in brief text)
+  // ─────────────────────────────────────────────────────────────
+  for (const p of projectDrops) {
+    const brief = BRIEFS_MAP.get(p.id) || BRIEFS_MAP.get((p.title || '').toLowerCase().trim());
+    if (brief) {
+      const { vettedConceptTags } = validateBriefConcepts(brief);
+      const vettedLower = vettedConceptTags.map((c) => c.toLowerCase());
+      const claimedSkills: string[] = p.coveredSkills || [];
+
+      for (const s of claimedSkills) {
+        const sLower = s.toLowerCase();
+
+        // Check if s matches any defined concept definition
+        const matchedConcept = CONCEPT_DEFINITIONS.find((def) =>
+          def.label.toLowerCase() === sLower ||
+          def.aliases.some((a) => a.toLowerCase() === sLower)
+        );
+
+        if (matchedConcept) {
+          // If the brief also has this exact skill in techStack, it's grounded in technology stack
+          const isTechGrounded = (brief.techStack || []).some((t) => {
+            const tNorm = getCanonicalSkillName(t).toLowerCase();
+            return tNorm === sLower || t.toLowerCase() === sLower;
+          });
+
+          if (!isTechGrounded) {
+            const isVetted = vettedLower.some(
+              (vl) => vl.includes(matchedConcept.label.toLowerCase()) || matchedConcept.label.toLowerCase().includes(vl)
+            );
+            if (!isVetted) {
+              violations.push({
+                check: 'vetted-concepts',
+                message: `Project "${p.title}" claims concept "${s}" without verified textual evidence in its brief.`,
+                field: 'projectDrops.coveredSkills',
+                value: s,
+              });
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 18: Determinism & Non-Degeneracy
+  // ─────────────────────────────────────────────────────────────
+  const overallScore = sanitized.score ?? sanitized.overallScore ?? sanitized.result?.score;
+  if (typeof overallScore === 'number' && (Number.isNaN(overallScore) || !Number.isFinite(overallScore))) {
+    violations.push({
+      check: 'determinism',
+      message: `Overall score is NaN or non-finite.`,
+      field: 'score',
+      value: overallScore,
+    });
+  }
+  for (const b of breakdown) {
+    if (typeof b.score === 'number' && Number.isNaN(b.score)) {
+      violations.push({
+        check: 'determinism',
+        message: `Competency score for "${b.competency || b.key}" is NaN.`,
+        field: 'breakdown.score',
+        value: b.score,
+      });
     }
   }
 

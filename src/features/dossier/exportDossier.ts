@@ -151,6 +151,12 @@ export function generateMarkdownDossier(model: DossierModel): string {
       lines.push(``);
       for (const [idx, p] of model.projectDrops.entries()) {
         lines.push(`#### Project Drop ${idx + 1}: ${p.title} (${p.domain} • ${p.difficulty.toUpperCase()} • ~${p.estimatedHours} hrs)`);
+        if (p.whyThisProject) {
+          lines.push(`- **Why this project**: ${p.whyThisProject}`);
+        }
+        if (p.closes && p.closes.length > 0) {
+          lines.push(`- **Closes**: ${p.closes.join(', ')}`);
+        }
         lines.push(`- **Covered Skills**: ${p.coveredSkills.join(', ')}`);
         lines.push(`- **Problem Statement**: ${p.problemStatement}`);
         lines.push(`- **Architecture & Stack**: ${p.architecture}`);

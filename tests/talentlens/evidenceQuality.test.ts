@@ -342,6 +342,34 @@ Quality Control Inspector at Precision Mechanical Components
     expect(idempStackFit).toBeGreaterThanOrEqual(0.70);
   });
 
+  it('Stack-fit language gap semantics: multi-language gap (Go+Python) and zero-language gap', () => {
+    // 1. Candidate lacks Go AND Python (2 language gaps):
+    // A project covering Go (Double-Entry Ledger) is NOT disqualified because it covers Go.
+    // A project covering only Java (Idempotent Ledger) is disqualified (returns 0.0 stack fit).
+    const doubleEntryBrief = (briefsData as any[]).find((b) => b.id === 'brief-double-entry-ledger')!;
+    const idempotentLedgerBrief = (briefsData as any[]).find((b) => b.id === 'brief-fintech-idempotent-ledger')!;
+    const deSkills = deriveBriefRealSkills(doubleEntryBrief);
+    const idempSkills = deriveBriefRealSkills(idempotentLedgerBrief); // Java
+    const multiLangGaps = [
+      { id: 'golang', status: 'not-found' } as any,
+      { id: 'python', status: 'not-found' } as any,
+    ];
+
+    const deMultiStackFit = computeStackFit(deSkills, multiLangGaps);
+    const idempMultiStackFit = computeStackFit(idempSkills, multiLangGaps);
+
+    expect(deMultiStackFit).toBeGreaterThan(0); // Covers Go, so NOT disqualified
+    expect(idempMultiStackFit).toBe(0.0); // Covers neither Go nor Python, so disqualified
+
+    // 2. Candidate with ZERO language gaps (only non-language gap e.g. databases & system design):
+    const nonLangGaps = [
+      { id: 'databases', status: 'not-found' } as any,
+      { id: 'systemdesign', status: 'not-found' } as any,
+    ];
+    const deNonLangStackFit = computeStackFit(deSkills, nonLangGaps);
+    expect(deNonLangStackFit).toBeGreaterThanOrEqual(0.70);
+  });
+
   it('Stage C: Normalizes all 13 dataset tier variants into 10 canonical tiers', () => {
     expect(normalizeTier('FAANG')).toBe('FAANG');
     expect(normalizeTier('Tech Giant')).toBe('Tech Giant');
@@ -383,5 +411,131 @@ Quality Control Inspector at Precision Mechanical Components
         expect(p.hypotheticalScoreGain).toContain('calibrated estimate, per action, not additive');
       }
     }
+  });
+
+  it('Check 15: Score path reproducibility, monotonicity, and soft skill zero gain', () => {
+    const company = { name: 'Acme Corp', tier: 'Unicorn', industry: 'Fintech' };
+    const role = { title: 'Software Engineer', level: 'Entry', competencies: ['dsa', 'golang', 'communication'] };
+    const breakdown = [
+      {
+        competency: 'golang',
+        analysis: { status: 'absent', confidence: 0, layerScores: { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 }, evidence: [], contextSentences: [], gaps: [] },
+        reqLevel: 'strong',
+      },
+      {
+        competency: 'communication',
+        analysis: { status: 'absent', confidence: 0, layerScores: { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 }, evidence: [], contextSentences: [], gaps: [] },
+        reqLevel: 'strong',
+      },
+    ];
+
+    const plans = generateImprovementPlan(breakdown as any, company as any, role as any, 54);
+    const commPlan = plans.find((p) => p.title.toLowerCase().includes('communication'));
+    const goPlan = plans.find((p) => p.title.toLowerCase().includes('golang'));
+
+    expect(commPlan).toBeDefined();
+    expect(commPlan?.hypotheticalScoreGain).toBe('not scored');
+
+    expect(goPlan).toBeDefined();
+    expect(goPlan?.hypotheticalScoreGain).toMatch(/Cumulative path:\s*54\s*->\s*\d+/);
+
+    // Validator check 15 passes cleanly
+    const reportValid = validateReport({
+      score: 54,
+      breakdown: [],
+      plans,
+      projectDrops: [],
+    });
+    expect(reportValid.violations.filter((v) => v.check === 'score-path')).toHaveLength(0);
+
+    // Negative case: non-monotonic score path triggers check 15 violation
+    const invalidPlans = JSON.parse(JSON.stringify(plans));
+    invalidPlans[0].hypotheticalScoreGain = 'Cumulative path: 60 -> 50';
+    const reportInvalid = validateReport({
+      score: 54,
+      breakdown: [],
+      plans: invalidPlans,
+      projectDrops: [],
+    });
+    expect(reportInvalid.violations.some((v) => v.check === 'score-path')).toBe(true);
+  });
+
+  it('Check 16: Project numbers recomputation and hours range gating', () => {
+    const validReport = {
+      score: 60,
+      breakdown: [],
+      plans: [],
+      projectDrops: [
+        {
+          id: 'brief-double-entry-ledger',
+          title: 'Double-Entry General Ledger Engine',
+          estimatedHours: 90,
+          hoursDisplay: '~90 hrs',
+          coveredSkills: ['Go', 'PostgreSQL'],
+        },
+      ],
+    };
+
+    const res = validateReport(validReport);
+    expect(res.violations.filter((v) => v.check === 'project-numbers')).toHaveLength(0);
+
+    // Invalid hoursDisplay mismatch triggers check 16
+    const invalidReport = JSON.parse(JSON.stringify(validReport));
+    invalidReport.projectDrops[0].hoursDisplay = '~20 hrs'; // Mismatches 90 hrs
+    const resInvalid = validateReport(invalidReport);
+    expect(resInvalid.violations.some((v) => v.check === 'project-numbers')).toBe(true);
+  });
+
+  it('Check 17: Vetted concept tags enforces textual proof in brief', () => {
+    const reportWithRealConcepts = {
+      score: 60,
+      breakdown: [],
+      plans: [],
+      projectDrops: [
+        {
+          id: 'brief-double-entry-ledger',
+          title: 'Double-Entry General Ledger Engine',
+          estimatedHours: 90,
+          hoursDisplay: '~90 hrs',
+          coveredSkills: ['Go', 'PostgreSQL', 'Databases & ACID', 'Concurrency'],
+        },
+      ],
+    };
+
+    const res = validateReport(reportWithRealConcepts);
+    expect(res.violations.filter((v) => v.check === 'vetted-concepts')).toHaveLength(0);
+
+    // Fabricated concept on brief triggers check 17
+    const reportWithFabricatedConcept = JSON.parse(JSON.stringify(reportWithRealConcepts));
+    reportWithFabricatedConcept.projectDrops[0].coveredSkills.push('Systems Programming');
+    const resFabricated = validateReport(reportWithFabricatedConcept);
+    expect(resFabricated.violations.some((v) => v.check === 'vetted-concepts')).toBe(true);
+  });
+
+  it('Check 18: Determinism of report calculation and project matching', () => {
+    const credCompany = { name: 'CRED', tier: 'Unicorn', industry: 'Fintech' };
+    const credRole = { title: 'Software Engineer', level: 'Entry', competencies: ['dsa', 'golang'] };
+
+    const match1 = matchProjectsWithIntegrity({
+      skillStates: [
+        { id: 'golang', status: 'not-found' } as any,
+        { id: 'dsa', status: 'mentioned' } as any,
+      ],
+      company: credCompany,
+      role: credRole,
+    });
+
+    const match2 = matchProjectsWithIntegrity({
+      skillStates: [
+        { id: 'golang', status: 'not-found' } as any,
+        { id: 'dsa', status: 'mentioned' } as any,
+      ],
+      company: credCompany,
+      role: credRole,
+    });
+
+    expect(match1.projects.map((p) => p.id)).toEqual(match2.projects.map((p) => p.id));
+    expect(match1.projects.map((p) => p.relevanceScore)).toEqual(match2.projects.map((p) => p.relevanceScore));
+    expect(match1.projects.map((p) => p.whyThisProject)).toEqual(match2.projects.map((p) => p.whyThisProject));
   });
 });

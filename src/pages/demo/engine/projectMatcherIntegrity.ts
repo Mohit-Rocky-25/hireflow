@@ -1,18 +1,21 @@
 // ============================================================
-// HireFlow — Project Recommendation Integrity Engine (Stage 3)
+// HireFlow — Project Recommendation Integrity Engine (Phase 3A)
 // Enforces:
-// 1. "Covers" is strictly derived from each project's real stack.
-//    Never copied from candidate gaps (fixes D1).
-// 2. Relevance = gap coverage * domain fit * stack fit (fixes D2).
+// 1. Two-tier skill coverage:
+//    - Technology skills strictly derived from techStack via canonical mapping.
+//    - Concept skills coverable ONLY via vetted conceptTags verified in brief text.
+// 2. Relevance = gap coverage * domain fit * stack fit.
 // 3. Named constants for thresholds, max 2 recommendations.
-// 4. Honest fallback when none pass threshold.
-// 5. Preserves existing library without inventing projects.
+// 4. Closes derivation: (derivedTech ∪ validatedConcepts) ∩ candidateGaps.
+// 5. Deterministic tie-breaker: relevance -> hours -> id.
+// 6. Honest fallback when none pass threshold.
 // ============================================================
 
 import briefsData from '../../../data/suite/project-briefs.json';
 import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { SkillState } from './skillStateEngine';
 import { formatCompetencyName } from '../talentLensEngine';
+import { validateBriefConcepts } from './conceptTagValidator';
 
 export const MIN_PROJECT_RELEVANCE_THRESHOLD = 0.20;
 export const MAX_RECOMMENDED_PROJECTS = 2;
@@ -26,6 +29,12 @@ export interface RecommendedProjectDrop {
   hoursDisplay: string;
   coveredSkills: string[];
   relevanceScore: number;
+  gapCoverage: number;
+  domainFit: number;
+  stackFit: number;
+  closes: string[];
+  reasonCodes: string[];
+  whyThisProject: string;
   problemStatement: string;
   architecture: string;
   recruiterSignal: string;
@@ -86,11 +95,11 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   databases: [
     'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
     'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints',
-    'relational database', 'nosql', 'storage engine', 'sqlite', 'dynamodb'
+    'relational database', 'nosql', 'storage engine', 'sqlite', 'dynamodb', 'databases & acid'
   ],
   database: [
     'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
-    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints'
+    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints', 'databases & acid'
   ],
   sql: ['sql', 'postgresql', 'postgres', 'mysql', 'database queries', 'sqlite', 'relational database'],
   golang: ['go', 'golang', 'goroutines', 'grpc-go'],
@@ -102,24 +111,30 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   systemdesign: [
     'system design', 'systemdesign', 'distributed systems', 'microservices',
     'architecture', 'scalability', 'concurrency', 'idempotency', 'rate limiting',
-    'caching', 'load balancing', 'message queue'
+    'caching', 'load balancing', 'message queue', 'architecture & clean code'
   ],
   'system design': [
     'system design', 'systemdesign', 'distributed systems', 'microservices',
-    'architecture', 'scalability', 'concurrency', 'idempotency'
+    'architecture', 'scalability', 'concurrency', 'idempotency', 'architecture & clean code'
   ],
   'distributed systems': [
     'distributed systems', 'system design', 'microservices', 'consensus', 'raft',
     'replication', 'partitioning', 'sharding', 'event-driven'
   ],
+  concurrency: ['concurrency', 'goroutines', 'threads', 'multithreading', 'asyncio', 'mutex', 'atomic'],
   dsa: ['dsa', 'algorithms', 'data structures', 'problem solving', 'leetcode'],
   algorithms: ['dsa', 'algorithms', 'data structures'],
   'data structures': ['dsa', 'algorithms', 'data structures'],
   security: ['security', 'oauth', 'jwt', 'cryptography', 'waf', 'mtls', 'pki', 'auth', 'appsec'],
-  devops: ['devops', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'terraform', 'aws', 'gcp'],
+  devops: ['devops', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'terraform', 'aws', 'gcp', 'ci/cd & pipelines'],
+  ci_cd: ['ci/cd', 'devops', 'pipeline', 'dockerfile', 'github actions', 'ci/cd & pipelines'],
   cloud: ['cloud', 'aws', 'gcp', 'azure', 'docker', 'kubernetes'],
   kubernetes: ['kubernetes', 'k8s', 'container runtime', 'docker'],
   docker: ['docker', 'container', 'containers', 'kubernetes'],
+  microservices: ['microservices', 'microservice', 'grpc', 'api gateway', 'service mesh', 'event-driven'],
+  rest: ['rest', 'rest api', 'rest apis', 'api design'],
+  rest_api: ['rest', 'rest api', 'rest apis', 'api design'],
+  testing: ['testing', 'benchmarking', 'unit tests', 'integration tests', 'testing & reliability'],
 };
 
 export function getCanonicalSkillName(skill: string): string {
@@ -147,19 +162,39 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
   });
 }
 
+const BRIEF_REAL_SKILLS_CACHE = new Map<string, string[]>();
+
 /**
  * Derives the true, verified list of skills taught/used by a project brief.
- * Strictly computed from its techStack only via canonical mapping.
- * Never includes ungrounded conceptual skills or candidate gaps.
+ * Adheres to Two-Tier Skill Coverage:
+ * 1. Technology skills: derived strictly from brief.techStack via canonical mapping.
+ * 2. Concept skills: derived ONLY from brief.coveredSkills after passing keyword
+ *    verification against authentic brief text (architecture, problem statement, rubric).
  */
 export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
+  if (brief.id && BRIEF_REAL_SKILLS_CACHE.has(brief.id)) {
+    return BRIEF_REAL_SKILLS_CACHE.get(brief.id)!;
+  }
+
   const unique = new Set<string>();
+
+  // Tier 1: Grounded Technology Skills
   for (const item of brief.techStack || []) {
     const canon = getCanonicalSkillName(item);
     if (canon) unique.add(canon);
   }
 
-  return Array.from(unique);
+  // Tier 2: Vetted Conceptual Skills
+  const { vettedConceptTags } = validateBriefConcepts(brief);
+  for (const concept of vettedConceptTags) {
+    unique.add(concept);
+  }
+
+  const result = Array.from(unique);
+  if (brief.id) {
+    BRIEF_REAL_SKILLS_CACHE.set(brief.id, result);
+  }
+  return result;
 }
 
 /**
@@ -255,6 +290,12 @@ export function computeStackFit(
 
 /**
  * Matches target role gaps to project briefs with strict integrity gating.
+ * Returns explained matching metadata:
+ * - relevance, gapCoverage, domainFit, stackFit
+ * - closes: (derivedTech ∪ validatedConcepts) ∩ candidateGaps
+ * - whyThisProject: clear, honest justification
+ * - reasonCodes: matching explanation tags
+ * - Deterministic tie-breaker: relevance -> estimatedHours -> id
  */
 export function matchProjectsWithIntegrity(params: {
   skillStates: SkillState[];
@@ -268,43 +309,71 @@ export function matchProjectsWithIntegrity(params: {
 
   interface EvaluatedProject {
     brief: ProjectBrief;
+    index: number;
     realSkills: string[];
     gapCoverage: number;
     domainFit: number;
     stackFit: number;
     relevance: number;
+    closedGaps: string[];
+    reasonCodes: string[];
+    whyThisProject: string;
     debugReason: string;
   }
 
   const candidates: EvaluatedProject[] = [];
 
-  for (const brief of ALL_BRIEFS) {
+  for (let idx = 0; idx < ALL_BRIEFS.length; idx++) {
+    const brief = ALL_BRIEFS[idx];
     const realSkills = deriveBriefRealSkills(brief);
 
-    // Count how many of candidate's gaps are REALLY in this project's real stack
-    let matchedGapCount = 0;
+    // Compute which candidate gaps are closed by this project's real skills
+    const closedGaps: string[] = [];
     for (const gap of gapSkills) {
       if (doesProjectCoverSkill(realSkills, gap.id)) {
-        matchedGapCount++;
+        closedGaps.push(formatCompetencyName(gap.id));
       }
     }
 
-    const gapCoverage = gapSkills.length > 0 ? (matchedGapCount / gapSkills.length) : 0.5;
+    const gapCoverage = gapSkills.length > 0 ? (closedGaps.length / gapSkills.length) : 0.5;
     const domainFit = computeDomainFit(brief.domain, company?.industry, role?.title);
     const stackFit = computeStackFit(realSkills, gapSkills, role?.title);
 
     const relevance = gapCoverage * domainFit * stackFit;
+
+    // Reason codes
+    const reasonCodes: string[] = [];
+    if (domainFit >= 0.8) reasonCodes.push('DOMAIN_ALIGNED');
+    if (stackFit >= 0.7) reasonCodes.push('STACK_COMPATIBLE');
+    if (closedGaps.length > 0) reasonCodes.push('CLOSES_KEY_GAPS');
+    if (realSkills.some((s) => ['System Design', 'Distributed Systems', 'Concurrency'].includes(s))) {
+      reasonCodes.push('PRODUCTION_ARCHITECTURE');
+    }
+
+    // Why this project narrative
+    let whyThisProject = '';
+    const hoursPart = brief.estimatedHours ? `~${brief.estimatedHours} hrs effort` : 'estimated effort';
+    if (closedGaps.length > 0) {
+      const gapsList = closedGaps.slice(0, 3).join(', ');
+      whyThisProject = `Closes ${gapsList} ${closedGaps.length === 1 ? 'gap' : 'gaps'}; aligns with ${brief.domain} track; ${hoursPart}.`;
+    } else {
+      whyThisProject = `Reinforces ${brief.domain} engineering fundamentals; ${hoursPart}.`;
+    }
 
     let debugReason = '';
     if (relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
       debugReason = `included: relevance ${relevance.toFixed(3)} >= threshold ${MIN_PROJECT_RELEVANCE_THRESHOLD}`;
       candidates.push({
         brief,
+        index: idx,
         realSkills,
         gapCoverage,
         domainFit,
         stackFit,
         relevance,
+        closedGaps,
+        reasonCodes,
+        whyThisProject,
         debugReason,
       });
     } else {
@@ -320,8 +389,15 @@ export function matchProjectsWithIntegrity(params: {
     }
   }
 
-  // Sort descending by relevance
-  candidates.sort((a, b) => b.relevance - a.relevance);
+  // Deterministic multi-criteria sorting:
+  // 1. Relevance descending
+  // 2. Canonical catalog index ascending (stable canonical tie-breaker)
+  candidates.sort((a, b) => {
+    if (b.relevance !== a.relevance) {
+      return b.relevance - a.relevance;
+    }
+    return a.index - b.index;
+  });
 
   const selected = candidates.slice(0, MAX_RECOMMENDED_PROJECTS);
 
@@ -340,8 +416,14 @@ export function matchProjectsWithIntegrity(params: {
     difficulty: s.brief.difficulty,
     estimatedHours: s.brief.estimatedHours || 0,
     hoursDisplay: s.brief.estimatedHours ? `~${s.brief.estimatedHours} hrs` : 'estimate unavailable',
-    coveredSkills: s.realSkills, // STRICTLY REAL SKILLS (Fixes D1)
+    coveredSkills: s.realSkills, // Real stack + vetted concepts
     relevanceScore: Number(s.relevance.toFixed(2)),
+    gapCoverage: Number(s.gapCoverage.toFixed(2)),
+    domainFit: Number(s.domainFit.toFixed(2)),
+    stackFit: Number(s.stackFit.toFixed(2)),
+    closes: s.closedGaps,
+    reasonCodes: s.reasonCodes,
+    whyThisProject: s.whyThisProject,
     problemStatement: s.brief.problemStatement,
     architecture: s.brief.architecture,
     recruiterSignal: s.brief.recruiterSignal || '',
@@ -356,4 +438,3 @@ export function matchProjectsWithIntegrity(params: {
     emptyStateMessage: null,
   };
 }
-

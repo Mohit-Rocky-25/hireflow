@@ -4,6 +4,7 @@ import { Check, X, Zap, Star, AlertCircle, AlertTriangle, ChevronUp, ChevronDown
 import type { Company, Role, AnalysisResult } from '../talentLensEngine';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON, formatCompetencyName } from '../talentLensEngine';
 import { buildSkillStates, extractResumeParseSummary, type SkillState } from '../engine/skillStateEngine';
+import { matchProjectsWithIntegrity } from '../engine/projectMatcherIntegrity';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
@@ -54,6 +55,14 @@ export function AnalysisResultView({
   const parseSummary = useMemo(() => {
     return extractResumeParseSummary(resumeText || '', skillStates);
   }, [resumeText, skillStates]);
+
+  const matchedProjects = useMemo(() => {
+    return matchProjectsWithIntegrity({
+      skillStates,
+      company,
+      role: selectedRole,
+    });
+  }, [skillStates, company, selectedRole]);
 
   const verifiedStrengths = useMemo(() => {
     return skillStates
@@ -883,6 +892,55 @@ export function AnalysisResultView({
         </div>
       </div>
 
+      {/* Recommended Proof-of-Work Project Drops */}
+      <div className="bg-[#141414] border border-charcoal rounded-xl p-5 sm:p-6 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-bold text-white text-base sm:text-lg flex items-center gap-2 uppercase tracking-wide">
+            <span className="text-volt font-bold text-base">&gt;_</span> Recommended Proof-of-Work Project Drops
+          </h3>
+          {matchedProjects.hasMatches && (
+            <span className="text-xs font-mono font-semibold text-silver bg-black border border-charcoal px-2.5 py-1 rounded">
+              {matchedProjects.projects.length} {matchedProjects.projects.length === 1 ? 'project' : 'projects'} matched
+            </span>
+          )}
+        </div>
+        {matchedProjects.hasMatches ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {matchedProjects.projects.map((p) => (
+              <div key={p.id} className="bg-black border border-charcoal rounded-xl p-4 sm:p-5 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs font-bold uppercase px-2 py-0.5 rounded bg-[#161616] border border-volt/40 text-volt font-mono">
+                      {p.domain}
+                    </span>
+                    <span className="text-xs font-mono text-silver">{p.hoursDisplay}</span>
+                  </div>
+                  <h4 className="font-bold text-white text-sm sm:text-base mb-1">{p.title}</h4>
+                  <p className="text-xs text-neutral-300 line-clamp-2 mb-3">{p.problemStatement}</p>
+                  <div className="space-y-1.5 text-xs font-mono">
+                    <div className="text-volt">
+                      <strong>Why this project:</strong> {p.whyThisProject}
+                    </div>
+                    {p.closes && p.closes.length > 0 && (
+                      <div className="text-white">
+                        <strong>Closes:</strong> <span className="text-volt font-bold">{p.closes.join(', ')}</span>
+                      </div>
+                    )}
+                    <div className="text-neutral-400">
+                      <strong>Covers:</strong> {p.coveredSkills.join(', ')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="p-4 rounded-lg bg-black border border-charcoal text-sm text-silver font-mono">
+            {matchedProjects.emptyStateMessage || 'No project in the current library matches the missing skills for this role.'}
+          </div>
+        )}
+      </div>
+
       {/* Improvement Plan */}
       <div className="bg-[#141414] border border-charcoal rounded-xl p-5 sm:p-6 mb-6">
         <button
@@ -925,6 +983,11 @@ export function AnalysisResultView({
                     {plan.timeframe}
                   </span>
                 </div>
+                {plan.hypotheticalScoreGain && (
+                  <div className="text-xs font-mono font-semibold text-volt mb-2.5">
+                    {plan.hypotheticalScoreGain}
+                  </div>
+                )}
                 <p className="text-sm text-neutral-300 leading-relaxed mb-3">
                   {plan.detail}
                 </p>

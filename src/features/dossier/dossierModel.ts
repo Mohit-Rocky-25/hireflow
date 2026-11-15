@@ -36,6 +36,9 @@ export interface ProjectDropModel {
   difficulty: string;
   estimatedHours: number;
   coveredSkills: string[];
+  closes?: string[];
+  whyThisProject?: string;
+  reasonCodes?: string[];
   problemStatement: string;
   architecture: string;
   recruiterSignal: string;
@@ -572,11 +575,16 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
   });
 
   projectDrops = projectMatch.projects.map((p) => ({
+    id: p.id,
     title: p.title,
     domain: p.domain,
     difficulty: p.difficulty,
     estimatedHours: p.estimatedHours,
+    hoursDisplay: p.hoursDisplay,
     coveredSkills: p.coveredSkills,
+    closes: p.closes,
+    whyThisProject: p.whyThisProject,
+    reasonCodes: p.reasonCodes,
     problemStatement: p.problemStatement,
     architecture: p.architecture,
     recruiterSignal: p.recruiterSignal,

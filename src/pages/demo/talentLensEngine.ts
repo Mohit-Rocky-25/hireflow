@@ -942,7 +942,7 @@ export function generateImprovementPlan(
         const stepGainMin = Math.max(1, stepGain - 1);
         const stepGainMax = stepGain + 1;
         const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
         cumulativeCurrent = nextScore;
       }
 
@@ -991,7 +991,7 @@ export function generateImprovementPlan(
       actionCount++;
       const stepGain = 2;
       const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+1 to +3 pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+      const gainDisplay = `+1 to +3 pts (calibrated estimate, per action, not additive; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
       plans.push({
@@ -1002,7 +1002,7 @@ export function generateImprovementPlan(
         closability: '7 days',
         suggestedAction: `Rewrite project bullets to name specific tools, versions, and system scale metrics achieved with ${b.competency.toUpperCase()}.`,
         hypotheticalScoreGain: gainDisplay,
-        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect [specific component], improving [measured metric] by [result you measured].`,
+        bulletTemplate: `Utilized ${b.competency.toUpperCase()} to architect {{specific component}}, improving {{measured metric}} by {{result you measured}}.`,
         resources: [`Deploy project with documented scale`, `Add benchmarks/tests to repository`, `Write engineering post on lessons learned`],
       });
     });
@@ -1019,7 +1019,7 @@ export function generateImprovementPlan(
         closability: '7 days',
         suggestedAction: `Remove raw skill keyword repetitions and integrate into STAR bullet points.`,
         hypotheticalScoreGain: `+2 to +4 pts (calibrated estimate, per action, not additive; parser friendliness)`,
-        bulletTemplate: `Engineered [module] using ${b.competency.toUpperCase()}, optimizing [metric] by [result you measured].`,
+        bulletTemplate: `Engineered {{module}} using ${b.competency.toUpperCase()}, optimizing {{metric}} by {{result you measured}}.`,
         resources: ['Google XYZ bullet format guide', 'Clean code resume principles'],
       });
     });
@@ -1037,7 +1037,7 @@ export function generateImprovementPlan(
       closability: '7 days',
       suggestedAction: `Review each bullet point and attach a measured outcome (e.g. p99 latency reduction, user volume, test coverage).`,
       hypotheticalScoreGain: '+3 to +5 pts in Evidence Quality (calibrated estimate, per action, not additive)',
-      bulletTemplate: `Optimized [subsystem] resulting in [result you measured] (reduced p99 from [before] to [after]).`,
+      bulletTemplate: `Optimized {{subsystem}} resulting in {{result you measured}} (reduced p99 from {{before}} to {{after}}).`,
       resources: ['STAR method for technical resumes', 'Engineering metric framing guides'],
     });
   }
@@ -1065,7 +1065,7 @@ export function generateImprovementPlan(
     closability: '30 days',
     suggestedAction: 'Align project portfolio with primary stack components used at target company tier.',
     hypotheticalScoreGain: 'Contextual relevance in technical interview rounds (calibrated guidance, not additive)',
-    bulletTemplate: `Built [project] aligning with ${company.name} engineering stack; validated with [test suite / metric].`,
+    bulletTemplate: `Built {{project}} aligning with ${company.name} engineering stack; validated with {{test suite / metric}}.`,
     resources: [`"${company.name} engineering blog"`, `Public interview experience archives`],
   });
 

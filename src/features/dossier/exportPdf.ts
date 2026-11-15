@@ -984,7 +984,10 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
         const starFormula = p.portfolioBulletFormula ? p.portfolioBulletFormula.replace(/{{([^}]+)}}/g, '[$1]') : '';
         const starLines = wrapText(`Portfolio STAR Bullet: "${starFormula}"`, 92);
         const starBoxHeight = Math.max(20, 8 + starLines.length * 9.5);
-        const pHeight = 36 + probLines.length * 10 + archLines.length * 10 + starBoxHeight + 8;
+        let extraLinesHeight = 0;
+        if (p.closes && p.closes.length > 0) extraLinesHeight += 10;
+        if (p.whyThisProject) extraLinesHeight += 11;
+        const pHeight = 36 + probLines.length * 10 + archLines.length * 10 + starBoxHeight + extraLinesHeight + 8;
 
         checkNewPage(pHeight + 8);
 
@@ -1024,14 +1027,36 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
         });
 
         let py = y - 28;
-        page.drawText(`Covered Skills: ${p.coveredSkills.join(', ')}`, {
+        if (p.closes && p.closes.length > 0) {
+          page.drawText(`Closes: ${p.closes.join(', ')}`, {
+            x: margin + 10,
+            y: py,
+            size: 7,
+            font: fontBold,
+            color: rgb(0.12, 0.5, 0.25),
+          });
+          py -= 10;
+        }
+
+        page.drawText(`Covers: ${p.coveredSkills.join(', ')}`, {
           x: margin + 10,
           y: py,
           size: 7,
-          font: fontBold,
-          color: rgb(0.12, 0.5, 0.25),
+          font: fontRegular,
+          color: rgb(0.3, 0.35, 0.4),
         });
         py -= 10;
+
+        if (p.whyThisProject) {
+          page.drawText(`Why this project: ${p.whyThisProject}`, {
+            x: margin + 10,
+            y: py,
+            size: 6.5,
+            font: fontBold,
+            color: rgb(0.25, 0.2, 0.5),
+          });
+          py -= 11;
+        }
 
         for (const line of probLines) {
           page.drawText(line, {

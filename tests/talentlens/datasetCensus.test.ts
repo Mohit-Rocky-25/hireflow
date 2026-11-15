@@ -142,6 +142,7 @@ describe('Stage 0 Dataset Census and Generality Audit', () => {
     console.log('[SWEEP] Violations by check:', JSON.stringify(violationsByCheck));
     console.log('[SWEEP] Violations by tier:', JSON.stringify(violationsByTier));
     expect(permutations).toBeGreaterThanOrEqual(8600);
+    expect(violationsByCheck).toEqual({});
   });
 
   it('audits unclassified skills across all 1728 roles in dataset', () => {
