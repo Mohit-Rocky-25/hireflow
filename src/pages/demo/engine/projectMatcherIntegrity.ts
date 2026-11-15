@@ -13,7 +13,7 @@
 
 import briefsData from '../../../data/suite/project-briefs.json';
 import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
-import { SkillState } from './skillStateEngine';
+import { SkillState, normalizeTier, TIER_NORMALIZATION_MAP } from './skillStateEngine';
 import { formatCompetencyName } from '../talentLensEngine';
 import { validateBriefConcepts } from './conceptTagValidator';
 
@@ -132,12 +132,29 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   kubernetes: ['kubernetes', 'k8s', 'container runtime', 'docker'],
   docker: ['docker', 'container', 'containers', 'kubernetes'],
   microservices: ['microservices', 'microservice', 'grpc', 'api gateway', 'service mesh', 'event-driven'],
-  rest: ['rest', 'rest api', 'rest apis', 'api design'],
-  rest_api: ['rest', 'rest api', 'rest apis', 'api design'],
+  rest: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
+  rest_api: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
   testing: ['testing', 'benchmarking', 'unit tests', 'integration tests', 'testing & reliability'],
   nodejs: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
   node: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
   swift: ['swift', 'ios', 'xcode', 'swiftui', 'mobile'],
+  ml: [
+    'ml', 'machine learning', 'deep learning', 'ai', 'artificial intelligence',
+    'nlp', 'computer vision', 'neural networks', 'llm', 'llms', 'data science',
+    'pytorch', 'tensorflow', 'scikit-learn'
+  ],
+  'machine learning': [
+    'ml', 'machine learning', 'deep learning', 'ai', 'artificial intelligence',
+    'nlp', 'computer vision', 'neural networks', 'llm', 'llms', 'data science',
+    'pytorch', 'tensorflow', 'scikit-learn'
+  ],
+  aws: [
+    'aws', 'amazon web services', 'ec2', 's3', 'lambda', 'dynamodb',
+    'cloudwatch', 'iam', 'ecs', 'eks', 'sqs', 'sns', 'cloud'
+  ],
+  react: [
+    'react', 'react.js', 'reactjs', 'next.js', 'nextjs', 'frontend', 'ui', 'web'
+  ],
 };
 
 export function getCanonicalSkillName(skill: string): string {
@@ -147,21 +164,57 @@ export function getCanonicalSkillName(skill: string): string {
   return SKILL_CANONICAL_MAP[norm] || formatCompetencyName(stripped || skill);
 }
 
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const TOKEN_REGEX_CACHE = new Map<string, RegExp>();
+function getTokenRegex(token: string): RegExp {
+  let reg = TOKEN_REGEX_CACHE.get(token);
+  if (!reg) {
+    reg = new RegExp(`(^|\\s|&|\\/|\\()${escapeRegex(token)}($|\\s|&|\\/|\\))`, 'i');
+    TOKEN_REGEX_CACHE.set(token, reg);
+  }
+  return reg;
+}
+
+/**
+ * Word-boundary token matcher ensuring short tokens (e.g. "go", "sql", "aws", "dsa", "ml")
+ * do not spuriously match inside unrelated words (e.g. "go" inside "mongodb").
+ */
+export function matchSkillToken(projectSkill: string, targetSkill: string): boolean {
+  const pNorm = projectSkill.toLowerCase().trim().replace(/[-_]/g, ' ');
+  const tNorm = targetSkill.toLowerCase().trim().replace(/[-_]/g, ' ');
+  if (pNorm === tNorm) return true;
+
+  const pClean = pNorm.replace(/[^a-z0-9]/g, '');
+  const tClean = tNorm.replace(/[^a-z0-9]/g, '');
+  if (pClean.length >= 2 && pClean === tClean) return true;
+
+  // Multi-word phrase matches: e.g. "machine learning", "system design", "spring boot", "rest api"
+  if (tNorm.includes(' ') && pNorm.includes(tNorm)) return true;
+  if (pNorm.includes(' ') && tNorm.includes(pNorm)) return true;
+
+  // For distinct tokens require word boundary
+  const regT = getTokenRegex(tNorm);
+  if (regT.test(pNorm)) return true;
+
+  return false;
+}
+
 /**
  * Checks whether a project's real skills cover a specific candidate skill gap.
  */
 export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: string): boolean {
   const gNorm = gapSkillId.toLowerCase().trim().replace(/[-_]/g, ' ');
-  const gClean = gapSkillId.toLowerCase().trim().replace(/[-_]/g, '');
+  const gClean = gapSkillId.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
   const aliases = SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
 
-  const pSkillsLower = projectRealSkills.map((s) => s.toLowerCase());
-
-  return pSkillsLower.some((ps) => {
-    // Exact or substring match with gap ID
-    if (ps.includes(gNorm) || gNorm.includes(ps)) return true;
-    // Check against all known aliases
-    return aliases.some((alias) => ps.includes(alias) || alias.includes(ps));
+  return projectRealSkills.some((ps) => {
+    // Check target gap ID directly
+    if (matchSkillToken(ps, gNorm) || matchSkillToken(ps, gClean)) return true;
+    // Check all known aliases
+    return aliases.some((alias) => matchSkillToken(ps, alias));
   });
 }
 

@@ -12,6 +12,7 @@ import { classifySkillKind } from './skillStateEngine';
 import { validateBriefConcepts, CONCEPT_DEFINITIONS } from './conceptTagValidator';
 import {
   ALLOWED_CONNECTIVES,
+  FORBIDDEN_ACTION_OUTCOME_WORDS,
   WEAK_OWNERSHIP_VERBS,
   FORBIDDEN_UPGRADE_VERBS,
   STRONG_VERBS,
@@ -192,7 +193,7 @@ export function validateReport(report: any): ValidateReportResult {
   }
 
   // ─────────────────────────────────────────────────────────────
-  // CHECK 15: Closes Skills (must be active candidate gaps)
+  // CHECK 14: Coverage (Project closes must be active candidate gaps)
   // ─────────────────────────────────────────────────────────────
   const candidateGaps = new Set<string>();
   for (const b of breakdown) {
@@ -738,6 +739,24 @@ export function validateReport(report: any): ValidateReportResult {
       });
     }
 
+    if (Array.isArray(rw.splitBullets)) {
+      for (const sb of rw.splitBullets) {
+        const strippedSb = sb.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ').trim();
+        const sbWords = strippedSb.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [];
+        const nonConnectives = sbWords.filter((w: string) => !ALLOWED_CONNECTIVES.has(w));
+        const beforeLower = beforeText.toLowerCase();
+        const hasContiguousPart = nonConnectives.some((w: string) => beforeLower.includes(w));
+        if (!hasContiguousPart && nonConnectives.length > 0) {
+          violations.push({
+            check: 'before-substring',
+            message: `Split bullet clause "${sb.slice(0, 40)}..." does not preserve a contiguous part of original bullet.`,
+            field: 'bulletRewrites.splitBullets',
+            value: sb,
+          });
+        }
+      }
+    }
+
     // CHECK 20: no digit, number word, or metric unit appears in "after" that is absent from "before"
     const beforeDigits = new Set(beforeText.match(/\d/g) || []);
     const afterDigits: string[] = afterText.match(/\d/g) || [];
@@ -798,22 +817,42 @@ export function validateReport(report: any): ValidateReportResult {
     }
 
     // CHECK 21: every content word in "after" comes from "before", fixed connective list, or a slot marker
-    // Strip all bracketed slots [add: ...], [warning: ...], [note: ...]
+    // Words that assert an action or outcome (deployed, serving, achieving, delivering, resulting, launched, improved, etc.)
+    // may appear only if present in the original bullet.
     const strippedAfter = afterText.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ');
-    const contentWords = strippedAfter.match(/\b[a-zA-Z]{2,}\b/g) || [];
-    const beforeWords = new Set(
-      (beforeText.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [])
-    );
 
-    for (const w of contentWords) {
-      const wLower = w.toLowerCase();
-      if (!beforeWords.has(wLower) && !ALLOWED_CONNECTIVES.has(wLower)) {
-        violations.push({
-          check: 'allowed-words-or-slots',
-          message: `Content word "${w}" in rewritten bullet not present in original bullet and not in allowed connectives list.`,
-          field: 'bulletRewrites.rewrittenBullet',
-          value: w,
-        });
+    const checkBulletContentWords = (text: string, fieldName: string) => {
+      const stripped = text.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ');
+      const contentWords = stripped.match(/\b[a-zA-Z]{2,}\b/g) || [];
+      const beforeWords = new Set(
+        (beforeText.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [])
+      );
+
+      for (const w of contentWords) {
+        const wLower = w.toLowerCase();
+        if (FORBIDDEN_ACTION_OUTCOME_WORDS.has(wLower) && !beforeWords.has(wLower)) {
+          violations.push({
+            check: 'allowed-words-or-slots',
+            message: `Action or outcome word "${w}" introduced in rewrite but was not present in original bullet.`,
+            field: fieldName,
+            value: w,
+          });
+        } else if (!beforeWords.has(wLower) && !ALLOWED_CONNECTIVES.has(wLower)) {
+          violations.push({
+            check: 'allowed-words-or-slots',
+            message: `Content word "${w}" in rewritten bullet not present in original bullet and not in allowed connectives list.`,
+            field: fieldName,
+            value: w,
+          });
+        }
+      }
+    };
+
+    checkBulletContentWords(afterText, 'bulletRewrites.rewrittenBullet');
+
+    if (Array.isArray(rw.splitBullets)) {
+      for (const sb of rw.splitBullets) {
+        checkBulletContentWords(sb, 'bulletRewrites.splitBullets');
       }
     }
 
@@ -862,6 +901,20 @@ export function validateReport(report: any): ValidateReportResult {
         });
       }
     }
+  }
+
+  // CHECK 24: Rewrite Determinism & Integrity (unique deterministic rewrite IDs)
+  const seenRewriteIds = new Set<string>();
+  for (const rw of rewrites) {
+    if (rw.id && seenRewriteIds.has(rw.id)) {
+      violations.push({
+        check: 'rewrite-determinism',
+        message: `Duplicate rewrite ID detected: "${rw.id}". Rewrites must have deterministic, distinct IDs.`,
+        field: 'bulletRewrites.id',
+        value: rw.id,
+      });
+    }
+    if (rw.id) seenRewriteIds.add(rw.id);
   }
 
   const isValid = violations.length === 0;

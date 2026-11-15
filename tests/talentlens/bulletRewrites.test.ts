@@ -148,7 +148,7 @@ describe('Evidence-Safe Bullet Rewrites Engine (Phase 3B)', () => {
 
         // Rule 7: Defend prompt exists
         expect(rewrite.defendPrompt).toBeDefined();
-        expect(rewrite.defendPrompt).toMatch(/defend/i);
+        expect(rewrite.defendPrompt).toMatch(/(?:defend|questions to prepare)/i);
       });
     });
   });
@@ -342,7 +342,7 @@ Projects:
         id: 1,
         input: 'Helped the team build a payment service',
         expectedClass: 'improvable',
-        expectedRewrite: 'Helped the team build a payment service using [add: technology], [add: what you personally built], achieving [add: measured result].',
+        expectedRewrite: 'Helped the team build a payment service, using [add: technology or framework, if applicable], [add: what you personally built or contributed], with [add: measured metric or user scale, if available].',
         isNoChangeNeeded: false,
       },
       {
@@ -356,21 +356,21 @@ Projects:
         id: 3,
         input: 'Designed resilient event-driven data pipelines and solved complex DSA problems for algorithmic optimization and system design bottlenecks across distributed clusters',
         expectedClass: 'risky',
-        expectedSplitCount: 3,
+        expectedSplitCount: 2,
         isNoChangeNeeded: false,
       },
       {
         id: 4,
         input: 'Worked on a web app using React',
         expectedClass: 'improvable',
-        expectedRewrite: 'Worked on a web app using React, [add: what you personally built], achieving [add: measured result].',
+        expectedRewrite: 'Worked on a web app using React, [add: what you personally built or contributed], with [add: measured metric or user scale, if available].',
         isNoChangeNeeded: false,
       },
       {
         id: 5,
         input: 'Improved model accuracy from 82% to 91%',
         expectedClass: 'improvable',
-        expectedRewrite: 'Improved model accuracy from 82% to 91% using [add: technology].',
+        expectedRewrite: 'Improved model accuracy from 82% to 91%, using [add: architecture or framework, if applicable].',
         isNoChangeNeeded: false,
       },
       {
@@ -384,42 +384,42 @@ Projects:
         id: 7,
         input: 'Participated in a hackathon and built a chatbot',
         expectedClass: 'improvable',
-        expectedRewrite: 'Participated in a hackathon and built a chatbot using [add: technology], [add: what you personally built], achieving [add: measured result].',
+        expectedRewrite: 'Participated in a hackathon and built a chatbot, using [add: technology or framework, if applicable], for [add: system or service name, if applicable], [add: what you personally built or contributed], with [add: measured metric or user scale, if available].',
         isNoChangeNeeded: false,
       },
       {
         id: 8,
         input: 'Responsible for backend APIs in Spring Boot and PostgreSQL',
         expectedClass: 'improvable',
-        expectedRewrite: 'Responsible for backend APIs in Spring Boot and PostgreSQL, [add: what you personally built], achieving [add: measured result].',
+        expectedRewrite: 'Responsible for backend APIs in Spring Boot and PostgreSQL, [add: what you personally built or contributed], with [add: measured metric or user scale, if available].',
         isNoChangeNeeded: false,
       },
       {
         id: 9,
         input: 'Led a team of 4 to deliver an inventory app in Flutter',
         expectedClass: 'improvable',
-        expectedRewrite: 'Led a team of 4 to deliver an inventory app in Flutter, resulting in [add: measured metric].',
+        expectedRewrite: 'Led a team of 4 to deliver an inventory app in Flutter, using [add: architecture or framework, if applicable], with [add: measured metric, if available].',
         isNoChangeNeeded: false,
       },
       {
         id: 10,
         input: 'Contributed to open source projects',
         expectedClass: 'improvable',
-        expectedRewrite: 'Contributed to open source projects, [add: what you personally built or contributed], achieving [add: measured result].',
+        expectedRewrite: 'Contributed to open source projects, [add: what you personally built or contributed], with [add: event outcome or impact, if applicable].',
         isNoChangeNeeded: false,
       },
       {
         id: 11,
         input: 'Implemented JWT authentication, role-based access, Docker deployment, CI/CD and unit tests for a REST API',
         expectedClass: 'risky',
-        expectedRewrite: 'Implemented JWT authentication, role-based access, Docker deployment, CI/CD and unit tests for a REST API, resulting in [add: measured metric].',
+        expectedSplitCount: 3,
         isNoChangeNeeded: false,
       },
       {
         id: 12,
         input: 'Part of the robotics club',
         expectedClass: 'improvable',
-        expectedRewrite: 'Part of the robotics club, [add: what you personally built or contributed], achieving [add: measured result].',
+        expectedRewrite: 'Part of the robotics club, [add: what you personally built or contributed], with [add: event outcome or impact, if applicable].',
         isNoChangeNeeded: false,
       },
     ];

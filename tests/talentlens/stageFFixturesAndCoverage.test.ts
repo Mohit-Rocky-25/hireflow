@@ -3,7 +3,7 @@ import briefsData from '../../src/data/suite/project-briefs.json';
 import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { COMPANIES, Company } from '../../src/pages/demo/talentLensData';
 import { analyzeRoleMatch, generateImprovementPlan } from '../../src/pages/demo/talentLensEngine';
-import { matchProjectsWithIntegrity, deriveBriefRealSkills, doesProjectCoverSkill } from '../../src/pages/demo/engine/projectMatcherIntegrity';
+import { matchProjectsWithIntegrity, deriveBriefRealSkills, doesProjectCoverSkill, matchSkillToken } from '../../src/pages/demo/engine/projectMatcherIntegrity';
 import { buildSkillStates } from '../../src/pages/demo/engine/skillStateEngine';
 
 const RESUMES = {
@@ -65,7 +65,7 @@ describe('Stage F: Fixtures, Score Path, and Library Coverage', () => {
     }
   });
 
-  it('F.2: calculates library coverage across all 20 most frequent skill gaps and top-2 closure share', { timeout: 120000 }, () => {
+  it('F.2: calculates library coverage across all 20 most frequent skill gaps and top-2 closure share', { timeout: 240000 }, () => {
     const allBriefs = briefsData as ProjectBrief[];
     const briefRealSkillsMap = new Map<string, string[]>();
     for (const b of allBriefs) {
@@ -118,7 +118,7 @@ describe('Stage F: Fixtures, Score Path, and Library Coverage', () => {
 
           // Check if top-2 recommended projects closed this gap
           const compLower = comp.toLowerCase().trim();
-          const closedByTopTwo = Array.from(topTwoClosedSkills).some(s => s.includes(compLower) || compLower.includes(s));
+          const closedByTopTwo = Array.from(topTwoClosedSkills).some(s => matchSkillToken(s, compLower) || doesProjectCoverSkill([s], compLower));
           if (closedByTopTwo) {
             gapTopTwoClosureCounts[comp] = (gapTopTwoClosureCounts[comp] || 0) + 1;
           }

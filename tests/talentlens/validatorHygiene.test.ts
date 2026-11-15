@@ -73,7 +73,7 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
         {
           id: 'rw_1',
           originalBullet: 'Worked on a web app using React',
-          rewrittenBullet: 'Worked on a web app using React, [add: what you personally built], achieving [add: measured result].',
+          rewrittenBullet: 'Worked on a web app using React, [add: what you personally built], [add: measured result].',
           qualityClass: 'improvable',
           isNoChangeNeeded: false,
         },
@@ -263,18 +263,19 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       expect(res.violations.some((v) => v.check === 'no-new-digits')).toBe(true);
     });
 
-    it('Negative Check 21: allowed-words-or-slots (flags rewrite introducing unallowed words)', () => {
+    it('Negative Check 21: allowed-words-or-slots (flags forbidden action/outcome words)', () => {
       const badReport = {
         appendix: { resumeText: 'Built a web application' },
         bulletRewrites: [
           {
             originalBullet: 'Built a web application',
-            rewrittenBullet: 'Built an extraordinary and sensational web application', // sensational is not in allowed connectives
+            rewrittenBullet: 'Built a web application, deployed to production serving 100 users', // deployed and serving are forbidden action words
           },
         ],
       };
       const res = validateReport(badReport);
       expect(res.violations.some((v) => v.check === 'allowed-words-or-slots')).toBe(true);
+      expect(res.violations.some((v) => v.message.includes('Action or outcome word'))).toBe(true);
     });
 
     it('Negative Check 22: ownership-guard (flags weak verb upgraded without slot)', () => {
@@ -303,6 +304,27 @@ describe('Stage E: Validator Hygiene & Immutability Proof', () => {
       };
       const res = validateReport(badReport);
       expect(res.violations.some((v) => v.check === 'slot-markers')).toBe(true);
+    });
+
+    it('Negative Check 24: rewrite-determinism (flags duplicate rewrite IDs)', () => {
+      const badReport = {
+        appendix: { resumeText: 'Built a web application\nDesigned database schema' },
+        bulletRewrites: [
+          {
+            id: 'rw_dup_1',
+            originalBullet: 'Built a web application',
+            rewrittenBullet: 'Built a web application [add: detail]',
+          },
+          {
+            id: 'rw_dup_1', // duplicate ID
+            originalBullet: 'Designed database schema',
+            rewrittenBullet: 'Designed database schema [add: detail]',
+          },
+        ],
+      };
+      const res = validateReport(badReport);
+      expect(res.violations.some((v) => v.check === 'rewrite-determinism')).toBe(true);
+      expect(res.violations.some((v) => v.message.includes('Duplicate rewrite ID'))).toBe(true);
     });
 
     it('Negative Check 25: max-rewrites (flags more than 5 rewrites in report)', () => {

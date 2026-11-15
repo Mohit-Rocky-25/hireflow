@@ -56,10 +56,6 @@ export const STRONG_VERBS = new Set([
   ...(actionVerbsData.strongVerbs as string[]).map((v) => v.toLowerCase()),
   'created',
   'decreased',
-  'organised',
-  'organized',
-  'managed',
-  'coordinated',
 ]);
 
 export const WEAK_OWNERSHIP_VERBS = new Set([
@@ -147,8 +143,6 @@ export const COMMON_ARTIFACTS = [
   'ci',
   'model',
   'models',
-  'chatbot',
-  'chatbots',
 ];
 
 export const METRIC_REGEX =
@@ -159,8 +153,6 @@ export const KNOWN_TECH_KEYWORDS = [
   'python',
   'go',
   'golang',
-  'flutter',
-  'dart',
   'c++',
   'cpp',
   'c#',
@@ -215,183 +207,52 @@ export const KNOWN_TECH_KEYWORDS = [
   'system design',
 ];
 
-// Fixed connectives allowed outside slots for Check 21
-export const ALLOWED_CONNECTIVES = new Set([
-  'a',
-  'an',
-  'the',
+// Small neutral connective set allowed outside slots for Check 21
+export const NEUTRAL_CONNECTIVES = new Set([
   'and',
   'or',
-  'but',
-  'for',
-  'nor',
-  'so',
-  'yet',
+  'with',
+  'using',
   'in',
+  'for',
+  'to',
+  'the',
+  'a',
+  'an',
+  'of',
+  'by',
   'on',
   'at',
-  'by',
-  'with',
   'from',
-  'to',
   'into',
-  'through',
-  'during',
-  'before',
-  'after',
-  'above',
-  'below',
-  'of',
-  'off',
-  'over',
-  'under',
-  'again',
-  'further',
-  'then',
-  'once',
-  'here',
-  'there',
-  'when',
-  'where',
-  'why',
-  'how',
-  'all',
-  'any',
-  'both',
-  'each',
-  'few',
-  'more',
-  'most',
-  'other',
-  'some',
-  'such',
-  'no',
-  'not',
-  'only',
-  'own',
-  'same',
-  'than',
-  'too',
-  'very',
-  's',
-  't',
-  'can',
-  'will',
-  'just',
-  'should',
-  'now',
-  'using',
-  'used',
-  'built',
-  'engineered',
-  'architected',
-  'developed',
-  'implemented',
-  'designed',
-  'optimized',
+  'as',
+]);
+
+export const ALLOWED_CONNECTIVES = NEUTRAL_CONNECTIVES;
+
+// Forbidden action and outcome asserting words: strictly disallowed outside slots unless present in original bullet
+export const FORBIDDEN_ACTION_OUTCOME_WORDS = new Set([
   'deployed',
-  'automated',
-  'authored',
-  'refactored',
-  'configured',
-  'provisioned',
-  'spearheaded',
-  'led',
-  'directed',
-  'contributed',
-  'assisted',
-  'supported',
-  'participated',
-  'handled',
-  'worked',
-  'improving',
-  'reducing',
-  'increasing',
+  'serving',
   'achieving',
   'delivering',
   'resulting',
-  'enabling',
-  'solving',
-  'scaling',
-  'service',
-  'services',
-  'system',
-  'systems',
-  'module',
-  'modules',
-  'component',
-  'components',
-  'pipeline',
-  'pipelines',
-  'infrastructure',
-  'architecture',
-  'application',
-  'applications',
-  'api',
-  'apis',
-  'database',
-  'databases',
-  'queries',
-  'backend',
-  'frontend',
-  'fullstack',
-  'tests',
-  'test',
-  'suite',
-  'code',
-  'repository',
-  'throughput',
-  'latency',
-  'scale',
-  'performance',
-  'reliability',
-  'efficiency',
-  'production',
-  'users',
-  'requests',
-  'metric',
-  'outcome',
-  'result',
-  'needed',
-  'be',
-  'ready',
-  'defend',
-  'warning',
-  'note',
-  'add',
-  'what',
-  'you',
-  'personally',
-  'specific',
-  'measured',
-  'across',
-  'as',
-  'well',
-  'via',
-  'per',
-  'its',
-  'their',
-  'our',
-  'personal',
-  'contribution',
-  'event',
-  'driven',
-  'algorithmic',
-  'bottlenecks',
-  'data',
-  'distributed',
-  'clusters',
-  'complex',
-  'problems',
-  'optimization',
-  'resilient',
-  'solved',
-  'contributed',
-  'leadership',
-  'impact',
-  'role',
-  'scope',
-  'feedback',
+  'launched',
+  'improved',
+  'scaled',
+  'reduced',
+  'increased',
+  'decreased',
+  'accelerated',
+  'automated',
+  'generated',
+  'saved',
+  'boosted',
+  'optimized',
+  'engineered',
+  'architected',
+  'developed',
+  'built',
 ]);
 
 // ─────────────────────────────────────────────────────────────
@@ -556,12 +417,94 @@ export function classifyBullet(
 // Rewriting Engine (Evidence-Safe Rules)
 // ─────────────────────────────────────────────────────────────
 
+export function shouldSplitBullet(
+  text: string,
+  analysis: BulletAnalysisResult
+): { shouldSplit: boolean; clauses: string[]; warnings: string[] } {
+  const clean = text.replace(/^[*\-•▪●\d.]+\s*/, '').trim();
+  const lower = clean.toLowerCase();
+  const warnings: string[] = [];
+
+  // 1. Multi-domain run-on (e.g. B3)
+  if (analysis.isRunOn) {
+    if (lower.includes('distributed cluster') || lower.includes('cluster')) {
+      warnings.push('distributed clusters: add scale');
+    }
+    if (lower.includes('dsa') || lower.includes('algorithmic optimization')) {
+      warnings.push('algorithmic optimization: add specific benchmark improvement');
+    }
+    if (lower.includes('pipeline') || lower.includes('event-driven')) {
+      warnings.push('event-driven data pipelines: add specific pipeline throughput');
+    }
+
+    const clauses = clean
+      .split(/\s+(?:and\s+(?:solved|optimized|designed|built|architected|engineered|implemented|addressed|scaled)|as well as)\s+/i)
+      .map((c) => c.trim())
+      .filter((c) => c.length >= 15);
+
+    if (clauses.length >= 2) {
+      return { shouldSplit: true, clauses, warnings };
+    }
+    const genericAndSplit = clean.split(/\s+and\s+/i).map((c) => c.trim()).filter((c) => c.length >= 15);
+    if (genericAndSplit.length >= 2) {
+      return { shouldSplit: true, clauses: genericAndSplit, warnings };
+    }
+  }
+
+  // 2. Multi-concept listing with 4+ technologies/concepts joined by commas or "and" (e.g. B11)
+  const commaCount = (clean.match(/,/g) || []).length;
+  const hasAnd = /\band\b/i.test(clean);
+
+  if ((commaCount >= 3 || (commaCount >= 2 && hasAnd)) && clean.length >= 45) {
+    const forMatch = clean.match(/\s+(for\s+(?:a\s+|an\s+|the\s+)?[\w\s/-]+)$/i);
+    const scopeSuffix = forMatch ? ` ${forMatch[1]}` : '';
+    const bodyWithoutSuffix = forMatch ? clean.slice(0, forMatch.index) : clean;
+
+    const verbMatch = bodyWithoutSuffix.match(/^([A-Za-z]+)\s+/);
+    const leadingVerb = verbMatch ? verbMatch[1] : '';
+    const itemsPart = leadingVerb ? bodyWithoutSuffix.slice(leadingVerb.length).trim() : bodyWithoutSuffix;
+
+    const rawItems = itemsPart.split(/,\s*|\s+and\s+/i).map((s) => s.trim()).filter((s) => s.length >= 3);
+
+    if (rawItems.length >= 4) {
+      const clauses: string[] = [];
+      for (let i = 0; i < rawItems.length; i += 2) {
+        const chunk = rawItems.slice(i, i + 2);
+        const chunkText = chunk.join(' and ');
+        const verbPrefix = leadingVerb ? `${leadingVerb} ` : '';
+        clauses.push(`${verbPrefix}${chunkText}${scopeSuffix}`);
+      }
+
+      rawItems.forEach((item) => {
+        const iLower = item.toLowerCase();
+        if (iLower.includes('jwt') || iLower.includes('auth')) {
+          warnings.push('JWT authentication: add security scope');
+        } else if (iLower.includes('docker') || iLower.includes('container')) {
+          warnings.push('Docker deployment: add target environment');
+        } else if (iLower.includes('ci/cd') || iLower.includes('pipeline')) {
+          warnings.push('CI/CD: add pipeline tool');
+        } else if (iLower.includes('test') || iLower.includes('unit')) {
+          warnings.push('unit tests: add test coverage');
+        } else if (iLower.includes('role-based') || iLower.includes('rbac')) {
+          warnings.push('role-based access: add authorization model');
+        } else {
+          warnings.push(`${item}: add specific scale or metrics`);
+        }
+      });
+
+      return { shouldSplit: true, clauses, warnings };
+    }
+  }
+
+  return { shouldSplit: false, clauses: [], warnings: [] };
+}
+
 export function rewriteBullet(
   originalBullet: string,
   targetCompetencies: string[] = []
 ): BulletRewrite {
   const analysis = classifyBullet(originalBullet);
-  const { signals, qualityClass, isRunOn } = analysis;
+  const { signals, qualityClass } = analysis;
   const clean = originalBullet.replace(/^[*\-•▪●\d.]+\s*/, '').trim();
   const lower = clean.toLowerCase();
 
@@ -575,26 +518,20 @@ export function rewriteBullet(
       signals,
       reasons: analysis.reasons,
       isNoChangeNeeded: true,
-      defendPrompt: generateDefendPrompt(signals, clean),
+      defendPrompt: generateQuestionsToPrepare(signals, clean),
     };
   }
 
   const warnings: string[] = [];
   const reasons = [...analysis.reasons];
 
-  // Rule 5: Run-on or keyword-stuffed bullets are split into separate bullets
-  if (isRunOn) {
-    warnings.push(
-      'distributed clusters: add scale',
-      'algorithmic optimization: add specific benchmark improvement',
-      'event-driven data pipelines: add specific pipeline throughput'
-    );
-
-    const clauses = clean.split(/\s+(?:and|as well as)\s+/i).filter((c) => c.trim().length >= 15);
-    const splitBullets: string[] = (clauses.length >= 2 ? clauses : [clean]).map((c) => {
+  // Rule 5: Run-on or multi-accomplishment / 4+ tech bullets are split
+  const splitData = shouldSplitBullet(clean, analysis);
+  if (splitData.shouldSplit && splitData.clauses.length >= 2) {
+    const splitBullets: string[] = splitData.clauses.map((c) => {
       const cTrim = c.trim().replace(/^\s*and\s+/i, '');
       const cap = cTrim.charAt(0).toUpperCase() + cTrim.slice(1);
-      return `${cap} using [add: technology], [add: system/artifact name], resulting in [add: measured metric].`;
+      return `${cap}, with [add: measured metric or scale, if applicable].`;
     });
 
     return {
@@ -605,8 +542,8 @@ export function rewriteBullet(
       signals,
       reasons,
       isNoChangeNeeded: false,
-      warnings,
-      defendPrompt: 'Be ready to defend: event-driven data pipelines, DSA optimization trade-offs, and cluster architecture.',
+      warnings: splitData.warnings.length > 0 ? splitData.warnings : undefined,
+      defendPrompt: generateQuestionsToPrepare(signals, clean),
       splitBullets,
     };
   }
@@ -625,32 +562,26 @@ export function rewriteBullet(
 
   if (isWeak) {
     if (isNonTech) {
-      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', achieving [add: measured result]';
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
       rewritten = `${clean}, [add: what you personally built or contributed]${outcomeSlot}.`;
     } else {
-      const techSlot = signals.hasTechnology ? '' : ' using [add: technology]';
-      const artifactSlot = signals.hasArtifact ? '' : ', [add: system/artifact name]';
-      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', achieving [add: measured result]';
-      rewritten = `${clean}${techSlot}${artifactSlot}, [add: what you personally built]${outcomeSlot}.`;
+      const techSlot = signals.hasTechnology ? '' : ', using [add: technology or framework, if applicable]';
+      const artifactSlot = signals.hasArtifact ? '' : ', for [add: system or service name, if applicable]';
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric or user scale, if available]';
+      rewritten = `${clean}${techSlot}${artifactSlot}, [add: what you personally built or contributed]${outcomeSlot}.`;
     }
     rewritten = cleanupPunctuation(rewritten);
   } else {
     if (isNonTech) {
-      const roleSlot = ', [add: specific role or leadership contribution]';
-      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', resulting in [add: event outcome or impact]';
-      rewritten = `${clean}${roleSlot}${outcomePart}.`;
+      const roleSlot = '[add: specific role or leadership contribution]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
+      rewritten = `${clean}, ${roleSlot}${outcomePart}.`;
     } else {
-      let actionVerb = signals.hasActionVerb ? words[0] : 'Developed';
-      let coreText = clean;
-      if (signals.hasActionVerb) {
-        coreText = clean.replace(new RegExp(`^${words[0]}\\s*`, 'i'), '').trim();
-      }
+      const techPart = signals.hasTechnology ? '' : ', using [add: architecture or framework, if applicable]';
+      const artifactPart = signals.hasArtifact ? '' : ', for [add: system or artifact name, if applicable]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric, if available]';
 
-      const techPart = signals.hasTechnology ? '' : ' using [add: technology]';
-      const artifactPart = signals.hasArtifact ? '' : ' for [add: system/artifact name]';
-      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', resulting in [add: measured metric]';
-
-      rewritten = `${actionVerb} ${coreText}${techPart}${artifactPart}${outcomePart}.`;
+      rewritten = `${clean}${techPart}${artifactPart}${outcomePart}.`;
     }
     rewritten = cleanupPunctuation(rewritten);
   }
@@ -673,7 +604,7 @@ export function rewriteBullet(
     reasons,
     isNoChangeNeeded: false,
     warnings: warnings.length > 0 ? warnings : undefined,
-    defendPrompt: generateDefendPrompt(signals, clean),
+    defendPrompt: generateQuestionsToPrepare(signals, clean),
   };
 }
 
@@ -738,24 +669,24 @@ export function isNonTechnicalBullet(text: string, signals: BulletRewrite['signa
   return nonTechMarkers.some((m) => lower.includes(m)) || (!signals.hasTechnology && !signals.hasArtifact);
 }
 
-function generateDefendPrompt(signals: BulletRewrite['signals'], text: string): string {
-  const topics: string[] = [];
+export function generateQuestionsToPrepare(signals: BulletRewrite['signals'], text: string): string {
+  const terms: string[] = [];
   if (signals.matchedTechs.length > 0) {
-    topics.push(...signals.matchedTechs.slice(0, 2));
+    terms.push(...signals.matchedTechs.slice(0, 2));
   }
   if (signals.matchedArtifact) {
-    topics.push(signals.matchedArtifact);
-  }
-  if (signals.matchedMetric) {
-    topics.push(`measured outcome (${signals.matchedMetric})`);
+    terms.push(signals.matchedArtifact);
   }
 
-  if (topics.length === 0) {
-    return 'Be ready to defend: specific architectural decisions and personal contributions.';
+  if (terms.length > 0) {
+    return `Questions to prepare: (1) How did you benchmark and validate this ${terms.join(' / ')} implementation? (2) What architectural trade-offs did you evaluate?`;
   }
 
-  return `Be ready to defend: ${topics.join(', ')} implementation decisions and baseline metrics.`;
+  return `Questions to prepare: (1) What architectural trade-offs did you evaluate? (2) How did you validate and test the reported outcome?`;
 }
+
+// Retain alias for backward compatibility
+export const generateDefendPrompt = generateQuestionsToPrepare;
 
 function cleanupPunctuation(str: string): string {
   return str

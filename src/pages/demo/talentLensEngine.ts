@@ -946,7 +946,19 @@ export function generateImprovementPlan(
       if (unclosedGaps.length === 0) continue;
 
       for (const s of unclosedGaps) {
-        handledSkills.add(s.toLowerCase());
+        const sLower = s.toLowerCase().trim();
+        handledSkills.add(sLower);
+        for (const b of breakdown) {
+          const bComp = b.competency.toLowerCase().trim();
+          if (
+            bComp === sLower ||
+            sLower.includes(bComp) ||
+            bComp.includes(sLower) ||
+            formatCompetencyName(bComp).toLowerCase().trim() === sLower
+          ) {
+            handledSkills.add(bComp);
+          }
+        }
       }
 
       actionCount++;
@@ -978,6 +990,10 @@ export function generateImprovementPlan(
     .filter((b) => b.analysis.status === 'absent' && !handledSkills.has(b.competency.toLowerCase().trim()))
     .forEach((b) => {
       const compKey = b.competency.toLowerCase().trim();
+      handledSkills.add(compKey);
+      const fmtComp = formatCompetencyName(compKey).toLowerCase().trim();
+      if (fmtComp) handledSkills.add(fmtComp);
+
       const kind = classifySkillKind(compKey);
       const isSoftSkill = kind === 'soft-skill';
       const isFundamental = ['dsa', 'systemdesign', 'algorithms'].includes(compKey);

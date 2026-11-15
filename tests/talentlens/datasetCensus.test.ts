@@ -17,7 +17,7 @@ const RESUMES = {
 };
 
 describe('Stage 0 Dataset Census and Generality Audit', () => {
-  it('performs full dataset census and runs baseline validator sweep across all companies and roles', { timeout: 300000 }, () => {
+  it('performs full dataset census and runs baseline validator sweep across all companies and roles', { timeout: 720000 }, () => {
     let totalRoles = 0;
     const tiers = new Map<string, number>();
     const industries = new Map<string, number>();

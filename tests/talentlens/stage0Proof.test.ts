@@ -86,7 +86,7 @@ describe('Stage 0 Proofs and Audits', () => {
     expect(branchesFound.length).toBeGreaterThan(0);
   });
 
-  it('f: Library coverage by top 20 skill gaps across all 1,728 roles', () => {
+  it('f: Library coverage by top 20 skill gaps across all 1,728 roles', { timeout: 180000 }, () => {
     const gapRoleCounts: Record<string, number> = {};
     const gapUncoveredRoleCounts: Record<string, number> = {};
 

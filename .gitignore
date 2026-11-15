@@ -71,3 +71,4 @@ scratch/
 HANDOFF_*.txt
 .snapshots/
 .screens/
+docs/level_normalization_impact.csv
