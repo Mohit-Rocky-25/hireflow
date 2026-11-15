@@ -24,6 +24,7 @@ import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from './engine/skillStateEngine';
 import { generateEvidenceSafeRewrites, BulletRewrite } from './engine/bulletRewriteEngine';
+import { normalizeLevel, mapLevelToJdSeniority } from './engine/levelNormalizer';
 
 export interface Role {
   title: string;
@@ -563,7 +564,7 @@ export function computeScore(
     roleFamily,
     jdPresent: true,
     confirmedRequirements,
-    jdLevel: (role?.level || '').toLowerCase().includes('senior') ? 'senior' : 'entry',
+    jdLevel: mapLevelToJdSeniority(normalizeLevel(role?.level)),
     archetype,
     candidateYearsExperience: progression.yearsOfExperience,
     requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,
@@ -1316,7 +1317,7 @@ export function analyzeRoleMatch(
     roleFamily,
     jdPresent: true,
     confirmedRequirements,
-    jdLevel: (role.level || '').toLowerCase().includes('senior') ? 'senior' : 'entry',
+    jdLevel: mapLevelToJdSeniority(normalizeLevel(role?.level)),
     archetype,
     candidateYearsExperience: progression.yearsOfExperience,
     requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,

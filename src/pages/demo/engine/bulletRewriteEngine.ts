@@ -56,6 +56,10 @@ export const STRONG_VERBS = new Set([
   ...(actionVerbsData.strongVerbs as string[]).map((v) => v.toLowerCase()),
   'created',
   'decreased',
+  'organised',
+  'organized',
+  'managed',
+  'coordinated',
 ]);
 
 export const WEAK_OWNERSHIP_VERBS = new Set([
@@ -141,16 +145,22 @@ export const COMMON_ARTIFACTS = [
   'build',
   'builds',
   'ci',
+  'model',
+  'models',
+  'chatbot',
+  'chatbots',
 ];
 
 export const METRIC_REGEX =
-  /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|\d+(?:,\d+)*(?:\s+[a-zA-Z]+){0,3}\s*(?:minutes?|mins?|seconds?|secs?|hours?|hrs?|urls?|students?|users?|requests?|qps?|rps?|tps?|transactions?|dau|mau|records?|clients?|customers?|downloads?|stars?|views?|inr|usd|lakh|lakhs|cr|crore|crores|lpa|problems?|leetcode|coverage)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|decreased|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
+  /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|\d+(?:,\d+)*(?:\s+[a-zA-Z]+){0,3}\s*(?:minutes?|mins?|seconds?|secs?|hours?|hrs?|urls?|students?|attendees?|participants?|members?|users?|requests?|qps?|rps?|tps?|transactions?|dau|mau|records?|clients?|customers?|downloads?|stars?|views?|inr|usd|lakh|lakhs|cr|crore|crores|lpa|problems?|leetcode|coverage)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|decreased|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
 
 export const KNOWN_TECH_KEYWORDS = [
   'java',
   'python',
   'go',
   'golang',
+  'flutter',
+  'dart',
   'c++',
   'cpp',
   'c#',
@@ -376,6 +386,12 @@ export const ALLOWED_CONNECTIVES = new Set([
   'optimization',
   'resilient',
   'solved',
+  'contributed',
+  'leadership',
+  'impact',
+  'role',
+  'scope',
+  'feedback',
 ]);
 
 // ─────────────────────────────────────────────────────────────
@@ -604,40 +620,38 @@ export function rewriteBullet(
     (w) => lower.startsWith(w) || firstWord === w || `${firstWord} ${secondWord}` === w
   );
 
+  const isNonTech = isNonTechnicalBullet(clean, signals);
   let rewritten = '';
 
   if (isWeak) {
-    const matchedWeak = Array.from(WEAK_OWNERSHIP_VERBS).find(
-      (w) => lower.startsWith(w) || `${firstWord} ${secondWord}` === w || firstWord === w
-    ) || firstWord;
-
-    const verbCapitalized = matchedWeak.charAt(0).toUpperCase() + matchedWeak.slice(1);
-
-    let remaining = clean;
-    const weakReg = new RegExp(`^${matchedWeak}\\s*(?:to|with|the|in)?\\s*`, 'i');
-    remaining = remaining.replace(weakReg, '').trim();
-
-    const artifactSlot = signals.hasArtifact ? '' : ', [add: system/artifact name]';
-    const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', achieving [add: measured result]';
-
-    rewritten = `${verbCapitalized} ${remaining}${artifactSlot}, [add: what you personally built]${outcomeSlot}.`;
+    if (isNonTech) {
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', achieving [add: measured result]';
+      rewritten = `${clean}, [add: what you personally built or contributed]${outcomeSlot}.`;
+    } else {
+      const techSlot = signals.hasTechnology ? '' : ' using [add: technology]';
+      const artifactSlot = signals.hasArtifact ? '' : ', [add: system/artifact name]';
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', achieving [add: measured result]';
+      rewritten = `${clean}${techSlot}${artifactSlot}, [add: what you personally built]${outcomeSlot}.`;
+    }
     rewritten = cleanupPunctuation(rewritten);
   } else {
-    let actionVerb = signals.hasActionVerb ? words[0] : 'Developed';
-    if (!signals.hasActionVerb) {
-      actionVerb = 'Developed';
+    if (isNonTech) {
+      const roleSlot = ', [add: specific role or leadership contribution]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', resulting in [add: event outcome or impact]';
+      rewritten = `${clean}${roleSlot}${outcomePart}.`;
+    } else {
+      let actionVerb = signals.hasActionVerb ? words[0] : 'Developed';
+      let coreText = clean;
+      if (signals.hasActionVerb) {
+        coreText = clean.replace(new RegExp(`^${words[0]}\\s*`, 'i'), '').trim();
+      }
+
+      const techPart = signals.hasTechnology ? '' : ' using [add: technology]';
+      const artifactPart = signals.hasArtifact ? '' : ' for [add: system/artifact name]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', resulting in [add: measured metric]';
+
+      rewritten = `${actionVerb} ${coreText}${techPart}${artifactPart}${outcomePart}.`;
     }
-
-    let coreText = clean;
-    if (signals.hasActionVerb) {
-      coreText = clean.replace(new RegExp(`^${words[0]}\\s*`, 'i'), '').trim();
-    }
-
-    const techPart = signals.hasTechnology ? '' : ' using [add: technology]';
-    const artifactPart = signals.hasArtifact ? '' : ' for [add: system/artifact name]';
-    const outcomePart = signals.hasOutcomeOrMetric ? '' : ', resulting in [add: measured metric]';
-
-    rewritten = `${actionVerb} ${coreText}${techPart}${artifactPart}${outcomePart}.`;
     rewritten = cleanupPunctuation(rewritten);
   }
 
@@ -708,6 +722,21 @@ export function generateEvidenceSafeRewrites(
 // ─────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────
+
+export function isNonTechnicalBullet(text: string, signals: BulletRewrite['signals']): boolean {
+  const lower = text.toLowerCase();
+  const nonTechMarkers = [
+    'fest', 'club', 'event', 'society', 'competition', 'sports', 'cultural',
+    'annual', 'attendees', 'college', 'university', 'symposium',
+    'volunteered', 'chapter', 'placement', 'robotics'
+  ];
+  const hasStrongTech =
+    signals.hasTechnology ||
+    /\b(api|apis|microservice|microservices|pipeline|pipelines|database|databases|cache|server|frontend|backend|cloud|kubernetes|docker|sql|code|bot|chatbot|app|model|models|dsa|algorithms)\b/i.test(lower);
+  if (hasStrongTech) return false;
+
+  return nonTechMarkers.some((m) => lower.includes(m)) || (!signals.hasTechnology && !signals.hasArtifact);
+}
 
 function generateDefendPrompt(signals: BulletRewrite['signals'], text: string): string {
   const topics: string[] = [];

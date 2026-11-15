@@ -335,4 +335,118 @@ Projects:
       expect(criticalSteps).toHaveLength(1);
     });
   });
+
+  describe('Stage B: 12 Canonical Rewrite Safety Test Cases', () => {
+    const STAGE_B_CASES = [
+      {
+        id: 1,
+        input: 'Helped the team build a payment service',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Helped the team build a payment service using [add: technology], [add: what you personally built], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 2,
+        input: 'Reduced API latency by 40% using Redis caching in a Node.js service',
+        expectedClass: 'strong',
+        expectedRewrite: 'Reduced API latency by 40% using Redis caching in a Node.js service',
+        isNoChangeNeeded: true,
+      },
+      {
+        id: 3,
+        input: 'Designed resilient event-driven data pipelines and solved complex DSA problems for algorithmic optimization and system design bottlenecks across distributed clusters',
+        expectedClass: 'risky',
+        expectedSplitCount: 3,
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 4,
+        input: 'Worked on a web app using React',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Worked on a web app using React, [add: what you personally built], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 5,
+        input: 'Improved model accuracy from 82% to 91%',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Improved model accuracy from 82% to 91% using [add: technology].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 6,
+        input: 'Organised a college fest with 500 attendees',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Organised a college fest with 500 attendees, [add: specific role or leadership contribution].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 7,
+        input: 'Participated in a hackathon and built a chatbot',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Participated in a hackathon and built a chatbot using [add: technology], [add: what you personally built], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 8,
+        input: 'Responsible for backend APIs in Spring Boot and PostgreSQL',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Responsible for backend APIs in Spring Boot and PostgreSQL, [add: what you personally built], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 9,
+        input: 'Led a team of 4 to deliver an inventory app in Flutter',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Led a team of 4 to deliver an inventory app in Flutter, resulting in [add: measured metric].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 10,
+        input: 'Contributed to open source projects',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Contributed to open source projects, [add: what you personally built or contributed], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 11,
+        input: 'Implemented JWT authentication, role-based access, Docker deployment, CI/CD and unit tests for a REST API',
+        expectedClass: 'risky',
+        expectedRewrite: 'Implemented JWT authentication, role-based access, Docker deployment, CI/CD and unit tests for a REST API, resulting in [add: measured metric].',
+        isNoChangeNeeded: false,
+      },
+      {
+        id: 12,
+        input: 'Part of the robotics club',
+        expectedClass: 'improvable',
+        expectedRewrite: 'Part of the robotics club, [add: what you personally built or contributed], achieving [add: measured result].',
+        isNoChangeNeeded: false,
+      },
+    ];
+
+    for (const testCase of STAGE_B_CASES) {
+      it(`evaluates bullet #${testCase.id}: "${testCase.input}"`, () => {
+        const cls = classifyBullet(testCase.input);
+        expect(cls.qualityClass).toBe(testCase.expectedClass);
+
+        const rw = rewriteBullet(testCase.input);
+        expect(rw.qualityClass).toBe(testCase.expectedClass);
+        expect(rw.isNoChangeNeeded).toBe(testCase.isNoChangeNeeded);
+
+        if (testCase.expectedRewrite) {
+          expect(rw.rewrittenBullet).toBe(testCase.expectedRewrite);
+        }
+        if (testCase.expectedSplitCount) {
+          expect(rw.splitBullets).toHaveLength(testCase.expectedSplitCount);
+        }
+
+        // Validate through Checks 19-25
+        const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+        const rewriteViolations = val.violations.filter((v) =>
+          ['before-substring', 'no-new-digits', 'allowed-words-or-slots', 'ownership-guard', 'slot-markers'].includes(v.check)
+        );
+        expect(rewriteViolations).toHaveLength(0);
+      });
+    }
+  });
 });

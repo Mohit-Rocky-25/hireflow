@@ -7,6 +7,7 @@
 import briefsData from '../../../data/suite/project-briefs.json';
 import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { deriveBriefRealSkills, getCanonicalSkillName, MIN_PROJECT_RELEVANCE_THRESHOLD } from './projectMatcherIntegrity';
+import { formatCompetencyName } from '../talentLensEngine';
 import { classifySkillKind } from './skillStateEngine';
 import { validateBriefConcepts, CONCEPT_DEFINITIONS } from './conceptTagValidator';
 import {
@@ -187,6 +188,41 @@ export function validateReport(report: any): ValidateReportResult {
         field: 'projectDrops.relevanceScore',
         value: p.relevanceScore,
       });
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 15: Closes Skills (must be active candidate gaps)
+  // ─────────────────────────────────────────────────────────────
+  const candidateGaps = new Set<string>();
+  for (const b of breakdown) {
+    const status = b.status || b.analysis?.status;
+    if (status === 'absent' || status === 'not-found' || status === 'working' || status === 'mentioned') {
+      if (b.key) candidateGaps.add(b.key.toLowerCase().trim());
+      if (b.competency) candidateGaps.add(b.competency.toLowerCase().trim());
+      if (b.label) candidateGaps.add(b.label.toLowerCase().trim());
+      const fmt = formatCompetencyName(b.key || b.competency || '');
+      if (fmt) candidateGaps.add(fmt.toLowerCase().trim());
+    }
+  }
+
+  for (const p of projectDrops) {
+    for (const c of p.closes || []) {
+      const cLower = c.toLowerCase().trim();
+      const isGap = Array.from(candidateGaps).some((g) => {
+        if (!g) return false;
+        if (g === cLower || g.includes(cLower) || cLower.includes(g)) return true;
+        const fmtG = formatCompetencyName(g).toLowerCase().trim();
+        return fmtG === cLower || fmtG.includes(cLower) || cLower.includes(fmtG);
+      });
+      if (!isGap && candidateGaps.size > 0) {
+        violations.push({
+          check: 'coverage',
+          message: `Project "${p.title}" claims to close "${c}" which is not an active skill gap for this candidate.`,
+          field: 'projectDrops.closes',
+          value: c,
+        });
+      }
     }
   }
 
@@ -397,6 +433,29 @@ export function validateReport(report: any): ValidateReportResult {
     }
   }
 
+  // Also check raw strengths array if present
+  if (Array.isArray(r.strengths)) {
+    for (const str of r.strengths) {
+      const strName = typeof str === 'string' ? str : str?.skill || str?.name || '';
+      const matchingComp = breakdown.find(
+        (b) =>
+          (b.key || b.competency || '').toLowerCase() === strName.toLowerCase() ||
+          (b.label || '').toLowerCase() === strName.toLowerCase()
+      );
+      if (matchingComp) {
+        const status = matchingComp.status || matchingComp.analysis?.status;
+        if (status !== 'strong' && status !== 'expert' && status !== 'demonstrated') {
+          violations.push({
+            check: 'strengths',
+            message: `Skill "${strName}" claimed in strengths list has non-demonstrated status "${status}".`,
+            field: 'strengths',
+            value: status,
+          });
+        }
+      }
+    }
+  }
+
   // ─────────────────────────────────────────────────────────────
   // CHECK 11: Parse Summary (honest, zero hallucinated fields)
   // ─────────────────────────────────────────────────────────────
@@ -426,12 +485,24 @@ export function validateReport(report: any): ValidateReportResult {
   for (const b of breakdown) {
     const status = b.status || b.analysis?.status;
     const statusLabel = b.statusLabel;
+    const compKey = (b.key || b.competency || '').toLowerCase().trim();
+
     if (status === 'not-assessed' && statusLabel !== 'Not assessed') {
       violations.push({
         check: 'not-assessed',
         message: `Skill "${b.key || b.competency}" marked not-assessed must display label "Not assessed" (got "${statusLabel}").`,
         field: 'breakdown.statusLabel',
         value: statusLabel,
+      });
+    }
+
+    // Soft skills must be marked not-assessed without code claims
+    if (classifySkillKind(compKey) === 'soft-skill' && (status === 'demonstrated' || status === 'expert')) {
+      violations.push({
+        check: 'not-assessed',
+        message: `Soft skill "${b.key || b.competency}" must be marked not-assessed (got "${status}").`,
+        field: 'breakdown.status',
+        value: status,
       });
     }
   }
@@ -443,7 +514,14 @@ export function validateReport(report: any): ValidateReportResult {
     const status = b.status || b.analysis?.status;
     const tag = b.confidenceTag;
     if (tag) {
-      if (status === 'strong' && tag === 'Low') {
+      if (!['High', 'Medium', 'Low'].includes(tag)) {
+        violations.push({
+          check: 'confidence',
+          message: `Competency "${b.key || b.competency}" has invalid confidence tag "${tag}". Must be High, Medium, or Low.`,
+          field: 'breakdown.confidenceTag',
+          value: tag,
+        });
+      } else if (status === 'strong' && tag === 'Low') {
         violations.push({
           check: 'confidence',
           message: `Strong competency "${b.key || b.competency}" has inconsistent confidence tag "Low".`,
@@ -592,13 +670,22 @@ export function validateReport(report: any): ValidateReportResult {
   // CHECK 18: Determinism & Non-Degeneracy
   // ─────────────────────────────────────────────────────────────
   const overallScore = r.score ?? r.overallScore ?? r.result?.score;
-  if (typeof overallScore === 'number' && (Number.isNaN(overallScore) || !Number.isFinite(overallScore))) {
-    violations.push({
-      check: 'determinism',
-      message: `Overall score is NaN or non-finite.`,
-      field: 'score',
-      value: overallScore,
-    });
+  if (typeof overallScore === 'number') {
+    if (Number.isNaN(overallScore) || !Number.isFinite(overallScore)) {
+      violations.push({
+        check: 'determinism',
+        message: `Overall score is NaN or non-finite.`,
+        field: 'score',
+        value: overallScore,
+      });
+    } else if (overallScore < 0 || overallScore > 100) {
+      violations.push({
+        check: 'numbers',
+        message: `Overall score ${overallScore} is out of bounds [0, 100].`,
+        field: 'score',
+        value: overallScore,
+      });
+    }
   }
   for (const b of breakdown) {
     if (typeof b.score === 'number' && Number.isNaN(b.score)) {
@@ -651,7 +738,7 @@ export function validateReport(report: any): ValidateReportResult {
       });
     }
 
-    // CHECK 20: no digit appears in "after" that is absent from "before"
+    // CHECK 20: no digit, number word, or metric unit appears in "after" that is absent from "before"
     const beforeDigits = new Set(beforeText.match(/\d/g) || []);
     const afterDigits: string[] = afterText.match(/\d/g) || [];
     const newDigits = afterDigits.filter((d: string) => !beforeDigits.has(d));
@@ -661,6 +748,26 @@ export function validateReport(report: any): ValidateReportResult {
         message: `Rewritten bullet introduced new digit(s) [${Array.from(new Set(newDigits)).join(', ')}] not present in original bullet.`,
         field: 'bulletRewrites.rewrittenBullet',
         value: newDigits,
+      });
+    }
+
+    // Number words & units outside slot markers
+    const NUMBER_WORDS_AND_UNITS = new Set([
+      'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+      'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty',
+      'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred', 'thousand', 'million', 'billion',
+      'lakh', 'lakhs', 'crore', 'crores', 'percent', 'percentage', 'k', 'ms', 'qps', 'tps', 'rps'
+    ]);
+    const strippedAfterText = afterText.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ');
+    const afterTokens = strippedAfterText.toLowerCase().match(/\b[a-z0-9]+\b/g) || [];
+    const beforeTokens = new Set(beforeText.toLowerCase().match(/\b[a-z0-9]+\b/g) || []);
+    const newNumberWords = afterTokens.filter((t) => NUMBER_WORDS_AND_UNITS.has(t) && !beforeTokens.has(t));
+    if (newNumberWords.length > 0) {
+      violations.push({
+        check: 'no-new-digits',
+        message: `Rewritten bullet introduced new number word(s) or unit(s) [${Array.from(new Set(newNumberWords)).join(', ')}] not present in original bullet.`,
+        field: 'bulletRewrites.rewrittenBullet',
+        value: newNumberWords,
       });
     }
 
@@ -674,6 +781,17 @@ export function validateReport(report: any): ValidateReportResult {
             message: `Split bullet introduced new digit(s) [${Array.from(new Set(newSbDigits)).join(', ')}] not present in original bullet.`,
             field: 'bulletRewrites.splitBullets',
             value: newSbDigits,
+          });
+        }
+        const strippedSb = sb.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ');
+        const sbTokens = strippedSb.toLowerCase().match(/\b[a-z0-9]+\b/g) || [];
+        const newSbNumberWords = sbTokens.filter((t: string) => NUMBER_WORDS_AND_UNITS.has(t) && !beforeTokens.has(t));
+        if (newSbNumberWords.length > 0) {
+          violations.push({
+            check: 'no-new-digits',
+            message: `Split bullet introduced new number word(s) or unit(s) [${Array.from(new Set(newSbNumberWords)).join(', ')}] not present in original bullet.`,
+            field: 'bulletRewrites.splitBullets',
+            value: newSbNumberWords,
           });
         }
       }

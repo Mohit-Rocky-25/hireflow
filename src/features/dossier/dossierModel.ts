@@ -537,6 +537,19 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       })
     : [];
 
+  // Reconcile skill states with authoritative breakdown statuses to eliminate contradictions
+  for (const st of skillStatesForEvaluation) {
+    const matchingB = breakdown.find(
+      (b) => b.key.toLowerCase() === st.id.toLowerCase() ||
+             (b.label && b.label.toLowerCase() === st.label.toLowerCase())
+    );
+    if (matchingB) {
+      if (matchingB.status === 'demonstrated' || matchingB.status === 'expert' || matchingB.status === 'strong') {
+        st.status = 'demonstrated';
+      }
+    }
+  }
+
   const parseSummary = extractResumeParseSummary(resumeText || '', skillStatesForEvaluation);
 
   // Stage 6: Strengths we verified (strictly from demonstrated skills and verified modern practices with evidence)

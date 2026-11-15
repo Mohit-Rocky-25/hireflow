@@ -222,7 +222,7 @@ function computeDomainFit(
     cInd.includes('trading') ||
     cInd.includes('custodial');
 
-  const isAIMLRole = rTitle.includes('ml') || rTitle.includes('ai') || rTitle.includes('data');
+  const isAIMLRole = /\b(ai|ml|llm|machine\s+learning|deep\s+learning|data\s+scientist|data\s+engineer|data\s+platform)\b/i.test(rTitle);
 
   if (isFintech && !isAIMLRole) {
     // For fintech backend/core engineering:

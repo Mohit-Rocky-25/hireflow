@@ -7,6 +7,7 @@
 
 import { matchesTokenSafely } from '@/scoring/core';
 import { COMPETENCY_SIGNALS, formatCompetencyName, getSentences } from '../talentLensEngine';
+import { normalizeLevel } from './levelNormalizer';
 
 export type SkillKind = 'language' | 'framework' | 'database' | 'concept' | 'domain' | 'soft-skill' | 'unclassified';
 export type RequirementSource = 'jd-text' | 'inferred-from-company-tier';
@@ -529,8 +530,7 @@ export function buildSkillStates(input: BuildSkillStatesInput): SkillState[] {
   const isCampus =
     (role?.title || '').toLowerCase().includes('campus') ||
     (role?.title || '').toLowerCase().includes('fresher') ||
-    (role?.level || '').toLowerCase().includes('entry') ||
-    (role?.level || '').toLowerCase().includes('intern');
+    normalizeLevel(role?.level) === 'entry';
 
   const jdFull = [
     role?.title,
