@@ -453,6 +453,108 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
   // IF TALENTLENS: RENDER PURE TALENTLENS COMPETENCY, CAREER PLAN & MARKET INTEL
   // =========================================================================
   if (isTalentLens) {
+    // Transparency Block: How We Read Your Resume
+    if (model.parseSummary) {
+      const ps = model.parseSummary;
+      const parseBoxHeight = ps.warningMessage ? 38 : 28;
+      checkNewPage(parseBoxHeight + 8);
+      page.drawRectangle({
+        x: margin,
+        y: y - parseBoxHeight,
+        width: contentWidth,
+        height: parseBoxHeight,
+        color: rgb(0.97, 0.98, 0.99),
+        borderColor: rgb(0.85, 0.88, 0.92),
+        borderWidth: 0.5,
+      });
+
+      page.drawText(`HOW WE READ YOUR RESUME — Parse Confidence: ${ps.parseConfidence.toUpperCase()}`, {
+        x: margin + 8,
+        y: y - 11,
+        size: 7.5,
+        font: fontBold,
+        color: rgb(0.1, 0.2, 0.35),
+      });
+
+      const statsLine = `Sections: ${ps.sectionsCount}  |  Projects: ${ps.projectsCount}  |  Bullets: ${ps.bulletsCount}  |  Skills Detected: ${ps.skillsDetectedCount}  |  Evidence Sentences Used: ${ps.evidenceSentencesCount}`;
+      page.drawText(statsLine, {
+        x: margin + 8,
+        y: y - 21,
+        size: 7,
+        font: fontRegular,
+        color: rgb(0.25, 0.3, 0.35),
+      });
+
+      if (ps.warningMessage) {
+        page.drawText(`[Warning] ${ps.warningMessage}`, {
+          x: margin + 8,
+          y: y - 31,
+          size: 6.5,
+          font: fontBold,
+          color: rgb(0.75, 0.2, 0.2),
+        });
+      }
+
+      y -= parseBoxHeight + 8;
+    }
+
+    // Transparency Block: Strengths We Verified (omitted if empty)
+    if (model.verifiedStrengths && model.verifiedStrengths.length > 0) {
+      const vsList = model.verifiedStrengths.slice(0, 4);
+      let totalVsHeight = 16;
+      const wrappedItems: Array<{ title: string; lines: string[] }> = [];
+      for (const item of vsList) {
+        const title = `${item.label.toUpperCase()} (${item.kind.toUpperCase()}) — Verified Match`;
+        const lines = wrapText(`"${item.evidenceText}"`, 100);
+        wrappedItems.push({ title, lines });
+        totalVsHeight += 10 + lines.length * 8 + 4;
+      }
+
+      checkNewPage(totalVsHeight + 8);
+      page.drawRectangle({
+        x: margin,
+        y: y - totalVsHeight,
+        width: contentWidth,
+        height: totalVsHeight,
+        color: rgb(0.96, 0.99, 0.96),
+        borderColor: rgb(0.8, 0.9, 0.82),
+        borderWidth: 0.5,
+      });
+
+      page.drawText('STRENGTHS WE VERIFIED (Grounded in Resume Evidence)', {
+        x: margin + 8,
+        y: y - 11,
+        size: 7.5,
+        font: fontBold,
+        color: rgb(0.08, 0.45, 0.2),
+      });
+
+      let itemY = y - 22;
+      for (const item of wrappedItems) {
+        page.drawText(item.title, {
+          x: margin + 8,
+          y: itemY,
+          size: 7,
+          font: fontBold,
+          color: rgb(0.1, 0.35, 0.18),
+        });
+        itemY -= 9;
+        for (const line of item.lines) {
+          page.drawText(line, {
+            x: margin + 14,
+            y: itemY,
+            size: 6.5,
+            font: fontRegular,
+            color: rgb(0.2, 0.3, 0.25),
+          });
+          itemY -= 8;
+        }
+        itemY -= 3;
+      }
+
+      y -= totalVsHeight + 8;
+    }
+
     // Subsection 1: 6-Layer Competency Framework Breakdown
     drawSubsectionBanner(
       1,
@@ -491,11 +593,30 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
         page.drawText(b.label, { x: margin + 8, y: y - 10, size: 7.5, font: fontBold, color: rgb(0.1, 0.14, 0.12) });
         page.drawText((b.reqLevel || 'Strong').toUpperCase(), { x: margin + 180, y: y - 10, size: 7, font: fontRegular, color: rgb(0.4, 0.45, 0.45) });
 
-        const bColor = b.status === 'expert' || b.status === 'strong' ? rgb(0.08, 0.55, 0.25) : b.status === 'working' ? rgb(0.75, 0.45, 0.05) : rgb(0.8, 0.18, 0.18);
-        page.drawText((b.status || 'Verified').toUpperCase(), { x: margin + 260, y: y - 10, size: 7, font: fontBold, color: bColor });
-        page.drawText(`${b.score} / 100`, { x: margin + 340, y: y - 10, size: 7.5, font: fontBold, color: rgb(0.1, 0.14, 0.12) });
+        const isNotAssessed = b.status === 'not-assessed';
+        const bColor = isNotAssessed
+          ? rgb(0.4, 0.45, 0.5)
+          : b.status === 'expert' || b.status === 'strong' || b.status === 'demonstrated'
+          ? rgb(0.08, 0.55, 0.25)
+          : b.status === 'working' || b.status === 'mentioned'
+          ? rgb(0.75, 0.45, 0.05)
+          : rgb(0.8, 0.18, 0.18);
+        const statusText = isNotAssessed
+          ? 'NOT ASSESSED'
+          : b.status === 'demonstrated'
+          ? 'DEMONSTRATED'
+          : b.status === 'mentioned'
+          ? 'MENTIONED'
+          : (b.status || 'Verified').toUpperCase();
+        page.drawText(statusText, { x: margin + 260, y: y - 10, size: 7, font: fontBold, color: bColor });
+        const scoreText = isNotAssessed ? '—' : `${b.score} / 100`;
+        page.drawText(scoreText, { x: margin + 340, y: y - 10, size: 7.5, font: fontBold, color: rgb(0.1, 0.14, 0.12) });
 
-        const lsStr = b.layerScores ? `L1:${b.layerScores.l1} L2:${b.layerScores.l2} L3:${b.layerScores.l3} L4:${b.layerScores.l4} L5:${b.layerScores.l5}` : '—';
+        const lsStr = isNotAssessed
+          ? 'Not assessed from resume'
+          : b.layerScores
+          ? `L1:${b.layerScores.l1} L2:${b.layerScores.l2} L3:${b.layerScores.l3} L4:${b.layerScores.l4} L5:${b.layerScores.l5}`
+          : '—';
         page.drawText(lsStr, { x: margin + 410, y: y - 10, size: 7, font: fontMono, color: rgb(0.3, 0.35, 0.4) });
 
         y -= 14;
@@ -504,6 +625,9 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
 
       // Evidence Quotes & Identified Gaps Detail
       for (const b of model.breakdown) {
+        if (b.status === 'not-assessed') {
+          continue;
+        }
         if ((b.evidenceQuotes && b.evidenceQuotes.length > 0) || (b.gaps && b.gaps.length > 0)) {
           const eqLines = b.evidenceQuotes && b.evidenceQuotes.length > 0 ? wrapText(`Extracted Resume Evidence: "${b.evidenceQuotes[0]}"`, 100) : [];
           const gapLines = b.gaps && b.gaps.length > 0 ? wrapText(`Open Requirement Gap: ${b.gaps[0]}`, 100) : [];
@@ -1317,7 +1441,8 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     drawSubsectionBanner(2, 'TalentLens 6-Layer Competency Framework', undefined, rgb(0.1, 0.45, 0.35));
     for (const b of model.breakdown) {
       checkNewPage(14);
-      page.drawText(`${b.label}: ${b.score}/100 [${b.status}]`, { x: margin + 8, y: y - 10, size: 7.5, font: fontRegular, color: rgb(0.1, 0.1, 0.1) });
+      const scoreStr = b.status === 'not-assessed' ? 'NOT ASSESSED' : `${b.score}/100`;
+      page.drawText(`${b.label}: ${scoreStr} [${b.status}]`, { x: margin + 8, y: y - 10, size: 7.5, font: fontRegular, color: rgb(0.1, 0.1, 0.1) });
       y -= 14;
     }
 

@@ -226,9 +226,13 @@ B.Tech in Computer Science, 2026
     // Never repeat identical score ranges across distinct critical actions
     expect(uniqueGainStrings.size).toBe(gainStrings.length);
 
-    // Verify progression path formatting (e.g. 54 -> 59)
-    for (const gain of gainStrings) {
-      expect(gain).toMatch(/Cumulative path: \d+ -> \d+/);
+    // Verify progression path formatting (e.g. 54 -> 59) or 'not scored' for soft-skills
+    for (const plan of criticalPlans) {
+      if (plan.title.toLowerCase().includes('communication')) {
+        expect(plan.hypotheticalScoreGain).toBe('not scored');
+      } else {
+        expect(plan.hypotheticalScoreGain).toMatch(/Cumulative path: \d+ -> \d+/);
+      }
     }
   });
 
@@ -454,8 +458,13 @@ Keywords: Algorithms, Data Structures, Distributed Systems, Microservices, CI/CD
     });
 
     for (const st of skillStates) {
-      expect(st.status).toBe('not-found');
-      expect(st.summaryLine).toBe('No evidence found in the resume');
+      if (st.kind === 'soft-skill') {
+        expect(st.status).toBe('not-assessed');
+        expect(st.summaryLine).toContain('Not assessed from resume text');
+      } else {
+        expect(st.status).toBe('not-found');
+        expect(st.summaryLine).toBe('No evidence found in the resume');
+      }
     }
 
     const matchResult = matchProjectsWithIntegrity({

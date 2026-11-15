@@ -1,8 +1,7 @@
 import type { AuditEntry, Gap, IsoDate, JdOrigin, PlanItem, PlanKind, PlanStatus, Sha256, ToolKind, Uuid } from '@/domain/types';
 import { formatDelta } from '@/features/journal/deltaEngine';
-import { matchJobRoleToProjects, JobRoleSkillItem } from '@/features/suite/briefs/engine/jobRoleProjectMatcher';
 import { matchProjectsWithIntegrity } from '@/pages/demo/engine/projectMatcherIntegrity';
-import { buildSkillStates } from '@/pages/demo/engine/skillStateEngine';
+import { buildSkillStates, extractResumeParseSummary, classifySkillKind, ResumeParseSummary, SkillState } from '@/pages/demo/engine/skillStateEngine';
 import { validateReport } from '@/pages/demo/engine/reportValidator';
 import { runAtsEngine } from '@/features/ats/engine';
 import { runMarketIntelligenceEngine, formatCompetencyName, generateImprovementPlan } from '@/pages/demo/talentLensEngine';
@@ -23,6 +22,8 @@ export interface BreakdownItemModel {
   reqLevel?: string;
   status?: string;
   confidence?: number;
+  confidenceTag?: 'High' | 'Medium' | 'Low';
+  kind?: string;
   layerScores?: { l1: number; l2: number; l3: number; l4: number; l5: number };
   evidenceQuotes: string[];
   gaps: string[];
@@ -163,6 +164,14 @@ export interface DossierModel {
   summary: string[];
   breakdown: BreakdownItemModel[];
   strengths: string[];
+  verifiedStrengths?: Array<{
+    skill: string;
+    label: string;
+    kind: string;
+    contextScore: number;
+    evidenceText: string;
+  }>;
+  parseSummary?: ResumeParseSummary;
   gaps: { open: Gap[]; resolved: Gap[]; added: Gap[] };
   atsDiagnostics: AtsDiagnosticsModel;
   talentLensIntel: TalentLensIntelModel;
@@ -300,28 +309,44 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
   const breakdown: BreakdownItemModel[] = [];
   if (Array.isArray(tlResult?.breakdown) && tlResult.breakdown.length > 0) {
     for (const b of tlResult.breakdown) {
+      const compName = b.competency || b.key || b.label || '';
+      const kind = b.kind || classifySkillKind(compName);
+      const isSoftSkill = kind === 'soft-skill';
+      const status = isSoftSkill
+        ? 'not-assessed'
+        : b.status || b.analysis?.status || (b.score >= 75 ? 'demonstrated' : b.score >= 50 ? 'mentioned' : 'not-found');
+      const confidenceTag = isSoftSkill ? 'Low' : b.confidenceTag || (b.score >= 75 ? 'High' : b.score >= 50 ? 'Medium' : 'Low');
       breakdown.push({
-        key: b.competency.toLowerCase().replace(/[^a-z0-9]/g, '_'),
-        label: formatCompetencyName(b.competency),
-        score: Math.round(b.analysis?.confidence ?? 0),
+        key: compName.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+        label: formatCompetencyName(compName),
+        score: isSoftSkill ? 0 : Math.round(b.score ?? b.analysis?.confidence ?? 0),
         reqLevel: b.reqLevel || 'strong',
-        status: b.analysis?.status || (b.analysis?.confidence >= 75 ? 'expert' : b.analysis?.confidence >= 50 ? 'working' : 'absent'),
-        confidence: b.analysis?.confidence ?? 0,
-        layerScores: b.analysis?.layerScores || { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 },
-        evidenceQuotes: b.analysis?.contextSentences || b.analysis?.evidence || [],
-        gaps: b.analysis?.gaps || [],
-        deltaPts: d?.breakdownDeltaPts?.[b.competency] ?? null,
+        status,
+        confidenceTag,
+        kind,
+        layerScores: b.layerScores || b.analysis?.layerScores || { l1: 0, l2: 0, l3: 0, l4: 0, l5: 0 },
+        evidenceQuotes: b.evidenceQuotes || b.analysis?.contextSentences || b.analysis?.evidence || [],
+        gaps: b.gaps || b.analysis?.gaps || [],
+        deltaPts: d?.breakdownDeltaPts?.[compName] ?? null,
       });
     }
   } else if (entry.breakdown && entry.breakdown.length > 0) {
     for (const b of entry.breakdown) {
       const bAny = b as any;
+      const compName = b.label || b.key;
+      const kind = bAny.kind || classifySkillKind(compName);
+      const isSoftSkill = kind === 'soft-skill';
+      const status = isSoftSkill
+        ? 'not-assessed'
+        : bAny.status || (b.score >= 75 ? 'expert' : b.score >= 50 ? 'working' : 'absent');
       breakdown.push({
         key: b.key,
-        label: formatCompetencyName(b.label || b.key),
-        score: b.score,
+        label: formatCompetencyName(compName),
+        score: isSoftSkill ? 0 : b.score,
         reqLevel: bAny.reqLevel || 'strong',
-        status: bAny.status || (b.score >= 75 ? 'expert' : b.score >= 50 ? 'working' : 'absent'),
+        status,
+        confidenceTag: isSoftSkill ? 'Low' : bAny.confidenceTag || (b.score >= 75 ? 'High' : b.score >= 50 ? 'Medium' : 'Low'),
+        kind,
         confidence: bAny.confidence || b.score,
         layerScores: bAny.layerScores || { l1: b.score, l2: b.score, l3: b.score, l4: b.score, l5: b.score },
         evidenceQuotes: bAny.evidenceQuotes || [],
@@ -483,74 +508,81 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     };
   }
 
-  // Recommended Proof-of-Work Project Drops (Enforces Stage 3 Integrity)
+  // Stage 5: Parse Transparency Summary
+  const skillStatesForEvaluation = (isTalentLens || breakdown.length > 0)
+    ? buildSkillStates({
+        resumeText: resumeText || '',
+        competencies: breakdown.map((b) => b.key),
+        reqLevels: Object.fromEntries(breakdown.map((b) => [b.key, b.reqLevel || 'strong'])),
+        role: tlRole || { title: roleTitle, level },
+        company: tlCompany || { name: companyName, industry, tier },
+      })
+    : [];
+
+  const parseSummary = extractResumeParseSummary(resumeText || '', skillStatesForEvaluation);
+
+  // Stage 6: Strengths we verified (strictly from demonstrated skills and verified modern practices with evidence)
+  const verifiedStrengths: Array<{
+    skill: string;
+    label: string;
+    kind: string;
+    contextScore: number;
+    evidenceText: string;
+  }> = [];
+
+  for (const b of breakdown) {
+    const isDemonstrated = b.status === 'demonstrated' || b.status === 'expert' || b.status === 'strong';
+    const firstEvidence = b.evidenceQuotes?.[0];
+    if (isDemonstrated && firstEvidence) {
+      verifiedStrengths.push({
+        skill: b.key,
+        label: b.label,
+        kind: b.kind || 'concept',
+        contextScore: ((b.confidence ?? b.score) >= 75) ? 0.85 : 0.65,
+        evidenceText: firstEvidence,
+      });
+    }
+  }
+
+  // Recommended Proof-of-Work Project Drops (Enforces Single Consolidated Matcher)
   let projectDrops: ProjectDropModel[] = [];
 
-  if (isTalentLens || breakdown.length > 0) {
-    const skillStates = buildSkillStates({
-      resumeText: resumeText || '',
-      competencies: breakdown.map((b) => b.key),
-      reqLevels: Object.fromEntries(breakdown.map((b) => [b.key, b.reqLevel || 'strong'])),
-      role: tlRole || { title: roleTitle, level },
-      company: tlCompany || { name: companyName, industry, tier },
-    });
+  const skillStatesForMatching: SkillState[] = skillStatesForEvaluation.length > 0
+    ? skillStatesForEvaluation
+    : entry.gaps.map((g) => ({
+        id: g.label.toLowerCase(),
+        label: g.label,
+        kind: 'concept' as const,
+        requirementLevel: g.severity === 3 ? 'expert' : 'strong',
+        requirementSource: 'jd-text' as const,
+        evidence: [],
+        status: 'not-found' as const,
+        confidenceTag: 'Low' as const,
+        score: 0,
+        confidence: 0,
+        gaps: [],
+        summaryLine: '',
+        contextSentences: [],
+      }));
 
-    const projectMatch = matchProjectsWithIntegrity({
-      skillStates,
-      company: tlCompany || { name: companyName, industry, tier },
-      role: tlRole || { title: roleTitle, level },
-    });
+  const projectMatch = matchProjectsWithIntegrity({
+    skillStates: skillStatesForMatching,
+    company: tlCompany || { name: companyName, industry, tier },
+    role: tlRole || { title: roleTitle, level },
+  });
 
-    projectDrops = projectMatch.projects.map((p) => ({
-      title: p.title,
-      domain: p.domain,
-      difficulty: p.difficulty,
-      estimatedHours: p.estimatedHours,
-      coveredSkills: p.coveredSkills,
-      problemStatement: p.problemStatement,
-      architecture: p.architecture,
-      recruiterSignal: p.recruiterSignal,
-      portfolioBulletFormula: p.portfolioBulletFormula,
-      deliverables: p.deliverables,
-    }));
-  } else {
-    const skillItemsForProjectBridge: JobRoleSkillItem[] = [];
-    if (atsDiagnostics.skillsInventory.length > 0) {
-      for (const s of atsDiagnostics.skillsInventory) {
-        skillItemsForProjectBridge.push({
-          name: s.canonical,
-          isMandatory: s.required === 'must',
-          status: s.status === 'verified' ? 'verified' : 'gap',
-        });
-      }
-    } else {
-      for (const g of entry.gaps) {
-        skillItemsForProjectBridge.push({ name: g.label, isMandatory: g.severity === 3, status: 'gap' });
-      }
-      for (const s of entry.strengths) {
-        skillItemsForProjectBridge.push({ name: s, isMandatory: false, status: 'verified' });
-      }
-    }
-
-    const legacyMatch = matchJobRoleToProjects({
-      skills: skillItemsForProjectBridge,
-      roleTitle: roleTitle || 'Software Engineer',
-      maxRecommendations: 2,
-    });
-
-    projectDrops = legacyMatch.recommendations.slice(0, 2).map((r) => ({
-      title: r.brief.title,
-      domain: r.brief.domain,
-      difficulty: r.brief.difficulty,
-      estimatedHours: r.brief.estimatedHours,
-      coveredSkills: r.brief.coveredSkills || r.brief.techStack || [],
-      problemStatement: r.brief.problemStatement,
-      architecture: r.brief.architecture,
-      recruiterSignal: r.brief.recruiterSignal || r.interviewProofPoint,
-      portfolioBulletFormula: r.brief.portfolioBulletFormula,
-      deliverables: (r.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
-    }));
-  }
+  projectDrops = projectMatch.projects.map((p) => ({
+    title: p.title,
+    domain: p.domain,
+    difficulty: p.difficulty,
+    estimatedHours: p.estimatedHours,
+    coveredSkills: p.coveredSkills,
+    problemStatement: p.problemStatement,
+    architecture: p.architecture,
+    recruiterSignal: p.recruiterSignal,
+    portfolioBulletFormula: p.portfolioBulletFormula,
+    deliverables: p.deliverables,
+  }));
 
   // Learning Paths & Action Plans
   const learningStages: LearningStageModel[] = [];
@@ -696,7 +728,11 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       baselineDate: d?.baselineCreatedAt ?? null,
     },
     breakdown,
-    strengths: entry.strengths,
+    strengths: verifiedStrengths.length > 0
+      ? verifiedStrengths.map((vs) => `${vs.label}: "${vs.evidenceText}"`)
+      : (entry.strengths || []).filter((s) => !/undefined|absent|not-found/i.test(s)),
+    verifiedStrengths,
+    parseSummary,
     gaps: { open: entry.gaps, resolved, added },
     atsDiagnostics,
     talentLensIntel,

@@ -526,9 +526,8 @@ export function computeScore(
   let archetype = 'product_mnc_gcc';
   const tier = (company?.tier || '').toUpperCase();
   const ind = (company?.industry || '').toLowerCase();
-  const cName = (company?.name || '').toLowerCase();
 
-  if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street|alphagrep|futures first|quadeye/i.test(cName)) {
+  if (tier === 'TIER S' || tier === 'QUANT' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
     archetype = 'quant_trading';
   } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
     archetype = 'big_tech_product';
@@ -934,13 +933,18 @@ export function generateImprovementPlan(
       const closability = isFundamental ? '90+ days' : isSoftSkill ? '30 days' : '30 days';
       const timeframe = isFundamental ? '12-week roadmap' : isSoftSkill ? '2-3 weeks' : '4-6 weeks';
 
-      actionCount++;
-      const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
-      const stepGainMin = Math.max(1, stepGain - 1);
-      const stepGainMax = stepGain + 1;
-      const nextScore = Math.min(100, cumulativeCurrent + stepGain);
-      const gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
-      cumulativeCurrent = nextScore;
+      let gainDisplay: string;
+      if (isSoftSkill) {
+        gainDisplay = 'not scored';
+      } else {
+        actionCount++;
+        const stepGain = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
+        const stepGainMin = Math.max(1, stepGain - 1);
+        const stepGainMax = stepGain + 1;
+        const nextScore = Math.min(100, cumulativeCurrent + stepGain);
+        gainDisplay = `+${stepGainMin} to +${stepGainMax} pts (Cumulative path: ${cumulativeCurrent} -> ${nextScore})`;
+        cumulativeCurrent = nextScore;
+      }
 
       let suggestedAction: string;
       let bulletTemplate: string;
@@ -950,17 +954,17 @@ export function generateImprovementPlan(
       if (isSoftSkill) {
         // Soft skills receive authoring artifact template, NEVER deploy project (Fixes D5)
         suggestedAction = `Author a written technical artifact (architecture RFC, system design walkthrough, or technical post-mortem) demonstrating structured communication and decision rationale.`;
-        bulletTemplate = `Authored technical architecture specification for [system/initiative], aligning [stakeholders] on [key design decision].`;
+        bulletTemplate = `Authored technical architecture specification for {{system/initiative}}, aligning {{stakeholders}} on {{key design decision}}.`;
         resources = ['Google Technical Writing Course', 'Architecture Decision Record (ADR) templates', 'Writing effective RFCs for software systems'];
         detail = `"${role.title}" requires effective technical communication. Resume currently lacks documented engineering RFCs or design specs. Action plan: (1) Author an architecture specification, (2) Document trade-offs with explicit constraints, (3) Link public technical documentation in resume.`;
       } else if (isFundamental) {
         suggestedAction = `Complete structured algorithmic patterns (two pointers, trees, graphs) and document problem-solving approaches.`;
-        bulletTemplate = `Optimized core [algorithmic subsystem] using [pattern/data structure], reducing time complexity from [O(n^2)] to [O(n log n)].`;
+        bulletTemplate = `Optimized core {{algorithmic subsystem}} using {{pattern/data structure}}, reducing time complexity from {{O(n^2)}} to {{O(n log n)}}.`;
         resources = SKILL_RESOURCES[compKey] || ['NeetCode 150 patterns', 'Designing Data-Intensive Applications — Martin Kleppmann'];
         detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       } else {
         suggestedAction = `Deploy an open-source project showcasing production patterns in ${b.competency.toUpperCase()} with automated tests.`;
-        bulletTemplate = `Built [feature/system] with ${b.competency.toUpperCase()}, achieving [your measured result] across [scale] requests/users.`;
+        bulletTemplate = `Built {{feature/system}} with ${b.competency.toUpperCase()}, achieving {{your measured result}} across {{scale}} requests/users.`;
         resources = SKILL_RESOURCES[compKey] || [`Official ${b.competency} documentation`, `Build 2 practical projects with ${b.competency}`, 'Open-source contributions'];
         detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       }
@@ -1221,9 +1225,8 @@ export function analyzeRoleMatch(
   let archetype = 'product_mnc_gcc';
   const tier = (company.tier || '').toUpperCase();
   const ind = (company.industry || '').toLowerCase();
-  const cName = (company.name || '').toLowerCase();
 
-  if (/trading|hft|quantitative|quant/i.test(ind) || /tower|graviton|jane street|alphagrep|futures first|quadeye/i.test(cName)) {
+  if (tier === 'TIER S' || tier === 'QUANT' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
     archetype = 'quant_trading';
   } else if (tier === 'FAANG' || tier === 'TECH_GIANT') {
     archetype = 'big_tech_product';

@@ -329,7 +329,7 @@ HireFlow utilizes a token-driven, high-contrast design system:
 
 ## Report Integrity & Validation
 
-HireFlow enforces strict deterministic integrity guarantees across all TalentLens benchmark reports and Candidate Career Dossiers. The pure validation harness in `src/pages/demo/engine/reportValidator.ts` validates that every claim in the report is grounded in extracted data:
+HireFlow enforces strict deterministic integrity guarantees across all TalentLens benchmark reports and Candidate Career Dossiers. The pure validation harness in `src/pages/demo/engine/reportValidator.ts` validates that every claim in the report is grounded in extracted data across 13 core integrity checks:
 
 1. Consistency: Skills marked absent or not found are never described as having signals present in market intelligence or verified candidate strengths.
 2. Coverage: Recommended project drops only show skills verified in the project's real technology stack, never copying candidate gaps.
@@ -338,10 +338,16 @@ HireFlow enforces strict deterministic integrity guarantees across all TalentLen
 5. Template Integrity: Action plan templates match skill categories (soft skills receive written artifact templates rather than code deployment templates), and raw double-curly placeholders never reach UI rendering or document exports.
 6. Numerical Coherence: Score gains in critical action paths follow cumulative step trajectories without duplicate identical ranges, and tech currency assessments agree with modern vs. legacy signal detection.
 7. Evidence Uniqueness: A single extracted evidence sentence can serve as primary demonstrated proof for at most one competency, preventing duplicate citation across distinct skills.
+8. Strengths Validation: Verified strengths must reference demonstrated skills backed by extracted context evidence or verified modern production practices.
+9. Parse Transparency: "How we read your resume" transparency block surfaces verified counts of sections, projects, bullets, skills, and evidence sentences, surfacing a visible low-confidence warning on thin parses (<5 bullets or <1 project).
+10. Not-Assessed Skills: Soft skills and behavioral competencies receive a dedicated "Not assessed" status and are never marked 0/100 or absent.
+11. Single Consolidated Matcher: Both TalentLens and ATS Dossier paths use the unified integrity project matcher (`matchProjectsWithIntegrity`).
+12. Confidence Tag Consistency: Each skill carries a confidence tag (`High`, `Medium`, `Low`) consistent with its context score and demonstrated vs. mentioned status.
+13. Generality & Agnostic Logic: Zero company names, ids, or brand tiers are hardcoded in engine logic, scoring rules, or validators. All evaluations are fully parameterized by role and company profile attributes.
 
-To execute the complete report integrity and grounding test suite:
+To execute the complete report integrity, generality, and grounding test suites:
 ```bash
-npm run test -- tests/talentlens/reportIntegrity.test.ts
+npm run test -- tests/talentlens/reportIntegrity.test.ts tests/talentlens/evidenceQuality.test.ts tests/talentlens/datasetCensus.test.ts
 ```
 
 ---

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Check, X, Zap, Star, AlertCircle, AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';
 import type { Company, Role, AnalysisResult } from '../talentLensEngine';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON, formatCompetencyName } from '../talentLensEngine';
+import { buildSkillStates, extractResumeParseSummary, type SkillState } from '../engine/skillStateEngine';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
@@ -39,6 +40,41 @@ export function AnalysisResultView({
 }: AnalysisResultViewProps) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isWhyScoreOpen, setIsWhyScoreOpen] = useState(false);
+
+  const skillStates = useMemo(() => {
+    return buildSkillStates({
+      resumeText: resumeText || '',
+      competencies: (result.breakdown || []).map((b) => b.competency),
+      reqLevels: Object.fromEntries((result.breakdown || []).map((b) => [b.competency, b.reqLevel || 'strong'])),
+      role: selectedRole,
+      company,
+    });
+  }, [resumeText, result.breakdown, selectedRole, company]);
+
+  const parseSummary = useMemo(() => {
+    return extractResumeParseSummary(resumeText || '', skillStates);
+  }, [resumeText, skillStates]);
+
+  const verifiedStrengths = useMemo(() => {
+    return skillStates
+      .filter((s) => s.status === 'demonstrated' && s.evidence.length > 0)
+      .map((s) => ({
+        skill: s.id,
+        label: s.label,
+        kind: s.kind,
+        contextScore: s.evidence[0]?.contextScore || 0.8,
+        evidenceText: s.evidence[0]?.text || '',
+      }));
+  }, [skillStates]);
+
+  const skillStateMap = useMemo(() => {
+    const map = new Map<string, SkillState>();
+    for (const s of skillStates) {
+      map.set(s.id.toLowerCase().trim(), s);
+      map.set(s.label.toLowerCase().trim(), s);
+    }
+    return map;
+  }, [skillStates]);
 
   const missingComps = result.breakdown.filter((b) => b.analysis.status === 'absent');
   const provenComps = result.breakdown.filter(
@@ -489,13 +525,17 @@ export function AnalysisResultView({
         {/* Competency Pill Status Badges */}
         <div className="pt-2 flex justify-center gap-2.5 flex-wrap">
           {result.breakdown.map((b) => {
-            const isExpertOrStrong = b.analysis.status === 'expert' || b.analysis.status === 'strong';
-            const isWorking = b.analysis.status === 'working';
+            const st = skillStateMap.get(b.competency.toLowerCase().trim());
+            const isNotAssessed = st?.status === 'not-assessed';
+            const isExpertOrStrong = !isNotAssessed && (b.analysis.status === 'expert' || b.analysis.status === 'strong' || st?.status === 'demonstrated');
+            const isWorking = !isNotAssessed && (b.analysis.status === 'working' || st?.status === 'mentioned');
             return (
               <span
                 key={b.competency}
                 className={`text-xs sm:text-sm font-bold px-3 py-1.5 rounded-lg border flex items-center gap-1.5 ${
-                  isExpertOrStrong
+                  isNotAssessed
+                    ? 'border-neutral-700 text-neutral-400 bg-black'
+                    : isExpertOrStrong
                     ? 'border-volt text-volt bg-black'
                     : isWorking
                     ? 'border-pale-yellow/40 text-pale-yellow bg-black'
@@ -503,16 +543,19 @@ export function AnalysisResultView({
                 }`}
               >
                 {b.analysis.antiGamingFlag && <span className="text-xs font-bold text-pale-yellow">[!]</span>}
-                {b.analysis.status === 'expert' ? (
+                {isNotAssessed ? (
+                  <span className="font-bold text-neutral-400">○</span>
+                ) : b.analysis.status === 'expert' ? (
                   <span className="font-bold text-emerald-400">++</span>
-                ) : b.analysis.status === 'strong' ? (
+                ) : isExpertOrStrong ? (
                   <Check className="w-3 h-3 inline text-emerald-400" aria-hidden="true" />
-                ) : b.analysis.status === 'working' ? (
+                ) : isWorking ? (
                   <span className="text-amber-400">~</span>
                 ) : (
                   <X className="w-3 h-3 inline text-rose-400" aria-hidden="true" />
                 )}{' '}
                 {formatCompetencyName(b.competency).toUpperCase()}
+                {isNotAssessed && <span className="text-[10px] font-mono text-neutral-500 uppercase ml-1">(Not assessed)</span>}
               </span>
             );
           })}
@@ -551,6 +594,96 @@ export function AnalysisResultView({
           <div className="text-[11px] text-silver/60">Directional diagnostic benchmark. Not an automated hiring decision.</div>
         </div>
       </div>
+
+      {/* Parse Transparency Summary Block (Stage 5) */}
+      {parseSummary && (
+        <div className="bg-[#141414] border border-charcoal rounded-xl p-5 mb-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-charcoal">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-volt" />
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white font-mono">
+                How We Read Your Resume
+              </span>
+            </div>
+            <span
+              className={`text-xs font-mono font-bold px-2.5 py-0.5 rounded border inline-flex items-center gap-1.5 self-start sm:self-auto ${
+                parseSummary.parseConfidence === 'High'
+                  ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                  : parseSummary.parseConfidence === 'Medium'
+                  ? 'border-pale-yellow/40 text-pale-yellow bg-pale-yellow/10'
+                  : 'border-danger/40 text-danger bg-danger/10'
+              }`}
+            >
+              Parse Confidence: {parseSummary.parseConfidence}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <div className="p-3 bg-black rounded-lg border border-charcoal text-center">
+              <div className="text-xl font-black font-mono text-white">{parseSummary.sectionsCount}</div>
+              <div className="text-[10px] font-mono uppercase text-silver mt-0.5">Sections Found</div>
+            </div>
+            <div className="p-3 bg-black rounded-lg border border-charcoal text-center">
+              <div className="text-xl font-black font-mono text-white">{parseSummary.projectsCount}</div>
+              <div className="text-[10px] font-mono uppercase text-silver mt-0.5">Projects Found</div>
+            </div>
+            <div className="p-3 bg-black rounded-lg border border-charcoal text-center">
+              <div className="text-xl font-black font-mono text-white">{parseSummary.bulletsCount}</div>
+              <div className="text-[10px] font-mono uppercase text-silver mt-0.5">Bullets Found</div>
+            </div>
+            <div className="p-3 bg-black rounded-lg border border-charcoal text-center">
+              <div className="text-xl font-black font-mono text-volt">{parseSummary.skillsDetectedCount}</div>
+              <div className="text-[10px] font-mono uppercase text-silver mt-0.5">Skills Detected</div>
+            </div>
+            <div className="p-3 bg-black rounded-lg border border-charcoal text-center">
+              <div className="text-xl font-black font-mono text-white">{parseSummary.evidenceSentencesCount}</div>
+              <div className="text-[10px] font-mono uppercase text-silver mt-0.5">Evidence Sentences</div>
+            </div>
+          </div>
+
+          {parseSummary.warningMessage && (
+            <div className="p-3 rounded-lg bg-danger/10 border border-danger/40 text-xs font-mono text-rose-300">
+              [Warning] {parseSummary.warningMessage}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Verified Strengths Block (Stage 6) */}
+      {verifiedStrengths.length > 0 && (
+        <div className="bg-[#141414] border border-volt/30 rounded-xl p-5 mb-5 space-y-3">
+          <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-volt font-mono flex items-center gap-2">
+            <span className="text-volt font-bold">✓</span>
+            <span>Strengths We Verified</span>
+          </div>
+          <div className="space-y-2.5">
+            {verifiedStrengths.map((st, sIdx) => (
+              <div
+                key={sIdx}
+                className="p-3.5 bg-black rounded-lg border border-charcoal flex flex-col sm:flex-row sm:items-start justify-between gap-3"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs sm:text-sm font-bold text-volt uppercase font-mono">{st.label}</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-neutral-300 uppercase">
+                      {st.kind}
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-300 font-mono leading-relaxed italic">
+                    &ldquo;{st.evidenceText}&rdquo;
+                  </p>
+                </div>
+                <div className="shrink-0">
+                  <span className="text-[10px] font-mono uppercase font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                    Verified Match
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
         {/* 6-Layer analysis legend */}
       <div className="bg-[#141414] border border-charcoal rounded-xl p-4 sm:p-5 mb-5">
         <div className="flex flex-wrap gap-2.5 items-center">
@@ -629,16 +762,28 @@ export function AnalysisResultView({
         </h3>
         <div className="space-y-4">
           {result.breakdown.map((b) => {
-            const isExpertOrStrong = b.analysis.status === 'expert' || b.analysis.status === 'strong';
-            const isWorking = b.analysis.status === 'working';
-            const statusLabel =
-              b.analysis.status === 'expert'
-                ? 'Expert'
-                : b.analysis.status === 'strong'
-                ? 'Strong'
-                : b.analysis.status === 'working'
-                ? 'Partial'
-                : 'Not Found';
+            const st = skillStateMap.get(b.competency.toLowerCase().trim());
+            const isNotAssessed = st?.status === 'not-assessed';
+            const isExpertOrStrong = !isNotAssessed && (b.analysis.status === 'expert' || b.analysis.status === 'strong' || st?.status === 'demonstrated');
+            const isWorking = !isNotAssessed && (b.analysis.status === 'working' || st?.status === 'mentioned');
+            const statusLabel = isNotAssessed
+              ? 'Not assessed from resume text'
+              : st?.status === 'demonstrated'
+              ? 'Demonstrated'
+              : st?.status === 'mentioned'
+              ? 'Mentioned'
+              : st?.status === 'not-found'
+              ? 'Not Found'
+              : b.analysis.status === 'expert'
+              ? 'Expert'
+              : b.analysis.status === 'strong'
+              ? 'Strong'
+              : b.analysis.status === 'working'
+              ? 'Partial'
+              : 'Not Found';
+            const confidenceTag = isNotAssessed
+              ? 'Low'
+              : st?.confidenceTag || (b.analysis.confidence >= 75 ? 'High' : b.analysis.confidence >= 45 ? 'Medium' : 'Low');
 
             return (
               <div
@@ -648,7 +793,7 @@ export function AnalysisResultView({
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <span className={`text-sm sm:text-base font-bold uppercase tracking-wide ${
-                      isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
+                      isNotAssessed ? 'text-neutral-400' : isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
                     }`}>
                       {formatCompetencyName(b.competency)}
                     </span>
@@ -669,40 +814,52 @@ export function AnalysisResultView({
                   <div className="flex items-center gap-2.5">
                     <span className="text-xs text-neutral-400">Your resume shows:</span>
                     <span className={`text-sm font-bold ${
-                      isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
+                      isNotAssessed ? 'text-neutral-400' : isExpertOrStrong ? 'text-volt' : isWorking ? 'text-pale-yellow' : 'text-danger'
                     }`}>{statusLabel}</span>
-                    <span className="text-xs font-medium text-neutral-400">
-                      ({b.analysis.confidence}% confidence)
+                    <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded border ${
+                      confidenceTag === 'High'
+                        ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                        : confidenceTag === 'Medium'
+                        ? 'border-pale-yellow/40 text-pale-yellow bg-pale-yellow/10'
+                        : 'border-neutral-700 text-neutral-400 bg-black'
+                    }`}>
+                      {confidenceTag} Confidence
                     </span>
                   </div>
                 </div>
 
-                {/* 5-layer score bars */}
-                <div className="grid grid-cols-5 gap-2 mb-3">
-                  {[
-                    { label: 'L1 Keywords', val: b.analysis.layerScores.l1 },
-                    { label: 'L2 Context', val: b.analysis.layerScores.l2 },
-                    { label: 'L3 Depth', val: b.analysis.layerScores.l3 },
-                    { label: 'L4 Impact', val: b.analysis.layerScores.l4 },
-                    { label: 'L5 Auth', val: b.analysis.layerScores.l5 },
-                  ].map((layer) => (
-                    <div key={layer.label} className="text-center">
-                      <div className="h-2 bg-[#1c1c1c] rounded-full mb-1.5 overflow-hidden">
-                        <div
-                          className={`h-full ${
-                            layer.val > 60
-                              ? 'bg-volt'
-                              : layer.val > 30
-                              ? 'bg-pale-yellow'
-                              : 'bg-danger'
-                          }`}
-                          style={{ width: `${Math.max(0, Math.min(100, layer.val))}%` }}
-                        />
+                {/* 5-layer score bars or not-assessed explanation */}
+                {isNotAssessed ? (
+                  <div className="p-3 bg-[#141414] rounded-lg border border-charcoal text-xs text-neutral-400 font-mono mb-3">
+                    Soft skills and behavioral competencies cannot be reliably evaluated from resume text alone. Structured interviews and work samples are the primary evaluation mechanisms.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-5 gap-2 mb-3">
+                    {[
+                      { label: 'L1 Keywords', val: b.analysis.layerScores.l1 },
+                      { label: 'L2 Context', val: b.analysis.layerScores.l2 },
+                      { label: 'L3 Depth', val: b.analysis.layerScores.l3 },
+                      { label: 'L4 Impact', val: b.analysis.layerScores.l4 },
+                      { label: 'L5 Auth', val: b.analysis.layerScores.l5 },
+                    ].map((layer) => (
+                      <div key={layer.label} className="text-center">
+                        <div className="h-2 bg-[#1c1c1c] rounded-full mb-1.5 overflow-hidden">
+                          <div
+                            className={`h-full ${
+                              layer.val > 60
+                                ? 'bg-volt'
+                                : layer.val > 30
+                                ? 'bg-pale-yellow'
+                                : 'bg-danger'
+                            }`}
+                            style={{ width: `${Math.max(0, Math.min(100, layer.val))}%` }}
+                          />
+                        </div>
+                        <div className="text-xs font-semibold text-neutral-300">{layer.label}</div>
                       </div>
-                      <div className="text-xs font-semibold text-neutral-300">{layer.label}</div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* Context sentences */}
                 {b.analysis.contextSentences.length > 0 && (

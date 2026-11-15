@@ -9,8 +9,21 @@ import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { deriveBriefRealSkills, MIN_PROJECT_RELEVANCE_THRESHOLD } from './projectMatcherIntegrity';
 import { classifySkillKind } from './skillStateEngine';
 
+export type ReportViolationCheck =
+  | 'consistency'
+  | 'coverage'
+  | 'relevance'
+  | 'sources'
+  | 'templates'
+  | 'numbers'
+  | 'evidence'
+  | 'strengths'
+  | 'parse'
+  | 'not-assessed'
+  | 'confidence';
+
 export interface ReportViolation {
-  check: 'consistency' | 'coverage' | 'relevance' | 'sources' | 'templates' | 'numbers' | 'evidence';
+  check: ReportViolationCheck;
   message: string;
   field?: string;
   value?: any;
@@ -267,6 +280,115 @@ export function validateReport(report: any): ValidateReportResult {
         }
       } else if (primary) {
         primarySentencesClaimed.add(primary);
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 8: Strengths Validation (must reference demonstrated skill with evidence)
+  // ─────────────────────────────────────────────────────────────
+  const demonstratedSkillIds = new Set<string>();
+  for (const b of breakdown) {
+    const key = (b.key || b.competency || '').toLowerCase().trim();
+    const status = b.status || b.analysis?.status;
+    const hasEvidence = (b.evidenceQuotes && b.evidenceQuotes.length > 0) || (b.contextSentences && b.contextSentences.length > 0);
+    if ((status === 'demonstrated' || status === 'expert' || status === 'strong') && hasEvidence) {
+      demonstratedSkillIds.add(key);
+      if (b.label) demonstratedSkillIds.add(b.label.toLowerCase().trim());
+      if (b.competency) demonstratedSkillIds.add(b.competency.toLowerCase().trim());
+    }
+  }
+
+  const rawStrengths: any[] = sanitized.strengths || [];
+  const validStrengths: any[] = [];
+  for (const str of rawStrengths) {
+    const strText = typeof str === 'string' ? str : str?.skill || str?.label || '';
+    const strLower = strText.toLowerCase();
+
+    // Check if strength matches at least one demonstrated skill or verified modern practice
+    const isGroundedinDemonstrated =
+      Array.from(demonstratedSkillIds).some((dId) => strLower.includes(dId) || dId.includes(strLower)) ||
+      (marketIntel?.modernPractices || []).some((mp: string) => strLower.includes(mp.toLowerCase()));
+
+    if (!isGroundedinDemonstrated && breakdown.length > 0) {
+      violations.push({
+        check: 'strengths',
+        message: `Strength "${strText}" is claimed without a demonstrated skill or verified modern practice.`,
+        field: 'strengths',
+        value: str,
+      });
+    } else {
+      validStrengths.push(str);
+    }
+  }
+  sanitized.strengths = validStrengths;
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 9: Parse Transparency Block Counts & Thin-Parse Rule
+  // ─────────────────────────────────────────────────────────────
+  const parseSummary = sanitized.parseSummary;
+  if (parseSummary) {
+    if (parseSummary.bulletsCount < 5 || parseSummary.projectsCount < 1) {
+      if (!parseSummary.isThinParse || parseSummary.parseConfidence !== 'Low') {
+        violations.push({
+          check: 'parse',
+          message: `Thin parse (<5 bullets or <1 project) must have isThinParse: true and parseConfidence: "Low".`,
+          field: 'parseSummary.isThinParse',
+          value: parseSummary,
+        });
+        parseSummary.isThinParse = true;
+        parseSummary.parseConfidence = 'Low';
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 10: Not-Assessed Skills Integrity (never 0/100 or "absent")
+  // ─────────────────────────────────────────────────────────────
+  for (const b of breakdown) {
+    const key = (b.key || b.competency || '').toLowerCase().trim();
+    const kind = classifySkillKind(key);
+    const status = b.status || b.analysis?.status;
+
+    if (kind === 'soft-skill' || status === 'not-assessed') {
+      if (status === 'absent' || b.summaryLine?.includes('0/100') || b.statusLabel === 'Absent') {
+        violations.push({
+          check: 'not-assessed',
+          message: `Soft skill / not-assessed skill "${key}" is falsely displayed as "absent" or "0/100".`,
+          field: 'breakdown.status',
+          value: status,
+        });
+        b.status = 'not-assessed';
+        if (b.analysis) b.analysis.status = 'not-assessed';
+        b.summaryLine = 'Not assessed from resume text';
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────
+  // CHECK 12: Confidence Tag Consistency with Status and ContextScore
+  // ─────────────────────────────────────────────────────────────
+  for (const b of breakdown) {
+    const tag = b.confidenceTag;
+    const status = b.status || b.analysis?.status;
+
+    if (tag) {
+      if (status === 'demonstrated' && tag === 'Low') {
+        violations.push({
+          check: 'confidence',
+          message: `Demonstrated skill "${b.key || b.competency}" has inconsistent confidence tag "Low".`,
+          field: 'breakdown.confidenceTag',
+          value: tag,
+        });
+        b.confidenceTag = 'Medium';
+      } else if ((status === 'mentioned' || status === 'not-found' || status === 'not-assessed') && tag === 'High') {
+        violations.push({
+          check: 'confidence',
+          message: `Undemonstrated skill "${b.key || b.competency}" (${status}) has inconsistent confidence tag "High".`,
+          field: 'breakdown.confidenceTag',
+          value: tag,
+        });
+        b.confidenceTag = 'Low';
       }
     }
   }

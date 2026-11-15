@@ -31,6 +31,7 @@ export interface RecommendedProjectDrop {
   recruiterSignal: string;
   portfolioBulletFormula: string;
   deliverables: string[];
+  debugReason?: string;
 }
 
 export interface ProjectRecommendationResult {
@@ -65,6 +66,7 @@ const SKILL_CANONICAL_MAP: Record<string, string> = {
   concurrency: 'Concurrency',
   sql: 'SQL',
   databases: 'Databases & SQL',
+  database: 'Databases & SQL',
   postgresql: 'PostgreSQL',
   postgres: 'PostgreSQL',
   mongodb: 'MongoDB',
@@ -79,9 +81,70 @@ const SKILL_CANONICAL_MAP: Record<string, string> = {
   grpc: 'gRPC',
 };
 
+// Skill alias map for semantic matching between role gap competencies and project skills
+export const SKILL_ALIAS_MAP: Record<string, string[]> = {
+  databases: [
+    'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
+    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints',
+    'relational database', 'nosql', 'storage engine', 'sqlite', 'dynamodb'
+  ],
+  database: [
+    'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
+    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints'
+  ],
+  sql: ['sql', 'postgresql', 'postgres', 'mysql', 'database queries', 'sqlite', 'relational database'],
+  golang: ['go', 'golang', 'goroutines', 'grpc-go'],
+  go: ['go', 'golang', 'goroutines', 'grpc-go'],
+  java: ['java', 'spring', 'spring boot', 'jvm', 'junit'],
+  python: ['python', 'fastapi', 'django', 'flask', 'asyncio', 'pydantic'],
+  typescript: ['typescript', 'ts', 'javascript', 'js', 'node.js', 'react'],
+  javascript: ['javascript', 'js', 'typescript', 'ts', 'node.js', 'react'],
+  systemdesign: [
+    'system design', 'systemdesign', 'distributed systems', 'microservices',
+    'architecture', 'scalability', 'concurrency', 'idempotency', 'rate limiting',
+    'caching', 'load balancing', 'message queue'
+  ],
+  'system design': [
+    'system design', 'systemdesign', 'distributed systems', 'microservices',
+    'architecture', 'scalability', 'concurrency', 'idempotency'
+  ],
+  'distributed systems': [
+    'distributed systems', 'system design', 'microservices', 'consensus', 'raft',
+    'replication', 'partitioning', 'sharding', 'event-driven'
+  ],
+  dsa: ['dsa', 'algorithms', 'data structures', 'problem solving', 'leetcode'],
+  algorithms: ['dsa', 'algorithms', 'data structures'],
+  'data structures': ['dsa', 'algorithms', 'data structures'],
+  security: ['security', 'oauth', 'jwt', 'cryptography', 'waf', 'mtls', 'pki', 'auth', 'appsec'],
+  devops: ['devops', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'terraform', 'aws', 'gcp'],
+  cloud: ['cloud', 'aws', 'gcp', 'azure', 'docker', 'kubernetes'],
+  kubernetes: ['kubernetes', 'k8s', 'container runtime', 'docker'],
+  docker: ['docker', 'container', 'containers', 'kubernetes'],
+};
+
 export function getCanonicalSkillName(skill: string): string {
-  const norm = skill.toLowerCase().trim().replace(/[-_]/g, ' ');
-  return SKILL_CANONICAL_MAP[norm] || formatCompetencyName(skill);
+  // Strip version patterns like "16+", "1.22+", "v2", "3.3+"
+  const stripped = skill.replace(/\s+v?\d+(\.\d+)*\+?/gi, '').trim();
+  const norm = (stripped || skill).toLowerCase().trim().replace(/[-_]/g, ' ');
+  return SKILL_CANONICAL_MAP[norm] || formatCompetencyName(stripped || skill);
+}
+
+/**
+ * Checks whether a project's real skills cover a specific candidate skill gap.
+ */
+export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: string): boolean {
+  const gNorm = gapSkillId.toLowerCase().trim().replace(/[-_]/g, ' ');
+  const gClean = gapSkillId.toLowerCase().trim().replace(/[-_]/g, '');
+  const aliases = SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
+
+  const pSkillsLower = projectRealSkills.map((s) => s.toLowerCase());
+
+  return pSkillsLower.some((ps) => {
+    // Exact or substring match with gap ID
+    if (ps.includes(gNorm) || gNorm.includes(ps)) return true;
+    // Check against all known aliases
+    return aliases.some((alias) => ps.includes(alias) || alias.includes(ps));
+  });
 }
 
 /**
@@ -105,20 +168,27 @@ export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
 }
 
 /**
- * Computes domain fit between project domain and target company/role
+ * Computes domain fit between project domain and target company/role in a company-agnostic way.
  */
 function computeDomainFit(
   projectDomain: string,
   companyIndustry?: string,
-  companyName?: string,
   roleTitle?: string
 ): number {
   const pDom = (projectDomain || '').toLowerCase();
   const cInd = (companyIndustry || '').toLowerCase();
-  const cName = (companyName || '').toLowerCase();
   const rTitle = (roleTitle || '').toLowerCase();
 
-  const isFintech = cInd.includes('fintech') || cInd.includes('bank') || /cred|razorpay|phonepe|groww|zerodha|paytm/i.test(cName);
+  const isFintech =
+    cInd.includes('fintech') ||
+    cInd.includes('bank') ||
+    cInd.includes('finance') ||
+    cInd.includes('payment') ||
+    cInd.includes('bfsi') ||
+    cInd.includes('broking') ||
+    cInd.includes('trading') ||
+    cInd.includes('custodial');
+
   const isAIMLRole = rTitle.includes('ml') || rTitle.includes('ai') || rTitle.includes('data');
 
   if (isFintech && !isAIMLRole) {
@@ -148,7 +218,7 @@ function computeDomainFit(
 /**
  * Computes tech stack fit between project and target role
  */
-function computeStackFit(
+export function computeStackFit(
   briefSkills: string[],
   gapSkills: SkillState[],
   roleTitle?: string
@@ -160,14 +230,19 @@ function computeStackFit(
   const briefHasGo = briefSkillsLower.some((s) => s.includes('go') || s === 'golang');
 
   if (roleRequiresGo) {
-    // If the candidate has a Go gap, projects with Go get high stack fit, non-Go get low fit
-    return briefHasGo ? 1.0 : 0.2;
+    if (briefHasGo) return 1.0;
+    // If candidate has non-language gaps (like databases or system design) that this project covers,
+    // stack fit is partial (0.50), not a total disqualifier (0.20)
+    const hasNonLanguageGap = gapSkills.some((g) => g.id !== 'golang' && g.id !== 'go');
+    return hasNonLanguageGap ? 0.50 : 0.20;
   }
 
   const roleRequiresJava = gapSkills.some((g) => g.id === 'java');
   const briefHasJava = briefSkillsLower.some((s) => s.includes('java') || s.includes('spring'));
   if (roleRequiresJava) {
-    return briefHasJava ? 1.0 : 0.25;
+    if (briefHasJava) return 1.0;
+    const hasNonLanguageGap = gapSkills.some((g) => g.id !== 'java');
+    return hasNonLanguageGap ? 0.50 : 0.25;
   }
 
   return 0.75;
@@ -185,7 +260,6 @@ export function matchProjectsWithIntegrity(params: {
 
   // Candidate gaps that need proof-of-work
   const gapSkills = skillStates.filter((s) => s.status === 'not-found' || s.status === 'mentioned');
-  const gapNamesLower = gapSkills.map((g) => g.id.toLowerCase());
 
   interface EvaluatedProject {
     brief: ProjectBrief;
@@ -194,29 +268,31 @@ export function matchProjectsWithIntegrity(params: {
     domainFit: number;
     stackFit: number;
     relevance: number;
+    debugReason: string;
   }
 
   const candidates: EvaluatedProject[] = [];
 
   for (const brief of ALL_BRIEFS) {
     const realSkills = deriveBriefRealSkills(brief);
-    const realSkillsLower = realSkills.map((s) => s.toLowerCase());
 
     // Count how many of candidate's gaps are REALLY in this project's real stack
     let matchedGapCount = 0;
     for (const gap of gapSkills) {
-      const gLower = gap.id.toLowerCase();
-      const isCovered = realSkillsLower.some((rs) => rs.includes(gLower) || gLower.includes(rs));
-      if (isCovered) matchedGapCount++;
+      if (doesProjectCoverSkill(realSkills, gap.id)) {
+        matchedGapCount++;
+      }
     }
 
     const gapCoverage = gapSkills.length > 0 ? (matchedGapCount / gapSkills.length) : 0.5;
-    const domainFit = computeDomainFit(brief.domain, company?.industry, company?.name, role?.title);
+    const domainFit = computeDomainFit(brief.domain, company?.industry, role?.title);
     const stackFit = computeStackFit(realSkills, gapSkills, role?.title);
 
     const relevance = gapCoverage * domainFit * stackFit;
 
+    let debugReason = '';
     if (relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+      debugReason = `included: relevance ${relevance.toFixed(3)} >= threshold ${MIN_PROJECT_RELEVANCE_THRESHOLD}`;
       candidates.push({
         brief,
         realSkills,
@@ -224,7 +300,18 @@ export function matchProjectsWithIntegrity(params: {
         domainFit,
         stackFit,
         relevance,
+        debugReason,
       });
+    } else {
+      if (gapCoverage === 0) {
+        debugReason = 'excluded: zero gap coverage for candidate gaps';
+      } else if (domainFit <= 0.20) {
+        debugReason = `excluded: domain mismatch (${brief.domain} vs ${company?.industry || 'tech'})`;
+      } else if (stackFit <= 0.25) {
+        debugReason = 'excluded: stack-fit penalty for missing primary language';
+      } else {
+        debugReason = `excluded: compound relevance ${relevance.toFixed(3)} below threshold ${MIN_PROJECT_RELEVANCE_THRESHOLD}`;
+      }
     }
   }
 
@@ -255,6 +342,7 @@ export function matchProjectsWithIntegrity(params: {
     recruiterSignal: s.brief.recruiterSignal || '',
     portfolioBulletFormula: s.brief.portfolioBulletFormula,
     deliverables: (s.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
+    debugReason: s.debugReason,
   }));
 
   return {
