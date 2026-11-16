@@ -449,4 +449,63 @@ Projects:
       });
     }
   });
+
+  describe('C1: Punctuation, Whitespace, and Special Tech Token Fidelity', () => {
+    it('preserves exact spacing and punctuation for .NET ("scalable .NET")', () => {
+      const input = 'Architected scalable .NET backend services with SQL Server';
+      const rw = rewriteBullet(input);
+      expect(rw.rewrittenBullet).toContain('scalable .NET');
+      expect(rw.rewrittenBullet).not.toContain('scalable.NET');
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+
+    it('preserves exact tokens for C++', () => {
+      const input = 'Engineered low-latency C++ order matching engine with zero allocations';
+      const rw = rewriteBullet(input);
+      expect(rw.rewrittenBullet).toContain('C++');
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+
+    it('preserves exact tokens for C# and ASP.NET Core', () => {
+      const input = 'Built enterprise C# ASP.NET Core microservices on Azure';
+      const rw = rewriteBullet(input);
+      expect(rw.rewrittenBullet).toContain('C#');
+      expect(rw.rewrittenBullet).toContain('ASP.NET Core');
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+
+    it('preserves exact tokens for Node.js and Socket.io', () => {
+      const input = 'Developed real-time chat application using Node.js and Socket.io';
+      const rw = rewriteBullet(input);
+      expect(rw.rewrittenBullet).toContain('Node.js');
+      expect(rw.rewrittenBullet).toContain('Socket.io');
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+
+    it('preserves exact tokens for CI/CD', () => {
+      const input = 'Configured automated CI/CD pipeline using GitHub Actions and Docker';
+      const rw = rewriteBullet(input);
+      expect(rw.rewrittenBullet).toContain('CI/CD');
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+
+    it('preserves all technologies in list-style bullets across split parts', () => {
+      const input = 'Java, Python, C++, Go, Kubernetes, Docker, React, Redis, Kafka, PostgreSQL, AWS, Microservices.';
+      const rw = rewriteBullet(input);
+      expect(rw.splitBullets).toBeDefined();
+      expect(rw.splitBullets!.length).toBeGreaterThanOrEqual(2);
+      const allText = rw.splitBullets!.join(' ');
+      const requiredTechs = ['Java', 'Python', 'C++', 'Go', 'Kubernetes', 'Docker', 'React', 'Redis', 'Kafka', 'PostgreSQL', 'AWS'];
+      for (const tech of requiredTechs) {
+        expect(allText).toContain(tech);
+      }
+      const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
+      expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
+    });
+  });
 });

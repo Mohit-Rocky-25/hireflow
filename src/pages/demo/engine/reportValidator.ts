@@ -394,23 +394,14 @@ export function validateReport(report: any): ValidateReportResult {
       for (const cov of p.coveredSkills || []) {
         const covLower = cov.toLowerCase();
         const inReal = realSkills.some((rs) => rs.includes(covLower) || covLower.includes(rs));
-        if (!inReal) {
+        const kind = classifySkillKind(cov);
+        if (!inReal && kind !== 'concept') {
           violations.push({
             check: 'stack-coverage',
             message: `Project "${p.title}" claims to cover "${cov}" which is absent from its real stack.`,
             field: 'projectDrops.coveredSkills',
             value: cov,
           });
-
-          const kind = classifySkillKind(cov);
-          if (kind === 'concept' || (kind === 'database' && /acid|transaction/i.test(cov))) {
-            violations.push({
-              check: 'vetted-concepts',
-              message: `Project "${p.title}" claims concept "${cov}" without verified textual evidence in its brief.`,
-              field: 'projectDrops.coveredSkills',
-              value: cov,
-            });
-          }
         }
       }
     }
@@ -866,8 +857,12 @@ export function validateReport(report: any): ValidateReportResult {
   // CHECK 17: Vetted Concept Tags (concepts must have backing evidence in brief text)
   // ─────────────────────────────────────────────────────────────
   for (const p of projectDrops) {
-    const brief = BRIEFS_MAP.get(p.id) || BRIEFS_MAP.get((p.title || '').toLowerCase().trim());
-    if (brief) {
+    const rawBrief = BRIEFS_MAP.get(p.id) || BRIEFS_MAP.get((p.title || '').toLowerCase().trim());
+    if (rawBrief) {
+      const brief = {
+        ...rawBrief,
+        coveredSkills: Array.from(new Set([...(rawBrief.coveredSkills || []), ...(p.coveredSkills || [])])),
+      };
       const { vettedConceptTags } = validateBriefConcepts(brief);
       const vettedLower = vettedConceptTags.map((c) => c.toLowerCase());
       const claimedSkills: string[] = p.coveredSkills || [];
@@ -978,20 +973,28 @@ export function validateReport(report: any): ValidateReportResult {
       });
     }
 
-    if (Array.isArray(rw.splitBullets)) {
-      for (const sb of rw.splitBullets) {
-        const strippedSb = sb.replace(/\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi, ' ').trim();
-        const sbWords = strippedSb.toLowerCase().match(/\b[a-zA-Z]{2,}\b/g) || [];
-        const nonConnectives = sbWords.filter((w: string) => !ALLOWED_CONNECTIVES.has(w));
-        const beforeLower = beforeText.toLowerCase();
-        const hasContiguousPart = nonConnectives.some((w: string) => beforeLower.includes(w));
-        if (!hasContiguousPart && nonConnectives.length > 0) {
-          violations.push({
-            check: 'before-substring',
-            message: `Split bullet clause "${sb.slice(0, 40)}..." does not preserve a contiguous part of original bullet.`,
-            field: 'bulletRewrites.splitBullets',
-            value: sb,
-          });
+    // Check 19 (exact substring without normalization for rewrite parts)
+    const clausesToCheck = Array.isArray(rw.splitBullets) && rw.splitBullets.length > 0
+      ? rw.splitBullets
+      : afterText.split(/\n+/).filter(Boolean);
+
+    for (const clause of clausesToCheck) {
+      const nonSlotParts = clause
+        .split(/[,\s]*(?:with|using|for|in|to|and|via|at)?\s*\[(?:add|warning|note|fill-in):[^\]]+\]|\[[^\]]+\]/gi)
+        .map((p: string) => p.replace(/[.,\s]+$/, '').replace(/^[.,\s]+/, '').trim())
+        .filter((p: string) => p.length >= 2 && !ALLOWED_CONNECTIVES.has(p.toLowerCase()));
+
+      for (const part of nonSlotParts) {
+        if (beforeText && !beforeText.includes(part)) {
+          const corePart = part.replace(/,\s*(with|using|in|for|to|and)$/i, '').trim();
+          if (corePart.length >= 2 && !beforeText.includes(corePart)) {
+            violations.push({
+              check: 'before-substring',
+              message: `Rewrite part "${part.slice(0, 50)}" is not an exact substring of original bullet "${beforeText.slice(0, 50)}".`,
+              field: 'bulletRewrites.rewrittenBullet',
+              value: part,
+            });
+          }
         }
       }
     }

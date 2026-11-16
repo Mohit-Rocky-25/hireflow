@@ -489,6 +489,35 @@ export function deepAnalyzeCompetency(
 }
 
 /**
+ * Checks whether candidate resume possesses verified, authentic bullet evidence
+ * (non-keyword-dump bullet points scoring >= 15).
+ */
+export function hasVerifiedBulletEvidence(resumeData: ResumeScoringInput): boolean {
+  const allBullets = [...resumeData.experienceBullets, ...resumeData.projectBullets];
+  if (allBullets.length === 0) return false;
+  return allBullets.some((b) => {
+    const sc = scoreBulletPoint(b, CANONICAL_SCORING_SPEC);
+    return !sc.isKeywordDump && sc.totalScore >= 15;
+  });
+}
+
+/**
+ * Sanitizes keyword-stuffed resumes that lack verified bullet evidence,
+ * preventing unevidenced skill dumps from receiving unearned competence credit.
+ */
+export function getEffectiveResumeData(resumeData: ResumeScoringInput): ResumeScoringInput {
+  if (hasVerifiedBulletEvidence(resumeData)) {
+    return resumeData;
+  }
+  return {
+    ...resumeData,
+    projectBullets: [],
+    skillsBlockText: '',
+    rawText: resumeData.sectionsFound.includes('Education') ? 'Education' : '',
+  };
+}
+
+/**
  * Computes the authoritative score for a candidate against a target role.
  * Executes the core scoring engine and returns trace.compositeDisplay (0-100).
  */
@@ -508,6 +537,7 @@ export function computeScore(
   if (roleAnalysis.length > 0 && roleAnalysis.every((a) => a.status === 'absent') && resumeData.sectionsFound.length === 0) {
     return 0;
   }
+  const effectiveResumeData = getEffectiveResumeData(resumeData);
 
   // 1. Resolve role family from title and competencies
   const compNames = Object.keys(reqLevels).join(' ').toLowerCase();
@@ -571,7 +601,7 @@ export function computeScore(
     requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,
   };
 
-  const trace = runScoringEngine(context, resumeData, {
+  const trace = runScoringEngine(context, effectiveResumeData, {
     tool: 'talentlens',
     spec: CANONICAL_SCORING_SPEC,
   });
@@ -954,7 +984,8 @@ export function generateImprovementPlan(
   let actionCount = 0;
   const handledSkills = new Set<string>();
 
-  const simulatedResumeData = resumeText ? parseResumeToScoringInput(resumeText) : null;
+  const parsedData = resumeText ? parseResumeToScoringInput(resumeText) : null;
+  const simulatedResumeData = parsedData ? getEffectiveResumeData(parsedData) : null;
   const reqLevels: Record<string, string> = {};
   for (const b of breakdown) {
     reqLevels[b.competency] = b.reqLevel || 'strong';
@@ -1264,6 +1295,7 @@ export function calculateCalibratedReadinessScore(
 
   const reqLevelMap = (role.reqLevel as unknown as Record<string, string>) || {};
   const resumeData = parseResumeToScoringInput(resumeText);
+  const effectiveResumeData = getEffectiveResumeData(resumeData);
 
   // 1. Resolve role family
   const compNames = role.competencies.join(' ').toLowerCase();
@@ -1330,7 +1362,7 @@ export function calculateCalibratedReadinessScore(
     candidateBatchYear: intake?.batchYear,
   };
 
-  const trace = runScoringEngine(context, resumeData, {
+  const trace = runScoringEngine(context, effectiveResumeData, {
     tool: 'talentlens',
     spec: CANONICAL_SCORING_SPEC,
   });
@@ -1454,6 +1486,7 @@ export function analyzeRoleMatch(
   }));
 
   const resumeData = parseResumeToScoringInput(resumeText);
+  const effectiveResumeData = getEffectiveResumeData(resumeData);
 
   // 1. Resolve role family
   const compNames = role.competencies.join(' ').toLowerCase();
@@ -1520,7 +1553,7 @@ export function analyzeRoleMatch(
     candidateBatchYear: intake?.batchYear,
   };
 
-  const trace = runScoringEngine(context, resumeData, {
+  const trace = runScoringEngine(context, effectiveResumeData, {
     tool: 'talentlens',
     spec: CANONICAL_SCORING_SPEC,
   });

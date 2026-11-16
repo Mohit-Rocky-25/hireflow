@@ -464,15 +464,17 @@ export function shouldSplitBullet(
     const leadingVerb = verbMatch ? verbMatch[1] : '';
     const itemsPart = leadingVerb ? bodyWithoutSuffix.slice(leadingVerb.length).trim() : bodyWithoutSuffix;
 
-    const rawItems = itemsPart.split(/,\s*|\s+and\s+/i).map((s) => s.trim()).filter((s) => s.length >= 3);
+    const rawItems = itemsPart.split(/,\s*|\s+and\s+/i).map((s) => s.trim()).filter((s) => s.length >= 1);
 
     if (rawItems.length >= 4) {
       const clauses: string[] = [];
       for (let i = 0; i < rawItems.length; i += 2) {
         const chunk = rawItems.slice(i, i + 2);
-        const chunkText = chunk.join(' and ');
-        const verbPrefix = leadingVerb ? `${leadingVerb} ` : '';
-        clauses.push(`${verbPrefix}${chunkText}${scopeSuffix}`);
+        const chunkText = chunk.join(', ');
+        const prefix = (i === 0 && leadingVerb) ? `${leadingVerb} ` : '';
+        const isLast = i + 2 >= rawItems.length;
+        const suffix = isLast && scopeSuffix ? scopeSuffix : '';
+        clauses.push(`${prefix}${chunkText}${suffix}`);
       }
 
       rawItems.forEach((item) => {
@@ -530,8 +532,7 @@ export function rewriteBullet(
   if (splitData.shouldSplit && splitData.clauses.length >= 2) {
     const splitBullets: string[] = splitData.clauses.map((c) => {
       const cTrim = c.trim().replace(/^\s*and\s+/i, '');
-      const cap = cTrim.charAt(0).toUpperCase() + cTrim.slice(1);
-      return `${cap}, with [add: measured metric or scale, if applicable].`;
+      return `${cTrim}, with [add: measured metric or scale, if applicable].`;
     });
 
     return {
@@ -558,30 +559,31 @@ export function rewriteBullet(
   );
 
   const isNonTech = isNonTechnicalBullet(clean, signals);
+  const cleanBase = clean.replace(/[.,\s]+$/, '');
   let rewritten = '';
 
   if (isWeak) {
     if (isNonTech) {
       const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
-      rewritten = `${clean}, [add: what you personally built or contributed]${outcomeSlot}.`;
+      rewritten = `${cleanBase}, [add: what you personally built or contributed]${outcomeSlot}.`;
     } else {
       const techSlot = signals.hasTechnology ? '' : ', using [add: technology or framework, if applicable]';
       const artifactSlot = signals.hasArtifact ? '' : ', for [add: system or service name, if applicable]';
       const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric or user scale, if available]';
-      rewritten = `${clean}${techSlot}${artifactSlot}, [add: what you personally built or contributed]${outcomeSlot}.`;
+      rewritten = `${cleanBase}${techSlot}${artifactSlot}, [add: what you personally built or contributed]${outcomeSlot}.`;
     }
     rewritten = cleanupPunctuation(rewritten);
   } else {
     if (isNonTech) {
       const roleSlot = '[add: specific role or leadership contribution]';
       const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
-      rewritten = `${clean}, ${roleSlot}${outcomePart}.`;
+      rewritten = `${cleanBase}, ${roleSlot}${outcomePart}.`;
     } else {
       const techPart = signals.hasTechnology ? '' : ', using [add: architecture or framework, if applicable]';
       const artifactPart = signals.hasArtifact ? '' : ', for [add: system or artifact name, if applicable]';
       const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric, if available]';
 
-      rewritten = `${clean}${techPart}${artifactPart}${outcomePart}.`;
+      rewritten = `${cleanBase}${techPart}${artifactPart}${outcomePart}.`;
     }
     rewritten = cleanupPunctuation(rewritten);
   }
@@ -692,7 +694,7 @@ function cleanupPunctuation(str: string): string {
   return str
     .replace(/,\s*,/g, ',')
     .replace(/\s+/g, ' ')
-    .replace(/\s+\./g, '.')
+    .replace(/\s+\.(?=\s|$)/g, '.')
     .replace(/\.\.+/g, '.')
     .trim();
 }

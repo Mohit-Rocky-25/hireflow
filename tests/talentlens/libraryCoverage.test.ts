@@ -72,4 +72,76 @@ describe('Stage 4 Library Coverage Audit Across All Domains and Top Skill Gaps',
     console.log(`[STAGE 4] Overall Library Role Coverage Rate: ${coverageRate.toFixed(2)}%`);
     expect(coverageRate).toBeGreaterThan(90);
   });
+
+  describe('C2: Go and ML Gap Matching Integrity', () => {
+    it('shows a Go project to a candidate with a Go/Golang gap', () => {
+      const resume = 'Candidate\nExperience:\n- Built REST APIs in Python\nEducation:\nB.Tech 2024\n';
+      const role = {
+        id: 'go-backend-dev',
+        title: 'Golang Software Engineer',
+        level: 'Mid-Level',
+        competencies: ['golang', 'distributed systems', 'postgresql'],
+      };
+      const company = {
+        id: 'tech-co',
+        name: 'Tech Co',
+        industry: 'Fintech',
+        tier: 'Tier 1 Product',
+        roles: [role],
+      };
+
+      const skillStates = buildSkillStates({
+        resumeText: resume,
+        competencies: role.competencies,
+        role,
+        company,
+      });
+
+      const match = matchProjectsWithIntegrity({
+        skillStates,
+        company,
+        role,
+      });
+
+      expect(match.projects.length).toBeGreaterThanOrEqual(1);
+      const topProject = match.projects[0];
+      const closesLower = (topProject.closes || []).map((s) => s.toLowerCase());
+      expect(closesLower.some((c) => c === 'go' || c === 'golang')).toBe(true);
+    });
+
+    it('shows an ML project to a candidate with an ML gap', () => {
+      const resume = 'Candidate\nExperience:\n- Backend engineer in Java\nEducation:\nB.Tech 2024\n';
+      const role = {
+        id: 'ml-eng',
+        title: 'Machine Learning Engineer',
+        level: 'Mid-Level',
+        competencies: ['ml', 'python', 'pytorch'],
+      };
+      const company = {
+        id: 'tech-co',
+        name: 'Tech Co',
+        industry: 'Fintech',
+        tier: 'Tier 1 Product',
+        roles: [role],
+      };
+
+      const skillStates = buildSkillStates({
+        resumeText: resume,
+        competencies: role.competencies,
+        role,
+        company,
+      });
+
+      const match = matchProjectsWithIntegrity({
+        skillStates,
+        company,
+        role,
+      });
+
+      expect(match.projects.length).toBeGreaterThanOrEqual(1);
+      const topProject = match.projects[0];
+      const closesLower = (topProject.closes || []).map((s) => s.toLowerCase());
+      expect(closesLower.some((c) => c === 'ml' || c === 'machine learning')).toBe(true);
+    });
+  });
 });

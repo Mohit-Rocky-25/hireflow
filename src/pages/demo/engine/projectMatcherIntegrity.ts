@@ -213,6 +213,12 @@ export function matchSkillToken(projectSkill: string, targetSkill: string): bool
   if (tNorm.includes(' ') && pNorm.includes(tNorm)) return true;
   if (pNorm.includes(' ') && tNorm.includes(pNorm)) return true;
 
+  // Skill alias bidirectional check: handles golang <-> go, ml <-> machine learning, etc.
+  const tAliases = SKILL_ALIAS_MAP[tNorm] || SKILL_ALIAS_MAP[tClean];
+  if (tAliases && (tAliases.includes(pNorm) || tAliases.includes(pClean))) return true;
+  const pAliases = SKILL_ALIAS_MAP[pNorm] || SKILL_ALIAS_MAP[pClean];
+  if (pAliases && (pAliases.includes(tNorm) || pAliases.includes(tClean))) return true;
+
   // Handle special punctuation tokens like c++, c#, .net, r, ci/cd, node.js
   if (['c++', 'cpp', 'c#', 'csharp', '.net', 'dotnet', 'r', 'ci/cd', 'cicd', 'node.js', 'nodejs'].includes(tNorm)) {
     if (tNorm === 'c++' || tNorm === 'cpp') {
@@ -370,6 +376,14 @@ export function computeStackFit(
 ): number {
   const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
   const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
+  const nonLanguageGaps = gapSkills.filter((g) => !PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
+
+  const coversLanguageGap = languageGaps.some((lg) =>
+    doesProjectCoverSkill(briefSkills, lg.id, briefId)
+  );
+  const coveredNonLangCount = nonLanguageGaps.filter((g) =>
+    doesProjectCoverSkill(briefSkills, g.id, briefId)
+  ).length;
 
   if (languageGaps.length > 0) {
     // If the candidate lacks one or more primary languages, a recommended project
@@ -392,13 +406,11 @@ export function computeStackFit(
     return 0.80 + 0.20 * (coveredNonLang / nonLanguageGaps.length);
   }
 
-  // If candidate has NO primary language gaps (e.g. only databases, system design):
-  // stackFit is computed strictly over the gap skills the project actually covers, with NO free credit
-  const coveredGaps = gapSkills.filter((g) => doesProjectCoverSkill(briefSkills, g.id, briefId));
-  if (coveredGaps.length === 0) {
+  // If candidate has NO primary language gaps:
+  if (coveredNonLangCount === 0) {
     return 0.0;
   }
-  return 0.70 + 0.30 * (coveredGaps.length / gapSkills.length);
+  return 0.70 + 0.30 * (coveredNonLangCount / Math.max(1, nonLanguageGaps.length));
 }
 
 /**
@@ -536,7 +548,38 @@ export function matchProjectsWithIntegrity(params: {
     return a.index - b.index;
   });
 
-  const selected = candidates.slice(0, MAX_RECOMMENDED_PROJECTS);
+  const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
+  const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
+
+  const selected: EvaluatedProject[] = [];
+  const coveredLanguages = new Set<string>();
+
+  if (candidates.length > 0) {
+    selected.push(candidates[0]);
+    for (const lg of languageGaps) {
+      if (doesProjectCoverSkill(candidates[0].realSkills, lg.id, candidates[0].brief.id)) {
+        coveredLanguages.add(lg.id.toLowerCase());
+      }
+    }
+  }
+
+  // If there are unaddressed language gaps, prioritize a project covering an unaddressed language gap for slot 2
+  const unaddressedLanguages = languageGaps.filter((lg) => !coveredLanguages.has(lg.id.toLowerCase()));
+  if (unaddressedLanguages.length > 0 && selected.length < MAX_RECOMMENDED_PROJECTS) {
+    const diverseCandidate = candidates.slice(1).find((c) =>
+      unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id))
+    );
+    if (diverseCandidate) {
+      selected.push(diverseCandidate);
+    }
+  }
+
+  for (const c of candidates.slice(1)) {
+    if (selected.length >= MAX_RECOMMENDED_PROJECTS) break;
+    if (!selected.includes(c)) {
+      selected.push(c);
+    }
+  }
 
   if (selected.length === 0) {
     return {
