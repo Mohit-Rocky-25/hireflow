@@ -494,15 +494,16 @@ Projects:
       expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);
     });
 
-    it('preserves all technologies in list-style bullets across split parts', () => {
+    it('classifies skills-list lines without split, no metric slots, and warning', () => {
       const input = 'Java, Python, C++, Go, Kubernetes, Docker, React, Redis, Kafka, PostgreSQL, AWS, Microservices.';
       const rw = rewriteBullet(input);
-      expect(rw.splitBullets).toBeDefined();
-      expect(rw.splitBullets!.length).toBeGreaterThanOrEqual(2);
-      const allText = rw.splitBullets!.join(' ');
+      expect(rw.isSkillsList).toBe(true);
+      expect(rw.splitBullets).toBeUndefined();
+      expect(rw.rewrittenBullet).not.toMatch(/\[add:\s*measured metric/i);
+      expect(rw.warnings).toContain('This is a skills list. Technologies belong in project bullets where they were used.');
       const requiredTechs = ['Java', 'Python', 'C++', 'Go', 'Kubernetes', 'Docker', 'React', 'Redis', 'Kafka', 'PostgreSQL', 'AWS'];
       for (const tech of requiredTechs) {
-        expect(allText).toContain(tech);
+        expect(rw.rewrittenBullet).toContain(tech);
       }
       const val = validateReport({ breakdown: [], bulletRewrites: [rw] });
       expect(val.violations.filter((v) => v.check === 'before-substring')).toHaveLength(0);

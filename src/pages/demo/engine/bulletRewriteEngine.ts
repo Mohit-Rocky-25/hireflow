@@ -37,6 +37,7 @@ export interface BulletRewrite {
   warnings?: string[];
   defendPrompt?: string;
   splitBullets?: string[];
+  isSkillsList?: boolean;
 }
 
 export interface BulletAnalysisResult {
@@ -45,6 +46,7 @@ export interface BulletAnalysisResult {
   signals: BulletRewrite['signals'];
   isRunOn: boolean;
   isKeywordStuffed: boolean;
+  isSkillsList?: boolean;
   reasons: string[];
 }
 
@@ -185,6 +187,7 @@ export const KNOWN_TECH_KEYWORDS = [
   'nextjs',
   'angular',
   'vue',
+  'node',
   'nodejs',
   'express',
   'django',
@@ -370,10 +373,15 @@ export function classifyBullet(
 
   const isRunOn = domainHits >= 3 && words.length >= 15;
   const isCommaList = (clean.match(/,/g) || []).length >= 3 && !lower.includes(' resulting in ') && !lower.includes(' achieving ');
-  const isKeywordStuffed = (matchedTechs.length >= 4 && !hasOutcomeOrMetric) || (isCommaList && (matchedTechs.length >= 3 || words.length >= 6 && !hasActionVerb));
+  const isSkillsListLine = (matchedTechs.length >= 3 && !hasActionVerb) ||
+    ((clean.match(/,/g) || []).length >= 4 && matchedTechs.length >= 2 && !hasActionVerb);
+  const isKeywordStuffed = (matchedTechs.length >= 4 && !hasOutcomeOrMetric) || (isCommaList && (matchedTechs.length >= 3 || (words.length >= 6 && !hasActionVerb)));
 
   let qualityClass: BulletQualityClass;
-  if (isRunOn || isKeywordStuffed) {
+  if (isSkillsListLine) {
+    qualityClass = 'risky';
+    reasons.push('Skills list without project context');
+  } else if (isRunOn || isKeywordStuffed) {
     qualityClass = 'risky';
     if (isRunOn) reasons.push('Run-on statement joining multiple disparate engineering domains');
     if (isKeywordStuffed) reasons.push('High keyword density without named artifacts or verifiable outcomes');
@@ -409,6 +417,7 @@ export function classifyBullet(
     },
     isRunOn,
     isKeywordStuffed,
+    isSkillsList: isSkillsListLine,
     reasons,
   };
 }
@@ -421,9 +430,30 @@ export function shouldSplitBullet(
   text: string,
   analysis: BulletAnalysisResult
 ): { shouldSplit: boolean; clauses: string[]; warnings: string[] } {
+  if (analysis.isSkillsList) {
+    return { shouldSplit: false, clauses: [], warnings: [] };
+  }
+
   const clean = text.replace(/^[*\-•▪●\d.]+\s*/, '').trim();
   const lower = clean.toLowerCase();
   const warnings: string[] = [];
+
+  // Check if this is a technology list following "using" or "with"
+  // e.g. "Built full-stack application using MongoDB, Express, React, and Node"
+  // Must NOT split inside a technology list! (R1.a)
+  const techStackMatch = clean.match(/\b(?:using|with)\s+([^.]+)/i);
+  if (techStackMatch) {
+    const candidateTechs = techStackMatch[1]
+      .split(/,\s*(?:and\s+)?|\s+and\s+/i)
+      .map((s) => s.trim().toLowerCase())
+      .filter((s) => s.length > 0);
+    const knownHits = candidateTechs.filter((t) =>
+      KNOWN_TECH_KEYWORDS.some((kt) => kt === t || kt.includes(t) || t.includes(kt))
+    );
+    if (knownHits.length >= 2 && !/\band\s+(?:solved|optimized|designed|built|architected|engineered|implemented|addressed|scaled)\b/i.test(clean)) {
+      return { shouldSplit: false, clauses: [], warnings: [] };
+    }
+  }
 
   // 1. Multi-domain run-on (e.g. B3)
   if (analysis.isRunOn) {
@@ -437,8 +467,10 @@ export function shouldSplitBullet(
       warnings.push('event-driven data pipelines: add specific pipeline throughput');
     }
 
+    // Coordinated predicates: split on "and <verb>" or semicolons, preserving the verb in clause 2
+    const splitRegex = /\s*;\s*|\s+and\s+(?=(?:solved|optimized|designed|built|architected|engineered|implemented|addressed|scaled|developed|created|refactored|led)\b)/i;
     const clauses = clean
-      .split(/\s+(?:and\s+(?:solved|optimized|designed|built|architected|engineered|implemented|addressed|scaled)|as well as)\s+/i)
+      .split(splitRegex)
       .map((c) => c.trim())
       .filter((c) => c.length >= 15);
 
@@ -451,7 +483,8 @@ export function shouldSplitBullet(
     }
   }
 
-  // 2. Multi-concept listing with 4+ technologies/concepts joined by commas or "and" (e.g. B11)
+  // 2. Multi-concept listing with 4+ accomplishments/concepts (e.g. B11)
+  // Only for independent accomplishments, NEVER inside a technology list
   const commaCount = (clean.match(/,/g) || []).length;
   const hasAnd = /\band\b/i.test(clean);
 
@@ -527,12 +560,29 @@ export function rewriteBullet(
   const warnings: string[] = [];
   const reasons = [...analysis.reasons];
 
-  // Rule 5: Run-on or multi-accomplishment / 4+ tech bullets are split
+  // Skills-list lines: no split, no metric slots, one clear warning
+  if (analysis.isSkillsList) {
+    const cleanNoPunct = clean.replace(/[.,\s]+$/, '');
+    return {
+      id: `rw_${Math.abs(hashString(originalBullet)).toString(36)}`,
+      originalBullet,
+      rewrittenBullet: cleanNoPunct,
+      qualityClass: 'risky',
+      signals,
+      reasons: ['Skills list without project context'],
+      isNoChangeNeeded: false,
+      warnings: ['This is a skills list. Technologies belong in project bullets where they were used.'],
+      defendPrompt: generateQuestionsToPrepare(signals, clean),
+      isSkillsList: true,
+    };
+  }
+
+  // Rule 5: Run-on or multi-accomplishment bullets are split
   const splitData = shouldSplitBullet(clean, analysis);
   if (splitData.shouldSplit && splitData.clauses.length >= 2) {
     const splitBullets: string[] = splitData.clauses.map((c) => {
-      const cTrim = c.trim().replace(/^\s*and\s+/i, '');
-      return `${cTrim}, with [add: measured metric or scale, if applicable].`;
+      const cTrim = c.trim().replace(/^\s*and\s+/i, '').replace(/[.,\s]+$/, '');
+      return cleanupPunctuation(`${cTrim}, with [add: measured metric or scale, if applicable].`);
     });
 
     return {
@@ -562,26 +612,30 @@ export function rewriteBullet(
   const cleanBase = clean.replace(/[.,\s]+$/, '');
   let rewritten = '';
 
+  const eventSlot = ', with [add: event outcome or impact, if applicable]';
+  const defaultMetricSlot = ', with [add: measured metric, if available]';
+  const userScaleSlot = ', with [add: measured metric or user scale, if available]';
+
   if (isWeak) {
     if (isNonTech) {
-      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : eventSlot;
       rewritten = `${cleanBase}, [add: what you personally built or contributed]${outcomeSlot}.`;
     } else {
       const techSlot = signals.hasTechnology ? '' : ', using [add: technology or framework, if applicable]';
       const artifactSlot = signals.hasArtifact ? '' : ', for [add: system or service name, if applicable]';
-      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric or user scale, if available]';
+      const outcomeSlot = signals.hasOutcomeOrMetric ? '' : userScaleSlot;
       rewritten = `${cleanBase}${techSlot}${artifactSlot}, [add: what you personally built or contributed]${outcomeSlot}.`;
     }
     rewritten = cleanupPunctuation(rewritten);
   } else {
     if (isNonTech) {
       const roleSlot = '[add: specific role or leadership contribution]';
-      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: event outcome or impact, if applicable]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : eventSlot;
       rewritten = `${cleanBase}, ${roleSlot}${outcomePart}.`;
     } else {
       const techPart = signals.hasTechnology ? '' : ', using [add: architecture or framework, if applicable]';
       const artifactPart = signals.hasArtifact ? '' : ', for [add: system or artifact name, if applicable]';
-      const outcomePart = signals.hasOutcomeOrMetric ? '' : ', with [add: measured metric, if available]';
+      const outcomePart = signals.hasOutcomeOrMetric ? '' : defaultMetricSlot;
 
       rewritten = `${cleanBase}${techPart}${artifactPart}${outcomePart}.`;
     }
@@ -656,18 +710,30 @@ export function generateEvidenceSafeRewrites(
 // Helpers
 // ─────────────────────────────────────────────────────────────
 
+export function isEventBullet(text: string): boolean {
+  const lower = text.toLowerCase();
+  // Never match event-driven, event sourcing, event streaming, event loop, etc.
+  if (/\bevent[-\s]?(?:driven|sourcing|stream|streaming|loop|emitter|bus|listener|handler|queue)\b/i.test(lower)) {
+    return false;
+  }
+  return /\b(hackathon|fest|festival|workshop|club|society|symposium|meetup|competition|conference)\b/i.test(lower);
+}
+
 export function isNonTechnicalBullet(text: string, signals: BulletRewrite['signals']): boolean {
   const lower = text.toLowerCase();
-  const nonTechMarkers = [
-    'fest', 'club', 'event', 'society', 'competition', 'sports', 'cultural',
-    'annual', 'attendees', 'college', 'university', 'symposium',
-    'volunteered', 'chapter', 'placement', 'robotics'
-  ];
+  if (/\bevent[-\s]?(?:driven|sourcing|stream|streaming|loop|emitter|bus|listener|handler|queue)\b/i.test(lower)) {
+    return false;
+  }
   const hasStrongTech =
     signals.hasTechnology ||
     /\b(api|apis|microservice|microservices|pipeline|pipelines|database|databases|cache|server|frontend|backend|cloud|kubernetes|docker|sql|code|bot|chatbot|app|model|models|dsa|algorithms)\b/i.test(lower);
   if (hasStrongTech) return false;
 
+  const nonTechMarkers = [
+    'fest', 'club', 'festival', 'society', 'competition', 'sports', 'cultural',
+    'annual', 'attendees', 'college', 'university', 'symposium',
+    'volunteered', 'chapter', 'placement', 'robotics'
+  ];
   return nonTechMarkers.some((m) => lower.includes(m)) || (!signals.hasTechnology && !signals.hasArtifact);
 }
 
@@ -692,6 +758,8 @@ export const generateDefendPrompt = generateQuestionsToPrepare;
 
 function cleanupPunctuation(str: string): string {
   return str
+    .replace(/\.\s*,/g, ',')
+    .replace(/,\s*\./g, '.')
     .replace(/,\s*,/g, ',')
     .replace(/\s+/g, ' ')
     .replace(/\s+\.(?=\s|$)/g, '.')

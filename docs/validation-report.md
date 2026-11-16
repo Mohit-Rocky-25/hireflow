@@ -1,6 +1,6 @@
 # HireFlow Scoring Validation Report
 
-Generated on: 2026-11-14T17:15:39.317Z
+Generated on: 2026-11-16T23:15:56.750Z
 Spec Version: 2.4.0 | Engine Version: 4.0.0 | Spec Fingerprint: 1fa1bc0ae3f440918db713337c217a517b9691ab26066ea2d118066021e8e669
 
 > [!IMPORTANT]

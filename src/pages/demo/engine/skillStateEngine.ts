@@ -141,6 +141,7 @@ export interface SkillState {
   requirementSource: RequirementSource;
   evidence: SkillEvidenceItem[];
   status: SkillStatus;
+  statusLabel?: string;
   confidenceTag: SkillConfidenceTag;
   // Diagnostics & compatibility metadata
   score: number;
@@ -746,6 +747,7 @@ export function buildSkillStates(input: BuildSkillStatesInput): SkillState[] {
       requirementSource,
       evidence: evidenceItems,
       status,
+      statusLabel: status === 'not-assessed' ? 'Not assessed' : status === 'demonstrated' ? 'Demonstrated' : status === 'mentioned' ? 'Mentioned' : 'Not found',
       confidenceTag,
       score,
       confidence: score,
