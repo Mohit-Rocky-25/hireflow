@@ -1,0 +1,10 @@
+// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.
+Mohit Sharma
+Email: mohit.sharma@example.com
+
+Experience:
+Software Engineer | DesiCode Technologies | 2023 – 2024
+- Worked on Spring Boot backend APIs, bahut achha performance optimize kiya with Redis caching.
+- Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.
+- College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.
+- Team ke sath daily standup me participate kiya aur code reviews regular basis pe kiye.

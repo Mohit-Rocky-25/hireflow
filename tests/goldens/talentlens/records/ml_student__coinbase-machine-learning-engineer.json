@@ -1,0 +1,103 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 42,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.69
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws"
+      ],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 43,
+      "afterScore": 47,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

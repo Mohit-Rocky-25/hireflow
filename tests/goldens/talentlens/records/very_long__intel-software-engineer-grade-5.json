@@ -1,0 +1,87 @@
+{
+  "resumeId": "very_long",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 18,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 80,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 18,
+      "afterScore": 47,
+      "delta": 29
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 55,
+      "delta": 8
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 57,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers.",
+      "output": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",
+      "output": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

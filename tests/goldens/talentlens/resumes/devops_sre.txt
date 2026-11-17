@@ -1,0 +1,20 @@
+// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus.
+Rajesh Kulkarni
+Email: rajesh.kulkarni.sre@example.com | Mumbai, India
+
+Professional Experience:
+Site Reliability Engineer | CloudScale Systems | Sep 2022 – Present
+- Managed production Kubernetes (EKS) clusters hosting 80+ microservices with automated horizontal pod autoscaling (HPA).
+- Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, RDS instances, and IAM roles across 3 regions.
+- Designed unified CI/CD pipelines using GitHub Actions and ArgoCD for GitOps automated container deployments with zero downtime.
+- Configured observability stack with Prometheus, Grafana, and Alertmanager, implementing SLO alert rules that decreased MTTR by 35%.
+- Authored disaster recovery automation scripts in Python and Bash for automated cross-region database snapshot replication.
+
+Education:
+B.Tech in Computer Engineering, University of Mumbai, 2018 – 2022
+
+Technical Skills:
+Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS
+IaC & Configuration: Terraform, Ansible
+CI/CD: GitHub Actions, Jenkins, GitLab CI
+Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux

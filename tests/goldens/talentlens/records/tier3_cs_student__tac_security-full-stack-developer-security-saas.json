@@ -1,0 +1,84 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 42,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 42,
+      "afterScore": 65,
+      "delta": 23
+    },
+    {
+      "skills": [],
+      "beforeScore": 65,
+      "afterScore": 66,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    },
+    {
+      "input": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS",
+      "output": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    }
+  ],
+  "violations": []
+}

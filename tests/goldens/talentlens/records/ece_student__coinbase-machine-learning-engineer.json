@@ -1,0 +1,110 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 33,
+      "afterScore": 38,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 38,
+      "afterScore": 39,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 43,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 43,
+      "afterScore": 44,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

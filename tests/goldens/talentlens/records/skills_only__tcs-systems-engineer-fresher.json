@@ -1,0 +1,89 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "java",
+        "databases & sql"
+      ],
+      "beforeScore": 22,
+      "afterScore": 32,
+      "delta": 10
+    },
+    {
+      "skills": [],
+      "beforeScore": 32,
+      "afterScore": 36,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Java, Python, C++, JavaScript, Go, SQL",
+      "output": "Languages: Java, Python, C++, JavaScript, Go, SQL"
+    },
+    {
+      "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    }
+  ],
+  "violations": []
+}

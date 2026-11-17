@@ -1,0 +1,137 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 23,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "React",
+        "TypeScript",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "aws",
+        "databases & sql",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 23,
+      "afterScore": 50,
+      "delta": 27
+    },
+    {
+      "skills": [
+        "python"
+      ],
+      "beforeScore": 50,
+      "afterScore": 54,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 54,
+      "afterScore": 56,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 56,
+      "afterScore": 57,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.",
+      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

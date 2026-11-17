@@ -1,0 +1,92 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 68,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases",
+    "aws",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-computer-vision-api",
+      "closes": [
+        "Python"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python"
+      ],
+      "beforeScore": 68,
+      "afterScore": 72,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "Python"
+      ],
+      "beforeScore": 72,
+      "afterScore": 76,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka",
+      "output": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka"
+    },
+    {
+      "input": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman",
+      "output": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman"
+    }
+  ],
+  "violations": []
+}

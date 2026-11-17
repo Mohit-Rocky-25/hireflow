@@ -1,0 +1,133 @@
+{
+  "resumeId": "typos_special_chars",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 21,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-graphql-federation",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.58
+    },
+    {
+      "id": "brief-background-geofence-optimizer",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "databases & sql",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 21,
+      "afterScore": 34,
+      "delta": 13
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 34,
+      "afterScore": 37,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 40,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 41,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

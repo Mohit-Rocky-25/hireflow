@@ -1,0 +1,70 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 35,
+      "afterScore": 49,
+      "delta": 14
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

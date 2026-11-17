@@ -1,0 +1,114 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 45,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "aws",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 8
+  },
+  "projectsShown": [
+    {
+      "id": "brief-interview-prep-ai",
+      "closes": [
+        "Python",
+        "React",
+        "TypeScript"
+      ],
+      "relevance": 0.54
+    },
+    {
+      "id": "brief-cdc-pg-elasticsearch",
+      "closes": [
+        "Python",
+        "Go",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.43
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 45,
+      "afterScore": 66,
+      "delta": 21
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    },
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.",
+      "output": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%."
+    }
+  ],
+  "violations": []
+}

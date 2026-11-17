@@ -1,0 +1,24 @@
+// Intent: Bootcamp graduate, MERN stack focused, rapid portfolio projects.
+Neha Verma
+Email: neha.verma.dev@example.com | Portfolio: nehaverma.dev
+
+Education:
+Full Stack Web Development Intensive Bootcamp (600+ hours), Coding Academy, 2024
+Bachelor of Commerce, University of Delhi, 2020 – 2023
+
+Projects:
+CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io
+- Built full-stack project management web application in React and Node.js featuring Kanban boards and real-time activity feeds.
+- Integrated Socket.io for live board updates across team members with zero page reloads.
+- Implemented secure JWT authentication and authorization middleware protecting private workspace API routes.
+- Wrote automated unit tests with Jest and Supertest achieving 78% code coverage on core auth controllers.
+
+RecipeShare Community Platform | React, Tailwind CSS, Express, MongoDB
+- Developed recipe sharing social platform allowing users to post food recipes with tags, images, and ratings.
+- Implemented client-side pagination, search filtering by ingredients, and responsive UI components with Tailwind CSS.
+
+Technical Skills:
+Languages: JavaScript, TypeScript, HTML5, CSS3, SQL
+Frontend: React, Redux Toolkit, Tailwind CSS, Vite
+Backend: Node.js, Express, REST APIs, JWT, Socket.io
+Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest

@@ -1,0 +1,127 @@
+{
+  "resumeId": "mechanical_switcher",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 44,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react",
+    "aws",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 7,
+    "skillsDetectedCount": 5
+  },
+  "projectsShown": [
+    {
+      "id": "brief-cdc-pg-elasticsearch",
+      "closes": [
+        "Python",
+        "Go",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.64
+    },
+    {
+      "id": "brief-interview-prep-ai",
+      "closes": [
+        "Python",
+        "TypeScript"
+      ],
+      "relevance": 0.32
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 44,
+      "afterScore": 55,
+      "delta": 11
+    },
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 55,
+      "afterScore": 57,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 57,
+      "afterScore": 58,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.",
+      "output": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs",
+      "output": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs"
+    },
+    {
+      "input": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker",
+      "output": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker"
+    }
+  ],
+  "violations": []
+}

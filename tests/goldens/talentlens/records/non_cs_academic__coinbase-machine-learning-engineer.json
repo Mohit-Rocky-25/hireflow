@@ -1,0 +1,110 @@
+{
+  "resumeId": "non_cs_academic",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 25,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 25,
+      "afterScore": 36,
+      "delta": 11
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 37,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 42,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX",
+      "output": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,90 @@
+{
+  "resumeId": "frontend_only",
+  "roleId": "google-software-engineer-l3",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 19,
+      "afterScore": 39,
+      "delta": 20
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 39,
+      "afterScore": 47,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",
+      "output": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS"
+    },
+    {
+      "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+    },
+    {
+      "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",
+      "output": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

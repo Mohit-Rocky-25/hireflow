@@ -1,0 +1,95 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 72,
+  "band": "Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "golang",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-canary-deployment",
+      "closes": [
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws",
+        "kubernetes",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 72,
+      "afterScore": 80,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
+      "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

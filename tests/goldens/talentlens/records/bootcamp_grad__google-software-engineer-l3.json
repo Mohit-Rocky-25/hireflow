@@ -1,0 +1,90 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "google-software-engineer-l3",
+  "score": 24,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 24,
+      "afterScore": 40,
+      "delta": 16
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 40,
+      "afterScore": 46,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    }
+  ],
+  "violations": []
+}

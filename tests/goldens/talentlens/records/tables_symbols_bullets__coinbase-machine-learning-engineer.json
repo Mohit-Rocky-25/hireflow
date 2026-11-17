@@ -1,0 +1,105 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 44,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 44,
+      "afterScore": 47,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 48,
+      "afterScore": 51,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "| Languages | Java, Python, C++ | 2 Years |",
+      "output": "| Languages | Java, Python, C++ | 2 Years |, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

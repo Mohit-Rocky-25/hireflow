@@ -1,0 +1,14 @@
+// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.
+Tarun Verma
+Email: tarun.verma@example.com
+
+Education:
+B.Tech Computer Science, 2025
+
+Projects:
+- Weather app: made an app in React to show weather.
+- Chat app: made a chat app in Node.js.
+- To-do list: created a to-do list with HTML and JavaScript.
+
+Skills:
+Java, C, React, Node, HTML

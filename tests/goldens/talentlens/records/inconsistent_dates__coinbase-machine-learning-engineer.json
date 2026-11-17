@@ -1,0 +1,105 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 20,
+      "afterScore": 29,
+      "delta": 9
+    },
+    {
+      "skills": [],
+      "beforeScore": 29,
+      "afterScore": 31,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 31,
+      "afterScore": 36,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

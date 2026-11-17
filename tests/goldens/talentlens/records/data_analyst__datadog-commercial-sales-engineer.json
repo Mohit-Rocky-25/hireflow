@@ -1,0 +1,76 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 27,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 27,
+      "afterScore": 38,
+      "delta": 11
+    },
+    {
+      "skills": [],
+      "beforeScore": 38,
+      "afterScore": 39,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

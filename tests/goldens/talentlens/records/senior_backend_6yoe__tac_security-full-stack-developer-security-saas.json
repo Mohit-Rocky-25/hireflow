@@ -1,0 +1,85 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 32,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript"
+      ],
+      "beforeScore": 32,
+      "afterScore": 65,
+      "delta": 33
+    },
+    {
+      "skills": [],
+      "beforeScore": 65,
+      "afterScore": 69,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frameworks & Libraries: Spring Boot, Node.js, Express, gRPC, React",
+      "output": "Frameworks & Libraries: Spring Boot, Node.js, Express, gRPC, React"
+    },
+    {
+      "input": "Languages: Go, Golang, Java, Python, SQL, C++, TypeScript, JavaScript",
+      "output": "Languages: Go, Golang, Java, Python, SQL, C++, TypeScript, JavaScript"
+    },
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

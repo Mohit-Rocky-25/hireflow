@@ -1,0 +1,85 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 10,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript"
+      ],
+      "beforeScore": 10,
+      "afterScore": 37,
+      "delta": 27
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 44,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",
+      "output": "Frameworks: Spring Boot, React, Node.js, Express, Django"
+    },
+    {
+      "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    }
+  ],
+  "violations": []
+}

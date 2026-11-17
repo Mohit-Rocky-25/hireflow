@@ -1,0 +1,85 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 18,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript"
+      ],
+      "beforeScore": 18,
+      "afterScore": 39,
+      "delta": 21
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 47,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

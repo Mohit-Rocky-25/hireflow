@@ -1,0 +1,85 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 12,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript"
+      ],
+      "beforeScore": 12,
+      "afterScore": 39,
+      "delta": 27
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 46,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Weather app: made an app in React to show weather.",
+      "output": "Weather app: made an app in React to show weather, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Chat app: made a chat app in Node.js.",
+      "output": "Chat app: made a chat app in Node.js, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

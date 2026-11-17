@@ -1,0 +1,89 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 39,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "java",
+        "databases & sql"
+      ],
+      "beforeScore": 39,
+      "afterScore": 40,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 44,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

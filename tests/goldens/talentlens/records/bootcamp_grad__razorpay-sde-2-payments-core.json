@@ -1,0 +1,96 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "security"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-velocity-fraud-detector",
+      "closes": [
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql"
+      ],
+      "beforeScore": 35,
+      "afterScore": 40,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 41,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 42,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest",
+      "output": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest"
+    },
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    }
+  ],
+  "violations": []
+}

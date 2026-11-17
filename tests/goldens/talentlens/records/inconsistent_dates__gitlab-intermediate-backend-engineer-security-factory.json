@@ -1,0 +1,97 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-mtls-internal-ca",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 20,
+      "afterScore": 38,
+      "delta": 18
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

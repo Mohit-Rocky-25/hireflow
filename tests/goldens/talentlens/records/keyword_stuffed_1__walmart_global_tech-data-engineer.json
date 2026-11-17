@@ -1,0 +1,96 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "beforeScore": 19,
+      "afterScore": 23,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "beforeScore": 23,
+      "afterScore": 27,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ",
+      "output": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ"
+    },
+    {
+      "input": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart",
+      "output": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart"
+    }
+  ],
+  "violations": []
+}

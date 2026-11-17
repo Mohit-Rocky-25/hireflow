@@ -1,0 +1,23 @@
+// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.
+Ananya Iyer
+Email: ananya.iyer.ui@example.com | GitHub: github.com/ananya-frontend
+
+Professional Experience:
+Frontend Engineer | DesignFirst Studio | Aug 2022 – Present
+- Engineered high-traffic responsive web portal using React 18, TypeScript, Next.js, and Tailwind CSS serving 1.2M monthly users.
+- Optimized Core Web Vitals across web pages, improving Largest Contentful Paint (LCP) from 3.8s to 1.6s and raising Lighthouse score to 96.
+- Architected enterprise React design system with 45+ reusable accessible UI components tested with Vitest and Storybook.
+- Implemented client-side global state management using Zustand and optimized rendering with React.memo and useCallback.
+
+Projects:
+Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS
+- Developed charting web tool allowing users to upload datasets and generate interactive bar, scatter, and line charts with SVG exports.
+- Implemented accessible keyboard navigation and WCAG 2.1 AA compliant color contrast across all themes.
+
+Education:
+B.E. in Information Science, Bangalore University, 2018 – 2022
+
+Technical Skills:
+Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS
+State & Testing: Zustand, Redux Toolkit, React Query, Vitest, Jest, React Testing Library
+Tools: Vite, Webpack, Git, Figma, Storybook, Postman

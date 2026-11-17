@@ -1,0 +1,96 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 31,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 0.59
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql",
+        "application security"
+      ],
+      "beforeScore": 31,
+      "afterScore": 36,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 42,
+      "delta": 6
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

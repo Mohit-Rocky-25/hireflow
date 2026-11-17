@@ -1,0 +1,53 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 51,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [],
+  "scorePathSteps": [],
+  "first3Rewrites": [
+    {
+      "input": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka",
+      "output": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka"
+    },
+    {
+      "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices",
+      "output": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices"
+    }
+  ],
+  "violations": []
+}

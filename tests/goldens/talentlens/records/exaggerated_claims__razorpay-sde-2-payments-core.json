@@ -1,0 +1,96 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 28,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "nodejs"
+  ],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-velocity-fraud-detector",
+      "closes": [
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql"
+      ],
+      "beforeScore": 28,
+      "afterScore": 41,
+      "delta": 13
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 46,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 46,
+      "afterScore": 47,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

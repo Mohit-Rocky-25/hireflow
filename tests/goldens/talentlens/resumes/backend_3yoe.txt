@@ -1,0 +1,31 @@
+// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.
+Siddharth Nair
+Email: siddharth.nair@example.com | Phone: +91 91234 56789 | Bangalore, India
+
+Professional Experience:
+Software Engineer | ZetaPay Solutions | Oct 2022 – Present
+- Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.
+- Optimized PostgreSQL database schema with composite indices and partitioning, reducing API response latency from 180ms to 95ms.
+- Implemented distributed Redis caching for merchant fee configurations, reducing database read load by 45%.
+- Integrated Kafka message queues for asynchronous webhook notifications and audit logging across 12 downstream partners.
+- Engineered backend REST API services using Node.js and Express for merchant settlement callbacks.
+- Wrote comprehensive unit and integration tests using JUnit and Mockito maintaining 84% test coverage.
+
+Associate Software Engineer | CloudCraft Technologies | Aug 2021 – Sep 2022
+- Developed customer onboarding REST APIs in Java Spring Boot with Spring Security and OAuth2 token verification.
+- Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines.
+- Implemented core DSA algorithms for transaction graph pathing and fraud detection.
+
+Projects:
+Distributed Payment Gateway Service | Java, Spring Boot, PostgreSQL, Redis
+- Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.
+- Optimized PostgreSQL database schema with composite indices and partitioning, reducing API response latency from 180ms to 95ms.
+
+Education:
+Bachelor of Technology in Computer Science, KTU Kerala, 2017 – 2021
+
+Technical Skills:
+Languages: Java, Python, SQL, JavaScript, Node.js
+Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka
+Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices
+Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman

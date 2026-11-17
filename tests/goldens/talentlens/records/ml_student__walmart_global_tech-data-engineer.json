@@ -1,0 +1,91 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 42,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "closes": [
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql",
+        "aws"
+      ],
+      "beforeScore": 42,
+      "afterScore": 47,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

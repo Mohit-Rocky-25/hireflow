@@ -1,0 +1,117 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 44,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases",
+    "security",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 5
+  },
+  "projectsShown": [
+    {
+      "id": "brief-graphql-federation",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-notification-service",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.8
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 44,
+      "afterScore": 68,
+      "delta": 24
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices",
+      "output": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices"
+    },
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,11 @@
+// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.
+B#arat K*mar
+Email: bharat.k@example.com
+
+Skills:
+J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB
+
+Experience:
+- B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$
+- D0ckerized c0ntainers with K8s clu$ter %%% ^^^ &&&
+- Optim!zed databa$e queri3s reducing lat3ncy by 30% ***

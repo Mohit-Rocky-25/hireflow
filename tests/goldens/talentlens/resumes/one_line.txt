@@ -1,0 +1,2 @@
+// Intent: Adversarial resume containing exactly one line of text.
+Experienced Software Engineer seeking high-impact developer roles in top technology companies.

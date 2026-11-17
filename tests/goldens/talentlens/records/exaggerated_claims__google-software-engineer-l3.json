@@ -1,0 +1,90 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "google-software-engineer-l3",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 22,
+      "afterScore": 37,
+      "delta": 15
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 37,
+      "afterScore": 43,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,88 @@
+{
+  "resumeId": "mechanical_switcher",
+  "roleId": "google-software-engineer-l3",
+  "score": 37,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 7,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.34
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 37,
+      "afterScore": 49,
+      "delta": 12
+    },
+    {
+      "skills": [],
+      "beforeScore": 49,
+      "afterScore": 57,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.",
+      "output": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker",
+      "output": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker"
+    },
+    {
+      "input": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs",
+      "output": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs"
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,91 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-subscription-dunning-billing",
+      "closes": [
+        "Node.js",
+        "Databases & SQL"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "application security"
+      ],
+      "beforeScore": 38,
+      "afterScore": 50,
+      "delta": 12
+    },
+    {
+      "skills": [],
+      "beforeScore": 50,
+      "afterScore": 52,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

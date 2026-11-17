@@ -1,0 +1,19 @@
+// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.
+Pooja Joshi
+Email: pooja.joshi.analytics@example.com | Hyderabad, India
+
+Professional Experience:
+Data Analyst | MetricGlobal Analytics | Jul 2023 – Present
+- Authored complex SQL queries with window functions, CTEs, and cohort groupings in BigQuery analyzing 50M+ consumer transaction rows.
+- Built automated ETL data cleaning pipelines in Python using Pandas and NumPy to transform raw marketing telemetry.
+- Designed 12 executive KPI dashboards in Tableau tracking customer acquisition cost (CAC), lifetime value (LTV), and churn rates.
+- Collaborated with product managers to conduct A/B hypothesis testing, measuring statistically significant conversion rate gains.
+
+Education:
+B.Sc in Statistics and Computer Applications, Osmania University, 2020 – 2023
+
+Technical Skills:
+Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake
+Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)
+Visualization & BI: Tableau, Power BI, Metabase, Advanced Excel
+Methodologies: A/B Testing, Descriptive Statistics, Cohort Analysis

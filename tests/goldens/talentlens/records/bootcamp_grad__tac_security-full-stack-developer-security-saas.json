@@ -1,0 +1,84 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 47,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 47,
+      "afterScore": 52,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 52,
+      "afterScore": 53,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    },
+    {
+      "input": "Frontend: React, Redux Toolkit, Tailwind CSS, Vite",
+      "output": "Frontend: React, Redux Toolkit, Tailwind CSS, Vite, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    }
+  ],
+  "violations": []
+}

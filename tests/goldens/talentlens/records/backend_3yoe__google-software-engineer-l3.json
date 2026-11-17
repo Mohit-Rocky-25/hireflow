@@ -1,0 +1,91 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "google-software-engineer-l3",
+  "score": 65,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java",
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 65,
+      "afterScore": 69,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 69,
+      "afterScore": 73,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices",
+      "output": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices"
+    },
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    }
+  ],
+  "violations": []
+}

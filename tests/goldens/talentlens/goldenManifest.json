@@ -1,0 +1,314 @@
+{
+  "roles": [
+    {
+      "roleId": "razorpay-sde-2-payments-core",
+      "category": "campus fintech unicorn",
+      "companyId": "razorpay",
+      "companyName": "Razorpay",
+      "companyTier": "Unicorn",
+      "roleTitle": "SDE-2 (Payments Core)",
+      "roleLevel": "Senior"
+    },
+    {
+      "roleId": "google-software-engineer-l3",
+      "category": "FAANG-tier SDE",
+      "companyId": "google",
+      "companyName": "Google",
+      "companyTier": "FAANG",
+      "roleTitle": "Software Engineer L3",
+      "roleLevel": "Entry / SWE II"
+    },
+    {
+      "roleId": "tcs-systems-engineer-fresher",
+      "category": "IT-services mass hiring",
+      "companyId": "tcs",
+      "companyName": "TCS",
+      "companyTier": "IT Services",
+      "roleTitle": "Systems Engineer (Fresher)",
+      "roleLevel": "Entry Level"
+    },
+    {
+      "roleId": "tac_security-full-stack-developer-security-saas",
+      "category": "startup full-stack",
+      "companyId": "tac_security",
+      "companyName": "TAC Security",
+      "companyTier": "Startup",
+      "roleTitle": "Full Stack Developer (Security SaaS)",
+      "roleLevel": "Full Stack"
+    },
+    {
+      "roleId": "walmart_global_tech-data-engineer",
+      "category": "GCC data engineer",
+      "companyId": "walmart_global_tech",
+      "companyName": "Walmart Global Tech",
+      "companyTier": "MNC",
+      "roleTitle": "Data Engineer",
+      "roleLevel": "Senior"
+    },
+    {
+      "roleId": "hcltech-embedded-c-c-developer",
+      "category": "embedded/automotive",
+      "companyId": "hcltech",
+      "companyName": "HCLTech",
+      "companyTier": "IT Services",
+      "roleTitle": "Embedded C/C++ Developer",
+      "roleLevel": "Mid"
+    },
+    {
+      "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+      "category": "security engineer",
+      "companyId": "gitlab",
+      "companyName": "GitLab India",
+      "companyTier": "MNC",
+      "roleTitle": "Intermediate Backend Engineer , Security Factory",
+      "roleLevel": "Mid-Level"
+    },
+    {
+      "roleId": "coinbase-machine-learning-engineer",
+      "category": "ML engineer",
+      "companyId": "coinbase",
+      "companyName": "Coinbase India",
+      "companyTier": "MNC",
+      "roleTitle": "Machine Learning Engineer",
+      "roleLevel": "Mid-Level"
+    },
+    {
+      "roleId": "gitlab-senior-frontend-engineer",
+      "category": "frontend",
+      "companyId": "gitlab",
+      "companyName": "GitLab India",
+      "companyTier": "MNC",
+      "roleTitle": "Senior Frontend Engineer",
+      "roleLevel": "Senior"
+    },
+    {
+      "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+      "category": "DevOps/SRE",
+      "companyId": "gitlab",
+      "companyName": "GitLab India",
+      "companyTier": "MNC",
+      "roleTitle": "Staff Site Reliability Engineer, Environment Automation ",
+      "roleLevel": "Staff"
+    },
+    {
+      "roleId": "datadog-commercial-sales-engineer",
+      "category": "sales/solutions engineer",
+      "companyId": "datadog",
+      "companyName": "Datadog India",
+      "companyTier": "MNC",
+      "roleTitle": "Commercial Sales Engineer",
+      "roleLevel": "Mid-Level"
+    },
+    {
+      "roleId": "mongodb-senior-software-engineer",
+      "category": "lateral senior backend",
+      "companyId": "mongodb",
+      "companyName": "MongoDB India",
+      "companyTier": "MNC",
+      "roleTitle": "Senior Software Engineer",
+      "roleLevel": "Senior"
+    },
+    {
+      "roleId": "mongodb-engineering-manager-ai-builder-experience",
+      "category": "lateral engineering manager",
+      "companyId": "mongodb",
+      "companyName": "MongoDB India",
+      "companyTier": "MNC",
+      "roleTitle": "Engineering Manager, AI Builder Experience",
+      "roleLevel": "Engineering Manager"
+    },
+    {
+      "roleId": "intel-software-engineer-grade-5",
+      "category": "one role from a tier not yet covered (Tier S)",
+      "companyId": "intel",
+      "companyName": "Intel India",
+      "companyTier": "Tier S",
+      "roleTitle": "Software Engineer (Grade 5)",
+      "roleLevel": "Grade 5 (Associate)"
+    }
+  ],
+  "resumes": [
+    {
+      "id": "tier1_cs_student",
+      "filename": "tier1_cs_student.txt",
+      "category": "positive",
+      "intent": "Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    },
+    {
+      "id": "tier3_cs_student",
+      "filename": "tier3_cs_student.txt",
+      "category": "positive",
+      "intent": "Tier-3 college student with good effort, 2 solid web projects, no enterprise internships."
+    },
+    {
+      "id": "ece_student",
+      "filename": "ece_student.txt",
+      "category": "positive",
+      "intent": "ECE student with strong C/C++, RTOS, microcontroller projects and basic software skills."
+    },
+    {
+      "id": "mechanical_switcher",
+      "filename": "mechanical_switcher.txt",
+      "category": "positive",
+      "intent": "Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend."
+    },
+    {
+      "id": "bootcamp_grad",
+      "filename": "bootcamp_grad.txt",
+      "category": "positive",
+      "intent": "Bootcamp graduate, MERN stack focused, rapid portfolio projects."
+    },
+    {
+      "id": "backend_3yoe",
+      "filename": "backend_3yoe.txt",
+      "category": "positive",
+      "intent": "3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL."
+    },
+    {
+      "id": "senior_backend_6yoe",
+      "filename": "senior_backend_6yoe.txt",
+      "category": "positive",
+      "intent": "6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale."
+    },
+    {
+      "id": "frontend_only",
+      "filename": "frontend_only.txt",
+      "category": "positive",
+      "intent": "Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
+    },
+    {
+      "id": "devops_sre",
+      "filename": "devops_sre.txt",
+      "category": "positive",
+      "intent": "DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus."
+    },
+    {
+      "id": "data_analyst",
+      "filename": "data_analyst.txt",
+      "category": "positive",
+      "intent": "Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting."
+    },
+    {
+      "id": "ml_student",
+      "filename": "ml_student.txt",
+      "category": "positive",
+      "intent": "Machine Learning focused CS graduate with PyTorch, NLP, and model evaluation projects."
+    },
+    {
+      "id": "mern_student",
+      "filename": "mern_student.txt",
+      "category": "positive",
+      "intent": "Full-Stack MERN student with multiple end-to-end applications and REST API integrations."
+    },
+    {
+      "id": "competitive_programmer",
+      "filename": "competitive_programmer.txt",
+      "category": "positive",
+      "intent": "Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects."
+    },
+    {
+      "id": "research_student",
+      "filename": "research_student.txt",
+      "category": "positive",
+      "intent": "Research-oriented graduate student with academic publications in distributed consensus and theory."
+    },
+    {
+      "id": "sales_switcher",
+      "filename": "sales_switcher.txt",
+      "category": "positive",
+      "intent": "Career switcher from enterprise B2B tech sales to software engineering with self-taught Java and SQL."
+    },
+    {
+      "id": "keyword_stuffed_1",
+      "filename": "keyword_stuffed_1.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume with dense list of 30+ programming languages and frameworks without context."
+    },
+    {
+      "id": "keyword_stuffed_2",
+      "filename": "keyword_stuffed_2.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts."
+    },
+    {
+      "id": "keyword_stuffed_3",
+      "filename": "keyword_stuffed_3.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume repeating identical skills block 4 times in different sections."
+    },
+    {
+      "id": "jd_copier",
+      "filename": "jd_copier.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume that blindly copies JD requirements and responsibilities verbatim."
+    },
+    {
+      "id": "exaggerated_claims",
+      "filename": "exaggerated_claims.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction)."
+    },
+    {
+      "id": "skills_only",
+      "filename": "skills_only.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume containing only a list of skills, no experience, education, or projects."
+    },
+    {
+      "id": "one_line",
+      "filename": "one_line.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume containing exactly one line of text."
+    },
+    {
+      "id": "near_empty",
+      "filename": "near_empty.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume containing only candidate contact name and email."
+    },
+    {
+      "id": "very_long",
+      "filename": "very_long.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume exceeding 3,000 words with endless repetitive descriptions."
+    },
+    {
+      "id": "typos_special_chars",
+      "filename": "typos_special_chars.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume with heavily obfuscated and typo-laden tech words and special characters."
+    },
+    {
+      "id": "mixed_hindi_english",
+      "filename": "mixed_hindi_english.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences."
+    },
+    {
+      "id": "tables_symbols_bullets",
+      "filename": "tables_symbols_bullets.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets."
+    },
+    {
+      "id": "minimal_thin",
+      "filename": "minimal_thin.txt",
+      "category": "adversarial",
+      "intent": "Thin student resume with bare one-line mentions and zero quantified metrics."
+    },
+    {
+      "id": "inconsistent_dates",
+      "filename": "inconsistent_dates.txt",
+      "category": "adversarial",
+      "intent": "Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022)."
+    },
+    {
+      "id": "non_cs_academic",
+      "filename": "non_cs_academic.txt",
+      "category": "adversarial",
+      "intent": "Non-CS pure physics academic resume with lab and experimental science experience."
+    }
+  ],
+  "reviewStatus": "pending-human-review",
+  "recordsCount": 420
+}

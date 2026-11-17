@@ -1,0 +1,109 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.69
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws"
+      ],
+      "beforeScore": 38,
+      "afterScore": 44,
+      "delta": 6
+    },
+    {
+      "skills": [],
+      "beforeScore": 44,
+      "afterScore": 45,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 45,
+      "afterScore": 49,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 49,
+      "afterScore": 50,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,13 @@
+// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).
+Sameer Malik
+Email: sameer.malik@example.com
+
+Experience:
+Senior Software Architect | Cloud Corp | 2030 – 2024
+- Designed distributed cloud microservices using Java and Spring Boot.
+
+Software Engineering Intern | Startup Labs | 2028 – 2021
+- Worked on backend REST APIs and database schema design.
+
+Education:
+B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)

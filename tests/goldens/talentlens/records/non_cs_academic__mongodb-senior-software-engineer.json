@@ -1,0 +1,136 @@
+{
+  "resumeId": "non_cs_academic",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 25,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Python",
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.61
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL"
+      ],
+      "relevance": 0.39
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "go",
+        "aws",
+        "kubernetes",
+        "databases & sql"
+      ],
+      "beforeScore": 25,
+      "afterScore": 37,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 37,
+      "afterScore": 40,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 44,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 44,
+      "afterScore": 45,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX",
+      "output": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,84 @@
+{
+  "resumeId": "keyword_stuffed_3",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 27,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 5,
+    "projectsCount": 2,
+    "bulletsCount": 1,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 27,
+      "afterScore": 42,
+      "delta": 15
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 49,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot.",
+      "output": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot",
+      "output": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot"
+    },
+    {
+      "input": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections.",
+      "output": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections, [add: specific role or leadership contribution]."
+    }
+  ],
+  "violations": []
+}

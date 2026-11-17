@@ -1,0 +1,82 @@
+{
+  "resumeId": "mixed_hindi_english",
+  "roleId": "google-software-engineer-l3",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 20,
+      "afterScore": 37,
+      "delta": 17
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",
+      "output": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",
+      "output": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,14 @@
+// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.
+Dinesh Yadav
+Email: dinesh.yadav@example.com
+
+| Category | Skills Evidenced | Years Experience |
+|:---|:---|:---|
+| Languages | Java, Python, C++ | 2 Years |
+| Frameworks | Spring Boot, React, Node.js | 2 Years |
+| Databases | PostgreSQL, MySQL, Redis | 1 Year |
+
+❖ Designed payment gateway microservice using Java and Spring Boot for order processing.
+★ Optimized database queries with Redis cache reducing response time by 30%.
+➔ Automated build pipelines using Docker and GitHub Actions for continuous integration.
+● Implemented unit test suites using JUnit achieving 80% code coverage.

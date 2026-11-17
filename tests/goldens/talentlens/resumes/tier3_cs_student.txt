@@ -1,0 +1,32 @@
+// Intent: Tier-3 college student with good effort, 2 solid web projects, no enterprise internships.
+Rohan Gupta
+Email: rohan.gupta.dev@example.com | GitHub: github.com/rohangupta-code
+
+Education:
+Bachelor of Technology in Computer Science and Engineering
+ABC Institute of Engineering and Technology, Greater Noida, 2021 – 2025
+CGPA: 7.8 / 10.0
+
+Experience:
+Software Developer Intern | LocalTech Solutions | Jun 2024 – Aug 2024
+- Worked on backend REST APIs using Java and Spring Boot for user profile management and database records.
+- Assisted in optimizing SQL queries for reporting database tables, reducing execution time by 25%.
+- Wrote unit tests using JUnit for user authentication modules achieving 75% code coverage.
+
+Projects:
+Campus Marketplace Web Application | React, Node.js, Express, MongoDB
+- Developed full-stack campus e-commerce platform for textbook and equipment exchange using React and Node.js.
+- Implemented user authentication with JWT tokens, password hashing with bcrypt, and role-based access control.
+- Designed REST API endpoints with Express and modeled schema collections in MongoDB with Mongoose.
+- Deployed application on Render with MongoDB Atlas cluster serving 400 active campus student users.
+
+Automated Library Management System | Java, MySQL, JDBC
+- Built desktop management application in Java using Swing UI and MySQL relational database.
+- Implemented book issue tracking, student record lookups, and fine calculation modules using JDBC transactions.
+- Wrote SQL queries and procedures to handle concurrent book reservations and stock reporting.
+
+Technical Skills:
+Languages: Java, JavaScript, Python, SQL, C++
+Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS
+Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman
+Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS

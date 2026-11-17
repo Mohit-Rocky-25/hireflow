@@ -1,0 +1,131 @@
+{
+  "resumeId": "mechanical_switcher",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 7,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-graphql-federation",
+      "closes": [
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.45
+    },
+    {
+      "id": "brief-notification-service",
+      "closes": [
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "kubernetes",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 34,
+      "afterScore": 47,
+      "delta": 13
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 51,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 51,
+      "afterScore": 55,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 56,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs",
+      "output": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs"
+    },
+    {
+      "input": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.",
+      "output": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker",
+      "output": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker"
+    }
+  ],
+  "violations": []
+}

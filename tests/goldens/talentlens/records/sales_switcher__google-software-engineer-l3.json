@@ -1,0 +1,85 @@
+{
+  "resumeId": "sales_switcher",
+  "roleId": "google-software-engineer-l3",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 35,
+      "afterScore": 50,
+      "delta": 15
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.",
+      "output": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities, with [add: measured metric, if available]."
+    },
+    {
+      "input": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL",
+      "output": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL"
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS",
+      "output": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS"
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,82 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 32,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Databases & SQL"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "Databases & SQL"
+      ],
+      "relevance": 0.36
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 32,
+      "afterScore": 34,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,19 @@
+// Intent: Research-oriented graduate student with academic publications in distributed consensus and theory.
+Dr. Shweta Sen
+Email: shweta.sen.cs@example.com | Bangalore, India
+
+Education:
+Doctor of Philosophy (Ph.D.) in Computer Science
+Indian Institute of Science (IISc), Bangalore, 2019 – 2024
+Dissertation: Fault-Tolerant State Machine Replication under Asynchronous Network Conditions
+
+Publications & Research:
+- "Optimistic Multi-Leader Consensus in High-Latency Geo-Replicated Networks", IEEE Transactions on Parallel and Distributed Systems, 2023.
+- "Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis", ACM PODC Conference, 2022.
+- Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies.
+- Formally verified safety and liveness invariants of novel consensus protocols using TLA+ model checking specifications.
+
+Technical Skills:
+Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+
+Languages: C++, C, Python, LaTeX
+Tools: Linux, Git, GDB, Valgrind, CMake

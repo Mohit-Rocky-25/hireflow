@@ -1,0 +1,9 @@
+// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.
+Vinay Saxena
+Email: vinay.saxena@example.com
+
+Technical Skills:
+Languages: Java, Python, C++, JavaScript, Go, SQL
+Frameworks: Spring Boot, React, Node.js, Express, Django
+Databases: PostgreSQL, MongoDB, Redis, MySQL
+DevOps: Docker, Kubernetes, AWS, Git, Linux

@@ -1,0 +1,24 @@
+// Intent: Full-Stack MERN student with multiple end-to-end applications and REST API integrations.
+Kunal Deshmukh
+Email: kunal.deshmukh@example.com | Pune, India
+
+Education:
+Bachelor of Engineering in Information Technology
+Savitribai Phule Pune University, 2021 – 2025
+CGPA: 8.2 / 10.0
+
+Projects:
+FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js
+- Engineered full-stack web application with React frontend and Node.js Express backend for online meal ordering.
+- Implemented customer authentication with JWT tokens and protected order history routes.
+- Built admin portal for restaurant menu management, order status tracking, and revenue calculation with MongoDB aggregation pipelines.
+- Integrated payment gateway webhook verification and deployed client on Vercel with backend on AWS EC2.
+
+Real-Time Chat & Collaboration Room | React, Node.js, Socket.io, MongoDB
+- Developed multi-room instant messaging app supporting private direct messaging and group chat channels.
+- Managed websocket connection states with Socket.io handling 100 concurrent chat participants with zero message drops.
+
+Technical Skills:
+Languages: JavaScript, TypeScript, HTML5, CSS3, SQL
+MERN Stack: React, Node.js, Express, MongoDB, Mongoose
+Tools: Git, Postman, Vite, Tailwind CSS, Docker

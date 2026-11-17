@@ -1,0 +1,86 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 68,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "AWS"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-computer-vision-api",
+      "closes": [
+        "Python",
+        "AWS"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 68,
+      "afterScore": 72,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript",
+      "output": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    }
+  ],
+  "violations": []
+}

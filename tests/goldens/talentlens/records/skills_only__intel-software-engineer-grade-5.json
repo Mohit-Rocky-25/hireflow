@@ -1,0 +1,87 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 11,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 11,
+      "afterScore": 34,
+      "delta": 23
+    },
+    {
+      "skills": [],
+      "beforeScore": 34,
+      "afterScore": 41,
+      "delta": 7
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 44,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    },
+    {
+      "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",
+      "output": "Frameworks: Spring Boot, React, Node.js, Express, Django"
+    }
+  ],
+  "violations": []
+}

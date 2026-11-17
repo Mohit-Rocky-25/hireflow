@@ -1,0 +1,103 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-kubernetes-operator",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 22,
+      "afterScore": 42,
+      "delta": 20
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Chat app: made a chat app in Node.js.",
+      "output": "Chat app: made a chat app in Node.js, with [add: measured metric, if available]."
+    },
+    {
+      "input": "To-do list: created a to-do list with HTML and JavaScript.",
+      "output": "To-do list: created a to-do list with HTML and JavaScript, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

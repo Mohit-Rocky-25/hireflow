@@ -1,0 +1,85 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "google-software-engineer-l3",
+  "score": 63,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 63,
+      "afterScore": 76,
+      "delta": 13
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
+      "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    }
+  ],
+  "violations": []
+}

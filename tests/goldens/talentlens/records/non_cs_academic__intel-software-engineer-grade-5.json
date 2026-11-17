@@ -1,0 +1,81 @@
+{
+  "resumeId": "non_cs_academic",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 20,
+      "afterScore": 36,
+      "delta": 16
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 44,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX",
+      "output": "Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

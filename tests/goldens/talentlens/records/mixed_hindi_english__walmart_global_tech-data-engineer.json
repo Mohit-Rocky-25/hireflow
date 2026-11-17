@@ -1,0 +1,92 @@
+{
+  "resumeId": "mixed_hindi_english",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 26,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "databases & sql",
+        "aws"
+      ],
+      "beforeScore": 26,
+      "afterScore": 45,
+      "delta": 19
+    },
+    {
+      "skills": [],
+      "beforeScore": 45,
+      "afterScore": 46,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",
+      "output": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",
+      "output": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

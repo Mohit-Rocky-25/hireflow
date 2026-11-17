@@ -433,6 +433,9 @@ export function shouldSplitBullet(
   if (analysis.isSkillsList) {
     return { shouldSplit: false, clauses: [], warnings: [] };
   }
+  if (!analysis.signals.hasActionVerb) {
+    return { shouldSplit: false, clauses: [], warnings: [] };
+  }
 
   const clean = text.replace(/^[*\-•▪●\d.]+\s*/, '').trim();
   const lower = clean.toLowerCase();
@@ -475,17 +478,29 @@ export function shouldSplitBullet(
       .filter((c) => c.length >= 15);
 
     if (clauses.length >= 2) {
+      if (!clauses.every((c) => clean.includes(c))) {
+        return { shouldSplit: false, clauses: [], warnings: [] };
+      }
+
       return { shouldSplit: true, clauses, warnings };
     }
     const genericAndSplit = clean.split(/\s+and\s+/i).map((c) => c.trim()).filter((c) => c.length >= 15);
     if (genericAndSplit.length >= 2) {
+      if (!genericAndSplit.every((c) => clean.includes(c))) {
+        return { shouldSplit: false, clauses: [], warnings: [] };
+      }
       return { shouldSplit: true, clauses: genericAndSplit, warnings };
     }
   }
 
   // 2. Multi-concept listing with 4+ accomplishments/concepts (e.g. B11)
-  // Only for independent accomplishments, NEVER inside a technology list
-  const commaCount = (clean.match(/,/g) || []).length;
+  // Only for independent accomplishments without existing metrics, NEVER inside a technology list
+  if (analysis.signals.hasOutcomeOrMetric) {
+    return { shouldSplit: false, clauses: [], warnings: [] };
+  }
+
+  const cleanNoDigits = clean.replace(/\d+,\d+/g, '');
+  const commaCount = (cleanNoDigits.match(/,/g) || []).length;
   const hasAnd = /\band\b/i.test(clean);
 
   if ((commaCount >= 3 || (commaCount >= 2 && hasAnd)) && clean.length >= 45) {
@@ -497,7 +512,7 @@ export function shouldSplitBullet(
     const leadingVerb = verbMatch ? verbMatch[1] : '';
     const itemsPart = leadingVerb ? bodyWithoutSuffix.slice(leadingVerb.length).trim() : bodyWithoutSuffix;
 
-    const rawItems = itemsPart.split(/,\s*|\s+and\s+/i).map((s) => s.trim()).filter((s) => s.length >= 1);
+    const rawItems = itemsPart.split(/(?<!\d),\s*|\s+and\s+/i).map((s) => s.trim()).filter((s) => s.length >= 1);
 
     if (rawItems.length >= 4) {
       const clauses: string[] = [];
@@ -526,6 +541,10 @@ export function shouldSplitBullet(
           warnings.push(`${item}: add specific scale or metrics`);
         }
       });
+
+      if (!clauses.every((c) => clean.includes(c))) {
+        return { shouldSplit: false, clauses: [], warnings: [] };
+      }
 
       return { shouldSplit: true, clauses, warnings };
     }

@@ -1,0 +1,83 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 61,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "java",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 61,
+      "afterScore": 65,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
+      "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    }
+  ],
+  "violations": []
+}

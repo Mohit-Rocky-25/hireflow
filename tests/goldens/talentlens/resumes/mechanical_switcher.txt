@@ -1,0 +1,28 @@
+// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.
+Vikram Patel
+Email: vikram.patel.mech@example.com | GitHub: github.com/vikram-patel-eng
+
+Education:
+Bachelor of Technology in Mechanical Engineering
+Veermata Jijabai Technological Institute (VJTI), Mumbai, 2020 – 2024
+CGPA: 8.1 / 10.0
+
+Experience:
+Junior Engineering Analyst | Apex Automotive Components, Pune | Jul 2024 – Present
+- Automated finite element analysis (FEA) preprocessing workflows using Python scripts, saving 12 engineering hours weekly.
+- Built data parsers in Python to extract stress strain telemetry from raw CSV output files and generate automated PDF reports.
+
+Software Projects:
+Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker
+- Built backend REST service using FastAPI and PostgreSQL to manage factory warehouse parts catalog and order fulfillment.
+- Implemented database migrations with Alembic and wrote SQL queries for multi-table inventory join queries.
+- Containerized application with Docker Compose and deployed on AWS EC2 instance with automated healthcheck endpoints.
+
+Fleet Telemetry Dashboard | React, TypeScript, Chart.js
+- Developed frontend web dashboard in React to visualize machine vibration and operational temperature thresholds.
+- Connected dashboard to REST API endpoints to display real-time sensor charts with 2-second refresh intervals.
+
+Technical Skills:
+Languages: Python, SQL, JavaScript, TypeScript
+Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs
+Tools: Docker, Git, Linux, Postman, Pandas, NumPy

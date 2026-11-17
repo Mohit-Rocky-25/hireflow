@@ -1,0 +1,28 @@
+// Intent: ECE student with strong C/C++, RTOS, microcontroller projects and basic software skills.
+Kavita Reddy
+Email: kavita.reddy@example.com | LinkedIn: linkedin.com/in/kavita-reddy-ece
+
+Education:
+B.Tech in Electronics and Communication Engineering
+National Institute of Technology Warangal, 2021 – 2025
+CGPA: 8.4 / 10.0
+
+Projects:
+Autonomous Rover Navigation System | C++, FreeRTOS, STM32 Microcontroller
+- Programmed embedded firmware in C++ on STM32F4 microcontroller running FreeRTOS with preemptive task scheduling.
+- Implemented sensor fusion algorithms reading IMU accelerometer and LIDAR sensor data via I2C and SPI buses.
+- Reduced obstacle detection processing latency to under 15ms ensuring collision avoidance at 1.5 m/s rover speeds.
+
+CAN Bus Vehicle Telemetry Gateway | Embedded C, Linux, CAN Protocol
+- Developed automotive telemetry reader in Embedded C interfacing with vehicle OBD-II port using CAN 2.0B protocol.
+- Engineered ring buffer data structures in C to prevent packet loss during 1 Mbps telemetry transmission bursts.
+- Streamed diagnostic fault codes to a Raspberry Pi running Linux for real-time dashboard visualization.
+
+IoT Environmental Monitoring Node | Python, MQTT, ESP32
+- Configured low-power WiFi sensor node sending temperature and humidity telemetry over MQTT protocol.
+- Wrote backend Python scripts to parse MQTT messages and persist time-series records into SQLite.
+
+Technical Skills:
+Languages: C, C++, Embedded C, Python, SQL
+Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers
+Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake

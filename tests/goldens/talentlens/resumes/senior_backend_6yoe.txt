@@ -1,0 +1,39 @@
+// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.
+Deepak Menon
+Email: deepak.menon.tech@example.com | Bangalore, India
+
+Professional Experience:
+Senior Software Engineer | StreamX Technologies | Jan 2021 – Present
+- Architected and led development of high-throughput real-time event streaming pipeline in Go and Apache Kafka handling 350,000 events/sec.
+- Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.
+- Designed enterprise payment gateway microservices in Java and Spring Boot deployed on AWS EKS processing 50M USD monthly volume with 99.99% SLA.
+- Scaled Cassandra cluster across 18 nodes, optimizing partition keys and compaction strategies to reduce write latency p99 below 12ms.
+- Built low-latency gRPC microservices in Go and Node.js for authentication and transaction routing handling 20,000 QPS.
+- Mentored 7 junior and mid-level engineers, conducted 60+ architecture design reviews, and established company-wide Go coding standards.
+
+Software Engineer | HyperLog Systems | Jul 2018 – Dec 2020
+- Built low-latency microservices in Go and Java for real-time bid validation handling 50,000 queries per second.
+- Refactored legacy monolithic services into containerized microservices on Kubernetes, reducing deployment turnaround from 3 days to 15 minutes.
+- Implemented distributed tracing with OpenTelemetry and Jaeger to diagnose inter-service network bottlenecks.
+- Optimized graph traversal algorithms and data structures reducing memory consumption by 30%.
+
+Projects:
+Distributed Raft Consensus Key-Value Store | Go, Raft, LevelDB, gRPC
+- Built distributed fault-tolerant key-value datastore in Go implementing Raft consensus protocol across 5 nodes handling 40,000 requests/sec.
+- Implemented log replication, leader election, and snapshotting mechanisms with automated failover under 500ms.
+- Evaluated performance using Jepsen tests verifying linearizability under network partition faults.
+
+High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS
+- Implemented asynchronous idempotent message consumer in Java processing payment webhooks with guaranteed at-least-once delivery.
+- Designed database schema with PostgreSQL connection pooling and Redis caching, improving throughput by 40%.
+- Containerized application with Docker and orchestrated blue-green deployments on AWS Kubernetes cluster.
+
+Education:
+Bachelor of Technology in Computer Science, NIT Calicut, 2014 – 2018
+
+Technical Skills:
+Languages: Go, Golang, Java, Python, SQL, C++, TypeScript, JavaScript
+Frameworks & Libraries: Spring Boot, Node.js, Express, gRPC, React
+Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security
+Storage & Streaming: Apache Kafka, Apache Cassandra, PostgreSQL, Redis, MongoDB, Databases
+DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git

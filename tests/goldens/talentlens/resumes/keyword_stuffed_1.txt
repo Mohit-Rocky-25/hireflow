@@ -1,0 +1,13 @@
+// Intent: Adversarial resume with dense list of 30+ programming languages and frameworks without context.
+Ramesh Chandra
+Email: ramesh.dev@example.com
+
+Technical Skills:
+Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart
+Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow
+Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite
+DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ
+
+Projects:
+Project 1: Used Java, Python, Go, React, and Docker.
+Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects.

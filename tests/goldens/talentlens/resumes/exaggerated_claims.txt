@@ -1,0 +1,10 @@
+// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).
+Harish Khanna
+Email: harish.khanna@example.com
+
+Experience:
+Software Engineering Intern | FastApp | 2024
+- Built single-node backend server handling 500 billion requests per second with 0.00001ms latency on my personal laptop.
+- Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.
+- Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.
+- Rewrote entire internet routing infrastructure in C++ eliminating all global latency bottlenecks.

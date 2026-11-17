@@ -1,0 +1,23 @@
+// Intent: Machine Learning focused CS graduate with PyTorch, NLP, and model evaluation projects.
+Arun Swaminathan
+Email: arun.swami.ai@example.com | Chennai, India
+
+Education:
+Master of Technology in Artificial Intelligence and Machine Learning
+Indian Institute of Technology Kharagpur, 2023 – 2025
+CGPA: 9.0 / 10.0
+
+Projects:
+Multilingual NLP Classifier | PyTorch, HuggingFace Transformers, Python
+- Fine-tuned BERT and RoBERTa models in PyTorch for multi-label sentiment and intent classification on Indic language datasets.
+- Implemented LoRA (Low-Rank Adaptation) parameter-efficient fine-tuning, reducing trainable parameters by 85% while retaining 91% F1-score.
+- Deployed inference API using FastAPI and ONNX Runtime achieving 22ms per-sentence latency.
+
+Retrieval-Augmented Generation (RAG) System | LangChain, FAISS, Python
+- Built document question-answering pipeline using dense vector embeddings and FAISS similarity indexing over 10,000 technical papers.
+- Evaluated retrieval precision and hallucination rates across top-k chunk sizes using RAGAS evaluation metrics.
+
+Technical Skills:
+Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX
+NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain
+Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git

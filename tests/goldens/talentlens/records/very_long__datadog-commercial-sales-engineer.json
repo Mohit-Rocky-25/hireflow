@@ -1,0 +1,70 @@
+{
+  "resumeId": "very_long",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 41,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 80,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 41,
+      "afterScore": 63,
+      "delta": 22
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers.",
+      "output": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",
+      "output": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

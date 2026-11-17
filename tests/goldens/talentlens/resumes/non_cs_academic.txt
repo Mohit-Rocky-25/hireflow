@@ -1,0 +1,16 @@
+// Intent: Non-CS pure physics academic resume with lab and experimental science experience.
+Dr. Anupam Mukherjee
+Email: anupam.mukherjee.physics@example.com
+
+Education:
+Doctor of Philosophy in Experimental High Energy Physics, University of Calcutta, 2023
+Master of Science in Physics, 2018
+
+Research Experience:
+Postdoctoral Research Fellow | National Physical Laboratory | 2023 – Present
+- Designed laser spectroscopy experimental apparatus to measure atomic resonance transitions.
+- Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.
+- Authored numerical data fitting routines in Fortran and MATLAB to model quantum wave scattering.
+
+Skills:
+Physics Laboratory Equipment, Vacuum Systems, Cryogenics, Spectroscopy, ROOT, Fortran, MATLAB, LaTeX

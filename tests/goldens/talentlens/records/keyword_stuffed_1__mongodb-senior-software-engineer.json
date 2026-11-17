@@ -1,0 +1,128 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 8
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Python",
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.61
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL"
+      ],
+      "relevance": 0.39
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python",
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
+      ],
+      "beforeScore": 19,
+      "afterScore": 23,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "Java",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL"
+      ],
+      "beforeScore": 23,
+      "afterScore": 27,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ",
+      "output": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ"
+    },
+    {
+      "input": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow",
+      "output": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow"
+    }
+  ],
+  "violations": []
+}

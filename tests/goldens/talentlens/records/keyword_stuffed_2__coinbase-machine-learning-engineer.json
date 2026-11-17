@@ -1,0 +1,110 @@
+{
+  "resumeId": "keyword_stuffed_2",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 19,
+      "afterScore": 36,
+      "delta": 17
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 37,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 40,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 41,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication.",
+      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication"
+    },
+    {
+      "input": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts.",
+      "output": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Project 2: Security pipeline with OAuth2 and JWT authentication.",
+      "output": "Project 2: Security pipeline with OAuth2 and JWT authentication, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

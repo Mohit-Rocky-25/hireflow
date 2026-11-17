@@ -1,0 +1,109 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 36,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "aws"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "Machine Learning"
+      ],
+      "relevance": 0.43
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python"
+      ],
+      "beforeScore": 36,
+      "afterScore": 41,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 42,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 47,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,99 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 31,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "cpp"
+  ],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems",
+        "Concurrency"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Concurrency"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "systems",
+        "concurrency"
+      ],
+      "beforeScore": 31,
+      "afterScore": 45,
+      "delta": 14
+    },
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 45,
+      "afterScore": 53,
+      "delta": 8
+    },
+    {
+      "skills": [],
+      "beforeScore": 53,
+      "afterScore": 54,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

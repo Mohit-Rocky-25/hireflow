@@ -1,0 +1,97 @@
+{
+  "resumeId": "devops_sre",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "security",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-subscription-dunning-billing",
+      "closes": [
+        "Node.js",
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "Node.js",
+        "Databases & SQL"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql"
+      ],
+      "beforeScore": 34,
+      "afterScore": 50,
+      "delta": 16
+    },
+    {
+      "skills": [],
+      "beforeScore": 50,
+      "afterScore": 55,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 56,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, RDS instances, and IAM roles across 3 regions.",
+      "output": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, with [add: measured metric or scale, if applicable].\nRDS instances, and IAM roles across 3 regions, with [add: measured metric or scale, if applicable]."
+    },
+    {
+      "input": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus.",
+      "output": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS",
+      "output": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS"
+    }
+  ],
+  "violations": []
+}

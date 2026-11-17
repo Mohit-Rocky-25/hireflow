@@ -1,0 +1,85 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "google-software-engineer-l3",
+  "score": 47,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 47,
+      "afterScore": 60,
+      "delta": 13
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    },
+    {
+      "input": "Languages: Java, JavaScript, Python, SQL, C++",
+      "output": "Languages: Java, JavaScript, Python, SQL, C++"
+    },
+    {
+      "input": "Worked on backend REST APIs using Java and Spring Boot for user profile management and database records.",
+      "output": "Worked on backend REST APIs using Java and Spring Boot for user profile management and database records, [add: what you personally built or contributed], with [add: measured metric or user scale, if available]."
+    }
+  ],
+  "violations": []
+}

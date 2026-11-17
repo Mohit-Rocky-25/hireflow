@@ -1054,7 +1054,7 @@ async function runVerification() {
   // S11 TEST CHANGES AUDIT (R7)
   // ============================================================
   console.log(`\n=== SECTION 11: TEST CHANGES AUDIT ===`);
-  const diffTests = execSync('git diff 8ae1e18..HEAD -- tests/', { encoding: 'utf8' });
+  const diffTests = execSync('git diff 8ae1e18..HEAD -- tests/', { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024 });
   const changedAssertions = diffTests.split('\n').filter((l) => l.startsWith('-') && (l.includes('expect(') || l.includes('assert(')));
   console.log(`Changed / Removed Assertion Lines Since 8ae1e18 (${changedAssertions.length}):`);
   const ASSERTION_JUSTIFICATIONS = [

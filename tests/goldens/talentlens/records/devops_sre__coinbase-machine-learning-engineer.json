@@ -1,0 +1,104 @@
+{
+  "resumeId": "devops_sre",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 54,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "python",
+    "security",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws"
+      ],
+      "beforeScore": 54,
+      "afterScore": 55,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 56,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 56,
+      "afterScore": 57,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, RDS instances, and IAM roles across 3 regions.",
+      "output": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, with [add: measured metric or scale, if applicable].\nRDS instances, and IAM roles across 3 regions, with [add: measured metric or scale, if applicable]."
+    },
+    {
+      "input": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS",
+      "output": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS"
+    },
+    {
+      "input": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux",
+      "output": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux"
+    }
+  ],
+  "violations": []
+}

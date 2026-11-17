@@ -1,0 +1,29 @@
+// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.
+Aditya Sharma
+Email: aditya.sharma@example.com | GitHub: github.com/aditya-sharma-cs | Phone: +91 98765 43210
+
+Education:
+Bachelor of Technology in Computer Science and Engineering
+Indian Institute of Technology Delhi, 2021 – 2025
+CGPA: 9.2 / 10.0
+
+Experience:
+Software Engineering Intern | InfoScale Systems, Bangalore | May 2024 – Jul 2024
+- Engineered a distributed in-memory cache in Go with LRU eviction and concurrent mutex locks, reducing service response time by 32%.
+- Integrated gRPC streaming endpoints for high-throughput cluster state synchronization handling 45,000 requests per minute.
+- Authored automated integration test suites achieving 88% branch coverage across cache operations.
+
+Backend Intern | TechCraft Solutions, Gurgaon | May 2023 – Jul 2023
+- Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.
+- Optimized PostgreSQL database queries with B-tree indices and join refactoring, reducing P95 latency by 28%.
+- Containerized microservices using Docker and configured CI/CD deployment pipelines on AWS ECS.
+
+Projects:
+Distributed Raft Key-Value Store | Go, Raft Consensus, Docker
+- Implemented Raft distributed consensus protocol in Go featuring leader election, log replication, and persistent WAL state.
+- Benchmarked cluster performance across 5 nodes handling 12,000 commit operations per second during network partitions.
+
+Technical Skills:
+Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript
+Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux
+Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security

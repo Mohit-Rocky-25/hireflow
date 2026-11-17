@@ -352,6 +352,24 @@ npm run test -- tests/talentlens/reportIntegrity.test.ts tests/talentlens/eviden
 
 ---
 
+## Quality Gates & Golden Test Set (Phase 4A)
+
+HireFlow enforces a strict, multi-stage verification gate to guarantee evaluation accuracy, zero regressions, and deterministic outputs:
+
+### Golden Test Set & Invariant Verification
+The TalentLens golden test set maintains 30 synthetic resumes (15 authentic archetypes, 15 adversarial variants) evaluated across 14 pinned roles (420 deterministic records in `tests/goldens/talentlens/records/`).
+
+- `npm run golden:check`: Compares fresh engine output against checked-in golden records. If any field differs, it prints a compact diff and exits non-zero.
+- `npm run golden:update`: Generates proposed goldens to `tests/goldens/talentlens/pending/` and refuses to overwrite approved goldens without `--approve-diff "<reason>"`.
+- `npm run verify:talentlens`: Executes the full 14-assertion TalentLens verification suite across all 8,690 role evaluations.
+- `npm run verify:all`: Enforces the unified release quality gate:
+  ```bash
+  npm run verify:all
+  ```
+  Runs `tsc --noEmit`, `npm run lint`, `npx vitest run`, `npm run verify:talentlens`, and `npm run golden:check`. Exits non-zero on any failure.
+
+---
+
 ## License & Copyright
 
 Copyright (c) 2026 Mohit Sai. All rights reserved.

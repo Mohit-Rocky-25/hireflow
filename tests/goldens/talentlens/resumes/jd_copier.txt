@@ -1,0 +1,14 @@
+// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.
+Sunil Rao
+Email: sunil.rao@example.com
+
+Summary:
+Proven track record designing resilient event-driven data pipelines and distributed clusters.
+
+Experience:
+Software Engineer | Tech Corp | 2023 – 2024
+- Responsible for designing resilient event-driven data pipelines and solving complex DSA problems.
+- Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.
+- Proficient in containerization with Docker and cluster orchestration with Kubernetes.
+- Write clean, maintainable, production-ready code with 80%+ test coverage and comprehensive integration tests.
+- Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.

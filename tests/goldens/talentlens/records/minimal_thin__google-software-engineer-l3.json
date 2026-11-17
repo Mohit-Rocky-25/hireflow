@@ -1,0 +1,90 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "google-software-engineer-l3",
+  "score": 12,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.57
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 12,
+      "afterScore": 36,
+      "delta": 24
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 36,
+      "afterScore": 41,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "To-do list: created a to-do list with HTML and JavaScript.",
+      "output": "To-do list: created a to-do list with HTML and JavaScript, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Chat app: made a chat app in Node.js.",
+      "output": "Chat app: made a chat app in Node.js, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

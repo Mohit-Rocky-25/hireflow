@@ -1,0 +1,96 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 51,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Application Security"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-subscription-dunning-billing",
+      "closes": [
+        "Node.js"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "application security"
+      ],
+      "beforeScore": 51,
+      "afterScore": 65,
+      "delta": 14
+    },
+    {
+      "skills": [],
+      "beforeScore": 65,
+      "afterScore": 69,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 69,
+      "afterScore": 70,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    }
+  ],
+  "violations": []
+}

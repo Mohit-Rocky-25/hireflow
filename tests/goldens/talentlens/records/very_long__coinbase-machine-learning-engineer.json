@@ -1,0 +1,105 @@
+{
+  "resumeId": "very_long",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 39,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 80,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws"
+      ],
+      "beforeScore": 39,
+      "afterScore": 50,
+      "delta": 11
+    },
+    {
+      "skills": [],
+      "beforeScore": 50,
+      "afterScore": 51,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 51,
+      "afterScore": 56,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers.",
+      "output": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",
+      "output": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,121 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 54,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "java",
+    "golang",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 7
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "Python",
+        "AWS",
+        "Kubernetes"
+      ],
+      "relevance": 0.59
+    },
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Python",
+        "AWS",
+        "Kubernetes"
+      ],
+      "relevance": 0.59
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "kubernetes"
+      ],
+      "beforeScore": 54,
+      "afterScore": 75,
+      "delta": 21
+    },
+    {
+      "skills": [],
+      "beforeScore": 75,
+      "afterScore": 78,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    },
+    {
+      "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
+      "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

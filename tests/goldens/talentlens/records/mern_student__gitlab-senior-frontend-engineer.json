@@ -1,0 +1,131 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 36,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-graphql-federation",
+      "closes": [
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.45
+    },
+    {
+      "id": "brief-notification-service",
+      "closes": [
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "kubernetes",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 36,
+      "afterScore": 39,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 43,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 43,
+      "afterScore": 46,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 46,
+      "afterScore": 47,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

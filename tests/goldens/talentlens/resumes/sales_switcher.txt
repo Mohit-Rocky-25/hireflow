@@ -1,0 +1,23 @@
+// Intent: Career switcher from enterprise B2B tech sales to software engineering with self-taught Java and SQL.
+Gaurav Mehra
+Email: gaurav.mehra.dev@example.com | Gurgaon, India
+
+Professional Experience:
+Enterprise Sales Account Executive | CloudWare India | Jun 2020 – Dec 2023
+- Managed enterprise B2B accounts, pitching cloud infrastructure solutions and achieving 115% of annual revenue target.
+- Communicated technical architecture specifications between customer engineering directors and internal product teams.
+
+Software Transition Projects:
+SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL
+- Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.
+- Designed relational database schema in MySQL with tables for leads, organizations, and deal activity timelines.
+- Implemented CRUD endpoints with Spring Data JPA and wrote unit tests with JUnit covering controller validation logic.
+
+Education:
+Executive Certificate in Backend Software Development, 2024
+Bachelor of Business Administration, Delhi University, 2016 – 2019
+
+Technical Skills:
+Languages: Java, SQL, JavaScript
+Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS
+Professional: Technical Client Communication, Requirement Discovery, Agile

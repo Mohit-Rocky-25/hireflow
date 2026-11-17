@@ -1,0 +1,19 @@
+// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.
+Manish Agarwal
+Email: manish.algo@example.com | Codeforces: codeforces.com/profile/manish_algo
+
+Education:
+Bachelor of Technology in Computer Science and Engineering
+International Institute of Information Technology (IIIT) Hyderabad, 2021 – 2025
+CGPA: 8.7 / 10.0
+
+Competitive Programming Achievements:
+- Codeforces Candidate Master with peak rating of 2048 (Ranked top 1% globally).
+- LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.
+- ACM-ICPC Regionalist: Qualified for Amritapuri ICPC Regional Contest 2023 and 2024 (Team Rank 34).
+- Problem Setter and Tester for collegiate programming contests, authoring 15 original competitive programming problems.
+
+Technical Skills:
+Languages: C++, C, Python, Java
+Algorithms & Data Structures: Segment Trees, Fenwick Trees, Graph Algorithms (Dijkstra, Tarjan, Max Flow), Dynamic Programming, Number Theory, Binary Search, Computational Geometry
+Platforms: Codeforces, LeetCode, CodeChef, AtCoder

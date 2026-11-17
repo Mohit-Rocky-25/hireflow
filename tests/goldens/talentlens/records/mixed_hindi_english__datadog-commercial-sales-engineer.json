@@ -1,0 +1,76 @@
+{
+  "resumeId": "mixed_hindi_english",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 19,
+      "afterScore": 37,
+      "delta": 18
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    },
+    {
+      "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",
+      "output": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",
+      "output": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}
