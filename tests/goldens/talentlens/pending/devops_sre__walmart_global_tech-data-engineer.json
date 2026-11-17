@@ -1,0 +1,83 @@
+{
+  "resumeId": "devops_sre",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 50,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "python",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql",
+        "aws"
+      ],
+      "beforeScore": 50,
+      "afterScore": 58,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS",
+      "output": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS"
+    },
+    {
+      "input": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux",
+      "output": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux"
+    },
+    {
+      "input": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus.",
+      "output": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

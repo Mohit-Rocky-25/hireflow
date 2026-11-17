@@ -1,0 +1,96 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 20,
+      "afterScore": 38,
+      "delta": 18
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 38,
+      "afterScore": 42,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 49,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

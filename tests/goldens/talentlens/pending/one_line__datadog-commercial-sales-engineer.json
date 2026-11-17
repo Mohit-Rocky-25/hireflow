@@ -1,0 +1,70 @@
+{
+  "resumeId": "one_line",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 0,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design",
+        "DSA"
+      ],
+      "beforeScore": 0,
+      "afterScore": 4,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 4,
+      "afterScore": 8,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing exactly one line of text.",
+      "output": "// Intent: Adversarial resume containing exactly one line of text, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Experienced Software Engineer seeking high-impact developer roles in top technology companies.",
+      "output": "Experienced Software Engineer seeking high-impact developer roles in top technology companies, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

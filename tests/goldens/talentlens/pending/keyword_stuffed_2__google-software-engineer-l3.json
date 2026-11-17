@@ -1,0 +1,90 @@
+{
+  "resumeId": "keyword_stuffed_2",
+  "roleId": "google-software-engineer-l3",
+  "score": 10,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-vector-db-from-scratch",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.4
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 10,
+      "afterScore": 34,
+      "delta": 24
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 34,
+      "afterScore": 39,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication.",
+      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication."
+    },
+    {
+      "input": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts.",
+      "output": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Project 1: System with high availability and microservices architecture.",
+      "output": "Project 1: System with high availability and microservices architecture, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

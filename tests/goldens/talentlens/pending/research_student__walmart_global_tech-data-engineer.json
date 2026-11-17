@@ -1,0 +1,83 @@
+{
+  "resumeId": "research_student",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "python",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Databases & SQL",
+        "AWS"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-fraud-detection-ml",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql",
+        "aws"
+      ],
+      "beforeScore": 38,
+      "afterScore": 49,
+      "delta": 11
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies.",
+      "output": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

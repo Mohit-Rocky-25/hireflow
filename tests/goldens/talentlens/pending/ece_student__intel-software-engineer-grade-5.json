@@ -1,0 +1,90 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "cpp",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "cpp"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems",
+        "Concurrency"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "systems",
+        "concurrency"
+      ],
+      "beforeScore": 33,
+      "afterScore": 39,
+      "delta": 6
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 40,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

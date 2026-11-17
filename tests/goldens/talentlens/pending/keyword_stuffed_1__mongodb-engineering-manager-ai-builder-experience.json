@@ -1,0 +1,117 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 8
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.48
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 19,
+      "afterScore": 29,
+      "delta": 10
+    },
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 29,
+      "afterScore": 31,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ",
+      "output": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ"
+    },
+    {
+      "input": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow",
+      "output": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow"
+    }
+  ],
+  "violations": []
+}

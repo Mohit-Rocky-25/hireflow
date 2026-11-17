@@ -1,0 +1,96 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 49,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "cpp",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systems",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "concurrency",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "concurrency"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp"
+      ],
+      "relevance": 0.23
+    },
+    {
+      "id": "brief-container-runtime",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.22
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp"
+      ],
+      "beforeScore": 49,
+      "afterScore": 67,
+      "delta": 18
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 67,
+      "afterScore": 70,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 70,
+      "afterScore": 75,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    },
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    }
+  ],
+  "violations": []
+}

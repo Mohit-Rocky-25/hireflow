@@ -1,0 +1,120 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 6
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.48
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "databases & sql",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 19,
+      "afterScore": 37,
+      "delta": 18
+    },
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    },
+    {
+      "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",
+      "output": "Frameworks: Spring Boot, React, Node.js, Express, Django"
+    },
+    {
+      "input": "Languages: Java, Python, C++, JavaScript, Go, SQL",
+      "output": "Languages: Java, Python, C++, JavaScript, Go, SQL"
+    }
+  ],
+  "violations": []
+}

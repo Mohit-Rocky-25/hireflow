@@ -1,0 +1,87 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 57,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "java",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 57,
+      "afterScore": 61,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 61,
+      "afterScore": 65,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    },
+    {
+      "input": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.",
+      "output": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%."
+    },
+    {
+      "input": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS",
+      "output": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS"
+    }
+  ],
+  "violations": []
+}

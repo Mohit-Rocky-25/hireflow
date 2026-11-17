@@ -1,0 +1,119 @@
+{
+  "resumeId": "sales_switcher",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "java",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-nextjs-ecommerce-webhook",
+      "closes": [],
+      "relevance": 0.61
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 34,
+      "afterScore": 48,
+      "delta": 14
+    },
+    {
+      "skills": [],
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.",
+      "output": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS",
+      "output": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS"
+    },
+    {
+      "input": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL",
+      "output": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL"
+    }
+  ],
+  "violations": []
+}

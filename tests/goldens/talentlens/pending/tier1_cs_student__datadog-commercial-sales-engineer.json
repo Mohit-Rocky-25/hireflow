@@ -1,0 +1,68 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 56,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 56,
+      "afterScore": 72,
+      "delta": 16
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    }
+  ],
+  "violations": []
+}

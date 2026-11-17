@@ -1,0 +1,96 @@
+{
+  "resumeId": "typos_special_chars",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 21,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning",
+        "system design"
+      ],
+      "beforeScore": 21,
+      "afterScore": 37,
+      "delta": 16
+    },
+    {
+      "skills": [],
+      "beforeScore": 37,
+      "afterScore": 42,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

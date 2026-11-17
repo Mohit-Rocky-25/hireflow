@@ -1,0 +1,96 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 67,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning"
+      ],
+      "beforeScore": 67,
+      "afterScore": 76,
+      "delta": 9
+    },
+    {
+      "skills": [],
+      "beforeScore": 76,
+      "afterScore": 79,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security",
+      "output": "Core Fundamentals: Distributed Systems, System Design, DSA, Algorithms, OOP, Computer Networks, Security"
+    },
+    {
+      "input": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript",
+      "output": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    }
+  ],
+  "violations": []
+}

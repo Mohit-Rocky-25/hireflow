@@ -1,0 +1,80 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 27,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql"
+      ],
+      "beforeScore": 27,
+      "afterScore": 43,
+      "delta": 16
+    },
+    {
+      "skills": [],
+      "beforeScore": 43,
+      "afterScore": 44,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.",
+      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,68 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 28,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "dsa"
+      ],
+      "beforeScore": 28,
+      "afterScore": 49,
+      "delta": 21
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

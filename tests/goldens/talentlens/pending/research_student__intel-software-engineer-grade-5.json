@@ -1,0 +1,89 @@
+{
+  "resumeId": "research_student",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 32,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systems",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "cpp",
+    "systems"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA",
+        "Concurrency"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "concurrency"
+      ],
+      "beforeScore": 32,
+      "afterScore": 48,
+      "delta": 16
+    },
+    {
+      "skills": [],
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Optimistic Multi-Leader Consensus in High-Latency Geo-Replicated Networks\", IEEE Transactions on Parallel and Distributed Systems, 2023.",
+      "output": "\"Optimistic Multi-Leader Consensus in High-Latency Geo-Replicated Networks\", IEEE Transactions on Parallel and Distributed Systems, 2023, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

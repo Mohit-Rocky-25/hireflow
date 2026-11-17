@@ -1,0 +1,74 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 25,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "System Design",
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "databases & sql"
+      ],
+      "beforeScore": 25,
+      "afterScore": 41,
+      "delta": 16
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

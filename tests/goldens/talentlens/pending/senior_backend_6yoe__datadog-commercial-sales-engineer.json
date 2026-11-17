@@ -1,0 +1,74 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 51,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 51,
+      "afterScore": 55,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 59,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    },
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Built distributed fault-tolerant key-value datastore in Go implementing Raft consensus protocol across 5 nodes handling 40,000 requests/sec.",
+      "output": "Built distributed fault-tolerant key-value datastore in Go implementing Raft consensus protocol across 5 nodes handling 40,000 requests/sec, for [add: system or artifact name, if applicable]."
+    }
+  ],
+  "violations": []
+}

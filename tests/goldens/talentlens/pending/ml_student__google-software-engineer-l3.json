@@ -1,0 +1,90 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "google-software-engineer-l3",
+  "score": 30,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 30,
+      "afterScore": 40,
+      "delta": 10
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 40,
+      "afterScore": 45,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

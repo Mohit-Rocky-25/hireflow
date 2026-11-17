@@ -1,0 +1,90 @@
+{
+  "resumeId": "typos_special_chars",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 18,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 0.59
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.59
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "node"
+      ],
+      "beforeScore": 18,
+      "afterScore": 36,
+      "delta": 18
+    },
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 36,
+      "afterScore": 41,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,89 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 41,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "AWS",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-react-tool-gateway",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws",
+        "system design"
+      ],
+      "beforeScore": 41,
+      "afterScore": 47,
+      "delta": 6
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 54,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

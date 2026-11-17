@@ -1,0 +1,89 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 66,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "kubernetes",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 5
+  },
+  "projectsShown": [
+    {
+      "id": "brief-canary-deployment",
+      "closes": [
+        "Go",
+        "AWS",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "devops & ci/cd"
+      ],
+      "beforeScore": 66,
+      "afterScore": 67,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    },
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS",
+      "output": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS"
+    }
+  ],
+  "violations": []
+}

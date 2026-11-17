@@ -1,0 +1,94 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 60,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "python",
+    "aws",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Machine Learning"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-llm-finetuning-peft",
+      "closes": [],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "machine learning"
+      ],
+      "beforeScore": 60,
+      "afterScore": 64,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 64,
+      "afterScore": 66,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    },
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.",
+      "output": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,92 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "security"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.75
+    },
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [],
+      "relevance": 0.75
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 33,
+      "afterScore": 47,
+      "delta": 14
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest",
+      "output": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest"
+    }
+  ],
+  "violations": []
+}

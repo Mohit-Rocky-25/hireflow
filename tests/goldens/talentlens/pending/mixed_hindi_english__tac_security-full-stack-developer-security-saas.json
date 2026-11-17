@@ -1,0 +1,80 @@
+{
+  "resumeId": "mixed_hindi_english",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 24,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 24,
+      "afterScore": 48,
+      "delta": 24
+    },
+    {
+      "skills": [],
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",
+      "output": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",
+      "output": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

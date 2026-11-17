@@ -1,0 +1,91 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 42,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "devops",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "Application Security"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "application security"
+      ],
+      "beforeScore": 42,
+      "afterScore": 52,
+      "delta": 10
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

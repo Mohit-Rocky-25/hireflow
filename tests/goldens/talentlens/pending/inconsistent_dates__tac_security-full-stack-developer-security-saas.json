@@ -1,0 +1,80 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 11,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 11,
+      "afterScore": 35,
+      "delta": 24
+    },
+    {
+      "skills": [],
+      "beforeScore": 35,
+      "afterScore": 43,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

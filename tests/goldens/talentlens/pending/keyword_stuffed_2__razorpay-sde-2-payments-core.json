@@ -1,0 +1,90 @@
+{
+  "resumeId": "keyword_stuffed_2",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 14,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 0.59
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.59
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "node"
+      ],
+      "beforeScore": 14,
+      "afterScore": 39,
+      "delta": 25
+    },
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 39,
+      "afterScore": 41,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication.",
+      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication."
+    },
+    {
+      "input": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts.",
+      "output": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Project 2: Security pipeline with OAuth2 and JWT authentication.",
+      "output": "Project 2: Security pipeline with OAuth2 and JWT authentication, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

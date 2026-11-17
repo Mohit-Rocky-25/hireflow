@@ -1,0 +1,92 @@
+{
+  "resumeId": "keyword_stuffed_2",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 19,
+      "afterScore": 44,
+      "delta": 25
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication.",
+      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication."
+    },
+    {
+      "input": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts.",
+      "output": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Project 1: System with high availability and microservices architecture.",
+      "output": "Project 1: System with high availability and microservices architecture, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

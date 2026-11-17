@@ -1,0 +1,96 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 37,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 37,
+      "afterScore": 49,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 49,
+      "afterScore": 52,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 52,
+      "afterScore": 59,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

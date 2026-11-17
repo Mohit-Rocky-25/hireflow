@@ -1,0 +1,96 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 27,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning",
+        "system design"
+      ],
+      "beforeScore": 27,
+      "afterScore": 44,
+      "delta": 17
+    },
+    {
+      "skills": [],
+      "beforeScore": 44,
+      "afterScore": 48,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

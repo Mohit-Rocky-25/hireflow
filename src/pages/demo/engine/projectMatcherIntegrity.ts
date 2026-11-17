@@ -111,12 +111,12 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
     'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints', 'databases & acid'
   ],
   sql: ['sql', 'postgresql', 'postgres', 'mysql', 'database queries', 'sqlite', 'relational database'],
-  golang: ['go', 'golang', 'goroutines', 'grpc-go'],
-  go: ['go', 'golang', 'goroutines', 'grpc-go'],
-  java: ['java', 'spring', 'spring boot', 'jvm', 'junit'],
-  python: ['python', 'fastapi', 'django', 'flask', 'asyncio', 'pydantic'],
-  typescript: ['typescript', 'ts', 'javascript', 'js', 'node.js', 'react'],
-  javascript: ['javascript', 'js', 'typescript', 'ts', 'node.js', 'react'],
+  golang: ['go', 'golang'],
+  go: ['go', 'golang'],
+  java: ['java', 'jvm'],
+  python: ['python', 'cpython', 'pypy'],
+  typescript: ['typescript', 'ts'],
+  javascript: ['javascript', 'js'],
   systemdesign: [
     'system design', 'systemdesign', 'distributed systems', 'microservices',
     'architecture', 'scalability', 'concurrency', 'idempotency', 'rate limiting',
@@ -144,9 +144,9 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   rest: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
   rest_api: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
   testing: ['testing', 'benchmarking', 'unit tests', 'integration tests', 'testing & reliability'],
-  nodejs: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
-  node: ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
-  swift: ['swift', 'ios', 'xcode', 'swiftui', 'mobile'],
+  nodejs: ['node.js', 'nodejs', 'node'],
+  node: ['node.js', 'nodejs', 'node'],
+  swift: ['swift'],
   ml: [
     'ml', 'machine learning', 'deep learning', 'ai', 'artificial intelligence',
     'nlp', 'computer vision', 'neural networks', 'llm', 'llms', 'data science',
@@ -166,10 +166,10 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   ],
   'c++': ['c++', 'cpp', 'c / c++', 'c/c++'],
   cpp: ['c++', 'cpp', 'c / c++', 'c/c++'],
-  'c#': ['c#', 'csharp', '.net', 'dotnet'],
-  csharp: ['c#', 'csharp', '.net', 'dotnet'],
-  '.net': ['.net', 'dotnet', 'c#', 'asp.net', 'csharp'],
-  dotnet: ['.net', 'dotnet', 'c#', 'asp.net', 'csharp'],
+  'c#': ['c#', 'csharp'],
+  csharp: ['c#', 'csharp'],
+  '.net': ['.net', 'dotnet', 'asp.net'],
+  dotnet: ['.net', 'dotnet', 'asp.net'],
   'ci/cd': ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
   cicd: ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
   r: ['r', 'r programming'],
@@ -398,8 +398,9 @@ function computeDomainFit(
 
 /**
  * Computes tech stack fit between project and target role without blanket shortcuts.
- * Evaluates candidate gaps strictly: if the candidate lacks a required primary language,
- * a project lacking that language receives 0.0 stack fit (no free credit for other gaps).
+ * Stage E.3: Concept gaps (DSA, System Design, Databases) do not require the primary language match;
+ * they may be closed by projects in another language, with missing-language projects ranked higher (0.80-1.00)
+ * vs concept-only projects (0.70-0.85).
  */
 export function computeStackFit(
   briefSkills: string[],
@@ -407,7 +408,10 @@ export function computeStackFit(
   _roleTitle?: string,
   briefId?: string
 ): number {
-  const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
+  const PRIMARY_LANGUAGES = [
+    'golang', 'go', 'java', 'python', 'typescript', 'javascript',
+    'c++', 'cpp', 'rust', 'c', 'swift', 'c#', 'csharp', 'r', 'kotlin'
+  ];
   const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
   const nonLanguageGaps = gapSkills.filter((g) => !PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
 
@@ -419,24 +423,19 @@ export function computeStackFit(
   ).length;
 
   if (languageGaps.length > 0) {
-    // If the candidate lacks one or more primary languages, a recommended project
-    // MUST cover at least one of those language gaps in its verified tech stack.
-    // Absolutely NO free credit for non-language gaps.
-    const coversLanguageGap = languageGaps.some((lg) =>
-      doesProjectCoverSkill(briefSkills, lg.id, briefId)
-    );
-
-    if (!coversLanguageGap) {
-      // Disqualified due to stack-fit penalty for missing primary language
+    if (coversLanguageGap) {
+      if (nonLanguageGaps.length === 0) {
+        return 1.0;
+      }
+      return 0.80 + 0.20 * (coveredNonLangCount / nonLanguageGaps.length);
+    } else {
+      // Concept gaps (DSA, system design, databases) do not require the primary language,
+      // but are ranked lower than missing-language projects.
+      if (coveredNonLangCount > 0) {
+        return 0.70 + 0.15 * (coveredNonLangCount / Math.max(1, nonLanguageGaps.length));
+      }
       return 0.0;
     }
-
-    const nonLanguageGaps = gapSkills.filter((g) => !PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
-    if (nonLanguageGaps.length === 0) {
-      return 1.0;
-    }
-    const coveredNonLang = nonLanguageGaps.filter((g) => doesProjectCoverSkill(briefSkills, g.id, briefId)).length;
-    return 0.80 + 0.20 * (coveredNonLang / nonLanguageGaps.length);
   }
 
   // If candidate has NO primary language gaps:
@@ -622,28 +621,39 @@ export function matchProjectsWithIntegrity(params: {
     };
   }
 
-  const projects: RecommendedProjectDrop[] = selected.map((s) => ({
-    id: s.brief.id,
-    title: s.brief.title,
-    domain: s.brief.domain,
-    difficulty: s.brief.difficulty,
-    estimatedHours: s.brief.estimatedHours || 0,
-    hoursDisplay: s.brief.estimatedHours ? `~${s.brief.estimatedHours} hrs` : 'estimate unavailable',
-    coveredSkills: s.realSkills, // Real stack + vetted concepts
-    relevanceScore: Number(s.relevance.toFixed(2)),
-    gapCoverage: Number(s.gapCoverage.toFixed(2)),
-    domainFit: Number(s.domainFit.toFixed(2)),
-    stackFit: Number(s.stackFit.toFixed(2)),
-    closes: s.closedGaps,
-    reasonCodes: s.reasonCodes,
-    whyThisProject: s.whyThisProject,
-    problemStatement: s.brief.problemStatement,
-    architecture: s.brief.architecture,
-    recruiterSignal: s.brief.recruiterSignal || '',
-    portfolioBulletFormula: s.brief.portfolioBulletFormula,
-    deliverables: (s.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
-    debugReason: s.debugReason,
-  }));
+  const handledGaps = new Set<string>();
+  const projects: RecommendedProjectDrop[] = selected.map((s) => {
+    // Stage E.2: Each skill is closed exactly once; card closes and step closes must be identical
+    const uniqueCloses = s.closedGaps.filter((g) => {
+      const gClean = g.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (handledGaps.has(gClean)) return false;
+      handledGaps.add(gClean);
+      return true;
+    });
+
+    return {
+      id: s.brief.id,
+      title: s.brief.title,
+      domain: s.brief.domain,
+      difficulty: s.brief.difficulty,
+      estimatedHours: s.brief.estimatedHours || 0,
+      hoursDisplay: s.brief.estimatedHours ? `~${s.brief.estimatedHours} hrs` : 'estimate unavailable',
+      coveredSkills: s.realSkills, // Real stack + vetted concepts
+      relevanceScore: Number(s.relevance.toFixed(2)),
+      gapCoverage: Number(s.gapCoverage.toFixed(2)),
+      domainFit: Number(s.domainFit.toFixed(2)),
+      stackFit: Number(s.stackFit.toFixed(2)),
+      closes: uniqueCloses,
+      reasonCodes: s.reasonCodes,
+      whyThisProject: s.whyThisProject,
+      problemStatement: s.brief.problemStatement,
+      architecture: s.brief.architecture,
+      recruiterSignal: s.brief.recruiterSignal || '',
+      portfolioBulletFormula: s.brief.portfolioBulletFormula,
+      deliverables: (s.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
+      debugReason: s.debugReason,
+    };
+  });
 
   return {
     projects,

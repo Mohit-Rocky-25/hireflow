@@ -1,0 +1,79 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 22,
+      "afterScore": 28,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    },
+    {
+      "input": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart",
+      "output": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart"
+    },
+    {
+      "input": "Project 1: Used Java, Python, Go, React, and Docker.",
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
+    }
+  ],
+  "violations": []
+}

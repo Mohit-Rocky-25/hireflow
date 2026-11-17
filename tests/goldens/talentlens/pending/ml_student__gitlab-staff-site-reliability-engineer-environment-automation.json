@@ -1,0 +1,92 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 35,
+      "afterScore": 53,
+      "delta": 18
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

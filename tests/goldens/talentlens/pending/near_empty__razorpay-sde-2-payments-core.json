@@ -1,0 +1,84 @@
+{
+  "resumeId": "near_empty",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 0,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 0.59
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.59
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Node.js",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "beforeScore": 0,
+      "afterScore": 4,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 4,
+      "afterScore": 8,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

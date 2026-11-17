@@ -1,0 +1,84 @@
+{
+  "resumeId": "competitive_programmer",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 25,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS",
+        "System Design"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "databases & sql",
+        "aws",
+        "system design"
+      ],
+      "beforeScore": 25,
+      "afterScore": 41,
+      "delta": 16
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Algorithms & Data Structures: Segment Trees, Fenwick Trees, Graph Algorithms (Dijkstra, Tarjan, Max Flow), Dynamic Programming, Number Theory, Binary Search, Computational Geometry",
+      "output": "Algorithms & Data Structures: Segment Trees, Fenwick Trees, Graph Algorithms (Dijkstra, Tarjan, Max Flow), Dynamic Programming, Number Theory, Binary Search, Computational Geometry"
+    },
+    {
+      "input": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.",
+      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.",
+      "output": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

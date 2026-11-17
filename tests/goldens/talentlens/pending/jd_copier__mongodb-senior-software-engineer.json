@@ -1,0 +1,138 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 30,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL"
+      ],
+      "relevance": 0.46
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.46
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "databases & sql"
+      ],
+      "beforeScore": 30,
+      "afterScore": 50,
+      "delta": 20
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 50,
+      "afterScore": 52,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 52,
+      "afterScore": 55,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 55,
+      "afterScore": 59,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 59,
+      "afterScore": 60,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
+    },
+    {
+      "input": "Proficient in containerization with Docker and cluster orchestration with Kubernetes.",
+      "output": "Proficient in containerization with Docker and cluster orchestration with Kubernetes, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

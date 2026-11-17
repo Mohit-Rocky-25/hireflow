@@ -1,0 +1,95 @@
+{
+  "resumeId": "keyword_stuffed_3",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 5,
+    "projectsCount": 2,
+    "bulletsCount": 1,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws",
+        "machine learning",
+        "system design"
+      ],
+      "beforeScore": 35,
+      "afterScore": 45,
+      "delta": 10
+    },
+    {
+      "skills": [],
+      "beforeScore": 45,
+      "afterScore": 49,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot.",
+      "output": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot",
+      "output": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot"
+    },
+    {
+      "input": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections.",
+      "output": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections, [add: specific role or leadership contribution]."
+    }
+  ],
+  "violations": []
+}

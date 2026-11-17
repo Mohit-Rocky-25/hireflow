@@ -1,0 +1,84 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS",
+        "System Design"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "databases & sql",
+        "aws",
+        "system design"
+      ],
+      "beforeScore": 22,
+      "afterScore": 46,
+      "delta": 24
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Chat app: made a chat app in Node.js.",
+      "output": "Chat app: made a chat app in Node.js, with [add: measured metric, if available]."
+    },
+    {
+      "input": "To-do list: created a to-do list with HTML and JavaScript.",
+      "output": "To-do list: created a to-do list with HTML and JavaScript, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,90 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "google-software-engineer-l3",
+  "score": 21,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-vector-db-from-scratch",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.4
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 21,
+      "afterScore": 38,
+      "delta": 17
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 38,
+      "afterScore": 44,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

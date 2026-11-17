@@ -1,0 +1,91 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 50,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Application Security"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "node"
+      ],
+      "beforeScore": 50,
+      "afterScore": 56,
+      "delta": 6
+    },
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 56,
+      "afterScore": 60,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman",
+      "output": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman"
+    },
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    }
+  ],
+  "violations": []
+}

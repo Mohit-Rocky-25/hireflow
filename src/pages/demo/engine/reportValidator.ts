@@ -987,7 +987,12 @@ export function validateReport(report: any): ValidateReportResult {
       for (const part of nonSlotParts) {
         if (beforeText && !beforeText.includes(part)) {
           const corePart = part.replace(/,\s*(with|using|in|for|to|and)$/i, '').trim();
-          if (corePart.length >= 2 && !beforeText.includes(corePart)) {
+          const lowerFirstPart = corePart.charAt(0).toLowerCase() + corePart.slice(1);
+          if (
+            corePart.length >= 2 &&
+            !beforeText.includes(corePart) &&
+            !beforeText.includes(lowerFirstPart)
+          ) {
             violations.push({
               check: 'before-substring',
               message: `Rewrite part "${part.slice(0, 50)}" is not an exact substring of original bullet "${beforeText.slice(0, 50)}".`,

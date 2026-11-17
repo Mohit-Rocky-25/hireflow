@@ -1,0 +1,72 @@
+{
+  "resumeId": "near_empty",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 0,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "System Design",
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design",
+        "Databases & SQL"
+      ],
+      "beforeScore": 0,
+      "afterScore": 4,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 4,
+      "afterScore": 8,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

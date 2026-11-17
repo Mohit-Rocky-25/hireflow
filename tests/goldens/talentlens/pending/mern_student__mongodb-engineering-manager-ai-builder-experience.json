@@ -1,0 +1,126 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 39,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react",
+    "aws",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.29
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 39,
+      "afterScore": 44,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 44,
+      "afterScore": 46,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 46,
+      "afterScore": 49,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

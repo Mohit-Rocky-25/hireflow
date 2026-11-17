@@ -1,0 +1,130 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 28,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.86
+    },
+    {
+      "id": "brief-spring-enterprise-rbac",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "databases & sql",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 28,
+      "afterScore": 55,
+      "delta": 27
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 55,
+      "afterScore": 58,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 58,
+      "afterScore": 59,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
+    },
+    {
+      "input": "Proficient in containerization with Docker and cluster orchestration with Kubernetes.",
+      "output": "Proficient in containerization with Docker and cluster orchestration with Kubernetes, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

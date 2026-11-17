@@ -581,11 +581,10 @@ export function rewriteBullet(
 
   // Skills-list lines: no split, no metric slots, one clear warning
   if (analysis.isSkillsList) {
-    const cleanNoPunct = clean.replace(/[.,\s]+$/, '');
     return {
       id: `rw_${Math.abs(hashString(originalBullet)).toString(36)}`,
       originalBullet,
-      rewrittenBullet: cleanNoPunct,
+      rewrittenBullet: clean, // Keep exact input including trailing period (Stage F.3)
       qualityClass: 'risky',
       signals,
       reasons: ['Skills list without project context'],
@@ -601,7 +600,8 @@ export function rewriteBullet(
   if (splitData.shouldSplit && splitData.clauses.length >= 2) {
     const splitBullets: string[] = splitData.clauses.map((c) => {
       const cTrim = c.trim().replace(/^\s*and\s+/i, '').replace(/[.,\s]+$/, '');
-      return cleanupPunctuation(`${cTrim}, with [add: measured metric or scale, if applicable].`);
+      const capitalized = cTrim.charAt(0).toUpperCase() + cTrim.slice(1);
+      return cleanupPunctuation(`${capitalized}, with [add: measured metric or scale, if applicable].`);
     });
 
     return {
@@ -628,10 +628,14 @@ export function rewriteBullet(
   );
 
   const isNonTech = isNonTechnicalBullet(clean, signals);
+  const isEvent = isEventBullet(clean);
   const cleanBase = clean.replace(/[.,\s]+$/, '');
   let rewritten = '';
 
-  const eventSlot = ', with [add: event outcome or impact, if applicable]';
+  // Stage F.2: "event outcome or impact" is used ONLY for event-type bullets; otherwise "outcome or impact"
+  const eventSlot = isEvent
+    ? ', with [add: event outcome or impact, if applicable]'
+    : ', with [add: outcome or impact, if applicable]';
   const defaultMetricSlot = ', with [add: measured metric, if available]';
   const userScaleSlot = ', with [add: measured metric or user scale, if available]';
 

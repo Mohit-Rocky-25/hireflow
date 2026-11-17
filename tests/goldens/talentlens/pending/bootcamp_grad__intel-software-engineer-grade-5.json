@@ -1,0 +1,96 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 24,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 24,
+      "afterScore": 40,
+      "delta": 16
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 40,
+      "afterScore": 44,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 44,
+      "afterScore": 52,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest",
+      "output": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest"
+    }
+  ],
+  "violations": []
+}

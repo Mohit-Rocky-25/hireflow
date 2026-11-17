@@ -1,0 +1,74 @@
+{
+  "resumeId": "sales_switcher",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 41,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-dist-cache-rust",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 41,
+      "afterScore": 44,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS",
+      "output": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS"
+    },
+    {
+      "input": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.",
+      "output": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities, with [add: measured metric, if available]."
+    },
+    {
+      "input": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL",
+      "output": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL"
+    }
+  ],
+  "violations": []
+}

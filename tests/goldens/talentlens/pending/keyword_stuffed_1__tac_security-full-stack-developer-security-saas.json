@@ -1,0 +1,74 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 10,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 10,
+      "afterScore": 37,
+      "delta": 27
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow",
+      "output": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow"
+    },
+    {
+      "input": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart",
+      "output": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart"
+    },
+    {
+      "input": "Project 1: Used Java, Python, Go, React, and Docker.",
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
+    }
+  ],
+  "violations": []
+}

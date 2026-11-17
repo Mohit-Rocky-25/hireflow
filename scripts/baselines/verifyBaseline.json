@@ -1,0 +1,38 @@
+{
+  "commit": "0e923b8082d7f4ebaddfdfcfb18a178d615c0fbc",
+  "generatedFrom": "Phase 3C verification run (commit 0e923b8)",
+  "top2Closure": {
+    "systemdesign": 97.4,
+    "python": 100.0,
+    "databases": 100.0,
+    "java": 92.3,
+    "communication": 0.0,
+    "aws": 100.0,
+    "dsa": 38.4,
+    "devops": 100.0,
+    "security": 94.8,
+    "kubernetes": 100.0,
+    "react": 84.5,
+    "ml": 87.4,
+    "typescript": 100.0,
+    "golang": 98.1,
+    "nodejs": 84.8,
+    "sql": 99.0,
+    "finance": 0.0,
+    "rest": 15.5,
+    "leadership": 0.0,
+    "swift": 11.1
+  },
+  "archetypeScores": {
+    "strong": { "min": 22, "median": 45, "max": 70, "bands": { "exceptional": 0, "ready": 5, "moderate": 1139, "developing": 584, "notReady": 0 } },
+    "average": { "min": 13, "median": 24, "max": 55, "bands": { "exceptional": 0, "ready": 0, "moderate": 70, "developing": 1352, "notReady": 306 } },
+    "thin": { "min": 0, "median": 0, "max": 0, "bands": { "exceptional": 0, "ready": 0, "moderate": 0, "developing": 0, "notReady": 1728 } },
+    "keywordStuffed": { "min": 10, "median": 19, "max": 22, "bands": { "exceptional": 0, "ready": 0, "moderate": 0, "developing": 295, "notReady": 1433 } },
+    "lateral": { "min": 10, "median": 17, "max": 20, "bands": { "exceptional": 0, "ready": 0, "moderate": 0, "developing": 295, "notReady": 1433 } }
+  },
+  "ordering": {
+    "strongGreaterThanAverage": 98.15,
+    "averageGreaterThanThin": 100.0,
+    "keywordStuffedLessThanEqualToAverage": 100.0
+  }
+}

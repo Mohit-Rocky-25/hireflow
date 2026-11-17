@@ -1,0 +1,80 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 33,
+      "afterScore": 57,
+      "delta": 24
+    },
+    {
+      "skills": [],
+      "beforeScore": 57,
+      "afterScore": 59,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,128 @@
+{
+  "resumeId": "ml_student",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.58
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "databases & sql",
+        "system design"
+      ],
+      "beforeScore": 34,
+      "afterScore": 46,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 46,
+      "afterScore": 49,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 49,
+      "afterScore": 52,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
+    },
+    {
+      "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
+      "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

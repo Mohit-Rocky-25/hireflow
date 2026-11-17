@@ -1,0 +1,88 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 63,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "databases",
+    "aws",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-computer-vision-api",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python"
+      ],
+      "beforeScore": 63,
+      "afterScore": 67,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 67,
+      "afterScore": 71,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.",
+      "output": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%."
+    },
+    {
+      "input": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS",
+      "output": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS"
+    }
+  ],
+  "violations": []
+}

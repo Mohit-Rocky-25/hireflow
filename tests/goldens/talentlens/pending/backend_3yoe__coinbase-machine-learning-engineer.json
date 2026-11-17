@@ -1,0 +1,89 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 63,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "aws",
+    "security",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "Machine Learning"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-llm-finetuning-peft",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "machine learning"
+      ],
+      "beforeScore": 63,
+      "afterScore": 67,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices",
+      "output": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices"
+    },
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    },
+    {
+      "input": "Developed customer onboarding REST APIs in Java Spring Boot with Spring Security and OAuth2 token verification.",
+      "output": "Developed customer onboarding REST APIs in Java Spring Boot with Spring Security and OAuth2 token verification, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

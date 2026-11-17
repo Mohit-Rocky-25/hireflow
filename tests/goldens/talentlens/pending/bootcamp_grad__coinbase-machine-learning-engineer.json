@@ -1,0 +1,92 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "security"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning",
+        "system design"
+      ],
+      "beforeScore": 33,
+      "afterScore": 47,
+      "delta": 14
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    }
+  ],
+  "violations": []
+}

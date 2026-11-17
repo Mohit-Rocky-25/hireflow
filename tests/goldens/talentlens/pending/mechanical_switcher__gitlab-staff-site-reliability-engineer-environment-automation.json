@@ -1,0 +1,92 @@
+{
+  "resumeId": "mechanical_switcher",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 40,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "aws"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 7,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 40,
+      "afterScore": 61,
+      "delta": 21
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.",
+      "output": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs",
+      "output": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs"
+    },
+    {
+      "input": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker",
+      "output": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker"
+    }
+  ],
+  "violations": []
+}

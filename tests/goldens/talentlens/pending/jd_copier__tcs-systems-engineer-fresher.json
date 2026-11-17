@@ -1,0 +1,92 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 46,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "java"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Databases & SQL"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.36
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "databases & sql"
+      ],
+      "beforeScore": 46,
+      "afterScore": 50,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 50,
+      "afterScore": 53,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 53,
+      "afterScore": 54,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
+    },
+    {
+      "input": "Responsible for designing resilient event-driven data pipelines and solving complex DSA problems.",
+      "output": "Responsible for designing resilient event-driven data pipelines and solving complex DSA problems, [add: what you personally built or contributed], with [add: measured metric or user scale, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

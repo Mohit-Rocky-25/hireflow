@@ -1,0 +1,102 @@
+{
+  "resumeId": "jd_copier",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning"
+      ],
+      "beforeScore": 34,
+      "afterScore": 48,
+      "delta": 14
+    },
+    {
+      "skills": [],
+      "beforeScore": 48,
+      "afterScore": 54,
+      "delta": 6
+    },
+    {
+      "skills": [],
+      "beforeScore": 54,
+      "afterScore": 55,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
+    },
+    {
+      "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.",
+      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

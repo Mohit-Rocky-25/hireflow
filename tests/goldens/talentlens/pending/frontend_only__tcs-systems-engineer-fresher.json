@@ -1,0 +1,86 @@
+{
+  "resumeId": "frontend_only",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 31,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "java",
+        "databases & sql"
+      ],
+      "beforeScore": 31,
+      "afterScore": 36,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 42,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",
+      "output": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS"
+    },
+    {
+      "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
+    },
+    {
+      "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",
+      "output": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,80 @@
+{
+  "resumeId": "very_long",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 15,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 80,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 15,
+      "afterScore": 49,
+      "delta": 34
+    },
+    {
+      "skills": [],
+      "beforeScore": 49,
+      "afterScore": 57,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers.",
+      "output": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",
+      "output": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

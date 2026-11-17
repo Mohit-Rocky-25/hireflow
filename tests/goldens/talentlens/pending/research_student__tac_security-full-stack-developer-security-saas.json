@@ -1,0 +1,80 @@
+{
+  "resumeId": "research_student",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 14,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "beforeScore": 14,
+      "afterScore": 18,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 18,
+      "afterScore": 22,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

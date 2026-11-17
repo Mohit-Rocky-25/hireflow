@@ -1,0 +1,112 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 47,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "kubernetes",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 8
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "React",
+        "TypeScript",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-nextjs-ecommerce-webhook",
+      "closes": [],
+      "relevance": 0.56
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 47,
+      "afterScore": 68,
+      "delta": 21
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    },
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%.",
+      "output": "Engineered distributed backend services in Java and Python with PostgreSQL and Redis, cutting database query latency by 50%."
+    }
+  ],
+  "violations": []
+}

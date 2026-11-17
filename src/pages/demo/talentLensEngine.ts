@@ -1040,31 +1040,47 @@ export function generateImprovementPlan(
       const closes = proj.closes || [];
       if (closes.length === 0) continue;
 
-      const matchingAbsent = closes.filter((c) =>
-        breakdown.some(
-          (b) =>
-            (b.competency.toLowerCase() === c.toLowerCase() ||
-              b.competency.toLowerCase().includes(c.toLowerCase()) ||
-              c.toLowerCase().includes(b.competency.toLowerCase())) &&
-            (b.analysis.status === 'absent' || b.analysis.status === 'working')
-        )
-      );
+      const matchingAbsent = closes.filter((c) => {
+        const cClean = c.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return breakdown.some((b) => {
+          const bClean = b.competency.toLowerCase().replace(/[^a-z0-9]/g, '');
+          const bFmtClean = formatCompetencyName(b.competency).toLowerCase().replace(/[^a-z0-9]/g, '');
+          const isMatch =
+            bClean === cClean ||
+            bFmtClean === cClean ||
+            bClean.includes(cClean) ||
+            cClean.includes(bClean);
+          const isGap = b.analysis.status === 'absent' || b.analysis.status === 'working';
+          return isMatch && isGap;
+        });
+      });
 
-      const unclosedGaps = matchingAbsent.filter((c) => !handledSkills.has(c.toLowerCase()));
+      const unclosedGaps = matchingAbsent.filter((c) => {
+        const cClean = c.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return !handledSkills.has(c.toLowerCase()) && !handledSkills.has(cClean);
+      });
       if (unclosedGaps.length === 0) continue;
 
       for (const s of unclosedGaps) {
         const sLower = s.toLowerCase().trim();
+        const sClean = sLower.replace(/[^a-z0-9]/g, '');
         handledSkills.add(sLower);
+        handledSkills.add(sClean);
         for (const b of breakdown) {
           const bComp = b.competency.toLowerCase().trim();
+          const bClean = bComp.replace(/[^a-z0-9]/g, '');
+          const bFmt = formatCompetencyName(bComp).toLowerCase().trim();
+          const bFmtClean = bFmt.replace(/[^a-z0-9]/g, '');
           if (
-            bComp === sLower ||
-            sLower.includes(bComp) ||
-            bComp.includes(sLower) ||
-            formatCompetencyName(bComp).toLowerCase().trim() === sLower
+            bClean === sClean ||
+            bFmtClean === sClean ||
+            sClean.includes(bClean) ||
+            bClean.includes(sClean)
           ) {
             handledSkills.add(bComp);
+            handledSkills.add(bClean);
+            handledSkills.add(bFmt);
+            handledSkills.add(bFmtClean);
           }
         }
       }
@@ -1099,7 +1115,13 @@ export function generateImprovementPlan(
 
   // 1. Missing Must-Have Competencies
   breakdown
-    .filter((b) => b.analysis.status === 'absent' && !handledSkills.has(b.competency.toLowerCase().trim()))
+    .filter((b) => {
+      if (b.analysis.status !== 'absent') return false;
+      const bComp = b.competency.toLowerCase().trim();
+      const bClean = bComp.replace(/[^a-z0-9]/g, '');
+      const bFmtClean = formatCompetencyName(bComp).toLowerCase().replace(/[^a-z0-9]/g, '');
+      return !handledSkills.has(bComp) && !handledSkills.has(bClean) && !handledSkills.has(bFmtClean);
+    })
     .forEach((b) => {
       const compKey = b.competency.toLowerCase().trim();
       handledSkills.add(compKey);

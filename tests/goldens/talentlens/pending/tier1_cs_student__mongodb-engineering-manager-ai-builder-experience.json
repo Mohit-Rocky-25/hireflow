@@ -1,0 +1,126 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 49,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "golang",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 6
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "AWS",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.56
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 49,
+      "afterScore": 72,
+      "delta": 23
+    },
+    {
+      "skills": [
+        "typescript"
+      ],
+      "beforeScore": 72,
+      "afterScore": 73,
+      "delta": 1
+    },
+    {
+      "skills": [],
+      "beforeScore": 73,
+      "afterScore": 77,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript",
+      "output": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,68 @@
+{
+  "resumeId": "frontend_only",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 30,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "dsa"
+      ],
+      "beforeScore": 30,
+      "afterScore": 53,
+      "delta": 23
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
+    },
+    {
+      "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",
+      "output": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS"
+    },
+    {
+      "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",
+      "output": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,67 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

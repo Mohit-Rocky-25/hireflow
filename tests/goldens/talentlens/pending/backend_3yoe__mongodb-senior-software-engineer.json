@@ -1,0 +1,117 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 49,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "java",
+    "aws",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 6
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "Go",
+        "Kubernetes"
+      ],
+      "relevance": 0.38
+    },
+    {
+      "id": "brief-cloud-cost-anomaly",
+      "closes": [
+        "Python"
+      ],
+      "relevance": 0.38
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes"
+      ],
+      "beforeScore": 49,
+      "afterScore": 67,
+      "delta": 18
+    },
+    {
+      "skills": [],
+      "beforeScore": 67,
+      "afterScore": 69,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL."
+    },
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    },
+    {
+      "input": "Developed customer onboarding REST APIs in Java Spring Boot with Spring Security and OAuth2 token verification.",
+      "output": "Developed customer onboarding REST APIs in Java Spring Boot with Spring Security and OAuth2 token verification, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

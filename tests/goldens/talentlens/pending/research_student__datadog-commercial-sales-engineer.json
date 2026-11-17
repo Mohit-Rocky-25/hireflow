@@ -1,0 +1,68 @@
+{
+  "resumeId": "research_student",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 43,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 43,
+      "afterScore": 52,
+      "delta": 9
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

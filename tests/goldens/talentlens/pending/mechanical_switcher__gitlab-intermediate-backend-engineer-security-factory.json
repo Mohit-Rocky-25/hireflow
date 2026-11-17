@@ -1,0 +1,96 @@
+{
+  "resumeId": "mechanical_switcher",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 7,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 0.76
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 34,
+      "afterScore": 54,
+      "delta": 20
+    },
+    {
+      "skills": [],
+      "beforeScore": 54,
+      "afterScore": 55,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend.",
+      "output": "// Intent: Mechanical student switching to software, strong Python scripting, CAD automation, self-taught backend, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs",
+      "output": "Backend & Web: FastAPI, Flask, PostgreSQL, React, REST APIs"
+    },
+    {
+      "input": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker",
+      "output": "Manufacturing Inventory REST API | Python, FastAPI, PostgreSQL, Docker"
+    }
+  ],
+  "violations": []
+}

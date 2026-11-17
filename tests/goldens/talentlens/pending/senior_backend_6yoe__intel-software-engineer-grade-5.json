@@ -1,0 +1,90 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 45,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "cpp",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systems",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "concurrency",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 45,
+      "afterScore": 64,
+      "delta": 19
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 64,
+      "afterScore": 66,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    },
+    {
+      "input": "Built distributed fault-tolerant key-value datastore in Go implementing Raft consensus protocol across 5 nodes handling 40,000 requests/sec.",
+      "output": "Built distributed fault-tolerant key-value datastore in Go implementing Raft consensus protocol across 5 nodes handling 40,000 requests/sec, for [add: system or artifact name, if applicable]."
+    }
+  ],
+  "violations": []
+}

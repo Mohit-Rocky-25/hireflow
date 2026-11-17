@@ -1,0 +1,96 @@
+{
+  "resumeId": "frontend_only",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 22,
+      "afterScore": 39,
+      "delta": 17
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 39,
+      "afterScore": 44,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 44,
+      "afterScore": 54,
+      "delta": 10
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
+    },
+    {
+      "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",
+      "output": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS"
+    },
+    {
+      "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",
+      "output": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

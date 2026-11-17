@@ -1,0 +1,113 @@
+{
+  "resumeId": "tables_symbols_bullets",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 43,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "java",
+    "devops",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 5
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "Application Security"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-nextjs-ecommerce-webhook",
+      "closes": [],
+      "relevance": 0.76
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "application security"
+      ],
+      "beforeScore": 43,
+      "afterScore": 57,
+      "delta": 14
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
+      "output": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |"
+    },
+    {
+      "input": "| Frameworks | Spring Boot, React, Node.js | 2 Years |",
+      "output": "| Frameworks | Spring Boot, React, Node.js | 2 Years |"
+    },
+    {
+      "input": "| Languages | Java, Python, C++ | 2 Years |",
+      "output": "| Languages | Java, Python, C++ | 2 Years |, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

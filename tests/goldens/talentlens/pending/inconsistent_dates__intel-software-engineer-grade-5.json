@@ -1,0 +1,96 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 12,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 12,
+      "afterScore": 31,
+      "delta": 19
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 31,
+      "afterScore": 36,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 36,
+      "afterScore": 44,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,88 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 0.76
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 19,
+      "afterScore": 32,
+      "delta": 13
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ",
+      "output": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ"
+    },
+    {
+      "input": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart",
+      "output": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart"
+    },
+    {
+      "input": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects.",
+      "output": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects."
+    }
+  ],
+  "violations": []
+}

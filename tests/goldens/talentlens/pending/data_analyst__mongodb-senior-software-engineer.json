@@ -1,0 +1,127 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "System Design"
+      ],
+      "relevance": 0.54
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.38
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "system design"
+      ],
+      "beforeScore": 33,
+      "afterScore": 43,
+      "delta": 10
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 43,
+      "afterScore": 46,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 46,
+      "afterScore": 49,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

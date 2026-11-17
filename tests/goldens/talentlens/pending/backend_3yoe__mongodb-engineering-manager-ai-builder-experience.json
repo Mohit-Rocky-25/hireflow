@@ -1,0 +1,124 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 43,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "aws",
+    "databases",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [
+        "Python",
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.29
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "devops & ci/cd"
+      ],
+      "beforeScore": 43,
+      "afterScore": 62,
+      "delta": 19
+    },
+    {
+      "skills": [
+        "go"
+      ],
+      "beforeScore": 62,
+      "afterScore": 64,
+      "delta": 2
+    },
+    {
+      "skills": [],
+      "beforeScore": 64,
+      "afterScore": 67,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",
+      "output": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily."
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka",
+      "output": "Frameworks & Databases: Spring Boot, Node.js, Express, PostgreSQL, MySQL, Redis, Kafka"
+    },
+    {
+      "input": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman",
+      "output": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman"
+    }
+  ],
+  "violations": []
+}

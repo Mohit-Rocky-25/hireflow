@@ -1,0 +1,92 @@
+{
+  "resumeId": "research_student",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 33,
+      "afterScore": 48,
+      "delta": 15
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -1,0 +1,81 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "google-software-engineer-l3",
+  "score": 10,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-vector-db-from-scratch",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.4
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 10,
+      "afterScore": 29,
+      "delta": 19
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart",
+      "output": "Languages: Java, Python, Go, Golang, C, C++, C#, Rust, Swift, Kotlin, TypeScript, JavaScript, SQL, Scala, Ruby, PHP, Dart"
+    },
+    {
+      "input": "Project 1: Used Java, Python, Go, React, and Docker.",
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
+    },
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    }
+  ],
+  "violations": []
+}

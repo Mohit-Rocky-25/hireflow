@@ -1,0 +1,86 @@
+{
+  "resumeId": "research_student",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 28,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-upi-settlement-engine",
+      "closes": [],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Java",
+        "Databases & SQL"
+      ],
+      "beforeScore": 28,
+      "afterScore": 32,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 32,
+      "afterScore": 36,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

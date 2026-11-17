@@ -1,0 +1,90 @@
+{
+  "resumeId": "devops_sre",
+  "roleId": "google-software-engineer-l3",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "python"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 38,
+      "afterScore": 50,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 50,
+      "afterScore": 55,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux",
+      "output": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux"
+    },
+    {
+      "input": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus.",
+      "output": "// Intent: DevOps & Site Reliability Engineer with Kubernetes, Terraform, CI/CD pipelines, and observability focus, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, RDS instances, and IAM roles across 3 regions.",
+      "output": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, with [add: measured metric or scale, if applicable].\nRDS instances, and IAM roles across 3 regions, with [add: measured metric or scale, if applicable]."
+    }
+  ],
+  "violations": []
+}

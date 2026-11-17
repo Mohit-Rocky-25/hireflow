@@ -1,0 +1,90 @@
+{
+  "resumeId": "competitive_programmer",
+  "roleId": "google-software-engineer-l3",
+  "score": 31,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-vector-db-from-scratch",
+      "closes": [
+        "DSA",
+        "Python"
+      ],
+      "relevance": 0.4
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.23
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa",
+        "python"
+      ],
+      "beforeScore": 31,
+      "afterScore": 37,
+      "delta": 6
+    },
+    {
+      "skills": [
+        "java"
+      ],
+      "beforeScore": 37,
+      "afterScore": 40,
+      "delta": 3
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Algorithms & Data Structures: Segment Trees, Fenwick Trees, Graph Algorithms (Dijkstra, Tarjan, Max Flow), Dynamic Programming, Number Theory, Binary Search, Computational Geometry",
+      "output": "Algorithms & Data Structures: Segment Trees, Fenwick Trees, Graph Algorithms (Dijkstra, Tarjan, Max Flow), Dynamic Programming, Number Theory, Binary Search, Computational Geometry"
+    },
+    {
+      "input": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.",
+      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.",
+      "output": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

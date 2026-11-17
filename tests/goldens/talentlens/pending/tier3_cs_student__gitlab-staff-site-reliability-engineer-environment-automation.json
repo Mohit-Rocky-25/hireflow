@@ -1,0 +1,92 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 40,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 40,
+      "afterScore": 64,
+      "delta": 24
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman",
+      "output": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman"
+    }
+  ],
+  "violations": []
+}

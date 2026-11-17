@@ -1,0 +1,91 @@
+{
+  "resumeId": "mern_student",
+  "roleId": "razorpay-sde-2-payments-core",
+  "score": 30,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Node.js",
+        "Application Security"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.51
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "node"
+      ],
+      "beforeScore": 30,
+      "afterScore": 38,
+      "delta": 8
+    },
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 38,
+      "afterScore": 44,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js",
+      "output": "FoodDelivery — Full-Stack Ordering Portal | MongoDB, Express, React, Node.js"
+    },
+    {
+      "input": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL",
+      "output": "Languages: JavaScript, TypeScript, HTML5, CSS3, SQL"
+    },
+    {
+      "input": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose",
+      "output": "MERN Stack: React, Node.js, Express, MongoDB, Mongoose"
+    }
+  ],
+  "violations": []
+}

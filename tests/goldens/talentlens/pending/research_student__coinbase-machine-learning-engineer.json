@@ -1,0 +1,95 @@
+{
+  "resumeId": "research_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "python",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [
+        "AWS",
+        "Machine Learning"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-multimodal-ai-app",
+      "closes": [],
+      "relevance": 0.6
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "aws",
+        "machine learning"
+      ],
+      "beforeScore": 38,
+      "afterScore": 45,
+      "delta": 7
+    },
+    {
+      "skills": [],
+      "beforeScore": 45,
+      "afterScore": 51,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies.",
+      "output": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

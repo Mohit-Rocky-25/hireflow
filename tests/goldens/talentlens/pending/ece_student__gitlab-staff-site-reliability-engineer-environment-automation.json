@@ -1,0 +1,92 @@
+{
+  "resumeId": "ece_student",
+  "roleId": "gitlab-staff-site-reliability-engineer-environment-automation",
+  "score": 29,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-high-throughput-logging",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "devops & ci/cd",
+        "system design"
+      ],
+      "beforeScore": 29,
+      "afterScore": 46,
+      "delta": 17
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
+      "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
+    },
+    {
+      "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",
+      "output": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

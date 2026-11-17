@@ -1,0 +1,111 @@
+{
+  "resumeId": "keyword_stuffed_3",
+  "roleId": "mongodb-senior-software-engineer",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 5,
+    "projectsCount": 2,
+    "bulletsCount": 1,
+    "skillsDetectedCount": 4
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
+      ],
+      "relevance": 0.51
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.39
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "aws",
+        "kubernetes",
+        "system design"
+      ],
+      "beforeScore": 34,
+      "afterScore": 47,
+      "delta": 13
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot.",
+      "output": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot",
+      "output": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot"
+    },
+    {
+      "input": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections.",
+      "output": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections, [add: specific role or leadership contribution]."
+    }
+  ],
+  "violations": []
+}

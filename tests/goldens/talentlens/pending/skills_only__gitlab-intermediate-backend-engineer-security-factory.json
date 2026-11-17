@@ -1,0 +1,96 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 19,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 0.76
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 19,
+      "afterScore": 40,
+      "delta": 21
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 41,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    },
+    {
+      "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",
+      "output": "Frameworks: Spring Boot, React, Node.js, Express, Django"
+    }
+  ],
+  "violations": []
+}

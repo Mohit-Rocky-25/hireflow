@@ -1,0 +1,96 @@
+{
+  "resumeId": "sales_switcher",
+  "roleId": "gitlab-intermediate-backend-engineer-security-factory",
+  "score": 33,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-tls-certificate-manager",
+      "closes": [
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-oidc-pkce-server",
+      "closes": [],
+      "relevance": 0.76
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "go",
+        "kubernetes",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 33,
+      "afterScore": 47,
+      "delta": 14
+    },
+    {
+      "skills": [],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.",
+      "output": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS",
+      "output": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS"
+    },
+    {
+      "input": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL",
+      "output": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL"
+    }
+  ],
+  "violations": []
+}

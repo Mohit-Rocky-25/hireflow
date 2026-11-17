@@ -1,0 +1,80 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 34,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 34,
+      "afterScore": 71,
+      "delta": 37
+    },
+    {
+      "skills": [],
+      "beforeScore": 71,
+      "afterScore": 80,
+      "delta": 9
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript",
+      "output": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript"
+    },
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    }
+  ],
+  "violations": []
+}

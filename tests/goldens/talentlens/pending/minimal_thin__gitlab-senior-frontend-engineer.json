@@ -1,0 +1,118 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.73
+    },
+    {
+      "id": "brief-nextjs-ecommerce-webhook",
+      "closes": [],
+      "relevance": 0.58
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "react",
+        "typescript",
+        "kubernetes",
+        "databases & sql",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 22,
+      "afterScore": 41,
+      "delta": 19
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 42,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "To-do list: created a to-do list with HTML and JavaScript.",
+      "output": "To-do list: created a to-do list with HTML and JavaScript, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Weather app: made an app in React to show weather.",
+      "output": "Weather app: made an app in React to show weather, with [add: measured metric, if available]."
+    },
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

@@ -405,7 +405,7 @@ Projects:
         id: 10,
         input: 'Contributed to open source projects',
         expectedClass: 'improvable',
-        expectedRewrite: 'Contributed to open source projects, [add: what you personally built or contributed], with [add: event outcome or impact, if applicable].',
+        expectedRewrite: 'Contributed to open source projects, [add: what you personally built or contributed], with [add: outcome or impact, if applicable].',
         isNoChangeNeeded: false,
       },
       {

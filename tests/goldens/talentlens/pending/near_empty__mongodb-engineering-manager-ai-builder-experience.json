@@ -1,0 +1,112 @@
+{
+  "resumeId": "near_empty",
+  "roleId": "mongodb-engineering-manager-ai-builder-experience",
+  "score": 0,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "golang",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "relevance": 0.48
+    },
+    {
+      "id": "brief-analytics-clickhouse",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.37
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "System Design"
+      ],
+      "beforeScore": 0,
+      "afterScore": 4,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 4,
+      "afterScore": 8,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

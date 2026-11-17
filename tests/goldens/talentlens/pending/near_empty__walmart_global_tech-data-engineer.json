@@ -1,0 +1,82 @@
+{
+  "resumeId": "near_empty",
+  "roleId": "walmart_global_tech-data-engineer",
+  "score": 0,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 0,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-schema-registry",
+      "closes": [
+        "Python",
+        "Databases & SQL",
+        "AWS",
+        "System Design"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "id": "brief-ab-experimentation",
+      "closes": [],
+      "relevance": 0.7
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "Python",
+        "Databases & SQL",
+        "AWS",
+        "System Design"
+      ],
+      "beforeScore": 0,
+      "afterScore": 4,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 4,
+      "afterScore": 8,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

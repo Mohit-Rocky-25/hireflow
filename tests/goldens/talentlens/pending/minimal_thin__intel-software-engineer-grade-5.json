@@ -1,0 +1,96 @@
+{
+  "resumeId": "minimal_thin",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 13,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 3,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 13,
+      "afterScore": 36,
+      "delta": 23
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 36,
+      "afterScore": 39,
+      "delta": 3
+    },
+    {
+      "skills": [],
+      "beforeScore": 39,
+      "afterScore": 46,
+      "delta": 7
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Chat app: made a chat app in Node.js.",
+      "output": "Chat app: made a chat app in Node.js, with [add: measured metric, if available]."
+    },
+    {
+      "input": "To-do list: created a to-do list with HTML and JavaScript.",
+      "output": "To-do list: created a to-do list with HTML and JavaScript, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

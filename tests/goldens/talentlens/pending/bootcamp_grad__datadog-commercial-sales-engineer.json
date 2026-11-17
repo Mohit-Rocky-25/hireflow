@@ -1,0 +1,68 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 31,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "dsa"
+      ],
+      "beforeScore": 31,
+      "afterScore": 51,
+      "delta": 20
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Backend: Node.js, Express, REST APIs, JWT, Socket.io",
+      "output": "Backend: Node.js, Express, REST APIs, JWT, Socket.io"
+    },
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest",
+      "output": "Databases & Tools: MongoDB, Mongoose, PostgreSQL, Git, Postman, Jest"
+    }
+  ],
+  "violations": []
+}

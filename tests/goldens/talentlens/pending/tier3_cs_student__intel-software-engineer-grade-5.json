@@ -1,0 +1,96 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 39,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "cpp",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 39,
+      "afterScore": 54,
+      "delta": 15
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 54,
+      "afterScore": 59,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 59,
+      "afterScore": 65,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    },
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman",
+      "output": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman"
+    }
+  ],
+  "violations": []
+}

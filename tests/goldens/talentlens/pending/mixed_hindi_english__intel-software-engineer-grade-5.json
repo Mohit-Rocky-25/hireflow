@@ -1,0 +1,96 @@
+{
+  "resumeId": "mixed_hindi_english",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 14,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 14,
+      "afterScore": 37,
+      "delta": 23
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 37,
+      "afterScore": 42,
+      "delta": 5
+    },
+    {
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 50,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",
+      "output": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",
+      "output": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

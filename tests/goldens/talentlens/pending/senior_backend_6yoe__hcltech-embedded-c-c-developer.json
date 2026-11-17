@@ -1,0 +1,53 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 49,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign",
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [],
+  "scorePathSteps": [],
+  "first3Rewrites": [
+    {
+      "input": "Storage & Streaming: Apache Kafka, Apache Cassandra, PostgreSQL, Redis, MongoDB, Databases",
+      "output": "Storage & Streaming: Apache Kafka, Apache Cassandra, PostgreSQL, Redis, MongoDB, Databases"
+    },
+    {
+      "input": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale.",
+      "output": "// Intent: 6 YoE Senior Backend Engineer with distributed systems expertise, architecture ownership, Golang, and high scale, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",
+      "output": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security"
+    }
+  ],
+  "violations": []
+}

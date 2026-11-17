@@ -1,0 +1,123 @@
+{
+  "resumeId": "frontend_only",
+  "roleId": "gitlab-senior-frontend-engineer",
+  "score": 55,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "kubernetes",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-multitenant-saas-rls",
+      "closes": [
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
+      ],
+      "relevance": 0.69
+    },
+    {
+      "id": "brief-kafka-order-saga",
+      "closes": [
+        "Java",
+        "System Design"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "kubernetes",
+        "databases & sql",
+        "devops & ci/cd",
+        "application security"
+      ],
+      "beforeScore": 55,
+      "afterScore": 56,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "java",
+        "system design"
+      ],
+      "beforeScore": 56,
+      "afterScore": 58,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
+    },
+    {
+      "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",
+      "output": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS"
+    },
+    {
+      "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",
+      "output": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

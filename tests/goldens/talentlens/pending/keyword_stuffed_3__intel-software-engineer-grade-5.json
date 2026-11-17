@@ -1,0 +1,96 @@
+{
+  "resumeId": "keyword_stuffed_3",
+  "roleId": "intel-software-engineer-grade-5",
+  "score": 15,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "cpp",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systems",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "concurrency",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 5,
+    "projectsCount": 2,
+    "bulletsCount": 1,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-work-stealing-pool",
+      "closes": [
+        "Cpp",
+        "Concurrency"
+      ],
+      "relevance": 0.37
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "cpp",
+        "concurrency"
+      ],
+      "beforeScore": 15,
+      "afterScore": 36,
+      "delta": 21
+    },
+    {
+      "skills": [
+        "systems"
+      ],
+      "beforeScore": 36,
+      "afterScore": 40,
+      "delta": 4
+    },
+    {
+      "skills": [],
+      "beforeScore": 40,
+      "afterScore": 48,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot.",
+      "output": "Built application using Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot",
+      "output": "Java, Python, SQL, Docker, React, PostgreSQL, Spring Boot"
+    },
+    {
+      "input": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections.",
+      "output": "// Intent: Adversarial resume repeating identical skills block 4 times in different sections, [add: specific role or leadership contribution]."
+    }
+  ],
+  "violations": []
+}

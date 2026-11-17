@@ -1,0 +1,73 @@
+{
+  "resumeId": "keyword_stuffed_1",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 2,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "System Design",
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design"
+      ],
+      "beforeScore": 22,
+      "afterScore": 24,
+      "delta": 2
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",
+      "output": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite"
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ",
+      "output": "DevOps: Docker, Kubernetes, AWS, GCP, Azure, Linux, Git, Jenkins, Terraform, Kafka, RabbitMQ"
+    },
+    {
+      "input": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow",
+      "output": "Frameworks: Spring Boot, Django, Flask, FastAPI, React, Angular, Vue, Next.js, Node.js, Express, ASP.NET, Flutter, PyTorch, TensorFlow"
+    }
+  ],
+  "violations": []
+}

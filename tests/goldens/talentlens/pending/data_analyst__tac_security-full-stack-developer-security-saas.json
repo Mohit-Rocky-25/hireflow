@@ -1,0 +1,80 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "tac_security-full-stack-developer-security-saas",
+  "score": 17,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "nodejs",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-merkle-airdrop-verifier",
+      "closes": [
+        "TypeScript",
+        "Node.js"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [],
+      "relevance": 0.45
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "typescript",
+        "node"
+      ],
+      "beforeScore": 17,
+      "afterScore": 41,
+      "delta": 24
+    },
+    {
+      "skills": [],
+      "beforeScore": 41,
+      "afterScore": 49,
+      "delta": 8
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

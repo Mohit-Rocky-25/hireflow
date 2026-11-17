@@ -1,0 +1,82 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "tcs-systems-engineer-fresher",
+  "score": 53,
+  "band": "Moderate",
+  "perSkill": [
+    {
+      "id": "java",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "databases",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "databases"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.36
+    },
+    {
+      "id": "brief-workflow-engine",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.34
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "dsa"
+      ],
+      "beforeScore": 53,
+      "afterScore": 54,
+      "delta": 1
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    },
+    {
+      "input": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman",
+      "output": "Databases & Tools: MongoDB, PostgreSQL, MySQL, Redis, Docker, Git, Postman"
+    },
+    {
+      "input": "Languages: Java, JavaScript, Python, SQL, C++",
+      "output": "Languages: Java, JavaScript, Python, SQL, C++"
+    }
+  ],
+  "violations": []
+}

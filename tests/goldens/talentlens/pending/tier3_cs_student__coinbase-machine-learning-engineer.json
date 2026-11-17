@@ -1,0 +1,96 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "coinbase-machine-learning-engineer",
+  "score": 43,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "python",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "ml",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "security",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-privacy-preserving-ml",
+      "closes": [
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
+      ],
+      "relevance": 0.76
+    },
+    {
+      "id": "brief-gpu-accelerated-inference",
+      "closes": [],
+      "relevance": 0.54
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "python",
+        "aws",
+        "machine learning",
+        "system design"
+      ],
+      "beforeScore": 43,
+      "afterScore": 58,
+      "delta": 15
+    },
+    {
+      "skills": [],
+      "beforeScore": 58,
+      "afterScore": 64,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Languages: Java, JavaScript, Python, SQL, C++",
+      "output": "Languages: Java, JavaScript, Python, SQL, C++"
+    },
+    {
+      "input": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS",
+      "output": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS"
+    },
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    }
+  ],
+  "violations": []
+}

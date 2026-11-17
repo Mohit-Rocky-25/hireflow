@@ -1,0 +1,74 @@
+{
+  "resumeId": "skills_only",
+  "roleId": "hcltech-embedded-c-c-developer",
+  "score": 22,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "communication",
+      "status": "not-assessed",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "databases",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 0,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-dist-rate-limiter",
+      "closes": [
+        "System Design",
+        "Databases & SQL"
+      ],
+      "relevance": 1
+    },
+    {
+      "id": "brief-double-entry-ledger",
+      "closes": [],
+      "relevance": 1
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "databases & sql"
+      ],
+      "beforeScore": 22,
+      "afterScore": 37,
+      "delta": 15
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",
+      "output": "DevOps: Docker, Kubernetes, AWS, Git, Linux"
+    },
+    {
+      "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",
+      "output": "Frameworks: Spring Boot, React, Node.js, Express, Django"
+    }
+  ],
+  "violations": []
+}

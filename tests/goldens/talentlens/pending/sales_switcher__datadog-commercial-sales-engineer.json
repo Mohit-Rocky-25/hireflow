@@ -1,0 +1,68 @@
+{
+  "resumeId": "sales_switcher",
+  "roleId": "datadog-commercial-sales-engineer",
+  "score": 29,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "dsa",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 5,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-search-engine",
+      "closes": [
+        "System Design",
+        "DSA"
+      ],
+      "relevance": 0.85
+    },
+    {
+      "id": "brief-l2-orderbook-matcher",
+      "closes": [],
+      "relevance": 0.85
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "system design",
+        "dsa"
+      ],
+      "beforeScore": 29,
+      "afterScore": 51,
+      "delta": 22
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities.",
+      "output": "Developed backend REST service using Java and Spring Boot to track customer deal stages and sales conversion probabilities, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS",
+      "output": "Frameworks & Databases: Spring Boot, MySQL, REST APIs, HTML/CSS"
+    },
+    {
+      "input": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL",
+      "output": "SalesCRM — Lead Management REST API | Java, Spring Boot, MySQL"
+    }
+  ],
+  "violations": []
+}
