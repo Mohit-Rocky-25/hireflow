@@ -1,0 +1,99 @@
+{
+  "fallback": 0.5,
+  "roleFamilies": [
+    {
+      "roleFamily": "embedded",
+      "compatibleProjectDomains": [
+        "Systems Programming",
+        "Systems Programming & Performance"
+      ]
+    },
+    {
+      "roleFamily": "fintech",
+      "compatibleProjectDomains": [
+        "FinTech Engineering",
+        "FinTech & High-Integrity Systems"
+      ]
+    },
+    {
+      "roleFamily": "backend",
+      "compatibleProjectDomains": [
+        "Distributed Systems",
+        "High-Scale Backend & Distributed Architecture",
+        "Systems Programming",
+        "Systems Programming & Performance",
+        "FinTech Engineering",
+        "FinTech & High-Integrity Systems",
+        "Computer Science Fundamentals",
+        "Algorithms & Applied Math"
+      ]
+    },
+    {
+      "roleFamily": "frontend",
+      "compatibleProjectDomains": [
+        "Full-Stack Web"
+      ]
+    },
+    {
+      "roleFamily": "ml",
+      "compatibleProjectDomains": [
+        "ML Engineering",
+        "AI/ML Applications",
+        "GenAI & LLM Engineering",
+        "Generative AI & LLMOps"
+      ]
+    },
+    {
+      "roleFamily": "data",
+      "compatibleProjectDomains": [
+        "Data Engineering",
+        "Modern Data Engineering & Analytics Infra",
+        "High-Scale Backend & Distributed Architecture"
+      ]
+    },
+    {
+      "roleFamily": "devops",
+      "compatibleProjectDomains": [
+        "Platform & DevOps",
+        "Cloud Architecture & DevOps",
+        "Cloud Native & Containers",
+        "Cloud Infrastructure & Kubernetes",
+        "Cloud Native & DevOps Engineering",
+        "Distributed Systems"
+      ]
+    },
+    {
+      "roleFamily": "security",
+      "compatibleProjectDomains": [
+        "Security & Platform",
+        "Cybersecurity & Defense",
+        "Applied Security & Cryptography"
+      ]
+    },
+    {
+      "roleFamily": "mobile",
+      "compatibleProjectDomains": [
+        "Mobile Engineering",
+        "Mobile Engineering & Cross-Platform"
+      ]
+    },
+    {
+      "roleFamily": "qa",
+      "compatibleProjectDomains": [
+        "Full-Stack Web",
+        "Platform & DevOps",
+        "Computer Science Fundamentals"
+      ]
+    },
+    {
+      "roleFamily": "general",
+      "compatibleProjectDomains": [
+        "Computer Science Fundamentals",
+        "Distributed Systems",
+        "High-Scale Backend & Distributed Architecture",
+        "Full-Stack Web",
+        "Systems Programming"
+      ]
+    }
+  ]
+}

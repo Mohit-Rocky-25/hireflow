@@ -22,11 +22,13 @@ import {
   getCanonicalSkillId,
   CANONICAL_SKILL_REGISTRY,
 } from './canonicalSkillRegistry';
+import { computeDomainFit } from './domainFitTable';
 export {
   getCanonicalSkill,
   getCanonicalSkillName,
   getCanonicalSkillId,
   CANONICAL_SKILL_REGISTRY,
+  computeDomainFit,
 };
 
 export const MIN_PROJECT_RELEVANCE_THRESHOLD = 0.20;
@@ -355,86 +357,7 @@ export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
   return result;
 }
 
-/**
- * Computes domain fit between project domain and target company/role in a company-agnostic way.
- */
-/**
- * Computes domain fit evaluating BOTH role family (from roleTitle) and company industry.
- * Ensures specialized engineering roles (security, embedded, AI/ML, DevOps) match their
- * domain even in fintech/enterprise companies, without changing any scoring weights.
- */
-function computeDomainFit(
-  projectDomain: string,
-  companyIndustry?: string,
-  roleTitle?: string
-): number {
-  const pDom = (projectDomain || '').toLowerCase();
-  const cInd = (companyIndustry || '').toLowerCase();
-  const rTitle = (roleTitle || '').toLowerCase();
-
-  const isSecurityRole = /\b(security|secops|appsec|infosec|cloud\s+security|devsecops|cyber)\b/i.test(rTitle);
-  const isEmbeddedRole = /\b(embedded|firmware|iot|connected\s+car|automotive|hardware|soc|fpga|telemetry)\b/i.test(rTitle) ||
-    (cInd.includes('automotive') && /\b(car|vehicle|firmware|hardware)\b/i.test(rTitle));
-  const isAIMLRole = /\b(ai|ml|llm|machine\s+learning|deep\s+learning|data\s+scientist|data\s+engineer|data\s+platform)\b/i.test(rTitle);
-  const isDevOpsRole = /\b(devops|sre|cloud|infrastructure|platform\s+engineer|site\s+reliability)\b/i.test(rTitle);
-  const isFrontendRole = /\b(frontend|ui|web|mobile|android|ios|flutter|react\s+native)\b/i.test(rTitle);
-
-  // 1. Role Family takes priority for specialized domains
-  if (isSecurityRole) {
-    if (pDom.includes('security') || pDom.includes('cryptography') || pDom.includes('auth')) return 1.0;
-    if (pDom.includes('cloud') || pDom.includes('infrastructure') || pDom.includes('distributed')) return 0.75;
-    if (pDom.includes('fintech') || pDom.includes('ledger')) return 0.35; // Ledger is not security
-    return 0.3;
-  }
-
-  if (isEmbeddedRole) {
-    if (pDom.includes('iot') || pDom.includes('telemetry') || pDom.includes('embedded') || pDom.includes('systems')) return 1.0;
-    if (pDom.includes('real-time') || pDom.includes('hardware')) return 0.9;
-    if (pDom.includes('cloud') || pDom.includes('backend')) return 0.5;
-    return 0.3;
-  }
-
-  if (isAIMLRole) {
-    if (pDom.includes('ai') || pDom.includes('ml') || pDom.includes('llm') || pDom.includes('inference')) return 1.0;
-    if (pDom.includes('data') || pDom.includes('streaming') || pDom.includes('analytics')) return 0.8;
-    return 0.2;
-  }
-
-  if (isDevOpsRole) {
-    if (pDom.includes('devops') || pDom.includes('cloud') || pDom.includes('infrastructure') || pDom.includes('kubernetes')) return 1.0;
-    if (pDom.includes('distributed') || pDom.includes('systems')) return 0.8;
-    return 0.3;
-  }
-
-  if (isFrontendRole) {
-    if (pDom.includes('frontend') || pDom.includes('ui') || pDom.includes('web') || pDom.includes('mobile')) return 1.0;
-    return 0.3;
-  }
-
-  // 2. Company Industry harmonization for general backend/SDE roles
-  const isFintech =
-    cInd.includes('fintech') ||
-    cInd.includes('bank') ||
-    cInd.includes('finance') ||
-    cInd.includes('payment') ||
-    cInd.includes('bfsi') ||
-    cInd.includes('broking') ||
-    cInd.includes('trading') ||
-    cInd.includes('custodial');
-
-  if (isFintech) {
-    if (pDom.includes('fintech') || pDom.includes('ledger') || pDom.includes('accounting') || pDom.includes('payment')) return 1.0;
-    if (pDom.includes('distributed') || pDom.includes('high-scale backend') || pDom.includes('security') || pDom.includes('cryptography')) return 0.85;
-    if (pDom.includes('cloud') || pDom.includes('streaming') || pDom.includes('data platform')) return 0.75;
-    if (pDom.includes('full-stack') || pDom.includes('web')) return 0.5;
-    if (pDom.includes('ai/ml') || pDom.includes('computer vision') || pDom.includes('generative ai') || pDom.includes('llmops')) return 0.1;
-  }
-
-  // 3. Default balanced domain fit for general software roles
-  if (pDom.includes('distributed') || pDom.includes('backend') || pDom.includes('cloud') || pDom.includes('systems')) return 0.85;
-  if (pDom.includes('security') || pDom.includes('fintech')) return 0.8;
-  return 0.6;
-}
+// computeDomainFit is table-driven and imported from ./domainFitTable
 
 /**
  * Computes tech stack fit between project and target role without blanket shortcuts.

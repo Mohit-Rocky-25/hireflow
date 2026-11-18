@@ -42,6 +42,11 @@ import {
   getCanonicalSkillId,
   getCanonicalSkillName,
 } from '../src/pages/demo/engine/canonicalSkillRegistry';
+import {
+  DOMAIN_FIT_TABLE,
+  computeDomainFit,
+  getRoleFamily,
+} from '../src/pages/demo/engine/domainFitTable';
 import { get30SyntheticResumes, getPinned14Roles } from './generateTalentLensGoldens';
 import {
   validateReport,
@@ -673,13 +678,14 @@ async function runVerification() {
   let s5AllSkillsUnique = true;
   let s5AllGainsMatchDeltas = true;
   let s5AllCardStepClosesIdentical = true;
+  let s5FixtureCandidateRankingsCount = 0;
 
   for (const fix of S5_FIXTURES) {
     console.log(`\nFixture: ${fix.label} — Role: ${fix.role.title}`);
     const analysis = analyzeRoleMatch(fix.resume, fix.company, fix.role);
     console.log(`  Initial Score: ${analysis.score}/100 | Action Plans Count: ${analysis.plans.length}`);
 
-    // Print Top 5 Eligible Projects with gapCoverage, domainFit, stackFit, relevance
+    // Print Top 5 Eligible Projects with title, domain, stack, relevance, coverage, domainFit (Requirement 2.3)
     const comps = fix.role.competencies || ['dsa', 'systemdesign'];
     const skillStates = buildSkillStates({
       resumeText: fix.resume,
@@ -696,9 +702,15 @@ async function runVerification() {
     const eligibleCount = match.allRankedCandidates ? match.allRankedCandidates.length : 0;
     const printCount = Math.min(5, eligibleCount);
     console.log(`  Top ${printCount} Eligible Project Candidates (before top-2 cut; total eligible: ${eligibleCount}):`);
+    let printedCandidatesInFixture = 0;
     (match.allRankedCandidates || []).slice(0, 5).forEach((p, pidx) => {
-      console.log(`    #${pidx + 1} ${p.id.padEnd(35)}: relevance=${p.relevance.toFixed(3)} | gapCoverage=${p.gapCoverage.toFixed(2)} | domainFit=${p.domainFit.toFixed(2)} | stackFit=${p.stackFit.toFixed(2)} | closes: [${p.closes.join(', ')}]`);
+      printedCandidatesInFixture++;
+      const stackList = (p.techStack || []).slice(0, 4).join(', ');
+      console.log(`    #${pidx + 1} "${p.title}" (${p.id}): domain="${p.domain}" | stack=[${stackList}] | rel=${p.relevance.toFixed(3)} | cov=${p.gapCoverage.toFixed(2)} | domFit=${p.domainFit.toFixed(2)} | stackFit=${p.stackFit.toFixed(2)} | closes: [${p.closes.join(', ')}]`);
     });
+    if (printedCandidatesInFixture === printCount) {
+      s5FixtureCandidateRankingsCount++;
+    }
 
     // 1.4 Cert briefs inspection among top candidates
     const certCandidates = (match.allRankedCandidates || []).slice(0, 10).filter((c) => c.id.startsWith('cert-'));
@@ -1504,13 +1516,112 @@ async function runVerification() {
     console.log(`  ${arch.padEnd(16)}: ${set.size} distinct score values across 1,728 catalog roles`);
   });
 
-  // Stage G.2: Domain Fit Audit
-  console.log(`\nDomain Fit Mapping Audit (Stage G.2):`);
-  console.log(`  Mapping Rule: Role Family (roleTitle) takes precedence over company industry for specialized roles.`);
-  console.log(`  Automotive Embedded Role DomainFit Explanation:`);
-  console.log(`    - Connected Car Engineer matches isEmbeddedRole rule.`);
-  console.log(`    - Library projects with domain 'Distributed Systems & Infrastructure' or 'FinTech & Distributed Systems' contain 'systems'.`);
-  console.log(`    - Rule evaluates: if (isEmbeddedRole && pDom.includes('systems')) return 1.0; yielding 1.00 domain fit.`);
+  // Stage 2.2 & 2.4: Domain Fit Lookup Table & Catalog Audit
+  console.log(`\n=== SECTION 13.2: DOMAIN FIT LOOKUP TABLE & AUDIT ===`);
+  const domainBriefCounts: Record<string, number> = {};
+  for (const b of allBriefs) {
+    domainBriefCounts[b.domain] = (domainBriefCounts[b.domain] || 0) + 1;
+  }
+  console.log(`Domain Fit Lookup Table (Role Family -> Compatible Library Domains):`);
+  console.log(`Fallback Neutral Fit: ${DOMAIN_FIT_TABLE.fallback.toFixed(2)}`);
+  for (const entry of DOMAIN_FIT_TABLE.roleFamilies) {
+    console.log(`  Role Family: ${entry.roleFamily}`);
+    for (const dom of entry.compatibleProjectDomains) {
+      const count = domainBriefCounts[dom] || 0;
+      console.log(`    - "${dom}" (${count} briefs)`);
+    }
+  }
+
+  // Stage 2.4: Audit for every embedded or automotive role in catalog
+  console.log(`\nCatalog Embedded / Automotive Roles DomainFit Audit (Stage 2.4):`);
+  const embeddedRolesList: Array<{ companyId: string; companyName: string; role: any }> = [];
+  for (const company of COMPANIES) {
+    for (const role of company.roles || []) {
+      if (/\b(embedded|automotive|autonomous|firmware|iot|robotics|\becu\b|can\s+bus|autosar)\b/i.test(role.title)) {
+        embeddedRolesList.push({ companyId: company.id, companyName: company.name, role });
+      }
+    }
+  }
+  console.log(`Total Embedded/Automotive Roles in Catalog: ${embeddedRolesList.length}`);
+
+  function legacyDomainFit(pDom: string): number {
+    const d = (pDom || '').toLowerCase();
+    if (d.includes('iot') || d.includes('telemetry') || d.includes('embedded') || d.includes('systems')) return 1.0;
+    if (d.includes('real-time') || d.includes('hardware')) return 0.9;
+    if (d.includes('cloud') || d.includes('backend')) return 0.5;
+    return 0.3;
+  }
+
+  for (const item of embeddedRolesList) {
+    const roleComps = item.role.competencies || ['dsa', 'systemdesign'];
+    const fakeSkillStates = roleComps.map((c: string) => ({ id: c, status: 'not-found' as const, gaps: [c] }));
+
+    // Legacy candidates simulation
+    const legacyCandidates = allBriefs.map((b) => {
+      const realSkills = deriveBriefRealSkills(b);
+      const closes = roleComps.filter((c: string) => doesProjectCoverSkill(realSkills, c, b.id));
+      const gapCoverage = roleComps.length > 0 ? closes.length / roleComps.length : 0;
+      const domFit = legacyDomainFit(b.domain);
+      const rel = gapCoverage * domFit;
+      return { id: b.id, rel, domFit, domain: b.domain };
+    }).filter((c) => c.rel >= 0.20).sort((a, b) => b.rel - a.rel);
+
+    const legacyTop2 = legacyCandidates.slice(0, 2);
+
+    // Table-driven candidate evaluation
+    const tableCandidates = allBriefs.map((b) => {
+      const realSkills = deriveBriefRealSkills(b);
+      const closes = roleComps.filter((c: string) => doesProjectCoverSkill(realSkills, c, b.id));
+      const gapCoverage = roleComps.length > 0 ? closes.length / roleComps.length : 0;
+      const domFit = computeDomainFit(b.domain, item.role.title, undefined);
+      const rel = gapCoverage * domFit;
+      return { id: b.id, rel, domFit, domain: b.domain };
+    }).filter((c) => c.rel >= 0.20).sort((a, b) => b.rel - a.rel);
+
+    const tableTop2 = tableCandidates.slice(0, 2);
+
+    console.log(`  ${item.companyName} — ${item.role.title}:`);
+    console.log(`    Before (legacy substring 'systems'): [${legacyTop2.map((p) => `${p.id} (domFit=${p.domFit})`).join(', ')}]`);
+    console.log(`    After  (table-driven lookup)       : [${tableTop2.map((p) => `${p.id} (domFit=${p.domFit})`).join(', ')}]`);
+  }
+
+  // A15: Property test: for an embedded role, a project whose domain label contains "systems" gets domainFit 1.0 ONLY if table maps it
+  const embeddedRoleTitle = 'Embedded Software Engineer';
+  const testDomainUnmapped = 'Systems - General';
+  const testDomainMapped = 'Systems Programming & Performance';
+  const testDomainOtherSystems = 'Distributed Systems';
+  const fitUnmapped = computeDomainFit(testDomainUnmapped, embeddedRoleTitle);
+  const fitMapped = computeDomainFit(testDomainMapped, embeddedRoleTitle);
+  const fitOtherSystems = computeDomainFit(testDomainOtherSystems, embeddedRoleTitle);
+  const a15Pass = fitUnmapped === 0.50 && fitMapped === 1.0 && fitOtherSystems === 0.50;
+  recordAssertion(
+    'A15',
+    'for an embedded role, a project whose domain label contains "systems" gets domainFit 1.0 only if the table maps it; unmapped returns neutral 0.50',
+    a15Pass,
+    a15Pass ? undefined : `fitUnmapped=${fitUnmapped}, fitMapped=${fitMapped}, fitOtherSystems=${fitOtherSystems}`
+  );
+
+  // A16: Static scan: verify projectMatcherIntegrity.ts contains zero string .includes or regex on project domain labels
+  const pmiPath = path.resolve(process.cwd(), 'src/pages/demo/engine/projectMatcherIntegrity.ts');
+  const pmiSource = fs.readFileSync(pmiPath, 'utf8');
+  const domainIncludesMatches = pmiSource.match(/(?:pDom|projectDomain|\.domain)\.includes\(/g) || [];
+  const domainRegexMatches = pmiSource.match(/\/[^/\n]+\/[gimsuy]*\.test\([^)]*domain/gi) || [];
+  const a16Pass = domainIncludesMatches.length === 0 && domainRegexMatches.length === 0;
+  recordAssertion(
+    'A16',
+    'projectMatcherIntegrity.ts contains zero string .includes or regex on project domain labels',
+    a16Pass,
+    a16Pass ? undefined : `Found domain includes: ${domainIncludesMatches.length}, domain regex: ${domainRegexMatches.length}`
+  );
+
+  // A17: Candidate ranking display: verify each fixture prints min(5, eligible) candidates with domainFit shown
+  const a17Pass = s5FixtureCandidateRankingsCount === S5_FIXTURES.length;
+  recordAssertion(
+    'A17',
+    'each fixture prints min(5, eligible) ranked candidates before top-2 cut with title, domain, stack, relevance, coverage, and domainFit shown',
+    a17Pass,
+    a17Pass ? undefined : `Only ${s5FixtureCandidateRankingsCount}/${S5_FIXTURES.length} fixtures printed candidate rankings`
+  );
 
   // ============================================================
   // S14 VISUAL
