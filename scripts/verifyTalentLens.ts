@@ -47,6 +47,10 @@ import {
   computeDomainFit,
   getRoleFamily,
 } from '../src/pages/demo/engine/domainFitTable';
+import {
+  normalizeBriefStrings,
+  normalizeLetterSpacedText,
+} from '../src/pages/demo/engine/briefTextNormalizer';
 import { get30SyntheticResumes, getPinned14Roles } from './generateTalentLensGoldens';
 import {
   validateReport,
@@ -1621,6 +1625,106 @@ async function runVerification() {
     'each fixture prints min(5, eligible) ranked candidates before top-2 cut with title, domain, stack, relevance, coverage, and domainFit shown',
     a17Pass,
     a17Pass ? undefined : `Only ${s5FixtureCandidateRankingsCount}/${S5_FIXTURES.length} fixtures printed candidate rankings`
+  );
+
+  // Stage 3: Normalize Letter-Spaced Brief Text (Requirements 3.1 - 3.5, Assertion A18)
+  console.log(`\n=== SECTION 13.3: BRIEF TEXT LETTER-SPACING AUDIT & NORMALIZATION ===`);
+  const letterSpacedPattern = /(?:[a-zA-Z0-9]\s+){4,}[a-zA-Z0-9]/;
+  const letterSpacedFindings: Array<{ briefId: string; field: string; match: string; before: string; after: string }> = [];
+
+  const rawBriefsJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/data/suite/project-briefs.json'), 'utf8'));
+  let briefTextChangedCount = 0;
+
+  const stage3ConceptCountsBefore: Record<string, number> = {};
+  for (const b of rawBriefsJson) {
+    const { vettedConceptTags } = validateBriefConcepts(b);
+    for (const tag of vettedConceptTags) {
+      stage3ConceptCountsBefore[tag] = (stage3ConceptCountsBefore[tag] || 0) + 1;
+    }
+  }
+
+  const normalizedBriefs = rawBriefsJson.map((b: any) => {
+    let modified = false;
+    const norm = normalizeBriefStrings(b);
+    for (const [k, v] of Object.entries(b)) {
+      if (typeof v === 'string') {
+        const m = v.match(letterSpacedPattern);
+        if (m) {
+          letterSpacedFindings.push({ briefId: b.id, field: k, match: m[0], before: v, after: norm[k] });
+          modified = true;
+        }
+      } else if (Array.isArray(v)) {
+        v.forEach((item, itemIdx) => {
+          if (typeof item === 'string') {
+            const m = item.match(letterSpacedPattern);
+            if (m) {
+              letterSpacedFindings.push({ briefId: b.id, field: `${k}[${itemIdx}]`, match: m[0], before: item, after: norm[k][itemIdx] });
+              modified = true;
+            }
+          }
+        });
+      }
+    }
+    if (modified) briefTextChangedCount++;
+    return norm;
+  });
+
+  console.log(`Letter-spaced sequences found: ${letterSpacedFindings.length} across ${briefTextChangedCount} briefs`);
+  if (letterSpacedFindings.length > 0) {
+    letterSpacedFindings.forEach((f) => {
+      console.log(`  Brief: ${f.briefId} | Field: ${f.field}`);
+      console.log(`    Before: ${f.before}`);
+      console.log(`    After : ${f.after}`);
+    });
+    // Write normalized briefs back to disk (Requirement 3.4)
+    fs.writeFileSync(
+      path.resolve(process.cwd(), 'src/data/suite/project-briefs.json'),
+      JSON.stringify(normalizedBriefs, null, 2) + '\n',
+      'utf8'
+    );
+    console.log(`Updated src/data/suite/project-briefs.json with normalized text.`);
+  }
+
+  // 3.5 Re-run concept tag validation and print per-concept tag count changes
+  const stage3ConceptCountsAfter: Record<string, number> = {};
+  for (const b of normalizedBriefs) {
+    const { vettedConceptTags } = validateBriefConcepts(b);
+    for (const tag of vettedConceptTags) {
+      stage3ConceptCountsAfter[tag] = (stage3ConceptCountsAfter[tag] || 0) + 1;
+    }
+  }
+
+  console.log(`Per-Concept Tag Counts Post-Normalization:`);
+  const allConceptKeys = Array.from(new Set([...Object.keys(stage3ConceptCountsBefore), ...Object.keys(stage3ConceptCountsAfter)])).sort();
+  allConceptKeys.forEach((k) => {
+    const before = stage3ConceptCountsBefore[k] || 0;
+    const after = stage3ConceptCountsAfter[k] || 0;
+    const delta = after - before;
+    console.log(`  ${k.padEnd(25)}: ${before} -> ${after} (delta: ${delta >= 0 ? `+${delta}` : delta})`);
+  });
+
+  // A18 Computed scan: verify zero letter-spaced sequences matching /(?:[a-zA-Z0-9]\s+){4,}[a-zA-Z0-9]/ remain in any string field of project-briefs.json
+  let remainingLetterSpacedCount = 0;
+  for (const b of normalizedBriefs) {
+    const checkStr = (s: string) => {
+      if (letterSpacedPattern.test(s)) remainingLetterSpacedCount++;
+    };
+    for (const v of Object.values(b)) {
+      if (typeof v === 'string') checkStr(v as string);
+      else if (Array.isArray(v)) {
+        for (const item of v) {
+          if (typeof item === 'string') checkStr(item);
+        }
+      }
+    }
+  }
+
+  const a18Pass = remainingLetterSpacedCount === 0;
+  recordAssertion(
+    'A18',
+    'zero letter-spaced sequences matching /(?:[a-zA-Z0-9]\\s+){4,}[a-zA-Z0-9]/ remain in any string field of project-briefs.json',
+    a18Pass,
+    a18Pass ? undefined : `Found ${remainingLetterSpacedCount} remaining letter-spaced sequences`
   );
 
   // ============================================================
