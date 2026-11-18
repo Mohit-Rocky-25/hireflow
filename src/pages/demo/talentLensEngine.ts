@@ -26,6 +26,16 @@ import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from '
 import { generateEvidenceSafeRewrites, BulletRewrite } from './engine/bulletRewriteEngine';
 import { normalizeLevel, mapLevelToJdSeniority } from './engine/levelNormalizer';
 import { matchProjectsWithIntegrity } from './engine/projectMatcherIntegrity';
+import {
+  getCanonicalSkill,
+  getCanonicalSkillName,
+  getCanonicalSkillId,
+} from './engine/canonicalSkillRegistry';
+export {
+  getCanonicalSkill,
+  getCanonicalSkillName,
+  getCanonicalSkillId,
+};
 
 export interface Role {
   title: string;
@@ -102,39 +112,7 @@ export const getCompanySlug = (name: string): string => {
 
 export function formatCompetencyName(comp: string): string {
   if (!comp) return '';
-  const normalized = comp.toLowerCase().trim();
-  const map: Record<string, string> = {
-    dsa: 'DSA',
-    systemdesign: 'System Design',
-    java: 'Java',
-    python: 'Python',
-    golang: 'Go',
-    go: 'Go',
-    nodejs: 'Node.js',
-    react: 'React',
-    typescript: 'TypeScript',
-    javascript: 'JavaScript',
-    aws: 'AWS',
-    gcp: 'GCP',
-    azure: 'Azure',
-    kubernetes: 'Kubernetes',
-    docker: 'Docker',
-    ml: 'Machine Learning',
-    ai: 'AI & ML',
-    databases: 'Databases & SQL',
-    sql: 'SQL',
-    nosql: 'NoSQL',
-    leadership: 'Tech Leadership',
-    devops: 'DevOps & CI/CD',
-    security: 'Application Security',
-    graphql: 'GraphQL',
-    microservices: 'Microservices',
-    frontend: 'Frontend',
-    backend: 'Backend',
-    fullstack: 'Full Stack',
-    web: 'Web Architecture / Full-Stack',
-  };
-  return map[normalized] || comp.charAt(0).toUpperCase() + comp.slice(1);
+  return getCanonicalSkillName(comp);
 }
 
 export function getSentences(text: string): string[] {
@@ -923,6 +901,7 @@ export function generateImprovementPlan(
   priority: 'critical' | 'high' | 'medium';
   title: string;
   detail: string;
+  skills?: string[];
   timeframe: string;
   closability: '7 days' | '30 days' | '90+ days' | 'not closable by resume alone';
   suggestedAction: string;
@@ -960,6 +939,7 @@ export function generateImprovementPlan(
     priority: 'critical' | 'high' | 'medium';
     title: string;
     detail: string;
+    skills?: string[];
     timeframe: string;
     closability: '7 days' | '30 days' | '90+ days' | 'not closable by resume alone';
     suggestedAction: string;
@@ -1066,6 +1046,14 @@ export function generateImprovementPlan(
         const sClean = sLower.replace(/[^a-z0-9]/g, '');
         handledSkills.add(sLower);
         handledSkills.add(sClean);
+        const cSkill = getCanonicalSkill(s);
+        handledSkills.add(cSkill.id);
+        handledSkills.add(cSkill.displayName);
+        handledSkills.add(cSkill.displayName.toLowerCase());
+        cSkill.aliases.forEach((a) => {
+          handledSkills.add(a.toLowerCase());
+          handledSkills.add(a.toLowerCase().replace(/[^a-z0-9]/g, ''));
+        });
         for (const b of breakdown) {
           const bComp = b.competency.toLowerCase().trim();
           const bClean = bComp.replace(/[^a-z0-9]/g, '');
@@ -1098,7 +1086,8 @@ export function generateImprovementPlan(
       plans.push({
         priority: 'critical',
         title: `Build ${proj.title}`,
-        detail: `Deploy ${proj.title} to demonstrate verified production implementation for: ${unclosedGaps.map((u) => u.toUpperCase()).join(', ')}.`,
+        detail: `Deploy ${proj.title} to demonstrate verified production implementation for: ${unclosedGaps.join(', ')}.`,
+        skills: [...unclosedGaps],
         timeframe: '2-4 weeks',
         closability: '30 days',
         suggestedAction: `Implement and deploy ${proj.title} adhering to production standards with test suite and metrics.`,
@@ -1119,14 +1108,27 @@ export function generateImprovementPlan(
       if (b.analysis.status !== 'absent') return false;
       const bComp = b.competency.toLowerCase().trim();
       const bClean = bComp.replace(/[^a-z0-9]/g, '');
-      const bFmtClean = formatCompetencyName(bComp).toLowerCase().replace(/[^a-z0-9]/g, '');
-      return !handledSkills.has(bComp) && !handledSkills.has(bClean) && !handledSkills.has(bFmtClean);
+      const bFmt = formatCompetencyName(bComp);
+      const bFmtClean = bFmt.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const cSkill = getCanonicalSkill(b.competency);
+      return (
+        !handledSkills.has(bComp) &&
+        !handledSkills.has(bClean) &&
+        !handledSkills.has(bFmt.toLowerCase()) &&
+        !handledSkills.has(bFmtClean) &&
+        !handledSkills.has(cSkill.id) &&
+        !handledSkills.has(cSkill.displayName)
+      );
     })
     .forEach((b) => {
       const compKey = b.competency.toLowerCase().trim();
       handledSkills.add(compKey);
       const fmtComp = formatCompetencyName(compKey).toLowerCase().trim();
       if (fmtComp) handledSkills.add(fmtComp);
+      const cSkill = getCanonicalSkill(b.competency);
+      handledSkills.add(cSkill.id);
+      handledSkills.add(cSkill.displayName);
+      cSkill.aliases.forEach((a) => handledSkills.add(a.toLowerCase()));
 
       const kind = classifySkillKind(compKey);
       const isSoftSkill = kind === 'soft-skill';
@@ -1141,7 +1143,7 @@ export function generateImprovementPlan(
         actionCount++;
         const fallback = actionCount === 1 ? 4 : actionCount === 2 ? 3 : 2;
         const { nextScore, stepGain, isRescored } = computeNextScore(
-          `Implemented ${b.competency.toUpperCase()} production components with verified unit tests and benchmarks.`,
+          `Implemented ${formatCompetencyName(b.competency)} production components with verified unit tests and benchmarks.`,
           fallback
         );
         const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
@@ -1164,20 +1166,23 @@ export function generateImprovementPlan(
         suggestedAction = `Complete structured algorithmic patterns (two pointers, trees, graphs) and document problem-solving approaches.`;
         bulletTemplate = `Optimized core [fill-in: algorithmic subsystem] using [fill-in: pattern/data structure], reducing time complexity from [fill-in: O(n^2)] to [fill-in: O(n log n)].`;
         resources = SKILL_RESOURCES[compKey] || ['NeetCode 150 patterns', 'Designing Data-Intensive Applications — Martin Kleppmann'];
-        detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
+        detail = `"${role.title}" lists ${formatCompetencyName(b.competency)} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       } else {
-        suggestedAction = `Deploy an open-source project showcasing production patterns in ${b.competency.toUpperCase()} with automated tests.`;
-        bulletTemplate = `Built [fill-in: feature/system] with ${b.competency.toUpperCase()}, achieving [fill-in: your measured result] across [fill-in: scale] requests/users.`;
-        resources = SKILL_RESOURCES[compKey] || [`Official ${b.competency} documentation`, `Build 2 practical projects with ${b.competency}`, 'Open-source contributions'];
-        detail = `"${role.title}" lists ${b.competency.toUpperCase()} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
+        suggestedAction = `Deploy an open-source project showcasing production patterns in ${formatCompetencyName(b.competency)} with automated tests.`;
+        bulletTemplate = `Built [fill-in: feature/system] with ${formatCompetencyName(b.competency)}, achieving [fill-in: your measured result] across [fill-in: scale] requests/users.`;
+        resources = SKILL_RESOURCES[compKey] || [`Official ${formatCompetencyName(b.competency)} documentation`, `Build 2 practical projects with ${formatCompetencyName(b.competency)}`, 'Open-source contributions'];
+        detail = `"${role.title}" lists ${formatCompetencyName(b.competency)} as a core expectation. Resume currently contains zero verified project or work mentions. Action plan: (1) Build a working proof project, (2) Document implementation decisions with metrics, (3) Update resume bullets using STAR format.`;
       }
 
       plans.push({
         priority: 'critical',
         title: isSoftSkill
           ? `Build Evidence for Technical Communication & Documentation Depth`
-          : `Build Evidence for Missing Competency: ${b.competency.toUpperCase()}`,
+          : b.competency.toLowerCase() === 'golang'
+          ? `Build Evidence for Missing Competency: Go (Golang)`
+          : `Build Evidence for Missing Competency: ${formatCompetencyName(b.competency)}`,
         detail,
+        skills: [formatCompetencyName(b.competency)],
         timeframe,
         closability,
         suggestedAction,

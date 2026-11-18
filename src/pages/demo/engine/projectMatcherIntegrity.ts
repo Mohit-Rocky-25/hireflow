@@ -16,6 +16,18 @@ import { ProjectBrief } from '@/features/suite/briefs/bundleBriefs';
 import { SkillState, normalizeTier, TIER_NORMALIZATION_MAP } from './skillStateEngine';
 import { formatCompetencyName } from '../talentLensEngine';
 import { validateBriefConcepts } from './conceptTagValidator';
+import {
+  getCanonicalSkill,
+  getCanonicalSkillName,
+  getCanonicalSkillId,
+  CANONICAL_SKILL_REGISTRY,
+} from './canonicalSkillRegistry';
+export {
+  getCanonicalSkill,
+  getCanonicalSkillName,
+  getCanonicalSkillId,
+  CANONICAL_SKILL_REGISTRY,
+};
 
 export const MIN_PROJECT_RELEVANCE_THRESHOLD = 0.20;
 export const MAX_RECOMMENDED_PROJECTS = 2;
@@ -30,6 +42,7 @@ export interface RecommendedProjectDrop {
   coveredSkills: string[];
   relevanceScore: number;
   gapCoverage: number;
+  candidateGapsCount?: number;
   domainFit: number;
   stackFit: number;
   closes: string[];
@@ -47,6 +60,17 @@ export interface ProjectRecommendationResult {
   projects: RecommendedProjectDrop[];
   hasMatches: boolean;
   emptyStateMessage: string | null;
+  allRankedCandidates?: Array<{
+    id: string;
+    title: string;
+    domain: string;
+    techStack: string[];
+    gapCoverage: number;
+    domainFit: number;
+    stackFit: number;
+    relevance: number;
+    closes: string[];
+  }>;
 }
 
 const ALL_BRIEFS: ProjectBrief[] = briefsData as ProjectBrief[];
@@ -175,12 +199,7 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   r: ['r', 'r programming'],
 };
 
-export function getCanonicalSkillName(skill: string): string {
-  // Strip version patterns like "16+", "1.22+", "v2", "3.3+"
-  const stripped = skill.replace(/\s+v?\d+(\.\d+)*\+?/gi, '').trim();
-  const norm = (stripped || skill).toLowerCase().trim().replace(/[-_]/g, ' ');
-  return SKILL_CANONICAL_MAP[norm] || formatCompetencyName(stripped || skill);
-}
+// getCanonicalSkillName and getCanonicalSkillId are provided by canonicalSkillRegistry.ts
 
 function escapeRegex(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -250,6 +269,14 @@ export function matchSkillToken(projectSkill: string, targetSkill: string): bool
 
 const BRIEF_GAP_COVERAGE_CACHE = new Map<string, boolean>();
 
+const CERT_DOMAIN_ALLOWED_SKILLS: Record<string, string[]> = {
+  'cert-aws-ccp': ['aws', 'cloud', 'devops'],
+  'cert-aws-saa': ['aws', 'cloud', 'devops'],
+  'cert-ckad': ['kubernetes', 'docker', 'devops', 'cloud', 'containers'],
+  'cert-comptia-sec': ['security', 'application security', 'cybersecurity', 'network security', 'appsec'],
+  'cert-gcp-ace': ['gcp', 'cloud', 'kubernetes', 'devops'],
+};
+
 /**
  * Checks whether a project's real skills cover a specific candidate skill gap.
  */
@@ -261,6 +288,19 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
     const cacheKey = `${briefId}::${gClean}`;
     const cached = BRIEF_GAP_COVERAGE_CACHE.get(cacheKey);
     if (cached !== undefined) return cached;
+  }
+
+  // 1.4: Cert-* briefs close only the skills of their certification domain (Assertion A9)
+  if (briefId && briefId.startsWith('cert-')) {
+    const allowed = CERT_DOMAIN_ALLOWED_SKILLS[briefId];
+    if (allowed) {
+      const cId = getCanonicalSkillId(gapSkillId);
+      const isAllowed = allowed.some((a) => a === gClean || a === gNorm || a === cId || getCanonicalSkillId(a) === cId);
+      if (!isAllowed) {
+        BRIEF_GAP_COVERAGE_CACHE.set(`${briefId}::${gClean}`, false);
+        return false;
+      }
+    }
   }
 
   const aliases = SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
@@ -583,75 +623,148 @@ export function matchProjectsWithIntegrity(params: {
   const PRIMARY_LANGUAGES = ['golang', 'go', 'java', 'python', 'typescript', 'javascript', 'c++', 'cpp', 'rust', 'c'];
   const languageGaps = gapSkills.filter((g) => PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
 
-  const selected: EvaluatedProject[] = [];
-  const coveredLanguages = new Set<string>();
+  // 1.2: A shown project must close at least one gap that no higher-ranked shown project closes;
+  // otherwise omit it (fewer than two cards is fine). Recompute gapCoverage and relevance from final closes.
+  interface SelectedProjectCandidate {
+    cand: EvaluatedProject;
+    finalCloses: string[];
+    recomputedGapCoverage: number;
+    recomputedRelevance: number;
+  }
 
-  if (candidates.length > 0) {
-    selected.push(candidates[0]);
+  const selected: SelectedProjectCandidate[] = [];
+  const handledGapIds = new Set<string>();
+
+  const getCandidateUniqueCloses = (cand: EvaluatedProject): string[] => {
+    return cand.closedGaps.filter((g) => {
+      const cId = getCanonicalSkillId(g);
+      return !handledGapIds.has(cId);
+    });
+  };
+
+  // Find Project #1
+  for (const c of candidates) {
+    const unCloses = getCandidateUniqueCloses(c);
+    if (unCloses.length > 0) {
+      const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
+      const dom = Number(c.domainFit.toFixed(2));
+      const st = Number(c.stackFit.toFixed(2));
+      const rel = Number((cov * dom * st).toFixed(2));
+      selected.push({
+        cand: c,
+        finalCloses: unCloses,
+        recomputedGapCoverage: cov,
+        recomputedRelevance: rel,
+      });
+      for (const g of unCloses) {
+        handledGapIds.add(getCanonicalSkillId(g));
+      }
+      break;
+    }
+  }
+
+  // Find Project #2 (if slots available and candidate #1 was chosen)
+  if (selected.length > 0 && selected.length < MAX_RECOMMENDED_PROJECTS) {
+    const coveredLanguages = new Set<string>();
     for (const lg of languageGaps) {
-      if (doesProjectCoverSkill(candidates[0].realSkills, lg.id, candidates[0].brief.id)) {
+      if (doesProjectCoverSkill(selected[0].cand.realSkills, lg.id, selected[0].cand.brief.id)) {
         coveredLanguages.add(lg.id.toLowerCase());
+      }
+    }
+    const unaddressedLanguages = languageGaps.filter((lg) => !coveredLanguages.has(lg.id.toLowerCase()));
+
+    let slot2Cand: { cand: EvaluatedProject; unCloses: string[] } | null = null;
+
+    // First try candidate covering unaddressed language gap that also has unique closes
+    if (unaddressedLanguages.length > 0) {
+      for (const c of candidates) {
+        if (c === selected[0].cand) continue;
+        const unCloses = getCandidateUniqueCloses(c);
+        if (unCloses.length > 0 && unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id))) {
+          slot2Cand = { cand: c, unCloses };
+          break;
+        }
+      }
+    }
+
+    // Otherwise take the highest-ranked remaining candidate with unique closes
+    if (!slot2Cand) {
+      for (const c of candidates) {
+        if (c === selected[0].cand) continue;
+        const unCloses = getCandidateUniqueCloses(c);
+        if (unCloses.length > 0) {
+          slot2Cand = { cand: c, unCloses };
+          break;
+        }
+      }
+    }
+
+    if (slot2Cand) {
+      const cov = Number((gapSkills.length > 0 ? (slot2Cand.unCloses.length / gapSkills.length) : 0.5).toFixed(2));
+      const dom = Number(slot2Cand.cand.domainFit.toFixed(2));
+      const st = Number(slot2Cand.cand.stackFit.toFixed(2));
+      const rel = Number((cov * dom * st).toFixed(2));
+      selected.push({
+        cand: slot2Cand.cand,
+        finalCloses: slot2Cand.unCloses,
+        recomputedGapCoverage: cov,
+        recomputedRelevance: rel,
+      });
+      for (const g of slot2Cand.unCloses) {
+        handledGapIds.add(getCanonicalSkillId(g));
       }
     }
   }
 
-  // If there are unaddressed language gaps, prioritize a project covering an unaddressed language gap for slot 2
-  const unaddressedLanguages = languageGaps.filter((lg) => !coveredLanguages.has(lg.id.toLowerCase()));
-  if (unaddressedLanguages.length > 0 && selected.length < MAX_RECOMMENDED_PROJECTS) {
-    const diverseCandidate = candidates.slice(1).find((c) =>
-      unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id))
-    );
-    if (diverseCandidate) {
-      selected.push(diverseCandidate);
-    }
-  }
-
-  for (const c of candidates.slice(1)) {
-    if (selected.length >= MAX_RECOMMENDED_PROJECTS) break;
-    if (!selected.includes(c)) {
-      selected.push(c);
-    }
-  }
+  const allRankedCandidates = candidates.map((c) => ({
+    id: c.brief.id,
+    title: c.brief.title,
+    domain: c.brief.domain,
+    techStack: c.brief.techStack || [],
+    gapCoverage: Number(c.gapCoverage.toFixed(2)),
+    domainFit: Number(c.domainFit.toFixed(2)),
+    stackFit: Number(c.stackFit.toFixed(2)),
+    relevance: Number(c.relevance.toFixed(3)),
+    closes: c.closedGaps,
+  }));
 
   if (selected.length === 0) {
     return {
       projects: [],
       hasMatches: false,
       emptyStateMessage: 'No project in the current library matches the missing skills for this role.',
+      allRankedCandidates,
     };
   }
 
-  const handledGaps = new Set<string>();
   const projects: RecommendedProjectDrop[] = selected.map((s) => {
-    // Stage E.2: Each skill is closed exactly once; card closes and step closes must be identical
-    const uniqueCloses = s.closedGaps.filter((g) => {
-      const gClean = g.toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (handledGaps.has(gClean)) return false;
-      handledGaps.add(gClean);
-      return true;
-    });
+    const c = s.cand;
+    const hoursPart = c.brief.estimatedHours ? `~${c.brief.estimatedHours} hrs effort` : 'estimated effort';
+    const gapsList = s.finalCloses.slice(0, 3).join(', ');
+    const whyThisProject = `Closes ${gapsList} ${s.finalCloses.length === 1 ? 'gap' : 'gaps'}; aligns with ${c.brief.domain} track; ${hoursPart}.`;
 
     return {
-      id: s.brief.id,
-      title: s.brief.title,
-      domain: s.brief.domain,
-      difficulty: s.brief.difficulty,
-      estimatedHours: s.brief.estimatedHours || 0,
-      hoursDisplay: s.brief.estimatedHours ? `~${s.brief.estimatedHours} hrs` : 'estimate unavailable',
-      coveredSkills: s.realSkills, // Real stack + vetted concepts
-      relevanceScore: Number(s.relevance.toFixed(2)),
-      gapCoverage: Number(s.gapCoverage.toFixed(2)),
-      domainFit: Number(s.domainFit.toFixed(2)),
-      stackFit: Number(s.stackFit.toFixed(2)),
-      closes: uniqueCloses,
-      reasonCodes: s.reasonCodes,
-      whyThisProject: s.whyThisProject,
-      problemStatement: s.brief.problemStatement,
-      architecture: s.brief.architecture,
-      recruiterSignal: s.brief.recruiterSignal || '',
-      portfolioBulletFormula: s.brief.portfolioBulletFormula,
-      deliverables: (s.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
-      debugReason: s.debugReason,
+      id: c.brief.id,
+      title: c.brief.title,
+      domain: c.brief.domain,
+      difficulty: c.brief.difficulty,
+      estimatedHours: c.brief.estimatedHours || 0,
+      hoursDisplay: c.brief.estimatedHours ? `~${c.brief.estimatedHours} hrs` : 'estimate unavailable',
+      coveredSkills: c.realSkills,
+      relevanceScore: Number(s.recomputedRelevance.toFixed(2)),
+      gapCoverage: Number(s.recomputedGapCoverage.toFixed(2)),
+      candidateGapsCount: gapSkills.length,
+      domainFit: Number(c.domainFit.toFixed(2)),
+      stackFit: Number(c.stackFit.toFixed(2)),
+      closes: s.finalCloses,
+      reasonCodes: c.reasonCodes,
+      whyThisProject,
+      problemStatement: c.brief.problemStatement,
+      architecture: c.brief.architecture,
+      recruiterSignal: c.brief.recruiterSignal || '',
+      portfolioBulletFormula: c.brief.portfolioBulletFormula,
+      deliverables: (c.brief.milestones || []).map((m) => `${m.title}: ${m.doneWhen}`),
+      debugReason: c.debugReason,
     };
   });
 
@@ -659,5 +772,6 @@ export function matchProjectsWithIntegrity(params: {
     projects,
     hasMatches: true,
     emptyStateMessage: null,
+    allRankedCandidates,
   };
 }

@@ -867,7 +867,7 @@ export function generateGoldenRecord(resume: SyntheticResume, roleDef: PinnedRol
     company,
   });
 
-  const matched = matchProjectsWithIntegrity({ skillStates, company, role });
+  const matched = { projects: analysis.projects || [] };
   const rewrites = generateEvidenceSafeRewrites(resume.text, comps);
 
   // Parse summary
@@ -907,7 +907,7 @@ export function generateGoldenRecord(resume: SyntheticResume, roleDef: PinnedRol
       const beforeScore = m ? parseInt(m[1], 10) : score;
       const afterScore = m ? parseInt(m[2], 10) : score;
       return {
-        skills: p.detail.match(/for:\s*([^.]+)/i)?.[1]?.split(',').map((s) => s.trim().toLowerCase()) || [],
+        skills: (p as any).skills || (p.detail.match(/for:\s*([^.]+)/i)?.[1]?.split(',').map((s) => s.trim()) || []),
         beforeScore,
         afterScore,
         delta: afterScore - beforeScore,

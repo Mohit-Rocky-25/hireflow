@@ -644,15 +644,23 @@ export function validateReport(report: any): ValidateReportResult {
         value: vs.evidenceText,
       });
     }
-    const matchingComp = breakdown.find(
-      (b) =>
-        (b.key || b.competency || '').toLowerCase() === vs.skill?.toLowerCase() ||
-        (b.label || '').toLowerCase() === vs.label.toLowerCase() ||
-        (b.key || b.competency || '').toLowerCase() === vs.label.toLowerCase()
-    );
-    if (matchingComp) {
-      const status = matchingComp.status || matchingComp.analysis?.status;
-      if (status !== 'strong' && status !== 'expert' && status !== 'demonstrated') {
+    const matchingComps = vs.skill
+      ? breakdown.filter((b) => (b.key || b.competency || '').toLowerCase() === vs.skill.toLowerCase())
+      : [];
+    const candidates = matchingComps.length > 0
+      ? matchingComps
+      : breakdown.filter(
+          (b) =>
+            (b.label || '').toLowerCase() === vs.label.toLowerCase() ||
+            (b.key || b.competency || '').toLowerCase() === vs.label.toLowerCase()
+        );
+    if (candidates.length > 0) {
+      const hasStrong = candidates.some((b) => {
+        const st = b.status || b.analysis?.status;
+        return st === 'strong' || st === 'expert' || st === 'demonstrated';
+      });
+      if (!hasStrong) {
+        const status = candidates[0].status || candidates[0].analysis?.status;
         violations.push({
           check: 'strengths',
           message: `Skill "${vs.label}" promoted to Verified Strength but has non-strong status "${status}".`,
@@ -666,15 +674,20 @@ export function validateReport(report: any): ValidateReportResult {
   // Also check raw strengths array if present
   if (Array.isArray(r.strengths)) {
     for (const str of r.strengths) {
-      const strName = typeof str === 'string' ? str : str?.skill || str?.name || '';
-      const matchingComp = breakdown.find(
+      const rawStrName = typeof str === 'string' ? str : str?.skill || str?.name || '';
+      const strName = rawStrName.includes(':') ? rawStrName.split(':')[0].trim() : rawStrName;
+      const matchingComps = breakdown.filter(
         (b) =>
           (b.key || b.competency || '').toLowerCase() === strName.toLowerCase() ||
           (b.label || '').toLowerCase() === strName.toLowerCase()
       );
-      if (matchingComp) {
-        const status = matchingComp.status || matchingComp.analysis?.status;
-        if (status !== 'strong' && status !== 'expert' && status !== 'demonstrated') {
+      if (matchingComps.length > 0) {
+        const hasStrong = matchingComps.some((b) => {
+          const st = b.status || b.analysis?.status;
+          return st === 'strong' || st === 'expert' || st === 'demonstrated';
+        });
+        if (!hasStrong) {
+          const status = matchingComps[0].status || matchingComps[0].analysis?.status;
           violations.push({
             check: 'strengths',
             message: `Skill "${strName}" claimed in strengths list has non-demonstrated status "${status}".`,

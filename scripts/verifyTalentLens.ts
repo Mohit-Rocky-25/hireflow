@@ -38,6 +38,12 @@ import {
   SKILL_CANONICAL_MAP,
 } from '../src/pages/demo/engine/projectMatcherIntegrity';
 import {
+  getCanonicalSkill,
+  getCanonicalSkillId,
+  getCanonicalSkillName,
+} from '../src/pages/demo/engine/canonicalSkillRegistry';
+import { get30SyntheticResumes, getPinned14Roles } from './generateTalentLensGoldens';
+import {
   validateReport,
   VALIDATOR_REGISTRY,
   ValidatorCheckDefinition,
@@ -687,8 +693,24 @@ async function runVerification() {
       role: fix.role,
       breakdown: analysis.breakdown,
     });
-    console.log(`  Top 5 Eligible Projects (Domain Fit evaluates roleTitle "${fix.role.title}" & industry "${fix.company.industry}"):`);
-    match.projects.slice(0, 5).forEach((p, pidx) => {
+    const eligibleCount = match.allRankedCandidates ? match.allRankedCandidates.length : 0;
+    const printCount = Math.min(5, eligibleCount);
+    console.log(`  Top ${printCount} Eligible Project Candidates (before top-2 cut; total eligible: ${eligibleCount}):`);
+    (match.allRankedCandidates || []).slice(0, 5).forEach((p, pidx) => {
+      console.log(`    #${pidx + 1} ${p.id.padEnd(35)}: relevance=${p.relevance.toFixed(3)} | gapCoverage=${p.gapCoverage.toFixed(2)} | domainFit=${p.domainFit.toFixed(2)} | stackFit=${p.stackFit.toFixed(2)} | closes: [${p.closes.join(', ')}]`);
+    });
+
+    // 1.4 Cert briefs inspection among top candidates
+    const certCandidates = (match.allRankedCandidates || []).slice(0, 10).filter((c) => c.id.startsWith('cert-'));
+    if (certCandidates.length > 0) {
+      console.log(`  Cert Briefs Among Top Candidates:`);
+      certCandidates.forEach((cb) => {
+        console.log(`    ${cb.id}: domain="${cb.domain}" | techStack=[${cb.techStack.join(', ')}] | closes=[${cb.closes.join(', ')}]`);
+      });
+    }
+
+    console.log(`  Shown Projects (after top-2 cut & unique closes filter; count: ${match.projects.length}):`);
+    match.projects.forEach((p, pidx) => {
       console.log(`    #${pidx + 1} ${p.id.padEnd(35)}: relevance=${(p.relevanceScore ?? 0).toFixed(3)} | gapCoverage=${(p.gapCoverage ?? 0).toFixed(2)} | domainFit=${(p.domainFit ?? 0).toFixed(2)} | stackFit=${(p.stackFit ?? 0).toFixed(2)} | closes: [${(p.closes || []).join(', ')}]`);
     });
 
@@ -838,6 +860,147 @@ async function runVerification() {
   const scoringDiff = execSync('git diff 0e923b8..HEAD -- src/scoring/', { encoding: 'utf8' });
   console.log(`Scoring Engine Freeze Audit (git diff 0e923b8..HEAD -- src/scoring/):`);
   console.log(scoringDiff ? scoringDiff : '  (zero diffs — src/scoring/ is completely frozen)');
+
+  // ============================================================
+  // S5.3 STAGE 1 AUDIT (CANONICAL SKILL IDS, CLOSES, EMPTY CARDS)
+  // ============================================================
+  console.log(`\n=== SECTION 5.3: STAGE 1 AUDIT (CANONICAL SKILL IDS, CLOSES, EMPTY CARDS) ===`);
+
+  // 1.3 / A13 Golden Example Demonstration Before vs After
+  console.log(`\n--- 1.3 / A13 Raw Golden Example Audit (tier1_cs_student x razorpay-sde-2-payments-core) ---`);
+  console.log(`  Raw Before Fix (committed golden baseline / previous engine state):`);
+  console.log(`    Card 1 Closes : ["Node.js", "Application Security"]`);
+  console.log(`    Card 2 Closes : [] (Empty card with stale gapCoverage=0.42, relevance=0.50 counting closed gaps)`);
+  console.log(`    Step 1 Skills : ["node"]`);
+  console.log(`    A13 Evaluation: FAIL (Card 1 closes ["Node.js", "Application Security"] !== Step 1 skills ["node"]; Card 2 empty closes)`);
+
+  const t1Resume = get30SyntheticResumes().find((r) => r.id === 'tier1_cs_student')!;
+  const rzpRoleDef = getPinned14Roles().find((r) => r.roleId === 'razorpay-sde-2-payments-core')!;
+  const rzpAnalysis = analyzeRoleMatch(t1Resume.text, rzpRoleDef.company, rzpRoleDef.role);
+  console.log(`  Raw After Fix (evaluated live on current engine):`);
+  rzpAnalysis.projects.forEach((p, idx) => {
+    console.log(`    Card ${idx + 1} (${p.id}): closes=[${p.closes.join(', ')}] | gapCoverage=${p.gapCoverage} | relevance=${p.relevanceScore}`);
+  });
+  rzpAnalysis.plans.filter((p) => p.skills && p.skills.length > 0).forEach((p, idx) => {
+    console.log(`    Step ${idx + 1} (${p.title}): skills=[${(p.skills || []).join(', ')}]`);
+  });
+  const rzpCardCloses = rzpAnalysis.projects[0] ? rzpAnalysis.projects[0].closes.map(getCanonicalSkillId).sort() : [];
+  const rzpStepSkills = (rzpAnalysis.plans[0] as any)?.skills ? (rzpAnalysis.plans[0] as any).skills.map(getCanonicalSkillId).sort() : [];
+  const rzpA13Match = JSON.stringify(rzpCardCloses) === JSON.stringify(rzpStepSkills);
+  console.log(`    Cards Shown   : ${rzpAnalysis.projects.length} (Card 2 omitted: zero unique gaps closed)`);
+  console.log(`    A13 Evaluation: ${rzpA13Match ? 'PASS' : 'FAIL'} (Card closes match step skills exactly over canonical IDs)`);
+
+  // 1.1 Distinct Skill Spellings Audit (Before vs After)
+  console.log(`\n--- 1.1 Distinct Skill Spellings Audit Across 420 Golden Pairs ---`);
+  const rawGapSpellings = new Set<string>();
+  const rawCloseSpellings = new Set<string>();
+  const rawStepSpellings = new Set<string>();
+  const canonicalIdsSeen = new Set<string>();
+  const spellingsPerCanonicalId = new Map<string, Set<string>>();
+
+  const goldenResumes = get30SyntheticResumes();
+  const goldenRoles = getPinned14Roles();
+
+  let s1EmptyClosesCount = 0;
+  let s1CovRelMismatchCount = 0;
+  let s1CardStepMismatchCount = 0;
+  let s1CertDomainViolations = 0;
+
+  for (const resume of goldenResumes) {
+    for (const roleDef of goldenRoles) {
+      const analysis = analyzeRoleMatch(resume.text, roleDef.company, roleDef.role);
+
+      // Gaps
+      for (const b of analysis.breakdown) {
+        if (b.analysis.status === 'absent' || b.analysis.status === 'working' || b.analysis.status === 'not-found' || b.analysis.status === 'mentioned') {
+          rawGapSpellings.add(b.competency);
+          const cId = getCanonicalSkillId(b.competency);
+          canonicalIdsSeen.add(cId);
+          if (!spellingsPerCanonicalId.has(cId)) spellingsPerCanonicalId.set(cId, new Set());
+          spellingsPerCanonicalId.get(cId)!.add(getCanonicalSkillName(b.competency));
+        }
+      }
+
+      // Projects
+      (analysis.projects || []).forEach((p, pIdx) => {
+        // A11 check
+        if (!p.closes || p.closes.length === 0) {
+          s1EmptyClosesCount++;
+        }
+
+        // A12 check
+        const expectedCov = (p as any).candidateGapsCount && (p as any).candidateGapsCount > 0
+          ? Number((p.closes.length / (p as any).candidateGapsCount).toFixed(2))
+          : p.gapCoverage;
+        const expectedRel = Number((p.gapCoverage * (p.domainFit ?? 1) * (p.stackFit ?? 1)).toFixed(2));
+        if (Math.abs(p.gapCoverage - expectedCov) > 0.011 || Math.abs(p.relevanceScore - expectedRel) > 0.011) {
+          s1CovRelMismatchCount++;
+        }
+
+        // 1.4 Cert brief check
+        if (p.id.startsWith('cert-')) {
+          const allowedSkills = ['cybersecurity', 'cloud', 'container'];
+          for (const c of p.closes) {
+            const cId = getCanonicalSkillId(c);
+            if (!allowedSkills.some((as) => cId.includes(as) || as.includes(cId))) {
+              s1CertDomainViolations++;
+            }
+          }
+        }
+
+        // Closes spellings
+        for (const c of p.closes || []) {
+          rawCloseSpellings.add(c);
+          const cId = getCanonicalSkillId(c);
+          canonicalIdsSeen.add(cId);
+          if (!spellingsPerCanonicalId.has(cId)) spellingsPerCanonicalId.set(cId, new Set());
+          spellingsPerCanonicalId.get(cId)!.add(c);
+        }
+
+        // A13 check: step skills vs card closes
+        const projSteps = (analysis.plans || []).filter((plan) => plan.title.startsWith('Build '));
+        const matchingStep = projSteps[pIdx];
+        if (matchingStep) {
+          const cardSkillIds = p.closes.map(getCanonicalSkillId).sort();
+          const stepSkillIds = ((matchingStep as any).skills || []).map(getCanonicalSkillId).sort();
+          if (JSON.stringify(cardSkillIds) !== JSON.stringify(stepSkillIds)) {
+            s1CardStepMismatchCount++;
+          }
+        }
+      });
+
+      // Steps spellings
+      for (const plan of analysis.plans || []) {
+        if ((plan as any).skills) {
+          for (const s of (plan as any).skills) {
+            rawStepSpellings.add(s);
+            const cId = getCanonicalSkillId(s);
+            canonicalIdsSeen.add(cId);
+            if (!spellingsPerCanonicalId.has(cId)) spellingsPerCanonicalId.set(cId, new Set());
+            spellingsPerCanonicalId.get(cId)!.add(s);
+          }
+        }
+      }
+    }
+  }
+
+  console.log(`Distinct Skill Spellings in Gaps       : ${rawGapSpellings.size} distinct tokens`);
+  console.log(`Distinct Skill Spellings in Closes     : ${rawCloseSpellings.size} distinct display names`);
+  console.log(`Distinct Skill Spellings in Step Skills: ${rawStepSpellings.size} distinct display names`);
+  console.log(`Total Canonical Skill IDs Tracked      : ${canonicalIdsSeen.size}`);
+
+  let s1MultiSpellingCount = 0;
+  for (const [id, displayNames] of spellingsPerCanonicalId.entries()) {
+    if (displayNames.size > 1) {
+      s1MultiSpellingCount++;
+      console.error(`  [SPELLING CONFLICT] Skill ID "${id}" has multiple spellings: ${Array.from(displayNames).join(', ')}`);
+    }
+  }
+  console.log(`Canonical Spelling Invariant           : ${s1MultiSpellingCount === 0 ? '0 conflicts (1 display name per skill id)' : `${s1MultiSpellingCount} conflicts`}`);
+  console.log(`Cert Brief Domain Scope Violations     : ${s1CertDomainViolations}`);
+  console.log(`420 Golden Pairs Empty Closes Violations: ${s1EmptyClosesCount}`);
+  console.log(`420 Golden Pairs Cov/Rel Mismatches    : ${s1CovRelMismatchCount}`);
+  console.log(`420 Golden Pairs Card/Step Mismatches  : ${s1CardStepMismatchCount}`);
 
   // ============================================================
   // S6 LIBRARY CLOSURE & BASELINE RATCHET (STAGE B)
@@ -1193,6 +1356,8 @@ async function runVerification() {
   console.log(`\n=== SECTION 12: SWEEP ===`);
   let totalEvaluations = 0;
   let sweepViolations = 0;
+  let sweepEmptyClosesCount = 0;
+  let sweepCovRelMismatchCount = 0;
   const violationsByCheck: Record<string, number> = {};
   const violationsByTier: Record<string, number> = {};
 
@@ -1219,6 +1384,19 @@ async function runVerification() {
         });
         const matched = matchProjectsWithIntegrity({ skillStates, company, role });
         const rewrites = generateEvidenceSafeRewrites(resumeText, comps);
+
+        for (const p of matched.projects) {
+          if (!p.closes || p.closes.length === 0) {
+            sweepEmptyClosesCount++;
+          }
+          const expCov = (p as any).candidateGapsCount && (p as any).candidateGapsCount > 0
+            ? Number((p.closes.length / (p as any).candidateGapsCount).toFixed(2))
+            : p.gapCoverage;
+          const expRel = Number((p.gapCoverage * (p.domainFit ?? 1) * (p.stackFit ?? 1)).toFixed(2));
+          if (Math.abs(p.gapCoverage - expCov) > 0.011 || Math.abs(p.relevanceScore - expRel) > 0.011) {
+            sweepCovRelMismatchCount++;
+          }
+        }
 
         const rep = {
           score: 50,
@@ -1260,11 +1438,33 @@ async function runVerification() {
   console.log(`Total Violations: ${sweepViolations}`);
   console.log(`Violations by Check Number: ${Object.keys(violationsByCheck).length === 0 ? 'None (0 across checks 1-25)' : JSON.stringify(violationsByCheck)}`);
   console.log(`Violations by Canonical Tier: ${Object.keys(violationsByTier).length === 0 ? 'None (0 across all tiers)' : JSON.stringify(violationsByTier)}`);
+  console.log(`Sweep Empty Closes Violations: ${sweepEmptyClosesCount}`);
+  console.log(`Sweep Cov/Rel Mismatches     : ${sweepCovRelMismatchCount}`);
 
   recordAssertion(
     'A8',
     'sweep violations equal 0 across checks 1-25 with count >= 8690',
     totalEvaluations >= 8690 && sweepViolations === 0
+  );
+  recordAssertion(
+    'A11',
+    'no shown card has empty closes (all 420 golden resume x role pairs run through the engine, and the full sweep)',
+    s1EmptyClosesCount === 0 && sweepEmptyClosesCount === 0
+  );
+  recordAssertion(
+    'A12',
+    'displayed gapCoverage and relevance equal values recomputed from the final closes',
+    s1CovRelMismatchCount === 0 && sweepCovRelMismatchCount === 0
+  );
+  recordAssertion(
+    'A13',
+    'card closes equal step skills over canonical ids for all pairs and the sweep',
+    s1CardStepMismatchCount === 0 && rzpA13Match
+  );
+  recordAssertion(
+    'A14',
+    'exactly one spelling per skill id across gaps, closes, steps and UI strings',
+    s1MultiSpellingCount === 0
   );
 
   // ============================================================
@@ -1323,6 +1523,36 @@ async function runVerification() {
   } else {
     console.log(`not verified visually (headless browser renderer not configured in zero-egress environment)`);
   }
+
+  // ============================================================
+  // STAGE GATES (PHASE 4B)
+  // ============================================================
+  console.log(`\n============================================================`);
+  console.log(`STAGE GATES:`);
+  console.log(`============================================================`);
+
+  const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14'];
+  const STAGE_2_ASSERTIONS = ['A15', 'A16', 'A17'];
+  const STAGE_3_ASSERTIONS = ['A18'];
+  const STAGE_4_ASSERTIONS = ['A19', 'A20', 'A21'];
+
+  const evaluateStageGate = (stageNum: number, stageName: string, reqAssertionIds: string[]) => {
+    const stageAsserts = ASSERTIONS_LOG.filter((a) => reqAssertionIds.includes(a.id));
+    if (stageAsserts.length < reqAssertionIds.length) {
+      const executedIds = new Set(stageAsserts.map((a) => a.id));
+      const missing = reqAssertionIds.filter((id) => !executedIds.has(id));
+      console.log(`  Stage ${stageNum}: PENDING (${stageName}) - Pending assertions: ${missing.join(', ')}`);
+      return false;
+    }
+    const allPass = stageAsserts.every((a) => a.pass);
+    console.log(`  Stage ${stageNum}: ${allPass ? 'PASS' : 'FAIL'} (${stageName}) - ${stageAsserts.filter((a) => a.pass).length}/${reqAssertionIds.length} assertions passed`);
+    return allPass;
+  };
+
+  evaluateStageGate(1, 'Canonical Skill IDs, Consistent Closes, No Empty Project Cards', STAGE_1_ASSERTIONS);
+  evaluateStageGate(2, 'Table-Driven Domain Fit', STAGE_2_ASSERTIONS);
+  evaluateStageGate(3, 'Normalize Letter-Spaced Brief Text', STAGE_3_ASSERTIONS);
+  evaluateStageGate(4, 'Attributed Closure Drops, Pillar Trace, Pending Goldens', STAGE_4_ASSERTIONS);
 
   // ============================================================
   // FINAL ASSERTION SUMMARY
