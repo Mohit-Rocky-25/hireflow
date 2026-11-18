@@ -74,30 +74,36 @@
       "relevance": 0.73
     },
     {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.58
+      "id": "brief-kafka-order-saga",
+      "closes": [
+        "Java",
+        "System Design"
+      ],
+      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 22,
       "afterScore": 41,
       "delta": 19
     },
     {
-      "skills": [],
+      "skills": [
+        "Java",
+        "System Design"
+      ],
       "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
+      "afterScore": 46,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

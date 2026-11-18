@@ -72,28 +72,30 @@
         "Go",
         "Kubernetes"
       ],
-      "relevance": 0.38
+      "relevance": 0.6
     },
     {
-      "id": "brief-cloud-cost-anomaly",
+      "id": "brief-feature-flag-platform",
       "closes": [
-        "Python"
+        "React"
       ],
-      "relevance": 0.38
+      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes"
+        "Go",
+        "Kubernetes"
       ],
       "beforeScore": 49,
       "afterScore": 67,
       "delta": 18
     },
     {
-      "skills": [],
+      "skills": [
+        "React"
+      ],
       "beforeScore": 67,
       "afterScore": 69,
       "delta": 2

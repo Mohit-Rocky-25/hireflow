@@ -36,42 +36,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-vector-db-from-scratch",
-      "closes": [
-        "DSA",
-        "Python"
-      ],
-      "relevance": 0.4
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.23
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "DSA",
-        "Python"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Java"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",

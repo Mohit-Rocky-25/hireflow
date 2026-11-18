@@ -72,37 +72,37 @@
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.63
+      "relevance": 0.64
     },
     {
-      "id": "brief-graphql-federation",
-      "closes": [],
-      "relevance": 0.45
+      "id": "brief-kafka-order-saga",
+      "closes": [
+        "Java",
+        "System Design"
+      ],
+      "relevance": 0.16
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 34,
       "afterScore": 50,
       "delta": 16
     },
     {
-      "skills": [],
+      "skills": [
+        "Java",
+        "System Design"
+      ],
       "beforeScore": 50,
-      "afterScore": 54,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "afterScore": 58,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

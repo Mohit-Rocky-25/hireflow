@@ -74,20 +74,21 @@
       "relevance": 0.54
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
+        "React",
         "TypeScript"
       ],
-      "relevance": 0.43
+      "relevance": 0.14
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 23,
       "afterScore": 48,
@@ -95,29 +96,28 @@
     },
     {
       "skills": [
-        "typescript"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 48,
-      "afterScore": 51,
-      "delta": 3
+      "afterScore": 54,
+      "delta": 6
     },
     {
-      "skills": [],
-      "beforeScore": 51,
-      "afterScore": 53,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 57,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 58,
+      "skills": [
+        "Go"
+      ],
+      "beforeScore": 54,
+      "afterScore": 55,
       "delta": 1
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 55,
+      "afterScore": 57,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

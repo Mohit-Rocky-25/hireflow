@@ -73,21 +73,16 @@
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.8
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 44,
       "afterScore": 69,

@@ -64,31 +64,38 @@
     {
       "id": "brief-multitenant-saas-rls",
       "closes": [
-        "React",
         "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.73
+      "relevance": 0.7
     },
     {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.58
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "devops & ci/cd",
-        "application security"
+        "TypeScript",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 19,
       "afterScore": 31,
       "delta": 12
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 31,
+      "afterScore": 32,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

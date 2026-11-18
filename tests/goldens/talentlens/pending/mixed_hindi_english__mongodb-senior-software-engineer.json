@@ -70,24 +70,25 @@
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.51
+      "relevance": 0.68
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-realtime-stock-platform",
       "closes": [
-        "Java"
+        "Python",
+        "React"
       ],
-      "relevance": 0.39
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 21,
       "afterScore": 43,
@@ -95,7 +96,8 @@
     },
     {
       "skills": [
-        "python"
+        "Python",
+        "React"
       ],
       "beforeScore": 43,
       "afterScore": 47,

@@ -38,30 +38,33 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-database-engine",
       "closes": [
-        "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.42
     },
     {
-      "id": "brief-upi-settlement-engine",
-      "closes": [],
-      "relevance": 0.51
+      "id": "brief-search-engine",
+      "closes": [
+        "DSA"
+      ],
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "Databases & SQL"
       ],
       "beforeScore": 26,
       "afterScore": 31,
       "delta": 5
     },
     {
-      "skills": [],
+      "skills": [
+        "DSA"
+      ],
       "beforeScore": 31,
       "afterScore": 37,
       "delta": 6

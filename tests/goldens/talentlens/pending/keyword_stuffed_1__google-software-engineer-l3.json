@@ -38,25 +38,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-vector-db-from-scratch",
+      "id": "brief-search-engine",
       "closes": [
-        "DSA",
-        "Python"
+        "DSA"
       ],
-      "relevance": 0.4
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.23
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 10,
       "afterScore": 29,

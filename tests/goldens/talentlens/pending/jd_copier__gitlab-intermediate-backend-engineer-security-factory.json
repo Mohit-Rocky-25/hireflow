@@ -54,30 +54,27 @@
         "Application Security"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 44,
       "afterScore": 56,
       "delta": 12
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 56,
-      "afterScore": 57,
-      "delta": 1
+      "afterScore": 60,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

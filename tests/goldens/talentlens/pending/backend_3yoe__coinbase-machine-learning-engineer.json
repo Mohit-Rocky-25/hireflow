@@ -50,21 +50,15 @@
     {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
-        "Python",
         "Machine Learning"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-llm-finetuning-peft",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "machine learning"
+        "Machine Learning"
       ],
       "beforeScore": 63,
       "afterScore": 67,

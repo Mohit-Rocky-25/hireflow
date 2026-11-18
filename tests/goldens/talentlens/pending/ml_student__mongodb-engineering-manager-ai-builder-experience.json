@@ -64,54 +64,52 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "TypeScript",
+        "Go",
         "AWS",
         "Databases & SQL",
-        "DevOps & CI/CD"
+        "DevOps & CI/CD",
+        "System Design"
       ],
-      "relevance": 0.42
+      "relevance": 0.34
     },
     {
-      "id": "brief-clickstream-clickhouse",
+      "id": "brief-saga-orchestrator",
       "closes": [
-        "Go"
+        "TypeScript"
       ],
-      "relevance": 0.3
+      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Go",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "System Design"
       ],
       "beforeScore": 34,
-      "afterScore": 43,
-      "delta": 9
+      "afterScore": 46,
+      "delta": 12
     },
     {
       "skills": [
-        "go"
+        "TypeScript"
       ],
-      "beforeScore": 43,
-      "afterScore": 46,
+      "beforeScore": 46,
+      "afterScore": 49,
       "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 48,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
-      "delta": 1
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 49,
+      "afterScore": 52,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

@@ -41,24 +41,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-analytics-clickhouse",
       "closes": [
         "Databases & SQL",
         "AWS"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "aws"
+        "Databases & SQL",
+        "AWS"
       ],
       "beforeScore": 50,
       "afterScore": 58,

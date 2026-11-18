@@ -65,29 +65,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
         "AWS",
-        "Kubernetes",
-        "Databases & SQL"
+        "Kubernetes"
       ],
-      "relevance": 0.54
+      "relevance": 0.56
     },
     {
-      "id": "brief-homomorphic-encryption",
+      "id": "brief-realtime-stock-platform",
       "closes": [
-        "Python"
+        "Python",
+        "React"
       ],
-      "relevance": 0.51
+      "relevance": 0.35
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes"
+        "Go",
+        "AWS",
+        "Kubernetes"
       ],
       "beforeScore": 45,
       "afterScore": 57,
@@ -95,17 +95,12 @@
     },
     {
       "skills": [
-        "python"
+        "Python",
+        "React"
       ],
       "beforeScore": 57,
-      "afterScore": 58,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 58,
       "afterScore": 59,
-      "delta": 1
+      "delta": 2
     }
   ],
   "first3Rewrites": [

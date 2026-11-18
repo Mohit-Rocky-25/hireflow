@@ -32,36 +32,8 @@
     "bulletsCount": 80,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 1
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Databases & SQL"
-      ],
-      "beforeScore": 40,
-      "afterScore": 44,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 48,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "Designed and developed distributed microservices architecture using Java and Spring Boot for enterprise transaction management, collaborating with cross-functional product management, quality assurance, and operations teams to verify production stability, maintain high availability, and deliver scalable cloud solutions across multiple regional availability zones while optimizing database query execution plans in PostgreSQL and maintaining Redis caching layers.",

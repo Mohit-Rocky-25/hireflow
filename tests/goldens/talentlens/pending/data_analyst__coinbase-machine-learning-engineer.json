@@ -55,24 +55,28 @@
       "relevance": 0.69
     },
     {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [],
-      "relevance": 0.42
+      "id": "brief-devsecops-pipeline",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "machine learning",
-        "system design"
+        "AWS",
+        "Machine Learning",
+        "System Design"
       ],
       "beforeScore": 38,
       "afterScore": 48,
       "delta": 10
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 48,
       "afterScore": 53,
       "delta": 5

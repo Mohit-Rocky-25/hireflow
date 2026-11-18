@@ -60,48 +60,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-schema-registry",
-      "closes": [
-        "Python",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "TypeScript"
-      ],
-      "relevance": 0.37
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Python",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "TypeScript"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing exactly one line of text.",

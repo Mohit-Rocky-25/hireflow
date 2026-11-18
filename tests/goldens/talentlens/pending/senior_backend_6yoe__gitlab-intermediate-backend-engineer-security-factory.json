@@ -47,25 +47,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-tls-certificate-manager",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "application security"
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 64,
       "afterScore": 67,

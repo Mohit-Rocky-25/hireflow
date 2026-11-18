@@ -67,36 +67,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-cloud-cost-anomaly",
+      "id": "brief-realtime-stock-platform",
       "closes": [
         "Python",
+        "React"
+      ],
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
         "AWS",
         "Kubernetes"
       ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-homomorphic-encryption",
-      "closes": [],
-      "relevance": 0.56
+      "relevance": 0.4
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "kubernetes"
+        "Python",
+        "React"
       ],
       "beforeScore": 54,
-      "afterScore": 75,
-      "delta": 21
+      "afterScore": 76,
+      "delta": 22
     },
     {
-      "skills": [],
-      "beforeScore": 75,
+      "skills": [
+        "AWS",
+        "Kubernetes"
+      ],
+      "beforeScore": 76,
       "afterScore": 78,
-      "delta": 3
+      "delta": 2
     }
   ],
   "first3Rewrites": [

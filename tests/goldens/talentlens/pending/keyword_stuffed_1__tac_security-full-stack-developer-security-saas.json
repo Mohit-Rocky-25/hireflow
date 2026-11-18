@@ -37,19 +37,14 @@
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 0.6
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.45
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "node"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 10,
       "afterScore": 37,

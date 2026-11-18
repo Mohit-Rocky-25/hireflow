@@ -69,28 +69,20 @@
         "React",
         "TypeScript",
         "Kubernetes",
-        "Databases & SQL",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.86
-    },
-    {
-      "id": "brief-spring-enterprise-rbac",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.21
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 38,
       "afterScore": 60,

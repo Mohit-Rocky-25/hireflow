@@ -42,42 +42,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-tls-certificate-manager",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
-      "relevance": 0.76
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",

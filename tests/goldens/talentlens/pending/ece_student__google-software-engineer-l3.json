@@ -38,37 +38,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-vector-db-from-scratch",
+      "id": "brief-credit-risk-model",
       "closes": [
-        "DSA",
         "Python"
       ],
-      "relevance": 0.4
+      "relevance": 0.5
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.23
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java"
+        "Python"
       ],
       "beforeScore": 30,
-      "afterScore": 39,
-      "delta": 9
+      "afterScore": 34,
+      "delta": 4
     },
     {
       "skills": [
-        "python"
+        "Java"
       ],
-      "beforeScore": 39,
+      "beforeScore": 34,
       "afterScore": 40,
-      "delta": 1
+      "delta": 6
     }
   ],
   "first3Rewrites": [

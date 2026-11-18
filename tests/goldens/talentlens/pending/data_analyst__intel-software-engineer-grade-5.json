@@ -40,24 +40,24 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
     },
     {
       "id": "brief-raft-consensus",
       "closes": [
         "Systems"
       ],
-      "relevance": 0.34
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 20,
       "afterScore": 38,
@@ -65,14 +65,16 @@
     },
     {
       "skills": [
-        "systems"
+        "Systems"
       ],
       "beforeScore": 38,
       "afterScore": 42,
       "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "DSA"
+      ],
       "beforeScore": 42,
       "afterScore": 49,
       "delta": 7

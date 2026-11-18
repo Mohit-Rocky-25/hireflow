@@ -72,23 +72,23 @@
         "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.57
+      "relevance": 0.8
     },
     {
       "id": "brief-privacy-preserving-ml",
       "closes": [
         "Python"
       ],
-      "relevance": 0.4
+      "relevance": 0.1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "System Design"
       ],
       "beforeScore": 45,
       "afterScore": 62,
@@ -96,7 +96,7 @@
     },
     {
       "skills": [
-        "python"
+        "Python"
       ],
       "beforeScore": 62,
       "afterScore": 64,

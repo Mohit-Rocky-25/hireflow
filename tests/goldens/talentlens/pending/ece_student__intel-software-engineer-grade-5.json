@@ -45,21 +45,14 @@
         "Systems",
         "Concurrency"
       ],
-      "relevance": 0.51
-    },
-    {
-      "id": "brief-search-engine",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.51
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "systems",
-        "concurrency"
+        "Systems",
+        "Concurrency"
       ],
       "beforeScore": 33,
       "afterScore": 39,

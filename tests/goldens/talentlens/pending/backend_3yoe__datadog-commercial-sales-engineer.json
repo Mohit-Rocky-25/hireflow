@@ -26,36 +26,8 @@
     "bulletsCount": 11,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-search-engine",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "DSA"
-      ],
-      "beforeScore": 54,
-      "afterScore": 58,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 58,
-      "afterScore": 62,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "Core Fundamentals: DSA, Algorithms, Data Structures, System Design, REST APIs, Security, Microservices",

@@ -68,24 +68,24 @@
       "id": "brief-ab-experimentation",
       "closes": [
         "Python",
-        "AWS",
-        "Databases & SQL"
+        "AWS"
       ],
-      "relevance": 0.47
+      "relevance": 0.36
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
+        "React",
         "TypeScript"
       ],
-      "relevance": 0.37
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "AWS"
       ],
       "beforeScore": 38,
       "afterScore": 47,
@@ -93,23 +93,20 @@
     },
     {
       "skills": [
-        "typescript"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 47,
-      "afterScore": 49,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 49,
-      "afterScore": 52,
+      "afterScore": 50,
       "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 52,
-      "afterScore": 53,
-      "delta": 1
+      "skills": [
+        "Go"
+      ],
+      "beforeScore": 50,
+      "afterScore": 52,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

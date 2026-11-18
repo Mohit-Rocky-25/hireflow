@@ -43,21 +43,16 @@
       "id": "brief-zero-trust-proxy",
       "closes": [
         "Node.js",
-        "Databases & SQL",
         "Application Security"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [],
-      "relevance": 0.6
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 27,
       "afterScore": 54,

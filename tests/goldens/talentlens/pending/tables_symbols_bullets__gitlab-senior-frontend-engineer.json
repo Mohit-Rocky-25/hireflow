@@ -71,24 +71,18 @@
         "React",
         "TypeScript",
         "Kubernetes",
-        "Databases & SQL",
         "Application Security"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.76
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Application Security"
       ],
       "beforeScore": 43,
       "afterScore": 57,

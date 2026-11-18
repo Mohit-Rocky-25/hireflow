@@ -46,18 +46,14 @@
         "Node.js",
         "Application Security"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [],
-      "relevance": 0.42
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 51,
       "afterScore": 69,

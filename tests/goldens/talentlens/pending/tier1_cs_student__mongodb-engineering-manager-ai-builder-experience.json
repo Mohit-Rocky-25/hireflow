@@ -75,19 +75,20 @@
       "relevance": 0.56
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
+        "React",
         "TypeScript"
       ],
-      "relevance": 0.45
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "AWS",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 49,
       "afterScore": 72,
@@ -95,17 +96,12 @@
     },
     {
       "skills": [
-        "typescript"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 72,
-      "afterScore": 73,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 73,
       "afterScore": 77,
-      "delta": 4
+      "delta": 5
     }
   ],
   "first3Rewrites": [

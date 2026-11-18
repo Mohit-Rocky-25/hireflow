@@ -39,36 +39,8 @@
     "bulletsCount": 11,
     "skillsDetectedCount": 3
   },
-  "projectsShown": [
-    {
-      "id": "brief-search-engine",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "DSA"
-      ],
-      "beforeScore": 65,
-      "afterScore": 69,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 69,
-      "afterScore": 73,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",

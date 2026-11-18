@@ -34,22 +34,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-ab-experimentation",
       "closes": [
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "Databases & SQL"
       ],
       "beforeScore": 42,
       "afterScore": 43,

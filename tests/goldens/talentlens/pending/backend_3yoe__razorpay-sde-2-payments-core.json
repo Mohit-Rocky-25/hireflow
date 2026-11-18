@@ -47,17 +47,12 @@
         "Node.js"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.85
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js"
       ],
       "beforeScore": 57,
       "afterScore": 64,

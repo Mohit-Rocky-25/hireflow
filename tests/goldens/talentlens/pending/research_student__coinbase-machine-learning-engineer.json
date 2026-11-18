@@ -55,23 +55,27 @@
       "relevance": 0.6
     },
     {
-      "id": "brief-multimodal-ai-app",
-      "closes": [],
-      "relevance": 0.6
+      "id": "brief-devsecops-pipeline",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "machine learning"
+        "AWS",
+        "Machine Learning"
       ],
       "beforeScore": 38,
       "afterScore": 45,
       "delta": 7
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 45,
       "afterScore": 51,
       "delta": 6

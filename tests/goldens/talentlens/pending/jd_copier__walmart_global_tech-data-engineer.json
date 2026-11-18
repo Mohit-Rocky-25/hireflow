@@ -40,36 +40,33 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-cdc-pipeline",
       "closes": [
         "Python",
         "Databases & SQL",
         "AWS"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "AWS"
       ],
       "beforeScore": 34,
       "afterScore": 54,
       "delta": 20
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "afterScore": 57,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

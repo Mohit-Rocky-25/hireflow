@@ -72,22 +72,22 @@
         "AWS",
         "Databases & SQL"
       ],
-      "relevance": 0.48
+      "relevance": 0.56
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.48
+      "relevance": 0.19
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "databases & sql"
+        "Go",
+        "AWS",
+        "Databases & SQL"
       ],
       "beforeScore": 39,
       "afterScore": 53,
@@ -95,14 +95,16 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 53,
       "afterScore": 56,
       "delta": 3
     },
     {
-      "skills": [],
+      "skills": [
+        "React"
+      ],
       "beforeScore": 56,
       "afterScore": 59,
       "delta": 3

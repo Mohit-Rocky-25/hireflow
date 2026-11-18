@@ -48,23 +48,27 @@
       "relevance": 0.6
     },
     {
-      "id": "brief-eod-interest-batch",
-      "closes": [],
-      "relevance": 0.6
+      "id": "brief-homomorphic-encryption",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "system design"
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 28,
       "afterScore": 46,
       "delta": 18
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 46,
       "afterScore": 51,
       "delta": 5

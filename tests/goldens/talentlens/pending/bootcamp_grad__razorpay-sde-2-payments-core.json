@@ -40,28 +40,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-saga-orchestrator",
+      "id": "brief-double-entry-ledger",
       "closes": [
-        "Node.js",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.85
+      "relevance": 0.6
     },
     {
-      "id": "brief-double-entry-ledger",
-      "closes": [],
-      "relevance": 0.6
+      "id": "brief-subscription-dunning-billing",
+      "closes": [
+        "Node.js"
+      ],
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 35,
       "afterScore": 46,
       "delta": 11
+    },
+    {
+      "skills": [
+        "Node.js"
+      ],
+      "beforeScore": 46,
+      "afterScore": 47,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

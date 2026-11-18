@@ -72,7 +72,7 @@
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.63
+      "relevance": 0.64
     },
     {
       "id": "brief-kafka-order-saga",
@@ -80,16 +80,16 @@
         "Java",
         "System Design"
       ],
-      "relevance": 0.25
+      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 41,
       "afterScore": 44,
@@ -97,8 +97,8 @@
     },
     {
       "skills": [
-        "java",
-        "system design"
+        "Java",
+        "System Design"
       ],
       "beforeScore": 44,
       "afterScore": 50,

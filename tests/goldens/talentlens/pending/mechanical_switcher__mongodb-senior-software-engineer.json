@@ -72,22 +72,22 @@
         "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.51
+      "relevance": 0.75
     },
     {
       "id": "brief-kafka-order-saga",
       "closes": [
         "Java"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "system design"
+        "Go",
+        "Kubernetes",
+        "System Design"
       ],
       "beforeScore": 43,
       "afterScore": 57,
@@ -95,7 +95,7 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 57,
       "afterScore": 61,

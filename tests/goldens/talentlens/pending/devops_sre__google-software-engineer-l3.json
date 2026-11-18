@@ -44,20 +44,20 @@
       "closes": [
         "DSA"
       ],
-      "relevance": 0.36
+      "relevance": 0.42
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.34
+      "relevance": 0.4
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 38,
       "afterScore": 50,
@@ -65,7 +65,7 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 50,
       "afterScore": 55,

@@ -54,20 +54,15 @@
         "System Design"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [],
-      "relevance": 0.7
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "machine learning",
-        "system design"
+        "Python",
+        "AWS",
+        "Machine Learning",
+        "System Design"
       ],
       "beforeScore": 33,
       "afterScore": 47,

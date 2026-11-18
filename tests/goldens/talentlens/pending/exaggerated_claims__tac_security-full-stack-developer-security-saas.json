@@ -34,32 +34,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-merkle-airdrop-verifier",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
+        "React",
         "TypeScript"
       ],
-      "relevance": 0.4
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.3
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 26,
-      "afterScore": 45,
-      "delta": 19
-    },
-    {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 53,
-      "delta": 8
+      "afterScore": 52,
+      "delta": 26
     }
   ],
   "first3Rewrites": [

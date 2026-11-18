@@ -72,24 +72,24 @@
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.61
+      "relevance": 0.71
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.46
+      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 40,
       "afterScore": 47,
@@ -97,14 +97,16 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 47,
       "afterScore": 50,
       "delta": 3
     },
     {
-      "skills": [],
+      "skills": [
+        "Python"
+      ],
       "beforeScore": 50,
       "afterScore": 52,
       "delta": 2

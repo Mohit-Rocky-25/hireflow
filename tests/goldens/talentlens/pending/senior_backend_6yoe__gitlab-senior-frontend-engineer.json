@@ -73,21 +73,16 @@
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.56
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 47,
       "afterScore": 68,

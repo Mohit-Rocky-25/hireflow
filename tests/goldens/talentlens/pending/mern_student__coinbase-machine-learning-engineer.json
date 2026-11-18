@@ -55,24 +55,28 @@
       "relevance": 0.7
     },
     {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [],
-      "relevance": 0.43
+      "id": "brief-homomorphic-encryption",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "machine learning",
-        "system design"
+        "Python",
+        "Machine Learning",
+        "System Design"
       ],
       "beforeScore": 36,
       "afterScore": 45,
       "delta": 9
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 45,
       "afterScore": 50,
       "delta": 5

@@ -60,48 +60,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL",
-        "System Design"
-      ],
-      "relevance": 0.51
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.39
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL",
-        "System Design"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Java"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing exactly one line of text.",

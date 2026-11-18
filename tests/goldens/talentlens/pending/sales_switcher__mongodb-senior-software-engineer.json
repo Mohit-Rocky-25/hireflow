@@ -72,23 +72,23 @@
         "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.54
+      "relevance": 0.64
     },
     {
-      "id": "brief-cloud-cost-anomaly",
+      "id": "brief-privacy-preserving-ml",
       "closes": [
         "Python"
       ],
-      "relevance": 0.38
+      "relevance": 0.08
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "System Design"
       ],
       "beforeScore": 34,
       "afterScore": 46,
@@ -96,14 +96,16 @@
     },
     {
       "skills": [
-        "python"
+        "Python"
       ],
       "beforeScore": 46,
       "afterScore": 48,
       "delta": 2
     },
     {
-      "skills": [],
+      "skills": [
+        "React"
+      ],
       "beforeScore": 48,
       "afterScore": 51,
       "delta": 3

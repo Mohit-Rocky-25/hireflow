@@ -54,19 +54,14 @@
         "Application Security"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-homomorphic-encryption",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 66,
       "afterScore": 78,

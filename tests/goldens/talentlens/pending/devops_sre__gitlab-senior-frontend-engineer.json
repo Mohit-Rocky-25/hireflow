@@ -66,40 +66,45 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "React",
         "TypeScript",
-        "Databases & SQL",
-        "DevOps & CI/CD"
+        "Databases & SQL"
       ],
-      "relevance": 0.8
+      "relevance": 0.75
     },
     {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.8
+      "id": "brief-event-recon",
+      "closes": [
+        "Java"
+      ],
+      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "databases & sql"
+        "React",
+        "TypeScript",
+        "Databases & SQL"
       ],
       "beforeScore": 39,
       "afterScore": 55,
       "delta": 16
     },
     {
-      "skills": [],
+      "skills": [
+        "Java"
+      ],
       "beforeScore": 55,
       "afterScore": 57,
       "delta": 2
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 57,
       "afterScore": 58,
       "delta": 1

@@ -54,19 +54,14 @@
         "DevOps & CI/CD"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-tls-certificate-manager",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 55,
       "afterScore": 65,

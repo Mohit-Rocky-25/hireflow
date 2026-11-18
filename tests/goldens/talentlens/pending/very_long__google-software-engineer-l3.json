@@ -40,24 +40,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-vector-db-from-scratch",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.6
-    },
-    {
-      "id": "brief-bloom-filter-engine",
-      "closes": [],
-      "relevance": 0.6
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 42,
       "afterScore": 57,

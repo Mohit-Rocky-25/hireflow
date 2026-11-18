@@ -31,19 +31,14 @@
         "System Design",
         "DSA"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "system design",
-        "dsa"
+        "System Design",
+        "DSA"
       ],
       "beforeScore": 29,
       "afterScore": 51,

@@ -38,38 +38,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-double-entry-ledger",
       "closes": [
-        "Node.js",
         "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-saga-orchestrator",
-      "closes": [
         "System Design"
       ],
-      "relevance": 0.59
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-subscription-dunning-billing",
+      "closes": [
+        "Node.js"
+      ],
+      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 24,
-      "afterScore": 35,
-      "delta": 11
+      "afterScore": 30,
+      "delta": 6
     },
     {
       "skills": [
-        "system design"
+        "Node.js"
+      ],
+      "beforeScore": 30,
+      "afterScore": 35,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "Application Security"
       ],
       "beforeScore": 35,
-      "afterScore": 41,
-      "delta": 6
+      "afterScore": 42,
+      "delta": 7
     }
   ],
   "first3Rewrites": [

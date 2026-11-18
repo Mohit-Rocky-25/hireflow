@@ -45,21 +45,16 @@
         "AWS",
         "System Design"
       ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-ab-experimentation",
-      "closes": [],
-      "relevance": 0.7
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws",
-        "system design"
+        "Python",
+        "Databases & SQL",
+        "AWS",
+        "System Design"
       ],
       "beforeScore": 19,
       "afterScore": 44,

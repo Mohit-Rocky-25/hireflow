@@ -34,32 +34,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-ab-experimentation",
       "closes": [
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "Databases & SQL"
       ],
       "beforeScore": 27,
       "afterScore": 43,
       "delta": 16
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 43,
-      "afterScore": 44,
-      "delta": 1
+      "afterScore": 50,
+      "delta": 7
     }
   ],
   "first3Rewrites": [

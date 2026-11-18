@@ -72,25 +72,35 @@
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.63
+      "relevance": 0.76
     },
     {
-      "id": "brief-graphql-federation",
-      "closes": [],
-      "relevance": 0.45
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 44,
       "afterScore": 62,
       "delta": 18
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 62,
+      "afterScore": 64,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

@@ -60,46 +60,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-multitenant-saas-rls",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "relevance": 0.73
-    },
-    {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.58
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "React",
-        "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",

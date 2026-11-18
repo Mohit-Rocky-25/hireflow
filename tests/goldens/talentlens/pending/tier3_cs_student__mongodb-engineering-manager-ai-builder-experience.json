@@ -75,20 +75,20 @@
       "relevance": 0.67
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "TypeScript"
+        "Go"
       ],
-      "relevance": 0.37
+      "relevance": 0.09
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "devops & ci/cd",
-        "system design"
+        "Python",
+        "AWS",
+        "DevOps & CI/CD",
+        "System Design"
       ],
       "beforeScore": 40,
       "afterScore": 55,
@@ -96,14 +96,16 @@
     },
     {
       "skills": [
-        "typescript"
+        "Go"
       ],
       "beforeScore": 55,
       "afterScore": 59,
       "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "TypeScript"
+      ],
       "beforeScore": 59,
       "afterScore": 63,
       "delta": 4

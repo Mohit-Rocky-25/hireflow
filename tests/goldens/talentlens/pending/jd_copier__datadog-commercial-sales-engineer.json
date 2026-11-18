@@ -32,28 +32,25 @@
       "closes": [
         "DSA"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 42,
       "afterScore": 54,
       "delta": 12
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "afterScore": 64,
+      "delta": 10
     }
   ],
   "first3Rewrites": [

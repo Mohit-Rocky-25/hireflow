@@ -32,24 +32,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
         "System Design",
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "system design",
-        "databases & sql"
+        "System Design",
+        "Databases & SQL"
       ],
       "beforeScore": 29,
       "afterScore": 34,

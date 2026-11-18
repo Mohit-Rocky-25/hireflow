@@ -47,26 +47,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-api-gateway-scratch",
       "closes": [
         "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 72,
       "afterScore": 80,

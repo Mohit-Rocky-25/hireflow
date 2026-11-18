@@ -62,49 +62,51 @@
   },
   "projectsShown": [
     {
-      "id": "brief-schema-registry",
+      "id": "brief-ab-experimentation",
       "closes": [
         "Python",
         "AWS",
         "Databases & SQL",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.48
+      "relevance": 0.46
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "TypeScript"
+        "Go",
+        "System Design"
       ],
-      "relevance": 0.37
+      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd",
-        "system design"
+        "Python",
+        "AWS",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 21,
-      "afterScore": 43,
-      "delta": 22
+      "afterScore": 41,
+      "delta": 20
     },
     {
       "skills": [
-        "typescript"
+        "Go",
+        "System Design"
       ],
-      "beforeScore": 43,
-      "afterScore": 47,
-      "delta": 4
+      "beforeScore": 41,
+      "afterScore": 46,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 47,
-      "afterScore": 50,
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 46,
+      "afterScore": 49,
       "delta": 3
     }
   ],

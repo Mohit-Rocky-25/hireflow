@@ -68,25 +68,25 @@
       "closes": [
         "Python",
         "AWS",
-        "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.54
+      "relevance": 0.47
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
+        "React",
         "TypeScript"
       ],
-      "relevance": 0.43
+      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "AWS",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 17,
       "afterScore": 29,
@@ -94,23 +94,20 @@
     },
     {
       "skills": [
-        "typescript"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 29,
-      "afterScore": 33,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 33,
       "afterScore": 36,
-      "delta": 3
+      "delta": 7
     },
     {
-      "skills": [],
+      "skills": [
+        "Go"
+      ],
       "beforeScore": 36,
-      "afterScore": 39,
-      "delta": 3
+      "afterScore": 37,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

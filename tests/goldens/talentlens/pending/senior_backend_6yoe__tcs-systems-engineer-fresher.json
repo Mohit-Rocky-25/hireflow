@@ -39,36 +39,8 @@
     "bulletsCount": 16,
     "skillsDetectedCount": 3
   },
-  "projectsShown": [
-    {
-      "id": "brief-search-engine",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "DSA"
-      ],
-      "beforeScore": 57,
-      "afterScore": 61,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 61,
-      "afterScore": 65,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "Architecture: Distributed Systems, High Availability, Microservices, System Design, DSA, Algorithms, Concurrency, Raft Consensus, Security",

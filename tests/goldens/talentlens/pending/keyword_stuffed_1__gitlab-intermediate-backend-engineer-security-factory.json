@@ -44,30 +44,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-tls-certificate-manager",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
-        "Kubernetes",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
+      "relevance": 0.6
     },
     {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
-      "relevance": 0.76
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "application security"
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 19,
       "afterScore": 32,
       "delta": 13
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 32,
+      "afterScore": 33,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

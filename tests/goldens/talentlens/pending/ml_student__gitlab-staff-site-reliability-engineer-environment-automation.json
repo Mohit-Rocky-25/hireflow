@@ -44,7 +44,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
         "AWS",
@@ -53,21 +53,16 @@
         "System Design"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-high-throughput-logging",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "System Design"
       ],
       "beforeScore": 35,
       "afterScore": 53,

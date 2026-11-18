@@ -54,19 +54,14 @@
         "Application Security"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "application security"
+        "Go",
+        "Kubernetes",
+        "Application Security"
       ],
       "beforeScore": 42,
       "afterScore": 52,

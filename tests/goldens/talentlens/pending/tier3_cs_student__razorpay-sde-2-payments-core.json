@@ -45,20 +45,21 @@
         "Node.js",
         "Application Security"
       ],
-      "relevance": 0.51
+      "relevance": 0.3
     },
     {
-      "id": "brief-saga-orchestrator",
+      "id": "brief-dag-task-runner",
       "closes": [
         "System Design"
       ],
-      "relevance": 0.51
+      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 50,
       "afterScore": 56,
@@ -66,7 +67,7 @@
     },
     {
       "skills": [
-        "system design"
+        "System Design"
       ],
       "beforeScore": 56,
       "afterScore": 60,

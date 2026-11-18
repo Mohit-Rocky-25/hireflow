@@ -71,33 +71,37 @@
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.73
+      "relevance": 0.83
     },
     {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.58
+      "id": "brief-saga-orchestrator",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 21,
       "afterScore": 43,
       "delta": 22
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 43,
-      "afterScore": 44,
-      "delta": 1
+      "afterScore": 46,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

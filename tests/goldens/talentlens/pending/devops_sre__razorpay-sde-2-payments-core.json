@@ -47,24 +47,22 @@
         "Databases & SQL"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.85
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 34,
       "afterScore": 55,
       "delta": 21
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 55,
       "afterScore": 56,
       "delta": 1

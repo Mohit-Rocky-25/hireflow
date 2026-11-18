@@ -62,29 +62,26 @@
   },
   "projectsShown": [
     {
-      "id": "brief-schema-registry",
+      "id": "brief-privacy-preserving-ml",
       "closes": [
-        "Python",
-        "AWS",
-        "Databases & SQL",
         "DevOps & CI/CD",
         "System Design"
       ],
-      "relevance": 0.48
+      "relevance": 0.57
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-saga-orchestrator",
       "closes": [
         "TypeScript"
       ],
-      "relevance": 0.37
+      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "system design"
+        "DevOps & CI/CD",
+        "System Design"
       ],
       "beforeScore": 19,
       "afterScore": 29,
@@ -92,7 +89,7 @@
     },
     {
       "skills": [
-        "typescript"
+        "TypeScript"
       ],
       "beforeScore": 29,
       "afterScore": 31,

@@ -50,28 +50,24 @@
     {
       "id": "brief-realtime-code-execution",
       "closes": [
-        "Go",
-        "DevOps & CI/CD"
+        "Go"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-tls-certificate-manager",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go"
+        "Go"
       ],
       "beforeScore": 54,
       "afterScore": 56,
       "delta": 2
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 56,
       "afterScore": 57,
       "delta": 1

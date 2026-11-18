@@ -41,24 +41,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-cdc-pipeline",
       "closes": [
         "Python",
         "AWS"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-computer-vision-api",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "AWS"
       ],
       "beforeScore": 68,
       "afterScore": 72,

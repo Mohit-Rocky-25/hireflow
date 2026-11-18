@@ -41,23 +41,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-interview-prep-ai",
+      "id": "brief-schema-registry",
       "closes": [
-        "Python",
         "System Design"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "system design"
+        "System Design"
       ],
       "beforeScore": 54,
       "afterScore": 56,

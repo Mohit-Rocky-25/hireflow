@@ -66,30 +66,25 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
-        "Python",
+        "React",
+        "TypeScript",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.36
-    },
-    {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "TypeScript"
-      ],
-      "relevance": 0.29
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 45,
-      "afterScore": 64,
-      "delta": 19
+      "afterScore": 66,
+      "delta": 21
     }
   ],
   "first3Rewrites": [

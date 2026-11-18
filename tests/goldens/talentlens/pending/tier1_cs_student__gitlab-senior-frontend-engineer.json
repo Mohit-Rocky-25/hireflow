@@ -75,21 +75,16 @@
         "Application Security"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.76
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 46,
       "afterScore": 76,

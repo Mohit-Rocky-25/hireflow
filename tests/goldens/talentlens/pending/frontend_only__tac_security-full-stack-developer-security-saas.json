@@ -34,23 +34,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-merkle-airdrop-verifier",
+      "id": "brief-zero-trust-proxy",
       "closes": [
-        "TypeScript",
         "Node.js"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.75
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js"
       ],
       "beforeScore": 69,
       "afterScore": 70,

@@ -40,34 +40,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
-        "Databases & SQL",
-        "Application Security"
+        "Databases & SQL"
       ],
-      "relevance": 0.85
+      "relevance": 0.6
     },
     {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [],
-      "relevance": 0.6
+      "id": "brief-zero-trust-proxy",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "node"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 20,
-      "afterScore": 51,
-      "delta": 31
+      "afterScore": 46,
+      "delta": 26
     },
     {
-      "skills": [],
-      "beforeScore": 51,
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 46,
       "afterScore": 52,
-      "delta": 1
+      "delta": 6
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 52,
+      "afterScore": 57,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

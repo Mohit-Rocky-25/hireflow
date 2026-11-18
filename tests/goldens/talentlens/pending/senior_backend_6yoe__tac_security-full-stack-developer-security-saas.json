@@ -40,23 +40,27 @@
       "relevance": 0.6
     },
     {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.45
+      "id": "brief-react-native-offline",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "node"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 32,
       "afterScore": 65,
       "delta": 33
     },
     {
-      "skills": [],
+      "skills": [
+        "React"
+      ],
       "beforeScore": 65,
       "afterScore": 69,
       "delta": 4

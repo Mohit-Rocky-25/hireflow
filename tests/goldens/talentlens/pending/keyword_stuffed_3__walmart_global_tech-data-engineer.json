@@ -40,24 +40,17 @@
     {
       "id": "brief-schema-registry",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS",
         "System Design"
       ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-ab-experimentation",
-      "closes": [],
-      "relevance": 0.7
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "system design"
+        "AWS",
+        "System Design"
       ],
       "beforeScore": 36,
       "afterScore": 44,

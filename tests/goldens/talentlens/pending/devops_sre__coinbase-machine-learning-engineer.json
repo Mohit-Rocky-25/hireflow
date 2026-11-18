@@ -54,25 +54,22 @@
         "Machine Learning"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-multimodal-ai-app",
-      "closes": [],
-      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "machine learning"
+        "AWS",
+        "Machine Learning"
       ],
       "beforeScore": 54,
       "afterScore": 59,
       "delta": 5
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 59,
       "afterScore": 60,
       "delta": 1

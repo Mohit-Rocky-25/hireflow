@@ -47,24 +47,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Go",
-        "AWS",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 66,
       "afterScore": 67,

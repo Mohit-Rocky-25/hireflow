@@ -72,38 +72,38 @@
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.69
+      "relevance": 0.68
     },
     {
-      "id": "brief-nextjs-ecommerce-webhook",
-      "closes": [],
-      "relevance": 0.53
+      "id": "brief-kafka-order-saga",
+      "closes": [
+        "Java",
+        "System Design"
+      ],
+      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 27,
       "afterScore": 40,
       "delta": 13
     },
     {
-      "skills": [],
+      "skills": [
+        "Java",
+        "System Design"
+      ],
       "beforeScore": 40,
-      "afterScore": 44,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
-      "delta": 1
+      "afterScore": 46,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

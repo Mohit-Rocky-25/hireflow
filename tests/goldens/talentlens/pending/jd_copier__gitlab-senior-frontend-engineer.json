@@ -80,18 +80,18 @@
       "closes": [
         "Java"
       ],
-      "relevance": 0.21
+      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd",
-        "application security"
+        "React",
+        "TypeScript",
+        "Kubernetes",
+        "Databases & SQL",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 28,
       "afterScore": 55,
@@ -99,17 +99,19 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 55,
       "afterScore": 58,
       "delta": 3
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 58,
-      "afterScore": 59,
-      "delta": 1
+      "afterScore": 60,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

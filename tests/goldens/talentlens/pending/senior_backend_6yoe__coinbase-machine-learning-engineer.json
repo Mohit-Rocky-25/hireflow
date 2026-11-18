@@ -55,22 +55,26 @@
       "relevance": 0.42
     },
     {
-      "id": "brief-llm-finetuning-peft",
-      "closes": [],
-      "relevance": 0.42
+      "id": "brief-devsecops-pipeline",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "machine learning"
+        "Machine Learning"
       ],
       "beforeScore": 60,
       "afterScore": 64,
       "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 64,
       "afterScore": 66,
       "delta": 2

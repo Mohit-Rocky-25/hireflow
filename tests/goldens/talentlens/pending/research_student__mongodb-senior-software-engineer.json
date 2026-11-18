@@ -72,23 +72,23 @@
         "Kubernetes",
         "Databases & SQL"
       ],
-      "relevance": 0.54
+      "relevance": 0.64
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.54
+      "relevance": 0.16
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "Databases & SQL"
       ],
       "beforeScore": 30,
       "afterScore": 43,
@@ -96,14 +96,16 @@
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
       "beforeScore": 43,
       "afterScore": 47,
       "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "React"
+      ],
       "beforeScore": 47,
       "afterScore": 50,
       "delta": 3

@@ -40,22 +40,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-search-engine",
       "closes": [
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.36
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [],
-      "relevance": 0.36
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 32,
       "afterScore": 34,

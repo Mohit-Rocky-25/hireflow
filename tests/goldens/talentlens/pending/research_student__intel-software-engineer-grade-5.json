@@ -46,26 +46,23 @@
         "DSA",
         "Concurrency"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "concurrency"
+        "DSA",
+        "Concurrency"
       ],
       "beforeScore": 32,
       "afterScore": 48,
       "delta": 16
     },
     {
-      "skills": [],
+      "skills": [
+        "Systems"
+      ],
       "beforeScore": 48,
       "afterScore": 49,
       "delta": 1

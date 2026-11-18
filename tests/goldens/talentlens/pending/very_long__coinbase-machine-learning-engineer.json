@@ -55,24 +55,28 @@
       "relevance": 0.7
     },
     {
-      "id": "brief-multimodal-ai-app",
-      "closes": [],
-      "relevance": 0.7
+      "id": "brief-homomorphic-encryption",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "machine learning"
+        "Python",
+        "AWS",
+        "Machine Learning"
       ],
       "beforeScore": 39,
       "afterScore": 54,
       "delta": 15
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 54,
       "afterScore": 60,
       "delta": 6

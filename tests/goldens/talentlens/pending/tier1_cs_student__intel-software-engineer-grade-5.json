@@ -42,22 +42,22 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp"
+        "C++"
       ],
-      "relevance": 0.23
+      "relevance": 0.26
     },
     {
       "id": "brief-container-runtime",
       "closes": [
         "Systems"
       ],
-      "relevance": 0.22
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp"
+        "C++"
       ],
       "beforeScore": 49,
       "afterScore": 67,
@@ -65,17 +65,17 @@
     },
     {
       "skills": [
-        "systems"
+        "Systems"
       ],
       "beforeScore": 67,
-      "afterScore": 70,
-      "delta": 3
+      "afterScore": 69,
+      "delta": 2
     },
     {
       "skills": [],
-      "beforeScore": 70,
+      "beforeScore": 69,
       "afterScore": 75,
-      "delta": 5
+      "delta": 6
     }
   ],
   "first3Rewrites": [

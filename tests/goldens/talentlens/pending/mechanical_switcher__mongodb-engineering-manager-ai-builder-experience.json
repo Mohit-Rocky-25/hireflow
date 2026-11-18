@@ -68,25 +68,24 @@
     {
       "id": "brief-privacy-preserving-ml",
       "closes": [
-        "Python",
         "DevOps & CI/CD",
         "System Design"
       ],
-      "relevance": 0.6
+      "relevance": 0.42
     },
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "TypeScript"
+        "Go"
       ],
-      "relevance": 0.29
+      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "system design"
+        "DevOps & CI/CD",
+        "System Design"
       ],
       "beforeScore": 44,
       "afterScore": 55,
@@ -94,17 +93,11 @@
     },
     {
       "skills": [
-        "typescript"
+        "Go"
       ],
       "beforeScore": 55,
-      "afterScore": 57,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 61,
-      "delta": 4
+      "afterScore": 58,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

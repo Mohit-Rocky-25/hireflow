@@ -54,28 +54,32 @@
       "relevance": 0.76
     },
     {
-      "id": "brief-oidc-pkce-server",
-      "closes": [],
-      "relevance": 0.76
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 30,
       "afterScore": 45,
       "delta": 15
     },
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "afterScore": 49,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

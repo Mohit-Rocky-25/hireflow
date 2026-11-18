@@ -34,22 +34,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-dist-cache-rust",
       "closes": [
         "System Design"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-dist-cache-rust",
-      "closes": [],
       "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "system design"
+        "System Design"
       ],
       "beforeScore": 41,
       "afterScore": 44,

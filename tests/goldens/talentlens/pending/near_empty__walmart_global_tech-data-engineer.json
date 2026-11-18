@@ -36,42 +36,8 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-schema-registry",
-      "closes": [
-        "Python",
-        "Databases & SQL",
-        "AWS",
-        "System Design"
-      ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-ab-experimentation",
-      "closes": [],
-      "relevance": 0.7
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Python",
-        "Databases & SQL",
-        "AWS",
-        "System Design"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",

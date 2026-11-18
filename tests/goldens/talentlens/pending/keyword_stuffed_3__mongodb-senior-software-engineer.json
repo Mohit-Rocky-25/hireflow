@@ -62,31 +62,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
         "AWS",
         "Kubernetes",
-        "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.51
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.39
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "system design"
+        "Go",
+        "AWS",
+        "Kubernetes",
+        "System Design"
       ],
       "beforeScore": 34,
       "afterScore": 47,

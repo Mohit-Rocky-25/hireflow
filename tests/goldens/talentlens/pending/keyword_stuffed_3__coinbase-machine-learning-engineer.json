@@ -46,32 +46,35 @@
     {
       "id": "brief-privacy-preserving-ml",
       "closes": [
-        "Python",
         "AWS",
         "Machine Learning",
         "System Design"
       ],
-      "relevance": 0.76
+      "relevance": 0.69
     },
     {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [],
-      "relevance": 0.54
+      "id": "brief-devsecops-pipeline",
+      "closes": [
+        "Application Security"
+      ],
+      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "machine learning",
-        "system design"
+        "AWS",
+        "Machine Learning",
+        "System Design"
       ],
       "beforeScore": 35,
       "afterScore": 45,
       "delta": 10
     },
     {
-      "skills": [],
+      "skills": [
+        "Application Security"
+      ],
       "beforeScore": 45,
       "afterScore": 49,
       "delta": 4
