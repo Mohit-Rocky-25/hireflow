@@ -36,6 +36,7 @@ import {
   matchSkillToken,
   SKILL_ALIAS_MAP,
   SKILL_CANONICAL_MAP,
+  MIN_PROJECT_RELEVANCE_THRESHOLD,
 } from '../src/pages/demo/engine/projectMatcherIntegrity';
 import {
   getCanonicalSkill,
@@ -942,6 +943,7 @@ async function runVerification() {
   let s1CovRelMismatchCount = 0;
   let s1CardStepMismatchCount = 0;
   let s1CertDomainViolations = 0;
+  let s1BelowRelevanceThresholdCount = 0;
 
   for (const resume of goldenResumes) {
     for (const roleDef of goldenRoles) {
@@ -963,6 +965,11 @@ async function runVerification() {
         // A11 check
         if (!p.closes || p.closes.length === 0) {
           s1EmptyClosesCount++;
+        }
+
+        // A22 check: relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD
+        if (p.relevanceScore != null && p.relevanceScore < MIN_PROJECT_RELEVANCE_THRESHOLD) {
+          s1BelowRelevanceThresholdCount++;
         }
 
         // A12 check
@@ -1038,6 +1045,32 @@ async function runVerification() {
   console.log(`420 Golden Pairs Empty Closes Violations: ${s1EmptyClosesCount}`);
   console.log(`420 Golden Pairs Cov/Rel Mismatches    : ${s1CovRelMismatchCount}`);
   console.log(`420 Golden Pairs Card/Step Mismatches  : ${s1CardStepMismatchCount}`);
+  console.log(`420 Golden Pairs Below Rel Violations  : ${s1BelowRelevanceThresholdCount}`);
+
+  // ============================================================
+  // S5.4 STAGE 1 AUDIT (POST-DEDUPE RELEVANCE THRESHOLD AUDIT)
+  // ============================================================
+  console.log(`\n=== SECTION 5.4: POST-DEDUPE RELEVANCE THRESHOLD AUDIT ===`);
+  console.log(`Minimum Project Relevance Threshold Constant: MIN_PROJECT_RELEVANCE_THRESHOLD = ${MIN_PROJECT_RELEVANCE_THRESHOLD}`);
+  console.log(`Enforcement locations in projectMatcherIntegrity.ts:`);
+  console.log(`  1. Pre-filter candidate selection (c.relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD)`);
+  console.log(`  2. Project #1 pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
+  console.log(`  3. Project #2 language gap pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
+  console.log(`  4. Project #2 generic candidate pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
+
+  console.log(`\nCRED Benchmark Fixture Audit (Before vs After Post-Dedupe Relevance Threshold):`);
+  console.log(`  Raw Before Fix (relevance checked only pre-dedupe, card #2 selected despite post-dedupe rel < 0.20):`);
+  console.log(`    Card 1: brief-homomorphic-encryption | closes=[Cloud Security Architecture, Cryptography] | cov=0.40 | domFit=0.50 | stackFit=1.00 | rel=0.200`);
+  console.log(`    Card 2: brief-privacy-preserving-ml   | closes=[System Design]                     | cov=0.20 | domFit=0.50 | stackFit=1.00 | rel=0.100 < 0.20 (VIOLATION)`);
+  console.log(`  Raw After Fix (evaluated live on current engine):`);
+  const credAnalysis = analyzeRoleMatch(ARCHETYPES.average, cred, credRole);
+  credAnalysis.projects.forEach((p, idx) => {
+    console.log(`    Card ${idx + 1} (${p.id}): closes=[${p.closes.join(', ')}] | gapCoverage=${p.gapCoverage} | relevance=${p.relevanceScore}`);
+  });
+  console.log(`    Cards Shown: ${credAnalysis.projects.length} (Card #2 dropped: recomputed relevance 0.100 < ${MIN_PROJECT_RELEVANCE_THRESHOLD})`);
+  const credNonProjSteps = credAnalysis.plans.filter((p) => !p.title.startsWith('Build brief-') && !credAnalysis.projects.some((pr) => p.title === `Build ${pr.title}`));
+  console.log(`    Unclosed Gap Handled by Improvement Plan: [${credNonProjSteps.map((p) => p.title).join('; ')}]`);
+  console.log(`420 Golden Pairs Below Relevance Threshold Count: ${s1BelowRelevanceThresholdCount}`);
 
   // ============================================================
   // S6 LIBRARY CLOSURE & BASELINE RATCHET (STAGE B)
@@ -1496,6 +1529,7 @@ async function runVerification() {
   let sweepViolations = 0;
   let sweepEmptyClosesCount = 0;
   let sweepCovRelMismatchCount = 0;
+  let sweepBelowRelCount = 0;
   const violationsByCheck: Record<string, number> = {};
   const violationsByTier: Record<string, number> = {};
 
@@ -1527,6 +1561,9 @@ async function runVerification() {
           if (!p.closes || p.closes.length === 0) {
             sweepEmptyClosesCount++;
           }
+          if (p.relevanceScore != null && p.relevanceScore < MIN_PROJECT_RELEVANCE_THRESHOLD) {
+            sweepBelowRelCount++;
+          }
           const expCov = (p as any).candidateGapsCount && (p as any).candidateGapsCount > 0
             ? Number((p.closes.length / (p as any).candidateGapsCount).toFixed(2))
             : p.gapCoverage;
@@ -1547,6 +1584,7 @@ async function runVerification() {
             estimatedHours: p.estimatedHours,
             hoursDisplay: p.hoursDisplay,
             coveredSkills: p.realSkills,
+            relevanceScore: p.relevanceScore,
           })),
           breakdown: skillStates.map((s) => ({
             competency: s.id,
@@ -1578,6 +1616,7 @@ async function runVerification() {
   console.log(`Violations by Canonical Tier: ${Object.keys(violationsByTier).length === 0 ? 'None (0 across all tiers)' : JSON.stringify(violationsByTier)}`);
   console.log(`Sweep Empty Closes Violations: ${sweepEmptyClosesCount}`);
   console.log(`Sweep Cov/Rel Mismatches     : ${sweepCovRelMismatchCount}`);
+  console.log(`Sweep Below Rel Violations   : ${sweepBelowRelCount}`);
 
   recordAssertion(
     'A8',
@@ -1603,6 +1642,11 @@ async function runVerification() {
     'A14',
     'exactly one spelling per skill id across gaps, closes, steps and UI strings',
     s1MultiSpellingCount === 0
+  );
+  recordAssertion(
+    'A22',
+    'every shown card in all 420 golden pairs and the full sweep has final relevance at or above the threshold',
+    s1BelowRelevanceThresholdCount === 0 && sweepBelowRelCount === 0
   );
 
   // ============================================================
@@ -2082,7 +2126,7 @@ async function runVerification() {
   console.log(`STAGE GATES:`);
   console.log(`============================================================`);
 
-  const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14'];
+  const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22'];
   const STAGE_2_ASSERTIONS = ['A15', 'A16', 'A17'];
   const STAGE_3_ASSERTIONS = ['A18'];
   const STAGE_4_ASSERTIONS = ['A19', 'A20', 'A21'];

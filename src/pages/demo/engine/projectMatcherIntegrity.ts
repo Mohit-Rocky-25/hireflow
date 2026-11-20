@@ -573,16 +573,18 @@ export function matchProjectsWithIntegrity(params: {
       const dom = Number(c.domainFit.toFixed(2));
       const st = Number(c.stackFit.toFixed(2));
       const rel = Number((cov * dom * st).toFixed(2));
-      selected.push({
-        cand: c,
-        finalCloses: unCloses,
-        recomputedGapCoverage: cov,
-        recomputedRelevance: rel,
-      });
-      for (const g of unCloses) {
-        handledGapIds.add(getCanonicalSkillId(g));
+      if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+        selected.push({
+          cand: c,
+          finalCloses: unCloses,
+          recomputedGapCoverage: cov,
+          recomputedRelevance: rel,
+        });
+        for (const g of unCloses) {
+          handledGapIds.add(getCanonicalSkillId(g));
+        }
+        break;
       }
-      break;
     }
   }
 
@@ -596,42 +598,50 @@ export function matchProjectsWithIntegrity(params: {
     }
     const unaddressedLanguages = languageGaps.filter((lg) => !coveredLanguages.has(lg.id.toLowerCase()));
 
-    let slot2Cand: { cand: EvaluatedProject; unCloses: string[] } | null = null;
+    let slot2Cand: { cand: EvaluatedProject; unCloses: string[]; cov: number; dom: number; st: number; rel: number } | null = null;
 
-    // First try candidate covering unaddressed language gap that also has unique closes
+    // First try candidate covering unaddressed language gap that also has unique closes and meets post-dedupe threshold
     if (unaddressedLanguages.length > 0) {
       for (const c of candidates) {
         if (c === selected[0].cand) continue;
         const unCloses = getCandidateUniqueCloses(c);
         if (unCloses.length > 0 && unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id))) {
-          slot2Cand = { cand: c, unCloses };
-          break;
+          const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
+          const dom = Number(c.domainFit.toFixed(2));
+          const st = Number(c.stackFit.toFixed(2));
+          const rel = Number((cov * dom * st).toFixed(2));
+          if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+            slot2Cand = { cand: c, unCloses, cov, dom, st, rel };
+            break;
+          }
         }
       }
     }
 
-    // Otherwise take the highest-ranked remaining candidate with unique closes
+    // Otherwise take the highest-ranked remaining candidate with unique closes and meets post-dedupe threshold
     if (!slot2Cand) {
       for (const c of candidates) {
         if (c === selected[0].cand) continue;
         const unCloses = getCandidateUniqueCloses(c);
         if (unCloses.length > 0) {
-          slot2Cand = { cand: c, unCloses };
-          break;
+          const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
+          const dom = Number(c.domainFit.toFixed(2));
+          const st = Number(c.stackFit.toFixed(2));
+          const rel = Number((cov * dom * st).toFixed(2));
+          if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+            slot2Cand = { cand: c, unCloses, cov, dom, st, rel };
+            break;
+          }
         }
       }
     }
 
     if (slot2Cand) {
-      const cov = Number((gapSkills.length > 0 ? (slot2Cand.unCloses.length / gapSkills.length) : 0.5).toFixed(2));
-      const dom = Number(slot2Cand.cand.domainFit.toFixed(2));
-      const st = Number(slot2Cand.cand.stackFit.toFixed(2));
-      const rel = Number((cov * dom * st).toFixed(2));
       selected.push({
         cand: slot2Cand.cand,
         finalCloses: slot2Cand.unCloses,
-        recomputedGapCoverage: cov,
-        recomputedRelevance: rel,
+        recomputedGapCoverage: slot2Cand.cov,
+        recomputedRelevance: slot2Cand.rel,
       });
       for (const g of slot2Cand.unCloses) {
         handledGapIds.add(getCanonicalSkillId(g));
