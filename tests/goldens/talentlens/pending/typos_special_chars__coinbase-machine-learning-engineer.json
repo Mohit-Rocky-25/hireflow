@@ -52,13 +52,6 @@
         "System Design"
       ],
       "relevance": 0.76
-    },
-    {
-      "id": "brief-homomorphic-encryption",
-      "closes": [
-        "Application Security"
-      ],
-      "relevance": 0.09
     }
   ],
   "scorePathSteps": [
@@ -70,16 +63,16 @@
         "System Design"
       ],
       "beforeScore": 21,
-      "afterScore": 37,
-      "delta": 16
+      "afterScore": 55,
+      "delta": 34
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 37,
-      "afterScore": 42,
-      "delta": 5
+      "beforeScore": 55,
+      "afterScore": 68,
+      "delta": 13
     }
   ],
   "first3Rewrites": [

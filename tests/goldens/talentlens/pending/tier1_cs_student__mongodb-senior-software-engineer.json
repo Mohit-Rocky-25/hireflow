@@ -90,17 +90,17 @@
         "React"
       ],
       "beforeScore": 54,
-      "afterScore": 76,
-      "delta": 22
+      "afterScore": 56,
+      "delta": 2
     },
     {
       "skills": [
         "AWS",
         "Kubernetes"
       ],
-      "beforeScore": 76,
-      "afterScore": 78,
-      "delta": 2
+      "beforeScore": 56,
+      "afterScore": 57,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

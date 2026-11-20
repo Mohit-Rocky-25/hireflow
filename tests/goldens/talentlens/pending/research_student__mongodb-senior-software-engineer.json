@@ -73,13 +73,6 @@
         "Databases & SQL"
       ],
       "relevance": 0.64
-    },
-    {
-      "id": "brief-event-recon",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.16
     }
   ],
   "scorePathSteps": [
@@ -91,23 +84,23 @@
         "Databases & SQL"
       ],
       "beforeScore": 30,
-      "afterScore": 43,
-      "delta": 13
+      "afterScore": 44,
+      "delta": 14
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 43,
-      "afterScore": 47,
+      "beforeScore": 44,
+      "afterScore": 48,
       "delta": 4
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 47,
-      "afterScore": 50,
+      "beforeScore": 48,
+      "afterScore": 51,
       "delta": 3
     }
   ],

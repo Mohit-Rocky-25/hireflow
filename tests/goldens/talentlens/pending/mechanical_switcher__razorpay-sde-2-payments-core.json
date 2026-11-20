@@ -48,11 +48,11 @@
       "relevance": 0.3
     },
     {
-      "id": "brief-dag-task-runner",
+      "id": "brief-double-entry-ledger",
       "closes": [
         "System Design"
       ],
-      "relevance": 0.15
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
@@ -62,16 +62,16 @@
         "Application Security"
       ],
       "beforeScore": 26,
-      "afterScore": 46,
-      "delta": 20
+      "afterScore": 34,
+      "delta": 8
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 46,
-      "afterScore": 53,
-      "delta": 7
+      "beforeScore": 34,
+      "afterScore": 38,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

@@ -74,13 +74,6 @@
         "Application Security"
       ],
       "relevance": 0.86
-    },
-    {
-      "id": "brief-spring-enterprise-rbac",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
@@ -94,24 +87,24 @@
         "Application Security"
       ],
       "beforeScore": 28,
-      "afterScore": 55,
-      "delta": 27
+      "afterScore": 51,
+      "delta": 23
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 55,
-      "afterScore": 58,
-      "delta": 3
+      "beforeScore": 51,
+      "afterScore": 56,
+      "delta": 5
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 58,
+      "beforeScore": 56,
       "afterScore": 60,
-      "delta": 2
+      "delta": 4
     }
   ],
   "first3Rewrites": [

@@ -91,16 +91,16 @@
         "System Design"
       ],
       "beforeScore": 21,
-      "afterScore": 43,
-      "delta": 22
+      "afterScore": 41,
+      "delta": 20
     },
     {
       "skills": [
         "Python",
         "React"
       ],
-      "beforeScore": 43,
-      "afterScore": 47,
+      "beforeScore": 41,
+      "afterScore": 45,
       "delta": 4
     }
   ],

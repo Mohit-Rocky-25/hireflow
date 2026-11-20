@@ -56,15 +56,15 @@
         "Concurrency"
       ],
       "beforeScore": 32,
-      "afterScore": 48,
-      "delta": 16
+      "afterScore": 54,
+      "delta": 22
     },
     {
       "skills": [
         "Systems"
       ],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "beforeScore": 54,
+      "afterScore": 55,
       "delta": 1
     }
   ],

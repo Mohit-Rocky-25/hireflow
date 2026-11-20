@@ -72,13 +72,6 @@
         "System Design"
       ],
       "relevance": 0.42
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
@@ -88,16 +81,16 @@
         "System Design"
       ],
       "beforeScore": 44,
-      "afterScore": 55,
-      "delta": 11
+      "afterScore": 48,
+      "delta": 4
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 55,
-      "afterScore": 58,
-      "delta": 3
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

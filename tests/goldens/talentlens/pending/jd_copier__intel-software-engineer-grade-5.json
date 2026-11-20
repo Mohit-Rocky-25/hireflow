@@ -60,23 +60,23 @@
         "Concurrency"
       ],
       "beforeScore": 29,
-      "afterScore": 58,
-      "delta": 29
+      "afterScore": 53,
+      "delta": 24
     },
     {
       "skills": [
         "Systems"
       ],
-      "beforeScore": 58,
-      "afterScore": 63,
-      "delta": 5
+      "beforeScore": 53,
+      "afterScore": 60,
+      "delta": 7
     },
     {
       "skills": [
         "DSA"
       ],
-      "beforeScore": 63,
-      "afterScore": 64,
+      "beforeScore": 60,
+      "afterScore": 61,
       "delta": 1
     }
   ],

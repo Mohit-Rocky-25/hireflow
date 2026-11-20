@@ -73,13 +73,6 @@
         "System Design"
       ],
       "relevance": 0.71
-    },
-    {
-      "id": "brief-event-recon",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
@@ -92,24 +85,24 @@
         "System Design"
       ],
       "beforeScore": 50,
-      "afterScore": 51,
-      "delta": 1
+      "afterScore": 58,
+      "delta": 8
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 51,
-      "afterScore": 53,
+      "beforeScore": 58,
+      "afterScore": 60,
       "delta": 2
     },
     {
       "skills": [
         "Python"
       ],
-      "beforeScore": 53,
-      "afterScore": 57,
-      "delta": 4
+      "beforeScore": 60,
+      "afterScore": 61,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

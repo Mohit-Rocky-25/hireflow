@@ -73,13 +73,6 @@
         "System Design"
       ],
       "relevance": 0.34
-    },
-    {
-      "id": "brief-saga-orchestrator",
-      "closes": [
-        "TypeScript"
-      ],
-      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
@@ -92,24 +85,24 @@
         "System Design"
       ],
       "beforeScore": 34,
-      "afterScore": 46,
-      "delta": 12
-    },
-    {
-      "skills": [
-        "TypeScript"
-      ],
-      "beforeScore": 46,
-      "afterScore": 49,
-      "delta": 3
+      "afterScore": 40,
+      "delta": 6
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 49,
-      "afterScore": 52,
-      "delta": 3
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

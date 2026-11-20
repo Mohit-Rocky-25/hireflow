@@ -68,16 +68,16 @@
         "Machine Learning"
       ],
       "beforeScore": 60,
-      "afterScore": 64,
-      "delta": 4
+      "afterScore": 62,
+      "delta": 2
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 64,
-      "afterScore": 66,
-      "delta": 2
+      "beforeScore": 62,
+      "afterScore": 63,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

@@ -46,11 +46,11 @@
       "relevance": 0.3
     },
     {
-      "id": "brief-dag-task-runner",
+      "id": "brief-double-entry-ledger",
       "closes": [
         "System Design"
       ],
-      "relevance": 0.15
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [

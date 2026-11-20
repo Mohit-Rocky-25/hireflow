@@ -73,13 +73,6 @@
         "System Design"
       ],
       "relevance": 0.8
-    },
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python"
-      ],
-      "relevance": 0.1
     }
   ],
   "scorePathSteps": [
@@ -91,16 +84,8 @@
         "System Design"
       ],
       "beforeScore": 45,
-      "afterScore": 62,
-      "delta": 17
-    },
-    {
-      "skills": [
-        "Python"
-      ],
-      "beforeScore": 62,
-      "afterScore": 64,
-      "delta": 2
+      "afterScore": 50,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

@@ -53,13 +53,6 @@
         "Machine Learning"
       ],
       "relevance": 0.7
-    },
-    {
-      "id": "brief-homomorphic-encryption",
-      "closes": [
-        "Application Security"
-      ],
-      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
@@ -70,24 +63,24 @@
         "Machine Learning"
       ],
       "beforeScore": 34,
-      "afterScore": 48,
-      "delta": 14
+      "afterScore": 57,
+      "delta": 23
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 48,
-      "afterScore": 54,
-      "delta": 6
+      "beforeScore": 57,
+      "afterScore": 65,
+      "delta": 8
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 54,
-      "afterScore": 57,
-      "delta": 3
+      "beforeScore": 65,
+      "afterScore": 71,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

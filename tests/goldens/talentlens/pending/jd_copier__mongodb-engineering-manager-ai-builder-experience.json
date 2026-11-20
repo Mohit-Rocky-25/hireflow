@@ -72,14 +72,6 @@
         "DevOps & CI/CD"
       ],
       "relevance": 0.54
-    },
-    {
-      "id": "brief-multitenant-saas-rls",
-      "closes": [
-        "React",
-        "TypeScript"
-      ],
-      "relevance": 0.14
     }
   ],
   "scorePathSteps": [
@@ -91,33 +83,40 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 23,
-      "afterScore": 48,
-      "delta": 25
-    },
-    {
-      "skills": [
-        "React",
-        "TypeScript"
-      ],
-      "beforeScore": 48,
-      "afterScore": 54,
-      "delta": 6
+      "afterScore": 42,
+      "delta": 19
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 45,
+      "afterScore": 50,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 50,
+      "afterScore": 56,
+      "delta": 6
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 55,
-      "afterScore": 57,
-      "delta": 2
+      "beforeScore": 56,
+      "afterScore": 60,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

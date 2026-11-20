@@ -62,15 +62,15 @@
         "System Design"
       ],
       "beforeScore": 35,
-      "afterScore": 46,
-      "delta": 11
+      "afterScore": 40,
+      "delta": 5
     },
     {
       "skills": [
         "Node.js"
       ],
-      "beforeScore": 46,
-      "afterScore": 47,
+      "beforeScore": 40,
+      "afterScore": 41,
       "delta": 1
     }
   ],

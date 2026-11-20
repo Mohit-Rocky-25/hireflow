@@ -60,15 +60,15 @@
         "DSA"
       ],
       "beforeScore": 32,
-      "afterScore": 33,
-      "delta": 1
+      "afterScore": 35,
+      "delta": 3
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 33,
-      "afterScore": 36,
+      "beforeScore": 35,
+      "afterScore": 38,
       "delta": 3
     }
   ],

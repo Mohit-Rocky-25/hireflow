@@ -90,24 +90,24 @@
         "System Design"
       ],
       "beforeScore": 38,
-      "afterScore": 43,
-      "delta": 5
+      "afterScore": 42,
+      "delta": 4
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 43,
-      "afterScore": 46,
-      "delta": 3
+      "beforeScore": 42,
+      "afterScore": 44,
+      "delta": 2
     },
     {
       "skills": [
         "Python"
       ],
-      "beforeScore": 46,
-      "afterScore": 49,
-      "delta": 3
+      "beforeScore": 44,
+      "afterScore": 46,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

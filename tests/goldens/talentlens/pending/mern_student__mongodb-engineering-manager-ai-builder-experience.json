@@ -73,13 +73,6 @@
         "System Design"
       ],
       "relevance": 0.6
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.1
     }
   ],
   "scorePathSteps": [

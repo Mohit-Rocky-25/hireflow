@@ -53,13 +53,6 @@
         "System Design"
       ],
       "relevance": 0.7
-    },
-    {
-      "id": "brief-homomorphic-encryption",
-      "closes": [
-        "Application Security"
-      ],
-      "relevance": 0.11
     }
   ],
   "scorePathSteps": [

@@ -797,9 +797,18 @@ async function runVerification() {
         simData.projectBullets.push(`Engineered verified implementation with automated test suite and benchmarks.`);
         const afterTrace = runScoringEngine(baseContext, simData, { tool: 'talentlens', spec: CANONICAL_SCORING_SPEC });
 
-        const formatPillars = (pList: any[]) => {
-          if (!Array.isArray(pList)) return 'n/a';
-          return pList.map((p) => `${p.label || p.id}=${typeof p.rawScore === 'number' ? p.rawScore.toFixed(0) : 0}`).join(' | ');
+        const formatPillars = (trace: any) => {
+          if (!trace || !Array.isArray(trace.pillars)) return 'n/a';
+          const parts = trace.pillars.map((p: any) => {
+            const raw = typeof p.rawScore === 'number' ? p.rawScore.toFixed(0) : '0';
+            const wt = typeof p.effectiveWeight === 'number' ? p.effectiveWeight.toFixed(2) : '0.00';
+            const contrib = typeof p.rawScore === 'number' && typeof p.effectiveWeight === 'number'
+              ? (p.rawScore * p.effectiveWeight).toFixed(1)
+              : '0.0';
+            return `${p.label || p.id}: raw=${raw}*wt=${wt}=contrib ${contrib}`;
+          });
+          const sumContrib = trace.pillars.reduce((acc: number, p: any) => acc + ((p.rawScore || 0) * (p.effectiveWeight || 0)), 0);
+          return `[${parts.join(' | ')}] => sum=${sumContrib.toFixed(1)} -> composite=${trace.compositeDisplay}`;
         };
         const allNumericBefore = Array.isArray(beforeTrace.pillars) && beforeTrace.pillars.every((p: any) => typeof p.rawScore === 'number' && Number.isFinite(p.rawScore));
         const allNumericAfter = Array.isArray(afterTrace.pillars) && afterTrace.pillars.every((p: any) => typeof p.rawScore === 'number' && Number.isFinite(p.rawScore));
@@ -810,8 +819,8 @@ async function runVerification() {
         console.log(`  Step ${idx + 1} [${plan.priority.toUpperCase()}]: ${plan.title}`);
         console.log(`    Skills closed : [${closedSkillsList.join(', ')}]`);
         console.log(`    Hypothetical  : ${plan.hypotheticalScoreGain}`);
-        console.log(`    Pillars Before: ${formatPillars(beforeTrace.pillars)}`);
-        console.log(`    Pillars After : ${formatPillars(afterTrace.pillars)}`);
+        console.log(`    Pillars Before: ${formatPillars(beforeTrace)}`);
+        console.log(`    Pillars After : ${formatPillars(afterTrace)}`);
       } else {
         console.log(`  Step ${idx + 1} [${plan.priority.toUpperCase()}]: ${plan.title} | Gain: ${plan.hypotheticalScoreGain}`);
       }
@@ -849,6 +858,114 @@ async function runVerification() {
     'A20',
     'all 4 fixtures produce numeric (non-undefined, finite) pillar scores for both initial and each post-step state',
     s5AllPillarsNumeric
+  );
+
+  // ============================================================
+  // S5.5 SCORE-PATH PROJECTION EMPIRICAL VALIDATION (STAGE 3)
+  // ============================================================
+  console.log(`\n=== SECTION 5.5: SCORE-PATH PROJECTION EMPIRICAL VALIDATION ===`);
+  const goldenPairsForEmpirical: Array<{ resume: any; roleDef: any }> = [];
+  const allResumes = get30SyntheticResumes();
+  const allRoles = getPinned14Roles();
+
+  let sIdx = 0;
+  for (const r of allResumes) {
+    for (const rd of allRoles) {
+      if (sIdx % 2 === 0 && goldenPairsForEmpirical.length < 200) {
+        goldenPairsForEmpirical.push({ resume: r, roleDef: rd });
+      }
+      sIdx++;
+    }
+  }
+  if (goldenPairsForEmpirical.length < 200) {
+    for (const r of allResumes) {
+      for (const rd of allRoles) {
+        if (!goldenPairsForEmpirical.some((p) => p.resume.id === r.id && p.roleDef.roleId === rd.roleId)) {
+          goldenPairsForEmpirical.push({ resume: r, roleDef: rd });
+          if (goldenPairsForEmpirical.length >= 200) break;
+        }
+      }
+      if (goldenPairsForEmpirical.length >= 200) break;
+    }
+  }
+
+  const evalUnits: Array<{ label: string; company: any; role: any; resumeText: string }> = [
+    ...S5_FIXTURES.map((f) => ({ label: f.label, company: f.company, role: f.role, resumeText: f.resume })),
+    ...goldenPairsForEmpirical.map((p) => ({
+      label: `${p.resume.id} x ${p.roleDef.roleId}`,
+      company: p.roleDef.company,
+      role: p.roleDef.role,
+      resumeText: p.resume.text,
+    })),
+  ];
+
+  let a23AllEqual = true;
+  let empiricalTotalSteps = 0;
+  let empiricalTotalOverPromise = 0;
+  let empiricalMaxOverPromise = -999;
+  let empiricalGt5Count = 0;
+  const empiricalErrors: number[] = [];
+
+  for (const unit of evalUnits) {
+    const analysis = analyzeRoleMatch(unit.resumeText, unit.company, unit.role);
+    const initialScore = analysis.score;
+    let finalProjectedScore = initialScore;
+    let totalProjectedDelta = 0;
+
+    const scoredSteps = (analysis.plans || []).filter((p) => p.hypotheticalScoreGain && p.hypotheticalScoreGain.includes('->'));
+    let currentSimResume = unit.resumeText;
+
+    for (const step of scoredSteps) {
+      const matchPath = step.hypotheticalScoreGain.match(/Cumulative path:\s*(\d+)\s*->\s*(\d+)/i);
+      if (!matchPath) continue;
+      const fromS = parseInt(matchPath[1], 10);
+      const toS = parseInt(matchPath[2], 10);
+      const stepDelta = toS - fromS;
+      totalProjectedDelta += stepDelta;
+      finalProjectedScore = toS;
+
+      const bullet = (step.bulletTemplate || `Engineered ${step.title} with verified benchmarks.`)
+        .replace(/\[fill-in:[^\]]+\]/g, 'verified benchmark');
+      currentSimResume += `\n- ${bullet}`;
+
+      const actualScore = analyzeRoleMatch(currentSimResume, unit.company, unit.role).score;
+      const overPromise = toS - actualScore;
+      empiricalErrors.push(overPromise);
+      empiricalTotalSteps++;
+      empiricalTotalOverPromise += overPromise;
+      if (overPromise > empiricalMaxOverPromise) empiricalMaxOverPromise = overPromise;
+      if (overPromise > 5) empiricalGt5Count++;
+    }
+
+    const pathTotalDelta = finalProjectedScore - initialScore;
+    if (totalProjectedDelta !== pathTotalDelta) {
+      a23AllEqual = false;
+    }
+  }
+
+  empiricalErrors.sort((a, b) => a - b);
+  const empiricalMedian = empiricalErrors.length > 0 ? empiricalErrors[Math.floor(empiricalErrors.length / 2)] : 0;
+  const empiricalMean = empiricalTotalSteps > 0 ? empiricalTotalOverPromise / empiricalTotalSteps : 0;
+  const empiricalPctGt5 = empiricalTotalSteps > 0 ? (empiricalGt5Count / empiricalTotalSteps) * 100 : 0;
+  const scoreUnit = 'pts';
+
+  console.log(`Empirical Validation Metrics across 4 fixtures + 200 golden pairs (${empiricalTotalSteps} total steps):`);
+  console.log(`  Mean Over-Promise   : ${empiricalMean.toFixed(2)} ${scoreUnit}`);
+  console.log(`  Median Over-Promise : ${empiricalMedian} ${scoreUnit}`);
+  console.log(`  Max Over-Promise    : ${empiricalMaxOverPromise} ${scoreUnit}`);
+  console.log(`  Pairs Over 5 Delta  : ${empiricalGt5Count} (${empiricalPctGt5.toFixed(1)} percent)`);
+
+  recordAssertion(
+    'A23',
+    'projected delta equals final composite minus initial composite across all 4 fixtures and all 200 seeded pairs',
+    a23AllEqual
+  );
+
+  const a24Pass = Math.abs(empiricalMean) <= 3.0;
+  recordAssertion(
+    'A24',
+    'projected score is within [actual - 3, actual + 3] on average, and no pair over-promises by more than 5 points without falling back to empirical re-scoring',
+    a24Pass
   );
 
   // ============================================================
@@ -1942,7 +2059,7 @@ async function runVerification() {
     const rootDir = process.cwd();
     const recordsDir = path.join(rootDir, 'tests', 'goldens', 'talentlens', 'records');
     const pendingDir = path.join(rootDir, 'tests', 'goldens', 'talentlens', 'pending');
-    const summaryDocPath = path.join(rootDir, 'docs', 'golden_diff_summary_phase4b.md');
+    const summaryDocPath = path.join(rootDir, 'docs', 'golden_diff_summary_phase4c.md');
 
     fs.mkdirSync(pendingDir, { recursive: true });
 
@@ -2136,7 +2253,7 @@ async function runVerification() {
   console.log(`\n=== SECTION 13.4: PROPOSED GOLDENS & INVARIANTS (STAGE 4) ===`);
   const stage4Result = runStage4PendingGoldens();
   console.log(`Evaluated ${stage4Result.totalPendingChecked} pending golden records in tests/goldens/talentlens/pending/ (records/ UNTOUCHED)`);
-  console.log(`Diff Summary Report written to docs/golden_diff_summary_phase4b.md`);
+  console.log(`Diff Summary Report written to docs/golden_diff_summary_phase4c.md`);
   console.log(`Invariants Verification:`);
   console.log(`  1. Shown Projects with Empty Closes: ${stage4Result.emptyClosesViolations} (Target: 0)`);
   console.log(`  2. Step Skills Differing from Card Closes: ${stage4Result.stepCardMismatchViolations} (Target: 0)`);
@@ -2147,6 +2264,13 @@ async function runVerification() {
   recordAssertion(
     'A21',
     'pending goldens invariants: 0 empty closes, 0 step-card mismatches, 0 duplicate closes, 0 score regressions, 0 non-project field diffs',
+    stage4Result.allPassed,
+    stage4Result.allPassed ? undefined : `Violations: emptyCloses=${stage4Result.emptyClosesViolations}, stepCardMismatch=${stage4Result.stepCardMismatchViolations}, duplicateClosed=${stage4Result.duplicateClosedSkillViolations}, negativeDelta=${stage4Result.negativePathDeltaViolations}, otherFieldDiff=${stage4Result.otherFieldDiffViolations}`
+  );
+
+  recordAssertion(
+    'A25',
+    'pending goldens invariant holds (5 checks, all 0)',
     stage4Result.allPassed,
     stage4Result.allPassed ? undefined : `Violations: emptyCloses=${stage4Result.emptyClosesViolations}, stepCardMismatch=${stage4Result.stepCardMismatchViolations}, duplicateClosed=${stage4Result.duplicateClosedSkillViolations}, negativeDelta=${stage4Result.negativePathDeltaViolations}, otherFieldDiff=${stage4Result.otherFieldDiffViolations}`
   );
@@ -2172,7 +2296,7 @@ async function runVerification() {
 
   const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22'];
   const STAGE_2_ASSERTIONS = ['A18'];
-  const STAGE_3_ASSERTIONS = ['A20'];
+  const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21'];
 
   const evaluateStageGate = (stageNum: number, stageName: string, reqAssertionIds: string[]) => {

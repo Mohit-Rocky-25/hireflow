@@ -74,13 +74,6 @@
         "Databases & SQL"
       ],
       "relevance": 0.4
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.09
     }
   ],
   "scorePathSteps": [
@@ -92,15 +85,15 @@
         "Databases & SQL"
       ],
       "beforeScore": 35,
-      "afterScore": 52,
-      "delta": 17
+      "afterScore": 40,
+      "delta": 5
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 52,
-      "afterScore": 54,
+      "beforeScore": 40,
+      "afterScore": 42,
       "delta": 2
     }
   ],

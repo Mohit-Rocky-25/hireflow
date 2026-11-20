@@ -53,13 +53,6 @@
         "Machine Learning"
       ],
       "relevance": 0.6
-    },
-    {
-      "id": "brief-devsecops-pipeline",
-      "closes": [
-        "Application Security"
-      ],
-      "relevance": 0.15
     }
   ],
   "scorePathSteps": [
@@ -69,16 +62,16 @@
         "Machine Learning"
       ],
       "beforeScore": 38,
-      "afterScore": 45,
-      "delta": 7
+      "afterScore": 53,
+      "delta": 15
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 45,
-      "afterScore": 51,
-      "delta": 6
+      "beforeScore": 53,
+      "afterScore": 60,
+      "delta": 7
     }
   ],
   "first3Rewrites": [

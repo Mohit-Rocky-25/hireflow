@@ -53,13 +53,6 @@
         "DevOps & CI/CD"
       ],
       "relevance": 0.7
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "System Design"
-      ],
-      "relevance": 0.13
     }
   ],
   "scorePathSteps": [
@@ -78,8 +71,8 @@
         "System Design"
       ],
       "beforeScore": 42,
-      "afterScore": 46,
-      "delta": 4
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

@@ -73,13 +73,6 @@
         "DevOps & CI/CD"
       ],
       "relevance": 0.38
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
@@ -90,16 +83,16 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 43,
-      "afterScore": 65,
-      "delta": 22
+      "afterScore": 48,
+      "delta": 5
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 65,
-      "afterScore": 67,
-      "delta": 2
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

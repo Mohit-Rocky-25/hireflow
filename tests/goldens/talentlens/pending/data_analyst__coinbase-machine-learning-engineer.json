@@ -53,13 +53,6 @@
         "System Design"
       ],
       "relevance": 0.69
-    },
-    {
-      "id": "brief-devsecops-pipeline",
-      "closes": [
-        "Application Security"
-      ],
-      "relevance": 0.11
     }
   ],
   "scorePathSteps": [
@@ -70,15 +63,15 @@
         "System Design"
       ],
       "beforeScore": 38,
-      "afterScore": 48,
-      "delta": 10
+      "afterScore": 49,
+      "delta": 11
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 48,
-      "afterScore": 53,
+      "beforeScore": 49,
+      "afterScore": 54,
       "delta": 5
     }
   ],

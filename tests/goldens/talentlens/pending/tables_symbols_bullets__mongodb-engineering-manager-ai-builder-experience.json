@@ -88,24 +88,24 @@
         "AWS"
       ],
       "beforeScore": 38,
-      "afterScore": 47,
-      "delta": 9
+      "afterScore": 41,
+      "delta": 3
     },
     {
       "skills": [
         "React",
         "TypeScript"
       ],
-      "beforeScore": 47,
-      "afterScore": 50,
+      "beforeScore": 41,
+      "afterScore": 44,
       "delta": 3
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 50,
-      "afterScore": 52,
+      "beforeScore": 44,
+      "afterScore": 46,
       "delta": 2
     }
   ],

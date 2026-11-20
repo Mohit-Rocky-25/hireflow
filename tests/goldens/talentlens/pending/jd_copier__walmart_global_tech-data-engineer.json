@@ -57,16 +57,16 @@
         "AWS"
       ],
       "beforeScore": 34,
-      "afterScore": 54,
-      "delta": 20
+      "afterScore": 66,
+      "delta": 32
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 54,
-      "afterScore": 57,
-      "delta": 3
+      "beforeScore": 66,
+      "afterScore": 71,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

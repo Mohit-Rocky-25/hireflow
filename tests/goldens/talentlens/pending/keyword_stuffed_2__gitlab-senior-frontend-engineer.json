@@ -72,14 +72,6 @@
         "Application Security"
       ],
       "relevance": 0.73
-    },
-    {
-      "id": "brief-kafka-order-saga",
-      "closes": [
-        "Java",
-        "System Design"
-      ],
-      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
@@ -93,17 +85,24 @@
         "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 39,
-      "delta": 20
+      "afterScore": 42,
+      "delta": 23
     },
     {
       "skills": [
-        "Java",
+        "Java"
+      ],
+      "beforeScore": 42,
+      "afterScore": 46,
+      "delta": 4
+    },
+    {
+      "skills": [
         "System Design"
       ],
-      "beforeScore": 39,
-      "afterScore": 44,
-      "delta": 5
+      "beforeScore": 46,
+      "afterScore": 47,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

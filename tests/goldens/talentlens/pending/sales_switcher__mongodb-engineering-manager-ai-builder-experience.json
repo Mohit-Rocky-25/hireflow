@@ -72,13 +72,6 @@
         "System Design"
       ],
       "relevance": 0.54
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.07
     }
   ],
   "scorePathSteps": [
@@ -90,32 +83,32 @@
         "System Design"
       ],
       "beforeScore": 30,
-      "afterScore": 42,
-      "delta": 12
+      "afterScore": 37,
+      "delta": 7
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 42,
-      "afterScore": 44,
-      "delta": 2
+      "beforeScore": 37,
+      "afterScore": 38,
+      "delta": 1
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 44,
-      "afterScore": 47,
-      "delta": 3
+      "beforeScore": 38,
+      "afterScore": 40,
+      "delta": 2
     },
     {
       "skills": [
         "TypeScript"
       ],
-      "beforeScore": 47,
-      "afterScore": 50,
-      "delta": 3
+      "beforeScore": 40,
+      "afterScore": 41,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

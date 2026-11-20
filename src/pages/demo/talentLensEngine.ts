@@ -988,28 +988,70 @@ export function generateImprovementPlan(
   const canonicalRoleLevel = normalizeLevel(roleLevel);
   const jdLevel = mapLevelToJdSeniority(canonicalRoleLevel);
 
+  // 1. Resolve role family from title and competencies
+  const compNames = Object.keys(reqLevels).join(' ').toLowerCase();
+  const title = (role?.title || '').toLowerCase();
+  let roleFamily: ScoringContext['roleFamily'] = 'General';
+  if (/frontend|react|ui|web/i.test(title) || /react|typescript/i.test(compNames)) {
+    roleFamily = 'Frontend';
+  } else if (/backend|api|server|cloud/i.test(title) || /java|golang|python|spring/i.test(compNames)) {
+    roleFamily = 'Backend';
+  } else if (/data|ml|ai|machine learning/i.test(title) || /ml|python|pytorch/i.test(compNames)) {
+    roleFamily = 'Data/ML';
+  } else if (/mobile|android|ios/i.test(title) || /kotlin|swift/i.test(compNames)) {
+    roleFamily = 'Mobile';
+  } else if (/devops|sre|infra/i.test(title) || /kubernetes|aws|docker/i.test(compNames)) {
+    roleFamily = 'DevOps';
+  }
+
+  // 2. Resolve archetype from company tier/industry
+  let archetype = 'product_mnc_gcc';
+  const canonicalTier = company?.tier ? normalizeTier(company.tier) : 'Enterprise';
+  const ind = (company?.industry || '').toLowerCase();
+  if (canonicalTier === 'Tier S' || /trading|hft|quantitative|quant|market making/i.test(ind)) {
+    archetype = 'quant_trading';
+  } else if (canonicalTier === 'FAANG' || canonicalTier === 'Tech Giant') {
+    archetype = 'big_tech_product';
+  } else if (canonicalTier === 'Unicorn' || /quick commerce|food tech|mobility/i.test(ind)) {
+    archetype = 'indian_high_growth';
+  } else if (canonicalTier === 'IT Services') {
+    archetype = 'service_track';
+  } else if (canonicalTier === 'Startup') {
+    archetype = 'early_growth_startup';
+  } else {
+    archetype = 'product_mnc_gcc';
+  }
+
+  let simulatedResumeText = resumeText || '';
+
   const computeNextScore = (newBullet: string, fallbackGain: number): { nextScore: number; stepGain: number; isRescored: boolean } => {
-    if (!simulatedResumeData) {
+    if (!resumeText) {
       const stepGain = fallbackGain;
       const nextScore = Math.min(100, cumulativeCurrent + stepGain);
       return { nextScore, stepGain, isRescored: false };
     }
-    simulatedResumeData.projectBullets.push(newBullet);
-    const context: ScoringContext = {
-      experienceLevel,
-      roleFamily: 'Backend',
+    simulatedResumeText += `\n- ${newBullet}`;
+    const nextResumeData = parseResumeToScoringInput(simulatedResumeText);
+    const nextEffectiveResumeData = getEffectiveResumeData(nextResumeData);
+    const nextProgression = detectProgressionSignals(simulatedResumeText);
+    const nextExpLevel = nextProgression.yearsOfExperience >= 2.0 ? '2+ yrs' : '0-2 yrs';
+
+    const nextContext: ScoringContext = {
+      experienceLevel: nextExpLevel,
+      roleFamily,
       jdPresent: true,
       confirmedRequirements,
       jdLevel,
-      archetype: 'indian_high_growth',
-      candidateYearsExperience: progression.yearsOfExperience,
-      requiredYearsExperience: experienceLevel === '2+ yrs' ? 2 : 0,
+      archetype,
+      candidateYearsExperience: nextProgression.yearsOfExperience,
+      requiredYearsExperience: nextExpLevel === '2+ yrs' ? 2 : 0,
     };
-    const rescoreTrace = runScoringEngine(context, simulatedResumeData, {
+    const rescoreTrace = runScoringEngine(nextContext, nextEffectiveResumeData, {
       tool: 'talentlens',
       spec: CANONICAL_SCORING_SPEC,
     });
-    const stepGain = Math.max(1, rescoreTrace.compositeDisplay - cumulativeCurrent);
+    const rescoredScore = rescoreTrace.compositeDisplay;
+    const stepGain = Math.max(1, rescoredScore - cumulativeCurrent);
     const nextScore = Math.min(100, cumulativeCurrent + stepGain);
     return { nextScore, stepGain, isRescored: true };
   };
@@ -1079,7 +1121,7 @@ export function generateImprovementPlan(
         `Engineered ${proj.title} using ${unclosedGaps.join(', ')} with automated unit test suite and benchmarks.`,
         fallback
       );
-      const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+      const gainLabel = isRescored ? `empirical re-score on simulated resume; path: ${cumulativeCurrent} -> ${nextScore}` : 'calibrated estimate, per action, not additive';
       const gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
@@ -1146,7 +1188,7 @@ export function generateImprovementPlan(
           `Implemented ${formatCompetencyName(b.competency)} production components with verified unit tests and benchmarks.`,
           fallback
         );
-        const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+        const gainLabel = isRescored ? `empirical re-score on simulated resume; path: ${cumulativeCurrent} -> ${nextScore}` : 'calibrated estimate, per action, not additive';
         gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
         cumulativeCurrent = nextScore;
       }
@@ -1201,7 +1243,7 @@ export function generateImprovementPlan(
         `Optimized ${b.competency.toUpperCase()} implementation with documented production metrics.`,
         2
       );
-      const gainLabel = isRescored ? 're-scored gain' : 'calibrated estimate, per action, not additive';
+      const gainLabel = isRescored ? `empirical re-score on simulated resume; path: ${cumulativeCurrent} -> ${nextScore}` : 'calibrated estimate, per action, not additive';
       const gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
       cumulativeCurrent = nextScore;
 
@@ -1254,7 +1296,6 @@ export function generateImprovementPlan(
   }
 
   // Tier guidance roadmap across all 10 canonical tiers
-  const canonicalTier = company.tier ? normalizeTier(company.tier) : 'Enterprise';
   const tierAdvice: Record<string, string> = {
     FAANG: `${company.name} screening pipeline typically evaluates algorithmic correctness, clean modular code, and behavioral depth. Current readiness estimate: ${score}%.`,
     'Tech Giant': `${company.name} evaluates large-scale distributed systems, system design trade-offs, and proven architectural fundamentals.`,

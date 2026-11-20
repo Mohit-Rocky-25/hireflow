@@ -60,22 +60,22 @@
         "C++"
       ],
       "beforeScore": 49,
-      "afterScore": 67,
-      "delta": 18
+      "afterScore": 51,
+      "delta": 2
     },
     {
       "skills": [
         "Systems"
       ],
-      "beforeScore": 67,
-      "afterScore": 69,
-      "delta": 2
+      "beforeScore": 51,
+      "afterScore": 52,
+      "delta": 1
     },
     {
       "skills": [],
-      "beforeScore": 69,
-      "afterScore": 75,
-      "delta": 6
+      "beforeScore": 52,
+      "afterScore": 53,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

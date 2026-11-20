@@ -75,11 +75,12 @@
       "relevance": 0.64
     },
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-realtime-stock-platform",
       "closes": [
-        "Python"
+        "Python",
+        "React"
       ],
-      "relevance": 0.08
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
@@ -91,23 +92,16 @@
         "System Design"
       ],
       "beforeScore": 34,
-      "afterScore": 46,
-      "delta": 12
+      "afterScore": 40,
+      "delta": 6
     },
     {
       "skills": [
-        "Python"
-      ],
-      "beforeScore": 46,
-      "afterScore": 48,
-      "delta": 2
-    },
-    {
-      "skills": [
+        "Python",
         "React"
       ],
-      "beforeScore": 48,
-      "afterScore": 51,
+      "beforeScore": 40,
+      "afterScore": 43,
       "delta": 3
     }
   ],

@@ -69,13 +69,6 @@
         "Application Security"
       ],
       "relevance": 0.7
-    },
-    {
-      "id": "brief-saga-orchestrator",
-      "closes": [
-        "System Design"
-      ],
-      "relevance": 0.12
     }
   ],
   "scorePathSteps": [
@@ -86,16 +79,8 @@
         "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 31,
-      "delta": 12
-    },
-    {
-      "skills": [
-        "System Design"
-      ],
-      "beforeScore": 31,
-      "afterScore": 32,
-      "delta": 1
+      "afterScore": 43,
+      "delta": 24
     }
   ],
   "first3Rewrites": [

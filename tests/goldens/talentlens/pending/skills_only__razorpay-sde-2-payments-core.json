@@ -60,24 +60,24 @@
         "System Design"
       ],
       "beforeScore": 14,
-      "afterScore": 34,
-      "delta": 20
+      "afterScore": 48,
+      "delta": 34
     },
     {
       "skills": [
         "Node.js"
       ],
-      "beforeScore": 34,
-      "afterScore": 36,
-      "delta": 2
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 36,
-      "afterScore": 42,
-      "delta": 6
+      "beforeScore": 49,
+      "afterScore": 61,
+      "delta": 12
     }
   ],
   "first3Rewrites": [

@@ -72,14 +72,6 @@
         "DevOps & CI/CD"
       ],
       "relevance": 0.54
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
-      "closes": [
-        "Go",
-        "System Design"
-      ],
-      "relevance": 0.14
     }
   ],
   "scorePathSteps": [
@@ -91,17 +83,24 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 41,
-      "afterScore": 45,
-      "delta": 4
+      "afterScore": 46,
+      "delta": 5
     },
     {
       "skills": [
-        "Go",
+        "Go"
+      ],
+      "beforeScore": 46,
+      "afterScore": 48,
+      "delta": 2
+    },
+    {
+      "skills": [
         "System Design"
       ],
-      "beforeScore": 45,
-      "afterScore": 50,
-      "delta": 5
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

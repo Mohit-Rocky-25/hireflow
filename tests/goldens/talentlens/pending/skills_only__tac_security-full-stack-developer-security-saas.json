@@ -38,13 +38,6 @@
         "Node.js"
       ],
       "relevance": 0.6
-    },
-    {
-      "id": "brief-react-native-offline",
-      "closes": [
-        "React"
-      ],
-      "relevance": 0.17
     }
   ],
   "scorePathSteps": [
@@ -54,16 +47,14 @@
         "Node.js"
       ],
       "beforeScore": 10,
-      "afterScore": 37,
-      "delta": 27
+      "afterScore": 42,
+      "delta": 32
     },
     {
-      "skills": [
-        "React"
-      ],
-      "beforeScore": 37,
-      "afterScore": 44,
-      "delta": 7
+      "skills": [],
+      "beforeScore": 42,
+      "afterScore": 47,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

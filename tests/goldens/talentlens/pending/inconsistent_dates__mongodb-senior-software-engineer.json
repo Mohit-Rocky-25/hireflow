@@ -89,16 +89,16 @@
         "Kubernetes"
       ],
       "beforeScore": 25,
-      "afterScore": 35,
-      "delta": 10
+      "afterScore": 30,
+      "delta": 5
     },
     {
       "skills": [
         "Python",
         "React"
       ],
-      "beforeScore": 35,
-      "afterScore": 41,
+      "beforeScore": 30,
+      "afterScore": 36,
       "delta": 6
     }
   ],

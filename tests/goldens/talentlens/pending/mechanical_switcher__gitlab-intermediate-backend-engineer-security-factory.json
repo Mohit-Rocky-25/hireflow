@@ -52,13 +52,6 @@
         "Application Security"
       ],
       "relevance": 0.76
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "System Design"
-      ],
-      "relevance": 0.1
     }
   ],
   "scorePathSteps": [
@@ -70,16 +63,16 @@
         "Application Security"
       ],
       "beforeScore": 34,
-      "afterScore": 54,
-      "delta": 20
+      "afterScore": 44,
+      "delta": 10
     },
     {
       "skills": [
         "System Design"
       ],
-      "beforeScore": 54,
-      "afterScore": 60,
-      "delta": 6
+      "beforeScore": 44,
+      "afterScore": 46,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

@@ -91,17 +91,17 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 49,
-      "afterScore": 72,
-      "delta": 23
+      "afterScore": 51,
+      "delta": 2
     },
     {
       "skills": [
         "React",
         "TypeScript"
       ],
-      "beforeScore": 72,
-      "afterScore": 77,
-      "delta": 5
+      "beforeScore": 51,
+      "afterScore": 52,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

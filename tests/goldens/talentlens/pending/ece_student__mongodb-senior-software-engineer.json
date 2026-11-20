@@ -73,11 +73,12 @@
       "relevance": 0.6
     },
     {
-      "id": "brief-event-recon",
+      "id": "brief-realtime-stock-platform",
       "closes": [
-        "Java"
+        "Python",
+        "React"
       ],
-      "relevance": 0.12
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
@@ -90,24 +91,25 @@
         "System Design"
       ],
       "beforeScore": 30,
-      "afterScore": 41,
-      "delta": 11
+      "afterScore": 37,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "Python",
+        "React"
+      ],
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 41,
-      "afterScore": 45,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "React"
-      ],
-      "beforeScore": 45,
-      "afterScore": 48,
-      "delta": 3
+      "beforeScore": 39,
+      "afterScore": 40,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

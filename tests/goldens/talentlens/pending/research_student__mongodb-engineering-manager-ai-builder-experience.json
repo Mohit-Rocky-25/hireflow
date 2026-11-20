@@ -74,13 +74,6 @@
         "DevOps & CI/CD"
       ],
       "relevance": 0.41
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
-      "closes": [
-        "Go"
-      ],
-      "relevance": 0.08
     }
   ],
   "scorePathSteps": [
@@ -93,15 +86,15 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 30,
-      "afterScore": 46,
-      "delta": 16
+      "afterScore": 47,
+      "delta": 17
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "beforeScore": 47,
+      "afterScore": 49,
       "delta": 2
     }
   ],

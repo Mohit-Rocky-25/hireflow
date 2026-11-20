@@ -55,16 +55,16 @@
         "Python"
       ],
       "beforeScore": 40,
-      "afterScore": 53,
-      "delta": 13
+      "afterScore": 52,
+      "delta": 12
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 53,
-      "afterScore": 56,
-      "delta": 3
+      "beforeScore": 52,
+      "afterScore": 60,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

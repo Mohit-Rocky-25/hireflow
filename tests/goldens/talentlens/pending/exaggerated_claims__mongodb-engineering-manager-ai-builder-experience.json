@@ -72,12 +72,12 @@
       "relevance": 0.46
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-interview-prep-ai",
       "closes": [
-        "Go",
+        "React",
         "System Design"
       ],
-      "relevance": 0.12
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
@@ -89,33 +89,33 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 23,
-      "afterScore": 37,
-      "delta": 14
+      "afterScore": 45,
+      "delta": 22
     },
     {
       "skills": [
-        "Go",
+        "React",
         "System Design"
       ],
-      "beforeScore": 37,
-      "afterScore": 42,
-      "delta": 5
+      "beforeScore": 45,
+      "afterScore": 54,
+      "delta": 9
     },
     {
       "skills": [
-        "React"
+        "Go"
       ],
-      "beforeScore": 42,
-      "afterScore": 45,
-      "delta": 3
+      "beforeScore": 54,
+      "afterScore": 58,
+      "delta": 4
     },
     {
       "skills": [
         "TypeScript"
       ],
-      "beforeScore": 45,
-      "afterScore": 48,
-      "delta": 3
+      "beforeScore": 58,
+      "afterScore": 63,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
