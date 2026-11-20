@@ -1,8 +1,105 @@
 {
   "fallback": 0.5,
+  "canonicalDomains": [
+    {
+      "id": "systems",
+      "name": "Systems Programming & Performance",
+      "aliases": [
+        "Systems Programming",
+        "Systems Programming & Performance"
+      ]
+    },
+    {
+      "id": "distributed_systems",
+      "name": "Distributed Systems & Architecture",
+      "aliases": [
+        "Distributed Systems",
+        "High-Scale Backend & Distributed Architecture"
+      ]
+    },
+    {
+      "id": "fintech",
+      "name": "FinTech & High-Integrity Systems",
+      "aliases": [
+        "FinTech Engineering",
+        "FinTech & High-Integrity Systems"
+      ]
+    },
+    {
+      "id": "fullstack_web",
+      "name": "Full-Stack Web Development",
+      "aliases": [
+        "Full-Stack Web"
+      ]
+    },
+    {
+      "id": "ml_ai",
+      "name": "Machine Learning & AI Engineering",
+      "aliases": [
+        "ML Engineering",
+        "AI/ML Applications",
+        "GenAI & LLM Engineering",
+        "Generative AI & LLMOps"
+      ]
+    },
+    {
+      "id": "data_engineering",
+      "name": "Data Engineering & Analytics Infra",
+      "aliases": [
+        "Data Engineering",
+        "Modern Data Engineering & Analytics Infra"
+      ]
+    },
+    {
+      "id": "devops_cloud",
+      "name": "Cloud Infrastructure & DevOps",
+      "aliases": [
+        "Platform & DevOps",
+        "Cloud Architecture & DevOps",
+        "Cloud Native & Containers",
+        "Cloud Infrastructure & Kubernetes",
+        "Cloud Native & DevOps Engineering"
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security & Cryptography",
+      "aliases": [
+        "Security & Platform",
+        "Cybersecurity & Defense",
+        "Applied Security & Cryptography"
+      ]
+    },
+    {
+      "id": "mobile",
+      "name": "Mobile Engineering & Cross-Platform",
+      "aliases": [
+        "Mobile Engineering",
+        "Mobile Engineering & Cross-Platform"
+      ]
+    },
+    {
+      "id": "cs_fundamentals",
+      "name": "Computer Science Fundamentals & Algorithms",
+      "aliases": [
+        "Computer Science Fundamentals",
+        "Algorithms & Applied Math"
+      ]
+    },
+    {
+      "id": "blockchain_web3",
+      "name": "Blockchain & Web3",
+      "aliases": [
+        "Blockchain & Web3"
+      ]
+    }
+  ],
   "roleFamilies": [
     {
       "roleFamily": "embedded",
+      "compatibleDomainIds": [
+        "systems"
+      ],
       "compatibleProjectDomains": [
         "Systems Programming",
         "Systems Programming & Performance"
@@ -10,6 +107,9 @@
     },
     {
       "roleFamily": "fintech",
+      "compatibleDomainIds": [
+        "fintech"
+      ],
       "compatibleProjectDomains": [
         "FinTech Engineering",
         "FinTech & High-Integrity Systems"
@@ -17,6 +117,12 @@
     },
     {
       "roleFamily": "backend",
+      "compatibleDomainIds": [
+        "distributed_systems",
+        "systems",
+        "fintech",
+        "cs_fundamentals"
+      ],
       "compatibleProjectDomains": [
         "Distributed Systems",
         "High-Scale Backend & Distributed Architecture",
@@ -30,12 +136,18 @@
     },
     {
       "roleFamily": "frontend",
+      "compatibleDomainIds": [
+        "fullstack_web"
+      ],
       "compatibleProjectDomains": [
         "Full-Stack Web"
       ]
     },
     {
       "roleFamily": "ml",
+      "compatibleDomainIds": [
+        "ml_ai"
+      ],
       "compatibleProjectDomains": [
         "ML Engineering",
         "AI/ML Applications",
@@ -45,6 +157,10 @@
     },
     {
       "roleFamily": "data",
+      "compatibleDomainIds": [
+        "data_engineering",
+        "distributed_systems"
+      ],
       "compatibleProjectDomains": [
         "Data Engineering",
         "Modern Data Engineering & Analytics Infra",
@@ -53,6 +169,10 @@
     },
     {
       "roleFamily": "devops",
+      "compatibleDomainIds": [
+        "devops_cloud",
+        "distributed_systems"
+      ],
       "compatibleProjectDomains": [
         "Platform & DevOps",
         "Cloud Architecture & DevOps",
@@ -64,6 +184,9 @@
     },
     {
       "roleFamily": "security",
+      "compatibleDomainIds": [
+        "security"
+      ],
       "compatibleProjectDomains": [
         "Security & Platform",
         "Cybersecurity & Defense",
@@ -72,6 +195,9 @@
     },
     {
       "roleFamily": "mobile",
+      "compatibleDomainIds": [
+        "mobile"
+      ],
       "compatibleProjectDomains": [
         "Mobile Engineering",
         "Mobile Engineering & Cross-Platform"
@@ -79,6 +205,11 @@
     },
     {
       "roleFamily": "qa",
+      "compatibleDomainIds": [
+        "fullstack_web",
+        "devops_cloud",
+        "cs_fundamentals"
+      ],
       "compatibleProjectDomains": [
         "Full-Stack Web",
         "Platform & DevOps",
@@ -87,6 +218,12 @@
     },
     {
       "roleFamily": "general",
+      "compatibleDomainIds": [
+        "cs_fundamentals",
+        "distributed_systems",
+        "fullstack_web",
+        "systems"
+      ],
       "compatibleProjectDomains": [
         "Computer Science Fundamentals",
         "Distributed Systems",
