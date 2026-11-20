@@ -1793,104 +1793,148 @@ async function runVerification() {
     a17Pass ? undefined : `Only ${s5FixtureCandidateRankingsCount}/${S5_FIXTURES.length} fixtures printed candidate rankings`
   );
 
-  // Stage 3: Normalize Letter-Spaced Brief Text (Requirements 3.1 - 3.5, Assertion A18)
-  console.log(`\n=== SECTION 13.3: BRIEF TEXT LETTER-SPACING AUDIT & NORMALIZATION ===`);
+  // Stage 2 (Phase 4C): Letter-Spaced Brief Text Fixed in Runtime Data Source (Assertion A18)
+  console.log(`\n=== SECTION 13.3: BRIEF TEXT LETTER-SPACING AUDIT & RUNTIME DATA SOURCE FIX ===`);
+
+  // Section 2.1: Print git commit dd6369b3 diff stat, export paths, and runtime import
+  console.log(`\n--- 2.1 Investigation: Commit dd6369b3 and Brief Data Flow ---`);
+  let commitDiffStat = '';
+  try {
+    commitDiffStat = execSync('git show --stat dd6369b3', { encoding: 'utf8' });
+  } catch (err: any) {
+    commitDiffStat = err?.message || 'git show failed';
+  }
+  console.log(`Commit dd6369b3 diff stat:\n${commitDiffStat.trim()}`);
+  console.log(`\nBrief Export and Loading File Paths:`);
+  console.log(`  - Primary Data Store: src/data/suite/project-briefs.json`);
+  console.log(`  - Feature Bundler   : src/features/suite/briefs/bundleBriefs.ts`);
+  console.log(`  - Matcher Engine    : src/pages/demo/engine/projectMatcherIntegrity.ts`);
+  console.log(`  - Concept Validator : src/pages/demo/engine/conceptTagValidator.ts`);
+  console.log(`  - Report Validator  : src/pages/demo/engine/reportValidator.ts`);
+  console.log(`Runtime import actually used by analyzeRoleMatch:`);
+  console.log(`  src/pages/demo/engine/projectMatcherIntegrity.ts lines 14, 78:`);
+  console.log(`    import briefsData from '../../../data/suite/project-briefs.json';`);
+  console.log(`    const ALL_BRIEFS: ProjectBrief[] = briefsData as ProjectBrief[];`);
+
+  // Section 2.2: Run assertion A18's scan against the exact object imported at runtime (ALL_BRIEFS)
+  console.log(`\n--- 2.2 Runtime Object Letter-Spacing Scan (ALL_BRIEFS) ---`);
   const letterSpacedPattern = /(?:[a-zA-Z0-9]\s+){4,}[a-zA-Z0-9]/;
-  const letterSpacedFindings: Array<{ briefId: string; field: string; match: string; before: string; after: string }> = [];
+  const runtimeLetterSpacedFindings: Array<{ briefId: string; field: string; match: string; text: string }> = [];
 
-  const rawBriefsJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/data/suite/project-briefs.json'), 'utf8'));
-  let briefTextChangedCount = 0;
+  for (const b of allBriefs) {
+    const scanValue = (val: any, fieldPath: string) => {
+      if (typeof val === 'string') {
+        const m = val.match(letterSpacedPattern);
+        if (m) runtimeLetterSpacedFindings.push({ briefId: b.id, field: fieldPath, match: m[0], text: val });
+      } else if (Array.isArray(val)) {
+        val.forEach((item, idx) => {
+          if (typeof item === 'string') {
+            const m = item.match(letterSpacedPattern);
+            if (m) runtimeLetterSpacedFindings.push({ briefId: b.id, field: `${fieldPath}[${idx}]`, match: m[0], text: item });
+          }
+        });
+      }
+    };
+    for (const [k, v] of Object.entries(b)) {
+      scanValue(v, k);
+    }
+  }
+  console.log(`Matches found in runtime ALL_BRIEFS raw data: ${runtimeLetterSpacedFindings.length}`);
+  runtimeLetterSpacedFindings.forEach((f) => {
+    console.log(`  Brief: ${f.briefId} | Field: ${f.field} | Match: "${f.match}"`);
+  });
 
-  const stage3ConceptCountsBefore: Record<string, number> = {};
-  for (const b of rawBriefsJson) {
-    const { vettedConceptTags } = validateBriefConcepts(b);
-    for (const tag of vettedConceptTags) {
-      stage3ConceptCountsBefore[tag] = (stage3ConceptCountsBefore[tag] || 0) + 1;
+  // Section 2.3: Trace the string to its actual runtime source
+  console.log(`\n--- 2.3 Root Cause Analysis & Trace of Letter-Spaced String ---`);
+  const urlShortenerBrief = allBriefs.find((b) => b.id === 'brief-multi-region-url-shortener');
+  console.log(`Trace of "5   t r i l l i o n   u n i q u e   7 - c h a r a c t e r   B a s e 6 2   c o m b i n a t i o n s":`);
+  console.log(`  In src/data/suite/project-briefs.json:`);
+  console.log(`    scaleTargets is a STRING: "${(urlShortenerBrief?.scaleTargets || '').slice(0, 75)}..."`);
+  console.log(`    Letter-spaced pattern test on raw scaleTargets: ${letterSpacedPattern.test(urlShortenerBrief?.scaleTargets || '') ? 'MATCH' : 'NO MATCH (0 letter-spacing in JSON)'}`);
+  console.log(`  In src/pages/demo/engine/conceptTagValidator.ts:325-326 (BEFORE fix):`);
+  console.log(`    extractCleanBriefEvidence used:`);
+  console.log(`      if (brief.useCases) parts.push(...brief.useCases);`);
+  console.log(`      if (brief.scaleTargets) parts.push(...brief.scaleTargets);`);
+  console.log(`    Because scaleTargets and useCases are strings, spreading them (...string) pushed individual characters into parts.`);
+  console.log(`    Then parts.join(' ') joined character elements with spaces, manufacturing letter-spaced strings at runtime.`);
+
+  // Section 2.4: Apply the fix at the real source and test for consecutive single-character tokens
+  console.log(`\n--- 2.4 Fix Verification & Consecutive Single-Character Tokens Test ---`);
+  console.log(`Fix applied in src/pages/demo/engine/conceptTagValidator.ts:`);
+  console.log(`  Replaced string spread with Array.isArray checks:`);
+  console.log(`    Array.isArray(brief.useCases) ? parts.push(...brief.useCases) : parts.push(brief.useCases);`);
+  console.log(`    Array.isArray(brief.scaleTargets) ? parts.push(...brief.scaleTargets) : parts.push(brief.scaleTargets);`);
+
+  function hasFiveConsecutiveSingleCharTokens(text: string): boolean {
+    const tokens = text.split(/\s+/).filter(Boolean);
+    let consecutive = 0;
+    for (const t of tokens) {
+      if (t.length === 1 && /[a-zA-Z0-9]/.test(t)) {
+        consecutive++;
+        if (consecutive >= 5) return true;
+      } else {
+        consecutive = 0;
+      }
+    }
+    return false;
+  }
+
+  const singleCharViolations: Array<{ source: string; text: string }> = [];
+
+  // Check 1: Sentences in concept validation
+  for (const b of allBriefs) {
+    const { matchedSentences } = validateBriefConcepts(b);
+    for (const [tag, sentence] of Object.entries(matchedSentences || {})) {
+      if (hasFiveConsecutiveSingleCharTokens(sentence)) {
+        singleCharViolations.push({ source: `ConceptValidation:${b.id}:${tag}`, text: sentence });
+      }
+    }
+    const cleanEv = extractCleanBriefEvidence(b);
+    if (hasFiveConsecutiveSingleCharTokens(cleanEv)) {
+      singleCharViolations.push({ source: `CleanEvidence:${b.id}`, text: cleanEv });
     }
   }
 
-  const normalizedBriefs = rawBriefsJson.map((b: any) => {
-    let modified = false;
-    const norm = normalizeBriefStrings(b);
+  // Check 2: All string fields in ALL_BRIEFS
+  for (const b of allBriefs) {
     for (const [k, v] of Object.entries(b)) {
-      if (typeof v === 'string') {
-        const m = v.match(letterSpacedPattern);
-        if (m) {
-          letterSpacedFindings.push({ briefId: b.id, field: k, match: m[0], before: v, after: norm[k] });
-          modified = true;
-        }
+      if (typeof v === 'string' && hasFiveConsecutiveSingleCharTokens(v)) {
+        singleCharViolations.push({ source: `BriefField:${b.id}:${k}`, text: v });
       } else if (Array.isArray(v)) {
-        v.forEach((item, itemIdx) => {
-          if (typeof item === 'string') {
-            const m = item.match(letterSpacedPattern);
-            if (m) {
-              letterSpacedFindings.push({ briefId: b.id, field: `${k}[${itemIdx}]`, match: m[0], before: item, after: norm[k][itemIdx] });
-              modified = true;
-            }
+        v.forEach((item, idx) => {
+          if (typeof item === 'string' && hasFiveConsecutiveSingleCharTokens(item)) {
+            singleCharViolations.push({ source: `BriefArrayField:${b.id}:${k}[${idx}]`, text: item });
           }
         });
       }
     }
-    if (modified) briefTextChangedCount++;
-    return norm;
-  });
-
-  console.log(`Letter-spaced sequences found: ${letterSpacedFindings.length} across ${briefTextChangedCount} briefs`);
-  if (letterSpacedFindings.length > 0) {
-    letterSpacedFindings.forEach((f) => {
-      console.log(`  Brief: ${f.briefId} | Field: ${f.field}`);
-      console.log(`    Before: ${f.before}`);
-      console.log(`    After : ${f.after}`);
-    });
-    // Write normalized briefs back to disk (Requirement 3.4)
-    fs.writeFileSync(
-      path.resolve(process.cwd(), 'src/data/suite/project-briefs.json'),
-      JSON.stringify(normalizedBriefs, null, 2) + '\n',
-      'utf8'
-    );
-    console.log(`Updated src/data/suite/project-briefs.json with normalized text.`);
   }
 
-  // 3.5 Re-run concept tag validation and print per-concept tag count changes
-  const stage3ConceptCountsAfter: Record<string, number> = {};
-  for (const b of normalizedBriefs) {
+  console.log(`Consecutive Single-Character Violations (>= 5 tokens): ${singleCharViolations.length}`);
+  if (singleCharViolations.length > 0) {
+    singleCharViolations.forEach((v) => console.error(`  [VIOLATION] ${v.source}: "${v.text.slice(0, 80)}..."`));
+  }
+
+  // Section 2.5: Re-run concept validation on the fixed briefs and print per-concept count changes
+  console.log(`\n--- 2.5 Concept Counts Post-Fix ---`);
+  const conceptCountsPostFix: Record<string, number> = {};
+  for (const b of allBriefs) {
     const { vettedConceptTags } = validateBriefConcepts(b);
     for (const tag of vettedConceptTags) {
-      stage3ConceptCountsAfter[tag] = (stage3ConceptCountsAfter[tag] || 0) + 1;
+      conceptCountsPostFix[tag] = (conceptCountsPostFix[tag] || 0) + 1;
     }
   }
-
-  console.log(`Per-Concept Tag Counts Post-Normalization:`);
-  const allConceptKeys = Array.from(new Set([...Object.keys(stage3ConceptCountsBefore), ...Object.keys(stage3ConceptCountsAfter)])).sort();
-  allConceptKeys.forEach((k) => {
-    const before = stage3ConceptCountsBefore[k] || 0;
-    const after = stage3ConceptCountsAfter[k] || 0;
-    const delta = after - before;
-    console.log(`  ${k.padEnd(25)}: ${before} -> ${after} (delta: ${delta >= 0 ? `+${delta}` : delta})`);
-  });
-
-  // A18 Computed scan: verify zero letter-spaced sequences matching /(?:[a-zA-Z0-9]\s+){4,}[a-zA-Z0-9]/ remain in any string field of project-briefs.json
-  let remainingLetterSpacedCount = 0;
-  for (const b of normalizedBriefs) {
-    const checkStr = (s: string) => {
-      if (letterSpacedPattern.test(s)) remainingLetterSpacedCount++;
-    };
-    for (const v of Object.values(b)) {
-      if (typeof v === 'string') checkStr(v as string);
-      else if (Array.isArray(v)) {
-        for (const item of v) {
-          if (typeof item === 'string') checkStr(item);
-        }
-      }
-    }
+  for (const cd of CONCEPT_DEFINITIONS) {
+    const count = conceptCountsPostFix[cd.label] || 0;
+    console.log(`  ${cd.label.padEnd(25)}: ${count} briefs`);
   }
 
-  const a18Pass = remainingLetterSpacedCount === 0;
+  const a18Pass = runtimeLetterSpacedFindings.length === 0 && singleCharViolations.length === 0;
   recordAssertion(
     'A18',
-    'zero letter-spaced sequences matching /(?:[a-zA-Z0-9]\\s+){4,}[a-zA-Z0-9]/ remain in any string field of project-briefs.json',
+    'zero letter-spaced sequences in runtime brief text and zero sentences with 5 or more consecutive single-character tokens',
     a18Pass,
-    a18Pass ? undefined : `Found ${remainingLetterSpacedCount} remaining letter-spaced sequences`
+    a18Pass ? undefined : `runtimeFindings=${runtimeLetterSpacedFindings.length}, singleCharViolations=${singleCharViolations.length}`
   );
 
   // Helper for Stage 4.4 & 4.5: Pending Goldens Generator & Invariant Checker
@@ -2120,16 +2164,16 @@ async function runVerification() {
   }
 
   // ============================================================
-  // STAGE GATES (PHASE 4B)
+  // STAGE GATES (PHASE 4C)
   // ============================================================
   console.log(`\n============================================================`);
   console.log(`STAGE GATES:`);
   console.log(`============================================================`);
 
   const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22'];
-  const STAGE_2_ASSERTIONS = ['A15', 'A16', 'A17'];
-  const STAGE_3_ASSERTIONS = ['A18'];
-  const STAGE_4_ASSERTIONS = ['A19', 'A20', 'A21'];
+  const STAGE_2_ASSERTIONS = ['A18'];
+  const STAGE_3_ASSERTIONS = ['A20'];
+  const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21'];
 
   const evaluateStageGate = (stageNum: number, stageName: string, reqAssertionIds: string[]) => {
     const stageAsserts = ASSERTIONS_LOG.filter((a) => reqAssertionIds.includes(a.id));
@@ -2144,10 +2188,10 @@ async function runVerification() {
     return allPass;
   };
 
-  evaluateStageGate(1, 'Canonical Skill IDs, Consistent Closes, No Empty Project Cards', STAGE_1_ASSERTIONS);
-  evaluateStageGate(2, 'Table-Driven Domain Fit', STAGE_2_ASSERTIONS);
-  evaluateStageGate(3, 'Normalize Letter-Spaced Brief Text', STAGE_3_ASSERTIONS);
-  evaluateStageGate(4, 'Attributed Closure Drops, Pillar Trace, Pending Goldens', STAGE_4_ASSERTIONS);
+  evaluateStageGate(1, 'Apply Minimum Relevance After Closes Dedupe', STAGE_1_ASSERTIONS);
+  evaluateStageGate(2, 'Letter-Spaced Brief Text Fixed in Runtime Data Source', STAGE_2_ASSERTIONS);
+  evaluateStageGate(3, 'Explained and Empirically Validated Score-Path Projections', STAGE_3_ASSERTIONS);
+  evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
 
   // ============================================================
   // FINAL ASSERTION SUMMARY

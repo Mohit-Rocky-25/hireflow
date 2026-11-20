@@ -322,8 +322,14 @@ export function extractCleanBriefEvidence(
   if (brief.problemStatement) parts.push(brief.problemStatement);
   if (brief.problemItSolves) parts.push(brief.problemItSolves);
   if (brief.architecture) parts.push(brief.architecture);
-  if (brief.useCases) parts.push(...brief.useCases);
-  if (brief.scaleTargets) parts.push(...brief.scaleTargets);
+  if (brief.useCases) {
+    if (Array.isArray(brief.useCases)) parts.push(...brief.useCases);
+    else parts.push(brief.useCases);
+  }
+  if (brief.scaleTargets) {
+    if (Array.isArray(brief.scaleTargets)) parts.push(...brief.scaleTargets);
+    else parts.push(brief.scaleTargets);
+  }
 
   if (brief.verificationRubric) {
     for (const r of brief.verificationRubric) {
