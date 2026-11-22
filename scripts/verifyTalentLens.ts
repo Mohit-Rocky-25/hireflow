@@ -2191,6 +2191,149 @@ async function runVerification() {
     a18Pass ? undefined : `runtimeFindings=${runtimeLetterSpacedFindings.length}, singleCharViolations=${singleCharViolations.length}`
   );
 
+  // ============================================================
+  // SECTION: GROUNDED CLOSES AT CANDIDATE LEVEL (STAGE 1)
+  // ============================================================
+  console.log('\n=== SECTION: GROUNDED CLOSES AT CANDIDATE LEVEL ===');
+
+  // 1.1 Brief Homomorphic Encryption Alias Chain
+  console.log('\n--- Brief Homomorphic Encryption Alias Chain Audit ---');
+  const briefHemo = allBriefs.find((b) => b.id === 'brief-homomorphic-encryption');
+  const hemoTechStack = briefHemo?.techStack || [];
+  console.log(`Brief ID   : ${briefHemo?.id}`);
+  console.log(`TechStack  : [${hemoTechStack.join(', ')}]`);
+  console.log('Alias Chains for Homomorphic Encryption Closes:');
+  const hemoChains = [
+    { close: 'Python', chain: 'Python <- python <- Python 3.11+ (Grounded techStack token)' },
+    { close: 'AWS', chain: 'AWS <- cloud <- docker <- Docker 26+ (Over-broad legacy mapping pruned in Stage 1)' },
+    { close: 'Kubernetes', chain: 'Kubernetes <- docker <- Docker 26+ (Over-broad legacy mapping pruned in Stage 1)' },
+    { close: 'DevOps & CI/CD', chain: 'DevOps & CI/CD <- devops <- docker <- Docker 26+ (Over-broad legacy mapping pruned in Stage 1)' },
+  ];
+  hemoChains.forEach((c) => {
+    console.log(`  Close "${c.close}": ${c.chain}`);
+  });
+
+  // 1.3 Alias Audit
+  console.log('\n--- Alias Audit & Over-Broad Mapping Removal ---');
+  const prunedAliasExcerpts = [
+    { target: 'devops', removed: 'docker, kubernetes, k8s, aws, gcp', reason: 'Technology maps to itself and exact synonyms only' },
+    { target: 'ci_cd', removed: 'devops, dockerfile', reason: 'CI/CD pipelines require pipeline evidence' },
+    { target: 'cloud', removed: 'docker, kubernetes', reason: 'Containers do not imply cloud infrastructure' },
+    { target: 'kubernetes', removed: 'container runtime, docker', reason: 'Container tools do not imply orchestration' },
+    { target: 'docker', removed: 'kubernetes', reason: 'Single container does not imply multi-node k8s' },
+    { target: 'aws', removed: 'cloud', reason: 'Generic cloud does not imply specific AWS primitives' },
+    { target: 'systemdesign', removed: 'distributed systems, microservices, concurrency, caching, rate limiting', reason: 'High-level design requires explicit architectural evidence' },
+    { target: 'databases', removed: 'redis, cassandra, elasticsearch, dynamodb', reason: 'Relational DB does not prove distributed key-value/search stores' },
+  ];
+  prunedAliasExcerpts.forEach((pa) => {
+    console.log(`  Rule "${pa.target}": removed [${pa.removed}] (${pa.reason})`);
+  });
+
+  // CRED Fixture Before vs After closes:
+  const credFix = S5_FIXTURES.find((f) => f.company.id === 'cred');
+  const credFixAnalysis = credFix ? analyzeRoleMatch(credFix.resume, credFix.company, credFix.role) : null;
+  const credTopCand = credFixAnalysis?.projects?.[0];
+  const credLegacyCloses = ['Python', 'AWS', 'Kubernetes', 'DevOps & CI/CD'];
+  const credCurrentCloses = credTopCand?.closes || [];
+  console.log(`CRED Fixture Closes Comparison:`);
+  console.log(`  Before Fix (Legacy): [${credLegacyCloses.join(', ')}]`);
+  console.log(`  After Fix  (Grounded): [${credCurrentCloses.join(', ')}]`);
+
+  // 1.2 & 1.4: Grounded Closes Across All Ranked Candidates & Step Gain Audit
+  console.log('\n--- Grounded Closes & Step Gain Audits ---');
+  let a27ViolationsCount = 0;
+  let a28ViolationsCount = 0;
+  let totalRankedCandidatesCount = 0;
+  let totalStepsAuditedCount = 0;
+  const a27ViolationsBySkill: Record<string, number> = {};
+  const a27ViolationsByProject: Record<string, number> = {};
+
+  const briefsMap = new Map(allBriefs.map((b) => [b.id, b]));
+
+  function isSkillGroundedInBrief(closeSkill: string, brief: ProjectBrief): boolean {
+    const cNorm = closeSkill.toLowerCase().trim().replace(/[-_]/g, ' ');
+    const cClean = closeSkill.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+
+    // 1. Check validated concept tags
+    const { vettedConceptTags } = validateBriefConcepts(brief);
+    if (vettedConceptTags.some((tag) => {
+      const tNorm = tag.toLowerCase().trim().replace(/[-_]/g, ' ');
+      const tClean = tag.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+      return tNorm === cNorm || tClean === cClean || getCanonicalSkillId(tag) === getCanonicalSkillId(closeSkill);
+    })) {
+      return true;
+    }
+
+    // 2. Check techStack via canonical mapping / allowed aliases
+    const realSkills = deriveBriefRealSkills(brief);
+    return doesProjectCoverSkill(realSkills, closeSkill, brief.id);
+  }
+
+  // Audit 4 fixtures and 420 golden pairs
+  const auditUnits: Array<{ label: string; company: any; role: any; resumeText: string }> = [
+    ...S5_FIXTURES.map((f) => ({ label: f.label, company: f.company, role: f.role, resumeText: f.resume })),
+    ...goldenResumes.flatMap((res) =>
+      goldenRoles.map((rDef) => ({
+        label: `${res.id} x ${rDef.roleId}`,
+        company: rDef.company,
+        role: rDef.role,
+        resumeText: res.text,
+      }))
+    ),
+  ];
+
+  for (const unit of auditUnits) {
+    const analysis = analyzeRoleMatch(unit.resumeText, unit.company, unit.role);
+    const candidates = (analysis as any).allRankedCandidates || [];
+    for (const cand of candidates) {
+      totalRankedCandidatesCount++;
+      const brief = briefsMap.get(cand.id);
+      if (!brief) continue;
+      for (const cl of cand.closes || []) {
+        if (!isSkillGroundedInBrief(cl, brief)) {
+          a27ViolationsCount++;
+          a27ViolationsBySkill[cl] = (a27ViolationsBySkill[cl] || 0) + 1;
+          a27ViolationsByProject[brief.id] = (a27ViolationsByProject[brief.id] || 0) + 1;
+        }
+      }
+    }
+
+    // Check A28: no critical step has projected gain < 1 point
+    for (const step of analysis.plans || []) {
+      totalStepsAuditedCount++;
+      if (step.priority === 'critical') {
+        const gainStr = step.hypotheticalScoreGain || '';
+        if (gainStr.includes('no score change projected')) {
+          a28ViolationsCount++;
+        }
+        const m = gainStr.match(/\+(\d+)\s*pts/);
+        if (m && parseInt(m[1], 10) < 1) {
+          a28ViolationsCount++;
+        }
+      }
+    }
+  }
+
+  console.log(`Audited ${totalRankedCandidatesCount} ranked candidates and ${totalStepsAuditedCount} score-path steps across all units`);
+  console.log(`Grounded Closes Violations: ${a27ViolationsCount}`);
+  console.log(`Critical Zero-Gain Step Violations: ${a28ViolationsCount}`);
+
+  const a27Pass = totalRankedCandidatesCount > 0 && a27ViolationsCount === 0;
+  recordAssertion(
+    'A27',
+    'candidate-level closes grounded (all candidates, all pairs, sweep)',
+    a27Pass,
+    a27Pass ? undefined : `Violations: ${a27ViolationsCount}`
+  );
+
+  const a28Pass = totalStepsAuditedCount > 0 && a28ViolationsCount === 0;
+  recordAssertion(
+    'A28',
+    'no CRITICAL step has a projected gain below 1 point',
+    a28Pass,
+    a28Pass ? undefined : `Violations: ${a28ViolationsCount}`
+  );
+
   // Helper for Stage 4.4 & 4.5: Pending Goldens Generator & Invariant Checker
   function runStage4PendingGoldens() {
     const rootDir = process.cwd();
@@ -2455,7 +2598,7 @@ async function runVerification() {
   console.log(`STAGE GATES:`);
   console.log(`============================================================`);
 
-  const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22'];
+  const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22', 'A27', 'A28'];
   const STAGE_2_ASSERTIONS = ['A18'];
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26'];
@@ -2476,7 +2619,7 @@ async function runVerification() {
     return allPass;
   };
 
-  evaluateStageGate(1, 'Apply Minimum Relevance After Closes Dedupe', STAGE_1_ASSERTIONS);
+  evaluateStageGate(1, 'Grounded Closes at Candidate Level', STAGE_1_ASSERTIONS);
   evaluateStageGate(2, 'Letter-Spaced Brief Text Fixed in Runtime Data Source', STAGE_2_ASSERTIONS);
   evaluateStageGate(3, 'Explained and Empirically Validated Score-Path Projections', STAGE_3_ASSERTIONS);
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);

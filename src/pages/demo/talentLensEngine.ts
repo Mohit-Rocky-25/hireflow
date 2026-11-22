@@ -898,7 +898,7 @@ export function generateImprovementPlan(
   matchedProjects?: Array<{ title: string; closes?: string[]; id?: string; deliverables?: string[] }>,
   resumeText?: string
 ): {
-  priority: 'critical' | 'high' | 'medium';
+  priority: 'critical' | 'high' | 'medium' | 'optional';
   title: string;
   detail: string;
   skills?: string[];
@@ -936,7 +936,7 @@ export function generateImprovementPlan(
   }
 
   const plans: {
-    priority: 'critical' | 'high' | 'medium';
+    priority: 'critical' | 'high' | 'medium' | 'optional';
     title: string;
     detail: string;
     skills?: string[];
@@ -1051,7 +1051,8 @@ export function generateImprovementPlan(
       spec: CANONICAL_SCORING_SPEC,
     });
     const rescoredScore = rescoreTrace.compositeDisplay;
-    const stepGain = Math.max(1, rescoredScore - cumulativeCurrent);
+    const empiricalGain = rescoredScore - cumulativeCurrent;
+    const stepGain = Math.max(0, empiricalGain);
     const nextScore = Math.min(100, cumulativeCurrent + stepGain);
     return { nextScore, stepGain, isRescored: true };
   };
@@ -1121,15 +1122,20 @@ export function generateImprovementPlan(
         `Engineered ${proj.title} using ${unclosedGaps.join(', ')} with automated unit test suite and benchmarks.`,
         fallback
       );
+      const isZeroGain = stepGain < 1;
       const gainLabel = isRescored ? `empirical re-score on simulated resume; path: ${cumulativeCurrent} -> ${nextScore}` : 'calibrated estimate, per action, not additive';
-      const gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
-      cumulativeCurrent = nextScore;
+      const gainDisplay = isZeroGain
+        ? 'builds portfolio evidence; no score change projected'
+        : `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+      if (!isZeroGain) {
+        cumulativeCurrent = nextScore;
+      }
 
       plans.push({
-        priority: 'critical',
+        priority: isZeroGain ? 'optional' : 'critical',
         title: `Build ${proj.title}`,
-        detail: `Deploy ${proj.title} to demonstrate verified production implementation for: ${unclosedGaps.join(', ')}.`,
-        skills: [...unclosedGaps],
+        detail: `Deploy ${proj.title} to demonstrate verified production implementation for: ${closes.join(', ')}.`,
+        skills: [...closes],
         timeframe: '2-4 weeks',
         closability: '30 days',
         suggestedAction: `Implement and deploy ${proj.title} adhering to production standards with test suite and metrics.`,
@@ -1179,6 +1185,7 @@ export function generateImprovementPlan(
       const timeframe = isFundamental ? '12-week roadmap' : isSoftSkill ? '2-3 weeks' : '4-6 weeks';
 
       let gainDisplay: string;
+      let isZeroGain = false;
       if (isSoftSkill) {
         gainDisplay = 'not scored';
       } else {
@@ -1188,9 +1195,14 @@ export function generateImprovementPlan(
           `Implemented ${formatCompetencyName(b.competency)} production components with verified unit tests and benchmarks.`,
           fallback
         );
+        isZeroGain = stepGain < 1;
         const gainLabel = isRescored ? `empirical re-score on simulated resume; path: ${cumulativeCurrent} -> ${nextScore}` : 'calibrated estimate, per action, not additive';
-        gainDisplay = `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
-        cumulativeCurrent = nextScore;
+        gainDisplay = isZeroGain
+          ? 'builds portfolio evidence; no score change projected'
+          : `+${stepGain} pts (${gainLabel}; Cumulative path: ${cumulativeCurrent} -> ${nextScore}; projected if you complete this action, based on the current scoring model)`;
+        if (!isZeroGain) {
+          cumulativeCurrent = nextScore;
+        }
       }
 
       let suggestedAction: string;
@@ -1217,7 +1229,7 @@ export function generateImprovementPlan(
       }
 
       plans.push({
-        priority: 'critical',
+        priority: isZeroGain ? 'optional' : 'critical',
         title: isSoftSkill
           ? `Build Evidence for Technical Communication & Documentation Depth`
           : b.competency.toLowerCase() === 'golang'
@@ -1346,6 +1358,7 @@ export interface AnalysisResult {
   bulletRewrites?: BulletRewrite[];
   projectDrops?: any[];
   projects?: any[];
+  allRankedCandidates?: any[];
 }
 
 /**
@@ -1684,6 +1697,7 @@ export function analyzeRoleMatch(
     bulletRewrites,
     projectDrops: projectMatch.projects,
     projects: projectMatch.projects,
+    allRankedCandidates: projectMatch.allRankedCandidates,
   };
 }
 

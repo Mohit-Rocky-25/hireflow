@@ -900,12 +900,14 @@ export function generateGoldenRecord(resume: SyntheticResume, roleDef: PinnedRol
 
   const strengths = analysis.trace?.strengths || skillStates.filter((s) => s.status === 'demonstrated').map((s) => s.id);
 
+  let runningScore = score;
   const scorePathSteps = analysis.plans
-    .filter((p) => p.hypotheticalScoreGain && p.hypotheticalScoreGain.includes('->'))
+    .filter((p) => p.hypotheticalScoreGain && (p.hypotheticalScoreGain.includes('->') || p.hypotheticalScoreGain.includes('no score change projected')))
     .map((p) => {
       const m = p.hypotheticalScoreGain.match(/Cumulative path:\s*(\d+)\s*->\s*(\d+)/i);
-      const beforeScore = m ? parseInt(m[1], 10) : score;
-      const afterScore = m ? parseInt(m[2], 10) : score;
+      const beforeScore = m ? parseInt(m[1], 10) : runningScore;
+      const afterScore = m ? parseInt(m[2], 10) : runningScore;
+      runningScore = afterScore;
       return {
         skills: (p as any).skills || (p.detail.match(/for:\s*([^.]+)/i)?.[1]?.split(',').map((s) => s.trim()) || []),
         beforeScore,

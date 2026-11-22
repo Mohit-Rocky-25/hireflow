@@ -129,12 +129,13 @@ export const SKILL_CANONICAL_MAP: Record<string, string> = {
 export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   databases: [
     'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
-    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints',
-    'relational database', 'nosql', 'storage engine', 'sqlite', 'dynamodb', 'databases & acid'
+    'sql', 'acid', 'database constraints', 'relational database', 'nosql',
+    'storage engine', 'sqlite', 'databases & acid', 'databases & sql'
   ],
   database: [
     'database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb',
-    'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints', 'databases & acid'
+    'sql', 'acid', 'database constraints', 'relational database', 'nosql',
+    'storage engine', 'sqlite', 'databases & acid', 'databases & sql'
   ],
   sql: ['sql', 'postgresql', 'postgres', 'mysql', 'database queries', 'sqlite', 'relational database'],
   golang: ['go', 'golang'],
@@ -144,16 +145,15 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   typescript: ['typescript', 'ts'],
   javascript: ['javascript', 'js'],
   systemdesign: [
-    'system design', 'systemdesign', 'distributed systems', 'microservices',
-    'architecture', 'scalability', 'concurrency', 'idempotency', 'rate limiting',
-    'caching', 'load balancing', 'message queue', 'architecture & clean code'
+    'system design', 'systemdesign', 'high-level design', 'hld',
+    'system architecture', 'architecture & clean code'
   ],
   'system design': [
-    'system design', 'systemdesign', 'distributed systems', 'microservices',
-    'architecture', 'scalability', 'concurrency', 'idempotency', 'architecture & clean code'
+    'system design', 'systemdesign', 'high-level design', 'hld',
+    'system architecture', 'architecture & clean code'
   ],
   'distributed systems': [
-    'distributed systems', 'system design', 'microservices', 'consensus', 'raft',
+    'distributed systems', 'consensus', 'raft',
     'replication', 'partitioning', 'sharding', 'event-driven'
   ],
   concurrency: ['concurrency', 'goroutines', 'threads', 'multithreading', 'asyncio', 'mutex', 'atomic'],
@@ -161,11 +161,11 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   algorithms: ['dsa', 'algorithms', 'data structures'],
   'data structures': ['dsa', 'algorithms', 'data structures'],
   security: ['security', 'oauth', 'jwt', 'cryptography', 'waf', 'mtls', 'pki', 'auth', 'appsec'],
-  devops: ['devops', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'terraform', 'aws', 'gcp', 'ci/cd & pipelines'],
-  ci_cd: ['ci/cd', 'devops', 'pipeline', 'dockerfile', 'github actions', 'ci/cd & pipelines'],
-  cloud: ['cloud', 'aws', 'gcp', 'azure', 'docker', 'kubernetes'],
-  kubernetes: ['kubernetes', 'k8s', 'container runtime', 'docker'],
-  docker: ['docker', 'container', 'containers', 'kubernetes'],
+  devops: ['devops', 'ci/cd', 'terraform', 'ansible', 'helm', 'ci/cd & pipelines'],
+  ci_cd: ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'pipeline', 'pipelines', 'github actions', 'gitlab ci', 'jenkins', 'ci/cd & pipelines'],
+  cloud: ['cloud', 'cloud computing', 'aws', 'gcp', 'azure'],
+  kubernetes: ['kubernetes', 'k8s', 'container orchestration'],
+  docker: ['docker', 'dockerfile', 'container', 'containers', 'containerization'],
   microservices: ['microservices', 'microservice', 'grpc', 'api gateway', 'service mesh', 'event-driven'],
   rest: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
   rest_api: ['rest', 'rest api', 'rest apis', 'api design', 'restful', 'endpoints', 'http', 'fastapi', 'express'],
@@ -185,7 +185,7 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   ],
   aws: [
     'aws', 'amazon web services', 'ec2', 's3', 'lambda', 'dynamodb',
-    'cloudwatch', 'iam', 'ecs', 'eks', 'sqs', 'sns', 'cloud'
+    'cloudwatch', 'iam', 'ecs', 'eks', 'sqs', 'sns'
   ],
   react: [
     'react', 'react.js', 'reactjs', 'next.js', 'nextjs', 'frontend', 'ui', 'web'
@@ -196,8 +196,8 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   csharp: ['c#', 'csharp'],
   '.net': ['.net', 'dotnet', 'asp.net'],
   dotnet: ['.net', 'dotnet', 'asp.net'],
-  'ci/cd': ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
-  cicd: ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'devops', 'github actions', 'ci/cd & pipelines'],
+  'ci/cd': ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'github actions', 'gitlab ci', 'jenkins', 'pipeline', 'pipelines', 'ci/cd & pipelines'],
+  cicd: ['ci/cd', 'cicd', 'continuous integration', 'continuous deployment', 'github actions', 'gitlab ci', 'jenkins', 'pipeline', 'pipelines', 'ci/cd & pipelines'],
   r: ['r', 'r programming'],
 };
 
@@ -271,7 +271,7 @@ export function matchSkillToken(projectSkill: string, targetSkill: string): bool
 
 const BRIEF_GAP_COVERAGE_CACHE = new Map<string, boolean>();
 
-const CERT_DOMAIN_ALLOWED_SKILLS: Record<string, string[]> = {
+export const CERT_DOMAIN_ALLOWED_SKILLS: Record<string, string[]> = {
   'cert-aws-ccp': ['aws', 'cloud', 'devops'],
   'cert-aws-saa': ['aws', 'cloud', 'devops'],
   'cert-ckad': ['kubernetes', 'docker', 'devops', 'cloud', 'containers'],
@@ -305,7 +305,8 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
     }
   }
 
-  const aliases = SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
+  const cId = getCanonicalSkillId(gapSkillId);
+  const aliases = SKILL_ALIAS_MAP[cId] || SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
 
   const result = projectRealSkills.some((ps) => {
     // Check target gap ID directly
