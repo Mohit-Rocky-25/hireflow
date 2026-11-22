@@ -47,7 +47,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
         "DevOps & CI/CD"
       ],
@@ -60,8 +60,8 @@
         "DevOps & CI/CD"
       ],
       "beforeScore": 66,
-      "afterScore": 67,
-      "delta": 1
+      "afterScore": 66,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

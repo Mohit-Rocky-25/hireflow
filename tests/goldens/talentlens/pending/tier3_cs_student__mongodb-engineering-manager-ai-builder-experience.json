@@ -65,31 +65,35 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.67
+      "relevance": 0.29
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 40,
-      "afterScore": 43,
-      "delta": 3
+      "afterScore": 41,
+      "delta": 1
     },
     {
       "skills": [
         "Go"
+      ],
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
       ],
       "beforeScore": 43,
       "afterScore": 45,
@@ -97,7 +101,7 @@
     },
     {
       "skills": [
-        "TypeScript"
+        "AWS"
       ],
       "beforeScore": 45,
       "afterScore": 46,

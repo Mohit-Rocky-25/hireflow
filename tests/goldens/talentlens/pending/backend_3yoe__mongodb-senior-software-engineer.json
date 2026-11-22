@@ -67,12 +67,12 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-canary-deployment",
       "closes": [
         "Go",
         "Kubernetes"
       ],
-      "relevance": 0.6
+      "relevance": 0.3
     },
     {
       "id": "brief-realtime-stock-platform",

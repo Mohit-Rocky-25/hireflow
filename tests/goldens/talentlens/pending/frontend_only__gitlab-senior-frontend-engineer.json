@@ -66,41 +66,45 @@
     {
       "id": "brief-multitenant-saas-rls",
       "closes": [
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.55
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 55,
-      "afterScore": 61,
-      "delta": 6
+      "afterScore": 58,
+      "delta": 3
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 61,
-      "afterScore": 62,
+      "beforeScore": 58,
+      "afterScore": 59,
       "delta": 1
     },
     {
       "skills": [
-        "System Design"
+        "Kubernetes"
       ],
-      "beforeScore": 62,
-      "afterScore": 64,
+      "beforeScore": 59,
+      "afterScore": 61,
       "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 61,
+      "afterScore": 62,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

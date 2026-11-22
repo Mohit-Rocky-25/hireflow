@@ -34,7 +34,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-cache-rust",
+      "id": "brief-epoll-async-eventloop",
       "closes": [
         "System Design"
       ],
@@ -47,8 +47,8 @@
         "System Design"
       ],
       "beforeScore": 41,
-      "afterScore": 48,
-      "delta": 7
+      "afterScore": 49,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

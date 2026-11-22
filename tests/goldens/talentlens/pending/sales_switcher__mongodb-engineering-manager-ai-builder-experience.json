@@ -64,31 +64,43 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "React"
       ],
-      "relevance": 0.54
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "React"
       ],
       "beforeScore": 30,
-      "afterScore": 37,
-      "delta": 7
+      "afterScore": 33,
+      "delta": 3
     },
     {
       "skills": [
         "Go"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 35,
+      "afterScore": 37,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
       ],
       "beforeScore": 37,
       "afterScore": 38,
@@ -96,19 +108,11 @@
     },
     {
       "skills": [
-        "React"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 38,
       "afterScore": 40,
       "delta": 2
-    },
-    {
-      "skills": [
-        "TypeScript"
-      ],
-      "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
     }
   ],
   "first3Rewrites": [

@@ -42,35 +42,31 @@
     "bulletsCount": 1,
     "skillsDetectedCount": 1
   },
-  "projectsShown": [
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.69
-    }
-  ],
+  "projectsShown": [],
   "scorePathSteps": [
     {
       "skills": [
-        "AWS",
-        "Machine Learning",
-        "System Design"
+        "AWS"
       ],
       "beforeScore": 35,
-      "afterScore": 55,
-      "delta": 20
+      "afterScore": 41,
+      "delta": 6
+    },
+    {
+      "skills": [
+        "Machine Learning"
+      ],
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 55,
-      "afterScore": 60,
-      "delta": 5
+      "beforeScore": 43,
+      "afterScore": 52,
+      "delta": 9
     }
   ],
   "first3Rewrites": [

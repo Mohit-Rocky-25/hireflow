@@ -70,10 +70,9 @@
       "closes": [
         "React",
         "TypeScript",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.7
     }
   ],
   "scorePathSteps": [
@@ -81,12 +80,11 @@
       "skills": [
         "React",
         "TypeScript",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 47,
-      "afterScore": 48,
-      "delta": 1
+      "afterScore": 47,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

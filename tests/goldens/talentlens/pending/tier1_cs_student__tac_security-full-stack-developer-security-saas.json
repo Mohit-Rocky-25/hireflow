@@ -47,16 +47,16 @@
         "Node.js"
       ],
       "beforeScore": 34,
-      "afterScore": 35,
-      "delta": 1
+      "afterScore": 34,
+      "delta": 0
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 35,
+      "beforeScore": 34,
       "afterScore": 38,
-      "delta": 3
+      "delta": 4
     }
   ],
   "first3Rewrites": [

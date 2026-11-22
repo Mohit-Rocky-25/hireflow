@@ -42,10 +42,16 @@
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-columnar-compactor",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
@@ -53,12 +59,19 @@
       "skills": [
         "Python",
         "Databases & SQL",
-        "AWS",
         "System Design"
       ],
       "beforeScore": 25,
+      "afterScore": 37,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 37,
       "afterScore": 42,
-      "delta": 17
+      "delta": 5
     }
   ],
   "first3Rewrites": [

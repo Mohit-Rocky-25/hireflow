@@ -46,32 +46,30 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "Machine Learning",
-        "System Design"
+        "Machine Learning"
       ],
-      "relevance": 0.7
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "Machine Learning",
-        "System Design"
+        "Machine Learning"
       ],
       "beforeScore": 36,
-      "afterScore": 45,
-      "delta": 9
+      "afterScore": 40,
+      "delta": 4
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 45,
-      "afterScore": 50,
+      "beforeScore": 40,
+      "afterScore": 45,
       "delta": 5
     }
   ],

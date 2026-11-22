@@ -65,43 +65,47 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
-        "DevOps & CI/CD"
+        "Databases & SQL"
       ],
-      "relevance": 0.64
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
-        "DevOps & CI/CD"
+        "Databases & SQL"
       ],
       "beforeScore": 41,
-      "afterScore": 45,
-      "delta": 4
+      "afterScore": 41,
+      "delta": 0
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
     },
     {
       "skills": [
-        "System Design"
+        "Kubernetes"
       ],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "beforeScore": 43,
+      "afterScore": 45,
       "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 45,
+      "afterScore": 46,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

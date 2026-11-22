@@ -68,28 +68,40 @@
       "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.64
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "System Design"
       ],
       "beforeScore": 33,
-      "afterScore": 39,
-      "delta": 6
+      "afterScore": 36,
+      "delta": 3
     },
     {
       "skills": [
         "Java"
+      ],
+      "beforeScore": 36,
+      "afterScore": 38,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 38,
+      "afterScore": 39,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
       ],
       "beforeScore": 39,
       "afterScore": 41,
@@ -97,7 +109,7 @@
     },
     {
       "skills": [
-        "React"
+        "Kubernetes"
       ],
       "beforeScore": 41,
       "afterScore": 42,

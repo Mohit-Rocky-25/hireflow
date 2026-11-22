@@ -47,25 +47,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-gitops-registry",
       "closes": [
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.6
+    },
+    {
+      "id": "cert-aws-saa",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
       "beforeScore": 72,
       "afterScore": 74,
       "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 74,
+      "afterScore": 74,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

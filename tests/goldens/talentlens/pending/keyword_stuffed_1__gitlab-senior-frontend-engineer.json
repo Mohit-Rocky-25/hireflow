@@ -65,22 +65,20 @@
       "id": "brief-multitenant-saas-rls",
       "closes": [
         "TypeScript",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.7
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "TypeScript",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 43,
-      "delta": 24
+      "afterScore": 42,
+      "delta": 23
     }
   ],
   "first3Rewrites": [

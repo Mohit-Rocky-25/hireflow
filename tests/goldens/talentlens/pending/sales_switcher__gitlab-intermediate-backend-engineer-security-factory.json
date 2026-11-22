@@ -47,32 +47,36 @@
       "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 33,
-      "afterScore": 45,
-      "delta": 12
+      "afterScore": 38,
+      "delta": 5
     },
     {
       "skills": [
-        "System Design"
+        "Kubernetes"
       ],
-      "beforeScore": 45,
-      "afterScore": 47,
-      "delta": 2
+      "beforeScore": 38,
+      "afterScore": 42,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

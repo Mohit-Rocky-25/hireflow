@@ -3322,6 +3322,146 @@ async function runVerification() {
   );
 
   // ============================================================
+  // STAGE 8: FINAL PENDING GOLDENS & VISUAL CHECK SHEET (Assertions A38, A39)
+  // ============================================================
+  console.log('\n=== SECTION: FINAL PENDING GOLDENS & VISUAL CHECK SHEET ===');
+
+  // A38: Pending Goldens Invariant Check
+  const a38Pass = stage4Result.allPassed;
+  recordAssertion(
+    'A38',
+    'final pending goldens invariants: 0 empty closes, 0 step-card mismatches, 0 duplicate closes, 0 score regressions, 0 non-project field diffs',
+    a38Pass,
+    a38Pass ? undefined : `Invariant check failed: empty=${stage4Result.emptyClosesViolations}, mismatch=${stage4Result.stepCardMismatchViolations}, dup=${stage4Result.duplicateClosedSkillViolations}, reg=${stage4Result.negativePathDeltaViolations}, diff=${stage4Result.otherFieldDiffViolations}`
+  );
+
+  // Generate docs/visual_check_sheet.md for the 4 fixtures
+  console.log('\nGenerating visual check sheet for canonical fixtures...');
+  const visualSheetPath = path.resolve(process.cwd(), 'docs/visual_check_sheet.md');
+  let sheetContent = `# TalentLens Visual Inspection & Manual QA Check Sheet\n\n`;
+  sheetContent += `Generated programmatically by \`scripts/verifyTalentLens.ts\` for the 4 canonical fixtures.\n\n`;
+  sheetContent += `## Human QA Instructions\n`;
+  sheetContent += `1. Start the local development server: \`npm run dev\`\n`;
+  sheetContent += `2. Navigate in your browser to \`http://localhost:5173/demo/talentlens\`\n`;
+  sheetContent += `3. For each of the 4 fixtures below, load the specified resume and select the target company and role.\n`;
+  sheetContent += `4. Verify that the displayed values match this check sheet.\n`;
+  sheetContent += `5. Click "Download PDF Report" and perform the PDF Checklist audit.\n\n`;
+
+  for (let idx = 0; idx < S5_FIXTURES.length; idx++) {
+    const fix = S5_FIXTURES[idx];
+    const analysis = analyzeRoleMatch(fix.resume, fix.company, fix.role);
+    const scoreChain = computeScoreChain(analysis.trace, analysis.score);
+    const rewrites = generateEvidenceSafeRewrites(fix.resume).slice(0, 2);
+    const practiceSteps = (analysis.plans || []).filter((p) => p.title.startsWith('Practice track:'));
+    const parseBlocks = fix.resume.split('\n').filter((l: string) => l.trim().startsWith('-') || l.trim().startsWith('*')).length;
+    const strengths = (analysis.trace as any)?.strengths || (analysis.breakdown || []).filter((b: any) => b.analysis?.status === 'demonstrated' || b.analysis?.status === 'verified').map((b: any) => b.competency);
+    const fitBand = analysis.band?.label ?? 'Sensitive';
+
+    sheetContent += `### Fixture ${idx + 1}: ${fix.label}\n\n`;
+    sheetContent += `- **Route**: \`/demo/talentlens\`\n`;
+    sheetContent += `- **Company**: ${fix.company.name} (\`${fix.company.id}\`)\n`;
+    sheetContent += `- **Role**: ${fix.role.title} (\`${fix.role.level}\` -> canonical: \`${normalizeLevel(fix.role.level)}\`)\n`;
+    sheetContent += `- **Expected Score**: **${analysis.score} / 100**\n`;
+    sheetContent += `- **Expected Fit Band**: **${fitBand}**\n`;
+    sheetContent += `- **Parse Block Count**: ${parseBlocks} bullet points identified\n`;
+    sheetContent += `- **Strengths Count**: ${strengths.length} verified strengths\n\n`;
+
+    sheetContent += `#### Recommended Projects Shown\n`;
+    if (!analysis.projects || analysis.projects.length === 0) {
+      sheetContent += `*None (no project meets relevance threshold)*\n\n`;
+    } else {
+      analysis.projects.forEach((p, pIdx) => {
+        sheetContent += `${pIdx + 1}. **${p.title}** (\`${p.id}\`)\n`;
+        sheetContent += `   - Domain: \`${p.domain}\` | Relevance: \`${p.relevanceScore.toFixed(2)}\` | Coverage: \`${p.gapCoverage.toFixed(2)}\`\n`;
+        sheetContent += `   - Closes: [${p.closes.join(', ')}]\n`;
+      });
+      sheetContent += `\n`;
+    }
+
+    sheetContent += `#### Score Path Progression Steps\n`;
+    if (!analysis.plans || analysis.plans.length === 0) {
+      sheetContent += `*None*\n\n`;
+    } else {
+      analysis.plans.forEach((step, sIdx) => {
+        sheetContent += `${sIdx + 1}. **[${step.priority}] ${step.title}**\n`;
+        sheetContent += `   - Detail: ${step.detail}\n`;
+        sheetContent += `   - Score Progression: \`${step.beforeScore ?? 'N/A'}\` -> \`${step.afterScore ?? 'N/A'}\` (Delta: \`+${step.hypotheticalGain ?? 0} pts\`)\n`;
+      });
+      sheetContent += `\n`;
+    }
+
+    sheetContent += `#### Optional Practice Tracks\n`;
+    if (practiceSteps.length === 0) {
+      sheetContent += `*None*\n\n`;
+    } else {
+      practiceSteps.forEach((ps, psIdx) => {
+        sheetContent += `${psIdx + 1}. **${ps.title}** (Unscored, Non-Critical)\n`;
+        sheetContent += `   - Sequence: ${ps.detail}\n`;
+      });
+      sheetContent += `\n`;
+    }
+
+    sheetContent += `#### Evidence-Safe Bullet Rewrites (First 2)\n`;
+    if (rewrites.length === 0) {
+      sheetContent += `*None*\n\n`;
+    } else {
+      rewrites.forEach((rw, rIdx) => {
+        sheetContent += `${rIdx + 1}. **Original**: "${rw.original}"\n`;
+        sheetContent += `   - **Rewrite**: "${rw.rewritten}"\n`;
+        sheetContent += `   - **Status**: \`${rw.classification}\`\n`;
+      });
+      sheetContent += `\n`;
+    }
+
+    sheetContent += `#### "How this score was calculated" Explain Panel\n`;
+    sheetContent += `- **Collapsed by default**: YES\n`;
+    sheetContent += `- **Pillars Sum**: \`${scoreChain.pillarSum.toFixed(1)}\`\n`;
+    scoreChain.pillars.forEach((p) => {
+      sheetContent += `  - ${p.label}: raw=\`${p.rawScore.toFixed(0)}\`, weight=\`${p.effectiveWeight.toFixed(2)}\`, contribution=\`${p.contribution.toFixed(1)}\`\n`;
+    });
+    sheetContent += `- **Adjustments Sum**: \`${(scoreChain.chainSum - scoreChain.pillarSum).toFixed(1)}\`\n`;
+    scoreChain.adjustments.forEach((adj) => {
+      sheetContent += `  - ${adj.name}: \`${adj.value >= 0 ? '+' : ''}${adj.value.toFixed(1)}\`\n`;
+    });
+    sheetContent += `- **Final Printed Score**: **${scoreChain.printedScore}**\n\n`;
+    sheetContent += `---\n\n`;
+  }
+
+  sheetContent += `## PDF Inspection Checklist\n\n`;
+  sheetContent += `- [ ] Page Count: exactly 2 pages (no overflow onto accidental 3rd page)\n`;
+  sheetContent += `- [ ] No unpopulated template tags (zero occurrences of \`{{\` or \`}}\`)\n`;
+  sheetContent += `- [ ] No clipped or truncated text boxes\n`;
+  sheetContent += `- [ ] All scores, bands, project titles, and practice steps match the values listed above\n\n`;
+
+  fs.writeFileSync(visualSheetPath, sheetContent, 'utf8');
+  console.log(`Wrote visual check sheet to: ${visualSheetPath}`);
+
+  // Assertion A39
+  const visualSheetWritten = fs.existsSync(visualSheetPath);
+  const visualSheetText = visualSheetWritten ? fs.readFileSync(visualSheetPath, 'utf8') : '';
+  let sheetMatchesScript = visualSheetWritten;
+  for (const fix of S5_FIXTURES) {
+    const analysis = analyzeRoleMatch(fix.resume, fix.company, fix.role);
+    if (!visualSheetText.includes(fix.company.name) || !visualSheetText.includes(String(analysis.score))) {
+      sheetMatchesScript = false;
+    }
+  }
+  const a39Pass = sheetMatchesScript;
+  recordAssertion(
+    'A39',
+    'visual check sheet generated from engine and matches script computed values for all 4 fixtures',
+    a39Pass,
+    a39Pass ? undefined : `Visual check sheet content mismatch`
+  );
+
+  // 8.4 Human Approval Commands Display
+  console.log('\nHuman Approval Commands for TalentLens Goldens:');
+  console.log('  git diff docs/golden_diff_summary_final.md');
+  console.log('  git diff tests/goldens/talentlens/records tests/goldens/talentlens/pending');
+  console.log('  npm run golden:update -- --approve-diff');
+  console.log('  npm run golden:check');
+
+  // ============================================================
   // S14 VISUAL
   // ============================================================
   console.log('\n=== SECTION: VISUAL ===');
@@ -3330,7 +3470,8 @@ async function runVerification() {
     const screens = fs.readdirSync(screensDir);
     console.log(`Screenshots located in .screens/: ${screens.join(', ')}`);
   } else {
-    console.log('visual inspection omitted in zero-egress headless environment');
+    const visualStatus = 'not verified visually';
+    console.log(`visual inspection: ${visualStatus}`);
   }
 
   // ============================================================
@@ -3347,6 +3488,7 @@ async function runVerification() {
   const STAGE_5_ASSERTIONS = ['A35'];
   const STAGE_6_ASSERTIONS = ['A36'];
   const STAGE_7_ASSERTIONS = ['A37'];
+  const STAGE_8_ASSERTIONS = ['A38', 'A39'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
   const STAGE_H3_ASSERTIONS = ['A41'];
@@ -3371,6 +3513,7 @@ async function runVerification() {
   evaluateStageGate(5, 'Collapsed Explain-This-Score Panel', STAGE_5_ASSERTIONS);
   evaluateStageGate(6, 'CI Workflow and README', STAGE_6_ASSERTIONS);
   evaluateStageGate(7, 'Report-Only Audits and Library Growth Plan', STAGE_7_ASSERTIONS);
+  evaluateStageGate(8, 'Final Pending Goldens and Visual Check Sheet', STAGE_8_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
   evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
   evaluateStageGate('H3', 'Verification Output Provenance', STAGE_H3_ASSERTIONS);

@@ -63,31 +63,35 @@
     "bulletsCount": 4,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.41
-    }
-  ],
+  "projectsShown": [],
   "scorePathSteps": [
     {
       "skills": [
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "Go"
       ],
       "beforeScore": 33,
-      "afterScore": 38,
-      "delta": 5
+      "afterScore": 35,
+      "delta": 2
     },
     {
       "skills": [
-        "Go"
+        "React"
+      ],
+      "beforeScore": 35,
+      "afterScore": 36,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 36,
+      "afterScore": 38,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
       ],
       "beforeScore": 38,
       "afterScore": 39,
@@ -95,19 +99,11 @@
     },
     {
       "skills": [
-        "React"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 39,
       "afterScore": 41,
       "delta": 2
-    },
-    {
-      "skills": [
-        "TypeScript"
-      ],
-      "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
     }
   ],
   "first3Rewrites": [

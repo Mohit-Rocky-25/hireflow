@@ -178,10 +178,12 @@ export function generatePendingGoldens() {
   docContent += `4. **Final Path Scores Lower than Initial**: ${negativePathDeltaViolations} (Target: 0)\n`;
   docContent += `5. **Fields Other than projectsShown and scorePathSteps Differing**: ${otherFieldDiffViolations} (Target: 0)\n`;
 
+  const finalSummaryDocPath = path.join(rootDir, 'docs', 'golden_diff_summary_final.md');
   fs.writeFileSync(summaryDocPath, docContent, 'utf8');
+  fs.writeFileSync(finalSummaryDocPath, docContent, 'utf8');
 
   console.log(`Generated ${totalPendingChecked} pending golden records in tests/goldens/talentlens/pending/`);
-  console.log(`Diff Summary Report written to docs/golden_diff_summary_phase4c.md`);
+  console.log(`Diff Summary Report written to docs/golden_diff_summary_phase4c.md and docs/golden_diff_summary_final.md`);
 }
 
 if (process.argv[1]?.includes('generatePendingGoldens')) {

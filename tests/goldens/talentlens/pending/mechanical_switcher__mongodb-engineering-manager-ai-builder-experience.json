@@ -66,18 +66,18 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "DevOps & CI/CD",
+        "Go",
         "System Design"
       ],
-      "relevance": 0.42
+      "relevance": 0.23
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "DevOps & CI/CD",
+        "Go",
         "System Design"
       ],
       "beforeScore": 44,
@@ -86,7 +86,7 @@
     },
     {
       "skills": [
-        "Go"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 48,
       "afterScore": 49,

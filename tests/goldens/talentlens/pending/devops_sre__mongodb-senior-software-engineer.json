@@ -66,20 +66,18 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-event-recon",
       "closes": [
-        "Go",
-        "AWS",
+        "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.56
+      "relevance": 0.35
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Go",
-        "AWS",
+        "Java",
         "Databases & SQL"
       ],
       "beforeScore": 39,
@@ -88,7 +86,7 @@
     },
     {
       "skills": [
-        "Java"
+        "Go"
       ],
       "beforeScore": 42,
       "afterScore": 44,

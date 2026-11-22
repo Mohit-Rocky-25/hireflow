@@ -69,33 +69,39 @@
       "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
-        "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.75
+      "relevance": 0.45
     },
     {
-      "id": "brief-kafka-order-saga",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.25
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "Kubernetes",
         "System Design"
       ],
       "beforeScore": 43,
-      "afterScore": 48,
-      "delta": 5
+      "afterScore": 46,
+      "delta": 3
     },
     {
       "skills": [
         "Java"
+      ],
+      "beforeScore": 46,
+      "afterScore": 48,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "Kubernetes"
       ],
       "beforeScore": 48,
       "afterScore": 49,

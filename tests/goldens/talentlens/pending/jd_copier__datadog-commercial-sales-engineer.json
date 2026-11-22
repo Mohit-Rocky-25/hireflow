@@ -43,14 +43,6 @@
       "beforeScore": 42,
       "afterScore": 45,
       "delta": 3
-    },
-    {
-      "skills": [
-        "System Design"
-      ],
-      "beforeScore": 45,
-      "afterScore": 63,
-      "delta": 18
     }
   ],
   "first3Rewrites": [

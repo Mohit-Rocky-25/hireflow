@@ -49,30 +49,36 @@
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.7
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
       "beforeScore": 39,
-      "afterScore": 48,
-      "delta": 9
+      "afterScore": 44,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 44,
+      "afterScore": 50,
+      "delta": 6
     },
     {
       "skills": [
         "Application Security"
       ],
-      "beforeScore": 48,
+      "beforeScore": 50,
       "afterScore": 53,
-      "delta": 5
+      "delta": 3
     }
   ],
   "first3Rewrites": [

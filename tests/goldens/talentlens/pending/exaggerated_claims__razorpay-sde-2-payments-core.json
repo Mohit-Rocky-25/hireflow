@@ -40,31 +40,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-double-entry-ledger",
+      "id": "brief-homomorphic-encryption",
       "closes": [
         "Databases & SQL",
-        "System Design"
+        "Application Security"
       ],
-      "relevance": 0.6
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Databases & SQL",
-        "System Design"
+        "Application Security"
       ],
       "beforeScore": 28,
       "afterScore": 52,
       "delta": 24
-    },
-    {
-      "skills": [
-        "Application Security"
-      ],
-      "beforeScore": 52,
-      "afterScore": 61,
-      "delta": 9
     }
   ],
   "first3Rewrites": [

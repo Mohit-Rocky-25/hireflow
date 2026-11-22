@@ -43,22 +43,35 @@
       "id": "brief-schema-registry",
       "closes": [
         "Databases & SQL",
-        "AWS",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-columnar-compactor",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Databases & SQL",
-        "AWS",
         "System Design"
       ],
       "beforeScore": 42,
+      "afterScore": 46,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 46,
       "afterScore": 51,
-      "delta": 9
+      "delta": 5
     }
   ],
   "first3Rewrites": [

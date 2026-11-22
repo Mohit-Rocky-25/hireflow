@@ -46,27 +46,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.7
+    },
+    {
+      "id": "brief-disaster-recovery-harness",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
       "beforeScore": 39,
+      "afterScore": 50,
+      "delta": 11
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 50,
       "afterScore": 53,
-      "delta": 14
+      "delta": 3
     }
   ],
   "first3Rewrites": [

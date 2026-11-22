@@ -50,22 +50,28 @@
       "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "Kubernetes",
         "Application Security"
       ],
       "beforeScore": 42,
-      "afterScore": 54,
-      "delta": 12
+      "afterScore": 49,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 49,
+      "afterScore": 53,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

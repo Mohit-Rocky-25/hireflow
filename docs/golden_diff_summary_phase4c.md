@@ -32,9 +32,7 @@
 ### (d) Other (recalculated relevance and coverage matching final closes)
 - **Affected Records Count**: ~48
 - **Example Pairs (Resume x Role)**:
-  1. `keyword_stuffed_1 x Razorpay (SDE-2 (Payments Core))`
-  2. `keyword_stuffed_3 x Razorpay (SDE-2 (Payments Core))`
-  3. `exaggerated_claims x Intel India (Software Engineer (Grade 5))`
+  1. `exaggerated_claims x Intel India (Software Engineer (Grade 5))`
 
 ## Invariants Verification on Pending Records
 

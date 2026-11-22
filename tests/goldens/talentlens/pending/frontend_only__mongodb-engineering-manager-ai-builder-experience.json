@@ -64,43 +64,41 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.64
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
       "beforeScore": 55,
-      "afterScore": 61,
-      "delta": 6
+      "afterScore": 59,
+      "delta": 4
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 61,
-      "afterScore": 62,
-      "delta": 1
+      "beforeScore": 59,
+      "afterScore": 61,
+      "delta": 2
     },
     {
       "skills": [
-        "System Design"
+        "AWS"
       ],
-      "beforeScore": 62,
-      "afterScore": 64,
-      "delta": 2
+      "beforeScore": 61,
+      "afterScore": 62,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

@@ -62,40 +62,37 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.46
-    },
-    {
-      "id": "brief-interview-prep-ai",
-      "closes": [
-        "React",
-        "System Design"
-      ],
-      "relevance": 0.22
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
       "beforeScore": 21,
-      "afterScore": 39,
-      "delta": 18
+      "afterScore": 36,
+      "delta": 15
     },
     {
       "skills": [
-        "React",
-        "System Design"
+        "Go"
+      ],
+      "beforeScore": 36,
+      "afterScore": 39,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "TypeScript"
       ],
       "beforeScore": 39,
       "afterScore": 42,
@@ -103,19 +100,11 @@
     },
     {
       "skills": [
-        "Go"
+        "AWS"
       ],
       "beforeScore": 42,
-      "afterScore": 45,
-      "delta": 3
-    },
-    {
-      "skills": [
-        "TypeScript"
-      ],
-      "beforeScore": 45,
-      "afterScore": 48,
-      "delta": 3
+      "afterScore": 46,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

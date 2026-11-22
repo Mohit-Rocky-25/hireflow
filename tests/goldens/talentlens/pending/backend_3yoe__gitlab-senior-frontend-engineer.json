@@ -66,27 +66,31 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "React",
-        "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "TypeScript"
       ],
-      "relevance": 1
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "React",
-        "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "TypeScript"
       ],
       "beforeScore": 44,
+      "afterScore": 48,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 48,
       "afterScore": 49,
-      "delta": 5
+      "delta": 1
     }
   ],
   "first3Rewrites": [

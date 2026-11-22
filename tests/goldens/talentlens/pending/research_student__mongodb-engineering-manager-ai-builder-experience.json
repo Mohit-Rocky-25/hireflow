@@ -65,37 +65,55 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-mlops-platform",
       "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.41
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
       "beforeScore": 30,
-      "afterScore": 47,
-      "delta": 17
+      "afterScore": 39,
+      "delta": 9
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 47,
-      "afterScore": 49,
+      "beforeScore": 39,
+      "afterScore": 41,
       "delta": 2
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 41,
+      "afterScore": 45,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 45,
+      "afterScore": 48,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 48,
+      "afterScore": 54,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

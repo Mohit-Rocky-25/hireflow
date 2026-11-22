@@ -66,33 +66,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "React",
-        "TypeScript",
+        "Go",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.38
+      "relevance": 0.23
+    },
+    {
+      "id": "brief-fullstack-ecommerce",
+      "closes": [
+        "React",
+        "TypeScript"
+      ],
+      "relevance": 0.23
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "React",
-        "TypeScript",
+        "Go",
         "DevOps & CI/CD"
       ],
       "beforeScore": 43,
-      "afterScore": 48,
-      "delta": 5
+      "afterScore": 46,
+      "delta": 3
     },
     {
       "skills": [
-        "Go"
+        "React",
+        "TypeScript"
       ],
-      "beforeScore": 48,
+      "beforeScore": 46,
       "afterScore": 49,
-      "delta": 1
+      "delta": 3
     }
   ],
   "first3Rewrites": [

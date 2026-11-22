@@ -32,7 +32,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-schema-registry",
       "closes": [
         "System Design",
         "Databases & SQL"
@@ -47,8 +47,8 @@
         "Databases & SQL"
       ],
       "beforeScore": 25,
-      "afterScore": 26,
-      "delta": 1
+      "afterScore": 25,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

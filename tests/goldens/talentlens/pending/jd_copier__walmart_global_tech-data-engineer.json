@@ -43,30 +43,35 @@
       "id": "brief-cdc-pipeline",
       "closes": [
         "Python",
-        "Databases & SQL",
+        "Databases & SQL"
+      ],
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-columnar-compactor",
+      "closes": [
         "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "Databases & SQL",
-        "AWS"
+        "Databases & SQL"
       ],
       "beforeScore": 34,
-      "afterScore": 66,
-      "delta": 32
+      "afterScore": 56,
+      "delta": 22
     },
     {
       "skills": [
-        "System Design"
+        "AWS"
       ],
-      "beforeScore": 66,
-      "afterScore": 71,
-      "delta": 5
+      "beforeScore": 56,
+      "afterScore": 67,
+      "delta": 11
     }
   ],
   "first3Rewrites": [

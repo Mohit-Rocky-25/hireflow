@@ -66,22 +66,20 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-feature-flag-platform",
       "closes": [
+        "Go",
         "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL"
       ],
-      "relevance": 0.4
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
+        "Go",
         "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL"
       ],
       "beforeScore": 35,
@@ -90,7 +88,7 @@
     },
     {
       "skills": [
-        "Go"
+        "TypeScript"
       ],
       "beforeScore": 40,
       "afterScore": 42,

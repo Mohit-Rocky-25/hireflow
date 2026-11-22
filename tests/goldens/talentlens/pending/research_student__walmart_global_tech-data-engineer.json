@@ -41,12 +41,12 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
         "Databases & SQL",
         "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [

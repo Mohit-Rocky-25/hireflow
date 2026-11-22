@@ -64,29 +64,35 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD"
+        "React"
       ],
-      "relevance": 0.47
+      "relevance": 0.29
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD"
+        "React"
       ],
       "beforeScore": 28,
-      "afterScore": 32,
-      "delta": 4
+      "afterScore": 30,
+      "delta": 2
     },
     {
       "skills": [
         "Go"
+      ],
+      "beforeScore": 30,
+      "afterScore": 32,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
       ],
       "beforeScore": 32,
       "afterScore": 34,
@@ -94,7 +100,7 @@
     },
     {
       "skills": [
-        "React"
+        "AWS"
       ],
       "beforeScore": 34,
       "afterScore": 35,
@@ -102,7 +108,7 @@
     },
     {
       "skills": [
-        "TypeScript"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 35,
       "afterScore": 37,

@@ -46,21 +46,34 @@
     {
       "id": "brief-api-gateway-scratch",
       "closes": [
-        "DevOps & CI/CD",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-ci-cd-from-scratch",
+      "closes": [
+        "DevOps & CI/CD"
+      ],
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "DevOps & CI/CD",
         "System Design"
       ],
       "beforeScore": 19,
+      "afterScore": 54,
+      "delta": 35
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 54,
       "afterScore": 58,
-      "delta": 39
+      "delta": 4
     }
   ],
   "first3Rewrites": [

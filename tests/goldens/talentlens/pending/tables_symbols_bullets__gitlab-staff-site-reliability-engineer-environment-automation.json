@@ -47,25 +47,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-canary-deployment",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes"
       ],
-      "relevance": 1
+      "relevance": 0.6
+    },
+    {
+      "id": "brief-disaster-recovery-harness",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "AWS",
         "Kubernetes"
       ],
       "beforeScore": 42,
-      "afterScore": 54,
-      "delta": 12
+      "afterScore": 49,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 49,
+      "afterScore": 53,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

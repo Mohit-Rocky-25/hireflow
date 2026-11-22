@@ -68,24 +68,36 @@
       "id": "brief-multitenant-saas-rls",
       "closes": [
         "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 44,
+      "afterScore": 47,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 47,
+      "afterScore": 48,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 48,
       "afterScore": 50,
-      "delta": 6
+      "delta": 2
     }
   ],
   "first3Rewrites": [

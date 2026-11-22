@@ -38,23 +38,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-schema-registry",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "AWS",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-columnar-compactor",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "AWS",
         "System Design"
       ],
       "beforeScore": 36,
-      "afterScore": 54,
-      "delta": 18
+      "afterScore": 37,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 37,
+      "afterScore": 50,
+      "delta": 13
     }
   ],
   "first3Rewrites": [

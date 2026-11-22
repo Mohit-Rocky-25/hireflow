@@ -47,13 +47,13 @@
   },
   "projectsShown": [
     {
-      "id": "brief-realtime-code-execution",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [

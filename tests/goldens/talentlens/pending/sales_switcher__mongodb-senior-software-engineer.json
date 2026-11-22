@@ -68,11 +68,9 @@
       "id": "brief-api-gateway-scratch",
       "closes": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.64
+      "relevance": 0.28
     },
     {
       "id": "brief-realtime-stock-platform",
@@ -87,22 +85,36 @@
     {
       "skills": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "System Design"
       ],
       "beforeScore": 34,
-      "afterScore": 40,
-      "delta": 6
+      "afterScore": 37,
+      "delta": 3
     },
     {
       "skills": [
         "Python",
         "React"
       ],
-      "beforeScore": 40,
-      "afterScore": 43,
+      "beforeScore": 37,
+      "afterScore": 40,
       "delta": 3
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 42,
+      "afterScore": 43,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

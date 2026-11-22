@@ -60,16 +60,16 @@
         "Databases & SQL"
       ],
       "beforeScore": 25,
-      "afterScore": 26,
-      "delta": 1
+      "afterScore": 25,
+      "delta": 0
     },
     {
       "skills": [
         "DSA"
       ],
-      "beforeScore": 26,
+      "beforeScore": 25,
       "afterScore": 32,
-      "delta": 6
+      "delta": 7
     }
   ],
   "first3Rewrites": [

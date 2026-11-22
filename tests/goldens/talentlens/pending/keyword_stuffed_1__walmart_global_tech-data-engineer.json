@@ -38,7 +38,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-schema-registry",
+      "id": "brief-api-gateway-scratch",
       "closes": [
         "System Design"
       ],
@@ -51,8 +51,8 @@
         "System Design"
       ],
       "beforeScore": 19,
-      "afterScore": 56,
-      "delta": 37
+      "afterScore": 54,
+      "delta": 35
     }
   ],
   "first3Rewrites": [

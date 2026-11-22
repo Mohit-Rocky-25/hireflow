@@ -49,17 +49,15 @@
     {
       "id": "brief-devsecops-pipeline",
       "closes": [
-        "Kubernetes",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Kubernetes",
         "DevOps & CI/CD",
         "Application Security"
       ],

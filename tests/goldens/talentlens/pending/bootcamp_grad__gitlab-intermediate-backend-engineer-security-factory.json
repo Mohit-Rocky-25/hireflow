@@ -46,13 +46,13 @@
   },
   "projectsShown": [
     {
-      "id": "brief-realtime-code-execution",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.7
+      "relevance": 0.35
     }
   ],
   "scorePathSteps": [
@@ -65,14 +65,6 @@
       "beforeScore": 33,
       "afterScore": 42,
       "delta": 9
-    },
-    {
-      "skills": [
-        "System Design"
-      ],
-      "beforeScore": 42,
-      "afterScore": 45,
-      "delta": 3
     }
   ],
   "first3Rewrites": [

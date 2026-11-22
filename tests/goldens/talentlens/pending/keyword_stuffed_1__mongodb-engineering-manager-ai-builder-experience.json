@@ -62,23 +62,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-mlops-platform",
       "closes": [
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.57
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 19,
-      "afterScore": 45,
-      "delta": 26
+      "afterScore": 42,
+      "delta": 23
     }
   ],
   "first3Rewrites": [

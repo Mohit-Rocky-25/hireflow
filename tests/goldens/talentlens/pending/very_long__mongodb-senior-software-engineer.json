@@ -64,15 +64,6 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes"
-      ],
-      "relevance": 0.56
-    },
-    {
       "id": "brief-realtime-stock-platform",
       "closes": [
         "Python",
@@ -84,22 +75,36 @@
   "scorePathSteps": [
     {
       "skills": [
-        "Go",
-        "AWS",
-        "Kubernetes"
-      ],
-      "beforeScore": 38,
-      "afterScore": 43,
-      "delta": 5
-    },
-    {
-      "skills": [
         "Python",
         "React"
       ],
-      "beforeScore": 43,
-      "afterScore": 46,
+      "beforeScore": 38,
+      "afterScore": 41,
       "delta": 3
+    },
+    {
+      "skills": [
+        "Go"
+      ],
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 43,
+      "afterScore": 44,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 44,
+      "afterScore": 46,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

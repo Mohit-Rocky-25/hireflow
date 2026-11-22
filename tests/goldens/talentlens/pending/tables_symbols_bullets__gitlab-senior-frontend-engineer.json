@@ -70,10 +70,9 @@
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.7
     }
   ],
   "scorePathSteps": [
@@ -81,12 +80,19 @@
       "skills": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Application Security"
       ],
       "beforeScore": 43,
-      "afterScore": 51,
-      "delta": 8
+      "afterScore": 48,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 48,
+      "afterScore": 50,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

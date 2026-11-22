@@ -40,7 +40,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-cdc-pipeline",
+      "id": "brief-columnar-compactor",
       "closes": [
         "Python",
         "AWS"

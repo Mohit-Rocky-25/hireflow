@@ -41,7 +41,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-cdc-pipeline",
+      "id": "brief-columnar-compactor",
       "closes": [
         "Python",
         "AWS"
@@ -56,8 +56,8 @@
         "AWS"
       ],
       "beforeScore": 68,
-      "afterScore": 69,
-      "delta": 1
+      "afterScore": 68,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

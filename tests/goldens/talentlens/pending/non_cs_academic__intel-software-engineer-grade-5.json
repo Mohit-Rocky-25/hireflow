@@ -68,16 +68,8 @@
         "Systems"
       ],
       "beforeScore": 30,
-      "afterScore": 31,
-      "delta": 1
-    },
-    {
-      "skills": [
-        "DSA"
-      ],
-      "beforeScore": 31,
-      "afterScore": 34,
-      "delta": 3
+      "afterScore": 30,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

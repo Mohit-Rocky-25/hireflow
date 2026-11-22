@@ -66,12 +66,10 @@
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.73
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
@@ -79,22 +77,20 @@
       "skills": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD",
         "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 53,
-      "delta": 34
+      "afterScore": 47,
+      "delta": 28
     },
     {
       "skills": [
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 53,
-      "afterScore": 54,
-      "delta": 1
+      "beforeScore": 47,
+      "afterScore": 50,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

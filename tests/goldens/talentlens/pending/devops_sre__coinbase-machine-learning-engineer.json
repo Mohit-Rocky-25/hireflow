@@ -50,16 +50,21 @@
     {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 1
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "AWS",
         "Machine Learning"
       ],
       "beforeScore": 54,
@@ -68,11 +73,19 @@
     },
     {
       "skills": [
+        "AWS"
+      ],
+      "beforeScore": 56,
+      "afterScore": 56,
+      "delta": 0
+    },
+    {
+      "skills": [
         "Application Security"
       ],
       "beforeScore": 56,
-      "afterScore": 57,
-      "delta": 1
+      "afterScore": 56,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

@@ -44,13 +44,6 @@
         "Application Security"
       ],
       "relevance": 0.3
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design"
-      ],
-      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
@@ -62,14 +55,6 @@
       "beforeScore": 17,
       "afterScore": 36,
       "delta": 19
-    },
-    {
-      "skills": [
-        "System Design"
-      ],
-      "beforeScore": 36,
-      "afterScore": 40,
-      "delta": 4
     }
   ],
   "first3Rewrites": [

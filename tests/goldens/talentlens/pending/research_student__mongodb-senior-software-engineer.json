@@ -65,43 +65,55 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-event-recon",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
+        "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.64
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Go",
-        "AWS",
-        "Kubernetes",
+        "Java",
         "Databases & SQL"
       ],
       "beforeScore": 30,
-      "afterScore": 44,
-      "delta": 14
+      "afterScore": 39,
+      "delta": 9
     },
     {
       "skills": [
-        "Java"
+        "Go"
       ],
-      "beforeScore": 44,
-      "afterScore": 48,
-      "delta": 4
+      "beforeScore": 39,
+      "afterScore": 41,
+      "delta": 2
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 48,
-      "afterScore": 51,
+      "beforeScore": 41,
+      "afterScore": 45,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 45,
+      "afterScore": 48,
       "delta": 3
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 48,
+      "afterScore": 54,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

@@ -66,25 +66,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-multitenant-saas-rls",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "React",
-        "TypeScript",
+        "TypeScript"
+      ],
+      "relevance": 0.3
+    },
+    {
+      "id": "brief-mlops-platform",
+      "closes": [
         "DevOps & CI/CD"
       ],
-      "relevance": 0.5
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "React",
-        "TypeScript",
+        "TypeScript"
+      ],
+      "beforeScore": 45,
+      "afterScore": 45,
+      "delta": 0
+    },
+    {
+      "skills": [
         "DevOps & CI/CD"
       ],
       "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "afterScore": 45,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

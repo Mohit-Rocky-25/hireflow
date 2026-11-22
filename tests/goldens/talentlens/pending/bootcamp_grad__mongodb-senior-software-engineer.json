@@ -64,33 +64,45 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-multi-region-url-shortener",
       "closes": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.71
+      "relevance": 0.39
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
       "beforeScore": 40,
-      "afterScore": 46,
-      "delta": 6
+      "afterScore": 43,
+      "delta": 3
     },
     {
       "skills": [
         "Java"
+      ],
+      "beforeScore": 43,
+      "afterScore": 45,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "Python"
+      ],
+      "beforeScore": 45,
+      "afterScore": 46,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
       ],
       "beforeScore": 46,
       "afterScore": 48,
@@ -98,7 +110,7 @@
     },
     {
       "skills": [
-        "Python"
+        "Kubernetes"
       ],
       "beforeScore": 48,
       "afterScore": 49,
