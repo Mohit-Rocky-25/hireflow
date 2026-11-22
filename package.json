@@ -44,7 +44,7 @@
     "check:bundle": "node scripts/check-bundle.mjs",
     "bundle:check": "npx tsx scripts/check-bundle-size.ts",
     "verify": "npm run typecheck && npm run test && npm run privacy:check && npm run build",
-    "verify:talentlens": "npx tsx scripts/verifyTalentLens.ts",
+    "verify:talentlens": "npx tsx scripts/runVerify.ts",
     "golden:check": "npx tsx scripts/checkTalentLensGoldens.ts",
     "golden:update": "npx tsx scripts/checkTalentLensGoldens.ts --update",
     "golden:pending": "npx tsx scripts/generatePendingGoldens.ts",

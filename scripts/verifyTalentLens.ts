@@ -2427,6 +2427,15 @@ async function runVerification() {
     a40Pass ? undefined : `diff: before=${JSON.stringify(gitStatusBefore)} after=${JSON.stringify(gitStatusAfter)}`
   );
 
+  const runnerPath = path.join(process.cwd(), 'scripts', 'runVerify.ts');
+  const a41Pass = fs.existsSync(runnerPath);
+  recordAssertion(
+    'A41',
+    'verification output runner pipes stdout to .verify/last-run.txt and prints sha256 provenance hash',
+    a41Pass,
+    a41Pass ? undefined : `scripts/runVerify.ts missing`
+  );
+
   // ============================================================
   // S14 VISUAL
   // ============================================================
@@ -2452,6 +2461,7 @@ async function runVerification() {
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
+  const STAGE_H3_ASSERTIONS = ['A41'];
 
   const evaluateStageGate = (stageNum: number | string, stageName: string, reqAssertionIds: string[]) => {
     const stageAsserts = ASSERTIONS_LOG.filter((a) => reqAssertionIds.includes(a.id));
@@ -2472,6 +2482,7 @@ async function runVerification() {
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
   evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
+  evaluateStageGate('H3', 'Verification Output Provenance', STAGE_H3_ASSERTIONS);
 
   // ============================================================
   // FINAL ASSERTION SUMMARY
