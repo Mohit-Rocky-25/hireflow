@@ -310,6 +310,14 @@ export default function App() {
             <Route path="/tools/career-path/explorer" element={<Navigate to="/tools/career-path/company-levels" replace />} />
             <Route path="/talentlens" element={<Navigate to="/demo" replace />} />
             <Route path="/talent-lens" element={<Navigate to="/demo" replace />} />
+            <Route path="/demo/talentlens" element={<Navigate to="/demo" replace />} />
+            <Route path="/roaster" element={<RedirectWithSearch to="/tools/resume-checker" />} />
+            <Route path="/tailor" element={<RedirectWithSearch to="/tools/tailor" />} />
+            <Route path="/briefs" element={<RedirectWithSearch to="/tools/build-briefs" />} />
+            <Route path="/compare" element={<RedirectWithSearch to="/tools/jd-compare" />} />
+            <Route path="/credentials" element={<RedirectWithSearch to="/tools/credential-engine" />} />
+            <Route path="/reach-out" element={<RedirectWithSearch to="/tools/reach-out" />} />
+            <Route path="/pathways" element={<RedirectWithSearch to="/tools/pathways" />} />
             <Route path="/tools/talent-lens" element={<TalentLens />} />
             <Route path="/tools/credential-engine" element={<DesignGate spruce={SpruceCredentialEnginePage} default={CredentialOpportunityEnginePage} />} />
             <Route path="/tools/credentials" element={<RedirectWithSearch to="/tools/credential-engine" />} />
