@@ -21,6 +21,7 @@ import {
 import { CANONICAL_SCORING_SPEC } from '../../scoring/spec';
 import { MARKET_ENTRIES, MarketEntry } from '../../data/market';
 import { CURRICULUM_DOMAINS } from '../../data/curriculum/curriculumData';
+import { PRACTICE_TRACKS } from '../../data/practiceTracks';
 import { validateResumeAuthenticity } from '../../lib/resumeValidator';
 import { buildSkillStates, classifySkillKind, normalizeTier, SkillState } from './engine/skillStateEngine';
 import { generateEvidenceSafeRewrites, BulletRewrite } from './engine/bulletRewriteEngine';
@@ -1148,6 +1149,61 @@ export function generateImprovementPlan(
         ],
       });
     }
+  }
+
+  // Stage 4: Practice steps for DSA and System Design gaps
+  // When a role's gap list includes DSA or System Design, add one OPTIONAL step after project steps.
+  const hasDsaGap = breakdown.some((b) => {
+    const cId = getCanonicalSkillId(b.competency);
+    const isMatch = cId === 'dsa' || /dsa|data\s*structures|algorithms/i.test(b.competency);
+    return isMatch && (b.analysis.status === 'absent' || b.analysis.status === 'working' || (b.analysis.gaps && b.analysis.gaps.length > 0));
+  });
+
+  const hasSystemDesignGap = breakdown.some((b) => {
+    const cId = getCanonicalSkillId(b.competency);
+    const isMatch = cId === 'system-design' || /system\s*design/i.test(b.competency);
+    return isMatch && (b.analysis.status === 'absent' || b.analysis.status === 'working' || (b.analysis.gaps && b.analysis.gaps.length > 0));
+  });
+
+  if (hasDsaGap) {
+    const track = PRACTICE_TRACKS.dsa;
+    plans.push({
+      priority: 'optional',
+      title: track.title,
+      detail: `Recommended practice sequence: ${track.sequence.join(', ')}.`,
+      skills: ['DSA'],
+      timeframe: 'Self-paced',
+      closability: 'not closable by resume alone',
+      suggestedAction: `Follow the curated sequence (${track.sequence.join(', ')}) using approved preparation resources: ${track.resources.join(', ')}.`,
+      hypotheticalScoreGain: 'not scored',
+      bulletTemplate: `Practiced and demonstrated core algorithmic competencies across ${track.sequence.join(', ')}.`,
+      resources: [...track.resources],
+    });
+    handledSkills.add('dsa');
+    handledSkills.add('algorithms');
+    handledSkills.add('data structures');
+    handledSkills.add('Data Structures & Algorithms');
+    handledSkills.add('DSA');
+  }
+
+  if (hasSystemDesignGap) {
+    const track = PRACTICE_TRACKS.systemdesign;
+    plans.push({
+      priority: 'optional',
+      title: track.title,
+      detail: `Recommended practice sequence: ${track.sequence.join(', ')}.`,
+      skills: ['System Design'],
+      timeframe: 'Self-paced',
+      closability: 'not closable by resume alone',
+      suggestedAction: `Follow the curated sequence (${track.sequence.join(', ')}) using approved preparation resources: ${track.resources.join(', ')}.`,
+      hypotheticalScoreGain: 'not scored',
+      bulletTemplate: `Practiced and demonstrated core system architecture competencies across ${track.sequence.join(', ')}.`,
+      resources: [...track.resources],
+    });
+    handledSkills.add('systemdesign');
+    handledSkills.add('system-design');
+    handledSkills.add('system design');
+    handledSkills.add('System Design');
   }
 
   // 1. Missing Must-Have Competencies

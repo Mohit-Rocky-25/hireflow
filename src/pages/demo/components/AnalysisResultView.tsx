@@ -972,6 +972,8 @@ export function AnalysisResultView({
                           ? 'bg-black text-danger border-danger/40'
                           : plan.priority === 'high'
                           ? 'bg-black text-pale-yellow border-pale-yellow/40'
+                          : plan.priority === 'optional'
+                          ? 'bg-black text-neutral-400 border-neutral-700'
                           : 'bg-black text-volt border-volt'
                       }`}
                     >

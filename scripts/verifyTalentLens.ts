@@ -81,6 +81,7 @@ import {
 import { parseResumeToScoringInput } from '../src/scoring/core/resumeParser';
 import { runScoringEngine, ScoringContext } from '../src/scoring/core/traceBuilder';
 import { CANONICAL_SCORING_SPEC } from '../src/scoring/spec/canonicalSpec';
+import { PRACTICE_TRACKS, APPROVED_PRACTICE_RESOURCE_NAMES } from '../src/data/practiceTracks';
 
 // Tracking for explicit named assertions
 const ASSERTIONS_LOG: Array<{ id: string; name: string; pass: boolean; details?: string }> = [];
@@ -1058,6 +1059,8 @@ async function runVerification() {
   ];
 
   let a23AllEqual = true;
+  let a33AllGapsYieldOnceAndUnscored = true;
+  let a34AllResourcesApprovedAndNoUrlsOrDeadlines = true;
   let empiricalTotalSteps = 0;
   let empiricalTotalOverPromise = 0;
   let empiricalMaxOverPromise = -999;
@@ -1117,6 +1120,70 @@ async function runVerification() {
     if (totalProjectedDelta !== pathTotalDelta) {
       a23AllEqual = false;
     }
+
+    // Stage 4: Practice steps validation (A33 and A34)
+    const isThin = analysis.score === 0 || (analysis.plans.length === 1 && analysis.plans[0].title === 'Provide a genuine technical resume');
+    if (!isThin) {
+      const hasDsaGap = analysis.breakdown.some((b: any) => {
+        const cId = getCanonicalSkillId(b.competency);
+        const isMatch = cId === 'dsa' || /dsa|data\s*structures|algorithms/i.test(b.competency);
+        return isMatch && (b.analysis.status === 'absent' || b.analysis.status === 'working' || (b.analysis.gaps && b.analysis.gaps.length > 0));
+      });
+
+      const hasSdGap = analysis.breakdown.some((b: any) => {
+        const cId = getCanonicalSkillId(b.competency);
+        const isMatch = cId === 'system-design' || /system\s*design/i.test(b.competency);
+        return isMatch && (b.analysis.status === 'absent' || b.analysis.status === 'working' || (b.analysis.gaps && b.analysis.gaps.length > 0));
+      });
+
+      const dsaPracticeSteps = (analysis.plans || []).filter((p: any) => p.title === PRACTICE_TRACKS.dsa.title);
+      const sdPracticeSteps = (analysis.plans || []).filter((p: any) => p.title === PRACTICE_TRACKS.systemdesign.title);
+
+      if (hasDsaGap) {
+        if (dsaPracticeSteps.length !== 1) {
+          a33AllGapsYieldOnceAndUnscored = false;
+        } else {
+          const s = dsaPracticeSteps[0];
+          if (s.priority === 'critical' || s.hypotheticalScoreGain !== 'not scored') {
+            a33AllGapsYieldOnceAndUnscored = false;
+          }
+        }
+      } else {
+        if (dsaPracticeSteps.length !== 0) {
+          a33AllGapsYieldOnceAndUnscored = false;
+        }
+      }
+
+      if (hasSdGap) {
+        if (sdPracticeSteps.length !== 1) {
+          a33AllGapsYieldOnceAndUnscored = false;
+        } else {
+          const s = sdPracticeSteps[0];
+          if (s.priority === 'critical' || s.hypotheticalScoreGain !== 'not scored') {
+            a33AllGapsYieldOnceAndUnscored = false;
+          }
+        }
+      } else {
+        if (sdPracticeSteps.length !== 0) {
+          a33AllGapsYieldOnceAndUnscored = false;
+        }
+      }
+
+      const allPracticeSteps = [...dsaPracticeSteps, ...sdPracticeSteps];
+      for (const step of allPracticeSteps) {
+        for (const res of step.resources || []) {
+          if (!APPROVED_PRACTICE_RESOURCE_NAMES.has(res)) {
+            a34AllResourcesApprovedAndNoUrlsOrDeadlines = false;
+          }
+        }
+        const fullContent = `${step.title} ${step.detail} ${step.suggestedAction} ${step.timeframe} ${(step.resources || []).join(' ')}`;
+        const containsUrl = /https?:\/\/|www\.|\.(com|org|io|dev|net)\b/i.test(fullContent);
+        const containsTimeEstimate = /\b\d+\s*(days?|weeks?|months?|hours?|mins?|minutes?)\b/i.test(fullContent) || /\b(deadline|schedule)\b/i.test(fullContent);
+        if (containsUrl || containsTimeEstimate) {
+          a34AllResourcesApprovedAndNoUrlsOrDeadlines = false;
+        }
+      }
+    }
   }
 
   empiricalErrors.sort((a, b) => a - b);
@@ -1148,6 +1215,18 @@ async function runVerification() {
     'A31',
     'the score chain sums exactly to the printed score at every step',
     a31AllChainsSumExactly
+  );
+
+  recordAssertion(
+    'A33',
+    'each DSA or System Design gap yields the step exactly once, unscored and not CRITICAL',
+    a33AllGapsYieldOnceAndUnscored
+  );
+
+  recordAssertion(
+    'A34',
+    'every resource name in output is in the data file, and no output contains URLs or time estimates',
+    a34AllResourcesApprovedAndNoUrlsOrDeadlines
   );
 
   // ============================================================
@@ -1222,9 +1301,13 @@ async function runVerification() {
   let beforeCard2Cov = 0;
 
   try {
-    if (!fs.existsSync(worktreeDir)) {
-      execSync(`git worktree add --detach "${worktreeDir}" ${startCommitHash}`, { stdio: 'pipe' });
+    try {
+      execSync(`git worktree remove --force "${worktreeDir}"`, { stdio: 'ignore' });
+    } catch {}
+    if (fs.existsSync(worktreeDir)) {
+      fs.rmSync(worktreeDir, { recursive: true, force: true });
     }
+    execSync(`git worktree add --detach "${worktreeDir}" ${startCommitHash}`, { stdio: 'pipe' });
     worktreeHeadCommit = execSync(`git -C "${worktreeDir}" rev-parse --short HEAD`, { encoding: 'utf8' }).trim();
     const beforeGoldenPath = path.join(worktreeDir, 'tests/goldens/talentlens/records/tier1_cs_student__razorpay-sde-2-payments-core.json');
     if (fs.existsSync(beforeGoldenPath)) {
@@ -1239,8 +1322,11 @@ async function runVerification() {
     console.error(`Failed to load worktree at commit ${startCommitShort}:`, err?.message);
   } finally {
     try {
+      execSync(`git worktree remove --force "${worktreeDir}"`, { stdio: 'ignore' });
+    } catch {}
+    try {
       if (fs.existsSync(worktreeDir)) {
-        execSync(`git worktree remove --force "${worktreeDir}"`, { stdio: 'pipe' });
+        fs.rmSync(worktreeDir, { recursive: true, force: true });
       }
     } catch {}
   }
@@ -2936,7 +3022,7 @@ async function runVerification() {
   const STAGE_1_ASSERTIONS = ['A11', 'A12', 'A13', 'A14', 'A22', 'A27', 'A28'];
   const STAGE_2_ASSERTIONS = ['A18', 'A29', 'A30'];
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25', 'A31', 'A32'];
-  const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26'];
+  const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26', 'A33', 'A34'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
   const STAGE_H3_ASSERTIONS = ['A41'];
