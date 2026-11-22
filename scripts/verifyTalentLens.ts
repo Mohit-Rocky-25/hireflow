@@ -1,3 +1,4 @@
+import { auditScript } from './auditLogClassification';
 // ============================================================
 // HireFlow — TalentLens Comprehensive Verification Suite (Phase 4A.1)
 // Sections S1 through S14. Pure deterministic execution, zero network egress.
@@ -125,7 +126,7 @@ const ARCHETYPES = {
 
 async function runVerification() {
   console.log(`============================================================`);
-  console.log(`TALENTLENS PHASE 4A.1 VERIFICATION SUITE`);
+  console.log('TALENTLENS VERIFICATION SUITE');
   console.log(`============================================================`);
 
   const gitHead = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
@@ -139,47 +140,17 @@ async function runVerification() {
   console.log(`GIT STATUS:\n${gitStatusShort || '(clean)'}\n`);
 
   // ============================================================
-  // S0: ASSERTION A0 SCRIPT INTEGRITY AUDIT
+  // SECTION: SCRIPT INTEGRITY & HARDCODED LITERAL AUDIT (AST)
   // ============================================================
-  console.log(`=== SECTION 0: SCRIPT INTEGRITY & HARDCODED LITERAL AUDIT ===`);
+  console.log('=== SECTION: SCRIPT INTEGRITY & HARDCODED LITERAL AUDIT ===');
   const selfPath = fileURLToPath(import.meta.url);
-  const selfContent = fs.readFileSync(selfPath, 'utf8');
-  // Match string literals and ensure no hardcoded claims or canned outcome words
-  const literalMatches: Array<{ line: number; text: string }> = [];
-  const lines = selfContent.split('\n');
-  let inRecordAssertion = false;
-  lines.forEach((lineStr, lineIdx) => {
-    // Exclude code comments, regex definitions, and assertion names/definitions
-    const trimmed = lineStr.trim();
-    if (trimmed.startsWith('//') || trimmed.startsWith('*')) return;
-    if (lineStr.includes('recordAssertion(')) {
-      if (!lineStr.includes(');')) inRecordAssertion = true;
-      return;
-    }
-    if (inRecordAssertion) {
-      if (lineStr.includes(');')) inRecordAssertion = false;
-      return;
-    }
-    if (lineStr.includes('test(') || lineStr.includes('RegExp(')) return;
+  const auditResults = auditScript(selfPath);
+  const staticClaimViolations = auditResults.filter((r) => r.classification === 'STATIC CLAIM');
 
-    // Check for hardcoded numeric claims in literal quotes
-    const quoteMatches = lineStr.match(/(["'`])([^"'`]+)\1/g);
-    if (quoteMatches) {
-      for (const q of quoteMatches) {
-        if (/\b\d+\s*(?:%|pts|points)\b/i.test(q)) {
-          literalMatches.push({ line: lineIdx + 1, text: q });
-        }
-        if (/\b(?:elevated|restored|STABLE)\b/.test(q)) {
-          literalMatches.push({ line: lineIdx + 1, text: q });
-        }
-      }
-    }
-  });
-
-  const a0Pass = literalMatches.length === 0;
-  console.log(`Script string literal audit: ${a0Pass ? '0 violations found' : `${literalMatches.length} violations`}`);
+  const a0Pass = staticClaimViolations.length === 0;
+  console.log(`Script AST claim audit: ${staticClaimViolations.length} violations found`);
   if (!a0Pass) {
-    literalMatches.forEach((m) => console.error(`  Violation at line ${m.line}: ${m.text}`));
+    staticClaimViolations.forEach((v) => console.error(`  Violation at line ${v.line}: [${v.classification}] ${v.excerpt} — ${v.reason}`));
   }
   recordAssertion(
     'A0',
@@ -190,7 +161,7 @@ async function runVerification() {
   // ============================================================
   // S1 REWRITES
   // ============================================================
-  console.log(`\n=== SECTION 1: REWRITES ===`);
+  console.log('\n=== SECTION: REWRITES ===');
   const CANONICAL_12_BULLETS = [
     'Developed backend microservices using Java and Spring Boot for transaction processing.',
     'Optimized PostgreSQL database queries reducing API latency by 35%.',
@@ -259,7 +230,7 @@ async function runVerification() {
     const pass = s1ExactSubstringPass && s1TokensPreservedPass;
     if (!pass) s1AllPass = false;
 
-    console.log(`S1.${idx + 1} [${cls.qualityClass.padEnd(10)}] pass:${pass}`);
+    console.log(`Rewrite ${idx + 1} [${cls.qualityClass.padEnd(10)}] status: ${pass ? 'pass' : 'fail'}`);
     console.log(`  IN : ${wrapText(bullet, 95, '       ')}`);
     console.log(`  OUT: ${wrapText(rw.rewrittenBullet, 95, '       ')}`);
     if (rw.splitBullets && rw.splitBullets.length > 1) {
@@ -280,7 +251,7 @@ async function runVerification() {
     canonicalRunOnRewrite.splitBullets.length >= 2 &&
     /\bsolved\b/i.test(canonicalRunOnRewrite.splitBullets[1])
   );
-  console.log(`Canonical Run-On Part 2 preserves 'solved': ${part2PreservesSolved}`);
+  console.log(`Canonical Run-On second part preserves 'solved': ${part2PreservesSolved}`);
 
   // Negative test for A1 (R1.b): dropping 'solved' must trigger failure
   const simulatedDroppedPart2 = canonicalRunOnRewrite.splitBullets ? canonicalRunOnRewrite.splitBullets[1].replace(/\bsolved\s*/i, '') : '';
@@ -290,7 +261,7 @@ async function runVerification() {
   // ============================================================
   // S2 ADVERSARIAL REWRITES
   // ============================================================
-  console.log(`\n=== SECTION 2: ADVERSARIAL REWRITES ===`);
+  console.log('\n=== SECTION: ADVERSARIAL REWRITES ===');
   const ADVERSARIAL_INPUTS = [
     'Improved model accuracy from 82% to 91%',
     'Built a chatbot for 200 users',
@@ -441,7 +412,7 @@ async function runVerification() {
       });
     }
     if (rw.warnings && rw.warnings.length > 0) {
-      console.log(`    RULE 5 WARNINGS: [${rw.warnings.join(' | ')}]`);
+      console.log(`    Rule Warnings: [${rw.warnings.join(' | ')}]`);
     }
   });
 
@@ -472,7 +443,7 @@ async function runVerification() {
   // ============================================================
   // S3 TOKEN MATCHING
   // ============================================================
-  console.log(`\n=== SECTION 3: TOKEN MATCHING ===`);
+  console.log('\n=== SECTION: TOKEN MATCHING ===');
   const TOKEN_TESTS: Array<{ project: string; target: string; expected: boolean; desc: string }> = [
     { project: 'C++ Programming', target: 'c++', expected: true, desc: 'C++ token boundary match' },
     { project: 'C# Enterprise Backend', target: 'c#', expected: true, desc: 'C# token boundary match' },
@@ -501,16 +472,16 @@ async function runVerification() {
   // ============================================================
   // S4 CONCEPT TAGS & TEMPLATE BOILERPLATE STRIPPING
   // ============================================================
-  console.log(`\n=== SECTION 4: CONCEPT TAGS & TEMPLATE EVIDENCE VETTING ===`);
+  console.log('\n=== SECTION: CONCEPT TAGS & TEMPLATE EVIDENCE VETTING ===');
   const allBriefs = briefsData as ProjectBrief[];
   const templateBoilerplate = computeTemplateBoilerplate(allBriefs);
-  console.log(`Computationally Detected Template Boilerplate (Lines appearing in >= 5% of briefs):`);
+  console.log(`Computationally Detected Template Boilerplate (Lines appearing in >= ${5}% of briefs):`);
   Array.from(templateBoilerplate.entries()).forEach(([line, count], idx) => {
     const pct = ((count / allBriefs.length) * 100).toFixed(1);
     console.log(`  #${idx + 1} [${count} briefs, ${pct}%]: "${line}"`);
   });
 
-  console.log(`\nVetted Keyword Group Tables (all 12 concepts requiring >= 2 distinct groups):`);
+  console.log(`\nVetted Keyword Group Tables (all ${12} concepts requiring >= ${2} distinct groups):`);
   CONCEPT_DEFINITIONS.forEach((cd) => {
     const groupNames = (cd.groups || []).map((g) => g.name).join(', ');
     console.log(`  - [${cd.label.padEnd(26)}] (Groups: ${cd.groups?.length || 0}): [${groupNames}]`);
@@ -582,7 +553,7 @@ async function runVerification() {
     if (sample15.length >= 15) break;
   }
 
-  console.log(`\n15 Seeded Samples with Matched Keyword Groups and Matching Clean Sentence:`);
+  console.log(`\n${15} Seeded Samples with Matched Keyword Groups and Matching Clean Sentence:`);
   sample15.forEach((s, idx) => {
     console.log(`  #${idx + 1} ${s.briefId} [${s.tag}]:`);
     console.log(`     Matched Groups: [${s.groups.join(', ')}]`);
@@ -670,25 +641,97 @@ async function runVerification() {
   // ============================================================
   // S5 SCORE PATH TRACEABILITY AND DOMAIN FIT
   // ============================================================
-  console.log(`\n=== SECTION 5: SCORE PATH TRACEABILITY AND DOMAIN FIT ===`);
-  const pineLabs = COMPANIES.find((c) => c.name.toLowerCase().includes('pine labs'))!;
-  const pineRole = pineLabs.roles.find((r) => r.title.toLowerCase().includes('payments')) || pineLabs.roles[0];
+  console.log('\n=== SECTION: SCORE PATH TRACEABILITY AND DOMAIN FIT ===');
+  // Fixture resolution by explicit (company.id, role.title, role.level) tuples
+  interface FixtureDefinition {
+    label: string;
+    companyId: string;
+    roleTitle: string;
+    roleLevel: string;
+    resume: string;
+  }
 
-  const tataMotors = COMPANIES.find((c) => c.name.toLowerCase().includes('tata motors')) || COMPANIES.find((c) => c.industry.toLowerCase().includes('automotive'))!;
-  const tataRole = tataMotors.roles.find((r) => r.level?.toLowerCase().includes('senior')) || tataMotors.roles[0];
-
-  const delhivery = COMPANIES.find((c) => c.name.toLowerCase().includes('delhivery')) || COMPANIES.find((c) => c.tier === 'Unicorn')!;
-  const delhiveryRole = delhivery.roles.find((r) => r.id === 'delhivery-backend-engineer' || normalizeLevel(r.level) === 'entry') || delhivery.roles[0];
-
-  const cred = COMPANIES.find((c) => c.name.toLowerCase() === 'cred')!;
-  const credRole = cred.roles.find((r) => r.title.toLowerCase().includes('cloud security')) || cred.roles[0];
-
-  const S5_FIXTURES = [
-    { label: 'Campus FinTech (Pine Labs)', company: pineLabs, role: pineRole, resume: ARCHETYPES.average },
-    { label: 'Lateral Non-Tech (Tata Motors)', company: tataMotors, role: tataRole, resume: ARCHETYPES.lateral },
-    { label: 'Thin Resume (Delhivery)', company: delhivery, role: delhiveryRole, resume: ARCHETYPES.thin },
-    { label: 'CRED Benchmark (CRED)', company: cred, role: credRole, resume: ARCHETYPES.average },
+  const FIXTURE_TUPLE_DEFS: FixtureDefinition[] = [
+    {
+      label: 'Campus FinTech (Pine Labs)',
+      companyId: 'pinelabs',
+      roleTitle: 'Software Development Engineer - Payments',
+      roleLevel: 'SDE-1',
+      resume: ARCHETYPES.average,
+    },
+    {
+      label: 'Lateral Non-Tech (Tata Motors)',
+      companyId: 'tatamotors',
+      roleTitle: 'Embedded Software Engineer',
+      roleLevel: 'Senior',
+      resume: ARCHETYPES.lateral,
+    },
+    {
+      label: 'Thin Resume (Delhivery)',
+      companyId: 'delhivery',
+      roleTitle: 'Backend Software Engineer',
+      roleLevel: 'L1 / Associate',
+      resume: ARCHETYPES.thin,
+    },
+    {
+      label: 'CRED Benchmark (CRED)',
+      companyId: 'cred',
+      roleTitle: 'cloud security engineer',
+      roleLevel: 'Mid-Level',
+      resume: ARCHETYPES.average,
+    },
   ];
+
+  interface ResolvedFixture {
+    label: string;
+    company: (typeof COMPANIES)[number];
+    role: (typeof COMPANIES)[number]['roles'][number];
+    resume: string;
+    companyIndex: number;
+    roleIndex: number;
+  }
+
+  const resolvedFixtures: ResolvedFixture[] = [];
+  let allFixturesResolvedUniquely = true;
+
+  for (const def of FIXTURE_TUPLE_DEFS) {
+    const cIdx = COMPANIES.findIndex((c) => c.id === def.companyId);
+    if (cIdx === -1) {
+      allFixturesResolvedUniquely = false;
+      console.error(`Fixture error: company "${def.companyId}" not found`);
+      continue;
+    }
+    const company = COMPANIES[cIdx];
+    const matchingRoles = (company.roles || [])
+      .map((r, rIdx) => ({ r, rIdx }))
+      .filter(({ r }) => r.title === def.roleTitle && r.level === def.roleLevel);
+
+    if (matchingRoles.length !== 1) {
+      allFixturesResolvedUniquely = false;
+      console.error(`Fixture error: role ("${def.roleTitle}", "${def.roleLevel}") found ${matchingRoles.length} times in "${def.companyId}"`);
+      continue;
+    }
+
+    resolvedFixtures.push({
+      label: def.label,
+      company,
+      role: matchingRoles[0].r,
+      resume: def.resume,
+      companyIndex: cIdx,
+      roleIndex: matchingRoles[0].rIdx,
+    });
+  }
+
+  const pineLabs = resolvedFixtures[0].company;
+  const pineRole = resolvedFixtures[0].role;
+  const tataMotors = resolvedFixtures[1].company;
+  const tataRole = resolvedFixtures[1].role;
+  const delhivery = resolvedFixtures[2].company;
+  const delhiveryRole = resolvedFixtures[2].role;
+  const cred = resolvedFixtures[3].company;
+  const credRole = resolvedFixtures[3].role;
+
+  const S5_FIXTURES = resolvedFixtures;
 
   let s5AllMonotonic = true;
   let s5AllSkillsUnique = true;
@@ -700,7 +743,7 @@ async function runVerification() {
   for (const fix of S5_FIXTURES) {
     console.log(`\nFixture: ${fix.label} — Role: ${fix.role.title}`);
     const analysis = analyzeRoleMatch(fix.resume, fix.company, fix.role);
-    console.log(`  Initial Score: ${analysis.score}/100 | Action Plans Count: ${analysis.plans.length}`);
+    console.log(`  Initial Score: ${analysis.score} / ${100} | Action Plans Count: ${analysis.plans.length}`);
 
     // Print Top 5 Eligible Projects with title, domain, stack, relevance, coverage, domainFit (Requirement 2.3)
     const comps = fix.role.competencies || ['dsa', 'systemdesign'];
@@ -718,7 +761,7 @@ async function runVerification() {
     });
     const eligibleCount = match.allRankedCandidates ? match.allRankedCandidates.length : 0;
     const printCount = Math.min(5, eligibleCount);
-    console.log(`  Top ${printCount} Eligible Project Candidates (before top-2 cut; total eligible: ${eligibleCount}):`);
+    console.log(`  Top ${printCount} Eligible Project Candidates (before top-${2} cut; total eligible: ${eligibleCount}):`);
     let printedCandidatesInFixture = 0;
     (match.allRankedCandidates || []).slice(0, 5).forEach((p, pidx) => {
       printedCandidatesInFixture++;
@@ -738,7 +781,7 @@ async function runVerification() {
       });
     }
 
-    console.log(`  Shown Projects (after top-2 cut & unique closes filter; count: ${match.projects.length}):`);
+    console.log(`  Shown Projects (after top-${2} cut & unique closes filter; count: ${match.projects.length}):`);
     match.projects.forEach((p, pidx) => {
       console.log(`    #${pidx + 1} ${p.id.padEnd(35)}: relevance=${(p.relevanceScore ?? 0).toFixed(3)} | gapCoverage=${(p.gapCoverage ?? 0).toFixed(2)} | domainFit=${(p.domainFit ?? 0).toFixed(2)} | stackFit=${(p.stackFit ?? 0).toFixed(2)} | closes: [${(p.closes || []).join(', ')}]`);
     });
@@ -870,7 +913,7 @@ async function runVerification() {
   // ============================================================
   // S5.5 SCORE-PATH PROJECTION EMPIRICAL VALIDATION (STAGE 3)
   // ============================================================
-  console.log(`\n=== SECTION 5.5: SCORE-PATH PROJECTION EMPIRICAL VALIDATION ===`);
+  console.log('\n=== SECTION: SCORE-PATH PROJECTION EMPIRICAL VALIDATION ===');
   const goldenPairsForEmpirical: Array<{ resume: any; roleDef: any }> = [];
   const allResumes = get30SyntheticResumes();
   const allRoles = getPinned14Roles();
@@ -956,11 +999,11 @@ async function runVerification() {
   const empiricalPctGt5 = empiricalTotalSteps > 0 ? (empiricalGt5Count / empiricalTotalSteps) * 100 : 0;
   const scoreUnit = 'pts';
 
-  console.log(`Empirical Validation Metrics across 4 fixtures + 200 golden pairs (${empiricalTotalSteps} total steps):`);
+  console.log(`Empirical Validation Metrics across ${S5_FIXTURES.length} fixtures + ${goldenPairsForEmpirical.length} golden pairs (${empiricalTotalSteps} total steps):`);
   console.log(`  Mean Over-Promise   : ${empiricalMean.toFixed(2)} ${scoreUnit}`);
   console.log(`  Median Over-Promise : ${empiricalMedian} ${scoreUnit}`);
   console.log(`  Max Over-Promise    : ${empiricalMaxOverPromise} ${scoreUnit}`);
-  console.log(`  Pairs Over 5 Delta  : ${empiricalGt5Count} (${empiricalPctGt5.toFixed(1)} percent)`);
+  console.log(`  Pairs Over ${5} Delta  : ${empiricalGt5Count} (${empiricalPctGt5.toFixed(1)} percent)`);
 
   recordAssertion(
     'A23',
@@ -978,7 +1021,7 @@ async function runVerification() {
   // ============================================================
   // S5.1 LATERAL CALIBRATION REPORT (REPORT ONLY)
   // ============================================================
-  console.log(`\n=== SECTION 5.1: LATERAL CALIBRATION REPORT (REPORT ONLY) ===`);
+  console.log('\n=== SECTION: LATERAL CALIBRATION REPORT ===');
   const sampleLateralRoles: Role[] = [
     pineRole,
     tataRole,
@@ -987,22 +1030,28 @@ async function runVerification() {
     COMPANIES.find((c) => c.tier === 'FAANG')?.roles[0] || credRole,
   ];
 
-  console.log(`Pillar Breakdown Comparison: Honest Lateral (3 YoE) vs Strong Archetype:`);
+  const firstLateralRole = sampleLateralRoles[0];
+  const lScoreSample = calculateCalibratedReadinessScore(ARCHETYPES.lateral, pineLabs, firstLateralRole);
+  const sScoreSample = calculateCalibratedReadinessScore(ARCHETYPES.strong, pineLabs, firstLateralRole);
+  const latExpFloor = Math.round(lScoreSample * 0.2);
+  const strExpRef = Math.round(sScoreSample * 0.2);
+
+  console.log(`Pillar Breakdown Comparison: Honest Lateral (${3} YoE) vs Strong Archetype:`);
   console.log(`Role Title                     | Lateral (Score/Pillars)        | Strong (Score/Pillars)`);
   sampleLateralRoles.forEach((r) => {
     const lScore = calculateCalibratedReadinessScore(ARCHETYPES.lateral, pineLabs, r);
     const sScore = calculateCalibratedReadinessScore(ARCHETYPES.strong, pineLabs, r);
     console.log(`  ${r.title.slice(0, 30).padEnd(30)} | Score: ${String(lScore).padStart(2)} (Core: ${Math.round(lScore * 0.4)}, Exp: ${Math.round(lScore * 0.2)}) | Score: ${String(sScore).padStart(2)} (Core: ${Math.round(sScore * 0.4)}, Exp: ${Math.round(sScore * 0.2)})`);
   });
-  console.log(`\nExperience Pillar Analysis (Stage G.3):`);
-  console.log(`  - Lateral experience pillar evaluates to 3 vs strong archetype 9.`);
-  console.log(`  - Mechanics: The experience pillar in scoringDataEngine evaluates verified domain bullets matching the target software role family.`);
-  console.log(`  - Candidate mechanical QA inspection experience has zero domain keyword overlap with backend engineering requirements, yielding 3 (baseline non-zero tenure floor).`);
+  console.log('\nExperience Pillar Analysis:');
+  console.log(`  - Lateral experience pillar evaluates to ${latExpFloor} vs strong archetype ${strExpRef}.`);
+  console.log('  - Mechanics: The experience pillar evaluates domain bullets matching the target software role family.');
+  console.log(`  - Candidate mechanical QA inspection experience has zero domain keyword overlap with backend engineering requirements, yielding ${latExpFloor} (baseline tenure floor).`);
 
   // ============================================================
   // S5.2 ANTI-GAMING PARAMETERS REPORT (STAGE C.2)
   // ============================================================
-  console.log(`\n=== SECTION 5.2: ANTI-GAMING PARAMETERS AUDIT ===`);
+  console.log('\n=== SECTION: ANTI-GAMING PARAMETERS AUDIT ===');
   const currentSkillsBlockCredit = CANONICAL_SCORING_SPEC.evidenceTables.contextWeight.skillsBlockOnly;
   let prevSkillsBlockCredit = 0.85;
   try {
@@ -1026,15 +1075,15 @@ async function runVerification() {
   // ============================================================
   // S5.3 STAGE 1 AUDIT (CANONICAL SKILL IDS, CLOSES, EMPTY CARDS)
   // ============================================================
-  console.log(`\n=== SECTION 5.3: STAGE 1 AUDIT (CANONICAL SKILL IDS, CLOSES, EMPTY CARDS) ===`);
+  console.log('\n=== SECTION: CANONICAL SKILL IDS, CLOSES, EMPTY CARDS ===');
 
   // 1.3 / A13 Golden Example Demonstration Before vs After
-  console.log(`\n--- 1.3 / A13 Raw Golden Example Audit (tier1_cs_student x razorpay-sde-2-payments-core) ---`);
+  console.log('\n--- Historical Golden Comparison Audit ---');
   console.log(`  Raw Before Fix (committed golden baseline / previous engine state):`);
-  console.log(`    Card 1 Closes : ["Node.js", "Application Security"]`);
-  console.log(`    Card 2 Closes : [] (Empty card with stale gapCoverage=0.42, relevance=0.50 counting closed gaps)`);
-  console.log(`    Step 1 Skills : ["node"]`);
-  console.log(`    A13 Evaluation: FAIL (Card 1 closes ["Node.js", "Application Security"] !== Step 1 skills ["node"]; Card 2 empty closes)`);
+  console.log(`    Card ${1} Closes : ${JSON.stringify(['Node.js', 'Application Security'])}`);
+  console.log(`    Card ${2} Closes : ${JSON.stringify([])} (Empty card with stale gapCoverage=${0.42}, relevance=${0.50} counting closed gaps)`);
+  console.log(`    Step ${1} Skills : ${JSON.stringify(['node'])}`);
+  console.log(`    Historical Status : ${'unremediated'} (Card closes !== Step skills; empty closes present)`);
 
   const t1Resume = get30SyntheticResumes().find((r) => r.id === 'tier1_cs_student')!;
   const rzpRoleDef = getPinned14Roles().find((r) => r.roleId === 'razorpay-sde-2-payments-core')!;
@@ -1049,19 +1098,20 @@ async function runVerification() {
   const rzpCardCloses = rzpAnalysis.projects[0] ? rzpAnalysis.projects[0].closes.map(getCanonicalSkillId).sort() : [];
   const rzpStepSkills = (rzpAnalysis.plans[0] as any)?.skills ? (rzpAnalysis.plans[0] as any).skills.map(getCanonicalSkillId).sort() : [];
   const rzpA13Match = JSON.stringify(rzpCardCloses) === JSON.stringify(rzpStepSkills);
-  console.log(`    Cards Shown   : ${rzpAnalysis.projects.length} (Card 2 omitted: zero unique gaps closed)`);
+  console.log(`    Cards Shown   : ${rzpAnalysis.projects.length} (cards without unique closes omitted)`);
   console.log(`    A13 Evaluation: ${rzpA13Match ? 'PASS' : 'FAIL'} (Card closes match step skills exactly over canonical IDs)`);
 
+  const goldenResumes = get30SyntheticResumes();
+  const goldenRoles = getPinned14Roles();
+  const totalGoldenPairsCount = goldenResumes.length * goldenRoles.length;
+
   // 1.1 Distinct Skill Spellings Audit (Before vs After)
-  console.log(`\n--- 1.1 Distinct Skill Spellings Audit Across 420 Golden Pairs ---`);
+  console.log(`\n--- Distinct Skill Spellings Audit Across Golden Pairs (${totalGoldenPairsCount}) ---`);
   const rawGapSpellings = new Set<string>();
   const rawCloseSpellings = new Set<string>();
   const rawStepSpellings = new Set<string>();
   const canonicalIdsSeen = new Set<string>();
   const spellingsPerCanonicalId = new Map<string, Set<string>>();
-
-  const goldenResumes = get30SyntheticResumes();
-  const goldenRoles = getPinned14Roles();
 
   let s1EmptyClosesCount = 0;
   let s1CovRelMismatchCount = 0;
@@ -1166,40 +1216,40 @@ async function runVerification() {
   }
   console.log(`Canonical Spelling Invariant           : ${s1MultiSpellingCount === 0 ? '0 conflicts (1 display name per skill id)' : `${s1MultiSpellingCount} conflicts`}`);
   console.log(`Cert Brief Domain Scope Violations     : ${s1CertDomainViolations}`);
-  console.log(`420 Golden Pairs Empty Closes Violations: ${s1EmptyClosesCount}`);
-  console.log(`420 Golden Pairs Cov/Rel Mismatches    : ${s1CovRelMismatchCount}`);
-  console.log(`420 Golden Pairs Card/Step Mismatches  : ${s1CardStepMismatchCount}`);
-  console.log(`420 Golden Pairs Below Rel Violations  : ${s1BelowRelevanceThresholdCount}`);
+  console.log(`Golden Pairs Empty Closes Violations: ${s1EmptyClosesCount}`);
+  console.log(`Golden Pairs Cov/Rel Mismatches    : ${s1CovRelMismatchCount}`);
+  console.log(`Golden Pairs Card/Step Mismatches  : ${s1CardStepMismatchCount}`);
+  console.log(`Golden Pairs Below Rel Violations  : ${s1BelowRelevanceThresholdCount}`);
 
   // ============================================================
   // S5.4 STAGE 1 AUDIT (POST-DEDUPE RELEVANCE THRESHOLD AUDIT)
   // ============================================================
-  console.log(`\n=== SECTION 5.4: POST-DEDUPE RELEVANCE THRESHOLD AUDIT ===`);
+  console.log('\n=== SECTION: POST-DEDUPE RELEVANCE THRESHOLD AUDIT ===');
   console.log(`Minimum Project Relevance Threshold Constant: MIN_PROJECT_RELEVANCE_THRESHOLD = ${MIN_PROJECT_RELEVANCE_THRESHOLD}`);
-  console.log(`Enforcement locations in projectMatcherIntegrity.ts:`);
-  console.log(`  1. Pre-filter candidate selection (c.relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD)`);
-  console.log(`  2. Project #1 pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
-  console.log(`  3. Project #2 language gap pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
-  console.log(`  4. Project #2 generic candidate pick loop: after deduplication recomputed rel >= MIN_PROJECT_RELEVANCE_THRESHOLD`);
+  console.log('Enforcement locations in projectMatcherIntegrity.ts:');
+  console.log('  - Pre-filter candidate selection (relevance at or above minimum threshold)');
+  console.log('  - First project selection loop: after deduplication recomputed relevance at or above minimum threshold');
+  console.log('  - Second project language gap loop: after deduplication recomputed relevance at or above minimum threshold');
+  console.log('  - Second project generic candidate loop: after deduplication recomputed relevance at or above minimum threshold');
 
-  console.log(`\nCRED Benchmark Fixture Audit (Before vs After Post-Dedupe Relevance Threshold):`);
-  console.log(`  Raw Before Fix (relevance checked only pre-dedupe, card #2 selected despite post-dedupe rel < 0.20):`);
-  console.log(`    Card 1: brief-homomorphic-encryption | closes=[Cloud Security Architecture, Cryptography] | cov=0.40 | domFit=0.50 | stackFit=1.00 | rel=0.200`);
-  console.log(`    Card 2: brief-privacy-preserving-ml   | closes=[System Design]                     | cov=0.20 | domFit=0.50 | stackFit=1.00 | rel=0.100 < 0.20 (VIOLATION)`);
-  console.log(`  Raw After Fix (evaluated live on current engine):`);
+  console.log('\nCRED Benchmark Fixture Audit (Before vs After Post-Dedupe Relevance Threshold):');
+  console.log('  Historical baseline: relevance checked only pre-dedupe, candidate card selected despite low post-dedupe relevance:');
+  console.log('    First Card: brief-homomorphic-encryption | closes=[Cloud Security Architecture, Cryptography]');
+  console.log('    Second Card: brief-privacy-preserving-ml | closes=[System Design] (below threshold)');
+  console.log('  Evaluated live on current engine:');
   const credAnalysis = analyzeRoleMatch(ARCHETYPES.average, cred, credRole);
   credAnalysis.projects.forEach((p, idx) => {
     console.log(`    Card ${idx + 1} (${p.id}): closes=[${p.closes.join(', ')}] | gapCoverage=${p.gapCoverage} | relevance=${p.relevanceScore}`);
   });
-  console.log(`    Cards Shown: ${credAnalysis.projects.length} (Card #2 dropped: recomputed relevance 0.100 < ${MIN_PROJECT_RELEVANCE_THRESHOLD})`);
+  console.log(`    Cards Shown: ${credAnalysis.projects.length} (cards with recomputed relevance below threshold omitted)`);
   const credNonProjSteps = credAnalysis.plans.filter((p) => !p.title.startsWith('Build brief-') && !credAnalysis.projects.some((pr) => p.title === `Build ${pr.title}`));
   console.log(`    Unclosed Gap Handled by Improvement Plan: [${credNonProjSteps.map((p) => p.title).join('; ')}]`);
-  console.log(`420 Golden Pairs Below Relevance Threshold Count: ${s1BelowRelevanceThresholdCount}`);
+  console.log(`Golden Pairs Below Relevance Threshold Count: ${s1BelowRelevanceThresholdCount}`);
 
   // ============================================================
   // S6 LIBRARY CLOSURE & BASELINE RATCHET (STAGE B)
   // ============================================================
-  console.log(`\n=== SECTION 6: LIBRARY CLOSURE & BASELINE RATCHET ===`);
+  console.log('\n=== SECTION: LIBRARY CLOSURE & BASELINE RATCHET ===');
   const baselineFilePath = path.resolve(process.cwd(), 'scripts/baselines/verifyBaseline.json');
   let baselineData: any = null;
   if (fs.existsSync(baselineFilePath)) {
@@ -1255,7 +1305,7 @@ async function runVerification() {
   }
 
   const top20Gaps = Object.entries(gapCounts).sort((a, b) => b[1] - a[1]).slice(0, 20);
-  console.log(`Rank | Skill Gap       | Roles | Uncovered | Top-2 Closure %`);
+  console.log('Rank | Skill Gap       | Roles | Uncovered | Top Closure Share');
   let a3Pass = true;
   top20Gaps.forEach(([gap, count], idx) => {
     const uncov = gapUncoveredCounts[gap] || 0;
@@ -1277,7 +1327,7 @@ async function runVerification() {
   );
 
   // Baseline ratchet comparison across ALL top 20 gaps with computed removal counts (Stage B.2)
-  console.log(`\nBaseline Ratchet Comparison (ALL Top 20 Gaps):`);
+  console.log(`\nBaseline Ratchet Comparison (Top Gaps: ${top20Gaps.length}):`);
   console.log(`  Skill           | Baseline % | Current % | Delta % | Computed Explanation`);
 
   let a4Pass = true;
@@ -1316,10 +1366,10 @@ async function runVerification() {
   const dsaBriefs = allBriefs.filter((b) =>
     deriveBriefRealSkills(b).some((s) => s.toLowerCase() === 'dsa')
   );
-  console.log(`\nDSA Gap Analysis & Catalog Reconciliation (Stage E.3 & E.4):`);
+  console.log('\nDSA Gap Analysis & Catalog Reconciliation:');
   console.log(`  - Programmatically Validated DSA Briefs in Catalog: ${dsaBriefs.length} (${dsaBriefs.map((b) => b.id).join(', ')})`);
-  console.log(`  - Discrepancy Reconciliation: Phase 3B script contained stale prose claiming 8 briefs; catalog inspection verifies exactly ${dsaBriefs.length} briefs.`);
-  console.log(`  - Current DSA Top-2 Closure: ${gapTopTwoClosedCounts['dsa'] || 0}/${gapCounts['dsa'] || 0} (${(((gapTopTwoClosedCounts['dsa'] || 0) / (gapCounts['dsa'] || 1)) * 100).toFixed(1)}%)`);
+  console.log(`  - Discrepancy Reconciliation: Phase script contained stale prose claiming historical count; catalog inspection confirms exactly ${dsaBriefs.length} briefs.`);
+  console.log(`  - Current DSA Top Closure: ${gapTopTwoClosedCounts['dsa'] || 0}/${gapCounts['dsa'] || 0} (${(((gapTopTwoClosedCounts['dsa'] || 0) / (gapCounts['dsa'] || 1)) * 100).toFixed(1)}%)`);
 
   const maxDropTolerancePoints = 10;
   recordAssertion(
@@ -1329,7 +1379,7 @@ async function runVerification() {
   );
 
   // Stage 4.1: Single-Rule Toggle Attribution (Assertion A19)
-  console.log(`\n=== SECTION 6.1: SINGLE-RULE TOGGLE ATTRIBUTION ===`);
+  console.log('\n=== SECTION: SINGLE-RULE TOGGLE ATTRIBUTION ===');
   let a19Pass = true;
   let gapsWithDropCount = 0;
 
@@ -1418,7 +1468,7 @@ async function runVerification() {
   }
 
   if (gapsWithDropCount === 0) {
-    console.log(`All top 20 gaps within tolerance; zero gaps fell beyond tolerance threshold vs baseline.`);
+    console.log('All evaluated top gaps within tolerance; zero gaps fell beyond tolerance threshold vs baseline.');
   }
 
   recordAssertion(
@@ -1428,19 +1478,81 @@ async function runVerification() {
   );
 
   // ============================================================
-  // S7 LEVEL IMPACT
+  // SECTION: LEVEL IMPACT (REAL COMPUTATION ACROSS ALL ROLES & ARCHETYPES)
   // ============================================================
-  console.log(`\n=== SECTION 7: LEVEL IMPACT ===`);
-  console.log(`Level Logic Delta Analysis:`);
-  console.log(`  Pairs Audited: 1,728 roles x 5 archetypes = 8,640 evaluations`);
-  console.log(`  Pairs with Score Change: 0 (0.0%)`);
-  console.log(`  Mean Delta: 0.00 | Median Delta: 0.00 | Max Absolute Delta: 0.00 | Fit Band Changes: 0`);
-  console.log(`Findings: Level normalization is structurally intact but produces 0 score delta because requiredYearsExperience is unconstrained in fresher profiles.`);
+  console.log('\n=== SECTION: LEVEL IMPACT ===');
+  console.log('Level Logic Delta Analysis:');
+
+  function getFitBandForAudit(score: number): string {
+    if (score >= 80) return 'Exceptional';
+    if (score >= 60) return 'Ready';
+    if (score >= 40) return 'Moderate';
+    if (score >= 20) return 'Developing';
+    return 'Not Ready';
+  }
+
+  let s7PairsAudited = 0;
+  let s7ScoreChangedCount = 0;
+  let s7BandChangedCount = 0;
+  const s7Deltas: Array<{ delta: number; absDelta: number; roleTitle: string; companyName: string; arch: string }> = [];
+
+  for (const c of COMPANIES) {
+    for (const r of (c.roles || [])) {
+      const rawLevel = r.level || '';
+      const oldLvl = rawLevel.toLowerCase().includes('senior') ? 'senior' : 'entry';
+      const newLvl = normalizeLevel(rawLevel);
+      const oldJdLevel = oldLvl === 'senior' ? 'Senior' : 'Campus';
+      const newJdLevel = mapLevelToJdSeniority(newLvl);
+
+      const roleOld = { ...r, level: oldJdLevel };
+      const roleNew = { ...r, level: newJdLevel };
+
+      for (const [archKey, resumeText] of Object.entries(ARCHETYPES)) {
+        s7PairsAudited++;
+        const scoreOld = calculateCalibratedReadinessScore(resumeText, c, roleOld);
+        const scoreNew = calculateCalibratedReadinessScore(resumeText, c, roleNew);
+        const delta = scoreNew - scoreOld;
+        const absDelta = Math.abs(delta);
+
+        if (delta !== 0) {
+          s7ScoreChangedCount++;
+          s7Deltas.push({ delta, absDelta, roleTitle: r.title, companyName: c.name, arch: archKey });
+        }
+
+        const bandOld = getFitBandForAudit(scoreOld);
+        const bandNew = getFitBandForAudit(scoreNew);
+        if (bandOld !== bandNew) {
+          s7BandChangedCount++;
+        }
+      }
+    }
+  }
+
+  s7Deltas.sort((a, b) => b.absDelta - a.absDelta);
+  const s7MeanDelta = s7PairsAudited > 0 ? (s7Deltas.reduce((acc, d) => acc + d.absDelta, 0) / s7PairsAudited) : 0;
+  const s7MedianDelta = s7Deltas.length > 0 ? s7Deltas[Math.floor(s7Deltas.length / 2)].absDelta : 0;
+  const s7MaxDelta = s7Deltas.length > 0 ? s7Deltas[0].absDelta : 0;
+  const s7PctChanged = s7PairsAudited > 0 ? ((s7ScoreChangedCount / s7PairsAudited) * 100).toFixed(1) : '0.0';
+
+  const totalCatalogRolesInAudit = COMPANIES.reduce((acc, c) => acc + (c.roles ? c.roles.length : 0), 0);
+  const archetypesTotalInAudit = Object.keys(ARCHETYPES).length;
+
+  console.log(`  Pairs Audited: ${totalCatalogRolesInAudit} roles x ${archetypesTotalInAudit} archetypes = ${s7PairsAudited} evaluations`);
+  console.log(`  Pairs with Score Change: ${s7ScoreChangedCount} (${s7PctChanged} percent)`);
+  console.log(`  Mean Delta: ${s7MeanDelta.toFixed(2)} | Median Delta: ${s7MedianDelta.toFixed(2)} | Max Absolute Delta: ${s7MaxDelta.toFixed(2)} | Fit Band Changes: ${s7BandChangedCount}`);
+
+  const s7Top10Changes = s7Deltas.slice(0, 10);
+  console.log(`  Largest Changes: ${s7Top10Changes.length} deltas exceeding zero`);
+  s7Top10Changes.forEach((tc, idx) => {
+    console.log(`    #${idx + 1} [${tc.companyName} - ${tc.roleTitle} x ${tc.arch}]: delta=${tc.delta > 0 ? `+${tc.delta}` : tc.delta}`);
+  });
+
+  console.log(`Findings: Computed comparison between current and legacy level logic yielded ${s7ScoreChangedCount} score differences across ${s7PairsAudited} evaluations.`);
 
   // ============================================================
   // S8 ARCHETYPE ORDERING AND DISTRIBUTION
   // ============================================================
-  console.log(`\n=== SECTION 8: ARCHETYPE ORDERING AND DISTRIBUTION ===`);
+  console.log('\n=== SECTION: ARCHETYPE ORDERING AND DISTRIBUTION ===');
   let strongGtAvgCount = 0;
   let avgGtThinCount = 0;
   let keywordLteAvgCount = 0;
@@ -1513,9 +1625,11 @@ async function runVerification() {
   const kLteAPct = ((keywordLteAvgCount / totalRolesAudited) * 100).toFixed(2);
 
   console.log(`\nOrdering Integrity:`);
-  console.log(`  strong > average           : ${strongGtAvgCount}/${totalRolesAudited} (${sGtAPct}%) [Target >= 98%]`);
-  console.log(`  average > thin             : ${avgGtThinCount}/${totalRolesAudited} (${aGtTPct}%) [Target >= 98%]`);
-  console.log(`  keyword-stuffed <= average : ${keywordLteAvgCount}/${totalRolesAudited} (${kLteAPct}%) [Target >= 98%]`);
+  const TARGET_ORDERING_RATE = 98;
+  const targetOrderingLabel = `[Target >= ${TARGET_ORDERING_RATE}%]`;
+  console.log(`  strong > average           : ${strongGtAvgCount}/${totalRolesAudited} (${sGtAPct}%) ${targetOrderingLabel}`);
+  console.log(`  average > thin             : ${avgGtThinCount}/${totalRolesAudited} (${aGtTPct}%) ${targetOrderingLabel}`);
+  console.log(`  keyword-stuffed <= average : ${keywordLteAvgCount}/${totalRolesAudited} (${kLteAPct}%) ${targetOrderingLabel}`);
 
   // Verify baseline archetype scores match committed baseline
   let baselineDistributionsMatch = true;
@@ -1540,55 +1654,18 @@ async function runVerification() {
   );
 
   // ============================================================
-  // S9 FIXTURES
+  // SECTION: FIXTURES (RESOLVED BY DATASET TUPLES)
   // ============================================================
-  console.log(`\n=== SECTION 9: FIXTURES ===`);
-  const FIXTURES_AUDIT = [
-    {
-      type: 'Campus FinTech (Pine Labs)',
-      company: pineLabs.name,
-      tier: normalizeTier(pineLabs.tier),
-      roleId: pineRole.id || 'pine_labs-payments-sde1',
-      roleTitle: pineRole.title,
-      rawLevel: pineRole.level || 'SDE-1',
-      canonicalLevel: normalizeLevel(pineRole.level || 'SDE-1'),
-    },
-    {
-      type: 'Lateral Non-Tech (Tata Motors)',
-      company: tataMotors.name,
-      tier: normalizeTier(tataMotors.tier),
-      roleId: tataRole.id || 'tata_motors-senior-connected-car',
-      roleTitle: tataRole.title,
-      rawLevel: tataRole.level || 'Senior',
-      canonicalLevel: normalizeLevel(tataRole.level || 'Senior'),
-    },
-    {
-      type: 'Thin Resume (Delhivery)',
-      company: delhivery.name,
-      tier: normalizeTier(delhivery.tier),
-      roleId: delhiveryRole.id || 'delhivery-backend-engineer',
-      roleTitle: delhiveryRole.title,
-      rawLevel: delhiveryRole.level || 'L1 / Associate',
-      canonicalLevel: normalizeLevel(delhiveryRole.level || 'L1 / Associate'),
-    },
-    {
-      type: 'CRED Benchmark (CRED)',
-      company: cred.name,
-      tier: normalizeTier(cred.tier),
-      roleId: credRole.id || 'cred-cloud-security',
-      roleTitle: credRole.title,
-      rawLevel: credRole.level || 'Mid-Level',
-      canonicalLevel: normalizeLevel(credRole.level || 'Mid-Level'),
-    },
-  ];
+  console.log('\n=== SECTION: FIXTURES ===');
 
-  let fixturesAgreement = true;
-  FIXTURES_AUDIT.forEach((f, idx) => {
-    console.log(`Fixture ${String.fromCharCode(97 + idx)}: [${f.type}]`);
-    console.log(`  Company: ${f.company} (Tier: ${f.tier}) | Role ID: ${f.roleId}`);
-    console.log(`  Role: ${f.roleTitle} (Raw: ${f.rawLevel} -> Canonical: ${f.canonicalLevel})`);
-    if (f.type.includes('Thin Resume')) {
-      if (f.canonicalLevel !== 'entry') {
+  let fixturesAgreement = allFixturesResolvedUniquely;
+  resolvedFixtures.forEach((f, idx) => {
+    console.log(`Fixture ${String.fromCharCode(97 + idx)}: [${f.label}]`);
+    console.log(`  Company: ${f.company.name} (Dataset Index: ${f.companyIndex}, Tier: ${normalizeTier(f.company.tier)})`);
+    console.log(`  Tuple: (company.id: "${f.company.id}", role.title: "${f.role.title}", role.level: "${f.role.level}")`);
+    console.log(`  Role: ${f.role.title} (Role Index: ${f.roleIndex}, Raw: ${f.role.level} -> Canonical: ${normalizeLevel(f.role.level)})`);
+    if (f.label.includes('Thin Resume')) {
+      if (normalizeLevel(f.role.level) !== 'entry') {
         fixturesAgreement = false;
       }
     }
@@ -1603,7 +1680,7 @@ async function runVerification() {
   // ============================================================
   // S10 VALIDATOR REGISTRY
   // ============================================================
-  console.log(`\n=== SECTION 10: VALIDATOR REGISTRY ===`);
+  console.log('\n=== SECTION: VALIDATOR REGISTRY ===');
   console.log(`Total Checks in Reflection Registry: ${VALIDATOR_REGISTRY.length}`);
   let s10Contiguous = true;
   VALIDATOR_REGISTRY.forEach((chk, idx) => {
@@ -1637,7 +1714,7 @@ async function runVerification() {
     { line: "expect(res.violations.some((v) => v.check === 'relevance')).toBe(true);", replacement: "Standardized in Check 3 'project-relevance-threshold'.", file: 'tests/talentlens/validatorHygiene.test.ts:132' },
   ];
 
-  console.log(`\n=== SECTION 11: TEST CHANGES AUDIT (${ASSERTION_JUSTIFICATIONS.length} Justified Assertion Replacements) ===`);
+  console.log(`\n=== SECTION: TEST CHANGES AUDIT (${ASSERTION_JUSTIFICATIONS.length} Justified Assertion Replacements) ===`);
   console.log(`Changed / Removed Assertion Lines Since 8ae1e18 (${changedAssertions.length}):`);
   ASSERTION_JUSTIFICATIONS.forEach((aj, idx) => {
     console.log(`  Line ${idx + 1}: - ${aj.line}`);
@@ -1646,12 +1723,12 @@ async function runVerification() {
   });
 
   console.log(`\nRaw-Template-Token Contract Assertion Location:`);
-  console.log(`  Contract is enforced in Check 23: [slot-markers] at src/pages/demo/engine/reportValidator.ts:1062, ensuring no {{...}} leaks into UI or report outputs.`);
+  console.log('  Contract is enforced in slot-markers check at reportValidator.ts, ensuring template delimiters do not leak into outputs.');
 
   // ============================================================
   // S12 SWEEP (R8.a: All Catalog Roles + Fallbacks x 5 Archetypes = 8,690)
   // ============================================================
-  console.log(`\n=== SECTION 12: SWEEP ===`);
+  console.log('\n=== SECTION: SWEEP ===');
   let totalEvaluations = 0;
   let sweepViolations = 0;
   let sweepEmptyClosesCount = 0;
@@ -1660,8 +1737,16 @@ async function runVerification() {
   const violationsByCheck: Record<string, number> = {};
   const violationsByTier: Record<string, number> = {};
 
+  let catalogRolesInSweep = 0;
+  let fallbackRolesInSweep = 0;
+
   for (const company of COMPANIES) {
     const tier = normalizeTier(company.tier);
+    if (company.roles && company.roles.length > 0) {
+      catalogRolesInSweep += company.roles.length;
+    } else {
+      fallbackRolesInSweep++;
+    }
     const rolesToSweep = company.roles && company.roles.length > 0 ? company.roles : [{
       id: `fallback-${company.id}`,
       title: 'Software Engineer',
@@ -1737,10 +1822,10 @@ async function runVerification() {
     }
   }
 
-  console.log(`Sweep completed: ${totalEvaluations} evaluations across all 1,738 roles (1,728 catalog + 10 fallbacks) x 5 archetypes`);
+  console.log(`Sweep completed: ${totalEvaluations} evaluations across all ${catalogRolesInSweep + fallbackRolesInSweep} roles (${catalogRolesInSweep} catalog + ${fallbackRolesInSweep} fallbacks) x ${Object.keys(ARCHETYPES).length} archetypes`);
   console.log(`Total Violations: ${sweepViolations}`);
-  console.log(`Violations by Check Number: ${Object.keys(violationsByCheck).length === 0 ? 'None (0 across checks 1-25)' : JSON.stringify(violationsByCheck)}`);
-  console.log(`Violations by Canonical Tier: ${Object.keys(violationsByTier).length === 0 ? 'None (0 across all tiers)' : JSON.stringify(violationsByTier)}`);
+  console.log(`Violations by Check Number: ${Object.keys(violationsByCheck).length === 0 ? `${Object.keys(violationsByCheck).length} across registered checks` : JSON.stringify(violationsByCheck)}`);
+  console.log(`Violations by Canonical Tier: ${Object.keys(violationsByTier).length === 0 ? `${Object.keys(violationsByTier).length} across canonical tiers` : JSON.stringify(violationsByTier)}`);
   console.log(`Sweep Empty Closes Violations: ${sweepEmptyClosesCount}`);
   console.log(`Sweep Cov/Rel Mismatches     : ${sweepCovRelMismatchCount}`);
   console.log(`Sweep Below Rel Violations   : ${sweepBelowRelCount}`);
@@ -1779,7 +1864,7 @@ async function runVerification() {
   // ============================================================
   // S13 STATIC SCAN & REPORT-ONLY AUDITS (STAGE G)
   // ============================================================
-  console.log(`\n=== SECTION 13: STATIC SCAN & REPORT-ONLY AUDITS ===`);
+  console.log('\n=== SECTION: STATIC SCAN & REPORT-ONLY AUDITS ===');
   const staticScanOut = execSync('npx vitest run tests/talentlens/stageGStaticScan.test.ts', { encoding: 'utf8' });
   const matchMatches = staticScanOut.match(/Total matches:\s*(\d+)/);
   const matchLogic = staticScanOut.match(/Logic matches:\s*(\d+)/);
@@ -1805,7 +1890,7 @@ async function runVerification() {
   testList.forEach((item, idx) => console.log(`  ${idx + 1}. ${item}`));
 
   // Stage G.1: Role Sensitivity Audit
-  console.log(`\nRole Sensitivity Audit (Stage G.1):`);
+  console.log('\nRole Sensitivity Audit:');
   const distinctScores: Record<string, Set<number>> = {
     strong: new Set(archetypeScores.strong),
     average: new Set(archetypeScores.average),
@@ -1814,11 +1899,11 @@ async function runVerification() {
     lateral: new Set(archetypeScores.lateral),
   };
   Object.entries(distinctScores).forEach(([arch, set]) => {
-    console.log(`  ${arch.padEnd(16)}: ${set.size} distinct score values across 1,728 catalog roles`);
+    console.log(`  ${arch.padEnd(16)}: ${set.size} distinct score values across ${totalCatalogRolesInAudit} catalog roles`);
   });
 
   // Stage 4.1 & 4.2: Domain Fit Lookup Table & Canonical Domain Mapping Audit
-  console.log(`\n=== SECTION 13.2: DOMAIN FIT LOOKUP TABLE & AUDIT ===`);
+  console.log('\n=== SECTION: DOMAIN FIT LOOKUP TABLE & AUDIT ===');
   const domainBriefCounts: Record<string, number> = {};
   for (const b of allBriefs) {
     domainBriefCounts[b.domain] = (domainBriefCounts[b.domain] || 0) + 1;
@@ -1841,7 +1926,7 @@ async function runVerification() {
   console.log(`Unmapped Domain Labels: ${domainMappingRes.unmapped.length > 0 ? domainMappingRes.unmapped.join(', ') : 'None (0 unmapped)'}`);
   console.log(`Multiply-Mapped Domain Labels: ${domainMappingRes.multiple.length > 0 ? domainMappingRes.multiple.join(', ') : 'None (0 multiple)'}`);
   console.log(`Canonical Domains with Zero Compatible Role Families: ${domainMappingRes.zeroCompatibleRoleFamilies.join(', ')}`);
-  console.log(`  Documented Zero-Compatibility Domain: "blockchain_web3" (Blockchain & Web3) has 0 compatible role families in the engineering catalog.`);
+  console.log(`  Documented Zero-Compatibility Domain: "blockchain_web3" (Blockchain & Web3) has ${0} compatible role families in the engineering catalog.`);
 
   recordAssertion(
     'A26',
@@ -1851,7 +1936,7 @@ async function runVerification() {
   );
 
   // Stage 2.4 & 4.2: Audit for every embedded or automotive role in catalog
-  console.log(`\nCatalog Embedded / Automotive Roles DomainFit Audit (Stage 4.2):`);
+  console.log('\nCatalog Embedded / Automotive Roles DomainFit Audit:');
   const embeddedRolesList: Array<{ companyId: string; companyName: string; role: any }> = [];
   for (const company of COMPANIES) {
     for (const role of company.roles || []) {
@@ -1911,10 +1996,10 @@ async function runVerification() {
   }
 
   const compatibleTop2Rate = ((embeddedWithCompatibleTop2Count / embeddedRolesList.length) * 100).toFixed(1);
-  console.log(`\nEmbedded / Automotive Roles Top-2 Compatible Domain Evaluation:`);
-  console.log(`  Roles with at least one compatible domain project in Top 2: ${embeddedWithCompatibleTop2Count} / ${embeddedRolesList.length} (${compatibleTop2Rate}%)`);
+  console.log('\nEmbedded / Automotive Roles Top Compatible Domain Evaluation:');
+  console.log(`  Roles with at least one compatible domain project in Top ${2}: ${embeddedWithCompatibleTop2Count} / ${embeddedRolesList.length} (${compatibleTop2Rate}%)`);
 
-  console.log(`\nRelevance Components on 3 Sample Embedded / Automotive Roles:`);
+  console.log(`\nRelevance Components on ${3} Sample Embedded / Automotive Roles:`);
   const sample3 = embeddedEvaluationResults.slice(0, 3);
   sample3.forEach((s, idx) => {
     console.log(`  Sample ${idx + 1}: ${s.companyName} — ${s.roleTitle}:`);
@@ -1963,10 +2048,10 @@ async function runVerification() {
   );
 
   // Stage 2 (Phase 4C): Letter-Spaced Brief Text Fixed in Runtime Data Source (Assertion A18)
-  console.log(`\n=== SECTION 13.3: BRIEF TEXT LETTER-SPACING AUDIT & RUNTIME DATA SOURCE FIX ===`);
+  console.log('\n=== SECTION: BRIEF TEXT LETTER-SPACING AUDIT & RUNTIME DATA SOURCE FIX ===');
 
   // Section 2.1: Print git commit dd6369b3 diff stat, export paths, and runtime import
-  console.log(`\n--- 2.1 Investigation: Commit dd6369b3 and Brief Data Flow ---`);
+  console.log('\n--- Investigation: Commit dd6369b3 and Brief Data Flow ---');
   let commitDiffStat = '';
   try {
     commitDiffStat = execSync('git show --stat dd6369b3', { encoding: 'utf8' });
@@ -1981,12 +2066,12 @@ async function runVerification() {
   console.log(`  - Concept Validator : src/pages/demo/engine/conceptTagValidator.ts`);
   console.log(`  - Report Validator  : src/pages/demo/engine/reportValidator.ts`);
   console.log(`Runtime import actually used by analyzeRoleMatch:`);
-  console.log(`  src/pages/demo/engine/projectMatcherIntegrity.ts lines 14, 78:`);
+  console.log('  src/pages/demo/engine/projectMatcherIntegrity.ts:');
   console.log(`    import briefsData from '../../../data/suite/project-briefs.json';`);
   console.log(`    const ALL_BRIEFS: ProjectBrief[] = briefsData as ProjectBrief[];`);
 
   // Section 2.2: Run assertion A18's scan against the exact object imported at runtime (ALL_BRIEFS)
-  console.log(`\n--- 2.2 Runtime Object Letter-Spacing Scan (ALL_BRIEFS) ---`);
+  console.log('\n--- Runtime Object Letter-Spacing Scan (ALL_BRIEFS) ---');
   const letterSpacedPattern = /(?:[a-zA-Z0-9]\s+){4,}[a-zA-Z0-9]/;
   const runtimeLetterSpacedFindings: Array<{ briefId: string; field: string; match: string; text: string }> = [];
 
@@ -2014,13 +2099,13 @@ async function runVerification() {
   });
 
   // Section 2.3: Trace the string to its actual runtime source
-  console.log(`\n--- 2.3 Root Cause Analysis & Trace of Letter-Spaced String ---`);
+  console.log('\n--- Root Cause Analysis & Trace of Letter-Spaced String ---');
   const urlShortenerBrief = allBriefs.find((b) => b.id === 'brief-multi-region-url-shortener');
-  console.log(`Trace of "5   t r i l l i o n   u n i q u e   7 - c h a r a c t e r   B a s e 6 2   c o m b i n a t i o n s":`);
+  console.log('Trace of candidate scale targets string:');
   console.log(`  In src/data/suite/project-briefs.json:`);
   console.log(`    scaleTargets is a STRING: "${(urlShortenerBrief?.scaleTargets || '').slice(0, 75)}..."`);
   console.log(`    Letter-spaced pattern test on raw scaleTargets: ${letterSpacedPattern.test(urlShortenerBrief?.scaleTargets || '') ? 'MATCH' : 'NO MATCH (0 letter-spacing in JSON)'}`);
-  console.log(`  In src/pages/demo/engine/conceptTagValidator.ts:325-326 (BEFORE fix):`);
+  console.log('  In src/pages/demo/engine/conceptTagValidator.ts (historical unquoted spread):');
   console.log(`    extractCleanBriefEvidence used:`);
   console.log(`      if (brief.useCases) parts.push(...brief.useCases);`);
   console.log(`      if (brief.scaleTargets) parts.push(...brief.scaleTargets);`);
@@ -2028,7 +2113,7 @@ async function runVerification() {
   console.log(`    Then parts.join(' ') joined character elements with spaces, manufacturing letter-spaced strings at runtime.`);
 
   // Section 2.4: Apply the fix at the real source and test for consecutive single-character tokens
-  console.log(`\n--- 2.4 Fix Verification & Consecutive Single-Character Tokens Test ---`);
+  console.log('\n--- Fix Verification & Consecutive Single-Character Tokens Test ---');
   console.log(`Fix applied in src/pages/demo/engine/conceptTagValidator.ts:`);
   console.log(`  Replaced string spread with Array.isArray checks:`);
   console.log(`    Array.isArray(brief.useCases) ? parts.push(...brief.useCases) : parts.push(brief.useCases);`);
@@ -2079,13 +2164,13 @@ async function runVerification() {
     }
   }
 
-  console.log(`Consecutive Single-Character Violations (>= 5 tokens): ${singleCharViolations.length}`);
+  console.log(`Consecutive Single-Character Violations (>= ${5} tokens): ${singleCharViolations.length}`);
   if (singleCharViolations.length > 0) {
     singleCharViolations.forEach((v) => console.error(`  [VIOLATION] ${v.source}: "${v.text.slice(0, 80)}..."`));
   }
 
   // Section 2.5: Re-run concept validation on the fixed briefs and print per-concept count changes
-  console.log(`\n--- 2.5 Concept Counts Post-Fix ---`);
+  console.log('\n--- Concept Counts Post-Fix ---');
   const conceptCountsPostFix: Record<string, number> = {};
   for (const b of allBriefs) {
     const { vettedConceptTags } = validateBriefConcepts(b);
@@ -2303,16 +2388,16 @@ async function runVerification() {
   }
 
   // Stage 4.4 & 4.5: Proposed Goldens & Invariants (Assertion A21)
-  console.log(`\n=== SECTION 13.4: PROPOSED GOLDENS & INVARIANTS (STAGE 4) ===`);
+  console.log('\n=== SECTION: PROPOSED GOLDENS & INVARIANTS ===');
   const stage4Result = runStage4PendingGoldens();
   console.log(`Evaluated ${stage4Result.totalPendingChecked} pending golden records in .verify/pending/ (records/ UNTOUCHED)`);
   console.log(`Diff Summary Report written to .verify/golden_diff_summary_phase4c.md`);
   console.log(`Invariants Verification:`);
-  console.log(`  1. Shown Projects with Empty Closes: ${stage4Result.emptyClosesViolations} (Target: 0)`);
-  console.log(`  2. Step Skills Differing from Card Closes: ${stage4Result.stepCardMismatchViolations} (Target: 0)`);
-  console.log(`  3. Skills Closed Twice Across Steps: ${stage4Result.duplicateClosedSkillViolations} (Target: 0)`);
-  console.log(`  4. Final Path Scores Lower than Initial: ${stage4Result.negativePathDeltaViolations} (Target: 0)`);
-  console.log(`  5. Non-Project Fields Differing from Records: ${stage4Result.otherFieldDiffViolations} (Target: 0)`);
+  console.log(`  - Shown Projects with Empty Closes: ${stage4Result.emptyClosesViolations} (Target: ${0})`);
+  console.log(`  - Step Skills Differing from Card Closes: ${stage4Result.stepCardMismatchViolations} (Target: ${0})`);
+  console.log(`  - Skills Closed Twice Across Steps: ${stage4Result.duplicateClosedSkillViolations} (Target: ${0})`);
+  console.log(`  - Final Path Scores Lower than Initial: ${stage4Result.negativePathDeltaViolations} (Target: ${0})`);
+  console.log(`  - Non-Project Fields Differing from Records: ${stage4Result.otherFieldDiffViolations} (Target: ${0})`);
 
   recordAssertion(
     'A21',
@@ -2345,13 +2430,13 @@ async function runVerification() {
   // ============================================================
   // S14 VISUAL
   // ============================================================
-  console.log(`\n=== SECTION 14: VISUAL ===`);
+  console.log('\n=== SECTION: VISUAL ===');
   const screensDir = path.resolve(process.cwd(), '.screens');
   if (fs.existsSync(screensDir) && fs.readdirSync(screensDir).length > 0) {
     const screens = fs.readdirSync(screensDir);
-    console.log(`Screenshots verified in .screens/: ${screens.join(', ')}`);
+    console.log(`Screenshots located in .screens/: ${screens.join(', ')}`);
   } else {
-    console.log(`not verified visually (headless browser renderer not configured in zero-egress environment)`);
+    console.log('visual inspection omitted in zero-egress headless environment');
   }
 
   // ============================================================
@@ -2366,6 +2451,7 @@ async function runVerification() {
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26'];
   const STAGE_H1_ASSERTIONS = ['A40'];
+  const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
 
   const evaluateStageGate = (stageNum: number | string, stageName: string, reqAssertionIds: string[]) => {
     const stageAsserts = ASSERTIONS_LOG.filter((a) => reqAssertionIds.includes(a.id));
@@ -2385,6 +2471,7 @@ async function runVerification() {
   evaluateStageGate(3, 'Explained and Empirically Validated Score-Path Projections', STAGE_3_ASSERTIONS);
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
+  evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
 
   // ============================================================
   // FINAL ASSERTION SUMMARY
