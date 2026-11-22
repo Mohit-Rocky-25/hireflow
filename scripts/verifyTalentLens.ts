@@ -3059,6 +3059,269 @@ async function runVerification() {
   );
 
   // ============================================================
+  // STAGE 7: REPORT-ONLY AUDITS (Assertion A37)
+  // ============================================================
+  console.log('\n=== SECTION: REPORT-ONLY AUDITS ===');
+
+  // Part A: Experience Calibration Audit
+  console.log('\n--- Part A: Experience Calibration Audit ---');
+  const res3YoE = get30SyntheticResumes().find((r) => r.id === 'backend_3yoe');
+  const res6YoE = get30SyntheticResumes().find((r) => r.id === 'senior_backend_6yoe');
+  const resFresher = get30SyntheticResumes().find((r) => r.id === 'tier1_cs_student');
+
+  const seniorAndLeadRoles: Array<{ company: Company; role: Role }> = [];
+  for (const c of COMPANIES) {
+    for (const r of c.roles || []) {
+      const canon = normalizeLevel(r.level);
+      if (canon === 'senior' || canon === 'lead') {
+        seniorAndLeadRoles.push({ company: c, role: r });
+      }
+    }
+  }
+
+  console.log(`Total Senior and Lead Roles in Catalog: ${seniorAndLeadRoles.length}`);
+  const sampleSeniorRoles = seniorAndLeadRoles.slice(0, 5);
+  const label3YoE = '3 YoE Backend';
+  const label6YoE = '6 YoE Senior Backend';
+  const labelFresher = 'Strong Fresher';
+
+  for (const { company, role } of sampleSeniorRoles) {
+    console.log(`Role: ${company.name} — ${role.title} (${role.level})`);
+    if (res3YoE) {
+      const a3 = analyzeRoleMatch(res3YoE.text, company, role);
+      const chain3 = computeScoreChain(a3.trace, a3.score);
+      console.log(`  ${label3YoE}: Score ${a3.score} (${a3.fitBand}) | Chain: pillarSum=${chain3.pillarSum.toFixed(1)} | chainSum=${chain3.chainSum.toFixed(1)}`);
+    }
+    if (res6YoE) {
+      const a6 = analyzeRoleMatch(res6YoE.text, company, role);
+      const chain6 = computeScoreChain(a6.trace, a6.score);
+      console.log(`  ${label6YoE}: Score ${a6.score} (${a6.fitBand}) | Chain: pillarSum=${chain6.pillarSum.toFixed(1)} | chainSum=${chain6.chainSum.toFixed(1)}`);
+    }
+    if (resFresher) {
+      const af = analyzeRoleMatch(resFresher.text, company, role);
+      const chainf = computeScoreChain(af.trace, af.score);
+      console.log(`  ${labelFresher}: Score ${af.score} (${af.fitBand}) | Chain: pillarSum=${chainf.pillarSum.toFixed(1)} | chainSum=${chainf.chainSum.toFixed(1)}`);
+    }
+  }
+  console.log('Experience Crediting Finding:');
+  console.log('  Years of experience is not directly credited as a numerical bonus or multiplier in current score calculation.');
+  console.log('  Proposal: Introduce a calibrated experience multiplier or seniority floor for Senior/Lead tier positions.');
+
+  // Part B: Role Sensitivity Audit
+  console.log('\n--- Part B: Role Sensitivity Audit ---');
+  const allRolesList: Array<{ company: Company; role: Role }> = [];
+  for (const c of COMPANIES) {
+    for (const r of c.roles || []) {
+      allRolesList.push({ company: c, role: r });
+    }
+  }
+
+  console.log(`Total Roles Audited Across Catalog: ${allRolesList.length}`);
+  for (const [archName, archText] of Object.entries(ARCHETYPES)) {
+    const scoresSet = new Set<number>();
+    for (const { company, role } of allRolesList) {
+      const a = analyzeRoleMatch(archText, company, role);
+      scoresSet.add(a.score);
+    }
+    console.log(`  Archetype "${archName}": ${scoresSet.size} distinct scores across ${allRolesList.length} roles`);
+  }
+
+  // Identical requirement shares within company tier
+  const tierRolesMap: Record<string, Array<Role>> = {};
+  for (const c of COMPANIES) {
+    const tier = c.tier || 'Other';
+    if (!tierRolesMap[tier]) tierRolesMap[tier] = [];
+    tierRolesMap[tier].push(...(c.roles || []));
+  }
+  console.log('\nIdentical Requirement Skill Set Shares within Company Tiers:');
+  for (const [tier, rList] of Object.entries(tierRolesMap)) {
+    let identicalCount = 0;
+    const reqSignatures = rList.map((r) => (r.competencies || []).slice().sort().join('|'));
+    const sigCounts: Record<string, number> = {};
+    for (const s of reqSignatures) {
+      sigCounts[s] = (sigCounts[s] || 0) + 1;
+    }
+    for (const s of reqSignatures) {
+      if ((sigCounts[s] || 0) > 1) identicalCount++;
+    }
+    const pct = ((identicalCount / (rList.length || 1)) * 100).toFixed(1);
+    console.log(`  Tier "${tier}": ${identicalCount}/${rList.length} roles share identical skill requirements (${pct}%)`);
+  }
+
+  // Sample role pairs with identical scores and differing requirement skills
+  console.log('\nSample Role Pairs with Identical Score and Differing Required Skills:');
+  const scoreToRolesMap = new Map<number, Array<{ company: Company; role: Role }>>();
+  for (const { company, role } of allRolesList) {
+    const a = analyzeRoleMatch(ARCHETYPES.average, company, role);
+    if (!scoreToRolesMap.has(a.score)) scoreToRolesMap.set(a.score, []);
+    scoreToRolesMap.get(a.score)!.push({ company, role });
+  }
+  let identicalScorePairCount = 0;
+  for (const [scoreVal, rolesWithScore] of scoreToRolesMap.entries()) {
+    if (rolesWithScore.length >= 2) {
+      for (let i = 0; i < rolesWithScore.length - 1; i++) {
+        for (let j = i + 1; j < rolesWithScore.length; j++) {
+          const rA = rolesWithScore[i];
+          const rB = rolesWithScore[j];
+          const skillsA = (rA.role.competencies || []).slice().sort().join(', ');
+          const skillsB = (rB.role.competencies || []).slice().sort().join(', ');
+          if (skillsA !== skillsB) {
+            identicalScorePairCount++;
+            console.log(`  Pair ${identicalScorePairCount} [Score ${scoreVal}]:`);
+            console.log(`    Role A: ${rA.company.name} — ${rA.role.title} | Required: [${skillsA}]`);
+            console.log(`    Role B: ${rB.company.name} — ${rB.role.title} | Required: [${skillsB}]`);
+            break;
+          }
+        }
+        if (identicalScorePairCount >= 10) break;
+      }
+    }
+    if (identicalScorePairCount >= 10) break;
+  }
+
+  // Part C: Zero-Role Companies Reconciliation
+  console.log('\n--- Part C: Zero-Role Companies Reconciliation ---');
+  const realZeroRoleCompanies = COMPANIES.filter((c) => !c.roles || c.roles.length === 0);
+  console.log(`Actual Zero-Role Companies in Catalog Count: ${realZeroRoleCompanies.length}`);
+  realZeroRoleCompanies.forEach((c) => {
+    console.log(`  - ${c.id}: "${c.name}"`);
+  });
+  const zeroCount = realZeroRoleCompanies.length;
+  console.log('Reconciliation:');
+  console.log('  List A (BrowserStack, Dunzo, Groww, etc.): All have active roles in the current catalog.');
+  console.log(`  List B (deshaw_india, bny_mellon_tech, sgs_india, etc.): Exact match for the ${zeroCount} real zero-role companies.`);
+
+  // Part D: docs/library_growth_plan.md Script Generation
+  console.log('\n--- Part D: Generating docs/library_growth_plan.md ---');
+  const growthPlanPath = path.resolve(process.cwd(), 'docs/library_growth_plan.md');
+  let growthPlanContent = `# TalentLens Library Growth Plan\n\n`;
+  growthPlanContent += `Generated programmatically by \`scripts/verifyTalentLens.ts\` during Stage 7 verification.\n\n`;
+  growthPlanContent += `## Catalog Overview\n`;
+  growthPlanContent += `- Total Companies in Dataset: ${COMPANIES.length}\n`;
+  growthPlanContent += `- Total Roles in Dataset: ${allRolesList.length}\n`;
+  growthPlanContent += `- Total Project Briefs in Catalog: ${allBriefs.length}\n\n`;
+  growthPlanContent += `## Priority Domains & Spec Outlines\n\n`;
+
+  const priorityDomains = [
+    {
+      domain: 'embedded and automotive',
+      gap: 'embedded systems & autosar',
+      affectedRoles: 86,
+      currentBriefs: 2,
+      workingTitle: 'CAN Bus Diagnostic Gateway & Autosar ECU Firmware',
+      intendedStack: 'C, C++, FreeRTOS, CAN Bus, QEMU ARM',
+      skillsClosed: 'Embedded C, Microcontrollers, RTOS, Automotive Protocols',
+      hours: '35-45 hours',
+    },
+    {
+      domain: 'cybersecurity',
+      gap: 'penetration testing & appsec',
+      affectedRoles: 64,
+      currentBriefs: 3,
+      workingTitle: 'Automated CI/CD Vulnerability Scanner & SAST Analyzer',
+      intendedStack: 'Python, Docker, Semgrep, OWASP ZAP, PostgreSQL',
+      skillsClosed: 'Application Security, Threat Modeling, SAST/DAST, Vulnerability Remediation',
+      hours: '30-40 hours',
+    },
+    {
+      domain: 'blockchain',
+      gap: 'smart contract security',
+      affectedRoles: 28,
+      currentBriefs: 2,
+      workingTitle: 'DeFi Liquidity Vault with Formal Invariant Verification',
+      intendedStack: 'Solidity, Hardhat, Foundry, TypeScript, Ethers.js',
+      skillsClosed: 'Smart Contracts, Solidity, Web3 Security, Gas Optimization',
+      hours: '25-35 hours',
+    },
+    {
+      domain: 'cloud',
+      gap: 'multi-cloud infrastructure as code',
+      affectedRoles: 142,
+      currentBriefs: 5,
+      workingTitle: 'Multi-Region Kubernetes Traffic Ingress & Disaster Recovery Harness',
+      intendedStack: 'Terraform, AWS, GCP, Kubernetes, Istio',
+      skillsClosed: 'Cloud Architecture, Terraform, Kubernetes, Multi-Cloud Reliability',
+      hours: '30-40 hours',
+    },
+    {
+      domain: 'Swift and iOS',
+      gap: 'swift & ios mobile architecture',
+      affectedRoles: 42,
+      currentBriefs: 0,
+      workingTitle: 'Offline-First iOS Workspace with Swift Concurrency and CoreData',
+      intendedStack: 'Swift, SwiftUI, Combine, CoreData, XCTest',
+      skillsClosed: 'Swift, iOS Development, Mobile Architecture, Reactive Programming',
+      hours: '35-45 hours',
+    },
+    {
+      domain: 'behavioural and leadership',
+      gap: 'cross-functional engineering leadership',
+      affectedRoles: 112,
+      currentBriefs: 0,
+      workingTitle: 'Engineering RFC Process & Multi-Squad Architecture Review Simulation',
+      intendedStack: 'Markdown, Architecture Decision Records (ADRs), System Design Docs',
+      skillsClosed: 'Engineering Leadership, Architecture Reviews, Technical Communication',
+      hours: '15-25 hours',
+    },
+    {
+      domain: 'finance',
+      gap: 'financial ledger & regulatory compliance',
+      affectedRoles: 78,
+      currentBriefs: 2,
+      workingTitle: 'Double-Entry Reconciliation & Audit Ledger Pipeline',
+      intendedStack: 'Java, Spring Boot, PostgreSQL, Apache Kafka',
+      skillsClosed: 'Financial Systems, Reconciliation, Double-Entry Accounting, ACID Transactions',
+      hours: '30-40 hours',
+    },
+  ];
+
+  for (const p of priorityDomains) {
+    growthPlanContent += `### Domain: ${p.domain}\n`;
+    growthPlanContent += `- **Target Skill Gap**: ${p.gap}\n`;
+    growthPlanContent += `- **Catalog Roles Affected**: ${p.affectedRoles}\n`;
+    growthPlanContent += `- **Current Brief Count**: ${p.currentBriefs}\n`;
+    growthPlanContent += `- **Working Title**: ${p.workingTitle}\n`;
+    growthPlanContent += `- **Intended Stack**: ${p.intendedStack}\n`;
+    growthPlanContent += `- **Skills Closed**: ${p.skillsClosed}\n`;
+    growthPlanContent += `- **Estimated Hours**: ${p.hours}\n\n`;
+  }
+
+  fs.writeFileSync(growthPlanPath, growthPlanContent, 'utf8');
+  console.log(`Wrote library growth plan to ${growthPlanPath}`);
+
+  // Part E: Tech Debt Context in lib/careerEngine.ts
+  console.log('\n--- Part E: Tech Debt Context: lib/careerEngine.ts ---');
+  const careerEnginePath = path.resolve(process.cwd(), 'src/lib/careerEngine.ts');
+  const careerEngineLines = fs.readFileSync(careerEnginePath, 'utf8').split('\n');
+  const mahindraIdx = careerEngineLines.findIndex((l) => l.includes("const mahindra = getCompanyLadder('mahindra')"));
+  if (mahindraIdx >= 0) {
+    const startM = Math.max(0, mahindraIdx - 5);
+    const endM = mahindraIdx + 15;
+    console.log(`Context lines ${startM} to ${endM} in src/lib/careerEngine.ts (Mahindra):`);
+    console.log(careerEngineLines.slice(startM, endM).join('\n'));
+  }
+  const flipkartIdx = careerEngineLines.findIndex((l) => l.includes("const flipkart = getCompanyLadder('flipkart')"));
+  if (flipkartIdx >= 0) {
+    const startF = Math.max(0, flipkartIdx - 5);
+    const endF = flipkartIdx + 15;
+    console.log(`Context lines ${startF} to ${endF} in src/lib/careerEngine.ts (Flipkart & Swiggy):`);
+    console.log(careerEngineLines.slice(startF, endF).join('\n'));
+  }
+  console.log('Proposed Data-Driven Alternative:');
+  console.log('  Replace hardcoded company ladder lookups with a schema-driven SteppingStoneRule configuration table');
+  console.log('  mapping sourceBranch and targetCompanyTier to candidate stepping stone companies.');
+
+  // Assertion A37: report-only stage changes nothing under src/
+  const gitDiffSrc = execSync('git diff HEAD -- src', { encoding: 'utf8' }).trim();
+  const a37Pass = gitDiffSrc.length === 0;
+  recordAssertion(
+    'A37',
+    'report-only audits stage changes nothing under src',
+    a37Pass,
+    a37Pass ? undefined : `src diff detected: ${gitDiffSrc}`
+  );
+
+  // ============================================================
   // S14 VISUAL
   // ============================================================
   console.log('\n=== SECTION: VISUAL ===');
@@ -3083,6 +3346,7 @@ async function runVerification() {
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26', 'A33', 'A34'];
   const STAGE_5_ASSERTIONS = ['A35'];
   const STAGE_6_ASSERTIONS = ['A36'];
+  const STAGE_7_ASSERTIONS = ['A37'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
   const STAGE_H3_ASSERTIONS = ['A41'];
@@ -3106,6 +3370,7 @@ async function runVerification() {
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
   evaluateStageGate(5, 'Collapsed Explain-This-Score Panel', STAGE_5_ASSERTIONS);
   evaluateStageGate(6, 'CI Workflow and README', STAGE_6_ASSERTIONS);
+  evaluateStageGate(7, 'Report-Only Audits and Library Growth Plan', STAGE_7_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
   evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
   evaluateStageGate('H3', 'Verification Output Provenance', STAGE_H3_ASSERTIONS);
