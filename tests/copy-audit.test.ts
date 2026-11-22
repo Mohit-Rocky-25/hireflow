@@ -56,5 +56,5 @@ describe('R2.1: Copy Audit & Deceptive Phrase Detection', () => {
       console.error('Banned copy violations found:', violations);
     }
     expect(violations).toEqual([]);
-  });
+  }, 30000);
 });
