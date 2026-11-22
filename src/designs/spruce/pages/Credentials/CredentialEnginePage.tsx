@@ -205,7 +205,7 @@ export function SpruceCredentialEnginePage() {
                       setActiveOpportunity(opp);
                     }}
                   >
-                    View Details →
+                    View Details
                   </Button>
                 </div>
               </Card>
@@ -247,7 +247,7 @@ export function SpruceCredentialEnginePage() {
                     key={s}
                     className="sp-caption px-2.5 py-1 rounded-sp-xs bg-sp-mint-100 text-sp-primary-text font-semibold border border-sp-mint-200"
                   >
-                    ✓ {s}
+                    {s}
                   </span>
                 ))}
               </div>

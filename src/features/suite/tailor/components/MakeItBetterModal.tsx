@@ -76,8 +76,8 @@ export function MakeItBetterModal({ isOpen, onClose, result }: MakeItBetterModal
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-800 bg-neutral-950/70">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-500 to-red-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20">
-              <Zap className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-near-black border border-charcoal flex items-center justify-center text-volt shadow-xs">
+              <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">

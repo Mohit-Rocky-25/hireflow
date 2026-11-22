@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExternalLink } from 'lucide-react';
 
 export interface ProvenanceBadgeProps {
   status: 'verified' | 'needs-recheck' | 'unverified';
@@ -61,7 +62,7 @@ export const ProvenanceBadge: React.FC<ProvenanceBadgeProps> = ({
           className="ml-0.5 text-white hover:text-volt transition-colors"
           aria-label={`Official source link for ${source || 'record'}`}
         >
-          ↗
+          <ExternalLink className="w-2.5 h-2.5 inline" />
         </a>
       )}
     </span>

@@ -475,7 +475,7 @@ export function AuthModal({ isOpen, onClose, initialMode = 'signin' }: AuthModal
                 onClick={handleGuestContinue}
                 className="text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer font-medium"
               >
-                Continue as Guest (No account needed) →
+                Continue as Guest (No account needed)
               </button>
 
               <div className="flex items-center gap-1.5 text-[11px] text-neutral-500 justify-center">

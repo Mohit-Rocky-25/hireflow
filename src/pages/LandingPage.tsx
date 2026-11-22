@@ -39,8 +39,8 @@ const FEATURES = [
 const TOOLS = [
   {
     code: 'Simulation',
-    title: 'TalentLens™ Simulator',
-    badge: `${TOTAL_COMPANIES}+ Employers · 6-Layer AI`,
+    title: 'TalentLens Simulator',
+    badge: `${TOTAL_COMPANIES}+ Employers | 6-Layer Evaluation`,
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Experience our proprietary B2B AI matching engine',
@@ -53,7 +53,7 @@ const TOOLS = [
   {
     code: 'ATS Roaster',
     title: 'ATS Resume Roaster',
-    badge: 'Hot · Invariant Audit',
+    badge: 'Invariant Audit',
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Simulate exactly what ATS filters see',
@@ -66,7 +66,7 @@ const TOOLS = [
   {
     code: 'Career Engine',
     title: 'Career Trajectory',
-    badge: '₹ CTC · Level Ladders',
+    badge: 'CTC | Level Ladders',
     cardHoverStyle: 'hover:border-volt/60 hover:shadow-level-3',
     points: [
       'Plan your path from campus to dream companies',
@@ -112,8 +112,7 @@ export function LandingPage() {
                   type="button"
                   className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-bold uppercase tracking-[1.2px] !text-black bg-volt hover:bg-[#1d1d1d] hover:!text-white border border-volt transition-colors active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
                 >
-                  <span className="!text-black group-hover:!text-white font-black">TRY TALENTLENS™</span>
-                  <span className="text-[16px] transition-transform group-hover:translate-x-0.5">→</span>
+                  <span className="!text-black group-hover:!text-white font-black">TRY TALENTLENS</span>
                 </button>
               </Link>
               <Link to="/tools/resume-checker" className="w-full sm:w-auto">
@@ -130,7 +129,6 @@ export function LandingPage() {
                   className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 h-[48px] px-8 rounded text-[14px] font-semibold uppercase tracking-[1.2px] text-white bg-transparent hover:bg-near-black border border-charcoal hover:border-volt/60 transition-colors active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt cursor-pointer select-none"
                 >
                   <span>DECISION SUITE</span>
-                  <span className="text-[15px] transition-transform group-hover:translate-x-0.5">→</span>
                 </button>
               </Link>
             </div>
@@ -147,8 +145,7 @@ export function LandingPage() {
                     <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
                       Company Directory
                     </span>
-                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-[10px] text-emerald-400 font-semibold uppercase">
                       ENTERPRISE READY
                     </span>
                   </div>
@@ -173,8 +170,7 @@ export function LandingPage() {
                     <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
                       Calibrated Roles
                     </span>
-                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-[10px] text-emerald-400 font-semibold uppercase">
                       CALIBRATED
                     </span>
                   </div>
@@ -199,8 +195,7 @@ export function LandingPage() {
                     <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
                       Zero-Egress Security
                     </span>
-                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-volt font-semibold uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-volt" />
+                    <span className="font-mono text-[10px] text-volt font-semibold uppercase">
                       INVARIANT
                     </span>
                   </div>
@@ -225,8 +220,7 @@ export function LandingPage() {
                     <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
                       Campus Programs
                     </span>
-                    <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 font-semibold uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-mono text-[10px] text-emerald-400 font-semibold uppercase">
                       LIVE INTAKE
                     </span>
                   </div>
@@ -295,7 +289,6 @@ export function LandingPage() {
                   <span className="font-mono text-[11px] font-bold text-volt tracking-widest uppercase bg-black px-2.5 py-1 rounded border border-charcoal">
                     {f.code}
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                 </div>
                 <h3 className="text-[20px] font-bold text-white mb-2.5 tracking-tight group-hover:text-volt transition-colors">
                   {f.title}
@@ -316,7 +309,7 @@ export function LandingPage() {
           {/* Left Narrative Column */}
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-near-black border border-charcoal rounded text-[11px] font-mono font-bold text-volt uppercase tracking-[1.4px] mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-volt animate-pulse" /> Harsh Truth AI
+              Harsh Truth AI
             </div>
             
             <h2 className="text-[36px] sm:text-[46px] md:text-[50px] font-black text-white tracking-tight leading-[1.05] uppercase mb-6">
@@ -364,10 +357,7 @@ export function LandingPage() {
                 {/* Error 1: Missing Critical Skill */}
                 <div className="shiny-edge-card border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
-                      <span className="text-[14px] font-bold text-white font-mono">Missing Skill: Webpack/Vite</span>
-                    </div>
+                    <span className="text-[14px] font-bold text-white font-mono">Missing Skill: Webpack/Vite</span>
                     <span className="bg-rose-500/20 text-rose-300 border border-rose-500/40 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase">
                       Critical
                     </span>
@@ -385,10 +375,7 @@ export function LandingPage() {
                 {/* Error 2: Impact Metrics */}
                 <div className="shiny-edge-card border border-charcoal rounded-xl p-4 bg-black space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
-                      <span className="text-[14px] font-bold text-white font-mono">Impact Metrics</span>
-                    </div>
+                    <span className="text-[14px] font-bold text-white font-mono">Impact Metrics</span>
                     <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase">
                       Needs Work
                     </span>
@@ -447,7 +434,7 @@ export function LandingPage() {
                   <ul className="space-y-3 mb-8">
                     {role.points.map((p, j) => (
                       <li key={j} className="flex items-start gap-2.5 text-[14px] text-silver leading-snug">
-                        <span className="font-mono text-volt font-bold text-[12px] mt-0.5 shrink-0">›</span>
+                        <span className="text-volt font-bold text-[12px] mt-0.5 shrink-0">•</span>
                         <span>{p}</span>
                       </li>
                     ))}
@@ -457,7 +444,6 @@ export function LandingPage() {
                 {/* Interactive Button */}
                 <div className="w-full py-3 px-4 rounded bg-near-black border border-charcoal text-white text-[13px] font-semibold uppercase tracking-[1.2px] flex items-center justify-between group-hover:border-volt group-hover:text-volt transition-colors">
                   <span>{role.cta}</span>
-                  <span className="text-[15px] transition-transform group-hover:translate-x-0.5">→</span>
                 </div>
               </Link>
             ))}
@@ -484,7 +470,6 @@ export function LandingPage() {
                 className="group inline-flex items-center gap-2.5 h-[48px] px-8 rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white text-[14px] font-bold uppercase tracking-[1.2px] transition-colors cursor-pointer select-none"
               >
                 <span className="!text-black group-hover:!text-white font-black">GET STARTED WITH TOOLS HUB</span>
-                <span className="text-[16px] !text-black group-hover:!text-white transition-transform group-hover:translate-x-0.5">→</span>
               </button>
             </Link>
           </div>

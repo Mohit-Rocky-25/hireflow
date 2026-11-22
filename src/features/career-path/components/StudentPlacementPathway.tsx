@@ -518,7 +518,7 @@ export function StudentPlacementPathway({
                       to={`/demo/company/${prog.companyId}`}
                       className="text-xs font-mono font-bold text-silver hover:text-volt transition-colors flex items-center gap-1"
                     >
-                      Company Roles &amp; Fit →
+                      Company Roles &amp; Fit
                     </Link>
                   </div>
                 </div>
@@ -821,9 +821,7 @@ export function StudentPlacementPathway({
                 Computing Campus-to-Career Roadmap...
               </span>
             ) : (
-              <>
-                <Sparkles className="w-5 h-5" /> Build my roadmap
-              </>
+              <span>Build my roadmap</span>
             )}
           </button>
         </div>

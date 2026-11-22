@@ -48,7 +48,7 @@ export class ToolErrorBoundary extends Component<Props, State> {
               onClick={() => window.history.back()}
               className="px-3 py-1.5 text-xs font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-700 transition-colors"
             >
-              ← Go Back
+              Go Back
             </button>
             <a
               href="/"

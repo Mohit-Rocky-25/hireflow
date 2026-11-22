@@ -709,9 +709,7 @@ export function CareerPathSimulator({ fixedTab }: CareerPathSimulatorProps = {})
                       Computing Promotion Pathway...
                     </span>
                   ) : (
-                    <>
-                      <Sparkles className="w-4 h-4" /> Build my switch &amp; level-up plan
-                    </>
+                    <span>Build my switch &amp; level-up plan</span>
                   )}
                 </button>
               </div>

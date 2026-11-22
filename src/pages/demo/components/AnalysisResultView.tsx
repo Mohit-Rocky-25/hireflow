@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, X, Zap, Star, AlertCircle, AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';
+import { Check, X, TrendingUp, Star, AlertCircle, AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';
 import type { Company, Role, AnalysisResult } from '../talentLensEngine';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON, formatCompetencyName } from '../talentLensEngine';
 import { buildSkillStates, extractResumeParseSummary, type SkillState } from '../engine/skillStateEngine';
@@ -374,7 +374,7 @@ export function AnalysisResultView({
                 onClick={onNewResume}
                 className="px-4 py-2 rounded bg-volt text-black font-bold text-xs hover:bg-volt/90 transition-colors uppercase tracking-wider cursor-pointer"
               >
-                Upload Real Resume →
+                Upload Real Resume
               </button>
               <span className="text-xs text-silver">
                 Upload a genuine PDF or DOCX containing your work history, technical projects, and educational qualifications.
@@ -430,9 +430,9 @@ export function AnalysisResultView({
         {/* Anti-gaming notice if detected */}
         {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
           <div className="p-4 bg-black border border-pale-yellow/40 rounded-xl text-sm text-pale-yellow flex items-center gap-3">
-            <span className="text-base font-bold text-pale-yellow">[!]</span>
+            <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0" aria-hidden="true" />
             <span>
-              TalentLens™ detected keyword stuffing in{' '}
+              TalentLens detected keyword stuffing in{' '}
               {result.breakdown.filter((b) => b.analysis.antiGamingFlag).length} competency area(s).
               Skills must be supported with project bullets.
             </span>
@@ -582,7 +582,7 @@ export function AnalysisResultView({
         <div className="p-4 rounded-lg bg-black border border-charcoal flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="text-sm font-bold text-white flex items-center gap-1.5 font-mono">
-              <Zap className="w-4 h-4 text-volt shrink-0" aria-hidden="true" /> Evaluate in ATS Resume Roaster
+              Evaluate in ATS Resume Roaster
             </div>
             <div className="text-xs text-silver mt-0.5">
               Test job-specific fit with full 7-dimension scoring and safe bullet rewrites for this
@@ -597,7 +597,6 @@ export function AnalysisResultView({
             className="group px-4 py-2 bg-volt !text-black text-xs font-bold rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors inline-flex items-center gap-1.5 whitespace-nowrap shadow-xs font-mono uppercase tracking-wider"
           >
             <span className="!text-black group-hover:!text-volt font-black">Open ATS Roaster</span>
-            <span className="font-bold text-sm !text-black group-hover:!text-volt">→</span>
           </Link>
         </div>
 
@@ -605,8 +604,8 @@ export function AnalysisResultView({
         <div className="text-xs font-mono text-silver bg-black p-3 rounded border border-charcoal flex flex-wrap items-center justify-between gap-2">
           <div>
             <span className="font-bold text-white">Benchmark Source:</span> HireFlow Curated
-            Benchmark Index (Oct 2026 snapshot) • <span className="font-bold text-white">Spec Version:</span> v{result.trace?.specVersion || '4.1.0'}
-            • <span className="font-bold text-white">Benchmark Confidence:</span> Grounded on public intake criteria
+            Benchmark Index (Oct 2026 snapshot) | <span className="font-bold text-white">Spec Version:</span> v{result.trace?.specVersion || '4.1.0'}
+            | <span className="font-bold text-white">Benchmark Confidence:</span> Grounded on public intake criteria
           </div>
           <div className="text-[11px] text-silver/60">Directional diagnostic benchmark. Not an automated hiring decision.</div>
         </div>
@@ -670,7 +669,7 @@ export function AnalysisResultView({
       {verifiedStrengths.length > 0 && (
         <div className="bg-[#141414] border border-volt/30 rounded-xl p-5 mb-5 space-y-3">
           <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-volt font-mono flex items-center gap-2">
-            <span className="text-volt font-bold">✓</span>
+            <Check className="w-4 h-4 text-volt" />
             <span>Strengths We Verified</span>
           </div>
           <div className="space-y-2.5">
@@ -705,7 +704,7 @@ export function AnalysisResultView({
       <div className="bg-[#141414] border border-charcoal rounded-xl p-4 sm:p-5 mb-5">
         <div className="flex flex-wrap gap-2.5 items-center">
           <span className="text-xs sm:text-sm font-bold text-neutral-300 uppercase tracking-wide mr-1">
-            TalentLens™ 6-Layer Competency Framework:
+            TalentLens 6-Layer Competency Framework:
           </span>
           {[
             'L1 Keywords',
@@ -1161,7 +1160,7 @@ export function AnalysisResultView({
                 {f.status === 'critical' ? (
                   <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" aria-hidden="true" />
                 ) : f.status === 'cutting-edge' ? (
-                  <Zap className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
+                  <TrendingUp className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
                 ) : f.status === 'dated' ? (
                   <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
                 ) : (
@@ -1206,7 +1205,6 @@ export function AnalysisResultView({
           onClick={onBackToRoles}
           className="group flex items-center gap-2 px-6 py-3 rounded-lg border border-charcoal bg-black text-white hover:text-volt hover:border-volt transition-all shadow-sm cursor-pointer uppercase tracking-wider font-semibold text-sm"
         >
-          <span className="font-bold text-base">←</span>
           <span>Back to Roles</span>
         </button>
 

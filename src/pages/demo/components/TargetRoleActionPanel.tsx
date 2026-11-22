@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Zap } from 'lucide-react';
+import { Check } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -99,7 +99,6 @@ export function TargetRoleActionPanel({
                     onClick={onLoadSampleResume}
                     className="group w-full flex items-center justify-center gap-1.5 py-3 px-4 rounded-lg bg-volt !text-black font-bold text-xs uppercase tracking-wider border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
                   >
-                    <Zap className="w-3.5 h-3.5 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
                     <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify</span>
                   </button>
                   <Link
@@ -178,12 +177,9 @@ export function TargetRoleActionPanel({
                   <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
                 </>
               ) : (
-                <>
-                  <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
-                  <span className="!text-black group-hover:!text-white font-black">
-                    {!validateResumeAuthenticity(resumeText).isValid ? 'Evaluate Fit (Score: 0%)' : 'Analyse My Fit'}
-                  </span>
-                </>
+                <span className="!text-black group-hover:!text-white font-black">
+                  {!validateResumeAuthenticity(resumeText).isValid ? 'Evaluate Fit (Score: 0%)' : 'Analyse My Fit'}
+                </span>
               )}
             </button>
           </>

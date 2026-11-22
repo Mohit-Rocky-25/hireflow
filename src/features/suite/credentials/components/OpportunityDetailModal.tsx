@@ -712,7 +712,7 @@ export function OpportunityDetailModal({
                   </div>
 
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-xs font-black self-start sm:self-auto shrink-0">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
                     <span>{verifiedTimeline.currentStatusText}</span>
                   </span>
                 </div>
@@ -823,7 +823,7 @@ export function OpportunityDetailModal({
                           <span
                             className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider shrink-0 self-start sm:self-auto border ${
                               phase.status === 'open_now'
-                                ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30 animate-pulse'
+                                ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30'
                                 : phase.status === 'open'
                                 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                                 : phase.status === 'upcoming'

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Check, AlertTriangle, Zap } from 'lucide-react';
+import { Check, AlertTriangle, ChevronRight } from 'lucide-react';
 import type { Company, Role } from '../talentLensData';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
@@ -131,7 +131,7 @@ export function ExperiencedRoleCard({
                 onClick={(e) => e.stopPropagation()}
                 className="px-3.5 py-1.5 bg-forest hover:bg-[#3a3a3a] border border-[#141414] text-white rounded text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1"
               >
-                Scan in ATS Roaster →
+                Scan in ATS Roaster
               </Link>
             </div>
           </div>
@@ -176,7 +176,7 @@ export function ExperiencedRoleCard({
                     <React.Fragment key={i}>
                       <span className="px-2.5 py-1 bg-near-black border border-charcoal rounded text-white font-mono">{step}</span>
                       {i < (role as any).hiringProcess!.length - 1 && (
-                        <span className="text-neutral-400">→</span>
+                        <ChevronRight className="w-3.5 h-3.5 text-neutral-500 shrink-0" aria-hidden="true" />
                       )}
                     </React.Fragment>
                   ))}
@@ -216,7 +216,7 @@ export function ExperiencedRoleCard({
                 Add resume first
               </p>
               <Link to="/demo" className="text-volt font-bold underline uppercase tracking-wider">
-                ← Click here to add your resume in Step 1
+                Click here to add your resume in Step 1
               </Link>
             </div>
           ) : (
@@ -238,10 +238,7 @@ export function ExperiencedRoleCard({
                 <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
               </>
             ) : (
-              <>
-                <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
-                <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
-              </>
+              <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
             )}
           </button>
         </div>

@@ -217,7 +217,7 @@ export const ActionPlanPage: React.FC = () => {
             to={readinessSummary.callToActionUrl}
             className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-volt text-xs font-mono transition-colors shrink-0"
           >
-            {readinessSummary.callToAction} →
+            {readinessSummary.callToAction}
           </Link>
         </div>
 

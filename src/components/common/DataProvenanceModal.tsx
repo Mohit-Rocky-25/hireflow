@@ -64,11 +64,10 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
           onClick={() => setInternalOpen(true)}
           className={
             triggerButtonClassName ||
-            'inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white text-xs font-semibold uppercase tracking-[1px] transition-colors cursor-pointer'
+            'inline-flex items-center px-3 py-1.5 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-silver hover:text-white text-xs font-semibold uppercase tracking-[1px] transition-colors cursor-pointer'
           }
           title="Inspect verified data sources and legal disclaimers"
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
           <span>{triggerButtonText}</span>
         </button>
       )}
@@ -91,16 +90,13 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
             </button>
 
             {/* Header */}
-            <div className="flex items-center gap-3 mb-6 pb-4 border-b border-charcoal">
-              <div className="p-2.5 rounded bg-black border border-volt/40 text-volt">
-                <ShieldCheck className="w-6 h-6 stroke-[1.5px]" />
-              </div>
+            <div className="mb-6 pb-4 border-b border-charcoal">
               <div>
                 <h2 id="provenance-modal-title" className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
                   Data Provenance & Legal Disclosures
                 </h2>
-                <p className="text-xs text-silver mt-0.5 font-mono">
-                  Independent Candidate Tools • Static Catalog Snapshot (October 2026) • Local Client-Side Processing
+                <p className="text-xs text-silver mt-1">
+                  Independent Candidate Tools | Static Catalog Snapshot (October 2026) | Local Client-Side Processing
                 </p>
               </div>
             </div>
@@ -161,8 +157,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                 </div>
 
                 <div className="p-4 bg-emerald-950/40 border border-emerald-500/50 rounded-lg space-y-2">
-                  <div className="text-xs font-bold text-emerald-400 uppercase tracking-[1px] flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="text-xs font-bold text-emerald-400 uppercase tracking-[1px]">
                     Static ATS Employer Catalogue (Greenhouse, Lever, Workday)
                   </div>
                   <p className="text-xs text-neutral-300 leading-relaxed">
@@ -172,8 +167,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div className="p-4 bg-black border border-charcoal rounded-lg space-y-2">
-                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-volt"></span>
+                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px]">
                       1. Official Portals
                     </div>
                     <p className="text-[12px] text-silver leading-normal">
@@ -187,8 +181,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   </div>
 
                   <div className="p-4 bg-black border border-charcoal rounded-lg space-y-2">
-                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-volt"></span>
+                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px]">
                       2. Verified Submissions
                     </div>
                     <p className="text-[12px] text-silver leading-normal">
@@ -201,8 +194,7 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
                   </div>
 
                   <div className="p-4 bg-black border border-charcoal rounded-lg space-y-2">
-                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px] flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-volt"></span>
+                    <div className="text-[11px] font-bold text-white uppercase tracking-[1px]">
                       3. Placement Reports
                     </div>
                     <p className="text-[12px] text-silver leading-normal">

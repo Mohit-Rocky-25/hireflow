@@ -38,7 +38,7 @@ export function ProfileStatusChip({ onUploadClick, className = '' }: ProfileStat
       className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-border hover:border-border-accent text-xs text-text transition-all shadow-2xs group cursor-pointer ${className}`}
       title="Click to view and edit candidate profile"
     >
-      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+      <div className="w-2 h-2 rounded-full bg-emerald-400" />
       <User className="w-3.5 h-3.5 text-text-secondary group-hover:text-primary transition-colors" />
       <span className="font-semibold text-text truncate max-w-[140px]">
         {name}

@@ -159,7 +159,7 @@ export function ProjectsSection({
                         : 'bg-neutral-800 text-neutral-200 hover:bg-indigo-600 hover:text-white'
                     }`}
                   >
-                    <span>{isExpanded ? 'Collapse' : 'Configure Project →'}</span>
+                    <span>{isExpanded ? 'Collapse' : 'Configure Project'}</span>
                     {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
                 </div>
@@ -206,7 +206,6 @@ export function ProjectsSection({
                             onClick={() => handleQuickElevateBullet(projSection.id, proj.id, bullet.id, bullet.text)}
                             className="px-2 py-1 rounded-md bg-indigo-600/15 hover:bg-indigo-600/30 border border-indigo-500/25 text-indigo-400 text-[10px] font-bold flex items-center gap-1 transition"
                           >
-                            <Sparkles className="w-3 h-3 text-indigo-400" />
                             <span>Elevate</span>
                           </button>
                           <button

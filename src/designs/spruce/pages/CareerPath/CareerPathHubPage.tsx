@@ -59,7 +59,7 @@ export function SpruceCareerPathHubPage() {
                   size="sm"
                   onClick={() => navigate('/tools/career-path/dream-job-roadmap')}
                 >
-                  Simulate Promotion Jump →
+                  Simulate Promotion Jump
                 </Button>
               </div>
             </div>
@@ -91,7 +91,7 @@ export function SpruceCareerPathHubPage() {
                   Includes Stepping Stone Roles
                 </span>
                 <Button variant="outline" size="sm">
-                  Launch Roadmap →
+                  Launch Roadmap
                 </Button>
               </div>
             </Card>
@@ -117,7 +117,7 @@ export function SpruceCareerPathHubPage() {
                   Strict India Office Ladders
                 </span>
                 <Button variant="outline" size="sm">
-                  Explore Levels →
+                  Explore Levels
                 </Button>
               </div>
             </Card>

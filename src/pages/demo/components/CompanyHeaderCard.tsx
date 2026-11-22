@@ -40,7 +40,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
               {/* Live ATS Feed Badge */}
               {company.isLiveFeedActive && (
                 <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/60 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   ATS: Static Catalogue (Snapshot: Oct 2026)
                 </span>
               )}
@@ -173,7 +173,6 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
             onClick={onChangeCompany}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-neutral-400 hover:text-white font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
           >
-            <span className="font-bold text-xs">←</span>
             <span>Change Company</span>
           </button>
         </div>

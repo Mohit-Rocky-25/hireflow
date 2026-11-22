@@ -4311,7 +4311,7 @@ export const CATALOG_COMPANIES: CatalogCompany[] = [
       "Gurugram",
       "Noida"
     ],
-    "logo": "🍎",
+    "logo": "",
     "gradient": "from-gray-700 to-gray-500",
     "dataStatus": "legacy_unaudited",
     "sourceUrl": null,

@@ -289,7 +289,7 @@ export function TemplateReadingSurface({
                     onClick={() => onSelectSlotForEdit(slotKey)}
                     className={`inline-flex items-center gap-1 mx-1 px-2 py-0.5 rounded text-[13px] sm:text-[14px] font-mono align-baseline transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-volt focus:ring-offset-1 focus:ring-offset-black ${
                       isUnresolved
-                        ? 'border border-dashed border-volt bg-[#141414] text-pale-yellow hover:bg-black font-semibold animate-pulse'
+                        ? 'border border-dashed border-volt bg-[#141414] text-pale-yellow hover:bg-black font-semibold'
                         : 'border border-volt bg-[#141414] text-pale-yellow hover:bg-black'
                     }`}
                     title={

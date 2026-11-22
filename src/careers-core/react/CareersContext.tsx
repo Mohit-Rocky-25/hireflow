@@ -165,7 +165,7 @@ export function DataBadge({ entity, provenance, showSources = true }: DataBadgeP
                         className="inline-flex items-center gap-0.5 text-emerald-400 hover:text-emerald-300 font-medium"
                         title="If company season page moved, search live campus drive"
                       >
-                        Search Live ↗
+                        Search Live
                       </a>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export function DataBadge({ entity, provenance, showSources = true }: DataBadgeP
           </div>
 
           <div className="mt-2 text-[10px] text-neutral-400 leading-tight border-t border-neutral-800 pt-1.5">
-            Tip: Corporate portals frequently archive past seasonal links. If an employer's URL moved, click <span className="text-emerald-400 font-semibold">Search Live ↗</span> for the latest recruitment cycle.
+            Tip: Corporate portals frequently archive past seasonal links. If an employer's URL moved, click <span className="text-emerald-400 font-semibold">Search Live</span> for the latest recruitment cycle.
           </div>
 
           <button

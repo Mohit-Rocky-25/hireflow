@@ -224,7 +224,6 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase tracking-[1.4px] text-silver flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-volt stroke-[1.5px]" />
                 Nice-to-Have / Preferred ({niceToHaves.length})
               </span>
               <span className="text-[11px] text-silver uppercase tracking-[1px]">

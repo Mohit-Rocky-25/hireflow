@@ -224,7 +224,6 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-black text-volt border border-charcoal hover:border-volt text-[11px] font-semibold uppercase tracking-[1px] transition-colors cursor-pointer"
                 title="Load active resume from TalentLens"
               >
-                <Sparkles className="w-3 h-3 text-volt" />
                 <span>Use TalentLens ({talentLensResume.fileName || 'Active'})</span>
               </button>
             )}

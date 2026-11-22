@@ -312,9 +312,7 @@ export const AtsInputSection: React.FC<Props> = ({
                   : 'bg-volt text-[#151515] border border-volt hover:bg-[#1d1d1d] hover:text-white active:text-pale-yellow shadow-level-1'
               }`}
             >
-              <Sparkles className={`w-4 h-4 stroke-[1.5px] ${canAnalyze ? 'text-[#151515] hover:text-volt' : 'text-silver/40'}`} />
               <span>Roast &amp; Analyze Match</span>
-              <ArrowRight className="w-4 h-4 stroke-[1.5px]" />
             </button>
 
             {!canAnalyze && disabledReason && (

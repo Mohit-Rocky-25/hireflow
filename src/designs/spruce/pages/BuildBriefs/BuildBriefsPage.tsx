@@ -311,7 +311,7 @@ export function SpruceBuildBriefsPage() {
                             key={s}
                             className="sp-micro px-2 py-0.5 rounded-sp-xs bg-sp-mint-100 text-sp-primary-text font-semibold"
                           >
-                            ✓ {s}
+                            {s}
                           </span>
                         ))}
                       </div>
@@ -349,7 +349,7 @@ export function SpruceBuildBriefsPage() {
                         setActiveBrief(brief);
                       }}
                     >
-                      View Full Brief →
+                      View Full Brief
                     </Button>
                     <Button
                       variant="outline"

@@ -135,13 +135,13 @@ export const OfferEvaluatorPage: React.FC = () => {
               to="/tools/pathways"
               className="px-3 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-zinc-300 transition-colors"
             >
-              ← Radar
+              Radar
             </Link>
             <button
               onClick={() => setShowCompareModal(true)}
               className="px-3 py-2 rounded-lg bg-volt/15 hover:bg-volt/25 border border-volt/40 text-volt text-xs font-mono transition-colors"
             >
-              Compare 2 Offers →
+              Compare 2 Offers
             </button>
           </div>
         </div>

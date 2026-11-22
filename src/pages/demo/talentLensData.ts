@@ -4922,7 +4922,7 @@ const RAW_COMPANIES = [
   {
     id: "apple",
     name: "Apple",
-    logo: "🍎",
+    logo: "",
     gradient: "from-gray-700 to-gray-500",
     industry: "Consumer Tech",
     hq: "Cupertino, CA",

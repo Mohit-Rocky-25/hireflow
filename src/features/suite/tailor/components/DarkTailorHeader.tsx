@@ -161,13 +161,13 @@ export function DarkTailorHeader({
                 title="Back to Suite Tools"
                 aria-label="Go back"
               >
-                ←
+                <ChevronLeft className="w-4 h-4" />
               </Link>
             </div>
 
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded bg-volt text-black flex items-center justify-center font-bold shadow-xs">
-                <Sparkles className="w-4 h-4 text-black" />
+                <FileText className="w-4 h-4 text-black" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -230,8 +230,7 @@ export function DarkTailorHeader({
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-black text-xs font-mono font-bold uppercase tracking-wider transition hover:-translate-y-0.5 active:translate-y-0"
               title="Upgrade to Top 1% Industry Standards (Google XYZ, Power Verbs, 1-Page Fit)"
             >
-              <Zap className={`w-3.5 h-3.5 text-black ${elevating ? 'animate-spin' : ''}`} />
-              <span>Make It Better</span>
+              <span>{elevating ? 'Upgrading...' : 'Make It Better'}</span>
             </button>
 
             {/* Download Hub Dropdown & Quick Actions */}

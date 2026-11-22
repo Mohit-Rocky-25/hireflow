@@ -39,7 +39,7 @@ export const ProgramDetailPage: React.FC = () => {
             to="/tools/pathways"
             className="inline-block px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-volt text-xs font-mono"
           >
-            ← Return to Eligibility Radar
+            Return to Eligibility Radar
           </Link>
         </main>
         <NonAffiliationFooter />
@@ -66,7 +66,7 @@ export const ProgramDetailPage: React.FC = () => {
             to="/tools/pathways"
             className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
           >
-            ← Back to Radar
+            Back to Radar
           </Link>
           <div className="flex items-center gap-2">
             <button
@@ -81,7 +81,7 @@ export const ProgramDetailPage: React.FC = () => {
               rel="noopener noreferrer"
               className="text-xs font-mono text-volt hover:underline flex items-center gap-1 border border-volt/30 px-3 py-1.5 rounded bg-volt/10"
             >
-              Official Portal ↗
+              Official Portal
             </a>
           </div>
         </div>
@@ -256,13 +256,13 @@ export const ProgramDetailPage: React.FC = () => {
             to={`/tools/pathways/plan?target=${program.id}`}
             className="w-full sm:w-1/2 py-3 px-4 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-300 text-xs font-mono text-center font-medium transition-colors"
           >
-            Create Action Plan for {program.facts.officialName} →
+            Create Action Plan for {program.facts.officialName}
           </Link>
           <Link
             to={`/tools/pathways/offers?program=${program.id}`}
             className="w-full sm:w-1/2 py-3 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-xs font-mono text-center font-medium transition-colors"
           >
-            Evaluate an Offer from This Program →
+            Evaluate an Offer from This Program
           </Link>
         </div>
       </main>

@@ -126,7 +126,6 @@ export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps
       {/* Always Visible Tactical Guidance */}
       <div className="mt-3.5 pt-3.5 border-t border-charcoal">
         <div className="flex items-center gap-1.5 mb-2">
-          <Sparkles className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
           <span className="text-xs font-bold text-white uppercase tracking-[1px]">Channel-Aware Guidance:</span>
         </div>
         <div className="space-y-1.5">

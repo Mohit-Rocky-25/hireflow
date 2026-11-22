@@ -539,7 +539,6 @@ export function ResumeChecker() {
           </button>
 
           <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded bg-near-black border border-charcoal text-[11px] font-semibold text-silver uppercase tracking-[1px]">
-            <span className="w-2 h-2 rounded-full bg-volt inline-block"></span>
             <span>Tools</span>
             <span className="text-charcoal-deep">/</span>
             <span className="text-white">ATS Resume Roaster</span>
@@ -549,7 +548,6 @@ export function ResumeChecker() {
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-8 mt-1 print:mb-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-semibold uppercase tracking-[1.4px] mb-4 flex-wrap justify-center">
-            <ShieldCheck className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
             <span>Deterministic ATS Fit Audit</span>
             <span className="text-charcoal-deep">|</span>
             <span>Zero-Fabrication Analysis</span>
@@ -815,7 +813,7 @@ export function ResumeChecker() {
                         : 'text-silver hover:text-white'
                     }`}
                   >
-                    <Zap className="w-3.5 h-3.5 inline mr-1 stroke-[1.5px]" /> Quick Roast
+                    Quick Roast
                   </button>
                   <button
                     type="button"
@@ -826,7 +824,7 @@ export function ResumeChecker() {
                         : 'text-silver hover:text-white'
                     }`}
                   >
-                    <Compass className="w-3.5 h-3.5 inline mr-1 stroke-[1.5px]" /> Deep Roaster
+                    Deep Roaster
                   </button>
                 </div>
 
@@ -961,7 +959,7 @@ export function ResumeChecker() {
                     {/* Prioritized Actions */}
                     <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
                       <h3 className="text-base font-bold text-white uppercase tracking-tight mb-4 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-volt stroke-[1.5px]" /> Top Prioritized Action Items
+                        Top Prioritized Action Items
                       </h3>
                       <div className="space-y-3">
                         {canonical.quickRoast.prioritizedActions.map((act: any, i: number) => (

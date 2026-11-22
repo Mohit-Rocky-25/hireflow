@@ -23,13 +23,13 @@ export const AboutDataPage: React.FC = () => {
             to="/tools/pathways"
             className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
           >
-            ← Back to Radar
+            Back to Radar
           </Link>
           <button
             onClick={() => setFeedbackOpen(true)}
             className="text-xs font-mono text-volt border border-volt/30 bg-volt/10 hover:bg-volt/20 px-3 py-1.5 rounded transition-colors"
           >
-            Submit Data Correction ↗
+            Submit Data Correction
           </button>
         </div>
 

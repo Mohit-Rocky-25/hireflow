@@ -196,7 +196,7 @@ export function SpruceCompareJDsPage() {
                     key={s}
                     className="sp-caption px-2.5 py-1 rounded-sp-xs bg-sp-mint-100 text-sp-primary-text font-bold border border-sp-mint-200"
                   >
-                    ✓ {s}
+                    {s}
                   </span>
                 ))}
               </div>

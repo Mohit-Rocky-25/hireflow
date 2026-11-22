@@ -141,8 +141,8 @@ export function ToolsHubPage() {
         {
           id: 'talentlens',
           pill: 'Placement',
-          title: 'TalentLens™ Fit Simulator',
-          badge: '100+ Employers · 6-Layer AI',
+          title: 'TalentLens Fit Simulator',
+          badge: '100+ Employers | 6-Layer Evaluation',
           description: 'Calibrate your candidate placement readiness against real engineering hiring rubrics and enterprise roles.',
           link: '/demo',
           cta: 'Launch Simulator',
@@ -203,7 +203,7 @@ export function ToolsHubPage() {
         {/* Hero Header (§3 App Scale) */}
         <div className="text-center max-w-4xl mx-auto space-y-4">
           <p className="text-[13px] font-semibold text-silver uppercase tracking-[1.4px]">
-            HireFlow Decision Suite • {totalTools} Essential Tools
+            HireFlow Decision Suite | {totalTools} Essential Tools
           </p>
           <h1 className="text-[36px] sm:text-[48px] font-black text-white uppercase tracking-tight leading-tight">
             Everything You Need To Win Your Next Tech Role
@@ -329,9 +329,6 @@ export function ToolsHubPage() {
                       <span className="text-[13px] font-bold uppercase tracking-[1.2px] text-white group-hover:text-volt transition-colors">
                         {tool.cta}
                       </span>
-                      <div className="w-8 h-8 rounded bg-black border border-charcoal flex items-center justify-center text-silver group-hover:text-volt group-hover:border-volt transition-colors">
-                        <span className="text-[14px] font-bold">→</span>
-                      </div>
                     </div>
                   </Link>
                 ))}

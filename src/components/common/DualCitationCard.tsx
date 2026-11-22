@@ -57,11 +57,8 @@ export const DualCitationCard: React.FC<Props> = ({
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="p-1 rounded bg-primary/10 text-primary">
-              <Sparkles className="w-3.5 h-3.5" />
-            </span>
             <span className="text-xs font-bold uppercase tracking-wider text-primary">
-              AI Interpretation (check it yourself)
+              Deterministic Interpretation (Inspect directly)
             </span>
           </div>
           {severity !== undefined && (

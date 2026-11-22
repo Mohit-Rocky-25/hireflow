@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export interface CareerPathBackButtonProps {
   /** If true, renders the hub variant: "Back to Home" pointing to '/' */
@@ -49,7 +49,7 @@ export function CareerPathBackButton({
               className="inline-flex items-center gap-1.5 px-3 h-9 text-xs font-semibold uppercase tracking-wider text-white bg-near-black hover:bg-hover-gray border border-charcoal rounded transition-colors cursor-pointer active:text-pale-yellow active:shadow-inset focus-visible:outline-2 focus-visible:outline-volt font-mono"
               aria-label={isHub ? 'Go back' : 'Back to Career Trajectory Hub'}
             >
-              <span className="font-mono text-sm leading-none">←</span>
+              <ChevronLeft className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               <span>Back</span>
             </button>
           </div>

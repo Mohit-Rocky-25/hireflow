@@ -54,7 +54,7 @@ export function LandingPage() {
 
   const tools = [
     {
-      title: 'TalentLens™ Simulator',
+      title: 'TalentLens Simulator',
       desc: 'Proprietary candidate placement engine evaluating multi-layer semantic gap proof and recruiter decision signals.',
       illustration: <SpruceIllustrations.target />,
       link: '/demo',
@@ -105,7 +105,7 @@ export function LandingPage() {
         actions={
           <>
             <Button variant="primary" onClick={() => navigate('/demo')}>
-              Try TalentLens™
+              Try TalentLens
             </Button>
             <Button variant="onBand" onClick={() => navigate('/tools/resume-checker')}>
               ATS Roaster
@@ -178,7 +178,7 @@ export function LandingPage() {
               {PLATFORM_DATA_META.companyCounts.basicListings} Directory Listings
             </Eyebrow>
             <Link to="/demo" className="sp-caption text-sp-primary-text font-semibold hover:underline">
-              View Data Disclosures →
+              View Data Disclosures
             </Link>
           </div>
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">

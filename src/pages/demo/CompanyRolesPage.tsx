@@ -196,7 +196,7 @@ export function CompanyRolesPage() {
       return {
         title: `${matchingProg.roleTitle} (${matchingProg.programName})`,
         level: matchingProg.campusCategory.toUpperCase(),
-        desc: `${matchingProg.eligibility.notes || `Campus graduate engineering intake for ${company.name}`}. Cutoff: ${matchingProg.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${matchingProg.selectionProcess.map((s) => s.stage).join(' → ')}.`,
+        desc: `${matchingProg.eligibility.notes || `Campus graduate engineering intake for ${company.name}`}. Cutoff: ${matchingProg.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${matchingProg.selectionProcess.map((s) => s.stage).join(' - ')}.`,
         competencies: Object.keys(matchingProg.competencyProfile),
         reqLevel: matchingProg.competencyProfile as any,
       } as Role;
@@ -248,7 +248,7 @@ export function CompanyRolesPage() {
     const progAsRole = {
       title: `${prog.roleTitle} (${prog.programName})`,
       level: prog.campusCategory.toUpperCase(),
-      desc: `${prog.eligibility.notes || `Campus graduate engineering intake for ${company?.name || prog.companyId}`}. Cutoff: ${prog.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${prog.selectionProcess.map((s) => s.stage).join(' → ')}.`,
+      desc: `${prog.eligibility.notes || `Campus graduate engineering intake for ${company?.name || prog.companyId}`}. Cutoff: ${prog.eligibility.minCgpa ?? 'None'} CGPA. Stages: ${prog.selectionProcess.map((s) => s.stage).join(' - ')}.`,
       competencies: Object.keys(prog.competencyProfile),
       reqLevel: prog.competencyProfile as any,
     } as Role;
@@ -350,7 +350,6 @@ export function CompanyRolesPage() {
               to="/demo"
               className="group inline-flex items-center gap-2 px-5 py-2.5 rounded bg-volt !text-black font-bold text-xs hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-colors"
             >
-              <span className="font-bold text-sm !text-black group-hover:!text-volt">←</span>
               <span className="!text-black group-hover:!text-volt font-black">Back to Company Directory</span>
             </Link>
           </div>
@@ -370,8 +369,7 @@ export function CompanyRolesPage() {
         {/* Hero headline */}
         <div className="text-center mb-9 max-w-[900px] mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-charcoal rounded text-xs font-mono uppercase tracking-wider text-volt mb-4">
-            <span className="w-2 h-2 rounded-full bg-volt animate-pulse" />
-            TalentLens™ · Placement Readiness &amp; Career Fit
+            TalentLens | Placement Readiness &amp; Career Fit
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight leading-tight flex items-center justify-center gap-3 flex-wrap">
             <span>Where do I fit at</span>

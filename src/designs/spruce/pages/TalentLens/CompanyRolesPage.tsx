@@ -112,7 +112,7 @@ export function SpruceCompanyRolesPage() {
                 size="sm"
                 onClick={() => navigate('/demo')}
               >
-                ← All Companies
+                All Companies
               </Button>
               <Button
                 variant="primary"

@@ -134,7 +134,7 @@ describe('My Space UI Components', () => {
       expect(html).toContain('+ New ATS Roast');
 
       // Verify TalentLens subsection
-      expect(html).toContain('TalentLens™ Benchmark Scans');
+      expect(html).toContain('TalentLens Benchmark Scans');
       expect(html).toContain('Company-calibrated 6-layer competency evaluations');
       expect(html).toContain('+ New TalentLens Scan');
     });

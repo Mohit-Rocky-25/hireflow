@@ -94,12 +94,11 @@ export function CredentialOpportunityEnginePage() {
             <div className="space-y-3 max-w-3xl">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-volt/10 border border-volt/30 text-volt text-xs font-mono font-bold tracking-wider uppercase">
-                  <Sparkles className="w-3.5 h-3.5 text-volt" />
                   <span>Credential & Opportunity Engine</span>
                 </span>
 
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-elevated border border-charcoal text-neutral-300 text-xs font-mono font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-volt animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-volt" />
                   <span>1 USD ≈ ₹{USD_TO_INR_EXCHANGE_RATE} INR (Oct 2026 Reference)</span>
                 </span>
 
@@ -126,7 +125,6 @@ export function CredentialOpportunityEnginePage() {
               >
                 <Award className="w-4 h-4 text-black" />
                 <span>Browse Directory ({totalCount} Opportunities)</span>
-                <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
               </button>
 
               <button

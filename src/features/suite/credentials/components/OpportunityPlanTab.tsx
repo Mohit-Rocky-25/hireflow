@@ -197,7 +197,6 @@ export function OpportunityPlanTab({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-black uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
               <span>Personalized Career Engine</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
@@ -448,8 +447,8 @@ export function OpportunityPlanTab({
                       >
                         <div className="flex items-center justify-between gap-1 mb-1">
                           <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>Verified Schedule ↗</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span>Verified Schedule</span>
                           </span>
                           <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
                             Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
@@ -485,7 +484,7 @@ export function OpportunityPlanTab({
                           onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
                           className="text-xs font-bold text-primary hover:underline cursor-pointer"
                         >
-                          View Details →
+                          View Details
                         </button>
                         <button
                           type="button"
@@ -579,8 +578,8 @@ export function OpportunityPlanTab({
                       >
                         <div className="flex items-center justify-between gap-1 mb-1">
                           <span className="text-[10px] font-black uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>Verified Schedule ↗</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span>Verified Schedule</span>
                           </span>
                           <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
                             Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
@@ -616,7 +615,7 @@ export function OpportunityPlanTab({
                           onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
                           className="text-xs font-bold text-primary hover:underline cursor-pointer"
                         >
-                          View Details →
+                          View Details
                         </button>
                         <button
                           type="button"
@@ -710,8 +709,8 @@ export function OpportunityPlanTab({
                       >
                         <div className="flex items-center justify-between gap-1 mb-1">
                           <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span>Verified Schedule ↗</span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                            <span>Verified Schedule</span>
                           </span>
                           <span className="text-[11px] font-bold text-blue-600 dark:text-blue-400 flex items-center group-hover/time:translate-x-0.5 transition-transform">
                             Timeline & Sources <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
@@ -747,7 +746,7 @@ export function OpportunityPlanTab({
                           onClick={() => onSelectOpportunity(rec.opportunity, 'overview')}
                           className="text-xs font-bold text-primary hover:underline cursor-pointer"
                         >
-                          View Details →
+                          View Details
                         </button>
                         <button
                           type="button"
@@ -862,7 +861,7 @@ export function OpportunityPlanTab({
                           className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 font-bold cursor-pointer hover:bg-emerald-500/20"
                           title="Click to view verified timeline schedule"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                           <Calendar className="w-3 h-3" />
                           <span>{timeline.seasonLabel}</span>
                         </span>
@@ -1043,7 +1042,7 @@ export function OpportunityPlanTab({
                                 onClick={() => onSelectOpportunity(opp, 'overview')}
                                 className="text-xs font-bold text-primary hover:underline cursor-pointer"
                               >
-                                View Details →
+                                View Details
                               </button>
                               <button
                                 type="button"

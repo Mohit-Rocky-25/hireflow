@@ -676,7 +676,7 @@ export function LadderLevelExplorer({
             <span className="w-2.5 h-2.5 rounded-full bg-volt" />
             <div>
               <h3 className="text-sm font-black text-white uppercase tracking-wider font-mono">
-                Honest Career Transition Guide: IT Services → Tier-1 Product
+                Honest Career Transition Guide: IT Services to Tier-1 Product
               </h3>
               <p className="text-xs text-silver mt-0.5">
                 5 critical realities and tactical roadmaps for engineers moving from service companies to tech unicorns.

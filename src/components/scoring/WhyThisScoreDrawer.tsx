@@ -151,7 +151,6 @@ export const WhyThisScoreDrawer: React.FC<WhyThisScoreDrawerProps> = ({
           <div>
             <div className="flex items-center gap-2 mb-1.5 flex-wrap">
               <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-volt/10 text-volt border border-volt/30 flex items-center gap-1.5 shadow-[0_0_10px_rgba(250,204,21,0.15)]">
-                <Sparkles className="w-3 h-3" />
                 Deterministic Scoring Trace
               </span>
               <span className="text-xs font-mono text-silver font-semibold">

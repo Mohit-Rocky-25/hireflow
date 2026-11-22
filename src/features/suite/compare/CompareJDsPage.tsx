@@ -317,7 +317,6 @@ export function CompareJDsPage() {
         <div className="bg-surface border border-charcoal rounded p-4 sm:p-5 shadow-xs space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-sm font-mono font-bold text-white uppercase tracking-wider">
-              <Zap className="w-4 h-4 text-volt" />
               <span>Instant Real-World Benchmarks</span>
             </div>
             <span className="text-xs text-neutral-300 font-medium">
@@ -356,12 +355,9 @@ export function CompareJDsPage() {
           </div>
 
           {activePreset && !result && (
-            <div className="mt-3 p-3.5 rounded bg-surface-elevated border border-charcoal text-xs text-neutral-200 flex items-start gap-2.5">
-              <Sparkles className="w-4 h-4 text-volt shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold text-white font-mono">Strategic Context: </span>
-                {activePreset.strategicContext}
-              </div>
+            <div className="mt-3 p-3.5 rounded bg-surface-elevated border border-charcoal text-xs text-neutral-200">
+              <span className="font-bold text-white font-mono">Strategic Context: </span>
+              {activePreset.strategicContext}
             </div>
           )}
         </div>
@@ -535,7 +531,7 @@ export function CompareJDsPage() {
                       <div className="bg-surface-elevated/70 border border-charcoal rounded p-3 space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-[11px] font-mono font-bold text-volt flex items-center gap-1.5 uppercase tracking-wide">
-                            <Sparkles className="w-3 h-3 text-volt" /> Quick Load Verified Role
+                            Quick Load Verified Role
                           </span>
                           <span className="text-[10px] text-neutral-400 font-mono">
                             {COMPANIES.length}+ Tech Employers

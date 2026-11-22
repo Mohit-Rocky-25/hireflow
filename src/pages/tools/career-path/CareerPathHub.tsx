@@ -97,8 +97,7 @@ export function CareerPathHub() {
         <div className="relative max-w-5xl mx-auto flex flex-col items-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded bg-near-black border border-charcoal text-silver text-xs font-bold tracking-wide uppercase mb-6">
-            <Zap className="w-3.5 h-3.5 text-volt" />
-            <span>India Market • INR (₹) Career Intelligence</span>
+            <span>India Market | INR (₹) Career Intelligence</span>
           </div>
 
           {/* Very Large Heading (Marketing Display scale) */}
@@ -170,7 +169,6 @@ export function CareerPathHub() {
                 to="/tools/build-briefs"
                 className="px-3.5 py-1.5 rounded bg-black hover:bg-hover-gray text-white hover:text-volt text-xs font-bold border border-charcoal transition-colors flex items-center gap-1.5"
               >
-                <Sparkles className="w-3.5 h-3.5 text-volt" />
                 Bridge Gaps
               </Link>
               <Link

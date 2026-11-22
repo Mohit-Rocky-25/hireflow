@@ -19,7 +19,6 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
     <div className="space-y-4">
       <div className="flex items-center justify-between pb-2 border-b border-charcoal">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-volt shrink-0 stroke-[1.5px]" />
           <h2 className="text-[20px] sm:text-[22px] font-bold text-white tracking-tight uppercase">
             Fix These First (Highest Score ROI)
           </h2>

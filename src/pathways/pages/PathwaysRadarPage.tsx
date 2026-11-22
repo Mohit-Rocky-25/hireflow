@@ -90,13 +90,13 @@ export const PathwaysRadarPage: React.FC = () => {
               to="/tools/pathways/offers"
               className="px-3 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-mono text-white transition-colors"
             >
-              Offer Evaluator →
+              Offer Evaluator
             </Link>
             <Link
               to="/tools/pathways/plan"
               className="px-3 py-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-xs font-mono text-emerald-300 transition-colors"
             >
-              Action Plan →
+              Action Plan
             </Link>
           </div>
         </div>
@@ -294,7 +294,7 @@ export const PathwaysRadarPage: React.FC = () => {
                       to={`/tools/pathways/program/${p.id}`}
                       className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 transition-colors"
                     >
-                      View Details →
+                      View Details
                     </Link>
                   </div>
                 </div>

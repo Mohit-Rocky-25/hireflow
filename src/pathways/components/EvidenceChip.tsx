@@ -5,7 +5,7 @@
 // ============================================================
 
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, ExternalLink } from 'lucide-react';
 import type { EvidenceRef } from '../schema/types';
 
 interface EvidenceChipProps {
@@ -32,7 +32,7 @@ export const EvidenceChip: React.FC<EvidenceChipProps> = ({ evidence, label }) =
         className="inline-flex items-center gap-1.5 text-xs font-mono px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60 transition-colors cursor-pointer"
         title="Click to view primary source evidence"
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
         <span>{label || 'Sourced'}</span>
       </button>
 
@@ -86,10 +86,10 @@ export const EvidenceChip: React.FC<EvidenceChipProps> = ({ evidence, label }) =
                   href={evidence.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] text-volt hover:underline font-mono"
+                  className="inline-flex items-center gap-1.5 text-[11px] text-volt hover:underline font-mono"
                 >
                   <span>Open Official Document / Portal</span>
-                  <span>↗</span>
+                  <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
             </div>

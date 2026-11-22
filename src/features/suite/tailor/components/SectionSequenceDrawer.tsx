@@ -70,7 +70,6 @@ export function SectionSequenceDrawer({
         {/* Header */}
         <div className="p-4 bg-black border-b border-charcoal flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-volt" />
             <span className="font-bold text-white text-sm uppercase tracking-wider">
               Section Sequence Strategy (P7)
             </span>

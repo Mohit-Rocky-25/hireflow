@@ -270,7 +270,7 @@ export function TalentLens() {
     return (
       <div className="min-h-screen bg-black text-white p-8 text-center font-sans">
         <p className="text-silver">Candidate not found.</p>
-        <Link to="/" className="mt-4 inline-block text-volt font-mono text-xs hover:underline">← Go back to Home</Link>
+        <Link to="/" className="mt-4 inline-block text-volt font-mono text-xs hover:underline">Go back to Home</Link>
       </div>
     );
   }
@@ -304,7 +304,7 @@ export function TalentLens() {
         
         <div className="text-center max-w-3xl mx-auto mb-12 mt-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-charcoal rounded text-xs font-mono uppercase tracking-wider text-volt mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-volt" /> B2B Engine Demo
+            B2B Engine Demo
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-3">
             Talent<span className="text-volt">Lens</span> Simulator
@@ -317,8 +317,7 @@ export function TalentLens() {
               to="/demo"
               className="inline-flex items-center gap-2 px-4 py-2 rounded bg-volt/10 hover:bg-volt/20 text-volt border border-volt/30 text-xs font-mono font-bold uppercase tracking-wider transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Browse All {PLATFORM_DATA_META.companyCounts.fullProfiles}+ Full Profiles ({PLATFORM_DATA_META.companyCounts.totalPlatformListings} Employers) in TalentLens Catalog →</span>
+              <span>Browse All {PLATFORM_DATA_META.companyCounts.fullProfiles}+ Full Profiles ({PLATFORM_DATA_META.companyCounts.totalPlatformListings} Employers) in TalentLens Catalog</span>
             </Link>
           </div>
         </div>
@@ -360,10 +359,8 @@ export function TalentLens() {
             disabled={!selectedJobId || !profile || analyzing}
             className="group h-10 px-5 bg-volt !text-black text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all flex items-center gap-2 disabled:opacity-40 cursor-pointer"
           >
-            {analyzing ? (
+            {analyzing && (
               <RefreshCw className="w-4 h-4 animate-spin !text-black group-hover:!text-volt" />
-            ) : (
-              <Brain className="w-4 h-4 !text-black group-hover:!text-volt" />
             )}
             <span className="!text-black group-hover:!text-volt font-black">
               {analyzing ? 'Analyzing…' : match ? 'Re-Analyze' : 'Analyze'}
@@ -374,7 +371,6 @@ export function TalentLens() {
             to="/tools/jd-compare"
             className="h-10 px-3.5 border border-charcoal rounded text-xs font-mono bg-black text-white hover:text-volt hover:border-volt flex items-center gap-1.5 transition-colors"
           >
-            <span className="text-volt font-mono font-bold text-[13px]">⇄</span>
             Compare Companies
           </Link>
         </div>
@@ -389,7 +385,6 @@ export function TalentLens() {
 
       {!selectedJobId && (
         <div className="bg-[#141414] border border-charcoal rounded-lg p-16 text-center">
-          <Brain className="w-10 h-10 text-silver mx-auto mb-4" />
           <h3 className="text-base font-bold text-white mb-2">Select a job to run intelligence analysis</h3>
           <p className="text-xs text-silver max-w-md mx-auto leading-relaxed">Choose from the dropdown above to see evidence-based candidate assessment against that role's requirements.</p>
         </div>
@@ -397,11 +392,9 @@ export function TalentLens() {
 
       {selectedJobId && !match && !analyzing && (
         <div className="bg-[#141414] border border-charcoal rounded-lg p-16 text-center">
-          <Target className="w-10 h-10 text-volt mx-auto mb-4" />
           <h3 className="text-base font-bold text-white mb-2">Ready to analyze against "{selectedJob?.title}"</h3>
           <p className="text-xs text-silver max-w-md mx-auto leading-relaxed mb-6">The engine will assess each job requirement individually with evidence from the candidate's profile.</p>
           <button onClick={runAnalysis} className="group h-10 px-6 bg-volt !text-black text-xs font-bold font-mono uppercase tracking-wider rounded hover:bg-[#1a1a1a] hover:!text-volt border border-volt transition-all flex items-center gap-2 mx-auto cursor-pointer">
-            <Brain className="w-4 h-4 !text-black group-hover:!text-volt" />
             <span className="!text-black group-hover:!text-volt font-black">Run Evidence Analysis</span>
           </button>
         </div>

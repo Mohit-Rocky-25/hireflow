@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Check, Zap } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { DataBadge } from '../../../careers-core';
 import type { FresherProgram } from '../../../careers-core';
 import type { Company } from '../talentLensData';
@@ -93,7 +93,7 @@ export function FresherProgramCard({
                 <span>Selected</span>
               </>
             ) : (
-              <span>Select Role →</span>
+              <span>Select Role</span>
             )}
           </button>
         </div>
@@ -170,7 +170,7 @@ export function FresherProgramCard({
             onClick={(e) => e.stopPropagation()}
             className="text-xs font-bold text-volt hover:text-white uppercase tracking-wider inline-flex items-center gap-1 transition-colors"
           >
-            Scan in ATS Roaster →
+            Scan in ATS Roaster
           </Link>
         </div>
       </div>
@@ -202,7 +202,6 @@ export function FresherProgramCard({
                 onClick={onLoadSampleResume}
                 className="group w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded bg-volt !text-black font-bold text-xs uppercase tracking-[1.4px] border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors cursor-pointer"
               >
-                <Zap className="w-3.5 h-3.5 text-black group-hover:text-white shrink-0" aria-hidden="true" />
                 <span className="!text-black group-hover:!text-white font-black">Load Sample Resume &amp; Verify Now</span>
               </button>
             </div>
@@ -237,10 +236,7 @@ export function FresherProgramCard({
                 <span className="!text-black group-hover:!text-white font-black">Calibrating...</span>
               </>
             ) : (
-              <>
-                <Zap className="w-4 h-4 !text-black group-hover:!text-white shrink-0" aria-hidden="true" />
-                <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
-              </>
+              <span className="!text-black group-hover:!text-white font-black">Analyse My Fit</span>
             )}
           </button>
         </div>

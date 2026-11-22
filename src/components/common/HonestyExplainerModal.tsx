@@ -74,7 +74,7 @@ export const HonestyExplainerModal: React.FC<Props> = ({
                   What This Tool Is & What It Isn't
                 </h2>
                 <p className="text-xs text-slate-400">
-                  Clear disclosure for {resolvedToolName} • Measurement & Transparency Policy
+                  Clear disclosure for {resolvedToolName} | Measurement & Transparency Policy
                 </p>
               </div>
             </div>

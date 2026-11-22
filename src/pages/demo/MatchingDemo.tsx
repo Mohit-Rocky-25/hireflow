@@ -120,12 +120,11 @@ export function MatchingDemo() {
         {/* Hero */}
         <div className="text-center mb-12 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-near-black border border-charcoal rounded text-xs font-semibold text-silver uppercase tracking-[1.4px] mb-4 flex-wrap justify-center">
-            <span className="w-2 h-2 rounded-full bg-volt animate-pulse" />
-            <span>TalentLens™ · Evidence-First Placement Readiness</span>
+            <span>TalentLens | Evidence-First Placement Readiness</span>
             <span className="text-charcoal-deep">|</span>
             <DataProvenanceModal
               triggerButtonText="Data Sources & Disclosures"
-              triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1"
+              triggerButtonClassName="text-volt hover:text-white uppercase tracking-[1px] text-xs font-bold transition-colors cursor-pointer"
             />
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-white mb-3.5 tracking-tight leading-[1.08]">
@@ -204,8 +203,8 @@ export function MatchingDemo() {
               {activeResume && activeResume.ledger?.rawText && (
                 <div className="mb-5 p-4 rounded bg-black border border-charcoal flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 text-sm font-bold">
-                      <Star className="w-4 h-4 text-volt" aria-hidden="true" />
+                    <div className="w-9 h-9 rounded bg-near-black border border-charcoal flex items-center justify-center text-volt flex-shrink-0 text-xs font-mono font-bold">
+                      CV
                     </div>
                     <div>
                       <div className="text-[13px] font-bold text-white flex items-center gap-2 uppercase tracking-[1px]">
@@ -349,7 +348,6 @@ Include:
                   className="group px-6 py-2.5 text-xs font-bold uppercase tracking-[1.4px] rounded bg-volt !text-black border border-volt hover:bg-[#1d1d1d] hover:!text-white transition-colors flex items-center gap-2 cursor-pointer shadow-level-1"
                 >
                   <span className="!text-black group-hover:!text-white font-black">Select Company &amp; Role</span>
-                  <span className="text-sm font-bold transition-transform group-hover:translate-x-0.5">→</span>
                 </button>
               </div>
             </div>
@@ -457,7 +455,7 @@ Include:
                       : 'bg-black text-emerald-400/80 border-emerald-500/40 hover:text-emerald-300 hover:border-emerald-400'
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                   <span>ATS Catalog ({liveCount})</span>
                 </button>
               </div>
@@ -589,7 +587,7 @@ Include:
                       </div>
 
                       <div className="text-[11px] text-silver mb-3 font-mono">
-                        {company.avgPackage} • {company.industry}
+                        {company.avgPackage} | {company.industry}
                       </div>
 
                       {/* Quick Summary per Result */}
@@ -641,7 +639,7 @@ Include:
                         {company.roles.length} Roles available
                       </span>
                       <span className="inline-flex items-center gap-1 uppercase tracking-[1px] font-bold text-[11px]">
-                        View Roles <span className="text-xs font-bold transition-transform group-hover:translate-x-0.5">→</span>
+                        View Roles
                       </span>
                     </div>
                   </Link>
@@ -742,13 +740,12 @@ Include:
         {/* Legal & Provenance Footer Banner */}
         <div className="mt-8 p-4 rounded-lg bg-[#0e0e0e] border border-charcoal/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-silver">
           <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-volt flex-shrink-0" />
             <span>
               <strong>Company & Role Data Provenance:</strong> Job descriptions, compensation bands, and interview rounds are extracted from public corporate career portals, verified campus placement reports, and anonymous employee submissions.
             </span>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <span className="text-silver/60">Nominative Fair Use • Non-Affiliated</span>
+            <span className="text-silver/60">Nominative Fair Use | Non-Affiliated</span>
             <DataProvenanceModal
               triggerButtonText="Data Sources & Disclosures"
               triggerButtonClassName="px-3 py-1.5 bg-black border border-charcoal hover:border-volt rounded text-xs font-semibold uppercase tracking-[1px] text-volt hover:text-white transition-colors cursor-pointer"

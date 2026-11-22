@@ -531,7 +531,7 @@ export function OpenSourceTab({
                       </span>
                     )}
                     {isOpenNow && (
-                      <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-white animate-pulse">
+                      <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-white">
                         Open Now
                       </span>
                     )}

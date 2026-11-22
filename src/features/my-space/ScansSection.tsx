@@ -308,7 +308,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-lg font-bold text-[#f1f1e8]">
-                        TalentLens™ Benchmark Scans
+                        TalentLens Benchmark Scans
                       </h3>
                       <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#181814] text-emerald-400 border border-emerald-500/20 font-bold">
                         {talentLensAudits.length}

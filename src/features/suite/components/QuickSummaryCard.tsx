@@ -11,7 +11,7 @@ import {
   Check,
   ChevronDown,
   ChevronUp,
-  Sparkles,
+  FileText,
   TrendingUp,
   BookOpen,
 } from 'lucide-react';
@@ -77,7 +77,7 @@ export function QuickSummaryCard({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-charcoal">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded bg-black border border-charcoal flex items-center justify-center text-volt shrink-0">
-            <Sparkles className="w-5 h-5 stroke-[1.5px]" />
+            <FileText className="w-5 h-5 stroke-[1.5px]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -199,13 +199,13 @@ export function QuickSummaryCard({
             to="/tools/tailor"
             className="px-2.5 py-1 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-[11px] font-semibold uppercase tracking-[1px] text-white flex items-center gap-1 transition-colors"
           >
-            <Sparkles className="w-3 h-3 text-volt" /> Tailor Resume
+            Tailor Resume
           </Link>
           <Link
             to="/tools/build-briefs"
             className="px-2.5 py-1 rounded bg-black hover:bg-hover-gray border border-charcoal hover:border-volt text-[11px] font-semibold uppercase tracking-[1px] text-white flex items-center gap-1 transition-colors"
           >
-            <BookOpen className="w-3 h-3 text-volt" /> Build Projects
+            Build Projects
           </Link>
           <Link
             to="/tools/reach-out"
