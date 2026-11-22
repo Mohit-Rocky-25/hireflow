@@ -130,6 +130,11 @@ async function runVerification() {
 
   const gitHead = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
   const gitStatusShort = execSync('git status --short', { encoding: 'utf8' }).trim();
+  const gitStatusBefore = execSync('git status --porcelain', { encoding: 'utf8' })
+    .split('\n')
+    .map((l) => l.trimEnd())
+    .filter((l) => l.trim() && !l.includes('.verify'))
+    .join('\n');
   console.log(`GIT HEAD  : ${gitHead}`);
   console.log(`GIT STATUS:\n${gitStatusShort || '(clean)'}\n`);
 
@@ -2105,8 +2110,9 @@ async function runVerification() {
   function runStage4PendingGoldens() {
     const rootDir = process.cwd();
     const recordsDir = path.join(rootDir, 'tests', 'goldens', 'talentlens', 'records');
-    const pendingDir = path.join(rootDir, 'tests', 'goldens', 'talentlens', 'pending');
-    const summaryDocPath = path.join(rootDir, 'docs', 'golden_diff_summary_phase4c.md');
+    const verifyDir = path.join(rootDir, '.verify');
+    const pendingDir = path.join(verifyDir, 'pending');
+    const summaryDocPath = path.join(verifyDir, 'golden_diff_summary_phase4c.md');
 
     fs.mkdirSync(pendingDir, { recursive: true });
 
@@ -2299,8 +2305,8 @@ async function runVerification() {
   // Stage 4.4 & 4.5: Proposed Goldens & Invariants (Assertion A21)
   console.log(`\n=== SECTION 13.4: PROPOSED GOLDENS & INVARIANTS (STAGE 4) ===`);
   const stage4Result = runStage4PendingGoldens();
-  console.log(`Evaluated ${stage4Result.totalPendingChecked} pending golden records in tests/goldens/talentlens/pending/ (records/ UNTOUCHED)`);
-  console.log(`Diff Summary Report written to docs/golden_diff_summary_phase4c.md`);
+  console.log(`Evaluated ${stage4Result.totalPendingChecked} pending golden records in .verify/pending/ (records/ UNTOUCHED)`);
+  console.log(`Diff Summary Report written to .verify/golden_diff_summary_phase4c.md`);
   console.log(`Invariants Verification:`);
   console.log(`  1. Shown Projects with Empty Closes: ${stage4Result.emptyClosesViolations} (Target: 0)`);
   console.log(`  2. Step Skills Differing from Card Closes: ${stage4Result.stepCardMismatchViolations} (Target: 0)`);
@@ -2320,6 +2326,20 @@ async function runVerification() {
     'pending goldens invariant holds (5 checks, all 0)',
     stage4Result.allPassed,
     stage4Result.allPassed ? undefined : `Violations: emptyCloses=${stage4Result.emptyClosesViolations}, stepCardMismatch=${stage4Result.stepCardMismatchViolations}, duplicateClosed=${stage4Result.duplicateClosedSkillViolations}, negativeDelta=${stage4Result.negativePathDeltaViolations}, otherFieldDiff=${stage4Result.otherFieldDiffViolations}`
+  );
+
+  const gitStatusAfter = execSync('git status --porcelain', { encoding: 'utf8' })
+    .split('\n')
+    .map((l) => l.trimEnd())
+    .filter((l) => l.trim() && !l.includes('.verify'))
+    .join('\n');
+
+  const a40Pass = gitStatusBefore === gitStatusAfter;
+  recordAssertion(
+    'A40',
+    'verification run modifies no tracked files (git status identical before and after, ignoring .verify/)',
+    a40Pass,
+    a40Pass ? undefined : `diff: before=${JSON.stringify(gitStatusBefore)} after=${JSON.stringify(gitStatusAfter)}`
   );
 
   // ============================================================
@@ -2345,8 +2365,9 @@ async function runVerification() {
   const STAGE_2_ASSERTIONS = ['A18'];
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26'];
+  const STAGE_H1_ASSERTIONS = ['A40'];
 
-  const evaluateStageGate = (stageNum: number, stageName: string, reqAssertionIds: string[]) => {
+  const evaluateStageGate = (stageNum: number | string, stageName: string, reqAssertionIds: string[]) => {
     const stageAsserts = ASSERTIONS_LOG.filter((a) => reqAssertionIds.includes(a.id));
     if (stageAsserts.length < reqAssertionIds.length) {
       const executedIds = new Set(stageAsserts.map((a) => a.id));
@@ -2363,6 +2384,7 @@ async function runVerification() {
   evaluateStageGate(2, 'Letter-Spaced Brief Text Fixed in Runtime Data Source', STAGE_2_ASSERTIONS);
   evaluateStageGate(3, 'Explained and Empirically Validated Score-Path Projections', STAGE_3_ASSERTIONS);
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
+  evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
 
   // ============================================================
   // FINAL ASSERTION SUMMARY

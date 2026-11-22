@@ -47,6 +47,7 @@
     "verify:talentlens": "npx tsx scripts/verifyTalentLens.ts",
     "golden:check": "npx tsx scripts/checkTalentLensGoldens.ts",
     "golden:update": "npx tsx scripts/checkTalentLensGoldens.ts --update",
+    "golden:pending": "npx tsx scripts/generatePendingGoldens.ts",
     "verify:all": "tsc --noEmit && npm run lint && npx vitest run && npm run verify:talentlens && npm run golden:check",
     "security:secrets": "node scripts/security/scan-secrets.mjs",
     "security:audit": "node scripts/security/audit-deps.mjs",

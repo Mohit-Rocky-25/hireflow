@@ -72,4 +72,7 @@ HANDOFF_*.txt
 .snapshots/
 .progress/
 .screens/
+.verify/
+.worktree*
+final_prompt*.txt
 docs/level_normalization_impact.csv
