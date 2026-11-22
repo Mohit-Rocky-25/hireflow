@@ -351,13 +351,45 @@ export function extractCleanBriefEvidence(
  * Validates a project brief's claimed conceptual skills against its authentic text.
  * Requires at least 2 DISTINCT keyword groups found in project-specific text (excluding boilerplate).
  */
-export function validateBriefConcepts(brief: ProjectBrief): BriefConceptVettingResult {
-  const cacheKey = brief.id ? `${brief.id}:${(brief.coveredSkills || []).join(',')}` : null;
+export function validateBriefConcepts(
+  brief: ProjectBrief,
+  options?: { minKeywordGroups?: number; disableBoilerplateStripping?: boolean; disableConceptEvidenceFix?: boolean }
+): BriefConceptVettingResult {
+  const hasOptions = options && Object.values(options).some((v) => v !== undefined && v !== false && v !== 2);
+  const cacheKey = brief.id && !hasOptions ? `${brief.id}:${(brief.coveredSkills || []).join(',')}` : null;
   if (cacheKey && BRIEF_CONCEPTS_CACHE.has(cacheKey)) {
     return BRIEF_CONCEPTS_CACHE.get(cacheKey)!;
   }
 
-  const cleanEvidence = extractCleanBriefEvidence(brief);
+  if (options?.disableConceptEvidenceFix) {
+    const rawTags = brief.coveredSkills || [];
+    const vettedConcepts = rawTags.map((tag) => {
+      const norm = tag.toLowerCase().trim();
+      const matchedDef = CONCEPT_DEFINITIONS.find((def) =>
+        def.aliases.some((alias) => norm === alias || norm.includes(alias) || alias.includes(norm))
+      );
+      return matchedDef ? matchedDef.label : tag;
+    });
+    return {
+      vettedConceptTags: vettedConcepts,
+      droppedTags: [],
+      matchedKeywords: {},
+      matchedGroups: {},
+      matchedSentences: {},
+    };
+  }
+
+  const cleanEvidence = options?.disableBoilerplateStripping
+    ? [
+        brief.problemStatement,
+        brief.problemItSolves,
+        brief.architecture,
+        ...(Array.isArray(brief.useCases) ? brief.useCases : [brief.useCases]),
+        ...(Array.isArray(brief.scaleTargets) ? brief.scaleTargets : [brief.scaleTargets]),
+        ...(brief.verificationRubric || []),
+        ...(brief.milestones || []).map((m) => `${m.title} ${m.doneWhen}`),
+      ].filter(Boolean).join(' ')
+    : extractCleanBriefEvidence(brief);
   const cleanSentences = cleanEvidence.split(/[.!?]\s+/).map((s) => s.trim()).filter((s) => s.length > 5);
 
   const vetted = new Set<string>();
@@ -366,6 +398,7 @@ export function validateBriefConcepts(brief: ProjectBrief): BriefConceptVettingR
   const matchedGroupsMap: Record<string, string[]> = {};
   const matchedSentencesMap: Record<string, string> = {};
 
+  const minGroups = options?.minKeywordGroups ?? 2;
   const isCert = Boolean(brief.id && brief.id.startsWith('cert-'));
   const allowedCertDomains = isCert && brief.id ? CERT_DOMAINS[brief.id] || [] : [];
 
@@ -415,8 +448,8 @@ export function validateBriefConcepts(brief: ProjectBrief): BriefConceptVettingR
         }
       }
 
-      // Requires at least 2 DISTINCT groups
-      if (matchedGroups.length >= 2) {
+      // Requires at least minGroups DISTINCT groups
+      if (matchedGroups.length >= minGroups) {
         vetted.add(matchedDef.label);
         matchedKeywordsMap[matchedDef.label] = matchedKeywords;
         matchedGroupsMap[matchedDef.label] = matchedGroups;

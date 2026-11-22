@@ -22,13 +22,14 @@ import {
   getCanonicalSkillId,
   CANONICAL_SKILL_REGISTRY,
 } from './canonicalSkillRegistry';
-import { computeDomainFit } from './domainFitTable';
+import { computeDomainFit, computeLegacyDomainFit } from './domainFitTable';
 export {
   getCanonicalSkill,
   getCanonicalSkillName,
   getCanonicalSkillId,
   CANONICAL_SKILL_REGISTRY,
   computeDomainFit,
+  computeLegacyDomainFit,
 };
 
 export const MIN_PROJECT_RELEVANCE_THRESHOLD = 0.20;
@@ -201,7 +202,40 @@ export const SKILL_ALIAS_MAP: Record<string, string[]> = {
   r: ['r', 'r programming'],
 };
 
-// getCanonicalSkillName and getCanonicalSkillId are provided by canonicalSkillRegistry.ts
+export const LEGACY_SKILL_ALIAS_MAP: Record<string, string[]> = {
+  devops: ['devops', 'docker', 'kubernetes', 'k8s', 'ci/cd', 'terraform', 'aws', 'gcp', 'ci/cd & pipelines'],
+  ci_cd: ['ci/cd', 'devops', 'pipeline', 'dockerfile', 'github actions', 'ci/cd & pipelines'],
+  cloud: ['cloud', 'aws', 'gcp', 'azure', 'docker', 'kubernetes'],
+  kubernetes: ['kubernetes', 'k8s', 'container runtime', 'docker'],
+  docker: ['docker', 'container', 'containers', 'kubernetes'],
+  aws: ['aws', 'amazon web services', 'ec2', 's3', 'lambda', 'dynamodb', 'cloudwatch', 'iam', 'ecs', 'eks', 'sqs', 'sns', 'cloud'],
+  systemdesign: ['system design', 'systemdesign', 'distributed systems', 'microservices', 'architecture', 'scalability', 'concurrency', 'idempotency', 'rate limiting', 'caching', 'load balancing', 'message queue', 'architecture & clean code'],
+  'system design': ['system design', 'systemdesign', 'distributed systems', 'microservices', 'architecture', 'scalability', 'concurrency', 'idempotency', 'architecture & clean code'],
+  'distributed systems': ['distributed systems', 'system design', 'microservices', 'consensus', 'raft', 'replication', 'partitioning', 'sharding', 'event-driven'],
+  databases: ['database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb', 'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints', 'relational database', 'nosql', 'storage engine', 'sqlite', 'dynamodb', 'databases & acid'],
+  database: ['database', 'databases', 'postgresql', 'postgres', 'mysql', 'mongodb', 'redis', 'cassandra', 'elasticsearch', 'sql', 'acid', 'database constraints', 'databases & acid'],
+};
+
+export interface MatcherToggles {
+  disablePostDedupeThreshold?: boolean;
+  disableUniqueClosesFilter?: boolean;
+  allowEmptyClosesCards?: boolean;
+  disableCanonicalSkillIds?: boolean;
+  disableConceptEvidenceFix?: boolean;
+  disableTemplateStripping?: boolean;
+  disableKeywordGroupGating?: boolean;
+  restoreLegacyAliases?: boolean;
+  disableLanguageGate?: boolean;
+  restoreLegacyDomainTable?: boolean;
+}
+
+function getToggleKey(toggles?: MatcherToggles): string {
+  if (!toggles) return '';
+  return Object.keys(toggles)
+    .filter((k) => (toggles as any)[k])
+    .sort()
+    .join(',');
+}
 
 function escapeRegex(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -282,14 +316,19 @@ export const CERT_DOMAIN_ALLOWED_SKILLS: Record<string, string[]> = {
 /**
  * Checks whether a project's real skills cover a specific candidate skill gap.
  */
-export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: string, briefId?: string): boolean {
+export function doesProjectCoverSkill(
+  projectRealSkills: string[],
+  gapSkillId: string,
+  briefId?: string,
+  toggles?: MatcherToggles
+): boolean {
   const gNorm = gapSkillId.toLowerCase().trim().replace(/[-_]/g, ' ');
   const gClean = gapSkillId.toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+  const tKey = getToggleKey(toggles);
 
-  if (briefId) {
-    const cacheKey = `${briefId}::${gClean}`;
-    const cached = BRIEF_GAP_COVERAGE_CACHE.get(cacheKey);
-    if (cached !== undefined) return cached;
+  const cacheKey = briefId ? `${briefId}::${gClean}::${tKey}` : null;
+  if (cacheKey && BRIEF_GAP_COVERAGE_CACHE.has(cacheKey)) {
+    return BRIEF_GAP_COVERAGE_CACHE.get(cacheKey)!;
   }
 
   // 1.4: Cert-* briefs close only the skills of their certification domain (Assertion A9)
@@ -299,14 +338,17 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
       const cId = getCanonicalSkillId(gapSkillId);
       const isAllowed = allowed.some((a) => a === gClean || a === gNorm || a === cId || getCanonicalSkillId(a) === cId);
       if (!isAllowed) {
-        BRIEF_GAP_COVERAGE_CACHE.set(`${briefId}::${gClean}`, false);
+        if (cacheKey) BRIEF_GAP_COVERAGE_CACHE.set(cacheKey, false);
         return false;
       }
     }
   }
 
   const cId = getCanonicalSkillId(gapSkillId);
-  const aliases = SKILL_ALIAS_MAP[cId] || SKILL_ALIAS_MAP[gNorm] || SKILL_ALIAS_MAP[gClean] || [gNorm, gClean];
+  const aliasMap = toggles?.restoreLegacyAliases
+    ? { ...SKILL_ALIAS_MAP, ...LEGACY_SKILL_ALIAS_MAP }
+    : SKILL_ALIAS_MAP;
+  const aliases = aliasMap[cId] || aliasMap[gNorm] || aliasMap[gClean] || [gNorm, gClean];
 
   const result = projectRealSkills.some((ps) => {
     // Check target gap ID directly
@@ -315,8 +357,7 @@ export function doesProjectCoverSkill(projectRealSkills: string[], gapSkillId: s
     return aliases.some((alias) => matchSkillToken(ps, alias));
   });
 
-  if (briefId) {
-    const cacheKey = `${briefId}::${gClean}`;
+  if (cacheKey) {
     BRIEF_GAP_COVERAGE_CACHE.set(cacheKey, result);
   }
 
@@ -332,9 +373,11 @@ const BRIEF_REAL_SKILLS_CACHE = new Map<string, string[]>();
  * 2. Concept skills: derived ONLY from brief.coveredSkills after passing keyword
  *    verification against authentic brief text (architecture, problem statement, rubric).
  */
-export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
-  if (brief.id && BRIEF_REAL_SKILLS_CACHE.has(brief.id)) {
-    return BRIEF_REAL_SKILLS_CACHE.get(brief.id)!;
+export function deriveBriefRealSkills(brief: ProjectBrief, toggles?: MatcherToggles): string[] {
+  const tKey = getToggleKey(toggles);
+  const cacheKey = brief.id ? `${brief.id}::${tKey}` : null;
+  if (cacheKey && BRIEF_REAL_SKILLS_CACHE.has(cacheKey)) {
+    return BRIEF_REAL_SKILLS_CACHE.get(cacheKey)!;
   }
 
   const unique = new Set<string>();
@@ -346,14 +389,18 @@ export function deriveBriefRealSkills(brief: ProjectBrief): string[] {
   }
 
   // Tier 2: Vetted Conceptual Skills
-  const { vettedConceptTags } = validateBriefConcepts(brief);
+  const { vettedConceptTags } = validateBriefConcepts(brief, {
+    disableBoilerplateStripping: toggles?.disableTemplateStripping,
+    minKeywordGroups: toggles?.disableKeywordGroupGating ? 1 : 2,
+    disableConceptEvidenceFix: toggles?.disableConceptEvidenceFix,
+  });
   for (const concept of vettedConceptTags) {
     unique.add(concept);
   }
 
   const result = Array.from(unique);
-  if (brief.id) {
-    BRIEF_REAL_SKILLS_CACHE.set(brief.id, result);
+  if (cacheKey) {
+    BRIEF_REAL_SKILLS_CACHE.set(cacheKey, result);
   }
   return result;
 }
@@ -370,8 +417,12 @@ export function computeStackFit(
   briefSkills: string[],
   gapSkills: SkillState[],
   _roleTitle?: string,
-  briefId?: string
+  briefId?: string,
+  toggles?: MatcherToggles
 ): number {
+  if (toggles?.disableLanguageGate) {
+    return 1.0;
+  }
   const PRIMARY_LANGUAGES = [
     'golang', 'go', 'java', 'python', 'typescript', 'javascript',
     'c++', 'cpp', 'rust', 'c', 'swift', 'c#', 'csharp', 'r', 'kotlin'
@@ -380,10 +431,10 @@ export function computeStackFit(
   const nonLanguageGaps = gapSkills.filter((g) => !PRIMARY_LANGUAGES.includes(g.id.toLowerCase()));
 
   const coversLanguageGap = languageGaps.some((lg) =>
-    doesProjectCoverSkill(briefSkills, lg.id, briefId)
+    doesProjectCoverSkill(briefSkills, lg.id, briefId, toggles)
   );
   const coveredNonLangCount = nonLanguageGaps.filter((g) =>
-    doesProjectCoverSkill(briefSkills, g.id, briefId)
+    doesProjectCoverSkill(briefSkills, g.id, briefId, toggles)
   ).length;
 
   if (languageGaps.length > 0) {
@@ -423,8 +474,9 @@ export function matchProjectsWithIntegrity(params: {
   company?: { name?: string; industry?: string; tier?: string };
   role?: { title?: string; level?: string };
   breakdown?: Array<{ competency: string; analysis?: { status: string }; status?: string }>;
+  toggles?: MatcherToggles;
 }): ProjectRecommendationResult {
-  const { skillStates, company, role, breakdown } = params;
+  const { skillStates, company, role, breakdown, toggles } = params;
 
   // Skills already confirmed strong/expert in competency analysis are NOT candidate gaps
   const strongCompetencies = new Set<string>();
@@ -470,19 +522,21 @@ export function matchProjectsWithIntegrity(params: {
 
   for (let idx = 0; idx < ALL_BRIEFS.length; idx++) {
     const brief = ALL_BRIEFS[idx];
-    const realSkills = deriveBriefRealSkills(brief);
+    const realSkills = deriveBriefRealSkills(brief, toggles);
 
     // Compute which candidate gaps are closed by this project's real skills
     const closedGaps: string[] = [];
     for (const gap of gapSkills) {
-      if (doesProjectCoverSkill(realSkills, gap.id, brief.id)) {
+      if (doesProjectCoverSkill(realSkills, gap.id, brief.id, toggles)) {
         closedGaps.push(formatCompetencyName(gap.id));
       }
     }
 
     const gapCoverage = gapSkills.length > 0 ? (closedGaps.length / gapSkills.length) : 0.5;
-    const domainFit = computeDomainFit(brief.domain, company?.industry, role?.title);
-    const stackFit = computeStackFit(realSkills, gapSkills, role?.title, brief.id);
+    const domainFit = toggles?.restoreLegacyDomainTable
+      ? computeLegacyDomainFit(brief.domain, company?.industry, role?.title)
+      : computeDomainFit(brief.domain, company?.industry, role?.title);
+    const stackFit = computeStackFit(realSkills, gapSkills, role?.title, brief.id, toggles);
 
     const relevance = gapCoverage * domainFit * stackFit;
 
@@ -506,7 +560,8 @@ export function matchProjectsWithIntegrity(params: {
     }
 
     let debugReason = '';
-    if (relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+    const passesThreshold = toggles?.disablePostDedupeThreshold || relevance >= MIN_PROJECT_RELEVANCE_THRESHOLD;
+    if (passesThreshold) {
       debugReason = `included: relevance ${relevance.toFixed(3)} >= threshold ${MIN_PROJECT_RELEVANCE_THRESHOLD}`;
       candidates.push({
         brief,
@@ -560,8 +615,11 @@ export function matchProjectsWithIntegrity(params: {
   const handledGapIds = new Set<string>();
 
   const getCandidateUniqueCloses = (cand: EvaluatedProject): string[] => {
+    if (toggles?.disableUniqueClosesFilter) {
+      return cand.closedGaps;
+    }
     return cand.closedGaps.filter((g) => {
-      const cId = getCanonicalSkillId(g);
+      const cId = toggles?.disableCanonicalSkillIds ? g.toLowerCase().trim() : getCanonicalSkillId(g);
       return !handledGapIds.has(cId);
     });
   };
@@ -569,12 +627,12 @@ export function matchProjectsWithIntegrity(params: {
   // Find Project #1
   for (const c of candidates) {
     const unCloses = getCandidateUniqueCloses(c);
-    if (unCloses.length > 0) {
+    if (unCloses.length > 0 || toggles?.allowEmptyClosesCards) {
       const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
       const dom = Number(c.domainFit.toFixed(2));
       const st = Number(c.stackFit.toFixed(2));
       const rel = Number((cov * dom * st).toFixed(2));
-      if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+      if (toggles?.disablePostDedupeThreshold || rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
         selected.push({
           cand: c,
           finalCloses: unCloses,
@@ -582,7 +640,8 @@ export function matchProjectsWithIntegrity(params: {
           recomputedRelevance: rel,
         });
         for (const g of unCloses) {
-          handledGapIds.add(getCanonicalSkillId(g));
+          const cId = toggles?.disableCanonicalSkillIds ? g.toLowerCase().trim() : getCanonicalSkillId(g);
+          handledGapIds.add(cId);
         }
         break;
       }
@@ -593,7 +652,7 @@ export function matchProjectsWithIntegrity(params: {
   if (selected.length > 0 && selected.length < MAX_RECOMMENDED_PROJECTS) {
     const coveredLanguages = new Set<string>();
     for (const lg of languageGaps) {
-      if (doesProjectCoverSkill(selected[0].cand.realSkills, lg.id, selected[0].cand.brief.id)) {
+      if (doesProjectCoverSkill(selected[0].cand.realSkills, lg.id, selected[0].cand.brief.id, toggles)) {
         coveredLanguages.add(lg.id.toLowerCase());
       }
     }
@@ -606,12 +665,12 @@ export function matchProjectsWithIntegrity(params: {
       for (const c of candidates) {
         if (c === selected[0].cand) continue;
         const unCloses = getCandidateUniqueCloses(c);
-        if (unCloses.length > 0 && unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id))) {
+        if ((unCloses.length > 0 || toggles?.allowEmptyClosesCards) && unaddressedLanguages.some((lg) => doesProjectCoverSkill(c.realSkills, lg.id, c.brief.id, toggles))) {
           const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
           const dom = Number(c.domainFit.toFixed(2));
           const st = Number(c.stackFit.toFixed(2));
           const rel = Number((cov * dom * st).toFixed(2));
-          if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+          if (toggles?.disablePostDedupeThreshold || rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
             slot2Cand = { cand: c, unCloses, cov, dom, st, rel };
             break;
           }
@@ -624,12 +683,12 @@ export function matchProjectsWithIntegrity(params: {
       for (const c of candidates) {
         if (c === selected[0].cand) continue;
         const unCloses = getCandidateUniqueCloses(c);
-        if (unCloses.length > 0) {
+        if (unCloses.length > 0 || toggles?.allowEmptyClosesCards) {
           const cov = Number((gapSkills.length > 0 ? (unCloses.length / gapSkills.length) : 0.5).toFixed(2));
           const dom = Number(c.domainFit.toFixed(2));
           const st = Number(c.stackFit.toFixed(2));
           const rel = Number((cov * dom * st).toFixed(2));
-          if (rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
+          if (toggles?.disablePostDedupeThreshold || rel >= MIN_PROJECT_RELEVANCE_THRESHOLD) {
             slot2Cand = { cand: c, unCloses, cov, dom, st, rel };
             break;
           }
@@ -645,7 +704,8 @@ export function matchProjectsWithIntegrity(params: {
         recomputedRelevance: slot2Cand.rel,
       });
       for (const g of slot2Cand.unCloses) {
-        handledGapIds.add(getCanonicalSkillId(g));
+        const cId = toggles?.disableCanonicalSkillIds ? g.toLowerCase().trim() : getCanonicalSkillId(g);
+        handledGapIds.add(cId);
       }
     }
   }
