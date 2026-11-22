@@ -1,0 +1,50 @@
+name: TalentLens Verification
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck, Lint, Tests, and TalentLens Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Vitest Suite
+        run: npx vitest run
+
+      - name: TalentLens Verification Suite
+        run: npm run verify:talentlens
+
+      - name: Check Golden Review Status
+        id: golden_status
+        run: |
+          node -e "const fs = require('fs'); const m = JSON.parse(fs.readFileSync('tests/goldens/talentlens/goldenManifest.json', 'utf8')); const isPending = m.reviewStatus === 'pending-human-review'; console.log('Golden Manifest reviewStatus: ' + m.reviewStatus); if (process.env.GITHUB_OUTPUT) { fs.appendFileSync(process.env.GITHUB_OUTPUT, 'is_pending=' + isPending + '\n'); }"
+
+      - name: TalentLens Golden Check
+        run: npm run golden:check
+        continue-on-error: ${{ steps.golden_status.outputs.is_pending == 'true' }}

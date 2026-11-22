@@ -352,21 +352,28 @@ npm run test -- tests/talentlens/reportIntegrity.test.ts tests/talentlens/eviden
 
 ---
 
-## Quality Gates & Golden Test Set (Phase 4A)
+## TalentLens Verification
 
-HireFlow enforces a strict, multi-stage verification gate to guarantee evaluation accuracy, zero regressions, and deterministic outputs:
+HireFlow maintains an automated verification suite guarding mathematical evaluation consistency, rewrite safety, evidence grounding, domain compatibility, and output provenance.
 
-### Golden Test Set & Invariant Verification
-The TalentLens golden test set maintains 30 synthetic resumes (15 authentic archetypes, 15 adversarial variants) evaluated across 14 pinned roles (420 deterministic records in `tests/goldens/talentlens/records/`).
+### Verification Commands
 
-- `npm run golden:check`: Compares fresh engine output against checked-in golden records. If any field differs, it prints a compact diff and exits non-zero.
-- `npm run golden:update`: Generates proposed goldens to `tests/goldens/talentlens/pending/` and refuses to overwrite approved goldens without `--approve-diff "<reason>"`.
-- `npm run verify:talentlens`: Executes the full 14-assertion TalentLens verification suite across all 8,690 role evaluations.
-- `npm run verify:all`: Enforces the unified release quality gate:
-  ```bash
-  npm run verify:all
-  ```
-  Runs `tsc --noEmit`, `npm run lint`, `npx vitest run`, `npm run verify:talentlens`, and `npm run golden:check`. Exits non-zero on any failure.
+- `npm run verify:talentlens`: Executes the end-to-end TalentLens verification suite via `scripts/runVerify.ts`. Writes complete stdout to `.verify/last-run.txt` and computes a SHA-256 provenance hash. Guards 43 deterministic assertions including AST static claim audits, substring rewrite integrity, grounding of project closes, score chain exactness, practice track sequences, and level normalization.
+- `npm run golden:check`: Compares fresh engine output on 420 evaluation pairs (30 synthetic resumes across 14 pinned roles) against checked-in golden records in `tests/goldens/talentlens/records/`. Reports field-level diffs and exits non-zero if discrepancies exist.
+- `npm run golden:update`: Generates proposed golden records for all 420 pairs into `tests/goldens/talentlens/pending/`. Requires `--approve-diff "<reason>"` to promote pending goldens into `records/`.
+- `npm run verify:all`: Executes the full local verification pipeline in sequence: `tsc --noEmit`, `npm run lint`, `npx vitest run`, `npm run verify:talentlens`, and `npm run golden:check`.
+
+### Golden Review and Approval
+
+The golden records manifest is tracked at `tests/goldens/talentlens/goldenManifest.json`. When engine changes alter golden outputs, fresh candidates are written to `tests/goldens/talentlens/pending/` with status `pending-human-review`. In CI, `golden:check` is non-blocking while review is pending, and blocking once approved. Approval requires explicit human review and execution of:
+```bash
+npm run golden:update -- --approve-diff "<reason>"
+```
+This updates `tests/goldens/talentlens/records/` and updates the manifest review status.
+
+### Baseline Metrics
+
+Historical baseline metrics against which regression deltas and attribution toggles are measured are stored at `scripts/baselines/verifyBaseline.json`.
 
 ---
 

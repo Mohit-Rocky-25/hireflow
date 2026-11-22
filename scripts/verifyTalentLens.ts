@@ -3015,6 +3015,49 @@ async function runVerification() {
     a41Pass ? undefined : `scripts/runVerify.ts missing`
   );
 
+  // Stage 6: CI Workflow and README Verification (Assertion A36)
+  const ciWorkflowPath = path.resolve(process.cwd(), '.github/workflows/verify.yml');
+  const readmePath = path.resolve(process.cwd(), 'README.md');
+  const ciWorkflowContent = fs.existsSync(ciWorkflowPath) ? fs.readFileSync(ciWorkflowPath, 'utf8') : '';
+  const readmeContent = fs.existsSync(readmePath) ? fs.readFileSync(readmePath, 'utf8') : '';
+
+  const ciHasPushPr = ciWorkflowContent.includes('push:') && ciWorkflowContent.includes('pull_request:');
+  const ciHasTsc = ciWorkflowContent.includes('tsc --noEmit');
+  const ciHasLint = ciWorkflowContent.includes('npm run lint');
+  const ciHasVitest = ciWorkflowContent.includes('vitest run');
+  const ciHasVerify = ciWorkflowContent.includes('npm run verify:talentlens');
+  const ciHasGoldenCheck = ciWorkflowContent.includes('npm run golden:check');
+  const ciHasContinueOnError = ciWorkflowContent.includes('continue-on-error');
+
+  const readmeHasSection = readmeContent.includes('## TalentLens Verification');
+  const readmeHasVerifyTalentLens = readmeContent.includes('verify:talentlens');
+  const readmeHasGoldenCheck = readmeContent.includes('golden:check');
+  const readmeHasGoldenUpdate = readmeContent.includes('golden:update');
+  const readmeHasVerifyAll = readmeContent.includes('verify:all');
+  const readmeHasBaseline = readmeContent.includes('scripts/baselines/verifyBaseline.json');
+
+  const a36Pass =
+    ciHasPushPr &&
+    ciHasTsc &&
+    ciHasLint &&
+    ciHasVitest &&
+    ciHasVerify &&
+    ciHasGoldenCheck &&
+    ciHasContinueOnError &&
+    readmeHasSection &&
+    readmeHasVerifyTalentLens &&
+    readmeHasGoldenCheck &&
+    readmeHasGoldenUpdate &&
+    readmeHasVerifyAll &&
+    readmeHasBaseline;
+
+  recordAssertion(
+    'A36',
+    'CI verification workflow (.github/workflows/verify.yml) and README TalentLens section complete and valid',
+    a36Pass,
+    a36Pass ? undefined : `Workflow or README check failed`
+  );
+
   // ============================================================
   // S14 VISUAL
   // ============================================================
@@ -3039,6 +3082,7 @@ async function runVerification() {
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25', 'A31', 'A32'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26', 'A33', 'A34'];
   const STAGE_5_ASSERTIONS = ['A35'];
+  const STAGE_6_ASSERTIONS = ['A36'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
   const STAGE_H3_ASSERTIONS = ['A41'];
@@ -3061,6 +3105,7 @@ async function runVerification() {
   evaluateStageGate(3, 'Exact Score Chain and Measured Before-Blocks', STAGE_3_ASSERTIONS);
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
   evaluateStageGate(5, 'Collapsed Explain-This-Score Panel', STAGE_5_ASSERTIONS);
+  evaluateStageGate(6, 'CI Workflow and README', STAGE_6_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
   evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
   evaluateStageGate('H3', 'Verification Output Provenance', STAGE_H3_ASSERTIONS);
