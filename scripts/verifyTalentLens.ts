@@ -813,11 +813,20 @@ async function runVerification() {
   let s5FixtureCandidateRankingsCount = 0;
   let s5AllPillarsNumeric = true;
   let a31AllChainsSumExactly = true;
+  let a35AllFixturePanelValuesMatchChain = true;
 
   for (const fix of S5_FIXTURES) {
     console.log(`\nFixture: ${fix.label} — Role: ${fix.role.title}`);
     const analysis = analyzeRoleMatch(fix.resume, fix.company, fix.role);
     console.log(`  Initial Score: ${analysis.score} / ${100} | Action Plans Count: ${analysis.plans.length}`);
+
+    const fixtureScoreChain = computeScoreChain(analysis.trace, analysis.score);
+    if (Math.abs(fixtureScoreChain.chainSum - analysis.score) > 1e-6) {
+      a35AllFixturePanelValuesMatchChain = false;
+    }
+    if (fixtureScoreChain.pillars.length !== (analysis.trace?.pillars?.length || 0)) {
+      a35AllFixturePanelValuesMatchChain = false;
+    }
 
     // Print Top 5 Eligible Projects with title, domain, stack, relevance, coverage, domainFit (Requirement 2.3)
     const comps = fix.role.competencies || ['dsa', 'systemdesign'];
@@ -1227,6 +1236,12 @@ async function runVerification() {
     'A34',
     'every resource name in output is in the data file, and no output contains URLs or time estimates',
     a34AllResourcesApprovedAndNoUrlsOrDeadlines
+  );
+
+  recordAssertion(
+    'A35',
+    'panel values equal the Stage 3 chain for all fixtures',
+    a35AllFixturePanelValuesMatchChain
   );
 
   // ============================================================
@@ -3023,6 +3038,7 @@ async function runVerification() {
   const STAGE_2_ASSERTIONS = ['A18', 'A29', 'A30'];
   const STAGE_3_ASSERTIONS = ['A20', 'A23', 'A24', 'A25', 'A31', 'A32'];
   const STAGE_4_ASSERTIONS = ['A15', 'A16', 'A17', 'A19', 'A21', 'A26', 'A33', 'A34'];
+  const STAGE_5_ASSERTIONS = ['A35'];
   const STAGE_H1_ASSERTIONS = ['A40'];
   const STAGE_H2_ASSERTIONS = ['A0', 'A10'];
   const STAGE_H3_ASSERTIONS = ['A41'];
@@ -3044,6 +3060,7 @@ async function runVerification() {
   evaluateStageGate(2, 'Attribution That Attributes', STAGE_2_ASSERTIONS);
   evaluateStageGate(3, 'Exact Score Chain and Measured Before-Blocks', STAGE_3_ASSERTIONS);
   evaluateStageGate(4, 'Canonical Domain IDs and Honest Baseline Text', STAGE_4_ASSERTIONS);
+  evaluateStageGate(5, 'Collapsed Explain-This-Score Panel', STAGE_5_ASSERTIONS);
   evaluateStageGate('H1', 'Read-Only Verification Run', STAGE_H1_ASSERTIONS);
   evaluateStageGate('H2', 'An Honest Script (AST Claims & Tuple Fixtures)', STAGE_H2_ASSERTIONS);
   evaluateStageGate('H3', 'Verification Output Provenance', STAGE_H3_ASSERTIONS);

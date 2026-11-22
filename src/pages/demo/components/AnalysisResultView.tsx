@@ -5,6 +5,7 @@ import type { Company, Role, AnalysisResult } from '../talentLensEngine';
 import { STATUS_CONFIG, TREND_COLOR, TREND_ICON, formatCompetencyName } from '../talentLensEngine';
 import { buildSkillStates, extractResumeParseSummary, type SkillState } from '../engine/skillStateEngine';
 import { matchProjectsWithIntegrity } from '../engine/projectMatcherIntegrity';
+import { ExplainScorePanel } from './ExplainScorePanel';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { CalculationBreakdownCollapsible, CalculationDetails } from '../../../components/common/CalculationBreakdownCollapsible';
@@ -440,6 +441,13 @@ export function AnalysisResultView({
 
         {/* Reality Factors (Stage 3D, Unscored) */}
         <RealityFactorsPanel className="my-4" />
+
+        {/* Explain-This-Score Collapsed Panel (Stage 5) */}
+        <ExplainScorePanel
+          trace={result.trace}
+          score={result.score}
+          breakdown={result.breakdown}
+        />
 
         {/* 8-Facet Quick Summary Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
