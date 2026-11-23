@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Check, X, TrendingUp, Star, AlertCircle, AlertTriangle, ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import type { Company, Role, AnalysisResult } from '../talentLensEngine';
-import { STATUS_CONFIG, TREND_COLOR, TREND_ICON, formatCompetencyName } from '../talentLensEngine';
+import { STATUS_CONFIG, formatCompetencyName } from '../talentLensEngine';
 import { buildSkillStates, extractResumeParseSummary, type SkillState } from '../engine/skillStateEngine';
 import { matchProjectsWithIntegrity } from '../engine/projectMatcherIntegrity';
 import { ExplainScorePanel } from './ExplainScorePanel';
@@ -429,8 +429,8 @@ export function AnalysisResultView({
 
         {/* Anti-gaming notice if detected */}
         {result.breakdown.some((b) => b.analysis.antiGamingFlag) && (
-          <div className="p-4 bg-black border border-pale-yellow/40 rounded-xl text-sm text-pale-yellow flex items-center gap-3">
-            <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0" aria-hidden="true" />
+          <div className="p-4 bg-black border border-pale-yellow/40 rounded-xl text-sm text-pale-yellow">
+            <span className="font-bold uppercase tracking-wide mr-2">Notice:</span>
             <span>
               TalentLens detected keyword stuffing in{' '}
               {result.breakdown.filter((b) => b.analysis.antiGamingFlag).length} competency area(s).
@@ -559,18 +559,6 @@ export function AnalysisResultView({
                     : 'border-danger/40 text-danger bg-black'
                 }`}
               >
-                {b.analysis.antiGamingFlag && <span className="text-xs font-bold text-pale-yellow">[!]</span>}
-                {isNotAssessed ? (
-                  <span className="font-bold text-neutral-400">○</span>
-                ) : b.analysis.status === 'expert' ? (
-                  <span className="font-bold text-emerald-400">++</span>
-                ) : isExpertOrStrong ? (
-                  <Check className="w-3 h-3 inline text-emerald-400" aria-hidden="true" />
-                ) : isWorking ? (
-                  <span className="text-amber-400">~</span>
-                ) : (
-                  <X className="w-3 h-3 inline text-rose-400" aria-hidden="true" />
-                )}{' '}
                 {formatCompetencyName(b.competency).toUpperCase()}
                 {isNotAssessed && <span className="text-[10px] font-mono text-neutral-500 uppercase ml-1">(Not assessed)</span>}
               </span>
@@ -668,9 +656,8 @@ export function AnalysisResultView({
       {/* Verified Strengths Block (Stage 6) */}
       {verifiedStrengths.length > 0 && (
         <div className="bg-[#141414] border border-volt/30 rounded-xl p-5 mb-5 space-y-3">
-          <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-volt font-mono flex items-center gap-2">
-            <Check className="w-4 h-4 text-volt" />
-            <span>Strengths We Verified</span>
+          <div className="text-xs sm:text-sm font-bold uppercase tracking-wider text-volt font-mono">
+            Strengths We Verified
           </div>
           <div className="space-y-2.5">
             {verifiedStrengths.map((st, sIdx) => (
@@ -1157,15 +1144,6 @@ export function AnalysisResultView({
               className="rounded-xl border border-charcoal bg-black p-4"
             >
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                {f.status === 'critical' ? (
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" aria-hidden="true" />
-                ) : f.status === 'cutting-edge' ? (
-                  <TrendingUp className="w-4 h-4 text-volt shrink-0" aria-hidden="true" />
-                ) : f.status === 'dated' ? (
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
-                ) : (
-                  <Check className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                )}
                 <span className="text-sm font-bold uppercase tracking-wide text-white">
                   {f.category}
                 </span>

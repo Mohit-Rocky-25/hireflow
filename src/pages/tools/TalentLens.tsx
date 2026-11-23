@@ -9,10 +9,9 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 import {
-  Brain, CheckCircle2, XCircle, AlertTriangle, HelpCircle,
   ChevronDown, ChevronUp, ArrowLeft, RefreshCw, Users,
-  MessageSquare, Target, Shield, TrendingUp, Eye, Clock,
-  Award, Star, ChevronRight, Sparkles, Bookmark
+  MessageSquare, Target, Shield, Eye, Clock,
+  Award, ChevronRight, Bookmark
 } from 'lucide-react';
 import { analyzeCandidate } from '../../lib/ai/matching';
 import type { CandidateMatch, RequirementAssessment } from '../../types';
@@ -31,17 +30,6 @@ import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ReportErrorModal } from '../../components/common/ReportErrorModal';
 
 // ── Status Components ──
-
-function MatchStatusIcon({ status }: { status: string }) {
-  switch (status) {
-    case 'STRONG': return <CheckCircle2 className="w-4 h-4 text-volt flex-shrink-0" />;
-    case 'PARTIAL': return <AlertTriangle className="w-4 h-4 text-pale-yellow flex-shrink-0" />;
-    case 'INFERRED': return <TrendingUp className="w-4 h-4 text-volt flex-shrink-0" />;
-    case 'MISSING': return <XCircle className="w-4 h-4 text-danger flex-shrink-0" />;
-    case 'UNCERTAIN': return <HelpCircle className="w-4 h-4 text-silver flex-shrink-0" />;
-    default: return <HelpCircle className="w-4 h-4 text-silver flex-shrink-0" />;
-  }
-}
 
 function StatusPill({ status }: { status: string }) {
   const map: Record<string, string> = {
@@ -98,7 +86,6 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center gap-3">
-          <MatchStatusIcon status={assessment.status} />
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-white font-mono">{assessment.requirementName}</span>
@@ -139,7 +126,7 @@ function RequirementCard({ assessment }: { assessment: RequirementAssessment }) 
               </p>
               <p className="text-xs text-silver leading-relaxed">{assessment.relatedEvidence}</p>
               {assessment.semanticRelationship && (
-                <p className="text-xs font-mono text-silver/60 mt-1 italic">↳ {assessment.semanticRelationship}</p>
+                <p className="text-xs font-mono text-silver/60 mt-1 italic">{assessment.semanticRelationship}</p>
               )}
             </div>
           )}
@@ -377,8 +364,7 @@ export function TalentLens() {
       </div>
 
       {error && (
-        <div className="bg-black border border-danger/40 rounded p-4 text-xs text-danger font-mono flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-danger shrink-0" />
+        <div className="bg-black border border-danger/40 rounded p-4 text-xs text-danger font-mono">
           {error}
         </div>
       )}
@@ -444,9 +430,9 @@ export function TalentLens() {
                   <button
                     type="button"
                     onClick={() => setIsWhyScoreOpen(true)}
-                    className="ml-2 px-2.5 py-1 bg-black hover:border-volt border border-volt/40 text-xs font-mono uppercase rounded text-volt hover:text-white transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                    className="ml-2 px-2.5 py-1 bg-black hover:border-volt border border-volt/40 text-xs font-mono uppercase rounded text-volt hover:text-white transition-colors cursor-pointer"
                   >
-                    <HelpCircle className="w-3.5 h-3.5 text-volt" /> Why this score
+                    Why this score
                   </button>
                   <button
                     type="button"
@@ -593,7 +579,6 @@ export function TalentLens() {
               <div className="space-y-4">
                 {match.skillGaps.length === 0 ? (
                   <div className="text-center py-12 bg-[#141414] border border-charcoal rounded-lg">
-                    <CheckCircle2 className="w-8 h-8 text-volt mx-auto mb-3" />
                     <h3 className="text-sm font-bold text-white font-mono uppercase">No significant skill gaps found</h3>
                     <p className="text-xs text-silver mt-1">Candidate shows evidence for all mandatory requirements.</p>
                   </div>
@@ -647,8 +632,7 @@ export function TalentLens() {
 
             {activeTab === 'interview' && (
               <div className="space-y-4">
-                <div className="bg-black border border-pale-yellow/40 rounded p-4 text-xs text-pale-yellow flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-pale-yellow shrink-0" />
+                <div className="bg-black border border-pale-yellow/40 rounded p-4 text-xs text-pale-yellow">
                   These questions are generated based on gaps in the candidate's evidence profile. They are suggestions — recruiters should adapt them based on the actual conversation.
                 </div>
                 {match.requirementAssessments

@@ -7,14 +7,8 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  Sparkles,
   RotateCcw,
-  Zap,
-  Compass,
-  CheckCircle2,
-  AlertCircle,
   ArrowUpRight,
-  ShieldCheck,
   Bookmark,
   GraduationCap,
   Building2,
@@ -876,8 +870,8 @@ export function ResumeChecker() {
                   <div className="space-y-6 animate-fade-in">
                     {/* Score & Verdict Card */}
                     <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 text-center">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 bg-black text-volt border border-volt/60 rounded text-xs font-bold uppercase tracking-[1.4px] mb-4">
-                        <ShieldCheck className="w-4 h-4 text-volt stroke-[1.5px]" /> Grounded Quick Roast
+                      <div className="inline-flex items-center px-3 py-1 bg-black text-volt border border-volt/60 rounded text-xs font-bold uppercase tracking-[1.4px] mb-4">
+                        Grounded Quick Roast
                       </div>
 
                       <div className="flex items-center justify-center gap-3 mb-2">
@@ -919,8 +913,8 @@ export function ResumeChecker() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* Strengths */}
                       <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
-                        <h3 className="text-base font-bold text-white uppercase tracking-tight mb-4 flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-volt stroke-[1.5px]" /> Key Verified Strengths (Up to 3)
+                        <h3 className="text-base font-bold text-white uppercase tracking-tight mb-4">
+                          Key Verified Strengths (Up to 3)
                         </h3>
                         <div className="space-y-3">
                           {canonical.quickRoast.strengths.length === 0 ? (
@@ -938,8 +932,8 @@ export function ResumeChecker() {
 
                       {/* Gaps */}
                       <div className="bg-near-black rounded-lg p-6 border border-charcoal shadow-level-1">
-                        <h3 className="text-base font-bold text-danger uppercase tracking-tight mb-4 flex items-center gap-2">
-                          <AlertCircle className="w-5 h-5 text-danger stroke-[1.5px]" /> Top Priority Gaps (Up to 3)
+                        <h3 className="text-base font-bold text-danger uppercase tracking-tight mb-4">
+                          Top Priority Gaps (Up to 3)
                         </h3>
                         <div className="space-y-3">
                           {canonical.quickRoast.gaps.length === 0 ? (

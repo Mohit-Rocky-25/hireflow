@@ -102,7 +102,7 @@ export const ProgramDetailPage: React.FC = () => {
             {program.facts.officialName}
           </h1>
           <p className="text-sm text-zinc-400">
-            {program.facts.programName} • Verified as of {program.lastChecked}
+            {program.facts.programName} | Verified as of {program.lastChecked}
           </p>
         </div>
 
@@ -231,7 +231,7 @@ export const ProgramDetailPage: React.FC = () => {
                     {(stage.platform || stage.duration) && (
                       <div className="text-[11px] text-zinc-400">
                         {stage.platform ? `Platform: ${stage.platform}` : ''}
-                        {stage.platform && stage.duration ? ' • ' : ''}
+                        {stage.platform && stage.duration ? ' | ' : ''}
                         {stage.duration ? `Duration: ${stage.duration}` : ''}
                       </div>
                     )}

@@ -7,7 +7,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Sparkles,
   Plus,
   Trash2,
   Download,
@@ -32,7 +31,6 @@ import {
   FileText,
   UserCheck,
   ChevronRight,
-  Zap,
 } from 'lucide-react';
 import { PublicNavbar } from '../../../components/common/PublicNavbar';
 import { useProfile } from '../profile/ProfileContext';

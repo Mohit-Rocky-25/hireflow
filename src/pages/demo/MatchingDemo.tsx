@@ -6,13 +6,12 @@
 // ============================================================
 import React, { useRef, useCallback, useEffect } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Check, Star } from "lucide-react";
+import { Check } from "lucide-react";
 import { PublicNavbar } from "../../components/common/PublicNavbar";
 import {
   INDUSTRIES,
   TIERS,
   TREND_COLOR,
-  TREND_ICON,
   getCompanySlug,
   formatCompetencyName,
 } from "./talentLensEngine";
@@ -569,8 +568,8 @@ Include:
                             {company.hiring2024 != null ? company.hiring2024.toLocaleString() : '—'}
                           </div>
                           <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Hires 2024</div>
-                          <div className="text-[10px] font-bold text-volt">
-                            {TREND_ICON[company.trend]}
+                          <div className="text-[10px] font-bold text-volt uppercase">
+                            {company.trend}
                           </div>
                         </div>
                         <div className="bg-black rounded p-2 text-center border border-charcoal">
@@ -579,7 +578,6 @@ Include:
                         </div>
                         <div className="bg-black rounded p-2 text-center border border-charcoal">
                           <div className="text-xs font-bold text-white font-mono flex items-center justify-center gap-1">
-                            <Star className="w-3 h-3 text-volt" aria-hidden="true" />
                             <span>{company.glassdoor || '4.2'}</span>
                           </div>
                           <div className="text-[10px] text-silver uppercase tracking-[0.5px]">Rating</div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { Company } from '../talentLensData';
-import { TREND_ICON } from '../talentLensEngine';
 import { CompanyLogo } from '../../../components/common/CompanyLogo';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
 import { getVerifiedCompanyUrl } from '../../../data/market/verifiedCompanyUrls';
@@ -118,7 +117,7 @@ export function CompanyHeaderCard({ company, onChangeCompany }: CompanyHeaderCar
                 {company.hiring2024 != null ? company.hiring2024.toLocaleString() : 'Not available'}
               </div>
               <div className="text-xs text-neutral-400 uppercase tracking-wider flex items-center justify-center gap-1 mt-0.5">
-                Hires &lsquo;24 {company.trend ? <span className="font-bold text-volt">{TREND_ICON[company.trend]}</span> : null}
+                Hires &lsquo;24 {company.trend ? <span className="font-bold text-volt uppercase">({company.trend})</span> : null}
               </div>
             </div>
             <div className="bg-black rounded-lg px-3.5 py-2 text-center border border-charcoal">
