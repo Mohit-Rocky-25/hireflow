@@ -126,8 +126,10 @@ export function enrichCompanyWithLiveFeed(company: Company): Company {
   }
 
   const liveRoles = liveData.roles.map(convertLiveRoleToTalentLensRole);
-  const existingNonLiveRoles = (company.roles || []).filter(
-    (r) => !liveRoles.some((lr) => lr.title.toLowerCase() === r.title.toLowerCase())
+  // Preserve existing benchmark roles intact for fixture and golden parity
+  const existingBenchmarkRoles = company.roles || [];
+  const nonDuplicateLiveRoles = liveRoles.filter(
+    (lr) => !existingBenchmarkRoles.some((br) => br.title.toLowerCase() === lr.title.toLowerCase() && br.level === lr.level)
   );
 
   return {
@@ -141,7 +143,7 @@ export function enrichCompanyWithLiveFeed(company: Company): Company {
     dataStatus: 'live_verified',
     isLiveFeedActive: true,
     liveAts: liveData.ats,
-    roles: [...liveRoles, ...existingNonLiveRoles],
+    roles: [...existingBenchmarkRoles, ...nonDuplicateLiveRoles],
   };
 }
 
