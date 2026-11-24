@@ -239,12 +239,32 @@ function computeContentHash(content: string): string {
 
 // ── Ingestion Handlers ──
 
+async function fetchWithRetry(url: string, init?: RequestInit, maxRetries = 3): Promise<Response> {
+  let attempt = 0;
+  let lastError: any = null;
+  while (attempt < maxRetries) {
+    try {
+      const res = await fetch(url, init);
+      if (res.ok || res.status === 404) return res;
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    } catch (err: any) {
+      attempt++;
+      lastError = err;
+      if (attempt >= maxRetries) break;
+      const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+      console.log(`   [Retry ${attempt}/${maxRetries}] Retrying in ${Math.round(delay)}ms...`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastError || new Error(`Failed to fetch ${url} after ${maxRetries} attempts`);
+}
+
 async function fetchLeverJobs(
   company: FlagshipRegistryEntry,
   nowIso: string
 ): Promise<LiveVerifiedRole[]> {
   const url = `https://api.lever.co/v0/postings/${company.slug}?mode=json`;
-  const response = await fetch(url, { signal: AbortSignal.timeout(25000) });
+  const response = await fetchWithRetry(url, { signal: AbortSignal.timeout(25000) });
   if (!response.ok) {
     throw new Error(`Lever returned HTTP ${response.status}: ${response.statusText}`);
   }
@@ -340,7 +360,7 @@ async function fetchGreenhouseJobs(
 ): Promise<LiveVerifiedRole[]> {
   // Step 1: Fast fetch board listing without bulky content
   const listUrl = `https://api.greenhouse.io/v1/boards/${company.slug}/jobs`;
-  const listRes = await fetch(listUrl, { signal: AbortSignal.timeout(15000) });
+  const listRes = await fetchWithRetry(listUrl, { signal: AbortSignal.timeout(15000) });
   if (!listRes.ok) {
     throw new Error(`Greenhouse listing returned HTTP ${listRes.status}: ${listRes.statusText}`);
   }
@@ -362,7 +382,7 @@ async function fetchGreenhouseJobs(
   const fetchDetail = async (job: any): Promise<LiveVerifiedRole | null> => {
     try {
       const detailUrl = `https://api.greenhouse.io/v1/boards/${company.slug}/jobs/${job.id}`;
-      const detailRes = await fetch(detailUrl, { signal: AbortSignal.timeout(10000) });
+      const detailRes = await fetchWithRetry(detailUrl, { signal: AbortSignal.timeout(10000) });
       const detail = detailRes.ok ? await detailRes.json() : job;
 
       const loc = detail.location?.name || job.location?.name || 'Bengaluru, India';
@@ -484,7 +504,34 @@ export async function runLiveMarketSync(): Promise<LiveMarketIndex> {
         roles = await fetchGreenhouseJobs(company, nowIso);
       }
 
-      console.log(`   ✓ Ingested ${roles.length} verified India tech roles for ${company.name}`);
+      console.log(`   [OK] Ingested ${roles.length} verified India tech roles for ${company.name}`);
+
+      // Upsert: merge newly ingested live roles with existing cached roles so historical verified roles are retained
+      let finalRoles = roles;
+      if (fs.existsSync(companyFilePath)) {
+        try {
+          const cached = JSON.parse(fs.readFileSync(companyFilePath, 'utf8')) as LiveCompanyData;
+          if (Array.isArray(cached.roles) && cached.roles.length > 0) {
+            const roleMap = new Map<string, LiveVerifiedRole>();
+            // 1. Seed with previously verified cached roles
+            for (const cr of cached.roles) {
+              const key = (cr.title || cr.id).toLowerCase().trim();
+              roleMap.set(key, cr);
+            }
+            // 2. Upsert/overwrite with newly fetched roles
+            for (const nr of roles) {
+              const key = (nr.title || nr.id).toLowerCase().trim();
+              roleMap.set(key, nr);
+            }
+            finalRoles = Array.from(roleMap.values());
+            if (finalRoles.length > roles.length) {
+              console.log(`   [RETAIN] Retained ${finalRoles.length - roles.length} historical verified roles (total: ${finalRoles.length})`);
+            }
+          }
+        } catch {
+          // ignore corrupted cache
+        }
+      }
 
       const companyData: LiveCompanyData = {
         companyId: company.id,
@@ -496,17 +543,17 @@ export async function runLiveMarketSync(): Promise<LiveMarketIndex> {
         headquarters: company.headquarters,
         website: company.website,
         lastSyncedAt: nowIso,
-        liveRoleCount: roles.length,
+        liveRoleCount: finalRoles.length,
         status: 'verified',
         confidence: 'high',
-        roles,
+        roles: finalRoles,
       };
 
       fs.writeFileSync(companyFilePath, JSON.stringify(companyData, null, 2), 'utf8');
 
       // Aggregate top skills for summary index
       const skillFreq = new Map<string, number>();
-      for (const r of roles) {
+      for (const r of finalRoles) {
         for (const s of r.requiredSkills) {
           skillFreq.set(s, (skillFreq.get(s) || 0) + 1);
         }
@@ -520,20 +567,20 @@ export async function runLiveMarketSync(): Promise<LiveMarketIndex> {
         companyId: company.id,
         companyName: company.name,
         ats: company.ats,
-        liveRoleCount: roles.length,
+        liveRoleCount: finalRoles.length,
         lastSyncedAt: nowIso,
         topSkills,
       });
 
-      totalLiveRoles += roles.length;
+      totalLiveRoles += finalRoles.length;
     } catch (err: any) {
-      console.error(`   ✗ Failed to ingest ${company.name}: ${err?.message || err}`);
+      console.error(`   [FAIL] Failed to ingest ${company.name}: ${err?.message || err}`);
 
       // If existing file exists, keep it as fallback
       if (fs.existsSync(companyFilePath)) {
         try {
           const cached = JSON.parse(fs.readFileSync(companyFilePath, 'utf8')) as LiveCompanyData;
-          console.log(`   ⚠️ Retaining ${cached.roles.length} cached roles from previous sync`);
+          console.log(`   [FALLBACK] Retaining ${cached.roles.length} cached roles from previous sync`);
           indexCompanies.push({
             companyId: company.id,
             companyName: company.name,
