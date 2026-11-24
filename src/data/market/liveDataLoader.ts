@@ -111,6 +111,7 @@ export function convertLiveRoleToTalentLensRole(liveRole: LiveVerifiedRole): Rol
     confidence: 'high',
     status: 'verified',
     isLiveVerified: true,
+    dataStatus: 'live_ats',
     contentHash: liveRole.contentHash,
   };
 }

@@ -60,6 +60,7 @@ export function convertFresherProgramToRole(prog: FresherProgram, companyName: s
     confidence: 'high',
     status: 'verified',
     isCampusProgram: true,
+    dataStatus: 'campus_program',
     programId: prog.id,
   };
 }
