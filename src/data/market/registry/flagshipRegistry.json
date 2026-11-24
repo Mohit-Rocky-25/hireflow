@@ -108,5 +108,225 @@
     "sector": "Web3 & Global Crypto Infrastructure",
     "headquarters": "Hyderabad / Remote India",
     "website": "https://www.coinbase.com"
+  },
+  {
+    "id": "paytm",
+    "name": "Paytm",
+    "ats": "lever",
+    "slug": "paytm",
+    "tier": "UNICORN",
+    "sector": "FinTech & Digital Payments",
+    "headquarters": "Noida, Uttar Pradesh",
+    "website": "https://paytm.com"
+  },
+  {
+    "id": "zscaler_india",
+    "name": "Zscaler (India)",
+    "ats": "greenhouse",
+    "slug": "zscaler",
+    "tier": "TIER_S",
+    "sector": "Cybersecurity & Cloud Security",
+    "headquarters": "Bengaluru / Chandigarh",
+    "website": "https://www.zscaler.com"
+  },
+  {
+    "id": "zeta",
+    "name": "Zeta Suite",
+    "ats": "lever",
+    "slug": "zeta",
+    "tier": "UNICORN",
+    "sector": "Next-Gen Banking Tech & FinTech",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.zeta.tech"
+  },
+  {
+    "id": "slice",
+    "name": "Slice",
+    "ats": "greenhouse",
+    "slug": "slice",
+    "tier": "UNICORN",
+    "sector": "Consumer FinTech & Digital Credit",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://sliceit.com"
+  },
+  {
+    "id": "glance",
+    "name": "Glance",
+    "ats": "greenhouse",
+    "slug": "glance",
+    "tier": "UNICORN",
+    "sector": "Smart Lock Screen & AI Content",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://glance.com"
+  },
+  {
+    "id": "druva",
+    "name": "Druva",
+    "ats": "greenhouse",
+    "slug": "druva",
+    "tier": "UNICORN",
+    "sector": "Cloud Data Protection & Cyber Resiliency",
+    "headquarters": "Pune, Maharashtra",
+    "website": "https://www.druva.com"
+  },
+  {
+    "id": "cyware",
+    "name": "Cyware Labs",
+    "ats": "greenhouse",
+    "slug": "cyware",
+    "tier": "GROWTH_TECH",
+    "sector": "Cybersecurity & Threat Intelligence",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://cyware.com"
+  },
+  {
+    "id": "reddit",
+    "name": "Reddit",
+    "ats": "greenhouse",
+    "slug": "reddit",
+    "tier": "TIER_S",
+    "sector": "Social Platform & Distributed Communities",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.reddit.com"
+  },
+  {
+    "id": "pinterest",
+    "name": "Pinterest",
+    "ats": "greenhouse",
+    "slug": "pinterest",
+    "tier": "TIER_S",
+    "sector": "Visual Search & Machine Learning",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.pinterest.com"
+  },
+  {
+    "id": "airbnb",
+    "name": "Airbnb",
+    "ats": "greenhouse",
+    "slug": "airbnb",
+    "tier": "TIER_S",
+    "sector": "Global Travel & Marketplace Infrastructure",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.airbnb.com"
+  },
+  {
+    "id": "linkedin",
+    "name": "LinkedIn",
+    "ats": "lever",
+    "slug": "linkedin",
+    "tier": "TIER_S",
+    "sector": "Professional Network & Distributed Systems",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.linkedin.com"
+  },
+  {
+    "id": "discord",
+    "name": "Discord",
+    "ats": "greenhouse",
+    "slug": "discord",
+    "tier": "PRODUCT_MNC",
+    "sector": "Voice, Video & Real-Time Communications",
+    "headquarters": "Remote - India",
+    "website": "https://discord.com"
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "ats": "lever",
+    "slug": "spotify",
+    "tier": "TIER_S",
+    "sector": "Audio Streaming & Recommender Systems",
+    "headquarters": "Mumbai, Maharashtra",
+    "website": "https://spotify.com"
+  },
+  {
+    "id": "twilio",
+    "name": "Twilio India",
+    "ats": "greenhouse",
+    "slug": "twilio",
+    "tier": "PRODUCT_MNC",
+    "sector": "Cloud Communications & Customer Engagement",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.twilio.com"
+  },
+  {
+    "id": "okta",
+    "name": "Okta India",
+    "ats": "greenhouse",
+    "slug": "okta",
+    "tier": "PRODUCT_MNC",
+    "sector": "Identity Management & Cloud Security",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.okta.com"
+  },
+  {
+    "id": "pagerduty",
+    "name": "PagerDuty",
+    "ats": "greenhouse",
+    "slug": "pagerduty",
+    "tier": "PRODUCT_MNC",
+    "sector": "Digital Operations Management & SRE",
+    "headquarters": "Remote - India",
+    "website": "https://www.pagerduty.com"
+  },
+  {
+    "id": "databricks",
+    "name": "Databricks India",
+    "ats": "greenhouse",
+    "slug": "databricks",
+    "tier": "TIER_S",
+    "sector": "Data, Analytics & AI Platform",
+    "headquarters": "Bengaluru, Karnataka",
+    "website": "https://www.databricks.com"
+  },
+  {
+    "id": "instacart",
+    "name": "Instacart",
+    "ats": "greenhouse",
+    "slug": "instacart",
+    "tier": "PRODUCT_MNC",
+    "sector": "Grocery Technology & High-Scale Fulfillment",
+    "headquarters": "Remote - India",
+    "website": "https://www.instacart.com"
+  },
+  {
+    "id": "affirm",
+    "name": "Affirm",
+    "ats": "greenhouse",
+    "slug": "affirm",
+    "tier": "PRODUCT_MNC",
+    "sector": "Digital Credit & Transparent Financial Infrastructure",
+    "headquarters": "Remote - India",
+    "website": "https://www.affirm.com"
+  },
+  {
+    "id": "anthropic",
+    "name": "Anthropic",
+    "ats": "greenhouse",
+    "slug": "anthropic",
+    "tier": "TIER_S",
+    "sector": "AI Safety & Foundation Model Research",
+    "headquarters": "Remote - India",
+    "website": "https://www.anthropic.com"
+  },
+  {
+    "id": "roblox",
+    "name": "Roblox",
+    "ats": "greenhouse",
+    "slug": "roblox",
+    "tier": "TIER_S",
+    "sector": "Immersive Virtual Worlds & Real-Time Engine",
+    "headquarters": "Remote - India",
+    "website": "https://www.roblox.com"
+  },
+  {
+    "id": "gusto",
+    "name": "Gusto",
+    "ats": "greenhouse",
+    "slug": "gusto",
+    "tier": "PRODUCT_MNC",
+    "sector": "Payroll, Benefits & HR Cloud Technology",
+    "headquarters": "Remote - India",
+    "website": "https://gusto.com"
   }
 ]

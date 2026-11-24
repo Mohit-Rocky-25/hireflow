@@ -1,0 +1,15 @@
+{
+  "companyId": "pinterest",
+  "companyName": "Pinterest",
+  "ats": "greenhouse",
+  "slug": "pinterest",
+  "tier": "TIER_S",
+  "sector": "Visual Search & Machine Learning",
+  "headquarters": "Bengaluru, Karnataka",
+  "website": "https://www.pinterest.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 0,
+  "status": "verified",
+  "confidence": "high",
+  "roles": []
+}

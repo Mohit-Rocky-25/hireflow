@@ -1,0 +1,15 @@
+{
+  "companyId": "spotify",
+  "companyName": "Spotify",
+  "ats": "lever",
+  "slug": "spotify",
+  "tier": "TIER_S",
+  "sector": "Audio Streaming & Recommender Systems",
+  "headquarters": "Mumbai, Maharashtra",
+  "website": "https://spotify.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 0,
+  "status": "verified",
+  "confidence": "high",
+  "roles": []
+}

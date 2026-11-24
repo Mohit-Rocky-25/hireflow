@@ -1,0 +1,15 @@
+{
+  "companyId": "reddit",
+  "companyName": "Reddit",
+  "ats": "greenhouse",
+  "slug": "reddit",
+  "tier": "TIER_S",
+  "sector": "Social Platform & Distributed Communities",
+  "headquarters": "Bengaluru, Karnataka",
+  "website": "https://www.reddit.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 0,
+  "status": "verified",
+  "confidence": "high",
+  "roles": []
+}

@@ -17,6 +17,30 @@ import gitlabData from './live-companies/gitlab.json';
 import rubrikData from './live-companies/rubrik.json';
 import coinbaseData from './live-companies/coinbase.json';
 
+// Batch 2 Ingested Live Companies
+import paytmData from './live-companies/paytm.json';
+import zscalerData from './live-companies/zscaler_india.json';
+import zetaData from './live-companies/zeta.json';
+import sliceData from './live-companies/slice.json';
+import glanceData from './live-companies/glance.json';
+import druvaData from './live-companies/druva.json';
+import cywareData from './live-companies/cyware.json';
+import redditData from './live-companies/reddit.json';
+import pinterestData from './live-companies/pinterest.json';
+import airbnbData from './live-companies/airbnb.json';
+import linkedinData from './live-companies/linkedin.json';
+import discordData from './live-companies/discord.json';
+import spotifyData from './live-companies/spotify.json';
+import twilioData from './live-companies/twilio.json';
+import oktaData from './live-companies/okta.json';
+import pagerdutyData from './live-companies/pagerduty.json';
+import databricksData from './live-companies/databricks.json';
+import instacartData from './live-companies/instacart.json';
+import affirmData from './live-companies/affirm.json';
+import anthropicData from './live-companies/anthropic.json';
+import robloxData from './live-companies/roblox.json';
+import gustoData from './live-companies/gusto.json';
+
 import type { LiveMarketIndex, LiveCompanyData, LiveVerifiedRole } from '../../../scripts/market/sync-live-jobs';
 import type { Company, Role } from '../../pages/demo/talentLensEngine';
 
@@ -34,6 +58,28 @@ export const LIVE_COMPANIES_MAP: Record<string, LiveCompanyData> = {
   gitlab: gitlabData as LiveCompanyData,
   rubrik: rubrikData as LiveCompanyData,
   coinbase: coinbaseData as LiveCompanyData,
+  paytm: paytmData as LiveCompanyData,
+  zscaler_india: zscalerData as LiveCompanyData,
+  zeta: zetaData as LiveCompanyData,
+  slice: sliceData as LiveCompanyData,
+  glance: glanceData as LiveCompanyData,
+  druva: druvaData as LiveCompanyData,
+  cyware: cywareData as LiveCompanyData,
+  reddit: redditData as LiveCompanyData,
+  pinterest: pinterestData as LiveCompanyData,
+  airbnb: airbnbData as LiveCompanyData,
+  linkedin: linkedinData as LiveCompanyData,
+  discord: discordData as LiveCompanyData,
+  spotify: spotifyData as LiveCompanyData,
+  twilio: twilioData as LiveCompanyData,
+  okta: oktaData as LiveCompanyData,
+  pagerduty: pagerdutyData as LiveCompanyData,
+  databricks: databricksData as LiveCompanyData,
+  instacart: instacartData as LiveCompanyData,
+  affirm: affirmData as LiveCompanyData,
+  anthropic: anthropicData as LiveCompanyData,
+  roblox: robloxData as LiveCompanyData,
+  gusto: gustoData as LiveCompanyData,
 };
 
 /**
@@ -165,6 +211,105 @@ export function getStandaloneLiveCompanies(): Company[] {
       tier: 'MNC',
       trend: 'stable',
       avgPackage: '₹45-90 LPA',
+    },
+    {
+      id: 'twilio',
+      logo: 'TW',
+      gradient: 'from-red-600 to-rose-700',
+      industry: 'Cloud Communications',
+      tier: 'MNC',
+      trend: 'up',
+      avgPackage: '₹35-70 LPA',
+    },
+    {
+      id: 'okta',
+      logo: 'OK',
+      gradient: 'from-blue-700 to-indigo-800',
+      industry: 'Identity & Security',
+      tier: 'MNC',
+      trend: 'up',
+      avgPackage: '₹38-75 LPA',
+    },
+    {
+      id: 'glance',
+      logo: 'GL',
+      gradient: 'from-amber-600 to-orange-700',
+      industry: 'Consumer Tech & AI',
+      tier: 'UNICORN',
+      trend: 'up',
+      avgPackage: '₹28-55 LPA',
+    },
+    {
+      id: 'druva',
+      logo: 'DR',
+      gradient: 'from-sky-600 to-cyan-700',
+      industry: 'Cloud Data Protection',
+      tier: 'UNICORN',
+      trend: 'stable',
+      avgPackage: '₹30-60 LPA',
+    },
+    {
+      id: 'pagerduty',
+      logo: 'PD',
+      gradient: 'from-emerald-600 to-teal-700',
+      industry: 'DevOps & SRE',
+      tier: 'MNC',
+      trend: 'stable',
+      avgPackage: '₹35-68 LPA',
+    },
+    {
+      id: 'databricks',
+      logo: 'DB',
+      gradient: 'from-orange-600 to-red-700',
+      industry: 'Data & AI Platform',
+      tier: 'TIER_S',
+      trend: 'up',
+      avgPackage: '₹50-100 LPA',
+    },
+    {
+      id: 'instacart',
+      logo: 'IC',
+      gradient: 'from-green-600 to-emerald-700',
+      industry: 'E-Commerce Tech',
+      tier: 'MNC',
+      trend: 'stable',
+      avgPackage: '₹40-80 LPA',
+    },
+    {
+      id: 'affirm',
+      logo: 'AF',
+      gradient: 'from-blue-600 to-cyan-600',
+      industry: 'Fintech',
+      tier: 'MNC',
+      trend: 'up',
+      avgPackage: '₹38-72 LPA',
+    },
+    {
+      id: 'anthropic',
+      logo: 'AN',
+      gradient: 'from-amber-700 to-yellow-800',
+      industry: 'AI Research & Platform',
+      tier: 'TIER_S',
+      trend: 'up',
+      avgPackage: '₹60-120 LPA',
+    },
+    {
+      id: 'roblox',
+      logo: 'RB',
+      gradient: 'from-slate-700 to-zinc-900',
+      industry: 'Gaming & Virtual Worlds',
+      tier: 'TIER_S',
+      trend: 'up',
+      avgPackage: '₹45-90 LPA',
+    },
+    {
+      id: 'gusto',
+      logo: 'GU',
+      gradient: 'from-rose-600 to-pink-700',
+      industry: 'HR Tech & Payroll',
+      tier: 'MNC',
+      trend: 'stable',
+      avgPackage: '₹35-65 LPA',
     },
   ];
 

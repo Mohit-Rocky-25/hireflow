@@ -1,0 +1,302 @@
+{
+  "companyId": "paytm",
+  "companyName": "Paytm",
+  "ats": "lever",
+  "slug": "paytm",
+  "tier": "UNICORN",
+  "sector": "FinTech & Digital Payments",
+  "headquarters": "Noida, Uttar Pradesh",
+  "website": "https://paytm.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 8,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "lever-cf8e7e47-2871-405f-8e19-aa95fa5e6996",
+      "title": "Area Collection Manager - Manager - Lending Collections (Frontend)",
+      "level": "Engineering Manager",
+      "desc": "Role Overview  \nThe Area Collections Manager will be responsible for managing end-to-end collections across  bucket segments, driving resolution strategies, ensuring portfolio health, and leading large  on-ground and tele-calling teams. The role requires strong expertise in delinquency  management, compliance, analytic...",
+      "location": "Hyderabad, Telangana",
+      "workplaceType": "unspecified",
+      "team": "Lending Collections",
+      "department": "Business",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/cf8e7e47-2871-405f-8e19-aa95fa5e6996",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "26830aa31cfafa0d38d2fbbaab358d9423f51307950b7beda2223ec41a29cb48",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "gRPC"
+      ],
+      "toolsAndTech": [
+        "gRPC"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Area Collection Manager - Manager - Lending Collections (Frontend)\n\nRole Overview  \nThe Area Collections Manager will be responsible for managing end-to-end collections across  bucket segments, driving resolution strategies, ensuring portfolio health, and leading large  on-ground and tele-calling teams. The role requires strong expertise in delinquency  management, compliance, analytics, and team leadership.\n\nKey Responsibilities  \n1. Bucket & Portfolio Management  \n● Manage collections across delinquency buckets (0–30, 31–60, and higher DPD  segments)  \n● Improve resolution rates in both early and late buckets  \n● Focus on non-starter and delinquent accounts to prevent roll-forward  \n● Drive collection efficiency and overall portfolio health  \n● Monitor daily performance and ensure adherence to CAPE norms  \n\n2. Tele-Collections Management  \n● Handle soft delinquency buckets (0–30 & 31–60 DPD) through tele-calling strategies  \n● Design and optimize calling patterns based on customer risk profiling  \n● Improve dialer efficiency, call connect rates, and campaign performance  \n● Maximize early-stage resolutions to prevent migration to hard buckets  \n\n3. Field Collections & Risk Control  \n● Ensure strong field discipline (app usage, visit tracking, audit trails)  \n● Drive legal escalation for critical/high-risk cases  \n● Conduct audits to identify and mitigate portfolio risks  \n● Maintain strong governance and control mechanisms  \n\n4. Team Leadership & Vendor Management  \n● Lead large teams including Collection Managers, Team Leaders, and Executives  \n● Manage third-party/vendor collection agencies  \n● Allocate portfolios and set bucket-wise targets  \n● Conduct daily huddles, reviews, and performance tracking  \n● Coach teams on negotiation, objection handling, and resolution strategies  \n\n5. Target Achievement & Performance Delivery  \n● Drive monthly collection targets and improve resolution ratios  \n● Enhance PTP (Promise to Pay) conversion and kept rates  \n● Focus on First-Time Delinquent (FTD) customers to reduce future NPAs  \n● Ensure productivity metrics such as calls, RPC (Right Party Contact), and CE% are met  \n\n6. Compliance & Governance  \n● Ensure strict adherence to RBI guidelines and regulatory standards  \n● Handle escalations and customer grievances effectively  \n● Maintain ethical and compliant recovery practices  \n● Support internal and external audit requirements  \n\n7. MIS, Analytics & Reporting  \n● Track and analyze KPIs: CE%, RPC, PTP, dialer metrics, and resolution ratios  \n● Manage large portfolio data and generate actionable insights  \n● Identify gaps in collection strategies and recommend improvements  \n● Present performance reports and insights to senior management.  \n\n8. Key Skills & Competencies  \n● Strong expertise in collections strategy (early & late buckets)  \n● Proven leadership experience managing large teams and vendors  \n● Analytical mindset with strong MIS and reporting skills  \n● Knowledge of RBI regulations and compliance frameworks  \n● Excellent communication, negotiation, and problem-solving skills  \n\n\n\n● Ability to drive performance in high-pressure, target-driven environments \n\n\n"
+    },
+    {
+      "id": "lever-8c290eb7-2f7a-40e3-9fae-f4e9b752dd85",
+      "title": "Collection Manager - Team Lead - Lending Collections ( Frontend)",
+      "level": "Lead",
+      "desc": "About Us: \nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm's mission is to serve half a billion Indians and bring them to the mainstream eco...",
+      "location": "Delhi-NCR",
+      "workplaceType": "unspecified",
+      "team": "Lending Collections",
+      "department": "Business",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/8c290eb7-2f7a-40e3-9fae-f4e9b752dd85",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "7588c508482111ce3d8cd365319c6ef976a8bb1df520af1556b3fd7cf4dca2dc",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [],
+      "toolsAndTech": [],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Collection Manager - Team Lead - Lending Collections ( Frontend)\n\nAbout Us: \nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm's mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n \nAbout the team: Liaison between the creditors and consumers. They are in charge of observing accounts to identify overdue payments, report collection activity, address client queries, and develop repayment plans.\n\nAbout the role: Lead the collections target and control collection flow for specified area. Handle large team of collection officers, their productivity and performance.\n \nExpectations/ Requirements:\n\n1. To Achieve Collection targets of the area assigned, control flow cases and focus on non starters. \n2. Ensured documented feedback. \n3. Ensure Adequate feet on Street availability/bucket wise /segment wise. \n4. Manage productivity for fixing productivity parameters for Collection Officers Agencies/In-house team. \n5. Monitoring performance against set parameters and weekly review with Collection executives. \n6. Ensuring background check of all collection agencies hired/Identify and manage training needs of the Collection Executives/ Evaluation of performance of all CE. \n7. Support Collection officers in legal /Police issues/Collection Activities.\n \nSuperpowers/ Skills that will help you succeed in this role:\n \n1. People Management Skills.\n2. More than 8+  years of relevant experience in Collections role.\n3. Demonstrated Success and achievement orientation. \n4. Excellent Communication Skills. \n5. Negotiations skills - strong bias for driving results in a High performance environment. \n6. Strong Relationship and Leadership skills. \n7. Working Knowledge of Computers.\n\nEducation: Graduation/ Post Graduation preferred.\n\n\n"
+    },
+    {
+      "id": "lever-e5145511-6cbd-4168-a5ad-24bc925487db",
+      "title": "Enterprise GTM Lead, Inference and Agentic AI",
+      "level": "Lead",
+      "desc": "About Paytm\n\nPaytm is a pioneer of digital payments in India, serving over 450 million consumers and 45 million merchants across payments, financial services, and commerce. Over the years, Paytm has built deep in-house capabilities across technology, data, and operations to operate at scale with high reliability.\nPay...",
+      "location": "Noida, Uttar Pradesh",
+      "workplaceType": "unspecified",
+      "team": "Inference and Agentic AI",
+      "department": "Sales",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/e5145511-6cbd-4168-a5ad-24bc925487db",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "743af1ba384c6b15e679b085afa6261cef9f0d04fca7760390dee4d3b6c1f356",
+      "competencies": [
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Cross-Functional Collaboration",
+        "Grafana",
+        "Ansible"
+      ],
+      "toolsAndTech": [
+        "Cross-Functional Collaboration",
+        "Grafana",
+        "Ansible"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Enterprise GTM Lead, Inference and Agentic AI\n\n\n\nAbout Paytm\n\nPaytm is a pioneer of digital payments in India, serving over 450 million consumers and 45 million merchants across payments, financial services, and commerce. Over the years, Paytm has built deep in-house capabilities across technology, data, and operations to operate at scale with high reliability.\nPaytm is building a full stack AI platform focussed on Inference and Agents, enabling large enterprises to deploy AI driven automation across sales, service, operations, and analytics.\nThe Inference and Agentic AI team operates as a cross functional unit spanning engineering, product, data science, business management, and sales, and owns the full lifecycle of AI solutions from opportunity discovery to deployment and scale.\n\nRole Overview\n\nPaytm is looking to hire an Enterprise GTM Lead to own the go to market charter for Paytm’s AI Inference and Agentic AI products across enterprise clients.\nThis is a managerial role that will lead business managers and client onboarding managers, and will work closely with enterprise sales teams to drive pipeline, deal conversion, onboarding, and client success.\nThe role sits at the center of Paytm’s enterprise AI charter and involves shaping GTM strategy, enabling sales teams, supporting client pitches, structuring commercials, and ensuring strong post sale execution.\nThe candidate will be responsible for building a repeatable enterprise sales motion for Paytm AI agents, including Pi Commerce and future AI products.\nThe role requires strong commercial judgment, enterprise stakeholder management, execution discipline, and ability to work across sales, product, technology, finance, and marketing teams.\n\nKey Responsibilities\n\nEnterprise GTM Strategy and Business Ownership\nOwn the enterprise GTM strategy for Paytm AI agents across existing and new enterprise clients.\nBuild and execute sales enablement, pipeline generation, deal conversion, onboarding, and account expansion plans.\nWork with leadership to define target segments, priority accounts, industry plays, and product positioning.\nTranslate business goals into clear GTM plans, sales motions, commercial models, and execution cadences.\nTrack the full enterprise funnel across sales channels and drive corrective action where performance deviates from plan.\n\nSales Enablement and Enterprise Sales Partnership\nWork closely with Paytm’s enterprise sales teams to equip them with product knowledge, pitch material, pricing frameworks, commercials, and objection handling support.\nAccompany sales teams in key client pitches, discovery discussions, solutioning sessions, and commercial negotiations.\nBuild reusable sales assets including pitch decks, case studies, proposals, demo scripts, pricing notes, and competitive positioning.\nConduct regular training sessions for enterprise sales teams on Pi Commerce and other Paytm AI agents.\nEnsure enterprise sales teams are consistently updated on new product launches, feature upgrades, pricing changes, and GTM priorities.\n\nCommercial Strategy, Pricing, and Deal Support\nOwn pricing strategy and commercial structuring for enterprise AI agent deployments in partnership with business, finance, and sales teams.\nSupport custom pricing, proposal creation, margin analysis, and negotiation strategy for strategic enterprise deals.\nDrive enterprise level invoicing discipline in coordination with finance operations and central finance teams.\nSupport vendor negotiations and thir"
+    },
+    {
+      "id": "lever-4a5c3f39-94d6-4581-9b73-65a2895cb03d",
+      "title": "Lead/Senior Lead - Data Devops",
+      "level": "Lead",
+      "desc": "About Us:\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream econ...",
+      "location": "Noida, Uttar Pradesh",
+      "workplaceType": "unspecified",
+      "team": "Lending",
+      "department": "Technology",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/4a5c3f39-94d6-4581-9b73-65a2895cb03d",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "be38458a6533a4b5b0e7193dcdbf75571fd6b4f7a911261ce31cc2136507ffb8",
+      "competencies": [
+        "aws",
+        "kubernetes",
+        "databases",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "CI/CD Pipelines",
+        "Big Data Technologies",
+        "System Design",
+        "AWS",
+        "EKS",
+        "Scalable Logging & Monitoring",
+        "Kafka",
+        "Airflow",
+        "Apache Spark",
+        "Terraform",
+        "Ansible",
+        "Prometheus",
+        "Root Cause Analysis & Debugging",
+        "Site Reliability Engineering",
+        "Data Encryption & SSL/TLS"
+      ],
+      "toolsAndTech": [
+        "CI/CD Pipelines",
+        "Big Data Technologies",
+        "System Design",
+        "AWS",
+        "EKS",
+        "Scalable Logging & Monitoring",
+        "Kafka",
+        "Airflow",
+        "Apache Spark",
+        "Terraform",
+        "Ansible",
+        "Prometheus",
+        "Root Cause Analysis & Debugging",
+        "Site Reliability Engineering",
+        "Data Encryption & SSL/TLS"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Lead/Senior Lead - Data Devops\n\nAbout Us:\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n \n Job Overview: \nWe are seeking an experienced Data DevOps to lead our Data DevOps team in building, managing, and optimizing high-scale, secure, and reliable big data platforms. The ideal candidate will combine strong technical expertise with proven leadership skills, driving best practices in cloud infrastructure, automation, CI/CD, and big data technologies. This role involves managing cross-functional priorities, mentoring engineers, and ensuring delivery of high-quality, scalable data solutions. \n\nKey Responsibilities: \n● Lead, mentor, and grow a high-performing Data DevOps team, fostering technical excellence and ownership. \n● Drive architecture, design, and implementation of large-scale cloud and data infrastructure, ensuring scalability, performance, and security. \n● Collaborate closely with Data Engineering, Data Science, Analytics, and Product teams to deliver efficient and reliable data platforms. \n● Oversee operations and optimization of AWS-based infrastructure, including VPC, EC2, S3, EMR, EKS, SageMaker, Lambda, CloudFront, CloudWatch, and IAM. \n● Manage and scale big data platforms leveraging Kafka, Hive HMS, Apache Ranger, Apache Airflow, EMR, Spark, Trino, Looker, and Jupyter Notebooks. \n● Implement and maintain CI/CD pipelines and infrastructure automation using Terraform, Ansible, and CloudFormation. \n● Ensure system observability, proactive incident management, and SLA adherence. \n● Champion cloud security best practices, including API security, TLS/HTTPS, and access control policies. \n● Partner with stakeholders to prioritize initiatives, manage budgets, and optimize cloud and operational costs.\n\nRequired Qualifications: \n● Experience: 6+ years in DevOps/Data DevOps or related fields, including at least 4+ years in a leadership role. \n● Proven track record in managing high-scale big data infrastructure and leading engineering teams. \n● Strong hands-on experience with AWS services and infrastructure automation tools (Terraform, Ansible, CloudFormation). \n● Deep knowledge and hands-on experience with Kafka, Hive HMS, Apache Ranger, Apache Airflow, EMR, Spark, Trino, Jupyter Notebooks, and Looker. \n● Proficiency in Kubernetes/EKS, Docker, ECS, and CI/CD tools. \n● Strong understanding of networking, cloud security, and compliance requirements. \n● Excellent communication, stakeholder management, and decision-making skills. \n● Exposure to SQL and data query optimization is an advantage.\n\nWhy join us:\nBecause you get an opportunity to make a difference, and have a great time doing that\nYou are challenged and encouraged here to do stuff that is meaningful for you and for those we serve\nYou should work with us if you think seriously about what technology can do for people\nWe are successful, and our successes are rooted in our people's collective energy and unwavering focus on the customer, and that's how it will always be.\nLearn more about the exciting work we do in Tech by reading our Engineering blogs\n\nCompensation:\nIf you are the right fit, we believe in creating wealth for you.\nWith enviable 500 mn+ registered users, 21 mn+ merchants and dep"
+    },
+    {
+      "id": "lever-e09a1fc4-47e2-4c49-b17e-6993b958d6ef",
+      "title": "Product Management - AI Payments",
+      "level": "Mid-Level",
+      "desc": "About Us:\nPaytm is India’s leading mobile payments and financial services distribution company. A pioneer of the mobile QR payments revolution, Paytm builds technology that enables small businesses and consumers to participate in the digital economy. Our mission is to serve half a billion Indians and bring them into th...",
+      "location": "Noida, Uttar Pradesh",
+      "workplaceType": "unspecified",
+      "team": "Payments",
+      "department": "Product",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/e09a1fc4-47e2-4c49-b17e-6993b958d6ef",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "331b1b7b1a7465fa86a559fc0c025e7b1c6728c8d913f3a5ac46e54f3b0da284",
+      "competencies": [
+        "ml",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Feature Engineering",
+        "Machine Learning"
+      ],
+      "toolsAndTech": [
+        "Feature Engineering",
+        "Machine Learning"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Product Management - AI Payments\n\nAbout Us:\nPaytm is India’s leading mobile payments and financial services distribution company. A pioneer of the mobile QR payments revolution, Paytm builds technology that enables small businesses and consumers to participate in the digital economy. Our mission is to serve half a billion Indians and bring them into the mainstream economy through technology.\n\nAbout the role:\nThe person in this role owns products in the UAE market.. That means finding the problem, shaping the solution, launching it, and then improving and scaling it. The main thing that sets the role apart is the expectation of an AI-first mindset. They won't build models themselves, but they should keep spotting places where AI/ML, automation, predictive insights or smarter workflows can improve the user experience, make operations more efficient, or help the team make better decisions.\n\nKey Responsibilities:\n-Own products for the UAE market end to end, from identifying user and business problems through discovery, launch, iteration and scale.\n-Define the product vision, roadmap and priorities in line with business goals for the UAE payments business.\n-Look for places where AI/ML, intelligent automation, predictive insights or workflow optimisation can improve user experience, operational efficiency or decision-making. Building models isn't part of the role.\n-Turn those opportunities into clear PRDs, user stories and success metrics, then work with engineering and data teams to deliver them.\n-Work closely with engineering, design, business, operations, compliance and leadership, keeping everyone aligned on priorities and timelines.\n-Use data and analytics to track product performance, run experiments, and back decisions with metrics.\n-Influence stakeholders and drive decisions so launches happen on time and outcomes improve.\n-Build a solid understanding of the UAE payments ecosystem, including users, merchants, regulations and competitors, and use it to shape the product strategy.\n-Keep improving products after launch based on user feedback, data and market changes.\n\nWhat We’re Looking For:\n3 to 6 years of hands-on product management experience\nA background in engineering (B.Tech) or management (MBA), with a solid technical understanding\nProven ownership of the full product lifecycle, from discovery through launch, iteration and scale\nComfortable with data and analytics, using metrics to drive decisions\nStrong communicator who can influence and align engineering, design, business and leadership\nPayments or fintech experience is a big plus\n\n Why join us :  We aim at bringing half a billion Indians into the mainstream economy, and everyone working here is striving to achieve that goal. Our success is rooted in our people’s collective energy and unwavering focus on the customers, and that’s how it will always be. We are the largest merchant acquirer in India.\n\n\n"
+    },
+    {
+      "id": "lever-26a6a342-55db-4262-8e75-648bd8338fd0",
+      "title": "Product Management - Data Product | Experience : 5-8 yrs",
+      "level": "Mid-Level",
+      "desc": "About Us:\n\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream eco...",
+      "location": "Bengaluru, Karnataka",
+      "workplaceType": "unspecified",
+      "team": "Data Product",
+      "department": "Product",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/26a6a342-55db-4262-8e75-648bd8338fd0",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "f76fc3b6dafc1703fb81c99971c612edf7bef8f5cfad1662cb45a1676850dc71",
+      "competencies": [
+        "aws",
+        "ml",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Jira & Agile",
+        "AWS",
+        "Big Data Technologies",
+        "SQL",
+        "ETL Pipelines",
+        "Data Warehousing",
+        "Machine Learning"
+      ],
+      "toolsAndTech": [
+        "Jira & Agile",
+        "AWS",
+        "Big Data Technologies",
+        "SQL",
+        "ETL Pipelines",
+        "Data Warehousing",
+        "Machine Learning"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Product Management - Data Product | Experience : 5-8 yrs\n\nAbout Us:\n\nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm’s mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n\n\nAbout the Team:\n\nWe are the Central Data and AI Product team, responsible for building and managing the analytical products and datasets that power decision-making across Paytm. We’re rebuilding how analytics gets done at the company. As a central product team, we drive the build and adoption of our data platform in close partnership with consumer teams across business verticals (Online Payments and Offline Payments) and functions (Growth, Risk, Data Science).\n\nAbout the Role:\n\nThis is a senior Data Product Management role for someone who enjoys marrying business analytics problems to simplified data design solutions. You will own a portfolio within the Central Data and AI Product charter, lead a small, high-leverage team (1–2 PMs and 1 analyst), and partner with engineering and business stakeholders to ship products that scale across the organisation.\n\nKey Responsibilities:\n\n* Lead and grow a team of product managers and analysts (1–2 PMs and 1 analyst) — hiring, coaching, performance management, and career development.\n* Drive the end-to-end data product development lifecycle — from discovery and scoping through delivery, adoption, and iteration. \n* Define  and articulate the product vision, strategy, and roadmap in alignment with company goals and market trends.\n* Partner with cross-functional teams — business, growth, risk, and data science — to understand customer needs and align product offerings to work cleanly with agentic analytical workflows. \n* Work closely with engineering on technical design, development, sprint planning, and prioritisation across our stack (AWS, Spark, EMR, EC2, Hive, Trino, Superset) — making thoughtful product trade-offs informed by the underlying platform.\n* Manage senior stakeholders and executive communication — surface trade-offs, drive alignment, and represent the data platform externally.\n* Leverage agentic development tools (Claude Code, Cursor, and similar) day-to-day to accelerate value delivery.\n\nRequirements:\n\n* 5+ years of Product Management experience, with 3+ years managing mid-sized teams.\n* Strong command of SQL, data modelling, and both streaming and batch processing.\n* Working knowledge of our stack and how it shapes product decisions: AWS cloud services for the data warehouse, Spark, EMR, EC2, Hive, Trino, and Superset.\n* Understanding of data governance and regulatory compliance (DPDPA).\n* Deep expertise in data modelling — dimensional modelling, semantic layers, taxonomy. \n* Look ML or Look ML-style layer experience is a strong plus.\n* Hands-on with agentic tools (Claude Code, Cursor) for day-to-day work.\n* Strong communicator — the role lives at the seam between consumer teams and the platform team.\n\nPreferred Qualifications:\n\n• Prior experience managing complex payments data and stream/batch processing at scale.\n• Exposure to conversational AI or agentic product analytics. \n• Bachelor’s degree in Computer Science, Engineering, or a related field, or equivalent practical experience.\n\nWhy join us\n\n•A collaborative output driven program that brings cohesiveness across businesses"
+    },
+    {
+      "id": "lever-9c74fdd9-36e1-4e42-839a-d52577bb3d70",
+      "title": "Product Management - Pi Agents - SMB (Experience : 5-9 yrs)",
+      "level": "Mid-Level",
+      "desc": "About Us: \nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm's mission is to serve half a billion Indians and bring them to the mainstream eco...",
+      "location": "Noida, Uttar Pradesh",
+      "workplaceType": "unspecified",
+      "team": "Inference and Agentic AI",
+      "department": "Product",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/9c74fdd9-36e1-4e42-839a-d52577bb3d70",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "f48a362ed0681abb85e81d149fef44857c3366415de6fa674c3debc47f6059ab",
+      "competencies": [
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Statistical Analysis & A/B Testing",
+        "SQL"
+      ],
+      "toolsAndTech": [
+        "Statistical Analysis & A/B Testing",
+        "SQL"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Product Management - Pi Agents - SMB (Experience : 5-9 yrs)\n\nAbout Us: \nPaytm is India's leading mobile payments and financial services distribution company. Pioneer of the mobile QR payments revolution in India, Paytm builds technologies that help small businesses with payments and commerce. Paytm's mission is to serve half a billion Indians and bring them to the mainstream economy with the help of technology.\n\nAbout the team:\n Pi Agents At Pi Agents, we are creating AI agents for businesses. We are building agents that help businesses of all sizes with their day to day challenges, across the full lifecycle: Acquiring, Servicing, Retaining, Upselling, and Supporting customers. We operate like a startup inside Paytm, shipping fast with a small, senior team.\n\n About the role: \nThis role is for the SMB Growth Agents. You will own product outcomes for growth-focused agents serving small and medium Indian businesses, taking them from capability to measurable business impact at scale.\n\nExpectations/Requirements: \n1. Own the SMB Growth Agents roadmap end to end, from problem discovery to GTM and adoption.\n2. Define and own outcome metrics: merchant activation, campaign performance, incremental revenue, retention. \n3. Design agent experiences that self-serve SMB merchants can trust and use daily: onboarding, goal setting, autonomous execution, and clear reporting. 4. Set and enforce a very high bar for UX and UI. \n5. SMB users have low tolerance for friction; the agent experience must be simple, vernacular-friendly, and mobile-first. \n6. Work with engineering and data science on agent architecture tradeoffs: latency, cost per merchant, guardrails, evals.\n7.  Run structured experimentation to prove agent-driven lift over merchant self-managed baselines. Partner with sales, ops, and support to scale from pilot cohorts to the long tail\n\n\nSuperpowers/Skills that will help you succeed in this role:\n1. 5-9 yrs of Product Management experience, Tier-1 institute preferred.\n2. Strong B2C product experience; experience dealing with small to medium size Indian businesses is a plus. \n3. Sets a very high bar for UX and UI, with a portfolio of shipped experiences that demonstrate craft. \n4. Data driven decision making: fluency in analytics suites (Amplitude, Mixpanel, Clever Tap), SQL, and experiment design. \n5. Hands-on experience building AI native or agentic products is a strong plus; understanding of prompt design, evals, and agent orchestration preferred. \n6. Comfort with ambiguity and a 0-to-1 environment; bias for shipping and learning weekly\n\nWhy join us: \nA collaborative, output driven program that brings cohesiveness across businesses through technology. You will build one of India's first at-scale agentic AI products for businesses, with direct revenue accountability.\n\nCompensation: If you are the right fit, we believe in creating wealth for you. With 500 mn+ registered users, 21 mn+ merchants, and the depth of data in our ecosystem, we are in a unique position to build India's largest AI-led business growth story, and you can be part of it.\n\n\n\n"
+    },
+    {
+      "id": "lever-1b0de79c-1e07-4719-8afc-e0a3d117753e",
+      "title": "Security - Security Lead (Data Protection)",
+      "level": "Lead",
+      "desc": "About Us:\nPaytm is India’s largest digital payments and financial services platform, leading the mobile QR revolution. We power millions of businesses and individuals, and we’re building scalable, resilient systems to serve half a billion Indians and beyond.\nHere at Paytm, technology isn't just about keeping up, it's a...",
+      "location": "Noida, Uttar Pradesh",
+      "workplaceType": "unspecified",
+      "team": "Paytm Money",
+      "department": "Technology",
+      "source": "Official Paytm Lever ATS Feed",
+      "sourceUrl": "https://jobs.lever.co/paytm/1b0de79c-1e07-4719-8afc-e0a3d117753e",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "207d3a8bede3d87905068b545ad0f0d7810f8b2716f95f7463414159fbb5e110",
+      "competencies": [
+        "react",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Next.js",
+        "Security Compliance",
+        "Computer Science Fundamentals"
+      ],
+      "toolsAndTech": [
+        "Next.js",
+        "Security Compliance",
+        "Computer Science Fundamentals"
+      ],
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Security - Security Lead (Data Protection)\n\nAbout Us:\nPaytm is India’s largest digital payments and financial services platform, leading the mobile QR revolution. We power millions of businesses and individuals, and we’re building scalable, resilient systems to serve half a billion Indians and beyond.\nHere at Paytm, technology isn't just about keeping up, it's about building the future. We believe the next generation of engineers must not only scale systems to billions but also leverage AI and GPT tools to accelerate innovation.\n \nRole Overview:\nWe are seeking an experienced Data Protection Lead, who will be responsible for overseeing the organization's data protection strategy and ensuring compliance with Indian laws such as the Information Technology Act, 2000, and the Personal Data Protection Bill. The DPPM will work closely with DPO and regulatory authorities to ensure that sensitive data is processed securely and ethically. This role is crucial in safeguarding our digital assets and maintaining compliance with industry standards and law.\n \nKey Responsibilities:\n1. Legal Compliance: Ensure adherence to data protection laws, including local DPDPA, IT Act and international regulations like GDPR.\n2. Policy Development: Formulate and implement data protection policies and guidelines across the organization. \n3. Data Classification & Security: Well versed in managing the DSPM, DLP and PET technologies. \n4. Data Breach Management: Investigate and report data breaches to relevant authorities within the stipulated timeframe.\n5. Training & Awareness: Conduct training sessions for employees on data protection practices and raise awareness about privacy policies.\n6. Impact Assessments: Perform Data Protection Impact Assessments (DPIA) to identify risks and recommend mitigation strategies.\n7. Grievance Redressal: Act as the point of contact for data principals (individuals) for grievances related to data handling or privacy violations.\n8. Recordkeeping: Maintain records of all data processing activities and policies for audit and regulatory purposes.\n9. Liaison: With regulatory agencies and stakeholders regarding data protection matters.\n \nQualifications and Experience:\n1. Bachelor's degree in Information Security, Computer Science, and Law. \n2. Certification in Data Protection or Privacy Management is mandatory, like - CIPM, CDPSE, DCPLA, DCPP and DCDPO\n3. 5-8 years of experience in security management.\n4. Strong understanding of IT infrastructure , data security best practices, and frameworks.\n5. Familiarity with regulatory requirements and compliance standards (e.g., RBI, SEBI).\n6. Excellent communication, interpersonal, analytical and leadership skills.\n7. Knowledge of emerging technologies, their impact on data protection and ability to handle sensitive information discreetly.\n \nWhy you should join us:\n1. You’ll build at true scale systems handling millions of transactions per day, sub-100ms latencies, and five 9s availability. \n2. You’ll work in a team that is serious about engineering, no fluff, just deep tech, deep impact. \n3. You’ll be encouraged to use AI tools daily — coding, debugging, testing — and even invent new ways of using AI in software development. \n4. You’ll work alongside engineers who love tech deeply, and where innovation is the default expectation. \n5. Paytm offers you a career — not just a job — to become a next-gen tech leader.\n\n\n"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "companyId": "instacart",
+  "companyName": "Instacart",
+  "ats": "greenhouse",
+  "slug": "instacart",
+  "tier": "PRODUCT_MNC",
+  "sector": "Grocery Technology & High-Scale Fulfillment",
+  "headquarters": "Remote - India",
+  "website": "https://www.instacart.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 0,
+  "status": "verified",
+  "confidence": "high",
+  "roles": []
+}

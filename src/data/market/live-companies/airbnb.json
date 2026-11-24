@@ -1,0 +1,175 @@
+{
+  "companyId": "airbnb",
+  "companyName": "Airbnb",
+  "ats": "greenhouse",
+  "slug": "airbnb",
+  "tier": "TIER_S",
+  "sector": "Global Travel & Marketplace Infrastructure",
+  "headquarters": "Bengaluru, Karnataka",
+  "website": "https://www.airbnb.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 3,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "gh-8220091",
+      "title": "Senior Manager, Quality",
+      "level": "Engineering Manager",
+      "desc": "Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect...",
+      "location": "Gurugram, India",
+      "workplaceType": "unspecified",
+      "department": "Community Support",
+      "source": "Official Airbnb Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.airbnb.com/positions/8220091?gh_jid=8220091",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "655a85969182a595f429622e0639601145f82d569f87e53633a694be4d06bb83",
+      "competencies": [
+        "ml",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Grafana",
+        "Feature Engineering",
+        "Machine Learning"
+      ],
+      "toolsAndTech": [
+        "Grafana",
+        "Feature Engineering",
+        "Machine Learning"
+      ],
+      "responsibilities": [
+        "Community Support - Volume Tiers, Safety, Premium Support, CS Labs Annotation, Regulatory Response, Payments, and Executive Escalations",
+        "AirCover",
+        "Compliance/ZTP",
+        "Payments Risk &amp; Ops",
+        "Supply",
+        "Migration to a new quality management system",
+        "Shifting from manual QA to AI enabled AutoQA",
+        "Establishing a Human in the Loop program, that monitors AI model accuracy"
+      ],
+      "requiredQualifications": [
+        "Experience in Customer/Community Support, Quality, Operations, or Trust &amp; Safety, including direct experience leading quality programs in sensitive, high-stakes, or regulated support environments.",
+        "Demonstrated experience building or transforming quality programs for complex, multi-function support portfolios.",
+        "Experience managing globally distributed quality teams across multiple functions, languages, and partner organizations in a 24/7 environment.",
+        "Experience deploying or scaling AI/ML-assisted QA (AutoQA, predictive NPS/CSAT).",
+        "Experience with vendor/partner governance: calibration oversight, performance-improvement plans, and escalation frameworks.",
+        "Bachelor's degree required.",
+        "Master's degree or equivalent in Business, Operations, Law, Risk Management, Engineering, or a related field.",
+        "Experience with Observe.AI (and migration off legacy platforms such as NICE/Nexidia)."
+      ],
+      "fullText": "Senior Manager, Quality\n\nLocation: Gurugram, India\nDepartment: Community Support\n\nAirbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way. \n\n The Community you will join: \n\n The Quality team ensures that Community Support, AirCover, Payments, Compliance, and Supply operations consistently meet the highest standards, blending rigorous QA frameworks with AI-enabled AutoQA to catch issues early, protect trust, and keep experiences safe and reliable at global scale. \n\n The Difference You Will Make: \n\n This senior leader is accountable for the end-to-end quality program at the Airbnb Capability Center (ACC), which spans multiple business functions: \n\n Community Support - Volume Tiers, Safety, Premium Support, CS Labs Annotation, Regulatory Response, Payments, and Executive Escalations \n\n AirCover \n\n Compliance/ZTP \n\n Payments Risk &amp; Ops \n\n Supply \n\n This leader oversees a team of ~71 employees, with seven direct reports, and carries quality accountability for both internal ACC teams and a network of external partner/vendor sites. \n\n Additionally, this leader needs to support Quality transformation efforts, including: \n\n Migration to a new quality management system \n\n Shifting from manual QA to AI enabled AutoQA \n\n Establishing a Human in the Loop program, that monitors AI model accuracy \n\n The successful candidate will arrive with a clear point of view on what world-class quality looks like when AI is doing most of the volume and humans are doing the highest-judgment work; and can hold the line on the legal and ethical guardrails that come with it. This role reports to the Director of Quality for Global Operations, and represents ACC (“Airbnb India / Team India”) quality in global forums. \n\n A Typical Day: \n\n Strategic Leadership &amp; Program Ownership \n\n Own and execute the ACC quality strategy across all supported functions. \n\n Drive alignment with the global quality framework, working in collaboration with various stakeholders, including the Quality and Delivery leadership \n\n Represent ACC Quality in Weekly Ops Reviews, MBRs, Enablement Ops Reviews, Leadership Group Connects, and QBRs; deliver a proactive narrative that surfaces emerging risk rather than reporting lagging metrics. \n\n Thought leadership on new programs, such as continuous calibration of AI-based Auto QA \n\n Measurement &amp; Quality Execution \n\n Oversee QA evaluation execution across all ACC functions, ensuring consistent application of frameworks as the organization migrates to COPC-aligned frameworks \n\n Operate Audit-the-Auditor as an ongoing control \n\n Work with Delivery and other stakeholders to improve quality performance \n\n Insights, Reporting &amp; Stakeholder Partnership \n\n Proactively share insights with Delivery on performance deepdives and analysis \n\n Partner with analytical teams on anomaly-detection and quality dashboards \n\n Implement detractor-analysis frameworks (global detractor / NPS patterns) so systemic issues surface in real time \n\n AI, AutoQA &amp; Technology Enablement \n\n Drive AutoQA adoption across ACC tiers \n\n Partner with Engineering on calibration model for AutoQA \n\n Drive and sponsor high-value process automation at ACC \n\n People &amp; Cultur"
+    },
+    {
+      "id": "gh-7525479",
+      "title": "Senior Staff Software Engineer, Payments",
+      "level": "Staff",
+      "desc": "Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect...",
+      "location": "Remote - Bengaluru, India",
+      "workplaceType": "remote",
+      "department": "Software Engineering",
+      "source": "Official Airbnb Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.airbnb.com/positions/7525479?gh_jid=7525479",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "6c520e67c9b1cc42821b6bcce2a7fc8630361ab29ada32ca368a6b226cb6e879",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "Technical Leadership & Mentorship"
+      ],
+      "toolsAndTech": [
+        "Technical Leadership & Mentorship"
+      ],
+      "responsibilities": [
+        "Collaborate with other senior leaders to define and drive long-term technical strategy and architecture that enables the company’s future vision.",
+        "Establish a technical vision and lead efforts to architect, build, and launch reliable, performant, and scalable solutions.",
+        "Be a critic for existing and new technologies, providing a balanced view of the technology landscape and nurture a culture of sustainable innovation.",
+        "Collaborate with and influence cross-functional partners to design and deliver high-quality products.",
+        "Lead multi-team technical initiatives, and work cross-functionally to identify opportunities for business impact, refine, and prioritize requirements for engineering systems.",
+        "Lead conversations that align technical efforts with business outcomes and product priorities.",
+        "Uplevel engineering quality through design/code reviews, mentorship, and hands-on implementation.",
+        "Mentor and provide technical guidance to junior engineers through design reviews, code walkthroughs, and knowledge-sharing sessions, fostering a culture of knowledge sharing and continuous learning ."
+      ],
+      "requiredQualifications": [
+        "15+ years of experience in a hands-on software engineering role.",
+        "Bachelor’s and/or Master’s degree, preferably in CS, or equivalent experience.",
+        "Experience building, leading, and architecting production systems or features with broad impact.",
+        "Demonstrated technical leadership: hands on experience leading project teams, setting technical direction and strategy, prototyping to iterate ideas, and working cross functionally with Product, Design and Operations teams.",
+        "Strong communication and collaboration skills with both technical and non-technical partners, experience driving initiatives that span across teams, departments and leadership.",
+        "Proven experience in defining product/technical strategy and driving alignment with cross-functional leaders and stakeholders."
+      ],
+      "fullText": "Senior Staff Software Engineer, Payments\n\nLocation: Remote - Bengaluru, India\nDepartment: Software Engineering\n\nAirbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way. \n\n The Community You Will Join: \n\n Payments is key for any healthy marketplace, and is just as central to our product at Airbnb. The Payments organization at Airbnb is responsible for everything related to settling money in Airbnb’s global marketplace and makes the Payment experience as delightful, magical, intuitive, and easy as possible. At the Payments team, our goal is to build and operate scalable systems that power payments ecosystems, host/guest protections as well as community partner experiences applying core engineering principles that leverage both time-tested and cutting edge technology.\n\n The Difference You Will Make: \n\n As a Senior Staff Engineering for Payments, you will provide overarching guardrails on evolution of the architecture with special focus on Community Partner experiences, catering evolving business needs and coaching other engineers on the team. You will envision and design decision support systems, knowledge management systems as well as workflow orchestration systems that can harness various AI advancements. You will define and drive the architecture strategy, work on cross-functional teams to align on organizational initiatives, set standards and help in governance. You will be a player-coach; in that you will be hands-on when a situation arises (player mode) and hands-off where there is opportunity for other engineers to grow and gain experience (coach mode).\n\n A Typical Day: \n\n As a Senior Staff Software Engineer, Payments you will: \n\n Collaborate with other senior leaders to define and drive long-term technical strategy and architecture that enables the company’s future vision.\n\n Establish a technical vision and lead efforts to architect, build, and launch reliable, performant, and scalable solutions.\n\n Be a critic for existing and new technologies, providing a balanced view of the technology landscape and nurture a culture of sustainable innovation.\n\n Collaborate with and influence cross-functional partners to design and deliver high-quality products.\n\n Lead multi-team technical initiatives, and work cross-functionally to identify opportunities for business impact, refine, and prioritize requirements for engineering systems.\n\n Lead conversations that align technical efforts with business outcomes and product priorities.\n\n Uplevel engineering quality through design/code reviews, mentorship, and hands-on implementation.\n\n Mentor and provide technical guidance to junior engineers through design reviews, code walkthroughs, and knowledge-sharing sessions, fostering a culture of knowledge sharing and continuous learning .\n\n Your Expertise : \n\n 15+ years of experience in a hands-on software engineering role.\n\n Bachelor’s and/or Master’s degree, preferably in CS, or equivalent experience.\n\n Experience building, leading, and architecting production systems or features with broad impact.\n\n Demonstrated technical leadership: hands on experience leading project teams, setting technical direction and strategy, prototyping to iterate ideas, and worki"
+    },
+    {
+      "id": "gh-8312713",
+      "title": "Systems Engineer, Tech Foundations (Jira cloud)",
+      "level": "Mid-Level",
+      "desc": "Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect...",
+      "location": "Remote - Bangalore, India",
+      "workplaceType": "remote",
+      "department": "Software Engineering",
+      "source": "Official Airbnb Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.airbnb.com/positions/8312713?gh_jid=8312713",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "47cbb62170b2ea1cab7ecd4f426afc69be0c00828e8cb4fc7c1d0ce3da030d58",
+      "competencies": [
+        "java",
+        "typescript",
+        "aws",
+        "ml",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Jira",
+        "Grafana",
+        "JavaScript",
+        "Jira & Agile",
+        "Cloud Architecture",
+        "Postman",
+        "Machine Learning",
+        "Site Reliability Engineering",
+        "Figma"
+      ],
+      "toolsAndTech": [
+        "Jira",
+        "Grafana",
+        "JavaScript",
+        "Jira & Agile",
+        "Cloud Architecture",
+        "Postman",
+        "Machine Learning",
+        "Site Reliability Engineering",
+        "Figma"
+      ],
+      "responsibilities": [
+        "Administer Jira Cloud Software (JSW), Jira Cloud Service Management (JSM), and associated Atlassian tooling; take ownership of assigned parts of the environment to improve reliability and quality, following established configuration standards and governance",
+        "Design and implement Jira configurations including custom workflows, issue type hierarchies, permission schemes, notification schemes, screens, and field configurations aligned with Atlassian best practices, contributing independently to designs and seeking senior review where needed",
+        "Deliver end-to-end migration workstreams within the Jira Data Center to Cloud program, such as migrating a set of projects or a configuration domain, coordinating with stakeholders on cutover readiness",
+        "Configure Jira Service Management projects including SLAs, custom queues, JSM Forms, approval workflows, and security schemes to support internal service delivery teams",
+        "Build and maintain dashboards and reporting using native Jira Cloud tooling; Airbnb has elected to avoid Atlassian Marketplace products for information security, privacy, and legal reasons. Support and maintain Airbnb's custom Forge applications in partnership with supporting systems engineering teams",
+        "Support Atlassian access management, user lifecycle management, and license hygiene, and contribute to security posture improvements",
+        "Partner with business stakeholders in requirements-gathering sessions, translate needs into configuration and automation solutions, and proactively highlight issues or risks in the work",
+        "Configure Atlassian Rovo AI agents and automation rules; evaluate trade-offs between delivery speed and long-term sustainability, and apply AI responsibly and in context"
+      ],
+      "requiredQualifications": [
+        "BE/B.Tech or relevant technical degree",
+        "3+ years of hands-on Atlassian administration experience, including Jira Software and Jira Service Management (Jira Cloud) in enterprise environments",
+        "Solid working knowledge of Jira workflow design, including post functions, validators, and conditions; strong command of JQL for filters, subscriptions, dashboards, and board configuration",
+        "Hands-on experience contributing to Jira migrations (Data Center to Cloud), including project configuration migration and data integrity validation",
+        "Experience configuring Jira Cloud native tooling for reporting and planning",
+        "Hands-on experience with the Jira REST API using tools like Postman (GET/PUT/POST) for data extraction, integration, and reporting; maintaining integration touchpoints with AtlassianCloud through service account creation &amp; management",
+        "Experience building Jira Automation rules; working knowledge of JavaScript and JSON for custom automation",
+        "Working experience with Jira Service Management, including SLA configuration, JSM Forms, custom queues, and approval workflows"
+      ],
+      "fullText": "Systems Engineer, Tech Foundations (Jira cloud)\n\nLocation: Remote - Bangalore, India\nDepartment: Software Engineering\n\nAirbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way. \n\n The Community You Will Join: \n\n The world is changing how it works; not just in where we do it, but in how fast and how well we can do it. Airbnb has already shown that we can move with speed and intention. We navigated a pandemic, rebuilt our company from the ground up, had a successful IPO, and shipped product upgrades – all while working remotely. That experience didn't just change where we work. It changed what we believe is possible.\nNow, a new shift is underway. AI is fundamentally changing the leverage available to every team – compressing timelines, breaking down traditional job description silos, raising the ceiling on quality, and enabling small, focused groups to accomplish what once required much larger ones. At Airbnb, we are not treating AI as a future consideration. We are moving fast to embed it into how we operate today – using it to multiply the impact of every employee, every system, and decisions we make every day. The companies and teams that embrace this shift with urgency and discipline will define what's possible in the years ahead. We intend to be one of them. \n\n The Difference You Will Make: \n\n The Systems Engineer is a hands-on builder who moves fast, delivers with quality, and uses AI as a force multiplier in day-to-day work. In this role, you will configure, maintain, and continuously improve Airbnb's Atlassian platforms, and you will own end-to-end delivery of defined projects within the Jira Data Center deprecation and transition to Jira Cloud. You will work autonomously on projects that span several components and may not be fully defined, partnering with senior engineers and your manager to shape the details. You will spot where AI and automation can reduce toil and improve reliability for the teams we serve, then build those improvements. You bring solid platform knowledge, sound technical judgment within your domain, and the curiosity to grow toward senior-level scope. \n\n A Typical Day: \n\n Administer Jira Cloud Software (JSW), Jira Cloud Service Management (JSM), and associated Atlassian tooling; take ownership of assigned parts of the environment to improve reliability and quality, following established configuration standards and governance\n\n Design and implement Jira configurations including custom workflows, issue type hierarchies, permission schemes, notification schemes, screens, and field configurations aligned with Atlassian best practices, contributing independently to designs and seeking senior review where needed\n\n Deliver end-to-end migration workstreams within the Jira Data Center to Cloud program, such as migrating a set of projects or a configuration domain, coordinating with stakeholders on cutover readiness\n\n Configure Jira Service Management projects including SLAs, custom queues, JSM Forms, approval workflows, and security schemes to support internal service delivery teams\n\n Build and maintain dashboards and reporting using native Jira Cloud tooling; Airbnb has elected to avoid Atlassian Marketplace products "
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "companyId": "pagerduty",
+  "companyName": "PagerDuty",
+  "ats": "greenhouse",
+  "slug": "pagerduty",
+  "tier": "PRODUCT_MNC",
+  "sector": "Digital Operations Management & SRE",
+  "headquarters": "Remote - India",
+  "website": "https://www.pagerduty.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 0,
+  "status": "verified",
+  "confidence": "high",
+  "roles": []
+}

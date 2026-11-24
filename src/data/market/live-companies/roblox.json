@@ -1,0 +1,170 @@
+{
+  "companyId": "roblox",
+  "companyName": "Roblox",
+  "ats": "greenhouse",
+  "slug": "roblox",
+  "tier": "TIER_S",
+  "sector": "Immersive Virtual Worlds & Real-Time Engine",
+  "headquarters": "Remote - India",
+  "website": "https://www.roblox.com",
+  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "liveRoleCount": 3,
+  "status": "verified",
+  "confidence": "high",
+  "roles": [
+    {
+      "id": "gh-8338120",
+      "title": "Quality Analyst",
+      "level": "Mid-Level",
+      "desc": "Every day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that...",
+      "location": "Gurugram, Haryana, India",
+      "workplaceType": "unspecified",
+      "department": "Safety Operations (Non-Tech)",
+      "source": "Official Roblox Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.roblox.com/jobs/8338120?gh_jid=8338120",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "30a7ddaf02377a0c30500961e6bbceff7b2f037105029f2b67451335aabefd63",
+      "competencies": [
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "OAuth2 & JWT"
+      ],
+      "toolsAndTech": [
+        "OAuth2 & JWT"
+      ],
+      "responsibilities": [
+        "Build and maintain the answer key. Use your policy and enforcement expertise to create correctly labeled image cases for moderator training, QA, and policy work. Add new cases as policies and content trends change.",
+        "Make final calls on disputed decisions. Blind-audit sampled cases and resolve disagreements between moderators, vendor QA, and automated systems.",
+        "Calibrate vendor QA teams. Measure vendor auditors’ accuracy against the answer key and lead calibration sessions to close gaps.",
+        "Find root causes and trends. Tag every error using a standard error taxonomy, and analyze quality data to find patterns, bottlenecks, and ways to improve. Flag new risks early and run deep dives on the biggest problems.",
+        "Recommend fixes. Write short briefs for weekly stakeholder reviews. Each brief should size the problem, describe its impact, and name the team best placed to fix it.",
+        "Report on quality. Pull statistically valid samples and publish weekly quality reports with accuracy metrics and confidence intervals.",
+        "Use outside quality signals. Include data from user appeals, escalations, partner feedback, and customer support to get a fuller picture of quality.",
+        "Confirm that fixes worked. Audit affected queues again after each change to check that quality improved."
+      ],
+      "requiredQualifications": [
+        "3+ years in quality assurance, content moderation, Trust &amp; Safety, or a related operations role",
+        "Experience building answer keys, test sets, or calibration materials",
+        "Experience auditing and calibrating reviewers, including outsourced or vendor teams",
+        "Working knowledge of sampling and basic statistics, including accuracy rates, inter-rater agreement, and confidence intervals",
+        "Experience doing root-cause analysis and turning findings into practical recommendations",
+        "Experience working with cross-functional partners such as Policy, Operations, Engineering, and vendors"
+      ],
+      "fullText": "Quality Analyst\n\nLocation: Gurugram, Haryana, India\nDepartment: Safety Operations (Non-Tech)\n\nEvery day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that they can imagine to life. Our vision is to reimagine the way people come together, from anywhere in the world, and on any device. We’re on a mission to connect a billion people with optimism and civility, and looking for amazing talent to help us get there. \n\n A career at Roblox means you’ll be working to shape the future of human interaction, solving unique technical challenges at scale, and helping to create safer, more civil shared experiences for everyone. \n\n You will \n \n Build and maintain the answer key. Use your policy and enforcement expertise to create correctly labeled image cases for moderator training, QA, and policy work. Add new cases as policies and content trends change.\n\n Make final calls on disputed decisions. Blind-audit sampled cases and resolve disagreements between moderators, vendor QA, and automated systems.\n\n Calibrate vendor QA teams. Measure vendor auditors’ accuracy against the answer key and lead calibration sessions to close gaps.\n\n Find root causes and trends. Tag every error using a standard error taxonomy, and analyze quality data to find patterns, bottlenecks, and ways to improve. Flag new risks early and run deep dives on the biggest problems.\n\n Recommend fixes. Write short briefs for weekly stakeholder reviews. Each brief should size the problem, describe its impact, and name the team best placed to fix it.\n\n Report on quality. Pull statistically valid samples and publish weekly quality reports with accuracy metrics and confidence intervals.\n\n Use outside quality signals. Include data from user appeals, escalations, partner feedback, and customer support to get a fuller picture of quality.\n\n Confirm that fixes worked. Audit affected queues again after each change to check that quality improved.\n\n You have \n \n 3+ years in quality assurance, content moderation, Trust &amp; Safety, or a related operations role\n\n A strong understanding of content policy, plus sound judgment on close calls\n\n Experience building answer keys, test sets, or calibration materials\n\n Experience auditing and calibrating reviewers, including outsourced or vendor teams\n\n Working knowledge of sampling and basic statistics, including accuracy rates, inter-rater agreement, and confidence intervals\n\n Experience doing root-cause analysis and turning findings into practical recommendations\n\n Skill with spreadsheets for pulling and analyzing data\n\n Clear written and verbal communication, including writing short summaries for leadership\n\n Experience working with cross-functional partners such as Policy, Operations, Engineering, and vendors\n\n Roles that are based in an office are onsite Tuesday, Wednesday, and Thursday, with optional presence on Monday and Friday (unless otherwise noted).\n\n Roblox provides equal employment opportunities to all employees and applicants for employment and prohibits discrimination and harassment of any type without regard to race, color, religion, age, sex, national origin, disability status, genetics, protected veteran status, sexual orientation, gender identity or expression, or any other characteristi"
+    },
+    {
+      "id": "gh-7856888",
+      "title": "Senior Data Analyst- Scaled Moderation",
+      "level": "Senior",
+      "desc": "Every day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that...",
+      "location": "Gurugram, Haryana, India",
+      "workplaceType": "unspecified",
+      "department": "Business Operations (BizOps)",
+      "source": "Official Roblox Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.roblox.com/jobs/7856888?gh_jid=7856888",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "06f3e676135db413ee8b30eaf2241860bf97a56ab901f3fb0fd2849c2d1c0bc4",
+      "competencies": [
+        "python",
+        "databases",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Grafana",
+        "SQL",
+        "Git",
+        "Python",
+        "Computer Science Fundamentals",
+        "OAuth2 & JWT"
+      ],
+      "toolsAndTech": [
+        "Grafana",
+        "SQL",
+        "Git",
+        "Python",
+        "Computer Science Fundamentals",
+        "OAuth2 & JWT"
+      ],
+      "responsibilities": [
+        "Own the analysis and reporting for both I ntellectual Property Operations and broader Legal Compliance Workflows. Deliver recurring KPI packs for senior leadership across Safety, Legal, and Developer Relations partners.",
+        "Identify opportunities through trend and cohort analysis; build business cases and lead cross‑functional initiatives from concept to impact.",
+        "Collaborate with Data Science, IP Product, Policy, and Operations teams to define and maintain metric definitions, KPI hierarchies, and analytical guardrails that drive operational excellence in both IP protection and compliance obligations.",
+        "Design, build, and maintain advanced operational reports and dashboards, delivering critical insights on IP enforcement and overall compliance health to senior-level management and cross-functional stakeholders across Operations, Legal, Product, and Engineering.",
+        "Select and apply the most appropriate analytical methods to assess both IP operations and Legal Compliance programs, extract relevant data, and derive actionable insights to ensure we meet all of Roblox's legal and regulatory obligations efficiently and accurately.",
+        "Monitor industry trends in digital rights management, regulatory compliance frameworks, and analytical best practices; incorporate them into our operational data strategies and tooling.",
+        "Cross-Functional Leadership: Proven ability to work effectively with cross-functional teams (specifically Legal, Product, Engineering, and frontline IP/Compliance Operations) to drive strategic initiatives.",
+        "Problem Solving: Strong analytical skills with a track record of using data to inform decision-making, optimize complex workflows, and solve operational bottlenecks."
+      ],
+      "requiredQualifications": [
+        "7+ years of experience in a professional setting, with demonstrated experience in quantitative analysis and complex program management.",
+        "Domain Knowledge: Good understanding of intellectual property operations (like copyrights, trademarks, and Digital Rights Management) and legal compliance processes (such as regulatory response SLAs, privacy operations, or law enforcement guidelines) in the tech industry—either through hands-on experience or by working closely on cross-functional projects.",
+        "Technical Proficiency: Advanced proficiency in SQL, including complex queries, common table expressions, and window functions; working knowledge of Git and Python and/or R is highly desirable.",
+        "Minimum of a Bachelor’s degree in a technical field / analytical discipline (preferred: Computer Science, Data Analytics, Information Systems, Statistics, Mathematics, Business Analytics or equivalent), with a strong preference for an MBA or MS or equivalent experience"
+      ],
+      "fullText": "Senior Data Analyst- Scaled Moderation\n\nLocation: Gurugram, Haryana, India\nDepartment: Business Operations (BizOps)\n\nEvery day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that they can imagine to life. Our vision is to reimagine the way people come together, from anywhere in the world, and on any device. We’re on a mission to connect a billion people with optimism and civility, and looking for amazing talent to help us get there. \n\n A career at Roblox means you’ll be working to shape the future of human interaction, solving unique technical challenges at scale, and helping to create safer, more civil shared experiences for everyone. \n\n The Trust &amp; Safety Operations team safeguards Roblox’s community and creators. Within this organization, our IP and Legal Compliance Operations teams are dedicated to protecting Intellectual Property, ensuring strict regulatory compliance, and facilitating a safe, fair environment for rights holders, developers, and users. We scale Operations and elevate our users’ experience through a multi‑year vision, rigorous execution, and data‑driven decision making.\n\n You will be reporting to the Manager Data Operations and act as the data SME for both IP and Compliance Operations, working closely with other domain-specific data analysts on the team. This position is critical to understanding, optimizing, and reporting on the operational performance of our Intellectual Property enforcement and our Legal Compliance workflows.\n\n You Will: \n\n Own the analysis and reporting for both I ntellectual Property Operations and broader Legal Compliance Workflows. Deliver recurring KPI packs for senior leadership across Safety, Legal, and Developer Relations partners.\n\n Identify opportunities through trend and cohort analysis; build business cases and lead cross‑functional initiatives from concept to impact.\n\n Collaborate with Data Science, IP Product, Policy, and Operations teams to define and maintain metric definitions, KPI hierarchies, and analytical guardrails that drive operational excellence in both IP protection and compliance obligations.\n\n Design, build, and maintain advanced operational reports and dashboards, delivering critical insights on IP enforcement and overall compliance health to senior-level management and cross-functional stakeholders across Operations, Legal, Product, and Engineering.\n\n Select and apply the most appropriate analytical methods to assess both IP operations and Legal Compliance programs, extract relevant data, and derive actionable insights to ensure we meet all of Roblox's legal and regulatory obligations efficiently and accurately.\n\n Monitor industry trends in digital rights management, regulatory compliance frameworks, and analytical best practices; incorporate them into our operational data strategies and tooling.\n\n You Have: \n\n 7+ years of experience in a professional setting, with demonstrated experience in quantitative analysis and complex program management.\n\n Domain Knowledge: Good understanding of intellectual property operations (like copyrights, trademarks, and Digital Rights Management) and legal compliance processes (such as regulatory response SLAs, privacy operations, or law enforcement guidelines) in the tech indus"
+    },
+    {
+      "id": "gh-8354724",
+      "title": "Senior Security Auditor",
+      "level": "Senior",
+      "desc": "Every day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that...",
+      "location": "Gurugram, Haryana, India",
+      "workplaceType": "unspecified",
+      "department": "Finance",
+      "source": "Official Roblox Greenhouse ATS Feed",
+      "sourceUrl": "https://careers.roblox.com/jobs/8354724?gh_jid=8354724",
+      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "0892adc2e8f0de71596a3fbf9a176a6a2a2c5cf015161d996ec76a62f3d52bae",
+      "competencies": [
+        "python",
+        "databases",
+        "security",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Cybersecurity",
+        "Security Compliance",
+        "Computer Science Fundamentals",
+        "SQL",
+        "Python",
+        "Shell Scripting",
+        "OAuth2 & JWT"
+      ],
+      "toolsAndTech": [
+        "Cybersecurity",
+        "Security Compliance",
+        "Computer Science Fundamentals",
+        "SQL",
+        "Python",
+        "Shell Scripting",
+        "OAuth2 & JWT"
+      ],
+      "responsibilities": [
+        "Collaborate with US based teams to establish and operationalize an audit program to meet the cybersecurity audit requirements of the California Consumer Privacy Act (CCPA) regulations, including scoping, risk assessment, gap analysis, audit execution, remediation tracking, and reporting.",
+        "Utilize AI tools to test the design and operating effectiveness of controls across the cybersecurity control domains, including access controls, data classifications, vulnerability management, production engineering security, cloud security, data security, end-point security, network security, etc.",
+        "Execute and support privacy audits to address regulatory requirements and to help management benchmark against industry best practices, identify ways to enhance the overall compliance posture, and streamline processes through automation",
+        "Conceive and lead ad hoc analyses of IT &amp; Information security data to support risk-based operational audits",
+        "Establish repeatable methods to ensure consistency in results, maintain an up-to-date understanding of evolving regulatory landscapes, and help develop a robust internal knowledge base on security compliance.",
+        "Guide the identification and implementation of new processes/controls required by regulatory compliance frameworks, and the remediation of corrective action plans relating to audit findings",
+        "Develop audit reports by summarizing audit findings and associated risks, identifying action owners, and aligning on remediation plans with management.",
+        "Work with XFN teams (including Engineering, Information Security, Legal, Trust &amp; Safety and Finance) to help create integrated compliance requirements for Roblox"
+      ],
+      "requiredQualifications": [
+        "Bachelor's degree in Information Technology, Information Systems, Computer Science or a related technical field of study",
+        "5+ years professional IT audit experience, with progressive experience within a U.S.-based technology company and/or Big 4 accounting firms in India",
+        "2+ years security audit or security compliance experience",
+        "Beginner to intermediate knowledge of scripting languages such as structured query language, Python, Shell scripting etc.)"
+      ],
+      "fullText": "Senior Security Auditor\n\nLocation: Gurugram, Haryana, India\nDepartment: Finance\n\nEvery day, tens of millions of people come to Roblox to explore, create, play, learn, and connect with friends in 3D immersive digital experiences– all created by our global community of developers and creators. \n\n At Roblox, we’re building the tools and platform that empower our community to bring any experience that they can imagine to life. Our vision is to reimagine the way people come together, from anywhere in the world, and on any device. We’re on a mission to connect a billion people with optimism and civility, and looking for amazing talent to help us get there. \n\n A career at Roblox means you’ll be working to shape the future of human interaction, solving unique technical challenges at scale, and helping to create safer, more civil shared experiences for everyone. \n\n As a Senior Security Auditor on our Internal Audit team, you will play a pivotal role in leading and conducting IT risk evaluations, audits, and readiness exercises across Roblox's dynamic internal technology environment. In this role, you will champion information security and privacy compliance while helping scale our operational objectives. We are looking for an innovative security auditor with strong technical foundations who can work directly with the US based security audit team to design and build cutting-edge, AI-integrated audit programs. You will report to the Internal Audit Manager in Gurugram, India, and partner closely with key cross-functional teams—including Engineering, Information Security, Legal, Trust &amp; Safety, and Finance—to shape a secure and resilient ecosystem at Roblox.\n\n You Will: \n\n Collaborate with US based teams to establish and operationalize an audit program to meet the cybersecurity audit requirements of the California Consumer Privacy Act (CCPA) regulations, including scoping, risk assessment, gap analysis, audit execution, remediation tracking, and reporting. \n\n Utilize AI tools to test the design and operating effectiveness of controls across the cybersecurity control domains, including access controls, data classifications, vulnerability management, production engineering security, cloud security, data security, end-point security, network security, etc.\n\n Execute and support privacy audits to address regulatory requirements and to help management benchmark against industry best practices, identify ways to enhance the overall compliance posture, and streamline processes through automation \n\n Conceive and lead ad hoc analyses of IT &amp; Information security data to support risk-based operational audits\n\n Establish repeatable methods to ensure consistency in results, maintain an up-to-date understanding of evolving regulatory landscapes, and help develop a robust internal knowledge base on security compliance.\n\n Guide the identification and implementation of new processes/controls required by regulatory compliance frameworks, and the remediation of corrective action plans relating to audit findings\n\n Develop audit reports by summarizing audit findings and associated risks, identifying action owners, and aligning on remediation plans with management.\n\n Work with XFN teams (including Engineering, Information Security, Legal, Trust &amp; Safety and Finance) to help create integrated compliance requirements for Roblox\n\n Assist with internal automation efforts and tool implementations\n\n You have: \n\n Bachelor's degree in Information Technology, Informat"
+    }
+  ]
+}
