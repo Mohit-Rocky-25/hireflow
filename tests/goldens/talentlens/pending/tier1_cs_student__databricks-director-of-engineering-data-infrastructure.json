@@ -1,0 +1,84 @@
+{
+  "resumeId": "tier1_cs_student",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 47,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 8,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-event-driven-saas",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 47,
+      "afterScore": 47,
+      "delta": 0
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 47,
+      "afterScore": 51,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
+    },
+    {
+      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
+      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
+    },
+    {
+      "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
+      "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

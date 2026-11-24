@@ -32,40 +32,8 @@
     "bulletsCount": 3,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Databases & SQL"
-      ],
-      "beforeScore": 41,
-      "afterScore": 45,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Databases & SQL"
-      ],
-      "beforeScore": 45,
-      "afterScore": 49,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "| Databases | PostgreSQL, MySQL, Redis | 1 Year |",
@@ -77,7 +45,7 @@
     },
     {
       "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
-      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

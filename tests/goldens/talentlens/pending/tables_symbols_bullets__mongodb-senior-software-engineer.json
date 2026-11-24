@@ -1,7 +1,7 @@
 {
   "resumeId": "tables_symbols_bullets",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 45,
+  "score": 43,
   "band": "Developing",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,13 +23,13 @@
       "score": 40
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -47,6 +41,12 @@
       "score": 40
     },
     {
+      "id": "devops",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
       "id": "systemdesign",
       "status": "demonstrated",
       "confidenceTag": "High",
@@ -55,6 +55,7 @@
   ],
   "strengths": [
     "java",
+    "devops",
     "systemdesign"
   ],
   "parseSummary": {
@@ -65,47 +66,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-realtime-stock-platform",
+      "id": "brief-feature-flag-platform",
       "closes": [
-        "Python",
+        "Go",
         "React"
       ],
-      "relevance": 0.35
+      "relevance": 0.23
+    },
+    {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Python",
+        "Go",
         "React"
       ],
-      "beforeScore": 45,
+      "beforeScore": 43,
       "afterScore": 45,
-      "delta": 0
+      "delta": 2
     },
     {
       "skills": [
-        "Go"
+        "TypeScript"
       ],
       "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "afterScore": 47,
+      "delta": 2
     },
     {
       "skills": [
         "AWS"
       ],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "beforeScore": 47,
+      "afterScore": 49,
       "delta": 2
-    },
-    {
-      "skills": [
-        "Kubernetes"
-      ],
-      "beforeScore": 48,
-      "afterScore": 54,
-      "delta": 6
     }
   ],
   "first3Rewrites": [

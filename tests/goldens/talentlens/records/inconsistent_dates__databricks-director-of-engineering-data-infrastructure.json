@@ -1,0 +1,84 @@
+{
+  "resumeId": "inconsistent_dates",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 12,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 2,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-event-driven-saas",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 12,
+      "afterScore": 16,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 16,
+      "afterScore": 22,
+      "delta": 6
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Designed distributed cloud microservices using Java and Spring Boot.",
+      "output": "Designed distributed cloud microservices using Java and Spring Boot, with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

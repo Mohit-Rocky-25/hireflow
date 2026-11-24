@@ -1,0 +1,90 @@
+{
+  "resumeId": "exaggerated_claims",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 1,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.26
+    },
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.26
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 20,
+      "afterScore": 32,
+      "delta": 12
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 32,
+      "afterScore": 45,
+      "delta": 13
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 45,
+      "afterScore": 57,
+      "delta": 12
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction).",
+      "output": "// Intent: Adversarial resume with impossible metrics (100 billion QPS on single laptop, 99.999999% latency reduction), [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x.",
+      "output": "Managed and directed 50,000 engineers across 40 countries as a college intern while improving system throughput by 1000x, [add: specific role or leadership contribution]."
+    },
+    {
+      "input": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development.",
+      "output": "Reduced cloud infrastructure costs by 99.999% saving 500 crore INR in 2 weeks of development, using [add: architecture or framework, if applicable]."
+    }
+  ],
+  "violations": []
+}

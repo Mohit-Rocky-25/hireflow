@@ -66,49 +66,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-notification-service",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.76
+      "relevance": 0.54
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Application Security"
       ],
       "beforeScore": 46,
-      "afterScore": 74,
-      "delta": 28
+      "afterScore": 48,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 74,
-      "afterScore": 76,
-      "delta": 2
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 48,
+      "afterScore": 49,
+      "delta": 1
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

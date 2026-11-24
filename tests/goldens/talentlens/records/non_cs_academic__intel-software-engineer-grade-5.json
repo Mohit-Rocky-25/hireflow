@@ -40,27 +40,36 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 20,
-      "afterScore": 36,
-      "delta": 16
+      "afterScore": 30,
+      "delta": 10
     },
     {
-      "skills": [],
-      "beforeScore": 36,
-      "afterScore": 44,
-      "delta": 8
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 30,
+      "afterScore": 30,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -70,11 +79,11 @@
     },
     {
       "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
-      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
-      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

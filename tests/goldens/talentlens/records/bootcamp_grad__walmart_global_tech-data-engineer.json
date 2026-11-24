@@ -38,40 +38,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 36,
-      "afterScore": 48,
-      "delta": 12
+      "afterScore": 44,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 48,
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 44,
       "afterScore": 49,
-      "delta": 1
+      "delta": 5
     }
   ],
   "first3Rewrites": [

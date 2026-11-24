@@ -38,54 +38,54 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 21,
-      "afterScore": 38,
-      "delta": 17
+      "afterScore": 49,
+      "delta": 28
     },
     {
-      "skills": [],
-      "beforeScore": 38,
-      "afterScore": 39,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 49,
+      "afterScore": 66,
+      "delta": 17
     }
   ],
   "first3Rewrites": [
     {
       "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
-      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
-      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
-      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

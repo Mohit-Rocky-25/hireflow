@@ -41,31 +41,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
         "Databases & SQL",
         "AWS"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [
-        "Databases & SQL",
-        "AWS"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "aws"
+        "Databases & SQL",
+        "AWS"
       ],
       "beforeScore": 50,
-      "afterScore": 58,
-      "delta": 8
+      "afterScore": 53,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

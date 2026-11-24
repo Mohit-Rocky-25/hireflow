@@ -26,42 +26,42 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "System Design",
-        "DSA"
+        "System Design"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     },
     {
-      "id": "brief-l2-orderbook-matcher",
+      "id": "brief-search-engine",
       "closes": [
-        "System Design",
         "DSA"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "System Design"
       ],
       "beforeScore": 19,
-      "afterScore": 37,
-      "delta": 18
+      "afterScore": 36,
+      "delta": 17
     },
     {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 39,
-      "delta": 2
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 36,
+      "afterScore": 48,
+      "delta": 12
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

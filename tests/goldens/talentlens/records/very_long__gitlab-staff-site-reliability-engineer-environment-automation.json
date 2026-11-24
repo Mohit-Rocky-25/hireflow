@@ -46,37 +46,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.7
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 39,
-      "afterScore": 59,
-      "delta": 20
+      "afterScore": 50,
+      "delta": 11
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 50,
+      "afterScore": 53,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -86,7 +89,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

@@ -32,18 +32,9 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-epoll-async-eventloop",
       "closes": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design",
-        "Databases & SQL"
+        "System Design"
       ],
       "relevance": 1
     }
@@ -51,21 +42,11 @@
   "scorePathSteps": [
     {
       "skills": [
-        "System Design",
-        "Databases & SQL"
+        "System Design"
       ],
       "beforeScore": 22,
-      "afterScore": 26,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "beforeScore": 26,
-      "afterScore": 30,
-      "delta": 4
+      "afterScore": 42,
+      "delta": 20
     }
   ],
   "first3Rewrites": [

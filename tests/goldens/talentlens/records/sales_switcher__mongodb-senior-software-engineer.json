@@ -11,12 +11,6 @@
       "score": 85
     },
     {
-      "id": "python",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
       "id": "golang",
       "status": "not-found",
       "confidenceTag": "Low",
@@ -29,13 +23,13 @@
       "score": 0
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -45,6 +39,12 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -67,48 +67,52 @@
     {
       "id": "brief-api-gateway-scratch",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
         "System Design"
       ],
-      "relevance": 0.67
-    },
-    {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Python",
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "System Design"
-      ],
-      "relevance": 0.67
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes"
+        "Go",
+        "System Design"
       ],
       "beforeScore": 34,
-      "afterScore": 46,
-      "delta": 12
+      "afterScore": 37,
+      "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 37,
+      "afterScore": 39,
       "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 39,
+      "afterScore": 40,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 42,
+      "afterScore": 43,
       "delta": 1
     }
   ],

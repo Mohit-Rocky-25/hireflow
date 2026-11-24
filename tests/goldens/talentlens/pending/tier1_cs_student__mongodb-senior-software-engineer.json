@@ -1,7 +1,7 @@
 {
   "resumeId": "tier1_cs_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 54,
+  "score": 53,
   "band": "Moderate",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,13 +23,13 @@
       "score": 0
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -45,6 +39,12 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -63,35 +63,43 @@
     "sectionsCount": 4,
     "projectsCount": 2,
     "bulletsCount": 8,
-    "skillsDetectedCount": 7
+    "skillsDetectedCount": 6
   },
   "projectsShown": [
     {
-      "id": "brief-realtime-stock-platform",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
-        "Python",
-        "React"
+        "React",
+        "TypeScript"
       ],
-      "relevance": 0.43
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Python",
-        "React"
+        "React",
+        "TypeScript"
       ],
-      "beforeScore": 54,
-      "afterScore": 56,
-      "delta": 2
+      "beforeScore": 53,
+      "afterScore": 54,
+      "delta": 1
     },
     {
       "skills": [
         "AWS"
       ],
-      "beforeScore": 56,
-      "afterScore": 56,
+      "beforeScore": 54,
+      "afterScore": 54,
       "delta": 0
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 54,
+      "afterScore": 56,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -100,12 +108,12 @@
       "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
-      "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",
-      "output": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux"
-    },
-    {
       "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",
       "output": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication, with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript",
+      "output": "Languages: Go, Java, Python, C++, SQL, TypeScript, JavaScript"
     }
   ],
   "violations": []

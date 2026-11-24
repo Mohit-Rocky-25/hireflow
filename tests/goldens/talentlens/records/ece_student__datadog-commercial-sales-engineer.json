@@ -26,28 +26,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "System Design",
-        "DSA"
+        "System Design"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "System Design",
-        "DSA"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 33,
-      "afterScore": 34,
-      "delta": 1
+      "afterScore": 41,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

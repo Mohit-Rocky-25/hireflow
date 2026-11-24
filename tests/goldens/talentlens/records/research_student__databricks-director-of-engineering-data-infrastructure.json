@@ -1,0 +1,84 @@
+{
+  "resumeId": "research_student",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 25,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 2,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-event-driven-saas",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.21
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 25,
+      "afterScore": 35,
+      "delta": 10
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 35,
+      "afterScore": 44,
+      "delta": 9
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Tools: Linux, Git, GDB, Valgrind, CMake",
+      "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
+    },
+    {
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+    }
+  ],
+  "violations": []
+}

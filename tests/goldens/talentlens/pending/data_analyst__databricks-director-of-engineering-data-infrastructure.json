@@ -1,0 +1,90 @@
+{
+  "resumeId": "data_analyst",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 20,
+  "band": "Not Ready",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 0,
+    "bulletsCount": 4,
+    "skillsDetectedCount": 0
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.26
+    },
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.26
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 20,
+      "afterScore": 24,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 24,
+      "afterScore": 28,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 28,
+      "afterScore": 32,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting.",
+      "output": "// Intent: Data Analyst with advanced SQL, Python pandas, Tableau dashboards, and business metric reporting, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake",
+      "output": "Data & Querying: SQL, PostgreSQL, Google BigQuery, Snowflake, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn)",
+      "output": "Programming: Python (Pandas, NumPy, Matplotlib, Seaborn), for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    }
+  ],
+  "violations": []
+}

@@ -46,49 +46,52 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.43
     },
     {
-      "id": "brief-mtls-internal-ca",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 44,
-      "afterScore": 56,
-      "delta": 12
+      "afterScore": 57,
+      "delta": 13
     },
     {
-      "skills": [],
-      "beforeScore": 56,
-      "afterScore": 57,
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 57,
+      "afterScore": 65,
+      "delta": 8
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 65,
+      "afterScore": 66,
       "delta": 1
     }
   ],
   "first3Rewrites": [
     {
       "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
-      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
       "input": "Proficient in containerization with Docker and cluster orchestration with Kubernetes.",
@@ -96,7 +99,7 @@
     },
     {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
-      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

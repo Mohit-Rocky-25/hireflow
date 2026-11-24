@@ -65,49 +65,41 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.61
-    },
-    {
-      "id": "brief-notification-service",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.61
+      "relevance": 0.44
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Application Security"
       ],
       "beforeScore": 34,
-      "afterScore": 46,
-      "delta": 12
+      "afterScore": 39,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 48,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 39,
+      "afterScore": 40,
       "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

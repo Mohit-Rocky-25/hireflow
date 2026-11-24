@@ -11,12 +11,6 @@
       "score": 0
     },
     {
-      "id": "python",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
       "id": "golang",
       "status": "not-found",
       "confidenceTag": "Low",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
-      "status": "mentioned",
+      "id": "databases",
+      "status": "not-found",
       "confidenceTag": "Low",
-      "score": 40
+      "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -58,7 +58,7 @@
     "sectionsCount": 2,
     "projectsCount": 0,
     "bulletsCount": 3,
-    "skillsDetectedCount": 1
+    "skillsDetectedCount": 0
   },
   "projectsShown": [
     {
@@ -69,14 +69,6 @@
         "System Design"
       ],
       "relevance": 0.33
-    },
-    {
-      "id": "brief-realtime-stock-platform",
-      "closes": [
-        "Python",
-        "React"
-      ],
-      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
@@ -92,16 +84,23 @@
     },
     {
       "skills": [
-        "Python",
-        "React"
+        "Java"
       ],
       "beforeScore": 36,
-      "afterScore": 49,
-      "delta": 13
+      "afterScore": 40,
+      "delta": 4
     },
     {
       "skills": [
-        "Java"
+        "React"
+      ],
+      "beforeScore": 40,
+      "afterScore": 49,
+      "delta": 9
+    },
+    {
+      "skills": [
+        "TypeScript"
       ],
       "beforeScore": 49,
       "afterScore": 54,
@@ -112,7 +111,15 @@
         "AWS"
       ],
       "beforeScore": 54,
-      "afterScore": 58,
+      "afterScore": 59,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 59,
+      "afterScore": 63,
       "delta": 4
     }
   ],

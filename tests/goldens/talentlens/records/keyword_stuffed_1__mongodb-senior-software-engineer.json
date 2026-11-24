@@ -11,12 +11,6 @@
       "score": 40
     },
     {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
       "id": "golang",
       "status": "mentioned",
       "confidenceTag": "Low",
@@ -29,19 +23,25 @@
       "score": 40
     },
     {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
       "id": "aws",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -62,52 +62,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-event-sourcing",
       "closes": [
-        "Python",
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL",
-        "System Design"
+        "TypeScript"
       ],
-      "relevance": 0.61
+      "relevance": 0.26
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
+        "System Design"
       ],
-      "relevance": 0.39
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Python",
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL",
-        "System Design"
+        "TypeScript"
       ],
       "beforeScore": 19,
-      "afterScore": 23,
-      "delta": 4
+      "afterScore": 42,
+      "delta": 23
     },
     {
       "skills": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
+        "System Design"
       ],
-      "beforeScore": 23,
-      "afterScore": 27,
-      "delta": 4
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

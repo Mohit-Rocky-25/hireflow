@@ -36,35 +36,16 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-work-stealing-pool",
-      "closes": [
-        "Cpp",
-        "Concurrency"
-      ],
-      "relevance": 0.37
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Cpp",
-        "Concurrency"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing exactly one line of text.",
-      "output": "// Intent: Adversarial resume containing exactly one line of text, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing exactly one line of text, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Experienced Software Engineer seeking high-impact developer roles in top technology companies.",
-      "output": "Experienced Software Engineer seeking high-impact developer roles in top technology companies, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Experienced Software Engineer seeking high-impact developer roles in top technology companies, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

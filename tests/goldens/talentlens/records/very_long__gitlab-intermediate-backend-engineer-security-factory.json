@@ -46,37 +46,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 1
+      "relevance": 0.43
     },
     {
-      "id": "brief-mtls-internal-ca",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 39,
-      "afterScore": 59,
-      "delta": 20
+      "afterScore": 44,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 44,
+      "afterScore": 48,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 48,
+      "afterScore": 53,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
@@ -86,7 +95,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

@@ -38,46 +38,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 26,
-      "afterScore": 45,
-      "delta": 19
+      "afterScore": 49,
+      "delta": 23
     },
     {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 49,
+      "afterScore": 58,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

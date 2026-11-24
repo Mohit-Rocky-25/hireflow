@@ -1,17 +1,11 @@
 {
   "resumeId": "frontend_only",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 50,
+  "score": 55,
   "band": "Moderate",
   "perSkill": [
     {
       "id": "java",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
-      "id": "python",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -29,19 +23,25 @@
       "score": 85
     },
     {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -60,64 +60,59 @@
     "sectionsCount": 4,
     "projectsCount": 2,
     "bulletsCount": 6,
-    "skillsDetectedCount": 1
+    "skillsDetectedCount": 2
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-multi-region-url-shortener",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.73
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
-      ],
-      "relevance": 0.46
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql"
+        "Go",
+        "Databases & SQL",
+        "System Design"
       ],
-      "beforeScore": 50,
-      "afterScore": 51,
+      "beforeScore": 55,
+      "afterScore": 59,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 59,
+      "afterScore": 61,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 61,
+      "afterScore": 62,
       "delta": 1
     },
     {
       "skills": [
-        "java"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 51,
-      "afterScore": 53,
+      "beforeScore": 62,
+      "afterScore": 64,
       "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 54,
-      "delta": 1
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

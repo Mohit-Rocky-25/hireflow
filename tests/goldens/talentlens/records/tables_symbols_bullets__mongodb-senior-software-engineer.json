@@ -1,7 +1,7 @@
 {
   "resumeId": "tables_symbols_bullets",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 45,
+  "score": 43,
   "band": "Developing",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,13 +23,13 @@
       "score": 40
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -47,6 +41,12 @@
       "score": 40
     },
     {
+      "id": "devops",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 70
+    },
+    {
       "id": "systemdesign",
       "status": "demonstrated",
       "confidenceTag": "High",
@@ -55,6 +55,7 @@
   ],
   "strengths": [
     "java",
+    "devops",
     "systemdesign"
   ],
   "parseSummary": {
@@ -65,45 +66,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-feature-flag-platform",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
+        "React"
       ],
-      "relevance": 0.67
+      "relevance": 0.23
     },
     {
-      "id": "brief-idempotency-gateway",
+      "id": "brief-event-sourcing",
       "closes": [
-        "Python",
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
+        "TypeScript"
       ],
-      "relevance": 0.67
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes"
+        "Go",
+        "React"
       ],
-      "beforeScore": 45,
-      "afterScore": 58,
-      "delta": 13
+      "beforeScore": 43,
+      "afterScore": 45,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 58,
-      "afterScore": 59,
-      "delta": 1
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 45,
+      "afterScore": 47,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 47,
+      "afterScore": 49,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

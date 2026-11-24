@@ -34,14 +34,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "System Design"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-dist-cache-rust",
+      "id": "brief-epoll-async-eventloop",
       "closes": [
         "System Design"
       ],
@@ -50,10 +43,12 @@
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 32,
-      "afterScore": 33,
-      "delta": 1
+      "afterScore": 39,
+      "delta": 7
     }
   ],
   "first3Rewrites": [

@@ -40,19 +40,9 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-columnar-compactor",
       "closes": [
         "Python",
-        "Databases & SQL",
-        "AWS"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
       "relevance": 1
@@ -61,22 +51,22 @@
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "AWS"
       ],
       "beforeScore": 20,
-      "afterScore": 33,
-      "delta": 13
+      "afterScore": 29,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

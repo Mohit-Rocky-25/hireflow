@@ -38,19 +38,10 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
-        "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
+        "Databases & SQL"
       ],
       "relevance": 0.42
     }
@@ -58,30 +49,26 @@
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "application security"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 22,
-      "afterScore": 43,
-      "delta": 21
+      "afterScore": 38,
+      "delta": 16
     },
     {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 44,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 44,
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 38,
       "afterScore": 45,
-      "delta": 1
+      "delta": 7
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

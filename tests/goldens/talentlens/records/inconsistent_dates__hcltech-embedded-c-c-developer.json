@@ -32,48 +32,16 @@
     "bulletsCount": 2,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 1
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Databases & SQL"
-      ],
-      "beforeScore": 20,
-      "afterScore": 24,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Databases & SQL"
-      ],
-      "beforeScore": 24,
-      "afterScore": 28,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

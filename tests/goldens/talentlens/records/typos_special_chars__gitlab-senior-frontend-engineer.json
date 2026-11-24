@@ -62,71 +62,57 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.58
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
-        "Databases & SQL"
-      ],
-      "relevance": 0.21
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Databases & SQL",
+        "Application Security"
       ],
       "beforeScore": 21,
-      "afterScore": 34,
-      "delta": 13
+      "afterScore": 40,
+      "delta": 19
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 34,
-      "afterScore": 37,
-      "delta": 3
-    },
-    {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 40,
-      "delta": 3
-    },
-    {
-      "skills": [],
       "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
+      "afterScore": 45,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 45,
+      "afterScore": 54,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
     {
       "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
-      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
-      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
-      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

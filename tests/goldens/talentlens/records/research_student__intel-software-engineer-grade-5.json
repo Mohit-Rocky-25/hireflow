@@ -46,38 +46,32 @@
         "DSA",
         "Concurrency"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA",
-        "Concurrency"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "concurrency"
+        "DSA",
+        "Concurrency"
       ],
       "beforeScore": 32,
-      "afterScore": 48,
-      "delta": 16
+      "afterScore": 54,
+      "delta": 22
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 54,
+      "afterScore": 55,
       "delta": 1
     }
   ],
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

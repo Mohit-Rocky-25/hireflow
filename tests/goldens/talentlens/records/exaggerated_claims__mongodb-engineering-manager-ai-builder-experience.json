@@ -62,59 +62,57 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.46
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 23,
-      "afterScore": 40,
-      "delta": 17
+      "afterScore": 41,
+      "delta": 18
     },
     {
       "skills": [
-        "python"
+        "Go"
       ],
-      "beforeScore": 40,
-      "afterScore": 43,
+      "beforeScore": 41,
+      "afterScore": 44,
       "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 46,
-      "delta": 3
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 44,
+      "afterScore": 49,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 47,
-      "delta": 1
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 49,
+      "afterScore": 54,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 54,
+      "afterScore": 58,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

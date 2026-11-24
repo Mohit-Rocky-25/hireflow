@@ -62,36 +62,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-mlops-platform",
       "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-ab-experimentation",
-      "closes": [
-        "Python",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.46
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "devops & ci/cd"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 19,
-      "afterScore": 29,
-      "delta": 10
+      "afterScore": 42,
+      "delta": 23
     }
   ],
   "first3Rewrites": [

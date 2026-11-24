@@ -44,36 +44,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-high-throughput-logging",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.42
     },
     {
-      "id": "brief-kubernetes-operator",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd"
+        "System Design"
       ],
       "beforeScore": 19,
-      "afterScore": 32,
-      "delta": 13
+      "afterScore": 54,
+      "delta": 35
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 54,
+      "afterScore": 58,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -87,7 +87,7 @@
     },
     {
       "input": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects.",
-      "output": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects"
+      "output": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects."
     }
   ],
   "violations": []

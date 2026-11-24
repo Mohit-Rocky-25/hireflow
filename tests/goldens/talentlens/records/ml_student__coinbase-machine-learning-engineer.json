@@ -44,45 +44,23 @@
     "bulletsCount": 5,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.69
-    },
-    {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [
-        "AWS",
-        "Machine Learning"
-      ],
-      "relevance": 0.42
-    }
-  ],
+  "projectsShown": [],
   "scorePathSteps": [
     {
       "skills": [
-        "aws"
+        "AWS"
       ],
       "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 47,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 47,
       "afterScore": 48,
-      "delta": 1
+      "delta": 6
+    },
+    {
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 48,
+      "afterScore": 50,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -92,7 +70,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",

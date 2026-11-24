@@ -66,46 +66,30 @@
   },
   "projectsShown": [
     {
-      "id": "brief-cdc-pg-elasticsearch",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Python",
         "Go",
-        "DevOps & CI/CD",
         "System Design"
       ],
-      "relevance": 0.64
-    },
-    {
-      "id": "brief-interview-prep-ai",
-      "closes": [
-        "Python",
-        "TypeScript"
-      ],
-      "relevance": 0.32
+      "relevance": 0.23
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "devops & ci/cd"
+        "Go",
+        "System Design"
       ],
       "beforeScore": 44,
-      "afterScore": 55,
-      "delta": 11
+      "afterScore": 48,
+      "delta": 4
     },
     {
       "skills": [
-        "typescript"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 55,
-      "afterScore": 57,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 58,
+      "beforeScore": 48,
+      "afterScore": 49,
       "delta": 1
     }
   ],

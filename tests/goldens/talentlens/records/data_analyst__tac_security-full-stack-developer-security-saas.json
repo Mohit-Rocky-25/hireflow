@@ -34,37 +34,29 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 17,
-      "afterScore": 41,
-      "delta": 24
+      "afterScore": 24,
+      "delta": 7
     },
     {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 49,
-      "delta": 8
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 24,
+      "afterScore": 28,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

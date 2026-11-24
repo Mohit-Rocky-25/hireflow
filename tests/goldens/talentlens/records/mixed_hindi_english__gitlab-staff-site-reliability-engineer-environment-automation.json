@@ -44,51 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-high-throughput-logging",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-kubernetes-operator",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 1
+      "relevance": 0.54
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 26,
-      "afterScore": 44,
-      "delta": 18
+      "afterScore": 48,
+      "delta": 22
     },
     {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 48,
+      "afterScore": 56,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

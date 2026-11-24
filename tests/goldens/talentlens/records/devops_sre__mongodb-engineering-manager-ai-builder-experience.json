@@ -66,19 +66,10 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL"
-      ],
-      "relevance": 0.64
-    },
-    {
-      "id": "brief-clickstream-clickhouse",
+      "id": "brief-feature-flag-platform",
       "closes": [
         "Go",
+        "React",
         "Databases & SQL"
       ],
       "relevance": 0.28
@@ -87,21 +78,20 @@
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql"
+        "Go",
+        "React",
+        "Databases & SQL"
       ],
       "beforeScore": 35,
-      "afterScore": 52,
-      "delta": 17
+      "afterScore": 40,
+      "delta": 5
     },
     {
       "skills": [
-        "go"
+        "TypeScript"
       ],
-      "beforeScore": 52,
-      "afterScore": 54,
+      "beforeScore": 40,
+      "afterScore": 42,
       "delta": 2
     }
   ],

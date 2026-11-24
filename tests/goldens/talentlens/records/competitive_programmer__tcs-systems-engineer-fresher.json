@@ -38,36 +38,37 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
       "beforeScore": 36,
-      "afterScore": 37,
-      "delta": 1
+      "afterScore": 44,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 38,
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 44,
+      "afterScore": 45,
       "delta": 1
     }
   ],
@@ -78,7 +79,7 @@
     },
     {
       "input": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.",
-      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.",

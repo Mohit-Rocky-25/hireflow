@@ -32,34 +32,27 @@
       "closes": [
         "DSA"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 17,
-      "afterScore": 31,
-      "delta": 14
+      "afterScore": 25,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

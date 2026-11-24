@@ -40,28 +40,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-search-engine",
       "closes": [
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.36
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "Databases & SQL"
-      ],
-      "relevance": 0.36
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 32,
-      "afterScore": 34,
-      "delta": 2
+      "afterScore": 35,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -71,11 +64,11 @@
     },
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

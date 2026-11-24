@@ -40,39 +40,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
-        "AWS",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.6
     },
     {
-      "id": "brief-react-tool-gateway",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "AWS",
-        "System Design"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "System Design"
       ],
       "beforeScore": 36,
-      "afterScore": 45,
-      "delta": 9
+      "afterScore": 44,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 46,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 44,
+      "afterScore": 49,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

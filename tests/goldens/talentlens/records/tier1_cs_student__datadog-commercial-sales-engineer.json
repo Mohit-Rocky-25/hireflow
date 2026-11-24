@@ -32,24 +32,17 @@
       "closes": [
         "DSA"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 56,
-      "afterScore": 72,
-      "delta": 16
+      "afterScore": 58,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -59,7 +52,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

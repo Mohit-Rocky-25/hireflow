@@ -32,36 +32,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-schema-registry",
       "closes": [
         "System Design",
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "System Design",
+        "Databases & SQL"
       ],
       "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
+      "afterScore": 46,
+      "delta": 6
     }
   ],
   "first3Rewrites": [
@@ -75,7 +62,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

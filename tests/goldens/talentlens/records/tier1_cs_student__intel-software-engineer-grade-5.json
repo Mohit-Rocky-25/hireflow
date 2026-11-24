@@ -42,25 +42,34 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp"
+        "C++"
       ],
-      "relevance": 0.23
+      "relevance": 0.26
+    },
+    {
+      "id": "brief-container-runtime",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp"
+        "C++"
       ],
       "beforeScore": 49,
-      "afterScore": 67,
-      "delta": 18
+      "afterScore": 51,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 67,
-      "afterScore": 73,
-      "delta": 6
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 51,
+      "afterScore": 51,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -74,7 +83,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     }
   ],
   "violations": []

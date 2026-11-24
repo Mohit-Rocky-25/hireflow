@@ -40,27 +40,19 @@
     {
       "id": "brief-search-engine",
       "closes": [
-        "DSA",
-        "Python"
+        "DSA"
       ],
-      "relevance": 0.57
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.23
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 38,
-      "afterScore": 44,
-      "delta": 6
+      "afterScore": 46,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

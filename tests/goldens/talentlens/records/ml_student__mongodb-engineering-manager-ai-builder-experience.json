@@ -64,53 +64,55 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-mlops-platform",
       "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.55
-    },
-    {
-      "id": "brief-cdc-pg-elasticsearch",
-      "closes": [
-        "Go",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.42
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 34,
-      "afterScore": 46,
-      "delta": 12
+      "afterScore": 35,
+      "delta": 1
     },
     {
       "skills": [
-        "go"
+        "Go"
       ],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "beforeScore": 35,
+      "afterScore": 37,
       "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 39,
+      "afterScore": 40,
       "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -124,7 +126,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

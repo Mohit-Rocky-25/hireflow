@@ -32,42 +32,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-schema-registry",
       "closes": [
         "System Design",
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "System Design",
+        "Databases & SQL"
       ],
       "beforeScore": 33,
-      "afterScore": 34,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 34,
-      "afterScore": 35,
-      "delta": 1
+      "afterScore": 44,
+      "delta": 11
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

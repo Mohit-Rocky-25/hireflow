@@ -40,15 +40,6 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
-      "closes": [
-        "Node.js",
-        "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.85
-    },
-    {
       "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
@@ -60,38 +51,34 @@
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "application security"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 20,
-      "afterScore": 46,
-      "delta": 26
+      "afterScore": 41,
+      "delta": 21
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 52,
-      "delta": 6
-    },
-    {
-      "skills": [],
-      "beforeScore": 52,
-      "afterScore": 53,
-      "delta": 1
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 41,
+      "afterScore": 51,
+      "delta": 10
     }
   ],
   "first3Rewrites": [
     {
       "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
-      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
-      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.",
-      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

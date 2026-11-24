@@ -41,17 +41,8 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Python",
-        "System Design"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-geval-eval-harness",
-      "closes": [
-        "Python",
         "System Design"
       ],
       "relevance": 1
@@ -59,10 +50,12 @@
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "System Design"
+      ],
       "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "afterScore": 56,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

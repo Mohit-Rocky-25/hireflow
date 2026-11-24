@@ -1,0 +1,84 @@
+{
+  "resumeId": "tier3_cs_student",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 38,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    }
+  ],
+  "strengths": [
+    "react"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 10,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 38,
+      "afterScore": 38,
+      "delta": 0
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 38,
+      "afterScore": 42,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB",
+      "output": "Campus Marketplace Web Application | React, Node.js, Express, MongoDB"
+    },
+    {
+      "input": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS",
+      "output": "Web Development: React, Node.js, Express, Spring Boot, HTML5, CSS3, Tailwind CSS"
+    },
+    {
+      "input": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS",
+      "output": "Core Fundamentals: DSA, Data Structures, Algorithms, OOP, System Design, DBMS"
+    }
+  ],
+  "violations": []
+}

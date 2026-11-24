@@ -38,19 +38,10 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
-        "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
+        "Databases & SQL"
       ],
       "relevance": 0.42
     }
@@ -58,30 +49,26 @@
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "application security"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 14,
-      "afterScore": 34,
-      "delta": 20
+      "afterScore": 44,
+      "delta": 30
     },
     {
-      "skills": [],
-      "beforeScore": 34,
-      "afterScore": 35,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 35,
-      "afterScore": 39,
-      "delta": 4
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 44,
+      "afterScore": 51,
+      "delta": 7
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",

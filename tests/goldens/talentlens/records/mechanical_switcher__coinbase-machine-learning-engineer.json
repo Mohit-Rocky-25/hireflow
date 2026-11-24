@@ -47,39 +47,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.6
-    },
-    {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Machine Learning"
       ],
-      "relevance": 0.27
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "Machine Learning"
+      ],
       "beforeScore": 49,
-      "afterScore": 50,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 50,
-      "afterScore": 53,
+      "afterScore": 52,
       "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 53,
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 52,
       "afterScore": 54,
-      "delta": 1
+      "delta": 2
     }
   ],
   "first3Rewrites": [

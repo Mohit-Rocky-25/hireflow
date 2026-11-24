@@ -41,15 +41,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
-      "closes": [
-        "Python",
-        "AWS"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-computer-vision-api",
+      "id": "brief-columnar-compactor",
       "closes": [
         "Python",
         "AWS"
@@ -60,12 +52,12 @@
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "AWS"
       ],
       "beforeScore": 68,
-      "afterScore": 72,
-      "delta": 4
+      "afterScore": 68,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -75,7 +67,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

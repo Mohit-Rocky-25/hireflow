@@ -38,40 +38,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 25,
-      "afterScore": 38,
-      "delta": 13
+      "afterScore": 41,
+      "delta": 16
     },
     {
-      "skills": [],
-      "beforeScore": 38,
-      "afterScore": 39,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 41,
+      "afterScore": 50,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
@@ -81,7 +81,7 @@
     },
     {
       "input": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.",
-      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.",

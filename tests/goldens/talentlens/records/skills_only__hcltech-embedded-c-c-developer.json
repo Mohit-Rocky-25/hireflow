@@ -32,42 +32,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-schema-registry",
       "closes": [
         "System Design",
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "System Design",
+        "Databases & SQL"
       ],
       "beforeScore": 22,
-      "afterScore": 30,
-      "delta": 8
-    },
-    {
-      "skills": [],
-      "beforeScore": 30,
-      "afterScore": 31,
-      "delta": 1
+      "afterScore": 56,
+      "delta": 34
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",

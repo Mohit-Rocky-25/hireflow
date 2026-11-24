@@ -66,40 +66,25 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.56
-    },
-    {
-      "id": "brief-notification-service",
-      "closes": [
-        "React",
-        "TypeScript",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.56
+      "relevance": 0.7
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Application Security"
       ],
       "beforeScore": 47,
-      "afterScore": 67,
-      "delta": 20
-    },
-    {
-      "skills": [],
-      "beforeScore": 67,
-      "afterScore": 68,
-      "delta": 1
+      "afterScore": 47,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

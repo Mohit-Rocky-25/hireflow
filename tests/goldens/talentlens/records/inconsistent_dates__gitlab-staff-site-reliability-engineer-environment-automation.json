@@ -46,47 +46,50 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.7
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 20,
-      "afterScore": 38,
-      "delta": 18
+      "afterScore": 31,
+      "delta": 11
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 31,
+      "afterScore": 39,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

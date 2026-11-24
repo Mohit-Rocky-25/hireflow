@@ -65,19 +65,9 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "TypeScript",
-        "Kubernetes",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.63
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
         "Databases & SQL"
       ],
       "relevance": 0.28
@@ -86,27 +76,35 @@
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "TypeScript",
+        "Databases & SQL"
       ],
       "beforeScore": 41,
-      "afterScore": 44,
-      "delta": 3
+      "afterScore": 41,
+      "delta": 0
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 44,
-      "afterScore": 47,
-      "delta": 3
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 47,
-      "afterScore": 48,
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 43,
+      "afterScore": 45,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 45,
+      "afterScore": 46,
       "delta": 1
     }
   ],

@@ -38,44 +38,21 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "Python",
-        "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
-      "relevance": 0.7
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [
-        "Python",
-        "Databases & SQL",
-        "AWS"
-      ],
-      "relevance": 0.7
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "Python",
-        "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "beforeScore": 19,
-      "afterScore": 23,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Python",
-        "Databases & SQL",
-        "AWS"
-      ],
-      "beforeScore": 23,
-      "afterScore": 27,
-      "delta": 4
+      "afterScore": 54,
+      "delta": 35
     }
   ],
   "first3Rewrites": [

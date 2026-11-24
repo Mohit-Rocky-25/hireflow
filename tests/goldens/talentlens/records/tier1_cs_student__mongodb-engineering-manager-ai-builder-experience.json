@@ -66,44 +66,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.64
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD"
+        "React"
       ],
-      "relevance": 0.56
+      "relevance": 0.35
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "React"
       ],
       "beforeScore": 49,
-      "afterScore": 75,
-      "delta": 26
+      "afterScore": 51,
+      "delta": 2
     },
     {
       "skills": [
-        "python"
+        "AWS"
       ],
-      "beforeScore": 75,
-      "afterScore": 77,
-      "delta": 2
+      "beforeScore": 51,
+      "afterScore": 51,
+      "delta": 0
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 51,
+      "afterScore": 52,
+      "delta": 1
     }
   ],
   "first3Rewrites": [
@@ -113,7 +108,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

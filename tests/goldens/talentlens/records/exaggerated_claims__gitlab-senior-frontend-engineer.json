@@ -62,57 +62,51 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.58
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
-        "Databases & SQL"
-      ],
-      "relevance": 0.21
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Databases & SQL",
+        "Application Security"
       ],
       "beforeScore": 23,
-      "afterScore": 40,
-      "delta": 17
+      "afterScore": 45,
+      "delta": 22
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 40,
-      "afterScore": 43,
-      "delta": 3
+      "beforeScore": 45,
+      "afterScore": 50,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 46,
-      "delta": 3
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 50,
+      "afterScore": 54,
+      "delta": 4
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 47,
-      "delta": 1
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 54,
+      "afterScore": 59,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

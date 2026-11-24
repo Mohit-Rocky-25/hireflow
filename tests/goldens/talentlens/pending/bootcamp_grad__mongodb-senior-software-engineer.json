@@ -1,17 +1,11 @@
 {
   "resumeId": "bootcamp_grad",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 40,
+  "score": 41,
   "band": "Developing",
   "perSkill": [
     {
       "id": "java",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
-      "id": "python",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -29,13 +23,13 @@
       "score": 85
     },
     {
-      "id": "aws",
-      "status": "not-found",
+      "id": "typescript",
+      "status": "mentioned",
       "confidenceTag": "Low",
-      "score": 0
+      "score": 40
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -45,6 +39,12 @@
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -60,7 +60,7 @@
     "sectionsCount": 3,
     "projectsCount": 2,
     "bulletsCount": 6,
-    "skillsDetectedCount": 2
+    "skillsDetectedCount": 3
   },
   "projectsShown": [
     {
@@ -80,21 +80,13 @@
         "Databases & SQL",
         "System Design"
       ],
-      "beforeScore": 40,
-      "afterScore": 43,
-      "delta": 3
+      "beforeScore": 41,
+      "afterScore": 45,
+      "delta": 4
     },
     {
       "skills": [
         "Java"
-      ],
-      "beforeScore": 43,
-      "afterScore": 45,
-      "delta": 2
-    },
-    {
-      "skills": [
-        "Python"
       ],
       "beforeScore": 45,
       "afterScore": 46,
@@ -110,7 +102,7 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 48,
       "afterScore": 49,

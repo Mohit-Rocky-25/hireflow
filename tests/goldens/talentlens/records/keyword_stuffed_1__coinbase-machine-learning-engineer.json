@@ -44,31 +44,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.76
-    },
-    {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
-        "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.54
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "Machine Learning"
+      ],
       "beforeScore": 19,
-      "afterScore": 28,
-      "delta": 9
+      "afterScore": 50,
+      "delta": 31
+    },
+    {
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 50,
+      "afterScore": 56,
+      "delta": 6
     }
   ],
   "first3Rewrites": [
@@ -82,7 +80,7 @@
     },
     {
       "input": "Project 1: Used Java, Python, Go, React, and Docker.",
-      "output": "Project 1: Used Java, Python, Go, React, and Docker"
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
     }
   ],
   "violations": []

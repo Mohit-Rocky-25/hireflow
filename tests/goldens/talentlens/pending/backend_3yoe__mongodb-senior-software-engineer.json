@@ -1,7 +1,7 @@
 {
   "resumeId": "backend_3yoe",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 49,
+  "score": 43,
   "band": "Developing",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,22 +23,28 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
     },
     {
-      "id": "kubernetes",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
       "id": "databases",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -63,42 +63,44 @@
     "sectionsCount": 4,
     "projectsCount": 2,
     "bulletsCount": 11,
-    "skillsDetectedCount": 6
+    "skillsDetectedCount": 4
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
         "Go",
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.3
+      "relevance": 0.23
     },
     {
-      "id": "brief-realtime-stock-platform",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
-        "React"
+        "React",
+        "TypeScript"
       ],
-      "relevance": 0.25
+      "relevance": 0.23
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
         "Go",
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 49,
-      "afterScore": 50,
-      "delta": 1
+      "beforeScore": 43,
+      "afterScore": 46,
+      "delta": 3
     },
     {
       "skills": [
-        "React"
+        "React",
+        "TypeScript"
       ],
-      "beforeScore": 50,
-      "afterScore": 52,
-      "delta": 2
+      "beforeScore": 46,
+      "afterScore": 49,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

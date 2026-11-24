@@ -62,58 +62,56 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.46
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 25,
-      "afterScore": 37,
-      "delta": 12
+      "afterScore": 30,
+      "delta": 5
     },
     {
       "skills": [
-        "python"
+        "Go"
       ],
-      "beforeScore": 37,
-      "afterScore": 40,
-      "delta": 3
+      "beforeScore": 30,
+      "afterScore": 31,
+      "delta": 1
     },
     {
-      "skills": [],
-      "beforeScore": 40,
-      "afterScore": 44,
-      "delta": 4
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 31,
+      "afterScore": 33,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 35,
+      "afterScore": 36,
       "delta": 1
     }
   ],
@@ -124,11 +122,11 @@
     },
     {
       "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
-      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
-      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

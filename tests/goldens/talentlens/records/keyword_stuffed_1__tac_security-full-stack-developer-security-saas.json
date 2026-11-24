@@ -34,36 +34,21 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
       "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 10,
-      "afterScore": 30,
-      "delta": 20
-    },
-    {
-      "skills": [],
-      "beforeScore": 30,
-      "afterScore": 37,
-      "delta": 7
+      "afterScore": 38,
+      "delta": 28
     }
   ],
   "first3Rewrites": [
@@ -77,7 +62,7 @@
     },
     {
       "input": "Project 1: Used Java, Python, Go, React, and Docker.",
-      "output": "Project 1: Used Java, Python, Go, React, and Docker"
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
     }
   ],
   "violations": []

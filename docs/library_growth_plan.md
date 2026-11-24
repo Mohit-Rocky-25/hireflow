@@ -3,8 +3,8 @@
 Generated programmatically by `scripts/verifyTalentLens.ts` during Stage 7 verification.
 
 ## Catalog Overview
-- Total Companies in Dataset: 235
-- Total Roles in Dataset: 1728
+- Total Companies in Dataset: 246
+- Total Roles in Dataset: 2061
 - Total Project Briefs in Catalog: 164
 
 ## Priority Domains & Spec Outlines

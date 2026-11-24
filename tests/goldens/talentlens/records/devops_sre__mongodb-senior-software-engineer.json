@@ -1,20 +1,14 @@
 {
   "resumeId": "devops_sre",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 39,
-  "band": "Developing",
+  "score": 30,
+  "band": "Not Ready",
   "perSkill": [
     {
       "id": "java",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
-    },
-    {
-      "id": "python",
-      "status": "demonstrated",
-      "confidenceTag": "High",
-      "score": 85
     },
     {
       "id": "golang",
@@ -29,22 +23,28 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "kubernetes",
-      "status": "demonstrated",
-      "confidenceTag": "High",
-      "score": 85
-    },
-    {
       "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
+    },
+    {
+      "id": "devops",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
     },
     {
       "id": "systemdesign",
@@ -54,60 +54,58 @@
     }
   ],
   "strengths": [
-    "python",
-    "kubernetes",
+    "devops",
     "systemdesign"
   ],
   "parseSummary": {
     "sectionsCount": 3,
     "projectsCount": 0,
     "bulletsCount": 5,
-    "skillsDetectedCount": 4
+    "skillsDetectedCount": 3
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
-      "closes": [
-        "Go",
-        "AWS",
-        "Databases & SQL"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
-        "AWS",
         "Databases & SQL"
       ],
-      "relevance": 0.48
+      "relevance": 0.29
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
-      "beforeScore": 39,
-      "afterScore": 53,
-      "delta": 14
+      "beforeScore": 30,
+      "afterScore": 33,
+      "delta": 3
     },
     {
       "skills": [
-        "java"
+        "Go"
       ],
-      "beforeScore": 53,
-      "afterScore": 56,
-      "delta": 3
+      "beforeScore": 33,
+      "afterScore": 34,
+      "delta": 1
     },
     {
-      "skills": [],
-      "beforeScore": 56,
-      "afterScore": 59,
-      "delta": 3
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 34,
+      "afterScore": 36,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 36,
+      "afterScore": 38,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -120,8 +118,8 @@
       "output": "Cloud & Orchestration: AWS, Kubernetes, Docker, Helm, ArgoCD, ECS"
     },
     {
-      "input": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux",
-      "output": "Observability & Scripting: Prometheus, Grafana, Alertmanager, ELK Stack, Python, Bash, Linux"
+      "input": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, RDS instances, and IAM roles across 3 regions.",
+      "output": "Authored Infrastructure as Code (IaC) modules using Terraform to provision VPCs, security groups, with [add: measured metric or scale, if applicable].\nRDS instances, and IAM roles across 3 regions, with [add: measured metric or scale, if applicable]."
     }
   ],
   "violations": []

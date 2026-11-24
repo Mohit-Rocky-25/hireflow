@@ -46,43 +46,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.7
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 33,
-      "afterScore": 48,
-      "delta": 15
+      "afterScore": 51,
+      "delta": 18
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 51,
+      "afterScore": 59,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

@@ -41,40 +41,20 @@
       "id": "brief-zero-trust-proxy",
       "closes": [
         "Node.js",
-        "Databases & SQL",
         "Application Security"
       ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
-      ],
-      "relevance": 0.42
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "application security"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 14,
-      "afterScore": 29,
-      "delta": 15
-    },
-    {
-      "skills": [],
-      "beforeScore": 29,
-      "afterScore": 34,
-      "delta": 5
-    },
-    {
-      "skills": [],
-      "beforeScore": 34,
-      "afterScore": 35,
-      "delta": 1
+      "afterScore": 38,
+      "delta": 24
     }
   ],
   "first3Rewrites": [

@@ -40,31 +40,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA",
-        "Python"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 42,
-      "afterScore": 57,
-      "delta": 15
+      "afterScore": 49,
+      "delta": 7
     }
   ],
   "first3Rewrites": [
@@ -74,7 +66,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

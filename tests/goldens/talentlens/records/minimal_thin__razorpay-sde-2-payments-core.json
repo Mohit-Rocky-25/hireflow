@@ -38,19 +38,10 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
-        "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
+        "Databases & SQL"
       ],
       "relevance": 0.42
     }
@@ -58,30 +49,26 @@
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "application security"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 17,
-      "afterScore": 36,
-      "delta": 19
+      "afterScore": 17,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 36,
-      "afterScore": 41,
-      "delta": 5
-    },
-    {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 17,
+      "afterScore": 17,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

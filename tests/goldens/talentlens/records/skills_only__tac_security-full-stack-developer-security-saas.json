@@ -34,37 +34,27 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 10,
-      "afterScore": 37,
-      "delta": 27
+      "afterScore": 42,
+      "delta": 32
     },
     {
       "skills": [],
-      "beforeScore": 37,
-      "afterScore": 44,
-      "delta": 7
+      "beforeScore": 42,
+      "afterScore": 47,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
@@ -74,7 +64,7 @@
     },
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",

@@ -44,52 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.76
-    },
-    {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.54
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "Machine Learning"
       ],
       "beforeScore": 25,
-      "afterScore": 36,
-      "delta": 11
-    },
-    {
-      "skills": [],
-      "beforeScore": 36,
-      "afterScore": 37,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 42,
+      "afterScore": 30,
       "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 30,
+      "afterScore": 37,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -99,11 +86,11 @@
     },
     {
       "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
-      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
-      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

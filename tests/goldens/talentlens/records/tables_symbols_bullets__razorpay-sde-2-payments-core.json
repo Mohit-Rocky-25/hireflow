@@ -43,34 +43,20 @@
       "id": "brief-zero-trust-proxy",
       "closes": [
         "Node.js",
-        "Databases & SQL",
         "Application Security"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [
-        "Node.js",
-        "Databases & SQL"
-      ],
-      "relevance": 0.6
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "application security"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 38,
-      "afterScore": 50,
-      "delta": 12
-    },
-    {
-      "skills": [],
-      "beforeScore": 50,
-      "afterScore": 52,
-      "delta": 2
+      "afterScore": 47,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
@@ -84,7 +70,7 @@
     },
     {
       "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
-      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

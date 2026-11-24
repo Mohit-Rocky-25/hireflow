@@ -40,42 +40,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-double-entry-ledger",
+      "id": "brief-homomorphic-encryption",
       "closes": [
         "Databases & SQL",
-        "System Design"
+        "Application Security"
       ],
-      "relevance": 0.6
-    },
-    {
-      "id": "brief-velocity-fraud-detector",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
-      ],
-      "relevance": 0.6
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "Databases & SQL",
+        "Application Security"
       ],
       "beforeScore": 28,
-      "afterScore": 41,
-      "delta": 13
-    },
-    {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 46,
-      "delta": 5
-    },
-    {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 47,
-      "delta": 1
+      "afterScore": 52,
+      "delta": 24
     }
   ],
   "first3Rewrites": [

@@ -34,37 +34,29 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 22,
-      "afterScore": 46,
-      "delta": 24
+      "afterScore": 29,
+      "delta": 7
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 53,
-      "delta": 7
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 29,
+      "afterScore": 33,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -74,7 +66,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",

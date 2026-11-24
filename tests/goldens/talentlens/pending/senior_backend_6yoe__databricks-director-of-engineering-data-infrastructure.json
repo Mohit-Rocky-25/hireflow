@@ -1,0 +1,70 @@
+{
+  "resumeId": "senior_backend_6yoe",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 40,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "aws",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 16,
+    "skillsDetectedCount": 3
+  },
+  "projectsShown": [
+    {
+      "id": "brief-event-driven-saas",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.5
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 40,
+      "afterScore": 40,
+      "delta": 0
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git",
+      "output": "DevOps & Cloud: Kubernetes, Docker, AWS, Terraform, Prometheus, CI/CD, Linux, Git"
+    },
+    {
+      "input": "Frameworks & Libraries: Spring Boot, Node.js, Express, gRPC, React",
+      "output": "Frameworks & Libraries: Spring Boot, Node.js, Express, gRPC, React"
+    },
+    {
+      "input": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS",
+      "output": "High-Scale Transaction Routing Gateway | Java, Spring Boot, PostgreSQL, Kafka, AWS"
+    }
+  ],
+  "violations": []
+}

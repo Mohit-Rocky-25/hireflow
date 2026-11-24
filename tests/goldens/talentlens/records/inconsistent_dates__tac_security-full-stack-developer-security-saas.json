@@ -34,47 +34,39 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 11,
-      "afterScore": 35,
-      "delta": 24
+      "afterScore": 18,
+      "delta": 7
     },
     {
-      "skills": [],
-      "beforeScore": 35,
-      "afterScore": 43,
-      "delta": 8
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 18,
+      "afterScore": 21,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

@@ -44,49 +44,45 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 28,
-      "afterScore": 47,
-      "delta": 19
+      "afterScore": 33,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 47,
-      "afterScore": 48,
-      "delta": 1
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 33,
+      "afterScore": 40,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 40,
+      "afterScore": 44,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

@@ -40,46 +40,50 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-database-engine",
       "closes": [
         "Databases & SQL"
       ],
-      "relevance": 0.36
+      "relevance": 0.42
     },
     {
-      "id": "brief-event-sourcing",
+      "id": "brief-search-engine",
       "closes": [
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.36
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "Databases & SQL"
       ],
       "beforeScore": 46,
-      "afterScore": 50,
-      "delta": 4
+      "afterScore": 55,
+      "delta": 9
     },
     {
-      "skills": [],
-      "beforeScore": 50,
-      "afterScore": 53,
-      "delta": 3
-    },
-    {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 54,
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 55,
+      "afterScore": 56,
       "delta": 1
+    },
+    {
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 56,
+      "afterScore": 61,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
     {
       "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
-      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
       "input": "Responsible for designing resilient event-driven data pipelines and solving complex DSA problems.",
@@ -87,7 +91,7 @@
     },
     {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
-      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

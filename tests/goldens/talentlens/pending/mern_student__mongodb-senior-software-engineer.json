@@ -1,17 +1,11 @@
 {
   "resumeId": "mern_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 38,
+  "score": 39,
   "band": "Developing",
   "perSkill": [
     {
       "id": "java",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
-      "id": "python",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -29,22 +23,28 @@
       "score": 85
     },
     {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
       "id": "aws",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 70
     },
     {
-      "id": "kubernetes",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
       "id": "databases",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -62,7 +62,7 @@
     "sectionsCount": 3,
     "projectsCount": 2,
     "bulletsCount": 6,
-    "skillsDetectedCount": 3
+    "skillsDetectedCount": 4
   },
   "projectsShown": [
     {
@@ -80,21 +80,13 @@
         "Go",
         "System Design"
       ],
-      "beforeScore": 38,
-      "afterScore": 41,
+      "beforeScore": 39,
+      "afterScore": 42,
       "delta": 3
     },
     {
       "skills": [
         "Java"
-      ],
-      "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
-    },
-    {
-      "skills": [
-        "Python"
       ],
       "beforeScore": 42,
       "afterScore": 44,
@@ -102,7 +94,7 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 44,
       "afterScore": 46,

@@ -42,60 +42,12 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-high-throughput-logging",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-kubernetes-operator",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 1
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
-      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

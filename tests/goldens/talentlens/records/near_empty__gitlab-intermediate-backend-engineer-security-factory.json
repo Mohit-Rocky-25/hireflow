@@ -42,56 +42,12 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-oidc-pkce-server",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
-      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

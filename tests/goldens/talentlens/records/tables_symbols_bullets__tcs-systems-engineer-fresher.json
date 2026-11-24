@@ -45,24 +45,17 @@
       "closes": [
         "DSA"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 53,
-      "afterScore": 54,
-      "delta": 1
+      "afterScore": 57,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

@@ -40,39 +40,42 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 22,
-      "afterScore": 39,
-      "delta": 17
+      "afterScore": 33,
+      "delta": 11
     },
     {
-      "skills": [],
-      "beforeScore": 39,
-      "afterScore": 49,
-      "delta": 10
-    },
-    {
-      "skills": [],
-      "beforeScore": 49,
-      "afterScore": 54,
-      "delta": 5
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

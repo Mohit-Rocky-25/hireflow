@@ -1,0 +1,70 @@
+{
+  "resumeId": "backend_3yoe",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 35,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "aws",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "systemdesign",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    }
+  ],
+  "strengths": [
+    "aws",
+    "systemdesign"
+  ],
+  "parseSummary": {
+    "sectionsCount": 4,
+    "projectsCount": 2,
+    "bulletsCount": 11,
+    "skillsDetectedCount": 2
+  },
+  "projectsShown": [
+    {
+      "id": "brief-event-driven-saas",
+      "closes": [
+        "React"
+      ],
+      "relevance": 0.5
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 35,
+      "afterScore": 40,
+      "delta": 5
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman",
+      "output": "Infrastructure & Tools: Docker, Kubernetes, AWS, Git, Maven, JUnit, Postman"
+    },
+    {
+      "input": "Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines.",
+      "output": "Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines."
+    },
+    {
+      "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL."
+    }
+  ],
+  "violations": []
+}

@@ -34,37 +34,27 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 12,
-      "afterScore": 39,
-      "delta": 27
+      "afterScore": 12,
+      "delta": 0
     },
     {
       "skills": [],
-      "beforeScore": 39,
-      "afterScore": 46,
-      "delta": 7
+      "beforeScore": 12,
+      "afterScore": 12,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -74,7 +64,7 @@
     },
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

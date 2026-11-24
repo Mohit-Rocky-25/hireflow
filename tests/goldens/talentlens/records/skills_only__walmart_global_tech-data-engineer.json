@@ -38,40 +38,40 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 19,
-      "afterScore": 41,
-      "delta": 22
+      "afterScore": 64,
+      "delta": 45
     },
     {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 42,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 64,
+      "afterScore": 68,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -85,7 +85,7 @@
     },
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

@@ -26,36 +26,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "System Design",
-        "DSA"
+        "System Design"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     },
     {
-      "id": "brief-l2-orderbook-matcher",
+      "id": "brief-search-engine",
       "closes": [
-        "System Design",
         "DSA"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "System Design"
       ],
       "beforeScore": 30,
-      "afterScore": 46,
-      "delta": 16
+      "afterScore": 38,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 47,
-      "delta": 1
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 38,
+      "afterScore": 44,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

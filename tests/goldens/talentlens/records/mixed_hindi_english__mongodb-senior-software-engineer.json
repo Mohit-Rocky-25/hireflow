@@ -11,12 +11,6 @@
       "score": 40
     },
     {
-      "id": "python",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
       "id": "golang",
       "status": "not-found",
       "confidenceTag": "Low",
@@ -29,19 +23,25 @@
       "score": 40
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -62,46 +62,49 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-multi-region-url-shortener",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.61
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
-      ],
-      "relevance": 0.39
+      "relevance": 0.38
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql"
+        "Go",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 21,
-      "afterScore": 43,
-      "delta": 22
+      "afterScore": 36,
+      "delta": 15
     },
     {
-      "skills": [],
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 36,
+      "afterScore": 40,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 43,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
       "beforeScore": 43,
-      "afterScore": 44,
-      "delta": 1
+      "afterScore": 47,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -111,7 +114,7 @@
     },
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Database queries ko index karke latency 40% kam kar diya aur throughput badha diya.",

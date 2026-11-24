@@ -32,36 +32,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-schema-registry",
       "closes": [
         "System Design",
         "Databases & SQL"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "System Design",
-        "Databases & SQL"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql"
+        "System Design",
+        "Databases & SQL"
       ],
       "beforeScore": 38,
-      "afterScore": 39,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 39,
-      "afterScore": 40,
-      "delta": 1
+      "afterScore": 44,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

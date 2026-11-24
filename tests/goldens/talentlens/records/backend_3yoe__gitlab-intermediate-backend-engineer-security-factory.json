@@ -47,34 +47,25 @@
   },
   "projectsShown": [
     {
-      "id": "brief-realtime-code-execution",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-tls-certificate-manager",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 55,
-      "afterScore": 65,
-      "delta": 10
+      "afterScore": 60,
+      "delta": 5
     }
   ],
   "first3Rewrites": [

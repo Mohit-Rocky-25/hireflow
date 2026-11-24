@@ -11,12 +11,6 @@
       "score": 40
     },
     {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
       "id": "golang",
       "status": "mentioned",
       "confidenceTag": "Low",
@@ -29,19 +23,25 @@
       "score": 40
     },
     {
+      "id": "typescript",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
       "id": "aws",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -62,21 +62,36 @@
   },
   "projectsShown": [
     {
+      "id": "brief-event-sourcing",
+      "closes": [
+        "TypeScript"
+      ],
+      "relevance": 0.26
+    },
+    {
       "id": "brief-api-gateway-scratch",
       "closes": [
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "System Design"
+        "TypeScript"
       ],
       "beforeScore": 19,
-      "afterScore": 44,
-      "delta": 25
+      "afterScore": 42,
+      "delta": 23
+    },
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

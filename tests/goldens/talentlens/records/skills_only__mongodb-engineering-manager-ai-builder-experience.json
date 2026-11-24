@@ -62,53 +62,33 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.46
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 19,
-      "afterScore": 37,
-      "delta": 18
+      "afterScore": 43,
+      "delta": 24
     },
     {
       "skills": [
-        "python"
+        "TypeScript"
       ],
-      "beforeScore": 37,
-      "afterScore": 39,
-      "delta": 2
-    },
-    {
-      "skills": [],
-      "beforeScore": 39,
-      "afterScore": 40,
-      "delta": 1
+      "beforeScore": 43,
+      "afterScore": 47,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

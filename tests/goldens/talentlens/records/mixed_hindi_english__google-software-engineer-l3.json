@@ -38,36 +38,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.57
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.23
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 20,
-      "afterScore": 37,
-      "delta": 17
+      "afterScore": 36,
+      "delta": 16
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

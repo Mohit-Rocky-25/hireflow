@@ -44,51 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-high-throughput-logging",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-kubernetes-operator",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 1
+      "relevance": 0.54
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 22,
-      "afterScore": 42,
-      "delta": 20
+      "afterScore": 22,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 22,
+      "afterScore": 22,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

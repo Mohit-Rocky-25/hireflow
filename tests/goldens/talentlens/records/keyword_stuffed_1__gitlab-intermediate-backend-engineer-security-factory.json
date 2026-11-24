@@ -44,35 +44,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
-        "Kubernetes",
         "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "application security"
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 32,
-      "delta": 13
+      "afterScore": 54,
+      "delta": 35
     }
   ],
   "first3Rewrites": [
@@ -86,7 +74,7 @@
     },
     {
       "input": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects.",
-      "output": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects"
+      "output": "Project 2: Used Kubernetes, AWS, PostgreSQL, Redis, and Spring Boot for projects."
     }
   ],
   "violations": []

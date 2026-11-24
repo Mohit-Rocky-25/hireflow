@@ -1,17 +1,11 @@
 {
   "resumeId": "competitive_programmer",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 25,
+  "score": 23,
   "band": "Not Ready",
   "perSkill": [
     {
       "id": "java",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
-      "id": "python",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -58,64 +58,61 @@
     "sectionsCount": 3,
     "projectsCount": 0,
     "bulletsCount": 4,
-    "skillsDetectedCount": 2
+    "skillsDetectedCount": 1
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-multi-region-url-shortener",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.61
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
-      ],
-      "relevance": 0.39
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql"
+        "Go",
+        "Databases & SQL",
+        "System Design"
       ],
-      "beforeScore": 25,
-      "afterScore": 34,
-      "delta": 9
+      "beforeScore": 23,
+      "afterScore": 33,
+      "delta": 10
     },
     {
       "skills": [
-        "java"
+        "React"
       ],
-      "beforeScore": 34,
+      "beforeScore": 33,
       "afterScore": 37,
-      "delta": 3
+      "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "TypeScript"
+      ],
       "beforeScore": 37,
       "afterScore": 40,
       "delta": 3
     },
     {
-      "skills": [],
+      "skills": [
+        "AWS"
+      ],
       "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
+      "afterScore": 43,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 43,
+      "afterScore": 52,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
@@ -125,7 +122,7 @@
     },
     {
       "input": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs.",
-      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "LeetCode Guardian with 2450+ contest rating, solved 1,400+ algorithmic problems across trees, dynamic programming, and graphs, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Competitive programming specialist with high LeetCode/Codeforces ratings, strong DSA, zero software engineering projects.",

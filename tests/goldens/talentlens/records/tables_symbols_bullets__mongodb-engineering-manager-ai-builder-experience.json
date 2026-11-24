@@ -65,44 +65,47 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL"
-      ],
-      "relevance": 0.53
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "Databases & SQL"
+        "React"
       ],
-      "relevance": 0.47
+      "relevance": 0.36
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "react",
-        "typescript"
+        "Python",
+        "React"
       ],
       "beforeScore": 38,
-      "afterScore": 48,
-      "delta": 10
+      "afterScore": 39,
+      "delta": 1
     },
     {
       "skills": [
-        "go",
-        "aws"
+        "Go"
       ],
-      "beforeScore": 48,
-      "afterScore": 53,
-      "delta": 5
+      "beforeScore": 39,
+      "afterScore": 40,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 40,
+      "afterScore": 43,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 43,
+      "afterScore": 49,
+      "delta": 6
     }
   ],
   "first3Rewrites": [

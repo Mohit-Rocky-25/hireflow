@@ -42,58 +42,16 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-gpu-accelerated-inference",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning"
-      ],
-      "relevance": 0.54
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Python",
-        "AWS",
-        "Machine Learning"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing exactly one line of text.",
-      "output": "// Intent: Adversarial resume containing exactly one line of text, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing exactly one line of text, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Experienced Software Engineer seeking high-impact developer roles in top technology companies.",
-      "output": "Experienced Software Engineer seeking high-impact developer roles in top technology companies, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Experienced Software Engineer seeking high-impact developer roles in top technology companies, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

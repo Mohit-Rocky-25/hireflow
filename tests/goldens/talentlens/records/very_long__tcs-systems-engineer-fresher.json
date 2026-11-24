@@ -40,24 +40,17 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java"
+        "DSA"
       ],
-      "relevance": 0.34
-    },
-    {
-      "id": "brief-upi-settlement-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.34
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 46,
       "afterScore": 49,
@@ -71,7 +64,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

@@ -44,49 +44,45 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 40,
-      "delta": 21
+      "afterScore": 47,
+      "delta": 28
     },
     {
-      "skills": [],
-      "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 47,
+      "afterScore": 53,
+      "delta": 6
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 53,
+      "afterScore": 58,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
     {
       "input": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication.",
-      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication"
+      "output": "Distributed Systems, High Availability, Microservices Architecture, Fault Tolerance, Raft Consensus, Paxos Algorithm, Zero Trust Architecture, End-to-End Encryption, OAuth2, JWT Authentication, RBAC, CI/CD Automation, Kubernetes Orchestration, Event-Driven Architecture, CQRS, Event Sourcing, Domain-Driven Design, ACID Transactions, Sharding, Replication."
     },
     {
       "input": "// Intent: Adversarial resume stuffed with distributed systems and security buzzwords without verifiable project artifacts.",

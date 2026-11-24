@@ -44,52 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.76
-    },
-    {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.54
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "Machine Learning"
       ],
       "beforeScore": 28,
-      "afterScore": 42,
-      "delta": 14
-    },
-    {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 48,
+      "afterScore": 33,
       "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 33,
+      "afterScore": 40,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -99,7 +86,7 @@
     },
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",

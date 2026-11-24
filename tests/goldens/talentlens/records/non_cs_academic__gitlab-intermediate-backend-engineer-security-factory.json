@@ -44,43 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 25,
-      "afterScore": 40,
-      "delta": 15
+      "afterScore": 30,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 40,
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 30,
+      "afterScore": 37,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 37,
       "afterScore": 41,
-      "delta": 1
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -90,11 +86,11 @@
     },
     {
       "input": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience.",
-      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Non-CS pure physics academic resume with lab and experimental science experience, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework.",
-      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Analyzed detector sensor data from multi-wire proportional chambers using ROOT data analysis framework, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

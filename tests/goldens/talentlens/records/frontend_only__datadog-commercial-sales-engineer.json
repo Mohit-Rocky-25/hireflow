@@ -26,42 +26,42 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "System Design",
-        "DSA"
+        "System Design"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     },
     {
-      "id": "brief-l2-orderbook-matcher",
+      "id": "brief-search-engine",
       "closes": [
-        "System Design",
         "DSA"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "System Design"
       ],
       "beforeScore": 30,
-      "afterScore": 39,
-      "delta": 9
+      "afterScore": 38,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 39,
-      "afterScore": 40,
-      "delta": 1
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 38,
+      "afterScore": 45,
+      "delta": 7
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

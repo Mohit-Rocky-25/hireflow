@@ -66,41 +66,32 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
-        "Databases & SQL"
+        "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-notification-service",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Kubernetes",
-        "Databases & SQL"
-      ],
-      "relevance": 0.76
+      "relevance": 0.7
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes"
+        "React",
+        "TypeScript",
+        "Application Security"
       ],
       "beforeScore": 43,
-      "afterScore": 54,
-      "delta": 11
+      "afterScore": 48,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 54,
-      "afterScore": 56,
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 48,
+      "afterScore": 50,
       "delta": 2
     }
   ],

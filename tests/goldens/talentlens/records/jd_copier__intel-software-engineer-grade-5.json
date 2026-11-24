@@ -40,39 +40,42 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 29,
-      "afterScore": 58,
-      "delta": 29
+      "afterScore": 53,
+      "delta": 24
     },
     {
-      "skills": [],
-      "beforeScore": 58,
-      "afterScore": 59,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 59,
-      "afterScore": 63,
-      "delta": 4
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 53,
+      "afterScore": 60,
+      "delta": 7
     }
   ],
   "first3Rewrites": [
     {
       "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
-      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
       "input": "Responsible for designing resilient event-driven data pipelines and solving complex DSA problems.",
@@ -80,7 +83,7 @@
     },
     {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
-      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

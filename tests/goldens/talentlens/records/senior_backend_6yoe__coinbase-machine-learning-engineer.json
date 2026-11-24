@@ -55,25 +55,29 @@
       "relevance": 0.42
     },
     {
-      "id": "brief-llm-finetuning-peft",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Machine Learning"
+        "Application Security"
       ],
-      "relevance": 0.42
+      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "Machine Learning"
+      ],
       "beforeScore": 60,
-      "afterScore": 61,
-      "delta": 1
+      "afterScore": 62,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 61,
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 62,
       "afterScore": 62,
-      "delta": 1
+      "delta": 0
     }
   ],
   "first3Rewrites": [

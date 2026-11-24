@@ -26,36 +26,36 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "System Design",
-        "DSA"
+        "System Design"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     },
     {
-      "id": "brief-l2-orderbook-matcher",
+      "id": "brief-search-engine",
       "closes": [
-        "System Design",
         "DSA"
       ],
-      "relevance": 0.85
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "System Design"
       ],
       "beforeScore": 33,
-      "afterScore": 42,
-      "delta": 9
+      "afterScore": 41,
+      "delta": 8
     },
     {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 41,
+      "afterScore": 47,
+      "delta": 6
     }
   ],
   "first3Rewrites": [
@@ -65,7 +65,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",

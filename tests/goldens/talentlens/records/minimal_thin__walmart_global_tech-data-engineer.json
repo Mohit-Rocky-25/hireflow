@@ -38,46 +38,46 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "Databases & SQL",
-        "AWS"
+        "System Design"
       ],
       "relevance": 0.7
     },
     {
-      "id": "brief-fraud-detection-ml",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "Python",
-        "Databases & SQL",
         "AWS"
       ],
-      "relevance": 0.7
+      "relevance": 0.22
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "databases & sql",
-        "aws"
+        "Python",
+        "Databases & SQL",
+        "System Design"
       ],
       "beforeScore": 22,
-      "afterScore": 43,
-      "delta": 21
+      "afterScore": 22,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 44,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 22,
+      "afterScore": 27,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

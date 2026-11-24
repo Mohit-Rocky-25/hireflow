@@ -45,40 +45,41 @@
         "Systems",
         "Concurrency"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
       "id": "brief-search-engine",
       "closes": [
-        "DSA",
-        "Concurrency"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "systems",
-        "concurrency"
+        "Systems",
+        "Concurrency"
       ],
       "beforeScore": 31,
-      "afterScore": 45,
-      "delta": 14
+      "afterScore": 50,
+      "delta": 19
     },
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
-      "beforeScore": 45,
-      "afterScore": 53,
-      "delta": 8
+      "beforeScore": 50,
+      "afterScore": 62,
+      "delta": 12
     },
     {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 54,
-      "delta": 1
+      "skills": [
+        "C++"
+      ],
+      "beforeScore": 62,
+      "afterScore": 62,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

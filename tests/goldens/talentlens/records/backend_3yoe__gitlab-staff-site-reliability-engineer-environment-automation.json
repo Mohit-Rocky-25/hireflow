@@ -47,16 +47,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
         "Kubernetes",
@@ -68,13 +59,13 @@
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 55,
-      "afterScore": 65,
-      "delta": 10
+      "afterScore": 60,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
@@ -84,11 +75,11 @@
     },
     {
       "input": "Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines.",
-      "output": "Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines"
+      "output": "Maintained Docker container images and deployed services onto AWS ECS clusters via Jenkins CI/CD pipelines."
     },
     {
       "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
-      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL"
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL."
     }
   ],
   "violations": []

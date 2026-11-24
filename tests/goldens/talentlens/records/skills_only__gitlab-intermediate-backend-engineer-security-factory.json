@@ -44,43 +44,31 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 19,
-      "afterScore": 40,
-      "delta": 21
+      "afterScore": 53,
+      "delta": 34
     },
     {
-      "skills": [],
-      "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 53,
+      "afterScore": 55,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -90,7 +78,7 @@
     },
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Frameworks: Spring Boot, React, Node.js, Express, Django",

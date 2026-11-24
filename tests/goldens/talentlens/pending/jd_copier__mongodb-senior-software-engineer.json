@@ -1,7 +1,7 @@
 {
   "resumeId": "jd_copier",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 30,
+  "score": 25,
   "band": "Not Ready",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
-    },
-    {
-      "id": "python",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
     },
     {
       "id": "golang",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
-      "status": "mentioned",
+      "id": "databases",
+      "status": "not-found",
       "confidenceTag": "Low",
-      "score": 40
+      "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -60,7 +60,7 @@
     "sectionsCount": 2,
     "projectsCount": 0,
     "bulletsCount": 5,
-    "skillsDetectedCount": 4
+    "skillsDetectedCount": 3
   },
   "projectsShown": [
     {
@@ -68,14 +68,6 @@
       "closes": [
         "Java",
         "Databases & SQL"
-      ],
-      "relevance": 0.25
-    },
-    {
-      "id": "brief-realtime-stock-platform",
-      "closes": [
-        "Python",
-        "React"
       ],
       "relevance": 0.25
     }
@@ -86,42 +78,49 @@
         "Java",
         "Databases & SQL"
       ],
-      "beforeScore": 30,
-      "afterScore": 38,
+      "beforeScore": 25,
+      "afterScore": 33,
       "delta": 8
-    },
-    {
-      "skills": [
-        "Python",
-        "React"
-      ],
-      "beforeScore": 38,
-      "afterScore": 48,
-      "delta": 10
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 48,
-      "afterScore": 51,
-      "delta": 3
+      "beforeScore": 33,
+      "afterScore": 37,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 37,
+      "afterScore": 42,
+      "delta": 5
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 42,
+      "afterScore": 47,
+      "delta": 5
     },
     {
       "skills": [
         "AWS"
       ],
-      "beforeScore": 51,
-      "afterScore": 56,
+      "beforeScore": 47,
+      "afterScore": 52,
       "delta": 5
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 56,
-      "afterScore": 56,
-      "delta": 0
+      "beforeScore": 52,
+      "afterScore": 57,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
@@ -130,12 +129,12 @@
       "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
-      "input": "Proficient in containerization with Docker and cluster orchestration with Kubernetes.",
-      "output": "Proficient in containerization with Docker and cluster orchestration with Kubernetes, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
-    },
-    {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
       "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
+    },
+    {
+      "input": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features.",
+      "output": "Collaborate with cross-functional teams in an Agile environment to deliver scalable software features, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

@@ -44,45 +44,33 @@
   },
   "projectsShown": [
     {
-      "id": "brief-high-throughput-logging",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-kubernetes-operator",
-      "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 1
+      "relevance": 0.54
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 29,
-      "afterScore": 44,
-      "delta": 15
+      "afterScore": 40,
+      "delta": 11
     },
     {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 43,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

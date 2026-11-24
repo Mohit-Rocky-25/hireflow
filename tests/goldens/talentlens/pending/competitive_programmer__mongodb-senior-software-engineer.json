@@ -1,17 +1,11 @@
 {
   "resumeId": "competitive_programmer",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 25,
+  "score": 23,
   "band": "Not Ready",
   "perSkill": [
     {
       "id": "java",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
-      "id": "python",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -58,7 +58,7 @@
     "sectionsCount": 3,
     "projectsCount": 0,
     "bulletsCount": 4,
-    "skillsDetectedCount": 2
+    "skillsDetectedCount": 1
   },
   "projectsShown": [
     {
@@ -69,14 +69,6 @@
         "System Design"
       ],
       "relevance": 0.33
-    },
-    {
-      "id": "brief-realtime-stock-platform",
-      "closes": [
-        "Python",
-        "React"
-      ],
-      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
@@ -86,18 +78,25 @@
         "Databases & SQL",
         "System Design"
       ],
-      "beforeScore": 25,
-      "afterScore": 35,
+      "beforeScore": 23,
+      "afterScore": 33,
       "delta": 10
     },
     {
       "skills": [
-        "Python",
         "React"
       ],
-      "beforeScore": 35,
+      "beforeScore": 33,
+      "afterScore": 37,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 37,
       "afterScore": 40,
-      "delta": 5
+      "delta": 3
     },
     {
       "skills": [
@@ -109,11 +108,11 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 43,
-      "afterScore": 46,
-      "delta": 3
+      "afterScore": 52,
+      "delta": 9
     }
   ],
   "first3Rewrites": [

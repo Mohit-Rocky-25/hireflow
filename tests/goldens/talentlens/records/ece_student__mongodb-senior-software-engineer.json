@@ -1,7 +1,7 @@
 {
   "resumeId": "ece_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 30,
+  "score": 27,
   "band": "Not Ready",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -58,74 +58,79 @@
     "sectionsCount": 3,
     "projectsCount": 2,
     "bulletsCount": 8,
-    "skillsDetectedCount": 1
+    "skillsDetectedCount": 0
   },
   "projectsShown": [
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-multi-region-url-shortener",
       "closes": [
-        "Python",
         "Go",
-        "AWS",
-        "Kubernetes",
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.61
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java",
-        "AWS",
-        "Kubernetes",
-        "Databases & SQL"
-      ],
-      "relevance": 0.39
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "aws",
-        "kubernetes",
-        "databases & sql"
+        "Go",
+        "Databases & SQL",
+        "System Design"
       ],
-      "beforeScore": 30,
-      "afterScore": 39,
-      "delta": 9
+      "beforeScore": 27,
+      "afterScore": 31,
+      "delta": 4
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 39,
-      "afterScore": 42,
-      "delta": 3
+      "beforeScore": 31,
+      "afterScore": 33,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 45,
-      "delta": 3
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 46,
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 35,
+      "afterScore": 36,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 36,
+      "afterScore": 38,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 38,
+      "afterScore": 39,
       "delta": 1
     }
   ],
   "first3Rewrites": [
     {
-      "input": "Languages: C, C++, Embedded C, Python, SQL",
-      "output": "Languages: C, C++, Embedded C, Python, SQL"
-    },
-    {
       "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
       "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
     },
     {
       "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",

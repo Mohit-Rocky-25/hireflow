@@ -1,7 +1,7 @@
 {
   "resumeId": "research_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 30,
+  "score": 26,
   "band": "Not Ready",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
-    },
-    {
-      "id": "python",
-      "status": "demonstrated",
-      "confidenceTag": "High",
-      "score": 85
     },
     {
       "id": "golang",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -54,14 +54,13 @@
     }
   ],
   "strengths": [
-    "python",
     "systemdesign"
   ],
   "parseSummary": {
     "sectionsCount": 2,
     "projectsCount": 0,
     "bulletsCount": 4,
-    "skillsDetectedCount": 2
+    "skillsDetectedCount": 1
   },
   "projectsShown": [
     {
@@ -70,7 +69,7 @@
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.28
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
@@ -79,41 +78,49 @@
         "Java",
         "Databases & SQL"
       ],
-      "beforeScore": 30,
-      "afterScore": 39,
-      "delta": 9
+      "beforeScore": 26,
+      "afterScore": 33,
+      "delta": 7
     },
     {
       "skills": [
         "Go"
       ],
-      "beforeScore": 39,
-      "afterScore": 41,
-      "delta": 2
+      "beforeScore": 33,
+      "afterScore": 36,
+      "delta": 3
     },
     {
       "skills": [
         "React"
       ],
-      "beforeScore": 41,
-      "afterScore": 45,
+      "beforeScore": 36,
+      "afterScore": 40,
       "delta": 4
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 40,
+      "afterScore": 43,
+      "delta": 3
     },
     {
       "skills": [
         "AWS"
       ],
-      "beforeScore": 45,
-      "afterScore": 48,
-      "delta": 3
+      "beforeScore": 43,
+      "afterScore": 50,
+      "delta": 7
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 48,
-      "afterScore": 54,
-      "delta": 6
+      "beforeScore": 50,
+      "afterScore": 53,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -126,8 +133,8 @@
       "output": "Tools: Linux, Git, GDB, Valgrind, CMake"
     },
     {
-      "input": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies.",
-      "output": "Designed simulation testbeds in C++ and Python to model network partition latencies and message loss across 100 virtual node topologies, with [add: measured metric, if available]."
+      "input": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022.",
+      "output": "\"Byzantine Fault Tolerant State Machine Replication: Formal Verification and Throughput Analysis\", ACM PODC Conference, 2022, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
     }
   ],
   "violations": []

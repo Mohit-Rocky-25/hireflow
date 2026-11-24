@@ -44,46 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning",
-        "System Design"
-      ],
-      "relevance": 0.76
-    },
-    {
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.54
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "Machine Learning"
       ],
       "beforeScore": 43,
-      "afterScore": 55,
-      "delta": 12
+      "afterScore": 45,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 55,
-      "afterScore": 56,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 45,
+      "afterScore": 47,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 56,
-      "afterScore": 62,
-      "delta": 6
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 47,
+      "afterScore": 50,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

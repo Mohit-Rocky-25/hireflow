@@ -40,39 +40,42 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 14,
-      "afterScore": 37,
-      "delta": 23
+      "afterScore": 33,
+      "delta": 19
     },
     {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 46,
-      "delta": 9
-    },
-    {
-      "skills": [],
-      "beforeScore": 46,
-      "afterScore": 50,
-      "delta": 4
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 33,
+      "afterScore": 38,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences.",
-      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with mixed Hindi transliteration (Hinglish) and English sentences, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "College project me React and Node.js use karke poora web application banaya jisme user login aur cart system tha.",

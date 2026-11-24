@@ -40,27 +40,19 @@
     {
       "id": "brief-search-engine",
       "closes": [
-        "DSA",
-        "Python"
+        "DSA"
       ],
-      "relevance": 0.57
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java"
-      ],
-      "relevance": 0.23
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa"
+        "DSA"
       ],
       "beforeScore": 10,
-      "afterScore": 29,
-      "delta": 19
+      "afterScore": 47,
+      "delta": 37
     }
   ],
   "first3Rewrites": [
@@ -70,7 +62,7 @@
     },
     {
       "input": "Project 1: Used Java, Python, Go, React, and Docker.",
-      "output": "Project 1: Used Java, Python, Go, React, and Docker"
+      "output": "Project 1: Used Java, Python, Go, React, and Docker."
     },
     {
       "input": "Databases: PostgreSQL, MySQL, MongoDB, Redis, Cassandra, Elasticsearch, DynamoDB, Oracle, SQLite",

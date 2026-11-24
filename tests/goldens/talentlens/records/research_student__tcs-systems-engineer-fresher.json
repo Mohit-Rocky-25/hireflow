@@ -38,20 +38,19 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
@@ -66,8 +65,7 @@
     },
     {
       "skills": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
       "beforeScore": 32,
       "afterScore": 36,
@@ -77,7 +75,7 @@
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

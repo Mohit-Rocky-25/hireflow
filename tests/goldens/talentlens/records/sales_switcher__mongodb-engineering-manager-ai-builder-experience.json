@@ -64,57 +64,55 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "React"
       ],
-      "relevance": 0.54
-    },
-    {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.43
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "React"
       ],
       "beforeScore": 30,
-      "afterScore": 39,
-      "delta": 9
-    },
-    {
-      "skills": [
-        "react",
-        "typescript"
-      ],
-      "beforeScore": 39,
-      "afterScore": 45,
-      "delta": 6
-    },
-    {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 48,
+      "afterScore": 33,
       "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 49,
+      "skills": [
+        "Go"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 35,
+      "afterScore": 37,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 37,
+      "afterScore": 38,
       "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 38,
+      "afterScore": 40,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

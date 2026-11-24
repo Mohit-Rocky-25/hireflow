@@ -34,37 +34,29 @@
     {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
-        "React",
         "TypeScript",
         "Node.js"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-event-sourcing",
-      "closes": [
-        "React",
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 0.75
+      "relevance": 0.6
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 34,
-      "afterScore": 75,
-      "delta": 41
+      "afterScore": 34,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 75,
-      "afterScore": 80,
-      "delta": 5
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 34,
+      "afterScore": 38,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -74,7 +66,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

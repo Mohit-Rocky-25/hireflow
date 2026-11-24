@@ -11,12 +11,6 @@
       "score": 0
     },
     {
-      "id": "python",
-      "status": "not-found",
-      "confidenceTag": "Low",
-      "score": 0
-    },
-    {
       "id": "golang",
       "status": "not-found",
       "confidenceTag": "Low",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -69,14 +69,6 @@
         "System Design"
       ],
       "relevance": 0.33
-    },
-    {
-      "id": "brief-realtime-stock-platform",
-      "closes": [
-        "Python",
-        "React"
-      ],
-      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
@@ -92,16 +84,23 @@
     },
     {
       "skills": [
-        "Python",
-        "React"
+        "Java"
       ],
       "beforeScore": 30,
-      "afterScore": 33,
-      "delta": 3
+      "afterScore": 31,
+      "delta": 1
     },
     {
       "skills": [
-        "Java"
+        "React"
+      ],
+      "beforeScore": 31,
+      "afterScore": 33,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
       ],
       "beforeScore": 33,
       "afterScore": 35,
@@ -117,7 +116,7 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 36,
       "afterScore": 38,

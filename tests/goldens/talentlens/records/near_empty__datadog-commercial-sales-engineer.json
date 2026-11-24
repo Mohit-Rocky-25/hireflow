@@ -24,48 +24,12 @@
     "bulletsCount": 0,
     "skillsDetectedCount": 0
   },
-  "projectsShown": [
-    {
-      "id": "brief-search-engine",
-      "closes": [
-        "System Design",
-        "DSA"
-      ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "System Design",
-        "DSA"
-      ],
-      "relevance": 0.85
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "System Design",
-        "DSA"
-      ],
-      "beforeScore": 0,
-      "afterScore": 4,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "System Design",
-        "DSA"
-      ],
-      "beforeScore": 4,
-      "afterScore": 8,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only candidate contact name and email.",
-      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only candidate contact name and email, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

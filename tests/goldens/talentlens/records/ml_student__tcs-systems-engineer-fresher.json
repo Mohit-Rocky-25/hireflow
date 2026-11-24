@@ -38,37 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
       "beforeScore": 39,
-      "afterScore": 40,
-      "delta": 1
+      "afterScore": 42,
+      "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 40,
-      "afterScore": 44,
-      "delta": 4
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -82,7 +83,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

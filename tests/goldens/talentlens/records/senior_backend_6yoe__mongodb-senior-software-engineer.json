@@ -1,17 +1,11 @@
 {
   "resumeId": "senior_backend_6yoe",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 49,
+  "score": 48,
   "band": "Developing",
   "perSkill": [
     {
       "id": "java",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
-      "id": "python",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -29,13 +23,13 @@
       "score": 40
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
@@ -47,6 +41,12 @@
       "score": 85
     },
     {
+      "id": "devops",
+      "status": "mentioned",
+      "confidenceTag": "Low",
+      "score": 40
+    },
+    {
       "id": "systemdesign",
       "status": "demonstrated",
       "confidenceTag": "High",
@@ -54,7 +54,7 @@
     }
   ],
   "strengths": [
-    "kubernetes",
+    "aws",
     "databases",
     "systemdesign"
   ],
@@ -66,31 +66,23 @@
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
-        "Python",
-        "Go",
-        "AWS"
+        "React",
+        "TypeScript"
       ],
-      "relevance": 0.46
-    },
-    {
-      "id": "brief-workflow-engine",
-      "closes": [
-        "Java",
-        "AWS"
-      ],
-      "relevance": 0.31
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react"
+        "React",
+        "TypeScript"
       ],
-      "beforeScore": 49,
-      "afterScore": 67,
-      "delta": 18
+      "beforeScore": 48,
+      "afterScore": 48,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

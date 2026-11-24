@@ -40,40 +40,42 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java"
+        "DSA"
       ],
-      "relevance": 0.34
+      "relevance": 0.42
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.34
+      "relevance": 0.4
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java"
+        "DSA"
       ],
       "beforeScore": 25,
-      "afterScore": 36,
-      "delta": 11
+      "afterScore": 37,
+      "delta": 12
     },
     {
-      "skills": [],
-      "beforeScore": 36,
-      "afterScore": 42,
-      "delta": 6
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 37,
+      "afterScore": 44,
+      "delta": 7
     }
   ],
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

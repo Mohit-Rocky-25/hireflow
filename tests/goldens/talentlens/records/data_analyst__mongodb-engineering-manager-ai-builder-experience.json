@@ -63,52 +63,47 @@
     "bulletsCount": 4,
     "skillsDetectedCount": 2
   },
-  "projectsShown": [
-    {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.51
-    },
-    {
-      "id": "brief-cdc-pg-elasticsearch",
-      "closes": [
-        "Go",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.36
-    }
-  ],
+  "projectsShown": [],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "devops & ci/cd"
+        "Go"
       ],
       "beforeScore": 33,
-      "afterScore": 43,
-      "delta": 10
-    },
-    {
-      "skills": [
-        "go"
-      ],
-      "beforeScore": 43,
-      "afterScore": 45,
+      "afterScore": 35,
       "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 46,
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 35,
+      "afterScore": 36,
       "delta": 1
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 36,
+      "afterScore": 38,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 38,
+      "afterScore": 39,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 39,
+      "afterScore": 41,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

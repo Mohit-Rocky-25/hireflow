@@ -43,44 +43,30 @@
       "id": "brief-zero-trust-proxy",
       "closes": [
         "Node.js",
-        "Databases & SQL",
         "Application Security"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [
-        "Node.js",
-        "Databases & SQL"
-      ],
-      "relevance": 0.6
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "application security"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 14,
-      "afterScore": 26,
-      "delta": 12
-    },
-    {
-      "skills": [],
-      "beforeScore": 26,
-      "afterScore": 33,
-      "delta": 7
+      "afterScore": 22,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022).",
-      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with impossible and inverted chronological dates (e.g. 2028-2022), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025)",
-      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B.Tech in Computer Science, Graduated 2012 (Enrolled 2025), [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Designed distributed cloud microservices using Java and Spring Boot.",

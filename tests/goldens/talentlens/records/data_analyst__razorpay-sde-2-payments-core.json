@@ -45,43 +45,24 @@
         "Node.js",
         "Application Security"
       ],
-      "relevance": 0.51
-    },
-    {
-      "id": "brief-dag-task-runner",
-      "closes": [
-        "Node.js",
-        "System Design"
-      ],
-      "relevance": 0.36
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "application security"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 22,
-      "afterScore": 32,
-      "delta": 10
+      "afterScore": 30,
+      "delta": 8
     },
     {
       "skills": [],
-      "beforeScore": 32,
-      "afterScore": 38,
-      "delta": 6
-    },
-    {
-      "skills": [],
-      "beforeScore": 38,
-      "afterScore": 39,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 39,
-      "afterScore": 44,
-      "delta": 5
+      "beforeScore": 30,
+      "afterScore": 34,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

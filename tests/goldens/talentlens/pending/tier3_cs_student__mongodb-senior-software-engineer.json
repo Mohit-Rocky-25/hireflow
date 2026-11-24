@@ -1,17 +1,11 @@
 {
   "resumeId": "tier3_cs_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 45,
+  "score": 44,
   "band": "Developing",
   "perSkill": [
     {
       "id": "java",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
-      "id": "python",
       "status": "mentioned",
       "confidenceTag": "Low",
       "score": 40
@@ -29,13 +23,13 @@
       "score": 85
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -45,6 +39,12 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -61,7 +61,7 @@
     "sectionsCount": 4,
     "projectsCount": 2,
     "bulletsCount": 10,
-    "skillsDetectedCount": 5
+    "skillsDetectedCount": 4
   },
   "projectsShown": [
     {
@@ -79,6 +79,14 @@
         "Go",
         "System Design"
       ],
+      "beforeScore": 44,
+      "afterScore": 45,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
       "beforeScore": 45,
       "afterScore": 47,
       "delta": 2
@@ -93,7 +101,7 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 48,
       "afterScore": 50,

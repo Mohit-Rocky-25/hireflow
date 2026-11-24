@@ -64,48 +64,48 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.69
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
-        "Databases & SQL"
-      ],
-      "relevance": 0.24
+      "relevance": 0.52
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Databases & SQL",
+        "Application Security"
       ],
       "beforeScore": 26,
-      "afterScore": 42,
-      "delta": 16
+      "afterScore": 39,
+      "delta": 13
     },
     {
       "skills": [
-        "java"
+        "Java"
+      ],
+      "beforeScore": 39,
+      "afterScore": 42,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "Kubernetes"
       ],
       "beforeScore": 42,
       "afterScore": 46,
       "delta": 4
     },
     {
-      "skills": [],
+      "skills": [
+        "DevOps & CI/CD"
+      ],
       "beforeScore": 46,
       "afterScore": 49,
       "delta": 3
@@ -114,7 +114,7 @@
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

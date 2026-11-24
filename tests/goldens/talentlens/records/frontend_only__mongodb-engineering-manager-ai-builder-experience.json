@@ -64,58 +64,47 @@
   },
   "projectsShown": [
     {
-      "id": "brief-cdc-pg-elasticsearch",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "Go",
-        "Databases & SQL",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.54
-    },
-    {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "TypeScript",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.43
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "go",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 55,
-      "afterScore": 56,
-      "delta": 1
+      "afterScore": 59,
+      "delta": 4
     },
     {
       "skills": [
-        "aws"
+        "Go"
       ],
-      "beforeScore": 56,
-      "afterScore": 57,
-      "delta": 1
+      "beforeScore": 59,
+      "afterScore": 61,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 58,
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 61,
+      "afterScore": 62,
       "delta": 1
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

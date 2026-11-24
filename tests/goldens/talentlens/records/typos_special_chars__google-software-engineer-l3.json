@@ -38,52 +38,52 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.57
+      "relevance": 0.67
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.23
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 16,
-      "afterScore": 31,
-      "delta": 15
+      "afterScore": 37,
+      "delta": 21
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 31,
-      "afterScore": 37,
-      "delta": 6
+      "beforeScore": 37,
+      "afterScore": 48,
+      "delta": 11
     }
   ],
   "first3Rewrites": [
     {
       "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
-      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
-      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
-      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

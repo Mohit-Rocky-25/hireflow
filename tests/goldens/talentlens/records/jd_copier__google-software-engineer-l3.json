@@ -40,43 +40,37 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-l2-orderbook-matcher",
-      "closes": [
-        "DSA",
-        "Python"
-      ],
-      "relevance": 0.85
+      "relevance": 1
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 40,
-      "afterScore": 53,
-      "delta": 13
+      "afterScore": 52,
+      "delta": 12
     },
     {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 56,
-      "delta": 3
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 52,
+      "afterScore": 60,
+      "delta": 8
     }
   ],
   "first3Rewrites": [
     {
       "input": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go.",
-      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go"
+      "output": "Experience in high-throughput low-latency microservices using Java, Spring Boot, and Go."
     },
     {
       "input": "Responsible for designing resilient event-driven data pipelines and solving complex DSA problems.",
@@ -84,7 +78,7 @@
     },
     {
       "input": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim.",
-      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume that blindly copies JD requirements and responsibilities verbatim, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

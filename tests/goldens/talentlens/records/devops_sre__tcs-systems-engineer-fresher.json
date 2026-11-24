@@ -38,37 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
       "beforeScore": 37,
-      "afterScore": 43,
-      "delta": 6
+      "afterScore": 42,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 43,
-      "afterScore": 48,
-      "delta": 5
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 42,
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

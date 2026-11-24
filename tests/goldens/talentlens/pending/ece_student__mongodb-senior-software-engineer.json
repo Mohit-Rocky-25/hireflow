@@ -1,7 +1,7 @@
 {
   "resumeId": "ece_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 30,
+  "score": 27,
   "band": "Not Ready",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,19 +23,25 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "databases",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "databases",
+      "id": "devops",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -58,7 +58,7 @@
     "sectionsCount": 3,
     "projectsCount": 2,
     "bulletsCount": 8,
-    "skillsDetectedCount": 1
+    "skillsDetectedCount": 0
   },
   "projectsShown": [
     {
@@ -69,14 +69,6 @@
         "System Design"
       ],
       "relevance": 0.33
-    },
-    {
-      "id": "brief-realtime-stock-platform",
-      "closes": [
-        "Python",
-        "React"
-      ],
-      "relevance": 0.21
     }
   ],
   "scorePathSteps": [
@@ -86,52 +78,59 @@
         "Databases & SQL",
         "System Design"
       ],
-      "beforeScore": 30,
-      "afterScore": 34,
+      "beforeScore": 27,
+      "afterScore": 31,
       "delta": 4
-    },
-    {
-      "skills": [
-        "Python",
-        "React"
-      ],
-      "beforeScore": 34,
-      "afterScore": 36,
-      "delta": 2
     },
     {
       "skills": [
         "Java"
       ],
-      "beforeScore": 36,
-      "afterScore": 37,
+      "beforeScore": 31,
+      "afterScore": 33,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 33,
+      "afterScore": 35,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 35,
+      "afterScore": 36,
       "delta": 1
     },
     {
       "skills": [
         "AWS"
       ],
-      "beforeScore": 37,
-      "afterScore": 39,
+      "beforeScore": 36,
+      "afterScore": 38,
       "delta": 2
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 39,
-      "afterScore": 40,
+      "beforeScore": 38,
+      "afterScore": 39,
       "delta": 1
     }
   ],
   "first3Rewrites": [
     {
-      "input": "Languages: C, C++, Embedded C, Python, SQL",
-      "output": "Languages: C, C++, Embedded C, Python, SQL"
-    },
-    {
       "input": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers",
       "output": "Embedded & Hardware: FreeRTOS, STM32, ARM Cortex-M, CAN Bus, I2C, SPI, UART, Linux Device Drivers, for [add: system or artifact name, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages: C, C++, Embedded C, Python, SQL",
+      "output": "Languages: C, C++, Embedded C, Python, SQL"
     },
     {
       "input": "Tools: Git, Keil uVision, GDB, Saleae Logic Analyzer, CMake",

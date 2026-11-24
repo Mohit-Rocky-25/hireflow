@@ -38,38 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.57
+      "relevance": 0.67
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.23
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 21,
-      "afterScore": 38,
-      "delta": 17
+      "afterScore": 28,
+      "delta": 7
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 38,
-      "afterScore": 44,
-      "delta": 6
+      "beforeScore": 28,
+      "afterScore": 32,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

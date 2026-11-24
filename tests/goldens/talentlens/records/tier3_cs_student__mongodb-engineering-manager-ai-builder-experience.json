@@ -65,50 +65,47 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.67
-    },
-    {
-      "id": "brief-cdc-pg-elasticsearch",
-      "closes": [
-        "Python",
-        "Go",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.5
+      "relevance": 0.29
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 40,
-      "afterScore": 54,
-      "delta": 14
+      "afterScore": 41,
+      "delta": 1
     },
     {
       "skills": [
-        "go"
+        "Go"
       ],
-      "beforeScore": 54,
-      "afterScore": 57,
-      "delta": 3
+      "beforeScore": 41,
+      "afterScore": 43,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 61,
-      "delta": 4
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 43,
+      "afterScore": 45,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 45,
+      "afterScore": 46,
+      "delta": 1
     }
   ],
   "first3Rewrites": [

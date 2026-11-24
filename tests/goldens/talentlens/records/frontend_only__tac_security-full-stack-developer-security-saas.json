@@ -36,15 +36,6 @@
     {
       "id": "brief-zero-trust-proxy",
       "closes": [
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-merkle-airdrop-verifier",
-      "closes": [
-        "TypeScript",
         "Node.js"
       ],
       "relevance": 1
@@ -52,16 +43,18 @@
   ],
   "scorePathSteps": [
     {
-      "skills": [],
+      "skills": [
+        "Node.js"
+      ],
       "beforeScore": 69,
-      "afterScore": 70,
-      "delta": 1
+      "afterScore": 72,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Frontend: React, Next.js, TypeScript, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, SASS",

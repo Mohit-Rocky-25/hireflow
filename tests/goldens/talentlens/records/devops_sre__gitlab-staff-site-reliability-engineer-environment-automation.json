@@ -48,15 +48,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
-      "closes": [
-        "Go",
-        "AWS"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
         "Go",
         "AWS"
@@ -67,12 +59,12 @@
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws"
+        "Go",
+        "AWS"
       ],
       "beforeScore": 48,
-      "afterScore": 53,
-      "delta": 5
+      "afterScore": 51,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

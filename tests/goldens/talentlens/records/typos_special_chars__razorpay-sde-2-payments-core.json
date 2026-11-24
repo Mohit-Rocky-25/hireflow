@@ -38,19 +38,10 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
+      "id": "brief-subscription-dunning-billing",
       "closes": [
         "Node.js",
-        "Databases & SQL",
-        "Application Security"
-      ],
-      "relevance": 0.59
-    },
-    {
-      "id": "brief-double-entry-ledger",
-      "closes": [
-        "Databases & SQL",
-        "System Design"
+        "Databases & SQL"
       ],
       "relevance": 0.42
     }
@@ -58,38 +49,34 @@
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "application security"
+        "Node.js",
+        "Databases & SQL"
       ],
       "beforeScore": 18,
-      "afterScore": 31,
-      "delta": 13
+      "afterScore": 39,
+      "delta": 21
     },
     {
-      "skills": [],
-      "beforeScore": 31,
-      "afterScore": 37,
-      "delta": 6
-    },
-    {
-      "skills": [],
-      "beforeScore": 37,
-      "afterScore": 38,
-      "delta": 1
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 39,
+      "afterScore": 48,
+      "delta": 9
     }
   ],
   "first3Rewrites": [
     {
       "input": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB",
-      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "J@va, Pyt#on, G0lang, C++, R3act, D0cker, K8s, P0stgre$QL, R3dis, My$QL, M0ngoDB, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters.",
-      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume with heavily obfuscated and typo-laden tech words and special characters, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$",
-      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "B#ilt micro$ervices with J@va & P0stgre$QL !! @@@ $$$, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

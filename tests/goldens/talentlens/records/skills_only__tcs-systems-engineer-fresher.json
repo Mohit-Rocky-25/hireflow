@@ -38,37 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
       "beforeScore": 22,
-      "afterScore": 32,
-      "delta": 10
+      "afterScore": 49,
+      "delta": 27
     },
     {
-      "skills": [],
-      "beforeScore": 32,
-      "afterScore": 36,
-      "delta": 4
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 49,
+      "afterScore": 54,
+      "delta": 5
     }
   ],
   "first3Rewrites": [
@@ -78,7 +79,7 @@
     },
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",

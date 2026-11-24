@@ -1,7 +1,7 @@
 {
   "resumeId": "ml_student",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 34,
+  "score": 32,
   "band": "Not Ready",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
-    },
-    {
-      "id": "python",
-      "status": "demonstrated",
-      "confidenceTag": "High",
-      "score": 85
     },
     {
       "id": "golang",
@@ -29,13 +23,13 @@
       "score": 0
     },
     {
-      "id": "aws",
+      "id": "typescript",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     },
     {
-      "id": "kubernetes",
+      "id": "aws",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
@@ -47,20 +41,24 @@
       "score": 40
     },
     {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "systemdesign",
       "status": "not-found",
       "confidenceTag": "Low",
       "score": 0
     }
   ],
-  "strengths": [
-    "python"
-  ],
+  "strengths": [],
   "parseSummary": {
     "sectionsCount": 3,
     "projectsCount": 2,
     "bulletsCount": 5,
-    "skillsDetectedCount": 2
+    "skillsDetectedCount": 1
   },
   "projectsShown": [
     {
@@ -70,7 +68,7 @@
         "Databases & SQL",
         "System Design"
       ],
-      "relevance": 0.38
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
@@ -80,13 +78,21 @@
         "Databases & SQL",
         "System Design"
       ],
-      "beforeScore": 34,
-      "afterScore": 37,
+      "beforeScore": 32,
+      "afterScore": 35,
       "delta": 3
     },
     {
       "skills": [
         "Java"
+      ],
+      "beforeScore": 35,
+      "afterScore": 37,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "React"
       ],
       "beforeScore": 37,
       "afterScore": 39,
@@ -94,7 +100,7 @@
     },
     {
       "skills": [
-        "React"
+        "TypeScript"
       ],
       "beforeScore": 39,
       "afterScore": 40,
@@ -110,7 +116,7 @@
     },
     {
       "skills": [
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 42,
       "afterScore": 43,
@@ -119,12 +125,12 @@
   ],
   "first3Rewrites": [
     {
-      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
-      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
-    },
-    {
       "input": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain",
       "output": "NLP & AI: Transformers, Embeddings, Vector Databases, FAISS, LangChain, using [add: architecture or framework, if applicable], with [add: measured metric, if available]."
+    },
+    {
+      "input": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git",
+      "output": "Languages & Tools: Python, C++, SQL, Docker, FastAPI, Linux, Git"
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",

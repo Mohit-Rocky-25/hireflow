@@ -41,37 +41,29 @@
   },
   "projectsShown": [
     {
-      "id": "brief-ab-experimentation",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
         "Databases & SQL",
         "AWS"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-fraud-detection-ml",
-      "closes": [
-        "Databases & SQL",
-        "AWS"
-      ],
-      "relevance": 1
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "databases & sql",
-        "aws"
+        "Databases & SQL",
+        "AWS"
       ],
       "beforeScore": 38,
-      "afterScore": 49,
-      "delta": 11
+      "afterScore": 58,
+      "delta": 20
     }
   ],
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

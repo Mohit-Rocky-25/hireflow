@@ -47,34 +47,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
+      "id": "brief-gitops-registry",
       "closes": [
-        "AWS",
         "Kubernetes",
         "DevOps & CI/CD"
       ],
-      "relevance": 1
+      "relevance": 0.6
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "cert-aws-saa",
       "closes": [
-        "AWS",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws",
-        "kubernetes",
-        "devops & ci/cd"
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 72,
-      "afterScore": 80,
-      "delta": 8
+      "afterScore": 74,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 74,
+      "afterScore": 74,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -84,7 +88,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Built backend REST APIs using Java and Spring Boot for user profile management and credential authentication.",

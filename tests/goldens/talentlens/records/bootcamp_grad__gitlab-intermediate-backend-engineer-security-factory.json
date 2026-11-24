@@ -46,42 +46,25 @@
   },
   "projectsShown": [
     {
-      "id": "brief-pcap-network-detector",
+      "id": "brief-gitops-registry",
       "closes": [
         "Go",
         "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
+        "DevOps & CI/CD"
       ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-api-gateway-scratch",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.75
+      "relevance": 0.35
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd"
+        "Go",
+        "Kubernetes",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 33,
       "afterScore": 42,
       "delta": 9
-    },
-    {
-      "skills": [],
-      "beforeScore": 42,
-      "afterScore": 43,
-      "delta": 1
     }
   ],
   "first3Rewrites": [

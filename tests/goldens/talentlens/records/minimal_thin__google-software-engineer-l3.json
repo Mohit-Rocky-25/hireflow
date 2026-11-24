@@ -38,38 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-search-engine",
+      "id": "brief-bloom-filter-engine",
       "closes": [
         "DSA",
         "Python"
       ],
-      "relevance": 0.57
+      "relevance": 0.67
     },
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.23
+      "relevance": 0.26
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "dsa",
-        "python"
+        "DSA",
+        "Python"
       ],
       "beforeScore": 12,
-      "afterScore": 36,
-      "delta": 24
+      "afterScore": 12,
+      "delta": 0
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 36,
-      "afterScore": 41,
-      "delta": 5
+      "beforeScore": 12,
+      "afterScore": 15,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -79,7 +79,7 @@
     },
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

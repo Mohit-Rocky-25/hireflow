@@ -41,15 +41,7 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
-      "closes": [
-        "Python",
-        "System Design"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-geval-eval-harness",
+      "id": "brief-schema-registry",
       "closes": [
         "Python",
         "System Design"
@@ -60,17 +52,12 @@
   "scorePathSteps": [
     {
       "skills": [
-        "python"
+        "Python",
+        "System Design"
       ],
       "beforeScore": 37,
-      "afterScore": 40,
-      "delta": 3
-    },
-    {
-      "skills": [],
-      "beforeScore": 40,
-      "afterScore": 41,
-      "delta": 1
+      "afterScore": 45,
+      "delta": 8
     }
   ],
   "first3Rewrites": [

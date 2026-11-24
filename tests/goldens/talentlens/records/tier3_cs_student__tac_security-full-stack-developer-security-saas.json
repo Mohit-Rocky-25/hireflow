@@ -34,14 +34,6 @@
   },
   "projectsShown": [
     {
-      "id": "brief-zero-trust-proxy",
-      "closes": [
-        "TypeScript",
-        "Node.js"
-      ],
-      "relevance": 1
-    },
-    {
       "id": "brief-merkle-airdrop-verifier",
       "closes": [
         "TypeScript",
@@ -53,17 +45,12 @@
   "scorePathSteps": [
     {
       "skills": [
-        "typescript"
+        "TypeScript",
+        "Node.js"
       ],
       "beforeScore": 42,
-      "afterScore": 65,
-      "delta": 23
-    },
-    {
-      "skills": [],
-      "beforeScore": 65,
-      "afterScore": 66,
-      "delta": 1
+      "afterScore": 45,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

@@ -40,39 +40,42 @@
     {
       "id": "brief-work-stealing-pool",
       "closes": [
-        "Cpp",
+        "C++",
         "Concurrency"
       ],
-      "relevance": 0.37
+      "relevance": 0.43
+    },
+    {
+      "id": "brief-raft-consensus",
+      "closes": [
+        "Systems"
+      ],
+      "relevance": 0.2
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "cpp",
-        "concurrency"
+        "C++",
+        "Concurrency"
       ],
       "beforeScore": 11,
-      "afterScore": 34,
-      "delta": 23
+      "afterScore": 47,
+      "delta": 36
     },
     {
-      "skills": [],
-      "beforeScore": 34,
-      "afterScore": 41,
-      "delta": 7
-    },
-    {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 44,
-      "delta": 3
+      "skills": [
+        "Systems"
+      ],
+      "beforeScore": 47,
+      "afterScore": 51,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects.",
-      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume containing only a list of skills, no experience, education, or projects, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "DevOps: Docker, Kubernetes, AWS, Git, Linux",

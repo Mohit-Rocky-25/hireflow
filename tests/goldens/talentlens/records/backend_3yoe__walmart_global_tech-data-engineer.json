@@ -40,40 +40,8 @@
     "bulletsCount": 11,
     "skillsDetectedCount": 4
   },
-  "projectsShown": [
-    {
-      "id": "brief-ab-experimentation",
-      "closes": [
-        "Python"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-computer-vision-api",
-      "closes": [
-        "Python"
-      ],
-      "relevance": 1
-    }
-  ],
-  "scorePathSteps": [
-    {
-      "skills": [
-        "Python"
-      ],
-      "beforeScore": 68,
-      "afterScore": 72,
-      "delta": 4
-    },
-    {
-      "skills": [
-        "Python"
-      ],
-      "beforeScore": 72,
-      "afterScore": 76,
-      "delta": 4
-    }
-  ],
+  "projectsShown": [],
+  "scorePathSteps": [],
   "first3Rewrites": [
     {
       "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",

@@ -66,48 +66,41 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
         "React",
         "TypeScript",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.8
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.35
+      "relevance": 0.75
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "databases & sql"
+        "React",
+        "TypeScript",
+        "Databases & SQL"
       ],
       "beforeScore": 39,
-      "afterScore": 55,
-      "delta": 16
+      "afterScore": 44,
+      "delta": 5
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 55,
-      "afterScore": 57,
+      "beforeScore": 44,
+      "afterScore": 46,
       "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 57,
-      "afterScore": 58,
-      "delta": 1
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 46,
+      "afterScore": 46,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

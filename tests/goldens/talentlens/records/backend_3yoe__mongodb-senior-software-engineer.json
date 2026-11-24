@@ -1,7 +1,7 @@
 {
   "resumeId": "backend_3yoe",
   "roleId": "mongodb-senior-software-engineer",
-  "score": 49,
+  "score": 43,
   "band": "Developing",
   "perSkill": [
     {
@@ -9,12 +9,6 @@
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
-    },
-    {
-      "id": "python",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
     },
     {
       "id": "golang",
@@ -29,22 +23,28 @@
       "score": 0
     },
     {
+      "id": "typescript",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
       "id": "aws",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
     },
     {
-      "id": "kubernetes",
-      "status": "mentioned",
-      "confidenceTag": "Low",
-      "score": 40
-    },
-    {
       "id": "databases",
       "status": "demonstrated",
       "confidenceTag": "High",
       "score": 85
+    },
+    {
+      "id": "devops",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
     },
     {
       "id": "systemdesign",
@@ -63,49 +63,50 @@
     "sectionsCount": 4,
     "projectsCount": 2,
     "bulletsCount": 11,
-    "skillsDetectedCount": 6
+    "skillsDetectedCount": 4
   },
   "projectsShown": [
     {
-      "id": "brief-api-gateway-scratch",
+      "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "Python",
         "Go",
-        "Kubernetes"
+        "DevOps & CI/CD"
       ],
-      "relevance": 0.57
+      "relevance": 0.23
     },
     {
-      "id": "brief-dist-rate-limiter",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
-        "Python",
-        "Go",
-        "Kubernetes"
+        "React",
+        "TypeScript"
       ],
-      "relevance": 0.57
+      "relevance": 0.23
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes"
+        "Go",
+        "DevOps & CI/CD"
       ],
-      "beforeScore": 49,
-      "afterScore": 67,
-      "delta": 18
+      "beforeScore": 43,
+      "afterScore": 46,
+      "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 67,
-      "afterScore": 69,
-      "delta": 2
+      "skills": [
+        "React",
+        "TypeScript"
+      ],
+      "beforeScore": 46,
+      "afterScore": 49,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
     {
       "input": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL.",
-      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL"
+      "output": "// Intent: 3 YoE Backend Software Engineer with production experience in microservices, Java Spring Boot, and PostgreSQL."
     },
     {
       "input": "Designed and maintained core payment orchestration microservices in Java, Python, and Spring Boot processing 25,000 transactions daily.",

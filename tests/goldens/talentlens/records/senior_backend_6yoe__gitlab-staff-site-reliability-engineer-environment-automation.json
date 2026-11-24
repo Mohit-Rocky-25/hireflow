@@ -47,19 +47,8 @@
   },
   "projectsShown": [
     {
-      "id": "brief-canary-deployment",
-      "closes": [
-        "Go",
-        "AWS",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 1
-    },
-    {
       "id": "brief-ci-cd-from-scratch",
       "closes": [
-        "Go",
-        "AWS",
         "DevOps & CI/CD"
       ],
       "relevance": 1
@@ -68,11 +57,11 @@
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd"
+        "DevOps & CI/CD"
       ],
       "beforeScore": 66,
-      "afterScore": 67,
-      "delta": 1
+      "afterScore": 66,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

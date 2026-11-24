@@ -64,52 +64,55 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.57
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-interview-prep-ai",
       "closes": [
         "Python",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
+        "React"
       ],
-      "relevance": 0.54
+      "relevance": 0.29
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "devops & ci/cd"
+        "Python",
+        "React"
       ],
       "beforeScore": 28,
-      "afterScore": 50,
-      "delta": 22
+      "afterScore": 30,
+      "delta": 2
     },
     {
       "skills": [
-        "python"
+        "Go"
       ],
-      "beforeScore": 50,
-      "afterScore": 53,
-      "delta": 3
+      "beforeScore": 30,
+      "afterScore": 32,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 53,
-      "afterScore": 57,
-      "delta": 4
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 32,
+      "afterScore": 34,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 34,
+      "afterScore": 35,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 35,
+      "afterScore": 37,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -119,7 +122,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

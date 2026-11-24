@@ -38,37 +38,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java",
         "Databases & SQL"
       ],
-      "relevance": 0.51
+      "relevance": 0.6
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java",
-        "Databases & SQL"
+        "DSA"
       ],
-      "relevance": 0.51
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java",
-        "databases & sql"
+        "Java",
+        "Databases & SQL"
       ],
       "beforeScore": 31,
-      "afterScore": 36,
-      "delta": 5
+      "afterScore": 37,
+      "delta": 6
     },
     {
-      "skills": [],
-      "beforeScore": 36,
-      "afterScore": 42,
-      "delta": 6
+      "skills": [
+        "DSA"
+      ],
+      "beforeScore": 37,
+      "afterScore": 40,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -78,7 +79,7 @@
     },
     {
       "input": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend.",
-      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend"
+      "output": "// Intent: Frontend specialist with deep React, TypeScript, Next.js, and web performance optimization skills, zero backend."
     },
     {
       "input": "Interactive Data Visualization Studio | React, TypeScript, D3.js, Tailwind CSS",

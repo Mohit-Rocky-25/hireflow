@@ -47,18 +47,8 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-devsecops-pipeline",
       "closes": [
-        "Go",
-        "DevOps & CI/CD",
-        "Application Security"
-      ],
-      "relevance": 1
-    },
-    {
-      "id": "brief-mtls-internal-ca",
-      "closes": [
-        "Go",
         "DevOps & CI/CD",
         "Application Security"
       ],
@@ -68,12 +58,12 @@
   "scorePathSteps": [
     {
       "skills": [
-        "devops & ci/cd",
-        "application security"
+        "DevOps & CI/CD",
+        "Application Security"
       ],
       "beforeScore": 64,
-      "afterScore": 67,
-      "delta": 3
+      "afterScore": 64,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

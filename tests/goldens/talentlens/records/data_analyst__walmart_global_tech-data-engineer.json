@@ -41,42 +41,42 @@
   },
   "projectsShown": [
     {
-      "id": "brief-privacy-preserving-ml",
+      "id": "brief-api-gateway-scratch",
       "closes": [
-        "AWS",
         "System Design"
       ],
-      "relevance": 1
+      "relevance": 0.42
     },
     {
-      "id": "brief-react-tool-gateway",
+      "id": "brief-columnar-compactor",
       "closes": [
-        "AWS",
-        "System Design"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.42
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "aws"
+        "System Design"
       ],
       "beforeScore": 41,
-      "afterScore": 44,
-      "delta": 3
+      "afterScore": 43,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 43,
+      "afterScore": 48,
+      "delta": 5
     },
     {
       "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 45,
-      "afterScore": 51,
-      "delta": 6
+      "beforeScore": 48,
+      "afterScore": 52,
+      "delta": 4
     }
   ],
   "first3Rewrites": [

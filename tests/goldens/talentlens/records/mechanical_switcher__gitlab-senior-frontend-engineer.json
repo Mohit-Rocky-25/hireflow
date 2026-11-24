@@ -65,52 +65,47 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.45
-    },
-    {
-      "id": "brief-notification-service",
-      "closes": [
-        "TypeScript",
-        "Kubernetes",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.45
+      "relevance": 0.28
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "typescript",
-        "kubernetes",
-        "devops & ci/cd"
+        "TypeScript",
+        "Application Security"
       ],
       "beforeScore": 34,
-      "afterScore": 47,
-      "delta": 13
-    },
-    {
-      "skills": [],
-      "beforeScore": 47,
-      "afterScore": 51,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 51,
-      "afterScore": 55,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 55,
-      "afterScore": 56,
+      "afterScore": 35,
       "delta": 1
+    },
+    {
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 35,
+      "afterScore": 37,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 37,
+      "afterScore": 38,
+      "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 38,
+      "afterScore": 40,
+      "delta": 2
     }
   ],
   "first3Rewrites": [

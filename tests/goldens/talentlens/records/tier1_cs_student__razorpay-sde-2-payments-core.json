@@ -46,36 +46,18 @@
         "Node.js",
         "Application Security"
       ],
-      "relevance": 0.85
-    },
-    {
-      "id": "brief-subscription-dunning-billing",
-      "closes": [
-        "Node.js"
-      ],
-      "relevance": 0.42
+      "relevance": 0.5
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "application security"
+        "Node.js",
+        "Application Security"
       ],
       "beforeScore": 51,
-      "afterScore": 65,
-      "delta": 14
-    },
-    {
-      "skills": [],
-      "beforeScore": 65,
-      "afterScore": 69,
-      "delta": 4
-    },
-    {
-      "skills": [],
-      "beforeScore": 69,
-      "afterScore": 70,
-      "delta": 1
+      "afterScore": 54,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -85,7 +67,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     },
     {
       "input": "Backend & Systems: Spring Boot, Node.js, gRPC, PostgreSQL, Redis, Docker, Kubernetes, Linux",

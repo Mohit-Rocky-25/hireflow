@@ -44,43 +44,39 @@
   },
   "projectsShown": [
     {
-      "id": "brief-oidc-pkce-server",
+      "id": "brief-tls-certificate-manager",
       "closes": [
         "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
         "Application Security"
       ],
-      "relevance": 0.76
-    },
-    {
-      "id": "brief-pcap-network-detector",
-      "closes": [
-        "Go",
-        "Kubernetes",
-        "DevOps & CI/CD",
-        "System Design"
-      ],
-      "relevance": 0.76
+      "relevance": 0.34
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "kubernetes",
-        "devops & ci/cd",
-        "application security"
+        "Go",
+        "Application Security"
       ],
       "beforeScore": 34,
-      "afterScore": 54,
-      "delta": 20
+      "afterScore": 39,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 54,
-      "afterScore": 55,
-      "delta": 1
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 39,
+      "afterScore": 41,
+      "delta": 2
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 41,
+      "afterScore": 44,
+      "delta": 3
     }
   ],
   "first3Rewrites": [

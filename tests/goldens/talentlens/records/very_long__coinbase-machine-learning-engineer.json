@@ -49,42 +49,36 @@
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.7
-    },
-    {
-      "id": "brief-multimodal-ai-app",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning"
-      ],
-      "relevance": 0.7
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "Machine Learning"
       ],
       "beforeScore": 39,
-      "afterScore": 50,
-      "delta": 11
-    },
-    {
-      "skills": [],
-      "beforeScore": 50,
-      "afterScore": 51,
-      "delta": 1
-    },
-    {
-      "skills": [],
-      "beforeScore": 51,
-      "afterScore": 56,
+      "afterScore": 44,
       "delta": 5
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 44,
+      "afterScore": 50,
+      "delta": 6
+    },
+    {
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 50,
+      "afterScore": 53,
+      "delta": 3
     }
   ],
   "first3Rewrites": [
@@ -94,7 +88,7 @@
     },
     {
       "input": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions.",
-      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume exceeding 3,000 words with endless repetitive descriptions, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Senior Software Engineer | MegaCorp Systems | 2020 – 2025",

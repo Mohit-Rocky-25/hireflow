@@ -62,57 +62,51 @@
   },
   "projectsShown": [
     {
-      "id": "brief-graphql-federation",
+      "id": "brief-multitenant-saas-rls",
       "closes": [
         "React",
         "TypeScript",
-        "Kubernetes",
         "Databases & SQL",
-        "DevOps & CI/CD"
+        "Application Security"
       ],
-      "relevance": 0.58
-    },
-    {
-      "id": "brief-background-geofence-optimizer",
-      "closes": [
-        "Java",
-        "Databases & SQL"
-      ],
-      "relevance": 0.21
+      "relevance": 0.45
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "kubernetes",
-        "databases & sql",
-        "devops & ci/cd"
+        "React",
+        "TypeScript",
+        "Databases & SQL",
+        "Application Security"
       ],
       "beforeScore": 32,
-      "afterScore": 45,
-      "delta": 13
+      "afterScore": 37,
+      "delta": 5
     },
     {
       "skills": [
-        "java"
+        "Java"
       ],
-      "beforeScore": 45,
-      "afterScore": 48,
-      "delta": 3
+      "beforeScore": 37,
+      "afterScore": 39,
+      "delta": 2
     },
     {
-      "skills": [],
-      "beforeScore": 48,
-      "afterScore": 51,
-      "delta": 3
-    },
-    {
-      "skills": [],
-      "beforeScore": 51,
-      "afterScore": 52,
+      "skills": [
+        "Kubernetes"
+      ],
+      "beforeScore": 39,
+      "afterScore": 40,
       "delta": 1
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 40,
+      "afterScore": 42,
+      "delta": 2
     }
   ],
   "first3Rewrites": [
@@ -126,7 +120,7 @@
     },
     {
       "input": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX",
-      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Machine Learning: PyTorch, TensorFlow, Scikit-Learn, HuggingFace, ONNX, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

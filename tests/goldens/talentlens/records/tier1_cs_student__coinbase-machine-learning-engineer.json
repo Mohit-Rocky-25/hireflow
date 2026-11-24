@@ -49,42 +49,36 @@
       "id": "brief-gpu-accelerated-inference",
       "closes": [
         "Python",
-        "AWS",
         "Machine Learning"
       ],
-      "relevance": 0.7
-    },
-    {
-      "id": "brief-multimodal-ai-app",
-      "closes": [
-        "Python",
-        "AWS",
-        "Machine Learning"
-      ],
-      "relevance": 0.7
+      "relevance": 0.43
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "python",
-        "aws"
+        "Python",
+        "Machine Learning"
       ],
       "beforeScore": 67,
       "afterScore": 70,
       "delta": 3
     },
     {
-      "skills": [],
+      "skills": [
+        "AWS"
+      ],
       "beforeScore": 70,
-      "afterScore": 71,
-      "delta": 1
+      "afterScore": 70,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 71,
-      "afterScore": 73,
-      "delta": 2
+      "skills": [
+        "Application Security"
+      ],
+      "beforeScore": 70,
+      "afterScore": 70,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -98,7 +92,7 @@
     },
     {
       "input": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services.",
-      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services"
+      "output": "// Intent: Tier-1 CS student with strong fundamentals, 2 summer internships, production Java/Spring and Go services."
     }
   ],
   "violations": []

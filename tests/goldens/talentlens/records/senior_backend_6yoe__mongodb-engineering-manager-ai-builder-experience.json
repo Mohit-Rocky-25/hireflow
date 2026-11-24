@@ -66,34 +66,38 @@
   },
   "projectsShown": [
     {
-      "id": "brief-interview-prep-ai",
+      "id": "brief-fullstack-ecommerce",
       "closes": [
-        "Python",
         "React",
         "TypeScript"
       ],
-      "relevance": 0.54
+      "relevance": 0.3
     },
     {
-      "id": "brief-cdc-pg-elasticsearch",
+      "id": "brief-mlops-platform",
       "closes": [
-        "Python",
-        "Go",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.43
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "devops & ci/cd"
+        "React",
+        "TypeScript"
       ],
       "beforeScore": 45,
-      "afterScore": 66,
-      "delta": 21
+      "afterScore": 45,
+      "delta": 0
+    },
+    {
+      "skills": [
+        "DevOps & CI/CD"
+      ],
+      "beforeScore": 45,
+      "afterScore": 45,
+      "delta": 0
     }
   ],
   "first3Rewrites": [

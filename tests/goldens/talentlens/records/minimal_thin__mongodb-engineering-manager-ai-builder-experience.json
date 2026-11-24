@@ -62,59 +62,49 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
-      "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.48
-    },
-    {
-      "id": "brief-ab-experimentation",
+      "id": "brief-mlops-platform",
       "closes": [
         "Python",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.46
+      "relevance": 0.33
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Python",
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 22,
-      "afterScore": 39,
-      "delta": 17
+      "afterScore": 22,
+      "delta": 0
     },
     {
       "skills": [
-        "python"
+        "Go"
       ],
-      "beforeScore": 39,
-      "afterScore": 41,
-      "delta": 2
+      "beforeScore": 22,
+      "afterScore": 27,
+      "delta": 5
     },
     {
-      "skills": [],
-      "beforeScore": 41,
-      "afterScore": 44,
-      "delta": 3
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 27,
+      "afterScore": 27,
+      "delta": 0
     },
     {
-      "skills": [],
-      "beforeScore": 44,
-      "afterScore": 45,
-      "delta": 1
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 27,
+      "afterScore": 27,
+      "delta": 0
     }
   ],
   "first3Rewrites": [
@@ -124,7 +114,7 @@
     },
     {
       "input": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics.",
-      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Thin student resume with bare one-line mentions and zero quantified metrics, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Chat app: made a chat app in Node.js.",

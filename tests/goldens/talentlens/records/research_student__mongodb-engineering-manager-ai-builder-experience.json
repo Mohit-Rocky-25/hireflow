@@ -65,52 +65,61 @@
   },
   "projectsShown": [
     {
-      "id": "brief-analytics-clickhouse",
+      "id": "brief-mlops-platform",
       "closes": [
-        "React",
-        "TypeScript",
-        "AWS",
         "Databases & SQL",
         "DevOps & CI/CD"
       ],
-      "relevance": 0.67
-    },
-    {
-      "id": "brief-clickstream-clickhouse",
-      "closes": [
-        "Go",
-        "Databases & SQL",
-        "DevOps & CI/CD"
-      ],
-      "relevance": 0.36
+      "relevance": 0.25
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "react",
-        "typescript",
-        "aws",
-        "databases & sql",
-        "devops & ci/cd"
+        "Databases & SQL",
+        "DevOps & CI/CD"
       ],
       "beforeScore": 30,
-      "afterScore": 46,
-      "delta": 16
+      "afterScore": 39,
+      "delta": 9
     },
     {
       "skills": [
-        "go"
+        "Go"
       ],
-      "beforeScore": 46,
-      "afterScore": 48,
+      "beforeScore": 39,
+      "afterScore": 41,
       "delta": 2
+    },
+    {
+      "skills": [
+        "React"
+      ],
+      "beforeScore": 41,
+      "afterScore": 45,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "TypeScript"
+      ],
+      "beforeScore": 45,
+      "afterScore": 48,
+      "delta": 3
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 48,
+      "afterScore": 54,
+      "delta": 6
     }
   ],
   "first3Rewrites": [
     {
       "input": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+",
-      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "Core Domains: Distributed Consensus, Byzantine Fault Tolerance, Formal Verification, Parallel Computing, TLA+, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     },
     {
       "input": "Tools: Linux, Git, GDB, Valgrind, CMake",

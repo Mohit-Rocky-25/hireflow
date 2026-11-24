@@ -50,31 +50,35 @@
       "id": "brief-canary-deployment",
       "closes": [
         "Go",
-        "AWS",
         "Kubernetes"
       ],
-      "relevance": 1
+      "relevance": 0.6
     },
     {
-      "id": "brief-ci-cd-from-scratch",
+      "id": "brief-disaster-recovery-harness",
       "closes": [
-        "Go",
-        "AWS",
-        "Kubernetes"
+        "AWS"
       ],
-      "relevance": 1
+      "relevance": 0.3
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "go",
-        "aws",
-        "kubernetes"
+        "Go",
+        "Kubernetes"
       ],
       "beforeScore": 42,
-      "afterScore": 52,
-      "delta": 10
+      "afterScore": 49,
+      "delta": 7
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 49,
+      "afterScore": 53,
+      "delta": 4
     }
   ],
   "first3Rewrites": [
@@ -88,7 +92,7 @@
     },
     {
       "input": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets.",
-      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: event outcome or impact, if applicable]."
+      "output": "// Intent: Adversarial resume formatted with ASCII tables, Unicode stars, and heavy symbolic bullets, [add: specific role or leadership contribution], with [add: outcome or impact, if applicable]."
     }
   ],
   "violations": []

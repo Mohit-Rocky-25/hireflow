@@ -1,0 +1,84 @@
+{
+  "resumeId": "bootcamp_grad",
+  "roleId": "databricks-director-of-engineering-data-infrastructure",
+  "score": 36,
+  "band": "Developing",
+  "perSkill": [
+    {
+      "id": "react",
+      "status": "demonstrated",
+      "confidenceTag": "High",
+      "score": 85
+    },
+    {
+      "id": "aws",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    },
+    {
+      "id": "systemdesign",
+      "status": "not-found",
+      "confidenceTag": "Low",
+      "score": 0
+    }
+  ],
+  "strengths": [
+    "react"
+  ],
+  "parseSummary": {
+    "sectionsCount": 3,
+    "projectsCount": 2,
+    "bulletsCount": 6,
+    "skillsDetectedCount": 1
+  },
+  "projectsShown": [
+    {
+      "id": "brief-api-gateway-scratch",
+      "closes": [
+        "System Design"
+      ],
+      "relevance": 0.42
+    },
+    {
+      "id": "brief-serverless-backend",
+      "closes": [
+        "AWS"
+      ],
+      "relevance": 0.42
+    }
+  ],
+  "scorePathSteps": [
+    {
+      "skills": [
+        "System Design"
+      ],
+      "beforeScore": 36,
+      "afterScore": 40,
+      "delta": 4
+    },
+    {
+      "skills": [
+        "AWS"
+      ],
+      "beforeScore": 40,
+      "afterScore": 44,
+      "delta": 4
+    }
+  ],
+  "first3Rewrites": [
+    {
+      "input": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io",
+      "output": "CollabFlow — Collaborative Team Task Board | React, Node.js, Express, MongoDB, Socket.io"
+    },
+    {
+      "input": "Frontend: React, Redux Toolkit, Tailwind CSS, Vite",
+      "output": "Frontend: React, Redux Toolkit, Tailwind CSS, Vite, with [add: measured metric, if available]."
+    },
+    {
+      "input": "RecipeShare Community Platform | React, Tailwind CSS, Express, MongoDB",
+      "output": "RecipeShare Community Platform | React, Tailwind CSS, Express, MongoDB"
+    }
+  ],
+  "violations": []
+}

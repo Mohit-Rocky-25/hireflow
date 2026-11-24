@@ -40,33 +40,35 @@
   },
   "projectsShown": [
     {
-      "id": "brief-workflow-engine",
+      "id": "brief-search-engine",
       "closes": [
-        "Java"
+        "DSA"
       ],
-      "relevance": 0.34
+      "relevance": 0.42
     },
     {
-      "id": "brief-upi-settlement-engine",
+      "id": "brief-event-recon",
       "closes": [
         "Java"
       ],
-      "relevance": 0.34
+      "relevance": 0.4
     }
   ],
   "scorePathSteps": [
     {
       "skills": [
-        "java"
+        "DSA"
       ],
       "beforeScore": 33,
-      "afterScore": 34,
-      "delta": 1
+      "afterScore": 36,
+      "delta": 3
     },
     {
-      "skills": [],
-      "beforeScore": 34,
-      "afterScore": 37,
+      "skills": [
+        "Java"
+      ],
+      "beforeScore": 36,
+      "afterScore": 39,
       "delta": 3
     }
   ],
