@@ -155333,6 +155333,7 @@ function attachProvenance(companies: any[]): Company[] {
 }
 
 import { enrichCompanyWithLiveFeed, getStandaloneLiveCompanies } from '../../data/market/liveDataLoader';
+import { enrichCompanyWithCampusPrograms } from '../../data/market/campusProgramsLoader';
 import { normalizeTier } from './engine/skillStateEngine';
 
 export const COMPANIES: Company[] = deduplicateCompanies<Company>(
@@ -155345,7 +155346,8 @@ export const COMPANIES: Company[] = deduplicateCompanies<Company>(
   if (c.tier) {
     c.tier = normalizeTier(c.tier);
   }
-  return enrichCompanyWithLiveFeed(c);
+  const withLive = enrichCompanyWithLiveFeed(c);
+  return enrichCompanyWithCampusPrograms(withLive);
 });
 
 // TALENTLENS™ AI ENGINE v7 — 6-Layer Anti-Gaming Analysis
