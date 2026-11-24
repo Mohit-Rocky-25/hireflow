@@ -109,7 +109,7 @@ export function enrichCompanyWithCampusPrograms(company: Company): Company {
           sourceUrl: company.sourceUrl || `https://hireflow.internal/campus/${canonicalId}`,
         }
       : {}),
-    roles: [...campusRoles, ...existingRoles],
+    roles: [...existingRoles, ...campusRoles],
   };
 }
 
