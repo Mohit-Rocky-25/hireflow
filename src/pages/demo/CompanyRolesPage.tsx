@@ -284,33 +284,39 @@ export function CompanyRolesPage() {
 
     setTimeout(() => {
       clearInterval(interval);
-      const analysisResult = analyzeRoleMatch(resumeText, company, selectedRole);
-      setResult(analysisResult);
-      setAnalysisPhase('');
-      setAnalyzing(false);
-      setStep(3);
-      setSearchParams({ view: 'analysis' });
+      try {
+        const analysisResult = analyzeRoleMatch(resumeText, company, selectedRole);
+        setResult(analysisResult);
+        setAnalysisPhase('');
+        setAnalyzing(false);
+        setStep(3);
+        setSearchParams({ view: 'analysis' });
 
-      // Record in Candidate OS Audit Journal
-      void (async () => {
-        try {
-          const jdRawText = selectedRole.desc || selectedRole.fullText || `${selectedRole.title} at ${company.name}. Competencies: ${selectedRole.competencies.join(', ')}`;
-          const auditInput = talentlensToAuditInput({
-            result: analysisResult,
-            resumeText,
-            jdText: jdRawText,
-            company,
-            role: selectedRole,
-            workspaceId: selectedResumeMeta.workspaceId,
-            resumeVersionId: selectedResumeMeta.versionId,
-            resumeLabel: selectedResumeMeta.label,
-          });
-          const { entry } = await useAuditStore.getState().record(auditInput);
-          setLatestTlAuditEntry(entry);
-        } catch (err) {
-          console.warn('TalentLens journal record notice:', err);
-        }
-      })();
+        // Record in Candidate OS Audit Journal
+        void (async () => {
+          try {
+            const jdRawText = selectedRole.desc || selectedRole.fullText || `${selectedRole.title} at ${company.name}. Competencies: ${selectedRole.competencies?.join(', ') || ''}`;
+            const auditInput = talentlensToAuditInput({
+              result: analysisResult,
+              resumeText,
+              jdText: jdRawText,
+              company,
+              role: selectedRole,
+              workspaceId: selectedResumeMeta.workspaceId,
+              resumeVersionId: selectedResumeMeta.versionId,
+              resumeLabel: selectedResumeMeta.label,
+            });
+            const { entry } = await useAuditStore.getState().record(auditInput);
+            setLatestTlAuditEntry(entry);
+          } catch (err) {
+            console.warn('TalentLens journal record notice:', err);
+          }
+        })();
+      } catch (err) {
+        console.error('TalentLens analysis error:', err);
+        setAnalyzing(false);
+        setAnalysisPhase('');
+      }
 
       // Smooth scroll to top of analysis
       window.scrollTo({ top: 120, behavior: 'smooth' });

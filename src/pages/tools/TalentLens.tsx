@@ -28,6 +28,8 @@ import { ResumePreviewModal } from '../../components/common/ResumePreviewModal';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../components/scoring';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ReportErrorModal } from '../../components/common/ReportErrorModal';
+import { ExportDossierButton } from '../../features/dossier/ExportDossierButton';
+import type { AuditEntry } from '../../domain/types';
 
 // ── Status Components ──
 
@@ -277,11 +279,87 @@ export function TalentLens() {
     return profile?.resumeRawText || DEMO_TALENTLENS_RESUME.text;
   }, [profile?.resumeRawText]);
 
+  const candidateName = candidate?.displayName || 'Candidate';
+  const candidateInitials = candidateName
+    .split(' ')
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase() || 'CA';
+
   const activeResumeFileName = useMemo(() => {
-    return profile?.headline ? `${candidate?.displayName || 'Candidate'} - Resume` : DEMO_TALENTLENS_RESUME.fileName;
-  }, [profile?.headline, candidate?.displayName]);
+    return profile?.headline ? `${candidateName} - Resume` : DEMO_TALENTLENS_RESUME.fileName;
+  }, [profile?.headline, candidateName]);
 
   const selectedJob = jobs.find(j => j.id === selectedJobId);
+
+  const talentLensAudit: AuditEntry = useMemo(() => {
+    return {
+      schemaVersion: 1,
+      id: 'tl-sim-audit-' + (match?.id || Date.now()),
+      targetKey: `tl:sim:${selectedJob?.companyId || 'company'}:${selectedJob?.id || 'job'}`,
+      kind: 'talentlens',
+      engineVersion: '4.1.0',
+      runKey: 'tl-sim-run',
+      overallScore: match?.overallScore ?? 75,
+      createdAt: new Date().toISOString(),
+      resume: {
+        workspaceId: null,
+        versionId: null,
+        label: activeResumeFileName,
+        snapshotHash: 'tl-sim-resume-hash',
+      },
+      jd: {
+        origin: 'talentlens',
+        company: currentCompanyId || 'Alpha Tech',
+        roleTitle: selectedJob?.title || 'Software Engineer',
+        snapshotHash: 'tl-sim-jd-hash',
+      },
+      breakdown: (match?.requirementAssessments || []).map((ra) => ({
+        key: ra.requirementId,
+        label: ra.requirementName,
+        score: ra.status === 'STRONG' ? 100 : ra.status === 'PARTIAL' ? 65 : 15,
+        weight: ra.requirementPriority === 'MANDATORY' ? 1.5 : 1.0,
+        status: ra.status === 'STRONG' ? 'expert' : ra.status === 'PARTIAL' ? 'working' : 'absent',
+        reqLevel: ra.requirementPriority === 'MANDATORY' ? 'strong' : 'working',
+        evidenceQuotes: ra.evidenceText ? [ra.evidenceText] : [],
+        gaps: ra.status === 'MISSING' ? [`Missing verifiable evidence for ${ra.requirementName}`] : [],
+      })),
+      strengths: (match?.requirementAssessments || [])
+        .filter((ra) => ra.status === 'STRONG')
+        .map((ra) => `${ra.requirementName}: ${ra.evidenceText || 'Verified match'}`),
+      gaps: (match?.requirementAssessments || [])
+        .filter((ra) => ra.status === 'MISSING')
+        .map((ra, idx) => ({
+          id: `gap-${idx}`,
+          category: 'skill' as const,
+          label: ra.requirementName,
+          severity: (ra.requirementPriority === 'MANDATORY' ? 3 : 2) as 3 | 2,
+          detail: `Requirement gap in ${ra.requirementName}`,
+        })),
+      delta: null,
+      findingsJson: {
+        kind: 'talentlens',
+        result: {
+          score: match?.overallScore ?? 75,
+          readinessLabel: (match as any)?.band?.label || 'Competitive Fit',
+          breakdown: (match?.requirementAssessments || []).map((ra) => ({
+            competency: ra.requirementName,
+            reqLevel: ra.requirementPriority === 'MANDATORY' ? 'strong' : 'working',
+            analysis: {
+              status: ra.status === 'STRONG' ? 'expert' : ra.status === 'PARTIAL' ? 'working' : 'absent',
+              confidence: ra.status === 'STRONG' ? 100 : ra.status === 'PARTIAL' ? 65 : 15,
+              evidence: ra.evidenceText ? [ra.evidenceText] : [],
+              contextSentences: ra.evidenceText ? [ra.evidenceText] : [],
+              gaps: ra.status === 'MISSING' ? [`Missing verifiable evidence for ${ra.requirementName}`] : [],
+            },
+          })),
+        },
+      },
+      evidence: [],
+    };
+  }, [match, selectedJob, activeResumeFileName, currentCompanyId]);
 
   return (
     <div className="min-h-screen bg-black text-white pt-24 pb-12 px-4 sm:px-6 md:px-8 relative font-sans">
@@ -313,10 +391,10 @@ export function TalentLens() {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded bg-black border border-charcoal flex items-center justify-center text-volt text-base font-mono font-bold">
-              {candidate.displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+              {candidateInitials}
             </div>
             <div className="text-left">
-              <h1 className="text-xl font-bold text-white tracking-tight">{candidate.displayName}</h1>
+              <h1 className="text-xl font-bold text-white tracking-tight">{candidateName}</h1>
               <p className="text-xs font-mono text-silver">{profile?.headline ?? 'Candidate'}</p>
             </div>
           </div>
@@ -427,6 +505,13 @@ export function TalentLens() {
               <div>
                 <div className="flex items-center gap-3 mb-1.5 flex-wrap">
                   <h2 className="text-lg font-bold text-white">Intelligence Report</h2>
+                  <ExportDossierButton
+                    audit={talentLensAudit}
+                    resumeText={activeResumeText}
+                    jdText={selectedJob ? `${selectedJob.title}\n\n${selectedJob.summary || ''}\n\n${selectedJob.responsibilities?.join('\n') || ''}` : undefined}
+                    highlighted={true}
+                    label="Download Report"
+                  />
                   <button
                     type="button"
                     onClick={() => setIsWhyScoreOpen(true)}

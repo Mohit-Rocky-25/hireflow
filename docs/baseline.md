@@ -1,6 +1,6 @@
 # HireFlow v3 Baseline Performance Report (Stage 0.6)
 
-> Recorded on: 2026-11-16
+> Recorded on: 2026-11-24
 > Status: Baseline measurements before any engine changes or refactoring.
 
 ## Baseline Evaluation Matrix

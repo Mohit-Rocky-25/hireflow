@@ -71,7 +71,7 @@ export function fnv1a64(text: string): string {
  * In browser environments, uses 64-bit FNV-1a.
  */
 export function hashText(text: string): string {
-  if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+  if (typeof process !== 'undefined' && process.versions && process.versions.node && typeof require === 'function') {
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const nodeCrypto = require('crypto');

@@ -132,7 +132,16 @@ export const CinematicLoader: React.FC<CinematicLoaderProps> = ({ onFinish }) =>
       }
     }, 16);
 
-    return () => clearInterval(interval);
+    // Watchdog timer: Guarantee loader unmounts and app displays even if tab is throttled
+    const watchdog = setTimeout(() => {
+      clearInterval(interval);
+      finish();
+    }, TOTAL_LOADER_DURATION_MS + 400);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(watchdog);
+    };
   }, [finish, isEnergized]);
 
   // High-Voltage Lightning & Electrostatic Canvas Engine

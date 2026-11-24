@@ -32,7 +32,17 @@ export function Loader({ onFinish, isAppReady = true }: LoaderProps) {
       }
     }, 16);
 
-    return () => clearInterval(interval);
+    // Watchdog timer: Guarantee finish even if timers are throttled in background
+    const watchdog = setTimeout(() => {
+      clearInterval(interval);
+      setIsExiting(true);
+      setTimeout(onFinish, 100);
+    }, maxDuration + 300);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(watchdog);
+    };
   }, [isAppReady, onFinish]);
 
   const getStatusText = (pct: number) => {

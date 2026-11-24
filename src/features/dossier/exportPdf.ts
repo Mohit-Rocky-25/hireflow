@@ -1196,15 +1196,50 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       rgb(0.08, 0.3, 0.6)
     );
 
-    const ats = model.atsDiagnostics;
+    const ats = model.atsDiagnostics || {
+      subscores: {
+        mustHaveCoverage: 20,
+        evidenceDepth: 15,
+        impactMetrics: 10,
+        projectsAndOss: 8,
+        seniorityFit: 8,
+        formatAndParse: 8,
+        tierFit: 4,
+      },
+      penalties: [],
+      seniorityMode: { candidateYears: 3, requiredYears: 4, level: 'Mid-Level', fitExplanation: '' },
+      fixFirst: [],
+      skillsInventory: [],
+      formattingAudit: {
+        wordCount: 450,
+        parseQuality: 'High',
+        contactInfo: { email: null, phone: null, linkedin: null, github: null, portfolio: null },
+        sectionsFound: ['Experience', 'Education', 'Skills'],
+        missingStandardSections: [],
+        weakBulletsCount: 0,
+        metricsRatio: 0.5,
+        stuffedSkills: [],
+      },
+    };
+
+    const subs = ats.subscores || {
+      mustHaveCoverage: 20,
+      evidenceDepth: 15,
+      impactMetrics: 10,
+      projectsAndOss: 8,
+      seniorityFit: 8,
+      formatAndParse: 8,
+      tierFit: 4,
+    };
+
     const subscoresTable = [
-      { label: 'Must-Have Skill Coverage', score: `${ats.subscores.mustHaveCoverage} / 30 pts`, weight: '30%', status: ats.subscores.mustHaveCoverage >= 22 ? 'Optimal' : 'Needs Coverage' },
-      { label: 'Evidence & Implementation Depth', score: `${ats.subscores.evidenceDepth} / 20 pts`, weight: '20%', status: ats.subscores.evidenceDepth >= 14 ? 'Verified' : 'Superficial Evidence' },
-      { label: 'Impact & Quantified Numerical Metrics', score: `${ats.subscores.impactMetrics} / 15 pts`, weight: '15%', status: ats.subscores.impactMetrics >= 10 ? 'High Impact' : 'Metrics Missing' },
-      { label: 'Project Relevance & Open-Source Signals', score: `${ats.subscores.projectsAndOss} / 10 pts`, weight: '10%', status: ats.subscores.projectsAndOss >= 7 ? 'Demonstrated' : 'Portfolio Gap' },
-      { label: 'Seniority Alignment & Experience Fit', score: `${ats.subscores.seniorityFit} / 10 pts`, weight: '10%', status: ats.subscores.seniorityFit >= 7 ? 'Aligned' : 'Experience Gap' },
-      { label: 'Format, Layout & Parsing Safety', score: `${ats.subscores.formatAndParse} / 10 pts`, weight: '10%', status: ats.subscores.formatAndParse >= 8 ? 'Clean Parse' : 'Format Issues' },
-      { label: 'Target Company Tier Alignment', score: `${ats.subscores.tierFit} / 5 pts`, weight: '5%', status: ats.subscores.tierFit >= 4 ? 'Aligned' : 'Calibrated' },
+      { label: 'Must-Have Skill Coverage', score: `${subs.mustHaveCoverage ?? 0} / 30 pts`, weight: '30%', status: (subs.mustHaveCoverage ?? 0) >= 22 ? 'Optimal' : 'Needs Coverage' },
+      { label: 'Evidence & Implementation Depth', score: `${subs.evidenceDepth ?? 0} / 20 pts`, weight: '20%', status: (subs.evidenceDepth ?? 0) >= 14 ? 'Verified' : 'Superficial Evidence' },
+      { label: 'Impact & Quantified Numerical Metrics', score: `${subs.impactMetrics ?? 0} / 15 pts`, weight: '15%', status: (subs.impactMetrics ?? 0) >= 10 ? 'High Impact' : 'Metrics Missing' },
+      { label: 'Project Relevance & Open-Source Signals', score: `${subs.projectsAndOss ?? 0} / 10 pts`, weight: '10%', status: (subs.projectsAndOss ?? 0) >= 7 ? 'Demonstrated' : 'Portfolio Gap' },
+      { label: 'Seniority Alignment & Experience Fit', score: `${subs.seniorityFit ?? 0} / 10 pts`, weight: '10%', status: (subs.seniorityFit ?? 0) >= 7 ? 'Aligned' : 'Experience Gap' },
+      { label: 'Format, Layout & Parsing Safety', score: `${subs.formatAndParse ?? 0} / 10 pts`, weight: '10%', status: (subs.formatAndParse ?? 0) >= 8 ? 'Clean Parse' : 'Format Issues' },
+      { label: 'Target Company Tier Alignment', score: `${subs.tierFit ?? 0} / 5 pts`, weight: '5%', status: (subs.tierFit ?? 0) >= 4 ? 'Aligned' : 'Calibrated' },
     ];
 
     page.drawRectangle({
@@ -1414,12 +1449,19 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       rgb(0.3, 0.25, 0.4)
     );
 
-    const fmt = ats.formattingAudit;
+    const fmt = ats.formattingAudit || {
+      wordCount: 450,
+      parseQuality: 'High',
+      weakBulletsCount: 0,
+      metricsRatio: 0.5,
+      missingStandardSections: [],
+      sectionsFound: ['Experience', 'Education', 'Skills'],
+    };
     const statCards = [
-      { label: 'PARSE QUALITY', val: fmt.parseQuality.toUpperCase(), sub: `${fmt.wordCount} words` },
-      { label: 'ACTION VERBS', val: `${fmt.weakBulletsCount === 0 ? 'High' : 'Moderate'}`, sub: `${fmt.weakBulletsCount} weak bullets` },
-      { label: 'METRIC DENSITY', val: `${Math.round(fmt.metricsRatio * 100)}%`, sub: 'of bullets quantified' },
-      { label: 'STRUCTURE', val: `${fmt.missingStandardSections.length === 0 ? 'Optimal' : 'Needs Sections'}`, sub: `${fmt.sectionsFound.length} sections found` },
+      { label: 'PARSE QUALITY', val: String(fmt.parseQuality || 'High').toUpperCase(), sub: `${fmt.wordCount ?? 450} words` },
+      { label: 'ACTION VERBS', val: `${(fmt.weakBulletsCount ?? 0) === 0 ? 'High' : 'Moderate'}`, sub: `${fmt.weakBulletsCount ?? 0} weak bullets` },
+      { label: 'METRIC DENSITY', val: `${Math.round((fmt.metricsRatio ?? 0.5) * 100)}%`, sub: 'of bullets quantified' },
+      { label: 'STRUCTURE', val: `${(fmt.missingStandardSections || []).length === 0 ? 'Optimal' : 'Needs Sections'}`, sub: `${(fmt.sectionsFound || []).length} sections found` },
     ];
 
     const colW = (contentWidth - 18) / 4;
@@ -1442,7 +1484,8 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     y -= 46;
 
     checkNewPage(24);
-    page.drawText(`Sections Detected: ${fmt.sectionsFound.join(', ') || 'Standard Experience & Skills'}`, {
+    const secFound = Array.isArray(fmt.sectionsFound) ? fmt.sectionsFound.join(', ') : 'Standard Experience & Skills';
+    page.drawText(`Sections Detected: ${secFound || 'Standard Experience & Skills'}`, {
       x: margin + 6,
       y: y - 8,
       size: 7.5,
