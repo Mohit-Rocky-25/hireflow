@@ -7,7 +7,7 @@
   "sector": "AI Safety & Foundation Model Research",
   "headquarters": "Remote - India",
   "website": "https://www.anthropic.com",
-  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
+  "lastSyncedAt": "2026-11-25T11:00:20.813Z",
   "liveRoleCount": 4,
   "status": "verified",
   "confidence": "high",
@@ -22,7 +22,7 @@
       "department": "Applied AI",
       "source": "Official Anthropic Greenhouse ATS Feed",
       "sourceUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5424310008",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "2241ec2215f20ed90ef04ee141e7c02ccb8f147ac4594d76ca61defae0f5edc0",
@@ -62,55 +62,6 @@
       "fullText": "Applied AI Architect\n\nLocation: Mumbai, India\nDepartment: Applied AI\n\nAbout Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.\n\n About the role \n As an Applied AI team member at Anthropic India, you will be a Pre-Sales architect focused on becoming a trusted technical advisor helping large enterprises across India and the Asia-Pacific region understand the value of Claude and paint the vision on how they can successfully integrate and deploy Claude into their technology stack. You'll combine your deep technical expertise with customer-facing skills to architect innovative LLM solutions that address complex business challenges while maintaining our high standards for safety and reliability.\n\n Working closely with our Sales, Product, and Engineering teams, you'll guide customers from initial technical discovery through successful deployment. You'll leverage your expertise to help customers understand Claude's capabilities, develop evals, and design scalable architectures that maximize the value of our AI systems.\n\n Responsibilities: \n\n Partner with account executives to deeply understand customer requirements and translate them into technical solutions, ensuring alignment between business objectives and technical implementation\n\n Serve as the primary technical advisor to enterprise customers throughout their Claude adoption journey, from discovery to initial evaluation through deployment. You will need to coordinate internally across multiple teams &amp; stakeholders to drive customer success\n\n Support customers building with both the Claude API and Claude for Work\n\n Create and deliver compelling technical content tailored to different audiences. You will need to be able to spread the gamut from technical deep dives for engineering &amp; development teams up to business value focused conversations with executives\n\n Guide technical architecture decisions and help customers integrate Claude effectively into their existing technology stack\n\n Help customers develop evaluation frameworks to measure Claude's performance for their specific use cases\n\n Identify common integration patterns and contribute insights back to our Product and Engineering teams\n\n Travel occasionally within India and the APAC region to customer sites for workshops, technical deep dives, and relationship building\n\n Maintain strong knowledge of the latest developments in LLM capabilities and implementation patterns\n\n Collaborate across time zones with global teams while serving as the technical expert for the India market\n\n You may be a good fit if you have: \n\n 10+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager\n\n Experience working with enterprise customers in India or the APAC region, navigating complex buying cycles involving multiple stakeholders\n\n Exceptional ability to build relationships with and communicate technical concepts to diverse stakeholders to include C-suite executives, engineering &amp; IT teams, and more\n\n Strong technical communication skills with the ability to translate customer requirements between technical and business stakeholders\n\n Experience designing scalable cloud architectures and inte"
     },
     {
-      "id": "gh-5443882008",
-      "title": "Applied AI Architect",
-      "level": "Staff",
-      "desc": "About Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build ben...",
-      "location": "Bangalore, India",
-      "workplaceType": "unspecified",
-      "department": "Applied AI",
-      "source": "Official Anthropic Greenhouse ATS Feed",
-      "sourceUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5443882008",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
-      "confidence": "high",
-      "status": "verified",
-      "contentHash": "a61526464b61c9f6f0fbff4833188d4617fc620cdbf8ce838dd23f568519979d",
-      "competencies": [
-        "python",
-        "ml",
-        "systemdesign"
-      ],
-      "requiredSkills": [
-        "Python",
-        "Machine Learning",
-        "Computer Science Fundamentals",
-        "Feature Engineering"
-      ],
-      "toolsAndTech": [
-        "Python",
-        "Machine Learning",
-        "Computer Science Fundamentals",
-        "Feature Engineering"
-      ],
-      "responsibilities": [
-        "Partner with account executives to deeply understand customer requirements and translate them into technical solutions, ensuring alignment between business objectives and technical implementation",
-        "Serve as the primary technical advisor to enterprise customers throughout their Claude adoption journey, from discovery to initial evaluation through deployment. You will need to coordinate internally across multiple teams &amp; stakeholders to drive customer success",
-        "Support customers building with both the Claude API and Claude for Work",
-        "Create and deliver compelling technical content tailored to different audiences. You will need to be able to spread the gamut from technical deep dives for engineering &amp; development teams up to business value focused conversations with executives",
-        "Guide technical architecture decisions and help customers integrate Claude effectively into their existing technology stack",
-        "Help customers develop evaluation frameworks to measure Claude's performance for their specific use cases",
-        "Identify common integration patterns and contribute insights back to our Product and Engineering teams",
-        "Travel occasionally within India and the APAC region to customer sites for workshops, technical deep dives, and relationship building"
-      ],
-      "requiredQualifications": [
-        "Maintain strong knowledge of the latest developments in LLM capabilities and implementation patterns",
-        "10+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager",
-        "Experience working with enterprise customers in India or the APAC region, navigating complex buying cycles involving multiple stakeholders",
-        "Experience designing scalable cloud architectures and integrating with enterprise systems"
-      ],
-      "fullText": "Applied AI Architect\n\nLocation: Bangalore, India\nDepartment: Applied AI\n\nAbout Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.\n\n About the role \n As an Applied AI team member at Anthropic India, you will be a Pre-Sales architect focused on becoming a trusted technical advisor helping large enterprises across India and the Asia-Pacific region understand the value of Claude and paint the vision on how they can successfully integrate and deploy Claude into their technology stack. You'll combine your deep technical expertise with customer-facing skills to architect innovative LLM solutions that address complex business challenges while maintaining our high standards for safety and reliability.\n\n Working closely with our Sales, Product, and Engineering teams, you'll guide customers from initial technical discovery through successful deployment. You'll leverage your expertise to help customers understand Claude's capabilities, develop evals, and design scalable architectures that maximize the value of our AI systems.\n\n Responsibilities: \n\n Partner with account executives to deeply understand customer requirements and translate them into technical solutions, ensuring alignment between business objectives and technical implementation\n\n Serve as the primary technical advisor to enterprise customers throughout their Claude adoption journey, from discovery to initial evaluation through deployment. You will need to coordinate internally across multiple teams &amp; stakeholders to drive customer success\n\n Support customers building with both the Claude API and Claude for Work\n\n Create and deliver compelling technical content tailored to different audiences. You will need to be able to spread the gamut from technical deep dives for engineering &amp; development teams up to business value focused conversations with executives\n\n Guide technical architecture decisions and help customers integrate Claude effectively into their existing technology stack\n\n Help customers develop evaluation frameworks to measure Claude's performance for their specific use cases\n\n Identify common integration patterns and contribute insights back to our Product and Engineering teams\n\n Travel occasionally within India and the APAC region to customer sites for workshops, technical deep dives, and relationship building\n\n Maintain strong knowledge of the latest developments in LLM capabilities and implementation patterns\n\n Collaborate across time zones with global teams while serving as the technical expert for the India market\n\n You may be a good fit if you have: \n\n 10+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager\n\n Experience working with enterprise customers in India or the APAC region, navigating complex buying cycles involving multiple stakeholders\n\n Exceptional ability to build relationships with and communicate technical concepts to diverse stakeholders to include C-suite executives, engineering &amp; IT teams, and more\n\n Strong technical communication skills with the ability to translate customer requirements between technical and business stakeholders\n\n Experience designing scalable cloud architectures and i"
-    },
-    {
       "id": "gh-5461252008",
       "title": "Applied AI Architect ( Global Customers)",
       "level": "Staff",
@@ -120,7 +71,7 @@
       "department": "Applied AI",
       "source": "Official Anthropic Greenhouse ATS Feed",
       "sourceUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5461252008",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "df29c0441224b3cdd8a6fadeb3cea9014563804bc602259fa7021fad76c5cc7e",
@@ -169,7 +120,7 @@
       "department": "Applied AI",
       "source": "Official Anthropic Greenhouse ATS Feed",
       "sourceUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5447368008",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "db125ba5d678cb66bb6831eb46e2d30e7d973960eb0d5c74d88b72f367911a3d",
@@ -206,6 +157,50 @@
         "Experience designing scalable cloud architectures and integrating with enterprise systems"
       ],
       "fullText": "Applied AI Architect, Partnerships\n\nLocation: Bangalore, India\nDepartment: Applied AI\n\nAbout Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.\n\n About the role \n As a Partners Solutions Architect on the Applied AI team at Anthropic, you will be a Pre-Sales architect focused on cultivating technical relationships with our Global and Regional System Integrators (GSIs/RSIs), and our cloud partners . You will strengthen our relationships with key partners to accelerate indirect revenue, enable their AI practices, and execute on long-term GTM strategy.\n\n Responsibilities: \n\n Strategic Technical Partnership : Be a technical thought partner to the Anthropic GTM partnerships team, providing technical expertise to better understand the partner landscape, driving key strategic programs, and identifying opportunities to deepen partner technical capabilities. Embed with GSI and cloud partner technical teams to enable their AI practices, support troubleshooting, evangelize Anthropic in their developer communities, and serve as an escalation point for complex technical issues.\n\n Joint Solution Development: Collaborate with partners to identify high value industry-specific GenAI applications, develop joint solutions and codify reference architectures / best practices to accelerate time to deployment\n\n Customer Deal Support: Intervene directly to unblock strategic customer deals where partners are the primary delivery vehicle, providing deep technical expertise and solution architecture guidance.\n\n Partner Ecosystem &amp; Events : Represent Anthropic at partner events such as GSI customer workshops, summits, and industry conferences. Lead or support partner-specific developer events, hackathons, and technical enablement sessions, especially for technically native communities.\n\n Product Feedback: Validate and gather feedback on Anthropic's products and offerings, especially as they relate to partner use cases and deployment patterns, and deliver this feedback to relevant Anthropic teams to inform product roadmap and partner strategy.\n\n You may be a good fit if you have: \n\n 10+ years of experience in technical customer-facing/partner-facing roles such as Solutions Architect, Sales Engineer, Partner Sales Engineer\n\n Track record of successfully partnering with GSIs and/or cloud providers to solve complex technical challenges, from initial solution design through customer delivery\n\n Exceptional ability to build relationships with and communicate technical concepts to diverse stakeholders to include C-suite executives, engineering &amp; IT teams, and more\n\n Strong presentation &amp; technical communication skills with the ability to translate requirements between technical and business stakeholders\n\n Experience designing scalable cloud architectures and integrating with enterprise systems\n\n Familiarity with common LLM frameworks and tools or a background in machine learning or data science\n\n Excitement for engaging in cross-organizational collaboration, working through trade-offs, and balancing competing priorities\n\n A love of teaching, mentoring, and helping others succeed\n\n Passion for thinking creatively about how to use technology in a way that is safe and beneficial, and ul"
+    },
+    {
+      "id": "gh-5486776008",
+      "title": "Applied AI Architect, Beneficial Deployment",
+      "level": "Staff",
+      "desc": "About Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build ben...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "Applied AI",
+      "source": "Official Anthropic Greenhouse ATS Feed",
+      "sourceUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5486776008",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "68186bd7fb8b7b00c6ef21d91df97f176d6a0c576f50f1076defdc411ab4bf8b",
+      "competencies": [
+        "react",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Next.js",
+        "Computer Science Fundamentals",
+        "Feature Engineering"
+      ],
+      "toolsAndTech": [
+        "Next.js",
+        "Computer Science Fundamentals",
+        "Feature Engineering"
+      ],
+      "responsibilities": [
+        "Serve as the primary technical advisor to a portfolio of nonprofits and research institutes from discovery through deployment, turning their priorities into scoped use cases with clear measures of success.",
+        "Partner with Account Executives on account plans, discovery and technical evaluation.",
+        "Design and demo solutions with Claude, the API and Claude Code and Science for nonprofits and research institutes",
+        "Help researchers evaluate Claude on their own questions and data before they rely on it, and be plain about its limits.",
+        "Guide partners through security review, data governance and procurement, including rules that differ by country and limits on how research data can be used.",
+        "Support a wider portfolio of accounts through learning sessions and enablement.",
+        "Run workshops and trainings that build AI fluency across partner teams, from program staff to research groups.",
+        "Build reusable assets (reference designs, connectors, prompt and eval templates) so one partner's work helps the next."
+      ],
+      "requiredQualifications": [
+        "7-10 years in customer-facing technical roles such as solutions architecture, sales engineering, forward-deployed engineering or technical consulting.",
+        "Hands-on experience building with LLM APIs: you have built and evaluated working prototypes or agents, and can guide a partner's own engineers on architecture and evals. You don't need to write production code."
+      ],
+      "fullText": "Applied AI Architect, Beneficial Deployment\n\nLocation: Bangalore, India\nDepartment: Applied AI\n\nAbout Anthropic \n Anthropic’s mission is to create reliable, interpretable, and steerable AI systems. We want AI to be safe and beneficial for our users and for society as a whole. Our team is a quickly growing group of committed researchers, engineers, policy experts, and business leaders working together to build beneficial AI systems.\n\n About Beneficial Deployments \n Beneficial Deployments ensures AI reaches and benefits the communities that need it most. We partner with nonprofits, foundations, and mission-driven organizations to deploy Claude in education, global health, economic mobility, and life sciences — focusing on raising the floor for those who need it most.\n\n About the Role \n We're looking for an Applied AI Architect to join Beneficial Deployments, focused on helping nonprofits and research institutes in APAC get real value from Claude. You'll be the technical lead for a portfolio of partners, working alongside our Account Executives from first conversation through deployment, and you'll support a wider set of accounts through learning sessions. With nonprofits, you'll find where Claude makes a real difference to their mission and their operations. With research institutes, you'll help researchers and the teams who support them use Claude in work they can check and stand behind. You'll design solutions that fit each partner's budget, data and teams, and turn early pilots into lasting adoption. What works for one partner becomes something others across the region and beyond can use.\n\n Responsibilities \n \n Serve as the primary technical advisor to a portfolio of nonprofits and research institutes from discovery through deployment, turning their priorities into scoped use cases with clear measures of success.\n\n Partner with Account Executives on account plans, discovery and technical evaluation.\n\n Design and demo solutions with Claude, the API and Claude Code and Science for nonprofits and research institutes\n\n Help researchers evaluate Claude on their own questions and data before they rely on it, and be plain about its limits.\n\n Guide partners through security review, data governance and procurement, including rules that differ by country and limits on how research data can be used.\n\n Support a wider portfolio of accounts through learning sessions and enablement.\n\n Run workshops and trainings that build AI fluency across partner teams, from program staff to research groups.\n\n Build reusable assets (reference designs, connectors, prompt and eval templates) so one partner's work helps the next.\n\n Spot patterns across partners, bring field insight back to Product and Research, and help partners measure what changed.\n\n Travel up to 30% to partner sites for workshops, technical deep dives and relationship building.\n\n You Might Be a Good Fit If You Have \n \n 7-10 years in customer-facing technical roles such as solutions architecture, sales engineering, forward-deployed engineering or technical consulting.\n\n A track record of getting lean, skeptical or slow-moving teams with many stakeholders to adopt technology and keep using it, including working through how they buy and govern it.\n\n Hands-on experience building with LLM APIs: you have built and evaluated working prototypes or agents, and can guide a partner's own engineers on architecture and evals. You don't need to write production code.\n\n The ability to earn the trust of researche"
     }
   ]
 }

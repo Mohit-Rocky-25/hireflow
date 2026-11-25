@@ -7,8 +7,8 @@
   "sector": "Search AI & Enterprise Observability",
   "headquarters": "Bengaluru / Pune",
   "website": "https://www.elastic.co",
-  "lastSyncedAt": "2026-11-24T06:18:52.608Z",
-  "liveRoleCount": 12,
+  "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+  "liveRoleCount": 13,
   "status": "verified",
   "confidence": "high",
   "roles": [
@@ -22,7 +22,7 @@
       "department": "Marketing Operations",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=8314336&gh_jid=8314336",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "cde7c7f73ed9983c57598a11c227ddb3516e9b7a84cc14e499dff2dfc845b3b3",
@@ -69,7 +69,7 @@
       "department": "Consulting - Global - COE",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=7447246&gh_jid=7447246",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "88429515328262c2037c62646551a39bb58ba5ab8a671f1fbbbb4db98dff4cdc",
@@ -149,7 +149,7 @@
       "department": "Consulting - Global - COE",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=7447426&gh_jid=7447426",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "e312d37813956a45c9e815ebf8d90e78cec75081bf798726727b95b7c2ab902b",
@@ -201,7 +201,7 @@
       "department": "Consulting - Global - COE",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=7447236&gh_jid=7447236",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "3e090863a5a1fbafe15de66ecbc33a8fd257aadc10fbd192e9b65f9b9a0967f6",
@@ -462,7 +462,7 @@
       "department": "SA - APJ - India",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=8226083&gh_jid=8226083",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "3ec79b53905ee28ffa4c07a937f5a4c6719fcd3c33ac183ab8f14e6814b4aa4c",
@@ -636,19 +636,19 @@
       "fullText": "UX Engineer\n\nLocation: Bangalore, India\nDepartment: IT\n\nElastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to enable everyone to accelerate the results that matter. By taking advantage of all structured and unstructured data — securing and protecting private information more effectively — Elastic’s complete, cloud-based solutions for search, security, and observability help organizations deliver on the promise of AI.\n\n What is The Role \n \n The Elastic IT team is shifting beyond standard chat interfaces to craft the next frontier of generative and agentic AI experiences. We are looking for an innovative UX &amp; Front End Engineer to join our team to bridge the gap between powerful AI capabilities and intuitive, delightful user interfaces that accelerate productivity across the entire organization. \n\n Our ideal candidate is a skilled front-end engineer with hands-on experience designing and building AI user experiences (e.g., streaming text, dynamic prompt workflows, agent reasoning visualizations, and multi-modal interaction patterns). In this role, you will leverage the latest AI technologies and the Elastic Stack (including ESRE, Agent Builder, Workflows and eUI) to build high-performance front-end applications for a suite of internal products and platforms. Driven by a user-centered mindset, you will act as a key collaborator between AI back-end engineers, product managers, and user groups to turn complex AI reasoning into seamless human-AI interactions. By shaping how enterprise users interact with generative AI, you will enable our global workforce while showcasing the boundary-pushing capabilities of Elastic's products. \n\n Are you ready to design and build the interfaces that supercharge enterprise productivity and prove what’s possible with Elastic? Join us to create AI user experiences that turn collective knowledge into instant action, empowering everyone at Elastic to achieve more. \n \n What You Will Be Doing \n\n AI UI/UX Design &amp; Implementation: Translate complex generative and agentic AI processes into intuitive, responsive, and engaging front-end interfaces. \n\n Front-End Architecture: Design, build, and maintain front-end UI component libraries. These libraries should be scalable, accessible, and reusable and will be created for generative AI interactions. You will use modern frameworks like React and TypeScript. \n\n Human-AI Interaction Patterns: Prototype and implement novel interaction patterns for conversational AI, agent execution visibility (thought logs, tool calls), prompt systems, and rich dynamic outputs. \n\n Performance &amp; Streaming Optimization: Optimize UI performance for real-time AI responses, managing token streaming latency, async state management, and optimistic UI updates. \n\n Enterprise Grounding &amp; Integration: Connect front-end interfaces to internal services. This includes Retrieval Augmented Generation (RAG) endpoints. It also includes Elasticsearch Relevance Engine (ESRE) and agent orchestration APIs. \n\n User-Centered Collaboration: Partner closely with UX designers, product managers, and AI backend engineers to iteratively test and refine AI workflows based on real user feedback. \n\n Accessibility &amp; Design Systems: Ensure all fr"
     },
     {
-      "id": "gh-7621743",
+      "id": "gh-8111756",
       "title": "Senior Solutions Architect",
       "level": "Staff",
       "desc": "Elastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to...",
-      "location": "Delhi, India",
+      "location": "Mumbai, India",
       "workplaceType": "unspecified",
       "department": "SA - APJ - Management and Support",
       "source": "Official Elastic India Greenhouse ATS Feed",
-      "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=7621743&gh_jid=7621743",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=8111756&gh_jid=8111756",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "14ed7bfe30a52a2c952d0cc9eb9683c922c22e05e3814667f1058f1d72693182",
+      "contentHash": "d866fe17a744f044534e9e23a1d518ff1b267a5a5c1744a60b33a809b62d50eb",
       "competencies": [
         "systemdesign",
         "dsa"
@@ -674,7 +674,7 @@
       "requiredQualifications": [
         "10+ years of track record of success in a technical presales role ( security background) -- enough experience selling and implementing technology to earn your customer’s trust."
       ],
-      "fullText": "Senior Solutions Architect\n\nLocation: Delhi, India\nDepartment: SA - APJ - Management and Support\n\nElastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to enable everyone to accelerate the results that matter. By taking advantage of all structured and unstructured data — securing and protecting private information more effectively — Elastic’s complete, cloud-based solutions for search, security, and observability help organizations deliver on the promise of AI.\n\n About the role: \n As a Senior Solutions Architect at Elastic you will serve as a technical authority and trusted advisor to our sales team, customers, partners and community. You will understand and solve our customer’s business issues with the Elastic Stack, engage the regional Elastic community through events and programs, and enable sales through our Partners. A successful SA at Elastic will be focused on excellence; taking the initiative to improve both themselves and the team through continuous learning and questioning the status quo. \n\n What You Will Be Doing: \n \n Serving as the technical point of contact for your accounts and account managers in your assigned territory.\n\n Developing a deep understanding of customers’ goals and objectives, and articulating how our offerings address their needs.\n\n Creating and owning value based relationships at all levels in customer organizations.\n\n Actively participating in all phases of planning and execution for your territory, from initial discovery to the technical win.\n\n Developing and maintaining a deep understanding of the Elastic products and solutions to demonstrate the value of our offerings in sales meetings, and at events such as meetups and conferences.\n\n Advising the sales team on effective ways of positioning Elastic products, solutions and services.\n\n Onboarding, educating and enabling our partners, and supporting them in sales cycles.\n\n Creating collateral, contributing to programs and collaborating with other Elasticians to meet individual client needs.\n\n Being the voice of the customer and community to communicate needs, gaps, and enhancements to our engineering and leadership teams.\n\n Deepening both your sales and technical skills through self driven education while taking advantage of all the professional development opportunities provided by Elastic.\n\n What You Bring Along: \n \n 10+ years of track record of success in a technical presales role ( security background) -- enough experience selling and implementing technology to earn your customer’s trust.\n\n A demonstrable ability to articulate and sell the benefits of modern platforms, software and technologies.\n\n A real passion for being curious and a continuous learner. You are someone that invests in yourself as much as you invest in your professional relationships.\n\n A history of successful customer relations where you developed an understanding of what made a difference, and devised architectures that helped meet a goal, tackle a problem, or outpace competitors.\n\n An ability to influence. Have you more than once convinced a team you worked for, of an idea, technology, or architectural pattern?\n\n The ability to inspire groups, both large and small.\n\n A willingness to travel within the region, as well as oc"
+      "fullText": "Senior Solutions Architect\n\nLocation: Mumbai, India\nDepartment: SA - APJ - Management and Support\n\nElastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to enable everyone to accelerate the results that matter. By taking advantage of all structured and unstructured data — securing and protecting private information more effectively — Elastic’s complete, cloud-based solutions for search, security, and observability help organizations deliver on the promise of AI.\n\n About the role: \n As a Senior Solutions Architect at Elastic you will serve as a technical authority and trusted advisor to our sales team, customers, partners and community. You will understand and solve our customer’s business issues with the Elastic Stack, engage the regional Elastic community through events and programs, and enable sales through our Partners. A successful SA at Elastic will be focused on excellence; taking the initiative to improve both themselves and the team through continuous learning and questioning the status quo. \n\n What You Will Be Doing: \n \n Serving as the technical point of contact for your accounts and account managers in your assigned territory.\n\n Developing a deep understanding of customers’ goals and objectives, and articulating how our offerings address their needs.\n\n Creating and owning value based relationships at all levels in customer organizations.\n\n Actively participating in all phases of planning and execution for your territory, from initial discovery to the technical win.\n\n Developing and maintaining a deep understanding of the Elastic products and solutions to demonstrate the value of our offerings in sales meetings, and at events such as meetups and conferences.\n\n Advising the sales team on effective ways of positioning Elastic products, solutions and services.\n\n Onboarding, educating and enabling our partners, and supporting them in sales cycles.\n\n Creating collateral, contributing to programs and collaborating with other Elasticians to meet individual client needs.\n\n Being the voice of the customer and community to communicate needs, gaps, and enhancements to our engineering and leadership teams.\n\n Deepening both your sales and technical skills through self driven education while taking advantage of all the professional development opportunities provided by Elastic.\n\n What You Bring Along: \n \n 10+ years of track record of success in a technical presales role ( security background) -- enough experience selling and implementing technology to earn your customer’s trust.\n\n A demonstrable ability to articulate and sell the benefits of modern platforms, software and technologies.\n\n A real passion for being curious and a continuous learner. You are someone that invests in yourself as much as you invest in your professional relationships.\n\n A history of successful customer relations where you developed an understanding of what made a difference, and devised architectures that helped meet a goal, tackle a problem, or outpace competitors.\n\n An ability to influence. Have you more than once convinced a team you worked for, of an idea, technology, or architectural pattern?\n\n The ability to inspire groups, both large and small.\n\n A willingness to travel within the region, as well as o"
     },
     {
       "id": "gh-8362973",
@@ -686,10 +686,10 @@
       "department": "Support",
       "source": "Official Elastic India Greenhouse ATS Feed",
       "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=8362973&gh_jid=8362973",
-      "lastVerified": "2026-11-24T06:18:52.608Z",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "3395732e8b7594059902b7179b6559e544b9030177849cea4c17550b48ab3bcd",
+      "contentHash": "b842df16408691ea6f529d7c1402d4db8762fcf0808c614468b0ca5a4c1cb7e9",
       "competencies": [
         "java",
         "python",
@@ -746,7 +746,7 @@
       ],
       "requiredQualifications": [
         "Take part in organizational projects, programs and/or business initiatives using demonstrated creativity and ingenuity to improve performance and customer experience.",
-        "5+ (7+ for C6) years of experience in technical support, system administration or related customer-facing role",
+        "5+ years of experience in technical support, system administration or related customer-facing role",
         "Advanced level of hands-on generalist experience at: Java (e.g. JVMS &amp; components), Operational Systems (e.g. Linux and Windows), Networks (e.g. LDAP, Load Balancers, Proxies, SSL);",
         "Experience with APIs and REST calls;",
         "Experience with web/application servers (e.g. Tomcat, Apache, IIS, NGINX, Jboss);",
@@ -755,6 +755,62 @@
         "Experience with SaaS and/or Distributed systems"
       ],
       "fullText": "Senior Support Engineer\n\nLocation: Bangalore, India\nDepartment: Support\n\nElastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to enable everyone to accelerate the results that matter. By taking advantage of all structured and unstructured data — securing and protecting private information more effectively — Elastic’s complete, cloud-based solutions for search, security, and observability help organizations deliver on the promise of AI.\n\n What is the role: \n\n We’re always on the search for amazing people. People who have a deep passion for technology and are masters at their craft. We build highly sophisticated distributed systems, and we don’t take our technology lightly. At Elastic, you’ll have the opportunity to work in a vibrant young company next to some of the smartest and highly skilled technologists the industry has to offer. We’re looking for great team players, but we also promote independence and ownership. We’re hackers… The good kind. The kind that innovates and creates cutting edge products that eventually translates to a lot of happy, smiling faces.\n\n Elastic’s Support team is unlike any other on Earth: while we are spread across 12 time zones and 15 countries, we operate as a unit, as a family. We are massively distributed yet lovingly intimate. The service we deliver is caring, empathetic, and human yet ambitious, direct, and comprehensive. We don’t do it alone, as we are tightly integrated with our core developers in a way that is real, genuine, and never taken for granted. Our team is a dream for someone seeking honest, hard work and rewards. It is a nightmare for anyone afraid to ask questions or be questioned — always forward, never backward. We are not trying to change the world, we already have. We’re just waiting for everyone else to catch up. We have our good days and our not so good days, and we face them together, as a family. We listen. We solve. We guide. We get it. And we’re excited to bring on a new team member to love.\n\n What You Will Be Doing \n\n Ensuring technical customer issues are serviced within our contractual SLA and managed to resolution\n\n Maintain strong relationships with our customers for the delivery of technical support\n\n Resolves customer problems via telephone, email, chat or remote access.\n\n Have a mindset of continuous improvement in terms of the efficiency of support processes and customer satisfaction\n\n Work across multicultural and geographically distributed teams\n\n Contribute to product documentation, customer knowledge base, and best practices guides\n\n Continuously improve processes and tools in collaboration with the team\n\n Provide weekend on-call support for the team rotation (8 hours during regular work hours)\n\n Develop subject matter expertise one key product feature\n\n Works on complex issues where analysis of situations or data requires an in-depth evaluation of variable factors. \n\n Take part in organizational projects, programs and/or business initiatives using demonstrated creativity and ingenuity to improve performance and customer experience.\n\n Provide technical leadership in Elastic communities and Knowledge-Centered Service methodology and process.\n\n Creation of lab environments to replicate customer issues.\n\n Com"
+    },
+    {
+      "id": "gh-8414808",
+      "title": "Manager, Salesforce Revenue Cloud",
+      "level": "Engineering Manager",
+      "desc": "Elastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to...",
+      "location": "Bangalore, India",
+      "workplaceType": "unspecified",
+      "department": "IT",
+      "source": "Official Elastic India Greenhouse ATS Feed",
+      "sourceUrl": "https://jobs.elastic.co/jobs?gh_jid=8414808&gh_jid=8414808",
+      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "c3174544431f096cbeb3ec514a5745e8d45af4c5668c87b89f325e62afb2e620",
+      "competencies": [
+        "systemdesign",
+        "dsa"
+      ],
+      "requiredSkills": [
+        "Elasticsearch",
+        "Prometheus",
+        "Technical Leadership & Mentorship",
+        "Data Modeling",
+        "Feature Engineering",
+        "Data Structures",
+        "Jira & Agile"
+      ],
+      "toolsAndTech": [
+        "Elasticsearch",
+        "Prometheus",
+        "Technical Leadership & Mentorship",
+        "Data Modeling",
+        "Feature Engineering",
+        "Data Structures",
+        "Jira & Agile"
+      ],
+      "responsibilities": [
+        "Architectural Governance &amp; Technical Leadership Architectural Oversight: Define and govern solution blueprints, integration patterns, and engineering standards across Salesforce CPQ, Revenue Cloud (RCA), Billing, and Subscription Management.",
+        "End-to-End Development Leadership: Lead Salesforce development across design, coding, testing, deployment, and support.",
+        "Solution Design &amp; Build: Design and develop scalable solutions using Lightning Web Components (LWC) and Aura; develop, test, and optimize Apex classes, triggers, batch and schedulable jobs.",
+        "Technical Quality &amp; Code QA: Conduct code reviews of engineering deliverables (pull requests, Apex, LWC, SOQL) to ensure quality, maintainability, minimal custom-code debt, and adherence to Salesforce security best practices.",
+        "Integrations &amp; Data Modeling: Guide data modeling strategies and integrate Salesforce with ERP systems, MuleSoft middleware, payment gateways, and third-party financial applications via REST/SOAP APIs and other integration tools.",
+        "Standards &amp; Best Practices: Define and enforce best practices around Salesforce development, security, and data management.",
+        "Proof-of-Concepts (PoCs): Conduct technical discovery and build light PoCs to validate solution designs before committing user stories to sprint development.",
+        "Continuous Improvement: Stay current on Salesforce releases and emerging technologies and recommend improvements."
+      ],
+      "requiredQualifications": [
+        "10+ years of IT experience, including 7+ years of hands-on Salesforce development.",
+        "3–4+ years of people management experience leading, mentoring, and scaling Salesforce engineering/configuration teams across onshore and offshore environments.",
+        "5+ years of Salesforce CPQ &amp; Revenue Cloud expertise: Quote-to-Cash implementations, standard CPQ objects, Revenue Cloud (RCA) data structures, Billing, Subscription Management, and Revenue Recognition.",
+        "CPQ-to-RCA migration track record: Hands-on experience migrating legacy CPQ architectures to Revenue Cloud, including data migration strategies and object model shifts.",
+        "Salesforce platform experience in Sales Cloud and related integrations",
+        "Experience working with Finance and Revenue Operations teams"
+      ],
+      "fullText": "Manager, Salesforce Revenue Cloud\n\nLocation: Bangalore, India\nDepartment: IT\n\nElastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale — unleashing the potential of businesses and people. The Elastic Search AI Platform, used by more than 50% of the Fortune 500, brings together the precision of search and the intelligence of AI to enable everyone to accelerate the results that matter. By taking advantage of all structured and unstructured data — securing and protecting private information more effectively — Elastic’s complete, cloud-based solutions for search, security, and observability help organizations deliver on the promise of AI.\n\n What is The Role \n\n This role is responsible for leading the migration from Salesforce CPQ to Revenue Cloud and being responsible for the end-to-end Quote-to-Cash capability. The manager will ensure that quoting, pricing, contracting, ordering, and billing processes operate optimally and scale with business growth. The role requires close partnership with Sales, Finance, Legal, and IT.\n\n What You Will Be Doing \n\n Architectural Governance &amp; Technical Leadership \n \n Architectural Oversight: Define and govern solution blueprints, integration patterns, and engineering standards across Salesforce CPQ, Revenue Cloud (RCA), Billing, and Subscription Management.\n\n End-to-End Development Leadership: Lead Salesforce development across design, coding, testing, deployment, and support.\n\n Solution Design &amp; Build: Design and develop scalable solutions using Lightning Web Components (LWC) and Aura; develop, test, and optimize Apex classes, triggers, batch and schedulable jobs.\n\n Technical Quality &amp; Code QA: Conduct code reviews of engineering deliverables (pull requests, Apex, LWC, SOQL) to ensure quality, maintainability, minimal custom-code debt, and adherence to Salesforce security best practices.\n\n Integrations &amp; Data Modeling: Guide data modeling strategies and integrate Salesforce with ERP systems, MuleSoft middleware, payment gateways, and third-party financial applications via REST/SOAP APIs and other integration tools.\n\n Standards &amp; Best Practices: Define and enforce best practices around Salesforce development, security, and data management.\n\n Proof-of-Concepts (PoCs): Conduct technical discovery and build light PoCs to validate solution designs before committing user stories to sprint development.\n\n Continuous Improvement: Stay current on Salesforce releases and emerging technologies and recommend improvements.\n\n Engineering Delivery &amp; Sprint Management \n\n Agile Sprint Execution: Own end-to-end engineering delivery for the Q2C team, running 2-week Agile sprints with strict Definition-of-Ready (DoR) criteria.\n\n Team Capacity &amp; Roadmap Ownership: Manage capacity, velocity, and delivery roadmaps for direct reports (Salesforce Admins and Engineers across US and India), balancing maintenance with strategic migration milestones.\n\n Mentorship: Mentor junior developers and raise the team's engineering bar.\n\n Scope Defense &amp; Vendor Management: Protect sprint commitments against mid-sprint scope creep through stakeholder negotiation; manage external partners when engaged.\n\n Cross-Functional Strategic Alignment \n \n Process Excellence: Eliminate internal process complexity and lead technical discovery workshops aligned to revenue recognition and subscription lifecycle requirements.\n\n Business Requirement Translation: Partn"
     }
   ]
 }
