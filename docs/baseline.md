@@ -7,26 +7,26 @@
 
 | Test Pair | Candidate & Role | Overall ATS Score | Hard Skills Met | Evidence Score | Seniority / Readiness | Format Safety | Top Warnings / Findings |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Pair 1** | Strong CS B.Tech, 8.64 CGPA, Node/React/PG, Internship | **57 / 100** | 3/7 | N/A | 0 | N/A | Keyword Stuffing Detected (-10) |
-| **Pair 2** | ECE B.E., Embedded C, FreeRTOS, STM32/ESP32, No internship | **77 / 100** | 7/9 | N/A | 0 | N/A | Keyword Stuffing Detected (-12) |
-| **Pair 3** | Tier-3 IT B.Tech, 7.15 CGPA, weak verbs, no metrics | **49 / 100** | 5/7 | N/A | 0 | N/A | None |
-| **Pair 4** | Two-column interleaved paste, React/TS/Next, FinTech intern | **20 / 100** | 7/13 | N/A | 0 | N/A | Keyword Stuffing Detected (-15); Missing Dedicated EDUCATION Section (-3); Missing Dedicated SKILLS Section (-3); Missing Dedicated PROJECTS Section (-3) |
-| **Pair 5** | Mechanical B.Tech switcher, Django/Python/SQL projects | **52 / 100** | 7/16 | N/A | 0 | N/A | Keyword Stuffing Detected (-12) |
-| **Pair 6** | 40+ buzzwords listed, only 1 basic portfolio project | **43 / 100** | 6/16 | N/A | 0 | N/A | Keyword Stuffing Detected (-15) |
+| **Pair 1** | Strong CS B.Tech, 8.64 CGPA, Node/React/PG, Internship | **55 / 100** | 3/7 | N/A | 0 | N/A | None |
+| **Pair 2** | ECE B.E., Embedded C, FreeRTOS, STM32/ESP32, No internship | **81 / 100** | 7/9 | N/A | 0 | N/A | None |
+| **Pair 3** | Tier-3 IT B.Tech, 7.15 CGPA, weak verbs, no metrics | **69 / 100** | 5/7 | N/A | 0 | N/A | None |
+| **Pair 4** | Two-column interleaved paste, React/TS/Next, FinTech intern | **13 / 100** | 7/13 | N/A | 0 | N/A | Missing Dedicated EDUCATION Section (-3); Missing Dedicated SKILLS Section (-3); Missing Dedicated PROJECTS Section (-3) |
+| **Pair 5** | Mechanical B.Tech switcher, Django/Python/SQL projects | **61 / 100** | 9/17 | N/A | 0 | N/A | None |
+| **Pair 6** | 40+ buzzwords listed, only 1 basic portfolio project | **35 / 100** | 8/17 | N/A | 0 | N/A | Keyword Stuffing Detected (-10) |
 
 ## Detailed Fixture Outputs
 
 ### Pair 1: Strong CS Fresher vs Campus SDE Drive
 - **Resume Fixture:** `resume_01_strong_cs.txt`
 - **JD Fixture:** `jd_01_campus_sde_fresher.txt`
-- **ATS Overall Score:** 57
+- **ATS Overall Score:** 55
 - **Band:** Needs work
 - **Confidence:** High
 - **Headline:** High Risk ATS Profile (3/7 must-haves met) · Missing core job requirements
 - **Must Haves Met:** 3/7
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
-- **Penalties:** Keyword Stuffing Detected (-10)
-- **Skills Detected (8):** java, cpp, dsa, sql, javascript, css, spring_boot, rest_apis
+- **Penalties:** None
+- **Skills Detected (9):** java, cpp, dsa, sql, javascript, html, css, spring_boot, rest_apis
 - **Missing Sections:** None
 - **Weak Bullets Count:** 6
 - **Metrics Ratio:** 33%
@@ -34,44 +34,44 @@
 ### Pair 2: ECE Embedded Fresher vs Embedded Firmware GET
 - **Resume Fixture:** `resume_02_ece_embedded.txt`
 - **JD Fixture:** `jd_05_embedded_firmware_engineer.txt`
-- **ATS Overall Score:** 77
-- **Band:** Competitive
+- **ATS Overall Score:** 81
+- **Band:** Strong
 - **Confidence:** High
 - **Headline:** Strong Core Match (7/9 must-haves met) · Minor evidence gaps detected
 - **Must Haves Met:** 7/9
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
-- **Penalties:** Keyword Stuffing Detected (-12)
+- **Penalties:** None
 - **Skills Detected (8):** embedded_c, rtos, iot, microcontrollers, hardware_protocols, c, cpp, python
 - **Missing Sections:** None
-- **Weak Bullets Count:** 4
+- **Weak Bullets Count:** 8
 - **Metrics Ratio:** 20%
 
 ### Pair 3: Sparse Bullets Fresher vs Campus SDE Drive
 - **Resume Fixture:** `resume_03_sparse_bullets.txt`
 - **JD Fixture:** `jd_01_campus_sde_fresher.txt`
-- **ATS Overall Score:** 49
-- **Band:** Needs work
+- **ATS Overall Score:** 69
+- **Band:** Competitive
 - **Confidence:** High
 - **Headline:** Moderate Alignment (5/7 must-haves met) · Key requirements missing
 - **Must Haves Met:** 5/7
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
 - **Penalties:** None
-- **Skills Detected (8):** java, sql, linux_sysadmin, linux, git, javascript, html, css
+- **Skills Detected (9):** java, cpp, sql, linux_sysadmin, linux, git, javascript, html, css
 - **Missing Sections:** None
-- **Weak Bullets Count:** 0
+- **Weak Bullets Count:** 10
 - **Metrics Ratio:** 0%
 
 ### Pair 4: Two-Column Paste Fresher vs Junior Frontend Startup
 - **Resume Fixture:** `resume_04_twocolumn_raw_paste.txt`
 - **JD Fixture:** `jd_02_startup_frontend_fresher.txt`
-- **ATS Overall Score:** 20
+- **ATS Overall Score:** 13
 - **Band:** Weak match
 - **Confidence:** Low
 - **Headline:** Moderate Alignment (7/13 must-haves met) · Key requirements missing
 - **Must Haves Met:** 7/13
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
-- **Penalties:** Keyword Stuffing Detected (-15), Missing Dedicated EDUCATION Section (-3), Missing Dedicated SKILLS Section (-3), Missing Dedicated PROJECTS Section (-3)
-- **Skills Detected (9):** typescript, react, tailwind_css, rest_apis, vitest, javascript, css, next_js, docker
+- **Penalties:** Missing Dedicated EDUCATION Section (-3), Missing Dedicated SKILLS Section (-3), Missing Dedicated PROJECTS Section (-3)
+- **Skills Detected (11):** typescript, react, tailwind_css, rest_apis, vitest, javascript, css, redux, zustand, next_js, docker
 - **Missing Sections:** education, skills, projects
 - **Weak Bullets Count:** 0
 - **Metrics Ratio:** 0%
@@ -79,29 +79,29 @@
 ### Pair 5: Mechanical Switcher vs Fintech Backend SDE 1
 - **Resume Fixture:** `resume_05_career_switcher_mech.txt`
 - **JD Fixture:** `jd_03_backend_intern_to_fte.txt`
-- **ATS Overall Score:** 52
+- **ATS Overall Score:** 61
 - **Band:** Needs work
 - **Confidence:** High
-- **Headline:** High Risk ATS Profile (7/16 must-haves met) · Missing core job requirements
-- **Must Haves Met:** 7/16
+- **Headline:** Moderate Alignment (9/17 must-haves met) · Key requirements missing
+- **Must Haves Met:** 9/17
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
-- **Penalties:** Keyword Stuffing Detected (-12)
-- **Skills Detected (8):** python, django, rest_apis, sql, postgresql, linux_sysadmin, linux, git
+- **Penalties:** None
+- **Skills Detected (13):** python, typescript, node_js, django, fastapi, rest_apis, microservices, sql, postgresql, mysql, linux_sysadmin, linux, git
 - **Missing Sections:** None
-- **Weak Bullets Count:** 4
-- **Metrics Ratio:** 20%
+- **Weak Bullets Count:** 7
+- **Metrics Ratio:** 13%
 
 ### Pair 6: Overstuffed Skills Fresher vs Fintech Backend SDE 1
 - **Resume Fixture:** `resume_06_overstuffed_skills.txt`
 - **JD Fixture:** `jd_03_backend_intern_to_fte.txt`
-- **ATS Overall Score:** 43
+- **ATS Overall Score:** 35
 - **Band:** Weak match
 - **Confidence:** High
-- **Headline:** High Risk ATS Profile (6/16 must-haves met) · Missing core job requirements
-- **Must Haves Met:** 6/16
+- **Headline:** High Risk ATS Profile (8/17 must-haves met) · Missing core job requirements
+- **Must Haves Met:** 8/17
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
-- **Penalties:** Keyword Stuffing Detected (-15)
-- **Skills Detected (14):** python, typescript, node_js, django, fastapi, sql, redis, docker, postgresql, mysql, message_queues, kafka, rabbitmq, aws
+- **Penalties:** Keyword Stuffing Detected (-10)
+- **Skills Detected (16):** python, typescript, node_js, django, fastapi, rest_apis, microservices, sql, redis, docker, postgresql, mysql, message_queues, kafka, rabbitmq, aws
 - **Missing Sections:** None
 - **Weak Bullets Count:** 3
 - **Metrics Ratio:** 0%

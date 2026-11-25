@@ -3,6 +3,8 @@
 ## Overview
 HireFlow is an enterprise candidate career intelligence and ATS evaluation platform built with React 19, TypeScript, Vite, Tailwind CSS, and Zustand.
 
+For the authoritative post-Phase 10.7 ATS engine, persistence, export, and security subsystem classifications, see [CURRENT_ATS_ARCHITECTURE.md](./ats-engine/CURRENT_ATS_ARCHITECTURE.md).
+
 ## Folder Directory (One Line Per Folder)
 - **`src/app/`**: Application shell, top header, sidebar navigation, public navbar, and role-based route guards.
 - **`src/pages/`**: Thin route-level page components for public routes, company portals, interviewer workflows, and admin portals.

@@ -9,30 +9,23 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 76,
+      "score": 78,
       "band": "Competitive",
       "headline": "Moderate Alignment (5/8 must-haves met) · Key requirements missing",
       "subscores": {
-        "mustHaveCoverage": 16.9,
-        "evidenceDepth": 23.3,
-        "impactMetrics": 7.5,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 25,
+        "impactMetrics": 9.4,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
         "tierFit": 3.5,
-        "niceToHaveCoverage": 4,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
-      "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -9,
-          "reason": "11 of 16 skills listed in skills section lack any project or experience evidence."
-        }
-      ]
+      "penalties": []
     },
     "talentLens": {
       "simulatedScore": 44,
@@ -80,30 +73,23 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 79,
-      "band": "Competitive",
-      "headline": "Moderate Alignment (5/7 must-haves met) · Key requirements missing",
+      "score": 81,
+      "band": "Strong",
+      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
       "subscores": {
-        "mustHaveCoverage": 21.4,
+        "mustHaveCoverage": 23.6,
         "evidenceDepth": 25,
         "impactMetrics": 3.6,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
         "tierFit": 3.5,
-        "niceToHaveCoverage": 6.7,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
-      "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -11,
-          "reason": "14 of 18 skills listed in skills section lack any project or experience evidence."
-        }
-      ]
+      "penalties": []
     },
     "talentLens": {
       "simulatedScore": 54,
@@ -151,8 +137,8 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 85,
-      "band": "Strong",
+      "score": 75,
+      "band": "Competitive",
       "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
       "subscores": {
         "mustHaveCoverage": 21.4,
@@ -171,7 +157,7 @@
         {
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
-          "points": -13,
+          "points": -6,
           "reason": "16 of 20 skills listed in skills section lack any project or experience evidence."
         },
         {
@@ -228,8 +214,8 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 90,
-      "band": "Strong",
+      "score": 79,
+      "band": "Competitive",
       "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 27,
@@ -239,7 +225,7 @@
         "seniorityFit": 10,
         "formatAndParse": 10,
         "tierFit": 3.5,
-        "niceToHaveCoverage": 5,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
@@ -248,7 +234,7 @@
         {
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
-          "points": -14,
+          "points": -7,
           "reason": "17 of 21 skills listed in skills section lack any project or experience evidence."
         },
         {
@@ -305,12 +291,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 80,
+      "score": 93,
       "band": "Strong",
-      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 20,
-        "evidenceDepth": 22,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 25,
         "impactMetrics": 9.4,
         "projectsAndOss": 15,
         "seniorityFit": 0,
@@ -321,14 +307,7 @@
         "educationAndCerts": 4,
         "parseHealth": 5
       },
-      "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -9,
-          "reason": "11 of 18 skills listed in skills section lack any project or experience evidence."
-        }
-      ]
+      "penalties": []
     },
     "talentLens": {
       "simulatedScore": 32,
@@ -376,18 +355,18 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 80,
-      "band": "Strong",
+      "score": 66,
+      "band": "Competitive",
       "headline": "Meets 100% of Must-Have Requirements (7/7) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 21.4,
         "evidenceDepth": 20,
         "impactMetrics": 6.3,
-        "projectsAndOss": 9,
+        "projectsAndOss": 5,
         "seniorityFit": 10,
         "formatAndParse": 10,
         "tierFit": 3.5,
-        "niceToHaveCoverage": 7.5,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
@@ -396,7 +375,7 @@
         {
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
-          "points": -12,
+          "points": -6,
           "reason": "15 of 20 skills listed in skills section lack any project or experience evidence."
         },
         {
@@ -453,30 +432,23 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 61,
+      "score": 59,
       "band": "Needs work",
-      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "headline": "Moderate Alignment (1/2 must-haves met) · Key requirements missing",
       "subscores": {
-        "mustHaveCoverage": 12.5,
-        "evidenceDepth": 11.3,
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 15.4,
         "impactMetrics": 8.3,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
-      "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -11,
-          "reason": "14 of 15 skills listed in skills section lack any project or experience evidence."
-        }
-      ]
+      "penalties": []
     },
     "talentLens": {
       "simulatedScore": 34,
@@ -524,12 +496,12 @@
     "hasJd": false,
     "atsRoaster": {
       "success": true,
-      "score": 60,
-      "band": "Needs work",
-      "headline": "Moderate Alignment (5/7 must-haves met) · Key requirements missing",
+      "score": 65,
+      "band": "Competitive",
+      "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
       "subscores": {
-        "mustHaveCoverage": 12.9,
-        "evidenceDepth": 8.7,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 0,
         "impactMetrics": 10,
         "projectsAndOss": 15,
         "seniorityFit": 0,
@@ -541,12 +513,6 @@
         "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -10,
-          "reason": "13 of 15 skills listed in skills section lack any project or experience evidence."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
@@ -601,17 +567,17 @@
     "hasJd": false,
     "atsRoaster": {
       "success": true,
-      "score": 38,
-      "band": "Weak match",
-      "headline": "High Risk ATS Profile (2/7 must-haves met) · Missing core job requirements",
+      "score": 55,
+      "band": "Needs work",
+      "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
       "subscores": {
-        "mustHaveCoverage": 4.3,
-        "evidenceDepth": 1.8,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 0,
         "impactMetrics": 0,
-        "projectsAndOss": 9,
+        "projectsAndOss": 5,
         "seniorityFit": 10,
         "formatAndParse": 10,
-        "tierFit": 2.5,
+        "tierFit": 3.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -672,8 +638,8 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 48,
-      "band": "Needs work",
+      "score": 34,
+      "band": "Weak match",
       "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
       "subscores": {
         "mustHaveCoverage": 12.5,
@@ -692,7 +658,7 @@
         {
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
-          "points": -15,
+          "points": -10,
           "reason": "32 of 32 skills listed in skills section lack any project or experience evidence."
         },
         {
@@ -749,14 +715,14 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 49,
-      "band": "Needs work",
+      "score": 36,
+      "band": "Weak match",
       "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 15,
         "evidenceDepth": 9.2,
         "impactMetrics": 0,
-        "projectsAndOss": 13.5,
+        "projectsAndOss": 7.5,
         "seniorityFit": 0,
         "formatAndParse": 8,
         "tierFit": 3.5,
@@ -766,12 +732,6 @@
         "parseHealth": 4
       },
       "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -15,
-          "reason": "20 of 20 skills listed in skills section lack any project or experience evidence."
-        },
         {
           "id": "missing_projects",
           "label": "Missing Dedicated PROJECTS Section",
@@ -832,7 +792,7 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 29,
+      "score": 22,
       "band": "Weak match",
       "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
       "subscores": {
@@ -909,12 +869,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 84,
-      "band": "Strong",
+      "score": 73,
+      "band": "Competitive",
       "headline": "Meets 100% of Must-Have Requirements (4/4) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 30,
-        "evidenceDepth": 25,
+        "mustHaveCoverage": 26.3,
+        "evidenceDepth": 22.3,
         "impactMetrics": 0,
         "projectsAndOss": 15,
         "seniorityFit": 0,
@@ -980,18 +940,18 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 59,
-      "band": "Needs work",
-      "headline": "High Risk ATS Profile (2/8 must-haves met) · Missing core job requirements",
+      "score": 92,
+      "band": "Strong",
+      "headline": "Meets 100% of Must-Have Requirements (1/1) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 7.5,
-        "evidenceDepth": 11.1,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 25,
         "impactMetrics": 12.5,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 2.5,
-        "niceToHaveCoverage": 5,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
@@ -1051,17 +1011,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 41,
-      "band": "Weak match",
-      "headline": "High Risk ATS Profile (3/8 must-haves met) · Missing core job requirements",
+      "score": 75,
+      "band": "Competitive",
+      "headline": "Meets 100% of Must-Have Requirements (2/2) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 9.4,
-        "evidenceDepth": 8.4,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 24.7,
         "impactMetrics": 0,
         "projectsAndOss": 10.5,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 2.5,
+        "tierFit": 3.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 7,
         "educationAndCerts": 4,
@@ -1122,8 +1082,8 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 74,
-      "band": "Competitive",
+      "score": 59,
+      "band": "Needs work",
       "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 30,
@@ -1211,7 +1171,7 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 18,
+      "score": 5,
       "band": "Weak match",
       "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
       "subscores": {
@@ -1300,12 +1260,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 55,
+      "score": 46,
       "band": "Needs work",
-      "headline": "Strong Core Match (6/8 must-haves met) · Minor evidence gaps detected",
+      "headline": "Moderate Alignment (2/3 must-haves met) · Key requirements missing",
       "subscores": {
-        "mustHaveCoverage": 16.9,
-        "evidenceDepth": 14,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 11.1,
         "impactMetrics": 0,
         "projectsAndOss": 10.5,
         "seniorityFit": 0,
@@ -1317,12 +1277,6 @@
         "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -15,
-          "reason": "22 of 22 skills listed in skills section lack any project or experience evidence."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
@@ -1377,18 +1331,18 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 37,
+      "score": 27,
       "band": "Weak match",
       "headline": "High Risk ATS Profile (1/4 must-haves met) · Missing core job requirements",
       "subscores": {
         "mustHaveCoverage": 7.5,
-        "evidenceDepth": 7,
+        "evidenceDepth": 13.9,
         "impactMetrics": 0,
-        "projectsAndOss": 13.5,
+        "projectsAndOss": 7.5,
         "seniorityFit": 0,
         "formatAndParse": 6,
         "tierFit": 2.5,
-        "niceToHaveCoverage": 0,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 7,
         "educationAndCerts": 4,
         "parseHealth": 3
@@ -1460,12 +1414,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 74,
-      "band": "Competitive",
-      "headline": "Strong Core Match (7/9 must-haves met) · Minor evidence gaps detected",
+      "score": 86,
+      "band": "Strong",
+      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 18.3,
-        "evidenceDepth": 15.6,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
         "impactMetrics": 7.1,
         "projectsAndOss": 9,
         "seniorityFit": 10,
@@ -1477,12 +1431,6 @@
         "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -13,
-          "reason": "16 of 19 skills listed in skills section lack any project or experience evidence."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
@@ -1537,18 +1485,18 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 80,
-      "band": "Strong",
+      "score": 79,
+      "band": "Competitive",
       "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
       "subscores": {
         "mustHaveCoverage": 19.3,
-        "evidenceDepth": 17.1,
+        "evidenceDepth": 20,
         "impactMetrics": 10.7,
         "projectsAndOss": 9,
         "seniorityFit": 10,
         "formatAndParse": 10,
         "tierFit": 3.5,
-        "niceToHaveCoverage": 6.7,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
@@ -1608,12 +1556,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 81,
+      "score": 89,
       "band": "Strong",
-      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 20,
-        "evidenceDepth": 17.7,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 20,
         "impactMetrics": 10.7,
         "projectsAndOss": 9,
         "seniorityFit": 10,
@@ -1625,12 +1573,6 @@
         "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "keyword_stuffing",
-          "label": "Keyword Stuffing Detected",
-          "points": -14,
-          "reason": "18 of 19 skills listed in skills section lack any project or experience evidence."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
@@ -1685,12 +1627,12 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 57,
-      "band": "Needs work",
-      "headline": "Moderate Alignment (5/9 must-haves met) · Key requirements missing",
+      "score": 24,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (0/2 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 15,
-        "evidenceDepth": 14.1,
+        "mustHaveCoverage": 0,
+        "evidenceDepth": 0,
         "impactMetrics": 0,
         "projectsAndOss": 15,
         "seniorityFit": 0,
@@ -1756,18 +1698,18 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 41,
-      "band": "Weak match",
-      "headline": "High Risk ATS Profile (2/6 must-haves met) · Missing core job requirements",
+      "score": 71,
+      "band": "Competitive",
+      "headline": "Meets 100% of Must-Have Requirements (1/1) · Verified ATS Compatibility",
       "subscores": {
-        "mustHaveCoverage": 10,
-        "evidenceDepth": 9.8,
+        "mustHaveCoverage": 30,
+        "evidenceDepth": 25,
         "impactMetrics": 3.6,
         "projectsAndOss": 7.5,
         "seniorityFit": 0,
         "formatAndParse": 8,
-        "tierFit": 2.5,
-        "niceToHaveCoverage": 0,
+        "tierFit": 3.5,
+        "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 4

@@ -1,8 +1,12 @@
 # HireFlow ATS Resume Roaster — Complete Engineering Audit & Architecture Inspection
-**Document Version:** 1.0.0  
+> **HISTORICAL DOCUMENT NOTICE (Phase 01 Baseline — Remediated in Phases 02–10.7):**  
+> This document records the **initial Phase 01 pre-remediation engineering audit** (`Document Version: 1.0.0`). Defects described below (such as hardcoded `'Mohit'` identity substitution, unsubtracted penalties, dual live scoring paths, rigid metric regexes, and role-archetype seeding) were resolved across **Phases 02–10.7**.  
+> **For the active, authoritative architecture, subsystem classifications, and runtime flow, see [CURRENT_ATS_ARCHITECTURE.md](./CURRENT_ATS_ARCHITECTURE.md).**
+
+**Document Version:** 1.0.0 (Historical Phase 01 Baseline)  
 **Phase:** Phase 01 — Investigation & System Audit  
 **Author:** DeepMind Antigravity Engineering Taskforce  
-**Status:** Canonical Reference Architecture Document  
+**Status:** Historical Phase 01 Audit Record (Preserved for Provenance; Superseded by [CURRENT_ATS_ARCHITECTURE.md](./CURRENT_ATS_ARCHITECTURE.md))  
 
 ---
 
@@ -347,19 +351,37 @@ flowchart TD
 - [ ] **P0.4: Connect Penalty Math to Final Score:** Update final score calculation so that detected penalties (keyword stuffing, formatting gaps) actually deduct points from the composite score.
 
 ### Phase P1: Evidence Provenance & Matching Accuracy (Sprint 2)
-- [ ] **P1.1: Segregate Production Experience from Personal Projects:** Enforce provenance tagging in `skillMatcher.ts`. Restrict verified professional skill credit to validated work experience entries.
-- [ ] **P1.2: Expand Engineering Taxonomy & Aliases:** Register missing aliases in `taxonomy.ts` for database tuning (`EXPLAIN ANALYZE`, composite indexing), CI/CD (`GitHub Actions`), testing (`Pytest` branch coverage), and data governance (`Great Expectations`, data contracts).
-- [ ] **P1.3: Support Compound & Alternative Requirements:** Implement boolean evaluation for compound requirements (e.g., `dbt AND (Spark OR Flink)`).
-- [ ] **P1.4: Refactor Metric Extraction for Narrative Outcomes:** Replace single rigid regex with multi-pattern metric extractor supporting delta expressions ("from X to Y", "N+ DAGs", "M to N/month").
+- [x] **P1.1: Segregate Production Experience from Personal Projects:** (Completed in Phase 04) Enforced provenance tagging in `skillMatcher.ts` and `evidenceExtractor.ts`. Fine-grained provenance tiers distinguish professional experience, internships, personal projects, coursework, and skills listings.
+- [x] **P1.2: Expand Engineering Taxonomy & Aliases:** (Completed in Phase 03) Registered extensive domain ontology in `ontology/competencies.ts` and `taxonomy/index.ts` covering database tuning (`EXPLAIN ANALYZE`, composite indexing), CI/CD (`GitHub Actions`), testing (`Pytest` branch coverage), and data governance (`Great Expectations`, data contracts).
+- [x] **P1.3: Support Compound & Alternative Requirements:** (Completed in Phase 03 & 04) Implemented boolean evaluation and alternative graphs for compound requirements (e.g., `dbt AND (Spark OR Flink)`).
+- [x] **P1.4: Refactor Metric Extraction for Narrative Outcomes:** (Completed in Phase 04) Replaced rigid regex with multi-pattern metric extractor in `statementExtractor.ts` supporting delta expressions ("from X to Y", "N+ DAGs", "M to N/month", "18 million records").
 
 ### Phase P2: Seniority, Tenure & Impact Calibration (Sprint 3)
-- [ ] **P2.1: Calendar-Month Precision in Experience Estimation:** Refactor `experienceEstimator.ts` to calculate month-level date ranges and discount concurrent internships from full-time tenure.
-- [ ] **P2.2: Hard Threshold Seniority Gates:** Enforce strict penalty curves when candidate tenure falls short of explicit employer minimum requirements.
-- [ ] **P2.3: Calibrate Evidence-Tier Credit:** Refine weights for bare skill mentions vs. quantified engineering accomplishments.
+- [x] **P2.1: Calendar-Month Precision in Experience Estimation:** (Completed in Phase 07) Refactored `experienceEstimator.ts` and introduced `tenureCalculator.ts` to calculate month-level calendar interval unions and discount concurrent internships from full-time tenure without double-counting.
+- [x] **P2.2: Hard Threshold Seniority Gates:** (Completed in Phase 07) Implemented `seniorityMatcher.ts` with unrounded month shortfall/surplus calculations, calibrated score factors, and zero duplicate penalties.
+- [x] **P2.3: Calibrate Evidence-Tier Credit:** (Completed in Phase 07) Integrated competency-specific tenure tracing directly to Phase 04 evidence IDs, Phase 05 citations, and Phase 06 matched competency requirements.
+
+### Implementation Phase Progress
+- **Phase 01:** Engineering Audit & Architecture Inspection — **COMPLETED**
+- **Phase 02:** Core Engine Integrity & P0 Defect Remediation — **COMPLETED** (See `PHASE_02_P0_REMEDIATION_REPORT.md`)
+- **Phase 03:** Competency Knowledge Base & Technical Ontology — **COMPLETED** (See `PHASE_03_KNOWLEDGE_BASE_REPORT.md`)
+- **Phase 04:** Resume Parsing, Experience Structure & Evidence Extraction — **COMPLETED** (See `PHASE_04_RESUME_EVIDENCE_REPORT.md`)
+- **Phase 05:** Citation Integrity, Evidence Verification & Claim Validation — **COMPLETED** (See `PHASE_05_CITATION_INTEGRITY_REPORT.md`)
+- **Phase 06:** Context-Aware Competency Matching & Semantic Interpretation — **COMPLETED** (See `PHASE_06_COMPETENCY_MATCHING_REPORT.md`)
+- **Phase 07:** Calibrated Seniority, Tenure Intelligence and Canonical Scoring Integration — **COMPLETED** (See `PHASE_07_SENIORITY_TENURE_SCORING_REPORT.md`)
+- **Phase 07.1:** Tenure Accuracy, Benchmark Integrity and Scoring Validation — **COMPLETED** (See `PHASE_07_1_CORRECTIVE_VERIFICATION_REPORT.md`)
+- **Phase 07.2:** Final Tenure, Seniority and Evidence-Bound Scoring Corrections — **COMPLETED** (See `PHASE_07_2_FINAL_INTEGRITY_REPORT.md`)
+- **Phase 07.3:** Final Acceptance & Scoring Input Verification — **COMPLETED** (See `PHASE_07_3_FINAL_ACCEPTANCE_REPORT.md`)
+- **Phase 08:** Export Reliability, Authoritative Report Integrity and Render Stability — **COMPLETED** (See `PHASE_08_EXPORT_RELIABILITY_REPORT.md`)
+- **Phase 08.1:** Authoritative Snapshot Fidelity & End-to-End Export Verification — **COMPLETED** (See `PHASE_08_1_SNAPSHOT_FIDELITY_VERIFICATION_REPORT.md`)
+- **Phase 08.2:** Final PDF Text Extraction, Browser Verification and Snapshot Identity Audit — **COMPLETED** (See `PHASE_08_2_FINAL_EXPORT_ACCEPTANCE_REPORT.md`)
+- **Phase 08.3:** Final Score Reconciliation, Seniority Consistency and Export Provenance Audit — **COMPLETED** (See `PHASE_08_3_FINAL_CONSISTENCY_REPORT.md`)
+- **Phase 08.4:** Final Scoring Authority, Scope-Correct Seniority and ScoreTrace Integrity — **COMPLETED** (See `PHASE_08_4_FINAL_SCORING_AND_SENIORITY_INTEGRITY_REPORT.md`)
+- **Phase 09:** Impact Metrics Intelligence & Outcome Evidence Evaluation — **COMPLETED** (See `PHASE_09_IMPACT_METRICS_INTELLIGENCE_REPORT.md`)
 
 ### Phase P3: Export Reliability & Performance Hardening (Sprint 4)
-- [ ] **P3.1: Export Pipeline Synchronization:** Ensure PDF and DOCX generators consume the authoritative audit record directly without secondary transformation.
-- [ ] **P3.2: Render Stability & Async Watchdogs:** Harden canvas capture in `exportPdf.ts` to guarantee zero blank pages or stalled downloads.
+- [x] **P3.1: Export Pipeline Synchronization:** (Completed in Phase 08) Established versioned `AuthoritativeReportSnapshot` ('1.0.0') as the single source of truth; PDF and DOCX generators consume the authoritative snapshot directly without secondary transformation or score drift.
+- [x] **P3.2: Render Stability & Async Watchdogs:** (Completed in Phase 08) Hardened canvas capture, removed arbitrary skills truncation, eliminated profile name identity substitution, and enforced verbatim citation preservation across PDF, DOCX, and Markdown export formats.
 
 ---
 
