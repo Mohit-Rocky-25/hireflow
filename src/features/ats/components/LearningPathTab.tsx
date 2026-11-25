@@ -24,8 +24,6 @@ interface LearningPathTabProps {
   result: AtsEngineResult;
 }
 
-const STORAGE_KEY_PREFIX = 'hireflow_ats_learned_';
-
 export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
   const { learningPath } = result;
 
@@ -44,28 +42,8 @@ export const LearningPathTab: React.FC<LearningPathTabProps> = ({ result }) => {
   const [completed, setCompleted] = useState<Record<string, boolean>>({});
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  // Load progress from localStorage
-  useEffect(() => {
-    const loaded: Record<string, boolean> = {};
-    for (const item of learningPath.items) {
-      if (localStorage.getItem(STORAGE_KEY_PREFIX + item.skillId) === 'true') {
-        loaded[item.skillId] = true;
-      }
-    }
-    setCompleted(loaded);
-  }, [learningPath.items]);
-
   const toggleComplete = (skillId: string) => {
-    setCompleted((prev) => {
-      const nextVal = !prev[skillId];
-      const updated = { ...prev, [skillId]: nextVal };
-      if (nextVal) {
-        localStorage.setItem(STORAGE_KEY_PREFIX + skillId, 'true');
-      } else {
-        localStorage.removeItem(STORAGE_KEY_PREFIX + skillId);
-      }
-      return updated;
-    });
+    setCompleted((prev) => ({ ...prev, [skillId]: !prev[skillId] }));
   };
 
   const copyToClipboard = (text: string, identifier: string) => {

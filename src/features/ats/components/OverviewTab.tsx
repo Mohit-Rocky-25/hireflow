@@ -32,76 +32,111 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
     : 'top_product';
   const tierConfig = (tiersData.tiers as Record<string, any>)[tierKey] || (tiersData.tiers as Record<string, any>)['top_product'];
 
-  const categoryConfigs = result.reportState
-    ? result.reportState.scoreLedger.lines.map((line) => {
-        const descMap: Record<string, string> = {
-          mustHaveCoverage: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
-          evidenceDepth: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
-          impactMetrics: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
-          projectsAndArtifacts: 'Production systems, live deployed web applications, or open source repositories.',
-          senioritySignals: 'Candidate experience span and depth calibrated against position level requirements.',
-          formatAndParse: 'Standard semantic section headers, clear dates, contact info, and token readability.',
-          tierFit: `Alignment against the hiring bar and artifact expectations for ${tierConfig?.name || 'target tier'}.`,
-        };
-        return {
+  const descMap: Record<string, string> = {
+    mustHaveCoverage: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
+    evidenceDepth: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
+    impactMetrics: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
+    projectsAndOss: 'Production systems, live deployed web applications, or open source repositories.',
+    projectsAndArtifacts: 'Production systems, live deployed web applications, or open source repositories.',
+    seniorityFit: 'Candidate experience span and depth calibrated against position level requirements.',
+    senioritySignals: 'Candidate experience span and depth calibrated against position level requirements.',
+    formatAndParse: 'Standard semantic section headers, clear dates, contact info, and token readability.',
+    tierFit: `Alignment against the hiring bar and artifact expectations for ${tierConfig?.name || 'target tier'}.`,
+  };
+
+  interface CategoryConfigItem {
+    id: string;
+    name: string;
+    score: number;
+    max: number;
+    applicable: boolean;
+    notApplicableReason?: string;
+    description: string;
+  }
+
+  const effectiveWeights = result.activeWeights;
+
+  const categoryConfigs: CategoryConfigItem[] =
+    result.trace?.pillars && result.trace.pillars.length > 0
+      ? result.trace.pillars.map((pillar) => {
+          const maxPts = Math.round(pillar.effectiveWeight * 100);
+          return {
+            id: pillar.id,
+            name: pillar.label,
+            score: pillar.contribution,
+            max: maxPts,
+            applicable: pillar.applicable && maxPts > 0,
+            notApplicableReason: pillar.notApplicableReason,
+            description: descMap[pillar.id] || pillar.notApplicableReason || pillar.label,
+          };
+        })
+      : result.reportState?.scoreLedger?.lines && result.reportState.scoreLedger.lines.length > 0
+      ? result.reportState.scoreLedger.lines.map((line) => ({
           id: line.factor,
           name: line.factorLabel,
           score: line.earned,
           max: line.max,
+          applicable: line.max > 0,
           description: descMap[line.factor] || line.formula,
-        };
-      })
-    : [
-        {
-          id: 'mustHaveCoverage',
-          name: 'Must-Have Coverage',
-          score: subscores.mustHaveCoverage,
-          max: weights.mustHaveCoverage,
-          description: 'Proportion of mandatory skills with evidence found in your resume text vs target role job description.',
-        },
-        {
-          id: 'evidenceDepth',
-          name: 'Evidence Depth & Context',
-          score: subscores.evidenceDepth,
-          max: weights.evidenceDepth,
-          description: 'Skills demonstrated in project or experience bullets versus isolated in a skills list.',
-        },
-        {
-          id: 'impactMetrics',
-          name: 'Quantified Impact Metrics',
-          score: subscores.impactMetrics,
-          max: weights.impactMetrics,
-          description: 'Bullets containing tangible numbers, latency reductions, scale, or business revenue.',
-        },
-        {
-          id: 'projectsAndOss',
-          name: 'Projects & Engineering Artifacts',
-          score: subscores.projectsAndOss,
-          max: weights.projectsAndOss,
-          description: 'Production systems, live deployed web applications, or open source repositories.',
-        },
-        {
-          id: 'seniorityFit',
-          name: 'Seniority & Track Record',
-          score: subscores.seniorityFit,
-          max: weights.seniorityFit,
-          description: 'Candidate experience span and depth calibrated against position level requirements.',
-        },
-        {
-          id: 'formatAndParse',
-          name: 'Format Safety & Parse Integrity',
-          score: subscores.formatAndParse,
-          max: weights.formatAndParse,
-          description: 'Standard semantic section headers, clear dates, contact info, and token readability.',
-        },
-        {
-          id: 'tierFit',
-          name: 'Tier Competency Fit',
-          score: subscores.tierFit,
-          max: weights.tierFit,
-          description: `Alignment against the hiring bar and artifact expectations for ${tierConfig.name}.`,
-        },
-      ];
+        }))
+      : [
+          {
+            id: 'mustHaveCoverage',
+            name: 'Must-Have Coverage',
+            score: subscores.mustHaveCoverage,
+            max: effectiveWeights?.mustHaveCoverage ?? weights.mustHaveCoverage,
+            applicable: (effectiveWeights?.mustHaveCoverage ?? weights.mustHaveCoverage) > 0,
+            description: descMap.mustHaveCoverage,
+          },
+          {
+            id: 'evidenceDepth',
+            name: 'Evidence Depth & Context',
+            score: subscores.evidenceDepth,
+            max: effectiveWeights?.evidenceDepth ?? weights.evidenceDepth,
+            applicable: (effectiveWeights?.evidenceDepth ?? weights.evidenceDepth) > 0,
+            description: descMap.evidenceDepth,
+          },
+          {
+            id: 'impactMetrics',
+            name: 'Quantified Impact Metrics',
+            score: subscores.impactMetrics,
+            max: effectiveWeights?.impactMetrics ?? weights.impactMetrics,
+            applicable: (effectiveWeights?.impactMetrics ?? weights.impactMetrics) > 0,
+            description: descMap.impactMetrics,
+          },
+          {
+            id: 'projectsAndOss',
+            name: 'Projects & Engineering Artifacts',
+            score: subscores.projectsAndOss,
+            max: effectiveWeights?.projectsAndOss ?? weights.projectsAndOss,
+            applicable: (effectiveWeights?.projectsAndOss ?? weights.projectsAndOss) > 0,
+            description: descMap.projectsAndOss,
+          },
+          {
+            id: 'seniorityFit',
+            name: 'Seniority & Track Record',
+            score: subscores.seniorityFit,
+            max: effectiveWeights?.seniorityFit ?? weights.seniorityFit,
+            applicable: (effectiveWeights?.seniorityFit ?? weights.seniorityFit) > 0,
+            description: descMap.seniorityFit,
+          },
+          {
+            id: 'formatAndParse',
+            name: 'Format Safety & Parse Integrity',
+            score: subscores.formatAndParse,
+            max: effectiveWeights?.formatAndParse ?? weights.formatAndParse,
+            applicable: (effectiveWeights?.formatAndParse ?? weights.formatAndParse) > 0,
+            description: descMap.formatAndParse,
+          },
+          {
+            id: 'tierFit',
+            name: 'Tier Competency Fit',
+            score: subscores.tierFit,
+            max: effectiveWeights?.tierFit ?? weights.tierFit,
+            applicable: (effectiveWeights?.tierFit ?? weights.tierFit) > 0,
+            description: descMap.tierFit,
+          },
+        ];
 
   return (
     <div className="space-y-6">
@@ -118,20 +153,29 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
 
         <div className="space-y-5 pt-2">
           {categoryConfigs.map((cat) => {
-            const pct = Math.min(100, Math.round((cat.score / cat.max) * 100));
+            const isApplicable = cat.applicable && cat.max > 0;
+            const pct = isApplicable
+              ? Math.min(100, Math.max(0, Math.round((cat.score / cat.max) * 100)))
+              : 0;
             return (
               <div key={cat.id} className="space-y-1.5">
                 <div className="flex items-center justify-between text-sm">
                   <div>
                     <span className="font-bold text-white text-[15px]">{cat.name}</span>
                     <span className="text-silver ml-2 text-xs font-mono">
-                      (Weight: {cat.max} pts)
+                      {isApplicable ? `(Weight: ${cat.max} pts)` : '(Weight: 0 pts)'}
                     </span>
                   </div>
-                  <div className="font-mono font-bold text-white text-[14px]">
-                    {cat.score} / {cat.max} pts{' '}
-                    <span className="text-silver text-xs">({pct}%)</span>
-                  </div>
+                  {isApplicable ? (
+                    <div className="font-mono font-bold text-white text-[14px]">
+                      {cat.score} / {cat.max} pts{' '}
+                      <span className="text-silver text-xs">({pct}%)</span>
+                    </div>
+                  ) : (
+                    <div className="font-mono font-bold text-silver text-[13px]">
+                      N/A — Weight redistributed
+                    </div>
+                  )}
                 </div>
 
                 {/* Thin 2px meter per §1B */}
@@ -142,7 +186,9 @@ export const OverviewTab: React.FC<Props> = ({ result }) => {
                   />
                 </div>
 
-                <p className="text-xs text-silver">{cat.description}</p>
+                <p className="text-xs text-silver">
+                  {!isApplicable && cat.notApplicableReason ? cat.notApplicableReason : cat.description}
+                </p>
               </div>
             );
           })}

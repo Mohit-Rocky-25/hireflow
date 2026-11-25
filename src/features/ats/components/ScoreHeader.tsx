@@ -14,6 +14,11 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { AtsEngineResult } from '../engine/types';
+import {
+  ATS_ENGINE_VERSION,
+  ATS_SEVEN_DIMENSION_FINGERPRINT,
+  ATS_SEVEN_DIMENSION_SPEC_VERSION,
+} from '../engine/scorer';
 import { HonestyExplainerModal } from '../../../components/common/HonestyExplainerModal';
 import { CalculationBreakdownCollapsible } from '../../../components/common/CalculationBreakdownCollapsible';
 import { WhyThisScoreDrawer, StaleVersionBanner } from '../../../components/scoring';
@@ -41,19 +46,19 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
   // Top 3 reasons moving the score
   const topReasons = React.useMemo(() => {
     const reasons: { label: string; impact: string; isPositive: boolean }[] = [];
-    const missingMust = (result.skillResults || []).filter((s: any) => s.required === 'must' && s.status === 'missing');
+    const missingMust = (result.skillResults || []).filter((s) => s.required === 'must' && s.status === 'missing');
     if (missingMust.length > 0) {
       reasons.push({
-        label: `Missing must-have: ${missingMust.slice(0, 2).map((m: any) => m.name).join(', ')}`,
+        label: `Missing must-have: ${missingMust.slice(0, 2).map((m) => m.canonical || m.skillId).join(', ')}`,
         impact: `-${Math.min(20, missingMust.length * 6)} pts`,
         isPositive: false,
       });
     }
 
-    const verifiedMust = (result.skillResults || []).filter((s: any) => s.required === 'must' && s.status === 'verified');
+    const verifiedMust = (result.skillResults || []).filter((s) => s.required === 'must' && s.status === 'verified');
     if (verifiedMust.length > 0) {
       reasons.push({
-        label: `Evidenced in bullets: ${verifiedMust.slice(0, 2).map((m: any) => m.name).join(', ')}`,
+        label: `Evidenced in bullets: ${verifiedMust.slice(0, 2).map((m) => m.canonical || m.skillId).join(', ')}`,
         impact: `+${Math.min(25, verifiedMust.length * 5)} pts`,
         isPositive: true,
       });
@@ -62,12 +67,38 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
     return reasons.slice(0, 3);
   }, [result]);
 
+  const fallbackDimensions = React.useMemo(() => {
+    const w = result.activeWeights;
+    const isRedistributedEntry =
+      !w && seniorityFit.requiredYears <= 0 && seniorityFit.candidateYears <= 1;
+    const weights = {
+      mustHaveCoverage: w?.mustHaveCoverage ?? 30,
+      evidenceDepth: w?.evidenceDepth ?? (isRedistributedEntry ? 25 : 20),
+      impactMetrics: w?.impactMetrics ?? 15,
+      projectsAndOss: w?.projectsAndOss ?? (isRedistributedEntry ? 15 : 10),
+      seniorityFit: w?.seniorityFit ?? (isRedistributedEntry ? 0 : 10),
+      formatAndParse: w?.formatAndParse ?? 10,
+      tierFit: w?.tierFit ?? 5,
+    };
+    return [
+      { name: 'Must-Have Coverage', weight: weights.mustHaveCoverage, score: result.subscores?.mustHaveCoverage ?? 0 },
+      { name: 'Evidence Depth & Impact', weight: weights.evidenceDepth, score: result.subscores?.evidenceDepth ?? 0 },
+      { name: 'Impact Metrics in Bullets', weight: weights.impactMetrics, score: result.subscores?.impactMetrics ?? 0 },
+      { name: 'Project & Role Relevance', weight: weights.projectsAndOss, score: result.subscores?.projectsAndOss ?? 0 },
+      { name: 'Seniority Fit', weight: weights.seniorityFit, score: result.subscores?.seniorityFit ?? 0 },
+      { name: 'Parser-Friendliness Check (heuristic)', weight: weights.formatAndParse, score: result.subscores?.formatAndParse ?? 0 },
+      { name: 'Target Tier Alignment', weight: weights.tierFit, score: result.subscores?.tierFit ?? 0 },
+    ];
+  }, [result.activeWeights, result.subscores, seniorityFit]);
+
   return (
     <div ref={headerRef as any} tabIndex={-1} className="space-y-6 outline-none text-white font-sans">
       {/* Stale Version Notification (Task 5.4) */}
       <StaleVersionBanner
         storedSpecVersion={result.specVersion}
         storedFingerprint={result.specFingerprint}
+        currentSpecVersion={ATS_SEVEN_DIMENSION_SPEC_VERSION}
+        currentFingerprint={ATS_SEVEN_DIMENSION_FINGERPRINT}
       />
 
       {/* Low / Medium Confidence Warning Banner */}
@@ -174,51 +205,26 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
                           earnedScore: p.rawScore,
                           statusNote: p.flags.join(', ') || 'Applicable',
                         }))
-                      : [
-                          {
-                            name: 'Must-Have Coverage',
-                            weightPercent: 30,
-                            earnedScore: Math.round(((result.subscores.mustHaveCoverage || 0) / 30) * 100),
-                          },
-                          {
-                            name: 'Evidence Depth & Impact',
-                            weightPercent: 20,
-                            earnedScore: Math.round(((result.subscores.evidenceDepth || 0) / 20) * 100),
-                          },
-                          {
-                            name: 'Impact Metrics in Bullets',
-                            weightPercent: 15,
-                            earnedScore: Math.round(((result.subscores.impactMetrics || 0) / 15) * 100),
-                          },
-                          {
-                            name: 'Project & Role Relevance',
-                            weightPercent: 10,
-                            earnedScore: Math.round(((result.subscores.projectsAndOss || 0) / 10) * 100),
-                          },
-                          {
-                            name: 'Parser-Friendliness Check (heuristic)',
-                            weightPercent: 10,
-                            earnedScore: Math.round(((result.subscores.formatAndParse || 0) / 10) * 100),
-                          },
-                          {
-                            name: 'Target Tier Alignment',
-                            weightPercent: 5,
-                            earnedScore: Math.round(((result.subscores.tierFit || 0) / 5) * 100),
-                          },
-                        ],
+                      : fallbackDimensions
+                          .filter((d) => d.weight > 0)
+                          .map((d) => ({
+                            name: d.name,
+                            weightPercent: d.weight,
+                            earnedScore: d.weight > 0 ? Math.round((d.score / d.weight) * 100) : 0,
+                          })),
                     excludedPillars: trace?.pillars
                       ? trace.pillars.filter((p) => !p.applicable).map((p) => ({
                           name: p.label,
                           reason: p.notApplicableReason || 'Excluded for candidate profile',
                         }))
-                      : seniorityFit.requiredYears <= 1 && seniorityFit.candidateYears <= 1 ? [
-                          {
-                            name: 'Seniority Fit (0-1 yr)',
-                            reason: 'Constant pillar: Early career candidate applying to entry-level JD; excluded from composite to prevent unearned free score inflation.',
-                          }
-                        ] : [],
-                    engineVersion: trace?.engineVersion || '4.0.0',
-                    taxonomyVersion: trace?.specVersion || '2.4.0',
+                      : fallbackDimensions
+                          .filter((d) => d.weight <= 0)
+                          .map((d) => ({
+                            name: d.name,
+                            reason: 'Weight redistributed to active dimensions when seniority gate is inactive.',
+                          })),
+                    engineVersion: trace?.engineVersion || result.engineVersion || ATS_ENGINE_VERSION,
+                    taxonomyVersion: trace?.specVersion || result.specVersion || ATS_SEVEN_DIMENSION_SPEC_VERSION,
                     lastReviewedDate: 'October 2026',
                   }}
                 />

@@ -1,4 +1,4 @@
-import type { DossierModel } from './dossierModel';
+import { resolveDossierDimensions, type DossierModel } from './dossierModel';
 import { validateReport } from '@/pages/demo/engine/reportValidator';
 
 export function safePdfText(str: unknown): string {
@@ -31,6 +31,62 @@ export function safePdfText(str: unknown): string {
     // Keep printable ASCII (0x20 to 0x7E)
     .replace(/[^\x20-\x7E]/g, ' ')
     .replace(/\s+/g, ' ');
+}
+
+export interface RenderReadinessOptions {
+  timeoutMs?: number;
+  fonts?: boolean;
+  images?: boolean;
+  element?: any;
+}
+
+/**
+ * Validates browser and font readiness prior to export to guarantee zero clipping or blank renders.
+ */
+export async function waitForRenderReadiness(options: RenderReadinessOptions = {}): Promise<{ ready: boolean; reason?: string }> {
+  const timeoutMs = options.timeoutMs ?? 3000;
+  const startTime = Date.now();
+
+  // 1. Font readiness check via document.fonts if available in browser environment
+  if (typeof document !== 'undefined' && (document as any).fonts && options.fonts !== false) {
+    try {
+      await Promise.race([
+        (document as any).fonts.ready,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Font load timeout')), timeoutMs)),
+      ]);
+    } catch {
+      // Graceful font fallback
+    }
+  }
+
+  // 2. Image readiness check within target element if supplied
+  if (options.element && options.images !== false && typeof (options.element as any).querySelectorAll === 'function') {
+    const images: any[] = Array.from((options.element as any).querySelectorAll('img'));
+    const pending = images.filter((img) => !img.complete && !img.naturalWidth);
+    if (pending.length > 0) {
+      await Promise.all(
+        pending.map(
+          (img) =>
+            new Promise<void>((resolve) => {
+              const onDone = () => resolve();
+              img.addEventListener('load', onDone, { once: true });
+              img.addEventListener('error', onDone, { once: true });
+              setTimeout(onDone, Math.max(500, timeoutMs - (Date.now() - startTime)));
+            })
+        )
+      );
+    }
+  }
+
+  // 3. Nonzero dimension validation if element supplied
+  if (options.element && typeof (options.element as any).getBoundingClientRect === 'function') {
+    const rect = (options.element as any).getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) {
+      return { ready: false, reason: 'Target element has zero dimensions (width=0 or height=0)' };
+    }
+  }
+
+  return { ready: true };
 }
 
 export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8Array> {
@@ -95,7 +151,7 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       font: fontBold,
       color: rgb(0.35, 0.4, 0.45),
     });
-    page.drawText(`Target: ${model.target.roleTitle || 'Role'} at ${model.target.company || 'Company'}`, {
+    page.drawText(`Target: ${model.target.roleTitle || 'Unspecified Role'}${model.target.company ? ` at ${model.target.company}` : ''}`, {
       x: margin + contentWidth - 220,
       y,
       size: 7,
@@ -217,7 +273,7 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
   });
 
   page.drawText(
-    `TARGET: ${model.target.roleTitle || 'Software Engineer'}${model.target.level ? ` (${model.target.level})` : ''}`,
+    `TARGET: ${model.target.roleTitle || 'Unspecified Role'}${model.target.level ? ` (${model.target.level})` : ''}`,
     {
       x: margin + 12,
       y: y - 16,
@@ -228,7 +284,7 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
   );
 
   page.drawText(
-    `Organization: ${model.target.company || 'Target Organization'} • ${model.target.tier || 'Enterprise'} Tier • ${model.target.industry || 'Technology'}`,
+    `Organization: ${model.target.company || 'Unspecified Employer'} • ${model.target.tier || 'Enterprise'} Tier • ${model.target.industry || 'Technology'}`,
     {
       x: margin + 12,
       y: y - 29,
@@ -878,7 +934,7 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       borderWidth: 0.5,
     });
 
-    page.drawText(`MARKET STANDING: ${tl.marketPosition.toUpperCase()}  |  CALIBRATION: ${(model.target.company || 'Target Organization').toUpperCase()}`, {
+    page.drawText(`MARKET STANDING: ${tl.marketPosition.toUpperCase()}  |  CALIBRATION: ${(model.target.company || 'Unspecified Employer').toUpperCase()}`, {
       x: margin + 8,
       y: y - 12,
       size: 7.5,
@@ -1160,7 +1216,7 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       borderColor: rgb(0.88, 0.9, 0.94),
       borderWidth: 0.5,
     });
-    page.drawText(`• Deterministic Evaluation: Evaluated against public career intake criteria for ${model.target.company || 'Target Organization'} (${model.target.roleTitle || 'Selected Role'}).`, {
+    page.drawText(`• Deterministic Evaluation: Evaluated against public career intake criteria for ${model.target.company || 'Unspecified Employer'} (${model.target.roleTitle || 'Selected Role'}).`, {
       x: margin + 8,
       y: y - 12,
       size: 7,
@@ -1198,49 +1254,52 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
 
     const ats = model.atsDiagnostics || {
       subscores: {
-        mustHaveCoverage: 20,
-        evidenceDepth: 15,
-        impactMetrics: 10,
-        projectsAndOss: 8,
-        seniorityFit: 8,
-        formatAndParse: 8,
-        tierFit: 4,
+        mustHaveCoverage: 0,
+        evidenceDepth: 0,
+        impactMetrics: 0,
+        projectsAndOss: 0,
+        seniorityFit: 0,
+        formatAndParse: 0,
+        tierFit: 0,
       },
       penalties: [],
-      seniorityMode: { candidateYears: 3, requiredYears: 4, level: 'Mid-Level', fitExplanation: '' },
       fixFirst: [],
       skillsInventory: [],
       formattingAudit: {
-        wordCount: 450,
-        parseQuality: 'High',
+        wordCount: 0,
+        parseQuality: 'Unknown',
         contactInfo: { email: null, phone: null, linkedin: null, github: null, portfolio: null },
-        sectionsFound: ['Experience', 'Education', 'Skills'],
+        sectionsFound: [],
         missingStandardSections: [],
         weakBulletsCount: 0,
-        metricsRatio: 0.5,
+        metricsRatio: 0,
         stuffedSkills: [],
       },
     };
 
-    const subs = ats.subscores || {
-      mustHaveCoverage: 20,
-      evidenceDepth: 15,
-      impactMetrics: 10,
-      projectsAndOss: 8,
-      seniorityFit: 8,
-      formatAndParse: 8,
-      tierFit: 4,
+    const DIMENSION_HEALTH_LABELS: Record<string, [string, string]> = {
+      mustHaveCoverage: ['Optimal', 'Needs Coverage'],
+      evidenceDepth: ['Verified', 'Superficial Evidence'],
+      impactMetrics: ['High Impact', 'Metrics Missing'],
+      projectsAndOss: ['Demonstrated', 'Portfolio Gap'],
+      seniorityFit: ['Aligned', 'Experience Gap'],
+      formatAndParse: ['Clean Parse', 'Format Issues'],
+      tierFit: ['Aligned', 'Calibrated'],
     };
 
-    const subscoresTable = [
-      { label: 'Must-Have Skill Coverage', score: `${subs.mustHaveCoverage ?? 0} / 30 pts`, weight: '30%', status: (subs.mustHaveCoverage ?? 0) >= 22 ? 'Optimal' : 'Needs Coverage' },
-      { label: 'Evidence & Implementation Depth', score: `${subs.evidenceDepth ?? 0} / 20 pts`, weight: '20%', status: (subs.evidenceDepth ?? 0) >= 14 ? 'Verified' : 'Superficial Evidence' },
-      { label: 'Impact & Quantified Numerical Metrics', score: `${subs.impactMetrics ?? 0} / 15 pts`, weight: '15%', status: (subs.impactMetrics ?? 0) >= 10 ? 'High Impact' : 'Metrics Missing' },
-      { label: 'Project Relevance & Open-Source Signals', score: `${subs.projectsAndOss ?? 0} / 10 pts`, weight: '10%', status: (subs.projectsAndOss ?? 0) >= 7 ? 'Demonstrated' : 'Portfolio Gap' },
-      { label: 'Seniority Alignment & Experience Fit', score: `${subs.seniorityFit ?? 0} / 10 pts`, weight: '10%', status: (subs.seniorityFit ?? 0) >= 7 ? 'Aligned' : 'Experience Gap' },
-      { label: 'Format, Layout & Parsing Safety', score: `${subs.formatAndParse ?? 0} / 10 pts`, weight: '10%', status: (subs.formatAndParse ?? 0) >= 8 ? 'Clean Parse' : 'Format Issues' },
-      { label: 'Target Company Tier Alignment', score: `${subs.tierFit ?? 0} / 5 pts`, weight: '5%', status: (subs.tierFit ?? 0) >= 4 ? 'Aligned' : 'Calibrated' },
-    ];
+    const resolvedDimensions = resolveDossierDimensions(ats);
+    const subscoresTable = resolvedDimensions.map((dim) => {
+      const maxPts = Math.round((dim.effectiveWeight ?? 0) * 100);
+      const isApplicable = dim.applicable !== false && maxPts > 0;
+      const ratio = isApplicable ? (dim.contribution ?? 0) / maxPts : 0;
+      const [okLabel, warnLabel] = DIMENSION_HEALTH_LABELS[dim.id] || ['Optimal', 'Needs Attention'];
+      return {
+        label: dim.label,
+        score: isApplicable ? `${dim.contribution ?? 0} / ${maxPts} pts` : 'N/A (Redistributed)',
+        weight: `${maxPts}%`,
+        status: !isApplicable ? 'Redistributed' : ratio >= 0.7 ? okLabel : warnLabel,
+      };
+    });
 
     page.drawRectangle({
       x: margin,
@@ -1283,29 +1342,57 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     }
     y -= 6;
 
-    // Seniority Card
+    // Seniority Card (Phase 07 calibrated representation)
     if (ats.seniorityMode) {
-      checkNewPage(24);
+      checkNewPage(36);
+      const senStatus = ats.seniorityMode.status || 'EVALUATED';
+      const isEligible = ats.seniorityMode.isEligible ?? true;
+      const gateActive = ats.seniorityMode.isMandatoryGateActive ?? false;
+      const provenanceStr = ats.seniorityMode.provenance ? ` [Provenance: ${ats.seniorityMode.provenance}]` : '';
+      const monthDetail = (ats.seniorityMode.demonstratedMonths !== undefined && ats.seniorityMode.completedMonths !== undefined)
+        ? ` (${ats.seniorityMode.demonstratedMonths}m touched, ${ats.seniorityMode.completedMonths}m completed vs ${ats.seniorityMode.requiredMonths ?? (ats.seniorityMode.requiredYears * 12)}m required${ats.seniorityMode.shortfallMonths ? `, shortfall: ${ats.seniorityMode.shortfallMonths}m` : ''})`
+        : '';
+
+      const fitText = `Demonstrated: ${ats.seniorityMode.candidateYears} yrs vs Required: ${ats.seniorityMode.requiredYears} yrs${monthDetail}. ${ats.seniorityMode.fitExplanation}`;
+      const wrappedFit = wrapText(fitText, 95);
+      const boxHeight = Math.max(32, 20 + wrappedFit.length * 10);
+      checkNewPage(boxHeight + 8);
+
       page.drawRectangle({
         x: margin,
-        y: y - 22,
+        y: y - boxHeight,
         width: contentWidth,
-        height: 22,
-        color: rgb(0.97, 0.98, 1.0),
-        borderColor: rgb(0.85, 0.88, 0.95),
+        height: boxHeight,
+        color: !isEligible ? rgb(1.0, 0.96, 0.96) : rgb(0.97, 0.98, 1.0),
+        borderColor: !isEligible ? rgb(0.95, 0.8, 0.8) : rgb(0.85, 0.88, 0.95),
         borderWidth: 0.5,
       });
+
+      const gateLabel = gateActive ? (isEligible ? 'ELIGIBLE' : 'GATE SHORTFALL') : 'NOT MANDATORY';
       page.drawText(
-        `Seniority Assessment: Candidate demonstrated ${ats.seniorityMode.candidateYears} yrs vs ${ats.seniorityMode.requiredYears} yrs desired (${ats.seniorityMode.level} level). ${ats.seniorityMode.fitExplanation}`,
+        `Seniority & Eligibility: Status: ${senStatus} | Gate: ${gateLabel}${provenanceStr}`,
         {
           x: margin + 8,
-          y: y - 14,
+          y: y - 12,
           size: 7.5,
-          font: fontRegular,
-          color: rgb(0.2, 0.25, 0.35),
+          font: fontBold,
+          color: !isEligible ? rgb(0.75, 0.15, 0.15) : rgb(0.12, 0.25, 0.45),
         }
       );
-      y -= 28;
+
+      let fy = y - 24;
+      for (const fLine of wrappedFit) {
+        page.drawText(fLine, {
+          x: margin + 8,
+          y: fy,
+          size: 7,
+          font: fontRegular,
+          color: rgb(0.2, 0.25, 0.35),
+        });
+        fy -= 10;
+      }
+
+      y -= boxHeight + 6;
     }
 
     // Deductions Box
@@ -1341,58 +1428,95 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       y -= ats.penalties.length * 14 + 24;
     }
 
-    // Layer 2: Prioritized Action Plan — Fix These First
-    drawSubsectionBanner(
-      'Layer 2',
-      'High-Impact Action Plan (Fix These First)',
-      'Highest return-on-effort improvements to rapidly boost applicant ranking',
-      rgb(0.1, 0.45, 0.2)
+    // Mathematical Score Reconciliation Strip
+    const reconRawSub = ats.rawSubtotal ?? (
+      (ats.subscores.mustHaveCoverage || 0) +
+      (ats.subscores.evidenceDepth || 0) +
+      (ats.subscores.impactMetrics || 0) +
+      (ats.subscores.projectsAndOss || 0) +
+      (ats.subscores.seniorityFit || 0) +
+      (ats.subscores.formatAndParse || 0) +
+      (ats.subscores.tierFit || 0)
     );
-
-    for (const [idx, f] of ats.fixFirst.entries()) {
-      checkNewPage(32);
-      page.drawRectangle({
-        x: margin,
-        y: y - 28,
-        width: contentWidth,
-        height: 28,
-        color: rgb(0.98, 1.0, 0.98),
-        borderColor: rgb(0.85, 0.92, 0.85),
-        borderWidth: 0.5,
-      });
-
-      page.drawRectangle({
+    const reconBonuses = ats.totalBonuses ?? 0;
+    const reconDeductions = ats.totalDeductions ?? ats.penalties.reduce((s, p) => s + Math.abs(p.points), 0);
+    const reconPreClamp = ats.preClampScore ?? Math.round((reconRawSub + reconBonuses - reconDeductions) * 10) / 10;
+    checkNewPage(22);
+    page.drawRectangle({
+      x: margin,
+      y: y - 18,
+      width: contentWidth,
+      height: 18,
+      color: rgb(0.94, 0.96, 0.99),
+      borderColor: rgb(0.82, 0.86, 0.92),
+      borderWidth: 0.5,
+    });
+    page.drawText(
+      `Score Reconciliation: Raw Subtotal ${reconRawSub} pts + Bonuses ${reconBonuses} pts - Deductions ${reconDeductions} pts = ${reconPreClamp} pts -> Final Score: ${model.headline.score} / 100`,
+      {
         x: margin + 8,
-        y: y - 18,
-        width: 60,
-        height: 12,
-        color: rgb(0.12, 0.55, 0.25),
-      });
-      page.drawText(`+${f.expectedScoreGain} PTS GAIN`, {
-        x: margin + 12,
-        y: y - 14,
-        size: 6.5,
-        font: fontBold,
-        color: rgb(1, 1, 1),
-      });
-
-      page.drawText(`${idx + 1}. ${f.title}`, {
-        x: margin + 74,
-        y: y - 14,
-        size: 8,
-        font: fontBold,
-        color: rgb(0.08, 0.12, 0.18),
-      });
-
-      page.drawText(`Remediation: ${f.reason}`, {
-        x: margin + 12,
-        y: y - 24,
+        y: y - 12,
         size: 7,
-        font: fontRegular,
-        color: rgb(0.3, 0.35, 0.4),
-      });
+        font: fontBold,
+        color: rgb(0.1, 0.18, 0.32),
+      }
+    );
+    y -= 24;
 
-      y -= 34;
+    // Layer 2: Prioritized Action Plan — Fix These First
+    if (Array.isArray(ats.fixFirst) && ats.fixFirst.length > 0) {
+      drawSubsectionBanner(
+        'Layer 2',
+        'High-Impact Action Plan (Fix These First)',
+        'Highest return-on-effort improvements to rapidly boost applicant ranking',
+        rgb(0.1, 0.45, 0.2)
+      );
+
+      for (const [idx, f] of ats.fixFirst.entries()) {
+        checkNewPage(32);
+        page.drawRectangle({
+          x: margin,
+          y: y - 28,
+          width: contentWidth,
+          height: 28,
+          color: rgb(0.98, 1.0, 0.98),
+          borderColor: rgb(0.85, 0.92, 0.85),
+          borderWidth: 0.5,
+        });
+
+        page.drawRectangle({
+          x: margin + 8,
+          y: y - 18,
+          width: 60,
+          height: 12,
+          color: rgb(0.12, 0.55, 0.25),
+        });
+        page.drawText(`+${f.expectedScoreGain} PTS GAIN`, {
+          x: margin + 12,
+          y: y - 14,
+          size: 6.5,
+          font: fontBold,
+          color: rgb(1, 1, 1),
+        });
+
+        page.drawText(`${idx + 1}. ${f.title}`, {
+          x: margin + 74,
+          y: y - 14,
+          size: 8,
+          font: fontBold,
+          color: rgb(0.08, 0.12, 0.18),
+        });
+
+        page.drawText(`Remediation: ${f.reason}`, {
+          x: margin + 12,
+          y: y - 24,
+          size: 7,
+          font: fontRegular,
+          color: rgb(0.3, 0.35, 0.4),
+        });
+
+        y -= 34;
+      }
     }
 
     // Layer 3: Complete Skills Inventory
@@ -1416,28 +1540,29 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     page.drawText('CANDIDATE RESUME EVIDENCE / QUOTE', { x: margin + 340, y: y - 11, size: 7.5, font: fontBold, color: rgb(1, 1, 1) });
     y -= 16;
 
-    for (const [idx, item] of ats.skillsInventory.slice(0, 16).entries()) {
-      checkNewPage(15);
+    for (const [idx, item] of ats.skillsInventory.entries()) {
+      checkNewPage(18);
       page.drawRectangle({
         x: margin,
-        y: y - 14,
+        y: y - 16,
         width: contentWidth,
-        height: 14,
+        height: 16,
         color: idx % 2 === 0 ? rgb(0.99, 0.99, 1.0) : rgb(0.95, 0.95, 0.98),
         borderColor: rgb(0.9, 0.91, 0.95),
         borderWidth: 0.5,
       });
 
-      page.drawText(item.category.slice(0, 18), { x: margin + 8, y: y - 10, size: 7, font: fontRegular, color: rgb(0.4, 0.45, 0.5) });
-      page.drawText(item.canonical.slice(0, 24), { x: margin + 120, y: y - 10, size: 7.5, font: fontBold, color: rgb(0.1, 0.12, 0.16) });
+      page.drawText(item.category.slice(0, 18), { x: margin + 8, y: y - 11, size: 7, font: fontRegular, color: rgb(0.4, 0.45, 0.5) });
+      page.drawText(item.canonical.slice(0, 24), { x: margin + 120, y: y - 11, size: 7.5, font: fontBold, color: rgb(0.1, 0.12, 0.16) });
 
       const sColor = item.status === 'verified' ? rgb(0.08, 0.55, 0.25) : item.status === 'weak' ? rgb(0.7, 0.4, 0.05) : rgb(0.75, 0.15, 0.15);
-      page.drawText(item.status.toUpperCase(), { x: margin + 250, y: y - 10, size: 7, font: fontBold, color: sColor });
+      const substituteTag = item.isSubstituteMatch ? ' [SUB]' : '';
+      page.drawText(`${item.status.toUpperCase()}${substituteTag}`, { x: margin + 250, y: y - 11, size: 7, font: fontBold, color: sColor });
 
-      const quote = item.evidenceQuotes[0] ? `"${item.evidenceQuotes[0].slice(0, 36)}..."` : '—';
-      page.drawText(quote, { x: margin + 340, y: y - 10, size: 6.5, font: fontRegular, color: rgb(0.3, 0.35, 0.4) });
+      const quote = item.evidenceQuotes[0] ? `"${item.evidenceQuotes[0].slice(0, 42)}..."` : '—';
+      page.drawText(quote, { x: margin + 340, y: y - 11, size: 6.5, font: fontRegular, color: rgb(0.3, 0.35, 0.4) });
 
-      y -= 14;
+      y -= 16;
     }
     y -= 8;
 
@@ -1450,17 +1575,17 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
     );
 
     const fmt = ats.formattingAudit || {
-      wordCount: 450,
-      parseQuality: 'High',
+      wordCount: 0,
+      parseQuality: 'Unknown',
       weakBulletsCount: 0,
-      metricsRatio: 0.5,
+      metricsRatio: 0,
       missingStandardSections: [],
-      sectionsFound: ['Experience', 'Education', 'Skills'],
+      sectionsFound: [],
     };
     const statCards = [
-      { label: 'PARSE QUALITY', val: String(fmt.parseQuality || 'High').toUpperCase(), sub: `${fmt.wordCount ?? 450} words` },
+      { label: 'PARSE QUALITY', val: String(fmt.parseQuality || 'Unknown').toUpperCase(), sub: `${fmt.wordCount ?? 0} words` },
       { label: 'ACTION VERBS', val: `${(fmt.weakBulletsCount ?? 0) === 0 ? 'High' : 'Moderate'}`, sub: `${fmt.weakBulletsCount ?? 0} weak bullets` },
-      { label: 'METRIC DENSITY', val: `${Math.round((fmt.metricsRatio ?? 0.5) * 100)}%`, sub: 'of bullets quantified' },
+      { label: 'METRIC DENSITY', val: `${Math.round((fmt.metricsRatio ?? 0) * 100)}%`, sub: 'of bullets quantified' },
       { label: 'STRUCTURE', val: `${(fmt.missingStandardSections || []).length === 0 ? 'Optimal' : 'Needs Sections'}`, sub: `${(fmt.sectionsFound || []).length} sections found` },
     ];
 
@@ -1503,6 +1628,105 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
       }
     );
     y -= 28;
+
+    // Layer 5: Evidence Provenance & Citation Validation Ledger
+    const citations = ats.citationsList || (ats.authoritativeSnapshot?.evidence?.citations) || [];
+    if (citations.length > 0) {
+      drawSubsectionBanner(
+        'Layer 5',
+        'Evidence Provenance & Citation Validation Ledger',
+        'Independent evaluation of citation quotation validity and claim support',
+        rgb(0.18, 0.22, 0.35)
+      );
+
+      for (const [idx, cit] of citations.entries()) {
+        checkNewPage(44);
+        page.drawRectangle({
+          x: margin,
+          y: y - 40,
+          width: contentWidth,
+          height: 40,
+          color: idx % 2 === 0 ? rgb(0.99, 0.99, 1.0) : rgb(0.96, 0.97, 0.99),
+          borderColor: rgb(0.88, 0.9, 0.94),
+          borderWidth: 0.5,
+        });
+
+        // Line 1: Competency & Status Badges
+        page.drawText(`[${cit.competencyId}]`, { x: margin + 8, y: y - 11, size: 7.5, font: fontBold, color: rgb(0.1, 0.15, 0.25) });
+        const presTag = cit.presentationValidationLabel ? ` (${cit.presentationValidationLabel})` : '';
+        page.drawText(`Quote Validity: ${cit.validationStatus}${presTag}`, {
+          x: margin + 125,
+          y: y - 11,
+          size: 7,
+          font: fontBold,
+          color: cit.validationStatus.includes('VERIFIED') ? rgb(0.1, 0.5, 0.2) : rgb(0.7, 0.3, 0.1),
+        });
+        page.drawText(`Claim Support: ${cit.claimSupport}`, {
+          x: margin + 320,
+          y: y - 11,
+          size: 7,
+          font: fontBold,
+          color: cit.claimSupport.includes('SUPPORTED') && !cit.claimSupport.includes('PARTIALLY') ? rgb(0.1, 0.5, 0.2) : cit.claimSupport.includes('PARTIALLY') ? rgb(0.7, 0.45, 0.1) : rgb(0.7, 0.15, 0.15),
+        });
+
+        // Line 2: Verbatim Quote
+        const quoteSnippet = `"${cit.originalQuotation.slice(0, 95)}${cit.originalQuotation.length > 95 ? '...' : ''}"`;
+        page.drawText(quoteSnippet, { x: margin + 8, y: y - 22, size: 6.5, font: fontRegular, color: rgb(0.2, 0.25, 0.3) });
+
+        // Line 3: Evidence Provenance & Environment Maturity
+        const provLine = `Provenance: ${cit.sourceType || 'PROFESSIONAL_EXPERIENCE'} | Maturity: ${cit.environmentMaturity || 'UNKNOWN'} | Section: ${cit.sourceSection || 'experience'}`;
+        page.drawText(provLine, { x: margin + 8, y: y - 33, size: 6, font: fontRegular, color: rgb(0.4, 0.45, 0.55) });
+
+        y -= 44;
+      }
+      y -= 6;
+    }
+
+    // Layer 5B: Quantified Impact & Outcome Metrics Ledger (Phase 09)
+    const metricEvidences = ats.metricEvidences || (ats.authoritativeSnapshot?.evidence?.metrics) || [];
+    if (metricEvidences.length > 0) {
+      drawSubsectionBanner(
+        'Layer 5B',
+        'Quantified Impact & Outcome Metrics Ledger',
+        'Structured metric provenance, attribution, environment maturity, and derived calculations',
+        rgb(0.12, 0.28, 0.36)
+      );
+
+      for (const [idx, m] of metricEvidences.entries()) {
+        checkNewPage(42);
+        page.drawRectangle({
+          x: margin,
+          y: y - 38,
+          width: contentWidth,
+          height: 38,
+          color: idx % 2 === 0 ? rgb(0.99, 0.99, 1.0) : rgb(0.95, 0.97, 0.99),
+          borderColor: rgb(0.88, 0.9, 0.94),
+          borderWidth: 0.5,
+        });
+
+        const statusLabel = m.creditedInImpact ? `CREDITED (+${(m.impactCredit ?? 0).toFixed(2)})` : 'EXCLUDED';
+        page.drawText(`[${m.metricCategory}]`, { x: margin + 8, y: y - 10, size: 7, font: fontBold, color: rgb(0.1, 0.2, 0.35) });
+        page.drawText(`Attribution: ${m.attribution} | Polarity: ${m.polarity}`, { x: margin + 95, y: y - 10, size: 6.5, font: fontRegular, color: rgb(0.25, 0.3, 0.4) });
+        page.drawText(statusLabel, {
+          x: margin + 350,
+          y: y - 10,
+          size: 7,
+          font: fontBold,
+          color: m.creditedInImpact ? rgb(0.1, 0.5, 0.2) : rgb(0.7, 0.2, 0.15),
+        });
+
+        const quoteLine = `Quote: "${(m.sourceQuote || '').slice(0, 72)}" (${m.sourceType}/${m.environmentMaturity})`;
+        page.drawText(quoteLine, { x: margin + 8, y: y - 21, size: 6.5, font: fontRegular, color: rgb(0.15, 0.2, 0.25) });
+
+        const mathOrReason = m.derivedInterpretation
+          ? `${m.derivedInterpretation.slice(0, 82)} | ${(m.creditDecisionReason || '').slice(0, 40)}`
+          : (m.creditDecisionReason || `Unit: ${m.unit || 'none'}`).slice(0, 110);
+        page.drawText(mathOrReason, { x: margin + 8, y: y - 32, size: 6, font: fontRegular, color: rgb(0.35, 0.4, 0.5) });
+
+        y -= 42;
+      }
+      y -= 6;
+    }
   }
 
   // =========================================================================
@@ -1511,14 +1735,13 @@ export async function generatePdfDossier(rawModel: DossierModel): Promise<Uint8A
   else {
     drawSubsectionBanner(1, '7-Dimension Weighted Subscores & Penalty Deductions', undefined, rgb(0.08, 0.3, 0.6));
     const ats = model.atsDiagnostics;
-    const subscoresTable = [
-      { label: 'Must-Have Skill Coverage', score: `${ats.subscores.mustHaveCoverage} / 30 pts`, weight: '30%' },
-      { label: 'Evidence & Implementation Depth', score: `${ats.subscores.evidenceDepth} / 20 pts`, weight: '20%' },
-      { label: 'Impact & Quantified Numerical Metrics', score: `${ats.subscores.impactMetrics} / 15 pts`, weight: '15%' },
-    ];
-    for (const row of subscoresTable) {
+    const dims = resolveDossierDimensions(ats);
+    for (const dim of dims) {
+      const maxPts = Math.round((dim.effectiveWeight ?? 0) * 100);
+      const isApplicable = dim.applicable !== false && maxPts > 0;
+      const scoreText = isApplicable ? `${dim.contribution} / ${maxPts} pts (${maxPts}%)` : 'N/A (Redistributed) (0%)';
       checkNewPage(14);
-      page.drawText(`${row.label}: ${row.score} (${row.weight})`, { x: margin + 8, y: y - 10, size: 7.5, font: fontRegular, color: rgb(0.1, 0.1, 0.1) });
+      page.drawText(`${dim.label}: ${scoreText}`, { x: margin + 8, y: y - 10, size: 7.5, font: fontRegular, color: rgb(0.1, 0.1, 0.1) });
       y -= 14;
     }
 

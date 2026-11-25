@@ -1,69 +1,74 @@
 // ============================================================
-// ATS Resume Roaster — Experience Estimator (Stage 3)
-// Infers total experience tenure and maps to candidate level
+// ATS Resume Roaster — Experience Estimator (Stage 3 / Phase 10.4)
+// Infers total & professional experience tenure via tenureCalculator
+// single source of truth and maps to candidate level.
 // ============================================================
 
 import { getSeniorityLevel, inferSeniorityLevelFromYears } from '../../../lib/config/atsConfig';
 import { ExperienceEntry, ExperienceLevelId } from './types';
+import {
+  calculateTenure,
+  DEFAULT_ANCHOR_DATE,
+  TenureBreakdown,
+  formatMonthDuration,
+} from './tenureCalculator';
 
 export interface SeniorityEstimate {
   candidateYears: number;
+  candidateMonths: number;
+  professionalYears: number;
+  professionalMonths: number;
+  completedProfessionalYears: number;
+  completedProfessionalMonths: number;
+  totalYears: number;
+  totalMonths: number;
+  effectiveMonths: number;
+  internshipMonths: number;
+  internshipYears: number;
+  tenureBreakdown: TenureBreakdown;
   inferredLevel: ExperienceLevelId;
   explanation: string;
 }
 
 export function estimateCandidateExperience(
-  entries: ExperienceEntry[],
+  entries: Array<ExperienceEntry | any>,
   selectedLevel: ExperienceLevelId = 'auto',
-  today: Date = new Date()
+  today: Date = DEFAULT_ANCHOR_DATE
 ): SeniorityEstimate {
-  const currentYear = today.getFullYear();
-
-  let totalMonths = 0;
-  const recordedSpans: Array<{ start: number; end: number }> = [];
-
-  for (const entry of entries) {
-    if (entry.startYear) {
-      const end = entry.isCurrent ? currentYear : (entry.endYear || entry.startYear);
-      recordedSpans.push({ start: entry.startYear, end: Math.max(entry.startYear, end) });
-    }
-  }
-
-  // Merge overlapping date ranges
-  if (recordedSpans.length > 0) {
-    recordedSpans.sort((a, b) => a.start - b.start);
-    const merged: Array<{ start: number; end: number }> = [recordedSpans[0]];
-
-    for (let i = 1; i < recordedSpans.length; i++) {
-      const last = merged[merged.length - 1];
-      const curr = recordedSpans[i];
-      if (curr.start <= last.end) {
-        last.end = Math.max(last.end, curr.end);
-      } else {
-        merged.push(curr);
-      }
-    }
-
-    let totalYears = 0;
-    for (const span of merged) {
-      totalYears += (span.end - span.start);
-    }
-    // If only one year mentioned (e.g. 2023 - 2023 or 2024 - Present), count as ~1 year
-    totalMonths = Math.max(totalYears * 12, entries.length > 0 && totalYears === 0 ? 10 : totalYears * 12);
-  }
-
-  const candidateYears = Math.round((totalMonths / 12) * 10) / 10;
+  const tenure = calculateTenure(entries, { asOfDate: today });
+  const professionalYears = tenure.totalProfessionalYears;
+  const professionalMonths = tenure.totalProfessionalMonths;
+  const completedProfessionalYears = tenure.totalCompletedProfessionalYears;
+  const completedProfessionalMonths = tenure.totalCompletedProfessionalMonths;
+  const totalYears = tenure.totalWorkYears;
+  const totalMonths = tenure.totalWorkMonths;
+  const effectiveMonths = professionalMonths;
 
   // Resolve profile from config (pure data-driven, P1)
   const isUserOverride = Boolean(selectedLevel && selectedLevel !== 'auto');
   const levelProfile = isUserOverride
     ? getSeniorityLevel(selectedLevel).level
-    : inferSeniorityLevelFromYears(candidateYears);
+    : inferSeniorityLevelFromYears(professionalYears);
 
-  const explanation = `${levelProfile.displayName} (~${candidateYears} years formal experience detected). ${levelProfile.typicalBarText}`;
+  const internNote =
+    tenure.internshipMonths > 0
+      ? `; ${formatMonthDuration(tenure.internshipMonths)} internship tenure excluded from professional count`
+      : '';
+  const explanation = `${levelProfile.displayName} (${formatMonthDuration(professionalMonths)} formal professional experience detected${internNote}). ${levelProfile.typicalBarText}`;
 
   return {
-    candidateYears,
+    candidateYears: professionalYears,
+    candidateMonths: professionalMonths,
+    professionalYears,
+    professionalMonths,
+    completedProfessionalYears,
+    completedProfessionalMonths,
+    totalYears,
+    totalMonths,
+    effectiveMonths,
+    internshipMonths: tenure.internshipMonths,
+    internshipYears: tenure.internshipYears,
+    tenureBreakdown: tenure,
     inferredLevel: levelProfile.id as ExperienceLevelId,
     explanation,
   };

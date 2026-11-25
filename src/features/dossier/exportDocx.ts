@@ -1,4 +1,4 @@
-import type { DossierModel } from './dossierModel';
+import { resolveDossierDimensions, type DossierModel } from './dossierModel';
 
 export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
   const { Document, Paragraph, TextRun, HeadingLevel, Table, TableRow, TableCell, WidthType, Packer } =
@@ -17,11 +17,11 @@ export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
   const band = (model.headline?.scoreBand || 'Standard').toUpperCase();
   const resumeHash = model.meta?.integrity?.resumeHash || 'N/A';
   const jdHash = model.meta?.integrity?.jdHash || 'N/A';
-  const candidateName = model.candidate?.name || 'Candidate';
+  const candidateName = model.candidate?.name || 'Unresolved Candidate';
   const resumeLabel = model.candidate?.resumeLabel || 'Current Resume';
-  const roleTitle = model.target?.roleTitle || 'Role';
+  const roleTitle = model.target?.roleTitle || 'Unspecified Role';
   const roleLevel = model.target?.level ? ` (${model.target.level})` : '';
-  const companyName = model.target?.company || 'Target Organization';
+  const companyName = model.target?.company || 'Unspecified Employer';
   const tierName = model.target?.tier ? ` [${model.target.tier} Tier]` : '';
   const generatedDate = model.meta?.generatedAt ? new Date(model.meta.generatedAt).toLocaleString() : new Date().toLocaleString();
   const engineVersion = model.meta?.engineVersion || '4.0.0';
@@ -249,52 +249,111 @@ export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
   else if (isAtsRoast) {
     const ats = model.atsDiagnostics || {
       subscores: {
-        mustHaveCoverage: 20,
-        evidenceDepth: 15,
-        impactMetrics: 10,
-        projectsAndOss: 8,
-        seniorityFit: 8,
-        formatAndParse: 8,
-        tierFit: 4,
+        mustHaveCoverage: 0,
+        evidenceDepth: 0,
+        impactMetrics: 0,
+        projectsAndOss: 0,
+        seniorityFit: 0,
+        formatAndParse: 0,
+        tierFit: 0,
       },
       penalties: [],
-      seniorityMode: { candidateYears: 3, requiredYears: 4, level: 'Mid-Level', fitExplanation: '' },
       fixFirst: [],
       skillsInventory: [],
       formattingAudit: {
-        wordCount: 450,
-        parseQuality: 'High',
-        contactInfo: { email: 'Verified', phone: 'Verified', linkedin: 'Detected', github: 'Detected', portfolio: null },
-        sectionsFound: ['Experience', 'Education', 'Skills'],
+        wordCount: 0,
+        parseQuality: 'Unknown',
+        contactInfo: { email: null, phone: null, linkedin: null, github: null, portfolio: null },
+        sectionsFound: [],
         missingStandardSections: [],
-        weakBulletsCount: 1,
-        metricsRatio: 0.5,
+        weakBulletsCount: 0,
+        metricsRatio: 0,
         stuffedSkills: [],
       },
     };
 
-    const subs = ats.subscores || {
-      mustHaveCoverage: 20,
-      evidenceDepth: 15,
-      impactMetrics: 10,
-      projectsAndOss: 8,
-      seniorityFit: 8,
-      formatAndParse: 8,
-      tierFit: 4,
-    };
+    const resolvedDimensions = resolveDossierDimensions(ats);
 
     children.push(
       new Paragraph({
         text: 'LAYER 1: 7-DIMENSION WEIGHTED SUBSCORES',
         heading: HeadingLevel.HEADING_2,
       }),
-      new Paragraph({ text: `• Must-Have Skill Coverage: ${subs.mustHaveCoverage ?? 0} / 30 pts` }),
-      new Paragraph({ text: `• Evidence Depth: ${subs.evidenceDepth ?? 0} / 20 pts` }),
-      new Paragraph({ text: `• Impact & Numerical Metrics: ${subs.impactMetrics ?? 0} / 15 pts` }),
-      new Paragraph({ text: `• Projects & OSS: ${subs.projectsAndOss ?? 0} / 10 pts` }),
-      new Paragraph({ text: `• Seniority Fit: ${subs.seniorityFit ?? 0} / 10 pts` }),
-      new Paragraph({ text: `• Format & Parsing Safety: ${subs.formatAndParse ?? 0} / 10 pts` }),
-      new Paragraph({ text: `• Target Tier Alignment: ${subs.tierFit ?? 0} / 5 pts` }),
+      ...resolvedDimensions.map((dim) => {
+        const maxPts = Math.round((dim.effectiveWeight ?? 0) * 100);
+        const isApplicable = dim.applicable !== false && maxPts > 0;
+        const lineText = isApplicable
+          ? `• ${dim.label}: ${dim.contribution ?? 0} / ${maxPts} pts (${maxPts}%)`
+          : `• ${dim.label}: N/A (Redistributed) (0%)${dim.notApplicableReason ? ` — ${dim.notApplicableReason}` : ''}`;
+        return new Paragraph({ text: lineText });
+      }),
+      new Paragraph({ text: '' })
+    );
+
+    // Seniority & Eligibility Card
+    if (ats.seniorityMode) {
+      const senStatus = ats.seniorityMode.status || 'EVALUATED';
+      const isEligible = ats.seniorityMode.isEligible ?? true;
+      const gateActive = ats.seniorityMode.isMandatoryGateActive ?? false;
+      const provenanceStr = ats.seniorityMode.provenance ? ` [Provenance: ${ats.seniorityMode.provenance}]` : '';
+      const monthDetail = (ats.seniorityMode.demonstratedMonths !== undefined && ats.seniorityMode.completedMonths !== undefined)
+        ? ` (${ats.seniorityMode.demonstratedMonths}m touched, ${ats.seniorityMode.completedMonths}m completed vs ${ats.seniorityMode.requiredMonths ?? (ats.seniorityMode.requiredYears * 12)}m required${ats.seniorityMode.shortfallMonths ? `, shortfall: ${ats.seniorityMode.shortfallMonths}m` : ''})`
+        : '';
+
+      children.push(
+        new Paragraph({
+          text: 'SENIORITY & ELIGIBILITY ASSESSMENT',
+          heading: HeadingLevel.HEADING_2,
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({ text: 'Status: ', bold: true }),
+            new TextRun(senStatus),
+            new TextRun({ text: ' | Gate: ', bold: true }),
+            new TextRun(gateActive ? (isEligible ? 'ELIGIBLE' : 'GATE SHORTFALL') : 'NOT MANDATORY'),
+            new TextRun({ text: provenanceStr }),
+          ],
+        }),
+        new Paragraph({
+          children: [
+            new TextRun({ text: 'Experience: ', bold: true }),
+            new TextRun(`Demonstrated ${ats.seniorityMode.candidateYears} yrs vs Required ${ats.seniorityMode.requiredYears} yrs${monthDetail}. `),
+            new TextRun(ats.seniorityMode.fitExplanation || ''),
+          ],
+        }),
+        new Paragraph({ text: '' })
+      );
+    }
+
+    if (Array.isArray(ats.penalties) && ats.penalties.length > 0) {
+      children.push(
+        new Paragraph({
+          text: 'SCORING PENALTIES & DEDUCTIONS APPLIED',
+          heading: HeadingLevel.HEADING_2,
+        }),
+        ...ats.penalties.map((p) =>
+          new Paragraph({
+            children: [
+              new TextRun({ text: `• [${p.points} pts] ${p.label}: `, bold: true }),
+              new TextRun(p.reason || ''),
+            ],
+          })
+        ),
+        new Paragraph({ text: '' })
+      );
+    }
+
+    const reconRawSub = ats.rawSubtotal ?? resolvedDimensions.reduce((sum, d) => sum + (d.contribution ?? 0), 0);
+    const reconBonuses = ats.totalBonuses ?? 0;
+    const reconDeductions = ats.totalDeductions ?? (ats.penalties || []).reduce((s, p) => s + Math.abs(p.points), 0);
+    const reconPreClamp = ats.preClampScore ?? Math.round((reconRawSub + reconBonuses - reconDeductions) * 10) / 10;
+    children.push(
+      new Paragraph({
+        children: [
+          new TextRun({ text: 'Mathematical Score Reconciliation: ', bold: true }),
+          new TextRun(`Raw Subtotal ${reconRawSub} pts + Bonuses ${reconBonuses} pts - Deductions ${reconDeductions} pts = ${reconPreClamp} pts -> Final Score: ${model.headline.score} / 100`),
+        ],
+      }),
       new Paragraph({ text: '' })
     );
 
@@ -329,16 +388,18 @@ export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
               children: [
                 new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Skill', bold: true })] })] }),
                 new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Category', bold: true })] })] }),
-                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Status', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Presentation Status', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Engine Status', bold: true })] })] }),
               ],
             }),
-            ...ats.skillsInventory.slice(0, 15).map(
+            ...ats.skillsInventory.map(
               (sk) =>
                 new TableRow({
                   children: [
                     new TableCell({ children: [new Paragraph(sk.canonical || '')] }),
                     new TableCell({ children: [new Paragraph(sk.category || 'Skill')] }),
-                    new TableCell({ children: [new Paragraph(String(sk.status || 'Verified').toUpperCase())] }),
+                    new TableCell({ children: [new Paragraph(String(sk.status || 'Verified').toUpperCase() + (sk.isSubstituteMatch ? ' [SUB]' : ''))] }),
+                    new TableCell({ children: [new Paragraph(sk.engineStatus || (sk.status === 'verified' ? 'SATISFIED' : 'NOT_DEMONSTRATED'))] }),
                   ],
                 })
             ),
@@ -349,14 +410,14 @@ export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
     }
 
     const fmt = ats.formattingAudit || {
-      wordCount: 450,
-      sectionsFound: ['Experience', 'Education'],
+      wordCount: 0,
+      sectionsFound: [],
       missingStandardSections: [],
       weakBulletsCount: 0,
-      metricsRatio: 0.5,
+      metricsRatio: 0,
     };
 
-    const sectionsFoundStr = Array.isArray(fmt.sectionsFound) ? fmt.sectionsFound.join(', ') : 'Standard sections present';
+    const sectionsFoundStr = Array.isArray(fmt.sectionsFound) && fmt.sectionsFound.length > 0 ? fmt.sectionsFound.join(', ') : 'None';
     const missingSectionsStr = Array.isArray(fmt.missingStandardSections) && fmt.missingStandardSections.length > 0
       ? fmt.missingStandardSections.join(', ')
       : 'None (All present)';
@@ -366,13 +427,119 @@ export async function generateDocxDossier(model: DossierModel): Promise<Blob> {
         text: 'LAYER 4: FORMATTING, STRUCTURAL & BULLET AUDIT',
         heading: HeadingLevel.HEADING_2,
       }),
-      new Paragraph({ text: `• Total Word Count: ${fmt.wordCount ?? 450} words` }),
-      new Paragraph({ text: `• Sections Found: ${sectionsFoundStr || 'None'}` }),
+      new Paragraph({ text: `• Total Word Count: ${fmt.wordCount ?? 0} words` }),
+      new Paragraph({ text: `• Sections Found: ${sectionsFoundStr}` }),
       new Paragraph({ text: `• Missing Standard Sections: ${missingSectionsStr}` }),
       new Paragraph({ text: `• Weak Bullets: ${fmt.weakBulletsCount ?? 0} weak bullets detected` }),
-      new Paragraph({ text: `• Quantified Metrics: ${Math.round((fmt.metricsRatio ?? 0.5) * 100)}% of bullets include numerical metrics` }),
+      new Paragraph({ text: `• Quantified Metrics: ${Math.round((fmt.metricsRatio ?? 0) * 100)}% of bullets include numerical metrics` }),
       new Paragraph({ text: '' })
     );
+
+    const citations = ats.citationsList || (ats.authoritativeSnapshot?.evidence?.citations) || [];
+    if (citations.length > 0) {
+      children.push(
+        new Paragraph({
+          text: 'LAYER 5: EVIDENCE PROVENANCE & CITATION VALIDATION LEDGER',
+          heading: HeadingLevel.HEADING_2,
+        }),
+        new Paragraph({
+          text: 'Cryptographically verified verbatim citations with independent quotation validity and claim support status.',
+        }),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({
+              children: [
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Competency', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Quote Validity', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Claim Support', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Verbatim Quote & Provenance', bold: true })] })] }),
+              ],
+            }),
+            ...citations.map(
+              (c: any) =>
+                new TableRow({
+                  children: [
+                    new TableCell({ children: [new Paragraph(c.competencyId || '')] }),
+                    new TableCell({
+                      children: [
+                        new Paragraph(c.validationStatus || 'VERIFIED_EXACT'),
+                        ...(c.presentationValidationLabel ? [new Paragraph(`Label: ${c.presentationValidationLabel}`)] : []),
+                      ],
+                    }),
+                    new TableCell({ children: [new Paragraph(c.claimSupport || 'DIRECTLY_SUPPORTED')] }),
+                    new TableCell({
+                      children: [
+                        new Paragraph(`"${c.originalQuotation || ''}"`),
+                        new Paragraph(`Source: ${c.sourceType || 'PROFESSIONAL_EXPERIENCE'} | Maturity: ${c.environmentMaturity || 'UNKNOWN'} | Section: ${c.sourceSection || 'experience'}`),
+                      ],
+                    }),
+                  ],
+                })
+            ),
+          ],
+        }),
+        new Paragraph({ text: '' })
+      );
+    }
+
+    const metricEvidences = ats.metricEvidences || (ats.authoritativeSnapshot?.evidence?.metrics) || [];
+    if (metricEvidences.length > 0) {
+      children.push(
+        new Paragraph({
+          text: 'LAYER 5B: QUANTIFIED IMPACT & OUTCOME METRICS LEDGER',
+          heading: HeadingLevel.HEADING_2,
+        }),
+        new Paragraph({
+          text: 'Structured metric evidence with exact resume quotes, offsets, attribution, maturity, derived calculations, and scoring credit rationale.',
+        }),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [
+            new TableRow({
+              children: [
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Source Quote', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Category & Attribution', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Derived Math / Provenance', bold: true })] })] }),
+                new TableCell({ children: [new Paragraph({ children: [new TextRun({ text: 'Impact Decision', bold: true })] })] }),
+              ],
+            }),
+            ...metricEvidences.map(
+              (m: any) =>
+                new TableRow({
+                  children: [
+                    new TableCell({
+                      children: [
+                        new Paragraph(`"${m.sourceQuote || ''}"`),
+                        new Paragraph(`Offsets: ${m.documentStart ?? m.sourceStart}-${m.documentEnd ?? m.sourceEnd}`),
+                      ],
+                    }),
+                    new TableCell({
+                      children: [
+                        new Paragraph(`${(m.metricCategories || [m.metricCategory]).join(', ')}`),
+                        new Paragraph(`Attribution: ${m.attribution} | Polarity: ${m.polarity}`),
+                      ],
+                    }),
+                    new TableCell({
+                      children: [
+                        new Paragraph(m.derivedInterpretation || `Unit: ${m.unit || 'unspecified'} | Timeframe: ${m.timeframe || 'unspecified'}`),
+                        new Paragraph(`Source: ${m.sourceType} | Maturity: ${m.environmentMaturity}`),
+                      ],
+                    }),
+                    new TableCell({
+                      children: [
+                        new Paragraph(m.creditedInImpact ? `CREDITED (${(m.impactCredit ?? 0).toFixed(2)})` : 'EXCLUDED'),
+                        new Paragraph(m.creditDecisionReason || ''),
+                      ],
+                    }),
+                  ],
+                })
+            ),
+          ],
+        }),
+        new Paragraph({ text: '' })
+      );
+    }
   }
 
   // Fallback

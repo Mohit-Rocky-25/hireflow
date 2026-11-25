@@ -5,15 +5,14 @@
 
 import actionVerbsData from '../knowledge/action-verbs.json';
 import { BulletAnalysis } from './types';
+import { extractMetricsFromText, MetricExtractionContext } from './metricExtractor';
+import { detectStatementPolarity } from './statementExtractor';
 
 const STRONG_VERBS = new Set((actionVerbsData.strongVerbs as string[]).map(v => v.toLowerCase()));
 const WEAK_PHRASES = (actionVerbsData.weakPhrases as string[]).map(p => p.toLowerCase());
 
-// Regex for quantifiable metrics: e.g. 40%, 10x, 500k, 2M, 45ms, 10,000 users, 1.2M requests, INR 50L, $100k, etc.
-const METRIC_REGEX = /\b(?:\d+(?:\.\d+)?%|\d+x|\d+k|\d+m|\d+ms|(?:₹|rs\.?|\$)\s*\d+(?:,\d+)*(?:\.\d+)?|\d+(?:,\d+)*\s*(?:users|requests|qps|rps|tps|transactions|dau|mau|records|clients|customers|downloads|stars|views|inr|usd|lakh|lakhs|cr|crore|crores|lpa)|\$\s*\d+|\b\d+\s*%)|\b(?:reduced|increased|improved|saved|accelerated|cut)\s+(?:by\s+)?\d+/i;
-
-export function analyzeBullet(rawText: string): BulletAnalysis {
-  const trimmed = rawText.replace(/^[*\-•▪●\d.]+\s*/, '').trim();
+export function analyzeBullet(rawText: string, context?: MetricExtractionContext): BulletAnalysis {
+  const trimmed = rawText.replace(/^(?:[*\-•▪●]+\s*|\d+[.)]\s+)+/, '').trim();
   const words = trimmed.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
 
@@ -75,19 +74,56 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     }
   }
 
-  // 3. Metric check & plausibility flag
-  const metricMatch = trimmed.match(METRIC_REGEX);
-  const hasMetric = Boolean(metricMatch);
-  const metricMatched = metricMatch ? metricMatch[0] : undefined;
+  // 3. Structured Metric Intelligence check & plausibility flag (Phase 09 + Phase 10.3/10.4 Negation/Aspirational Wiring)
+  const polarity = detectStatementPolarity(trimmed);
+  const allNonActiveClauses =
+    polarity.clausePolarities.length > 0
+      ? polarity.clausePolarities.every(
+          (c) => c.isNegated || c.negationSentiment === 'LEARNING' || c.negationSentiment === 'ASPIRATIONAL'
+        )
+      : polarity.allClausesNegated || polarity.negationSentiment === 'LEARNING' || polarity.negationSentiment === 'ASPIRATIONAL';
+  const effectiveIsNegated = context?.isNegated ?? allNonActiveClauses;
+  const metricEvidences = extractMetricsFromText(trimmed, {
+    ...context,
+    isNegated: effectiveIsNegated,
+  });
+
+  if (context?.isNegated === undefined && !allNonActiveClauses && polarity.clausePolarities.some((c) => c.isNegated || c.negationSentiment === 'LEARNING' || c.negationSentiment === 'ASPIRATIONAL')) {
+    for (const m of metricEvidences) {
+      if (typeof m.sourceStart === 'number') {
+        const clause = polarity.clausePolarities.find(
+          (c) => m.sourceStart! >= c.start && m.sourceStart! < c.end
+        );
+        if (clause && (clause.isNegated || clause.negationSentiment === 'LEARNING' || clause.negationSentiment === 'ASPIRATIONAL')) {
+          m.claimSupport = 'NEGATED';
+        }
+      }
+    }
+  }
+
+  const validPositiveMetrics = metricEvidences.filter(
+    (m) => m.polarity !== 'NEGATIVE' && Boolean(m.unit) && m.extractionConfidence >= 0.5 && m.claimSupport !== 'NEGATED'
+  );
+  const hasMetric = validPositiveMetrics.length > 0;
+  const primaryValidMetric = validPositiveMetrics[0];
+  const primaryMetric = primaryValidMetric || metricEvidences[0];
+  const metricMatched = primaryValidMetric ? primaryValidMetric.sourceQuote : undefined;
   let plausibilityWarning: string | undefined = undefined;
 
   if (!hasMetric) {
-    issues.push('Missing measurable outcome or quantifiable scale metric (%, numbers, latency, users)');
-  } else if (metricMatched) {
-    // Check for extreme/implausible metric claims
-    const percentMatch = metricMatched.match(/(\d+)%/);
-    if (percentMatch && parseInt(percentMatch[1], 10) > 300) {
-      plausibilityWarning = `Metric "${metricMatched}" represents an extreme claim (>300%). Prepare verifiable baseline benchmarks for technical interviews.`;
+    if (metricEvidences.some((m) => m.claimSupport === 'NEGATED')) {
+      issues.push('Metric appears in a negated or non-active statement and cannot be credited');
+    } else if (metricEvidences.some((m) => m.polarity === 'NEGATIVE')) {
+      issues.push('Metric describes a negative or worsening outcome rather than a positive engineering improvement');
+    } else {
+      issues.push('Missing measurable outcome or quantifiable scale metric (%, numbers, latency, users)');
+    }
+  } else {
+    for (const m of validPositiveMetrics) {
+      if (m.unit === '%' && (m.value ?? 0) > 300 && m.changeType !== 'SPEEDUP_RATIO') {
+        plausibilityWarning = `Metric "${m.sourceQuote}" represents an extreme claim (>300%). Prepare verifiable baseline benchmarks for technical interviews.`;
+        break;
+      }
     }
   }
 
@@ -106,12 +142,18 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
   // 6. Tech mention heuristic
   const hasTechMention = /\b[A-Z][a-zA-Z0-9+#.]+\b/.test(trimmed);
 
-  // 7. Outcome heuristic
+  // 7. Outcome heuristic (do not credit purely non-active/negated or negative-metric-only bullets)
+  const onlyNegativeOrNegatedMetrics =
+    metricEvidences.length > 0 &&
+    !hasMetric &&
+    metricEvidences.every((m) => m.polarity === 'NEGATIVE' || m.claimSupport === 'NEGATED');
   const hasOutcome =
     hasMetric ||
-    /\b(?:resulting in|leading to|enabling|improving|decreasing|increasing|reducing|boosting|to achieve|to prevent|saving)\b/i.test(
-      trimmed
-    );
+    (!allNonActiveClauses &&
+      !onlyNegativeOrNegatedMetrics &&
+      /\b(?:resulting in|leading to|enabling|improving|decreasing|increasing|reducing|boosting|to achieve|to prevent|saving)\b/i.test(
+        trimmed
+      ));
 
   // 8. Keyword dump heuristic (3+ tech capitalized words with no strong verb or outcome)
   const techCapitalizedMatches = trimmed.match(/\b[A-Z][a-zA-Z0-9+#.]+\b/g) || [];
@@ -147,6 +189,11 @@ export function analyzeBullet(rawText: string): BulletAnalysis {
     clichéVerbMatched,
     hasMetric,
     metricMatched,
+    metricEvidences,
+    primaryMetricCategory: primaryMetric?.metricCategory,
+    metricAttribution: primaryMetric?.attribution,
+    isNegated: polarity.isNegated,
+    negationSentiment: polarity.negationSentiment,
     hasTechMention,
     isKeywordDump,
     score,

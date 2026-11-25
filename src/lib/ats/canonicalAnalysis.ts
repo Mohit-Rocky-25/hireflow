@@ -288,13 +288,18 @@ function fastHash64(str: string): string {
 export function generateFingerprint(
   normalizedResume: string,
   normalizedJD: string,
-  extraOptions?: { tier?: string; level?: string }
+  extraOptions?: {
+    tier?: string;
+    level?: string;
+    companyContext?: { id: string; name: string; tier: string; roleTitle?: string };
+  }
 ): { inputFingerprint: string; resumeFingerprint: string; jdFingerprint: string } {
-  const normResumeLower = normalizeWhitespace(normalizedResume);
-  const normJDLower = normalizeWhitespace(normalizedJD);
+  // Preserve line breaks and case that affect section/bullet parsing while normalizing CRLF & horizontal whitespace
+  const normResumeCanonical = normalizeResumeText(normalizedResume).normalizedText;
+  const normJDCanonical = normalizeJobDescription(normalizedJD).normalizedText;
 
-  const resumeFingerprint = fastHash64(`resume:${normResumeLower}`);
-  const jdFingerprint = fastHash64(`jd:${normJDLower}`);
+  const resumeFingerprint = fastHash64(`resume:${normResumeCanonical}`);
+  const jdFingerprint = fastHash64(`jd:${normJDCanonical}`);
 
   const combinedPayload = [
     `res:${resumeFingerprint}`,
@@ -305,6 +310,7 @@ export function generateFingerprint(
     `mod:${MODEL_VERSION}`,
     `tier:${extraOptions?.tier || 'auto'}`,
     `lvl:${extraOptions?.level || 'auto'}`,
+    `ctx:${extraOptions?.companyContext?.id || ''}:${extraOptions?.companyContext?.tier || ''}:${extraOptions?.companyContext?.roleTitle || ''}`,
   ].join('|');
 
   const inputFingerprint = fastHash64(combinedPayload);
@@ -312,13 +318,23 @@ export function generateFingerprint(
   return { inputFingerprint, resumeFingerprint, jdFingerprint };
 }
 
-// In-memory cache for validated canonical analyses (same fingerprint -> identical result)
-const CANONICAL_CACHE = new Map<string, CanonicalAnalysis>();
+/**
+ * Deterministic metadata timestamp for legacy canonical compatibility outputs.
+ * Avoids Date.now()-dependent non-determinism across runs.
+ */
+const LEGACY_CANONICAL_METADATA_TIMESTAMP = Date.UTC(2024, 10, 24);
 
+/**
+ * @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution.
+ */
+export const CANONICAL_CACHE = new Map<string, CanonicalAnalysis>();
+
+/** @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution. */
 export function getCachedAnalysis(fingerprint: string): CanonicalAnalysis | null {
   return CANONICAL_CACHE.get(fingerprint) || null;
 }
 
+/** @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution. */
 export function setCachedAnalysis(fingerprint: string, analysis: CanonicalAnalysis): void {
   CANONICAL_CACHE.set(fingerprint, analysis);
 }
@@ -338,6 +354,9 @@ export interface CanonicalAnalysisOptions {
   };
 }
 
+/**
+ * @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution.
+ */
 export function analyzeCanonical(
   rawResumeText: string,
   rawJDText: string,
@@ -349,7 +368,7 @@ export function analyzeCanonical(
   const { inputFingerprint, resumeFingerprint, jdFingerprint } = generateFingerprint(
     normResume,
     normJD,
-    { tier: options?.tier, level: options?.level }
+    { tier: options?.tier, level: options?.level, companyContext: options?.companyContext }
   );
 
   // Return cached result if already computed for identical inputs
@@ -365,7 +384,7 @@ export function analyzeCanonical(
       inputFingerprint,
       resumeFingerprint,
       jobDescriptionFingerprint: jdFingerprint,
-      timestamp: Date.now(),
+      timestamp: LEGACY_CANONICAL_METADATA_TIMESTAMP,
       versions: {
         taxonomy: TAXONOMY_VERSION,
         scoring: SCORING_VERSION,
@@ -891,7 +910,7 @@ export function analyzeCanonical(
     inputFingerprint,
     resumeFingerprint,
     jobDescriptionFingerprint: jdFingerprint,
-    timestamp: Date.now(),
+    timestamp: LEGACY_CANONICAL_METADATA_TIMESTAMP,
     versions: {
       taxonomy: TAXONOMY_VERSION,
       scoring: SCORING_VERSION,
@@ -950,6 +969,10 @@ export function analyzeCanonical(
 // to consume the canonical result seamlessly with 0 recalculations.
 // ============================================================
 
+/**
+ * @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution.
+ * Allows legacy callers to convert CanonicalAnalysis to AtsEngineResult shape.
+ */
 export function canonicalToAtsResult(canonical: CanonicalAnalysis): AtsEngineResult {
   const allBullets = canonical.evidenceItems.map((e) => e.text);
   const matchedMustCount = canonical.skillMatches.filter(

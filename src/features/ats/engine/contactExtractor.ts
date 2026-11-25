@@ -35,14 +35,19 @@ export function extractContactInfo(resumeText: string): ContactInfo {
 
   // 6. Candidate Name heuristic (first non-empty line without emails, URLs, or section titles)
   let candidateName: string | null = null;
-  for (let i = 0; i < Math.min(lines.length, 5); i++) {
-    const line = lines[i];
+  const invalidNameTokens = /\b(?:resume|curriculum|vitae|phone|email|profile|github|linkedin|portfolio|summary|experience|education|skills|projects|objective|contact|page)\b/i;
+  for (let i = 0; i < Math.min(lines.length, 6); i++) {
+    const line = lines[i].trim();
     if (
+      line.length >= 2 &&
       line.length < 50 &&
       !line.includes('@') &&
       !line.includes('http') &&
       !line.includes('www.') &&
-      !line.match(/resume|curriculum|phone|email|profile|github|linkedin/i) &&
+      !line.includes('.com') &&
+      !line.includes('+') &&
+      !/\d/.test(line) &&
+      !invalidNameTokens.test(line) &&
       /^[A-Za-z\s.'-]+$/.test(line)
     ) {
       candidateName = line;

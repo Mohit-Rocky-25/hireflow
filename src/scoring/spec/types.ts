@@ -16,6 +16,15 @@ export type RoleFamily =
   | 'DevOps'
   | 'General';
 
+export type AtsDimensionId =
+  | 'mustHaveCoverage'
+  | 'evidenceDepth'
+  | 'impactMetrics'
+  | 'projectsAndOss'
+  | 'seniorityFit'
+  | 'formatAndParse'
+  | 'tierFit';
+
 export type PillarId =
   | 'requirement_coverage'
   | 'evidence_quality'

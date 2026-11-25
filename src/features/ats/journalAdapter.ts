@@ -3,6 +3,18 @@ import type { AtsEngineResult } from '@/lib/ats';
 import type { Gap, EvidenceSpan, ScoreBreakdownItem, Uuid } from '@/domain/types';
 import { makeGapId } from '@/domain/ids';
 import { ENGINE_VERSION } from '@/config/versions';
+import { createAuthoritativeReportSnapshot } from '@/features/ats/engine/authoritativeSnapshot';
+
+export function detectTargetRoleTitle(jobText: string, queryCompanyId?: string | null): string {
+  if (queryCompanyId) return `${queryCompanyId} Target Role`;
+  const match = jobText.match(
+    /(?:^|[\r\n])\s*(?:Job\s*Title|Role\s*Title|Role|Title|Position)\s*:[ \t]*([^\r\n,]+)/i
+  );
+  if (match && match[1]?.trim()) return match[1].trim();
+  const firstLine = jobText.trim().split('\n')[0]?.trim();
+  if (firstLine && firstLine.length < 80 && !firstLine.includes(':')) return firstLine;
+  return 'Target Role';
+}
 
 export interface AtsAuditAdapterInput {
   result: AtsEngineResult;
@@ -14,6 +26,7 @@ export interface AtsAuditAdapterInput {
   resumeLabel?: string;
   targetCompany?: string;
   targetRole?: string;
+  candidateName?: string;
 }
 
 export function atsToAuditInput(input: AtsAuditAdapterInput): RecordAuditInput {
@@ -27,53 +40,55 @@ export function atsToAuditInput(input: AtsAuditAdapterInput): RecordAuditInput {
     resumeLabel = 'Current Resume',
     targetCompany,
     targetRole,
+    candidateName,
   } = input;
 
-  // 1. Build Breakdown
-  const breakdown: ScoreBreakdownItem[] = [
-    {
-      key: 'must_have_coverage',
-      label: 'Must-Have Skills',
-      score: result.subscores?.mustHaveCoverage ?? 0,
-      weight: 0.3,
-    },
-    {
-      key: 'evidence_depth',
-      label: 'Evidence Depth',
-      score: result.subscores?.evidenceDepth ?? 0,
-      weight: 0.2,
-    },
-    {
-      key: 'impact_metrics',
-      label: 'Impact & Metrics',
-      score: result.subscores?.impactMetrics ?? 0,
-      weight: 0.15,
-    },
-    {
-      key: 'projects_oss',
-      label: 'Projects & OSS',
-      score: result.subscores?.projectsAndOss ?? 0,
-      weight: 0.1,
-    },
-    {
-      key: 'seniority_fit',
-      label: 'Seniority Alignment',
-      score: result.subscores?.seniorityFit ?? 0,
-      weight: 0.1,
-    },
-    {
-      key: 'format_parse',
-      label: 'Format & Parse Health',
-      score: result.subscores?.formatAndParse ?? 0,
-      weight: 0.1,
-    },
-    {
-      key: 'tier_fit',
-      label: 'Market Tier Fit',
-      score: result.subscores?.tierFit ?? 0,
-      weight: 0.05,
-    },
-  ];
+  // 1. Build Breakdown from authoritative ScoreTrace / activeWeights (normalized 0-100 scores)
+  const breakdown: ScoreBreakdownItem[] = result.trace?.pillars
+    ? result.trace.pillars
+        .filter((p) => p.applicable && p.effectiveWeight > 0)
+        .map((p) => {
+          const maxPts = Math.round(p.effectiveWeight * 100);
+          const pctScore = Number.isFinite(p.rawScore)
+            ? Math.round(p.rawScore)
+            : maxPts > 0
+            ? Math.round((p.contribution / maxPts) * 100)
+            : 0;
+          return {
+            key: p.id,
+            label: p.label,
+            score: Math.max(0, Math.min(100, pctScore)),
+            weight: p.effectiveWeight,
+          };
+        })
+    : (() => {
+        const w = result.activeWeights || {
+          mustHaveCoverage: 30,
+          evidenceDepth: 20,
+          impactMetrics: 15,
+          projectsAndOss: 10,
+          seniorityFit: 10,
+          formatAndParse: 10,
+          tierFit: 5,
+        };
+        const dims = [
+          { key: 'must_have_coverage', label: 'Must-Have Skills', val: result.subscores?.mustHaveCoverage ?? 0, max: w.mustHaveCoverage ?? 30 },
+          { key: 'evidence_depth', label: 'Evidence Depth', val: result.subscores?.evidenceDepth ?? 0, max: w.evidenceDepth ?? 20 },
+          { key: 'impact_metrics', label: 'Impact & Metrics', val: result.subscores?.impactMetrics ?? 0, max: w.impactMetrics ?? 15 },
+          { key: 'projects_oss', label: 'Projects & OSS', val: result.subscores?.projectsAndOss ?? 0, max: w.projectsAndOss ?? 10 },
+          { key: 'seniority_fit', label: 'Seniority Alignment', val: result.subscores?.seniorityFit ?? 0, max: w.seniorityFit ?? 10 },
+          { key: 'format_parse', label: 'Format & Parse Health', val: result.subscores?.formatAndParse ?? 0, max: w.formatAndParse ?? 10 },
+          { key: 'tier_fit', label: 'Market Tier Fit', val: result.subscores?.tierFit ?? 0, max: w.tierFit ?? 5 },
+        ];
+        return dims
+          .filter((d) => d.max > 0)
+          .map((d) => ({
+            key: d.key,
+            label: d.label,
+            score: Math.max(0, Math.min(100, Math.round((d.val / d.max) * 100))),
+            weight: d.max / 100,
+          }));
+      })();
 
   // 2. Build Gaps (Missing/Weak skills, Penalties, Format issues)
   const gaps: Gap[] = [];
@@ -184,6 +199,18 @@ export function atsToAuditInput(input: AtsAuditAdapterInput): RecordAuditInput {
     }
   }
 
+  const authoritativeSnapshot = createAuthoritativeReportSnapshot(
+    result,
+    resumeText,
+    jdText,
+    {
+      resumeFileName: resumeLabel,
+      targetCompany: targetCompany?.trim() || (result as any).employerName || undefined,
+      targetRole: targetRole?.trim() || (result as any).targetRoleTitle || (result as any).jobAnalysis?.roleTitle || result.seniorityFit?.level || undefined,
+      candidateName: candidateName || (result as any).candidateName || (result as any).audit?.contactInfo?.name || undefined,
+    }
+  );
+
   return {
     kind: 'ats_roast',
     engineVersion: result.engineVersion || ENGINE_VERSION,
@@ -204,6 +231,13 @@ export function atsToAuditInput(input: AtsAuditAdapterInput): RecordAuditInput {
     gaps,
     strengths,
     evidence,
-    findings: result as unknown as Record<string, unknown>,
+    findings: {
+      ...(result as unknown as Record<string, unknown>),
+      authoritativeSnapshot,
+      candidateName: candidateName || (result as any).candidateName || (result as any).audit?.contactInfo?.name || undefined,
+      targetCompany: targetCompany?.trim() || (result as any).employerName || undefined,
+      targetRole: targetRole?.trim() || result.seniorityFit?.level || undefined,
+      seniorityMatchResult: result.seniorityMatchResult,
+    },
   };
 }

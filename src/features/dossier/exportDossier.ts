@@ -1,9 +1,9 @@
 import type { AuditEntry, PlanItem, TextSnapshot } from '@/domain/types';
-import { buildDossierModel, type DossierModel } from './dossierModel';
+import { buildDossierModel, resolveDossierDimensions, type DossierModel } from './dossierModel';
 import { generatePdfDossier } from './exportPdf';
 import { generateDocxDossier } from './exportDocx';
-import { kvGet } from '@/lib/storage/kv';
-import { getSnapshotKey } from '@/lib/storage/namespace';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
+import { useAuthStore } from '@/features/auth/useAuthStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
 import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
 import { useProfileStore } from '@/features/profile/useProfileStore';
@@ -17,6 +17,14 @@ export interface ExportDossierOptions {
   format: DossierFormat;
 }
 
+export function escapeMarkdownCell(value: unknown): string {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .replace(/\r\n|\r|\n/g, ' ')
+    .replace(/\|/g, '\\|')
+    .replace(/`/g, '\\`');
+}
+
 export function generateMarkdownDossier(model: DossierModel): string {
   const isTalentLens = model.meta?.kind === 'talentlens';
   const isAtsRoast = model.meta?.kind === 'ats_roast';
@@ -24,11 +32,11 @@ export function generateMarkdownDossier(model: DossierModel): string {
   const lines: string[] = [];
   const readiness = String(model.headline?.readinessStatus || 'Evaluated').toUpperCase();
   const band = String(model.headline?.scoreBand || 'Standard').toUpperCase();
-  const targetRole = model.target?.roleTitle || 'Target Role';
+  const targetRole = model.target?.roleTitle || 'Unspecified Role';
   const roleLevel = model.target?.level ? ` (${model.target.level})` : '';
-  const targetCompany = model.target?.company || 'Company';
+  const targetCompany = model.target?.company || 'Unspecified Employer';
   const targetTier = model.target?.tier ? ` [${model.target.tier} Tier]` : '';
-  const candidateName = model.candidate?.name || 'Candidate';
+  const candidateName = model.candidate?.name || 'Unresolved Candidate';
   const resumeLabel = model.candidate?.resumeLabel || 'Current Resume';
   const genDate = model.meta?.generatedAt ? new Date(model.meta.generatedAt).toLocaleString() : new Date().toLocaleString();
   const engineVer = model.meta?.engineVersion || '4.0.0';
@@ -73,7 +81,7 @@ export function generateMarkdownDossier(model: DossierModel): string {
       lines.push(`| :--- | :--- | :--- | :--- | :--- |`);
       for (const b of model.breakdown) {
         const ls = b.layerScores ? `${b.layerScores.l1}/${b.layerScores.l2}/${b.layerScores.l3}/${b.layerScores.l4}/${b.layerScores.l5}` : '—';
-        lines.push(`| **${b.label || b.key}** | ${b.score ?? 0} / 100 | ${b.reqLevel || 'Strong'} | ${String(b.status || 'Verified').toUpperCase()} | ${ls} |`);
+        lines.push(`| **${escapeMarkdownCell(b.label || b.key)}** | ${b.score ?? 0} / 100 | ${escapeMarkdownCell(b.reqLevel || 'Strong')} | ${escapeMarkdownCell(String(b.status || 'Verified').toUpperCase())} | ${escapeMarkdownCell(ls)} |`);
       }
       lines.push(``);
 
@@ -212,30 +220,43 @@ export function generateMarkdownDossier(model: DossierModel): string {
     lines.push(``);
 
     const ats = model.atsDiagnostics || {
-      subscores: { mustHaveCoverage: 20, evidenceDepth: 15, impactMetrics: 10, projectsAndOss: 8, seniorityFit: 8, formatAndParse: 8, tierFit: 4 },
+      subscores: { mustHaveCoverage: 0, evidenceDepth: 0, impactMetrics: 0, projectsAndOss: 0, seniorityFit: 0, formatAndParse: 0, tierFit: 0 },
       penalties: [],
-      seniorityMode: { candidateYears: 3, requiredYears: 4, level: 'Mid-Level', fitExplanation: '' },
       fixFirst: [],
       skillsInventory: [],
-      formattingAudit: { wordCount: 450, parseQuality: 'High', contactInfo: {}, sectionsFound: ['Experience', 'Skills'], missingStandardSections: [], weakBulletsCount: 0, metricsRatio: 0.5, stuffedSkills: [] },
+      formattingAudit: { wordCount: 0, parseQuality: 'Unknown', contactInfo: { email: null, phone: null, linkedin: null, github: null, portfolio: null }, sectionsFound: [], missingStandardSections: [], weakBulletsCount: 0, metricsRatio: 0, stuffedSkills: [] },
     };
-    const subs = ats.subscores || { mustHaveCoverage: 20, evidenceDepth: 15, impactMetrics: 10, projectsAndOss: 8, seniorityFit: 8, formatAndParse: 8, tierFit: 4 };
+    const resolvedDimensions = resolveDossierDimensions(ats);
 
     lines.push(`---`);
     lines.push(`## ATS Resume Roaster — 4-Layer In-Depth Evaluation`);
     lines.push(``);
     lines.push(`### Layer 1: 7-Dimension Weighted Subscores`);
-    lines.push(`- **Must-Have Skill Coverage**: ${subs.mustHaveCoverage ?? 0} / 30 pts`);
-    lines.push(`- **Evidence Depth**: ${subs.evidenceDepth ?? 0} / 20 pts`);
-    lines.push(`- **Impact & Numerical Metrics**: ${subs.impactMetrics ?? 0} / 15 pts`);
-    lines.push(`- **Project Relevance & OSS**: ${subs.projectsAndOss ?? 0} / 10 pts`);
-    lines.push(`- **Seniority Fit**: ${subs.seniorityFit ?? 0} / 10 pts`);
-    lines.push(`- **Format & Parsing Safety**: ${subs.formatAndParse ?? 0} / 10 pts`);
-    lines.push(`- **Target Tier Alignment**: ${subs.tierFit ?? 0} / 5 pts`);
+    for (const dim of resolvedDimensions) {
+      const maxPts = Math.round((dim.effectiveWeight ?? 0) * 100);
+      const isApplicable = dim.applicable !== false && maxPts > 0;
+      if (isApplicable) {
+        lines.push(`- **${dim.label}**: ${dim.contribution ?? 0} / ${maxPts} pts (${maxPts}%)`);
+      } else {
+        lines.push(`- **${dim.label}**: N/A (Redistributed) (0%)${dim.notApplicableReason ? ` — ${dim.notApplicableReason}` : ''}`);
+      }
+    }
     lines.push(``);
 
     if (ats.seniorityMode) {
-      lines.push(`**Seniority Assessment**: Candidate demonstrated ${ats.seniorityMode.candidateYears} yrs vs ${ats.seniorityMode.requiredYears} yrs required (${ats.seniorityMode.level} level). ${ats.seniorityMode.fitExplanation}`);
+      const senStatus = ats.seniorityMode.status || 'EVALUATED';
+      const isEligible = ats.seniorityMode.isEligible ?? true;
+      const gateActive = ats.seniorityMode.isMandatoryGateActive ?? false;
+      const gateLabel = gateActive ? (isEligible ? 'ELIGIBLE' : 'GATE SHORTFALL') : 'NOT MANDATORY';
+      const provenanceStr = ats.seniorityMode.provenance ? ` [Provenance: ${ats.seniorityMode.provenance}]` : '';
+      const scopeStr = ats.seniorityMode.scope ? ` | Scope: ${ats.seniorityMode.scope}` : '';
+      const monthDetail =
+        ats.seniorityMode.demonstratedMonths !== undefined && ats.seniorityMode.completedMonths !== undefined
+          ? ` (${ats.seniorityMode.demonstratedMonths}m touched, ${ats.seniorityMode.completedMonths}m completed vs ${ats.seniorityMode.requiredMonths ?? ats.seniorityMode.requiredYears * 12}m required${ats.seniorityMode.shortfallMonths ? `, shortfall: ${ats.seniorityMode.shortfallMonths}m` : ''})`
+          : '';
+      lines.push(`### Seniority & Eligibility Assessment`);
+      lines.push(`- **Status**: ${senStatus} | **Gate**: ${gateLabel}${scopeStr}${provenanceStr}`);
+      lines.push(`- **Experience**: Demonstrated ${ats.seniorityMode.candidateYears} yrs vs Required ${ats.seniorityMode.requiredYears} yrs${monthDetail}. ${ats.seniorityMode.fitExplanation || ''}`.trim());
       lines.push(``);
     }
 
@@ -246,6 +267,13 @@ export function generateMarkdownDossier(model: DossierModel): string {
       }
       lines.push(``);
     }
+
+    const reconRawSub = ats.rawSubtotal ?? resolvedDimensions.reduce((sum, d) => sum + (d.contribution ?? 0), 0);
+    const reconBonuses = ats.totalBonuses ?? 0;
+    const reconDeductions = ats.totalDeductions ?? (ats.penalties || []).reduce((s, p) => s + Math.abs(p.points || 0), 0);
+    const reconPreClamp = ats.preClampScore ?? Math.round((reconRawSub + reconBonuses - reconDeductions) * 10) / 10;
+    lines.push(`**Mathematical Score Reconciliation**: Raw Subtotal ${reconRawSub} pts + Bonuses ${reconBonuses} pts - Deductions ${reconDeductions} pts = ${reconPreClamp} pts -> Final Score: ${model.headline?.score ?? 0} / 100`);
+    lines.push(``);
 
     if (Array.isArray(ats.fixFirst) && ats.fixFirst.length > 0) {
       lines.push(`### Layer 2: High-Impact Fix These First (Action Items)`);
@@ -262,32 +290,64 @@ export function generateMarkdownDossier(model: DossierModel): string {
       lines.push(`| Skill / Requirement | Category | Importance | Status | Extracted Citation |`);
       lines.push(`| :--- | :--- | :--- | :--- | :--- |`);
       for (const sk of ats.skillsInventory) {
-        const quote = Array.isArray(sk.evidenceQuotes) && sk.evidenceQuotes[0] ? `"${sk.evidenceQuotes[0].replace(/\|/g, '/')}"` : 'None';
-        lines.push(`| ${sk.canonical} | ${sk.category} | ${String(sk.required || 'must').toUpperCase()} | ${String(sk.status || 'verified').toUpperCase()} | ${quote} |`);
+        const quote = Array.isArray(sk.evidenceQuotes) && sk.evidenceQuotes[0] ? `"${escapeMarkdownCell(sk.evidenceQuotes[0])}"` : 'None';
+        lines.push(`| ${escapeMarkdownCell(sk.canonical)} | ${escapeMarkdownCell(sk.category)} | ${escapeMarkdownCell(String(sk.required || 'must').toUpperCase())} | ${escapeMarkdownCell(String(sk.status || 'verified').toUpperCase())} | ${quote} |`);
       }
       lines.push(``);
     }
 
     const fmt = ats.formattingAudit || {
-      wordCount: 450,
-      parseQuality: 'High',
-      sectionsFound: ['Experience', 'Skills'],
+      wordCount: 0,
+      parseQuality: 'Unknown',
+      sectionsFound: [],
       missingStandardSections: [],
       weakBulletsCount: 0,
-      metricsRatio: 0.5,
+      metricsRatio: 0,
     };
-    const sectionsFoundStr = Array.isArray(fmt.sectionsFound) ? fmt.sectionsFound.join(', ') : 'Standard sections';
+    const sectionsFoundStr = Array.isArray(fmt.sectionsFound) && fmt.sectionsFound.length > 0 ? fmt.sectionsFound.join(', ') : 'None';
     const missingSectionsStr = Array.isArray(fmt.missingStandardSections) && fmt.missingStandardSections.length > 0
       ? fmt.missingStandardSections.join(', ')
       : 'None (All standard sections present)';
 
     lines.push(`### Layer 4: Formatting, Structural & Bullet Audit`);
-    lines.push(`- **Word Count**: ${fmt.wordCount ?? 450} words (Parse Health: ${fmt.parseQuality || 'High'})`);
-    lines.push(`- **Sections Found**: ${sectionsFoundStr || 'None'}`);
+    lines.push(`- **Word Count**: ${fmt.wordCount ?? 0} words (Parse Health: ${fmt.parseQuality || 'Unknown'})`);
+    lines.push(`- **Sections Found**: ${sectionsFoundStr}`);
     lines.push(`- **Missing Standard Sections**: ${missingSectionsStr}`);
     lines.push(`- **Weak Bullets**: ${fmt.weakBulletsCount ?? 0} weak bullets detected`);
-    lines.push(`- **Metrics Ratio**: ${Math.round((fmt.metricsRatio ?? 0.5) * 100)}% of bullets include quantified numbers`);
+    lines.push(`- **Metrics Ratio**: ${Math.round((fmt.metricsRatio ?? 0) * 100)}% of bullets include quantified numbers`);
     lines.push(``);
+
+    const citations = ats.citationsList || (ats.authoritativeSnapshot?.evidence?.citations) || [];
+    if (citations.length > 0) {
+      lines.push(`### Layer 5: Evidence Provenance & Citation Validation Ledger`);
+      lines.push(`| Competency | Quote Validity | Claim Support | Verbatim Quote & Provenance |`);
+      lines.push(`| :--- | :--- | :--- | :--- |`);
+      for (const c of citations) {
+        lines.push(`| **${escapeMarkdownCell(c.competencyId)}** | \`${escapeMarkdownCell(c.validationStatus || 'VERIFIED_EXACT')}\` | \`${escapeMarkdownCell(c.claimSupport || 'DIRECTLY_SUPPORTED')}\` | "${escapeMarkdownCell(c.originalQuotation)}" (${escapeMarkdownCell(c.sourceType)} \\| ${escapeMarkdownCell(c.sourceSection)}) |`);
+      }
+      lines.push(``);
+    }
+
+    const metricEvidences = ats.metricEvidences || (ats.authoritativeSnapshot?.evidence?.metrics) || [];
+    if (metricEvidences.length > 0) {
+      lines.push(`### Layer 5B: Quantified Impact & Outcome Metrics Ledger`);
+      lines.push(`| Source Quote | Offsets | Category & Attribution | Polarity & Derived Math | Provenance & Credit Decision |`);
+      lines.push(`| :--- | :--- | :--- | :--- | :--- |`);
+      for (const m of metricEvidences as any[]) {
+        const startOff = m.documentStart ?? m.sourceStart ?? 0;
+        const endOff = m.documentEnd ?? m.sourceEnd ?? 0;
+        const cats = Array.isArray(m.metricCategories) && m.metricCategories.length > 0
+          ? m.metricCategories.join(', ')
+          : (m.metricCategory || 'UNSPECIFIED');
+        const mathText = m.derivedInterpretation || `Unit: ${m.unit || 'unspecified'} | Timeframe: ${m.timeframe || 'unspecified'}`;
+        const decision = m.creditedInImpact ? `CREDITED (+${(m.impactCredit ?? 0).toFixed(2)})` : 'EXCLUDED';
+        const decisionCell = `${decision}${m.creditDecisionReason ? `: ${m.creditDecisionReason}` : ''} (${m.sourceType || 'UNKNOWN'} / ${m.environmentMaturity || 'UNKNOWN'})`;
+        lines.push(
+          `| "${escapeMarkdownCell(m.sourceQuote || '')}" | ${startOff}-${endOff} | ${escapeMarkdownCell(cats)} (${escapeMarkdownCell(m.attribution || 'UNKNOWN')}) | ${escapeMarkdownCell(m.polarity || 'NEUTRAL')}: ${escapeMarkdownCell(mathText)} | ${escapeMarkdownCell(decisionCell)} |`
+        );
+      }
+      lines.push(``);
+    }
 
     if (model.gaps && Array.isArray(model.gaps.open) && model.gaps.open.length > 0) {
       lines.push(`### Identified Evidence & Skill Gaps`);
@@ -349,8 +409,9 @@ export function triggerDownload(blob: Blob | Uint8Array | ArrayBuffer, filename:
 }
 
 export async function createDossierModelFromAudit(audit: AuditEntry): Promise<DossierModel> {
-  const resumeSnap = await kvGet<TextSnapshot>(getSnapshotKey(audit.resume.snapshotHash));
-  const jdSnap = await kvGet<TextSnapshot>(getSnapshotKey(audit.jd.snapshotHash));
+  const userId = useAuthStore.getState().userId;
+  const resumeSnap = await cloudRepository.fetchSnapshot(audit.resume.snapshotHash, userId);
+  const jdSnap = await cloudRepository.fetchSnapshot(audit.jd.snapshotHash, userId);
 
   const resumeText = resumeSnap?.text ?? '';
   const jdText = jdSnap?.text ?? '';
@@ -359,8 +420,13 @@ export async function createDossierModelFromAudit(audit: AuditEntry): Promise<Do
   const previousAuditId = audit.delta?.baselineAuditId;
   const baseline = previousAuditId ? entries[previousAuditId] ?? null : null;
 
-  const profile = useProfileStore.getState().profile;
   const planItems = Object.values(useMySpaceStore.getState().planItems);
+  const rawFindings = (audit.findingsJson ?? {}) as Record<string, any>;
+  const resolvedCandidateName =
+    rawFindings.candidateName ||
+    rawFindings.audit?.contactInfo?.name ||
+    rawFindings.authoritativeSnapshot?.identity?.candidateName ||
+    undefined;
 
   return buildDossierModel({
     entry: audit,
@@ -368,8 +434,8 @@ export async function createDossierModelFromAudit(audit: AuditEntry): Promise<Do
     jdText,
     baseline,
     candidate: {
-      name: profile?.displayName || 'Candidate',
-      email: profile?.email,
+      name: resolvedCandidateName,
+      email: rawFindings.audit?.contactInfo?.email || undefined,
     },
     planItems,
     generatedAt: new Date().toISOString(),
@@ -382,9 +448,11 @@ export async function exportDossier(options: ExportDossierOptions): Promise<void
   let resumeText = options.resumeText;
   let jdText = options.jdText;
 
+  const userId = useAuthStore.getState().userId;
+
   if (!resumeText && audit.resume?.snapshotHash) {
     try {
-      const snap = await kvGet<TextSnapshot>(getSnapshotKey(audit.resume.snapshotHash));
+      const snap = await cloudRepository.fetchSnapshot(audit.resume.snapshotHash, userId);
       resumeText = snap?.text;
     } catch {
       /* ignore */
@@ -393,7 +461,7 @@ export async function exportDossier(options: ExportDossierOptions): Promise<void
 
   if (!jdText && audit.jd?.snapshotHash) {
     try {
-      const snap = await kvGet<TextSnapshot>(getSnapshotKey(audit.jd.snapshotHash));
+      const snap = await cloudRepository.fetchSnapshot(audit.jd.snapshotHash, userId);
       jdText = snap?.text;
     } catch {
       /* ignore */
@@ -401,12 +469,18 @@ export async function exportDossier(options: ExportDossierOptions): Promise<void
   }
 
   resumeText = resumeText || '';
-  jdText = jdText || (audit.jd?.roleTitle ? `${audit.jd.roleTitle} at ${audit.jd.company || 'Target Organization'}` : '');
+  jdText = jdText || (audit.jd?.roleTitle ? (audit.jd.company ? `${audit.jd.roleTitle} at ${audit.jd.company}` : audit.jd.roleTitle) : '');
 
   const entries = useAuditStore.getState().entries || {};
   const previousAuditId = audit.delta?.baselineAuditId;
   const baseline = previousAuditId ? entries[previousAuditId] ?? null : null;
-  const profile = useProfileStore.getState().profile;
+  const rawFindings = (audit.findingsJson ?? {}) as Record<string, any>;
+  // Gate 1 Fix: Do not replace missing candidate identity with signed-in user's profile name!
+  const resolvedCandidateName =
+    rawFindings.candidateName ||
+    rawFindings.audit?.contactInfo?.name ||
+    rawFindings.authoritativeSnapshot?.identity?.candidateName ||
+    undefined;
   const planItems: PlanItem[] = Object.values(useMySpaceStore.getState().planItems || {});
 
   const model = buildDossierModel({
@@ -415,8 +489,8 @@ export async function exportDossier(options: ExportDossierOptions): Promise<void
     jdText,
     baseline,
     candidate: {
-      name: profile?.displayName || 'Candidate',
-      email: profile?.email,
+      name: resolvedCandidateName,
+      email: rawFindings.audit?.contactInfo?.email || undefined,
     },
     planItems,
     generatedAt: new Date().toISOString(),

@@ -177,7 +177,18 @@ describe('Stage 3 — ATS Engine Invariants & Deterministic Scoring', () => {
       if (response.success) {
         const result = response.result;
         const mustSkills = result.skillResults.filter(s => s.required === 'must');
-        const metMustSkills = mustSkills.filter(s => s.status !== 'missing');
+        // Phase 10.3 single-source contract: mustHavesMet numerator counts only SATISFIED/'verified'
+        // must-have requirements backed by evidence (excludes bare skills-list 'weak' mentions).
+        const metMustSkills = mustSkills.filter(s => {
+          const ms = s.matchResult?.status;
+          if (ms === 'PARTIALLY_SATISFIED' || ms === 'RELATED_BUT_NOT_EQUIVALENT' || ms === 'CONTRADICTED' || ms === 'AMBIGUOUS' || ms === 'NOT_DEMONSTRATED') {
+            return false;
+          }
+          if (ms === 'SATISFIED') {
+            return s.status === 'verified' && Array.isArray(s.evidence) && s.evidence.length > 0;
+          }
+          return s.status === 'verified';
+        });
 
         const [metNum, totalNum] = result.mustHavesMet.split('/').map(n => parseInt(n, 10));
         expect(metNum).toBe(metMustSkills.length);

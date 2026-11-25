@@ -12,7 +12,12 @@ import { WordLimitSource } from '../../../lib/config/limits';
 import { resolveTargetJob } from '../../career-path/resolveTargetJob';
 import { ConfirmedRequirement } from '../components/ConfirmRequirementsModal';
 import { parseJD } from '../../../lib/ats/parseJD';
-import { autoSyncManager } from '../../../lib/sync/autoSyncManager';
+// autoSync removed (cloud-first)
+import { createAuthoritativeReportSnapshot, type AuthoritativeReportSnapshot } from '../engine/authoritativeSnapshot';
+import { normalizeText } from '../../../lib/text/normalize';
+import { atsToAuditInput, detectTargetRoleTitle } from '../journalAdapter';
+import { useAuditStore } from '../../journal/useAuditStore';
+import type { AuditEntry } from '../../../domain/types';
 
 export const STAGED_MESSAGES = [
   'Reading resume tokens & structural sections...',
@@ -90,6 +95,8 @@ export function useAtsRoasterController() {
   const [stagedStageIndex, setStagedStageIndex] = useState(0);
   const [isFileExtracting, setIsFileExtracting] = useState(false);
   const [engineResult, setEngineResult] = useState<AtsEngineResult | null>(null);
+  const [latestSnapshot, setLatestSnapshot] = useState<AuthoritativeReportSnapshot | null>(null);
+  const [latestAuditEntry, setLatestAuditEntry] = useState<AuditEntry | null>(null);
   const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
   const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -106,16 +113,12 @@ export function useAtsRoasterController() {
   }, [engineResult?.skillResults]);
 
   const detectedRoleTitle = useMemo(() => {
-    if (queryCompanyId) return `${queryCompanyId} Target Role`;
-    const match = jobText.match(/(?:Role|Title|Position):\s*([^\r\n,]+)/i);
-    if (match && match[1]) return match[1].trim();
-    const firstLine = jobText.trim().split('\n')[0]?.trim();
-    if (firstLine && firstLine.length < 60 && !firstLine.includes(':')) return firstLine;
-    return 'Target Role';
+    return detectTargetRoleTitle(jobText, queryCompanyId);
   }, [queryCompanyId, jobText]);
 
   const userClearedJobRef = useRef(false);
   const userClearedResumeRef = useRef(false);
+  const activeScanIdRef = useRef(0);
 
   useEffect(() => {
     const compId = searchParams.get('company');
@@ -157,6 +160,31 @@ export function useAtsRoasterController() {
     return () => clearInterval(timer);
   }, [isScanning]);
 
+  const clearPriorUploadState = (type: 'resume' | 'job') => {
+    activeScanIdRef.current += 1;
+    setEngineResult(null);
+    setLatestSnapshot(null);
+    setLatestAuditEntry(null);
+    setShowFullReport(false);
+    if (type === 'resume') {
+      userClearedResumeRef.current = true;
+      setResumeText('');
+      setResumeFileName(null);
+      setResumePageCount(undefined);
+      setResumeExtractionMeta(undefined);
+      setResumeSource(undefined);
+    } else {
+      userClearedJobRef.current = true;
+      setJobText('');
+      setJobFileName(null);
+      setJobPageCount(undefined);
+      setJobExtractionMeta(undefined);
+      setJobSource(undefined);
+      setConfirmedRequirements(null);
+      setParsedJdData(null);
+    }
+  };
+
   const handleFileUpload = async (file: File, type: 'resume' | 'job') => {
     setIsFileExtracting(true);
     setFileError(null);
@@ -172,6 +200,7 @@ export function useAtsRoasterController() {
         } else if (outcome.reason === 'corrupt') {
           msg = 'Corrupt File Signature: File structure is damaged or invalid. Please re-export or re-save the document.';
         }
+        clearPriorUploadState(type);
         setFileError(msg);
         return;
       }
@@ -190,6 +219,7 @@ export function useAtsRoasterController() {
       if (type === 'resume') {
         const validity = validateResumeAuthenticity(outcome.data.text);
         if (!validity.isValid) {
+          clearPriorUploadState('resume');
           setFileError(
             validity.reason ||
               'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).'
@@ -209,8 +239,11 @@ export function useAtsRoasterController() {
         setJobPageCount(outcome.data.pages);
         setJobExtractionMeta(meta);
         setJobSource('upload');
+        setConfirmedRequirements(null);
+        setParsedJdData(null);
       }
     } catch (err: any) {
+      clearPriorUploadState(type);
       setFileError(err?.message || 'Error processing uploaded file.');
     } finally {
       setIsFileExtracting(false);
@@ -218,22 +251,34 @@ export function useAtsRoasterController() {
   };
 
   const handleClearResume = () => {
+    activeScanIdRef.current += 1;
     userClearedResumeRef.current = true;
+    setIsScanning(false);
     setResumeText('');
     setResumeFileName(null);
     setResumePageCount(undefined);
     setResumeExtractionMeta(undefined);
     setResumeSource(undefined);
+    setEngineResult(null);
+    setLatestSnapshot(null);
+    setLatestAuditEntry(null);
+    setShowFullReport(false);
     setFileError(null);
   };
 
   const handleClearJob = () => {
+    activeScanIdRef.current += 1;
     userClearedJobRef.current = true;
+    setIsScanning(false);
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
     setJobExtractionMeta(undefined);
     setJobSource(undefined);
+    setEngineResult(null);
+    setLatestSnapshot(null);
+    setLatestAuditEntry(null);
+    setShowFullReport(false);
     setFileError(null);
     setConfirmedRequirements(null);
     setParsedJdData(null);
@@ -253,7 +298,9 @@ export function useAtsRoasterController() {
   };
 
   const executeAnalysis = (confirmedList?: ConfirmedRequirement[]) => {
+    const currentScanId = ++activeScanIdRef.current;
     setIsScanning(true);
+    setFileError(null);
     setActiveTab('overview');
 
     const tierMap: Record<string, TargetTierId> = {
@@ -272,9 +319,14 @@ export function useAtsRoasterController() {
     const mappedLevel = levelMap[experienceLevel] || 'auto';
 
     setTimeout(() => {
+      if (activeScanIdRef.current !== currentScanId) {
+        return;
+      }
       try {
         const activeRequirements = confirmedList || confirmedRequirements || undefined;
-        const response = runAtsEngine(resumeText, jobText, {
+        const normalizedResume = normalizeText(resumeText);
+        const normalizedJd = normalizeText(jobText);
+        const response = runAtsEngine(normalizedResume, normalizedJd, {
           tier: mappedTier,
           level: mappedLevel,
           resumeSource,
@@ -282,7 +334,12 @@ export function useAtsRoasterController() {
           confirmedRequirements: activeRequirements ? activeRequirements.map((r: any) => ({ text: r.text, type: r.type })) : undefined,
         });
 
+        if (activeScanIdRef.current !== currentScanId) {
+          return;
+        }
+
         if (!response.success) {
+          setEngineResult(null);
           setFileError(response.message);
           return;
         }
@@ -290,21 +347,72 @@ export function useAtsRoasterController() {
         setEngineResult(response.result);
         setShowFullReport(true);
 
+        const effectiveTargetCompany = response.result.employerName || detectedTargetCompany;
+        const effectiveTargetRole = detectedRoleTitle || response.result.bestFitTier || 'Target Role';
+        const candidateName = response.result.candidateName || response.result.audit?.contactInfo?.name || undefined;
+        const snapshot = createAuthoritativeReportSnapshot(
+          response.result,
+          normalizedResume,
+          normalizedJd,
+          {
+            resumeFileName: resumeFileName || 'Pasted Resume',
+            targetCompany: effectiveTargetCompany,
+            targetRole: effectiveTargetRole,
+            candidateName,
+          }
+        );
+        setLatestSnapshot(snapshot);
+        setLatestAuditEntry(null);
+
+        void (async () => {
+          try {
+            const auditInput = atsToAuditInput({
+              result: response.result,
+              resumeText: normalizedResume,
+              jdText: normalizedJd,
+              source: (resumeSource === 'upload' ? 'upload' : 'paste') as any,
+              workspaceId: null,
+              resumeVersionId: null,
+              resumeLabel: resumeFileName || 'Scanned Resume',
+              targetCompany: effectiveTargetCompany,
+              targetRole: effectiveTargetRole,
+              candidateName,
+            });
+            const { entry } = await useAuditStore.getState().record(auditInput);
+            if (activeScanIdRef.current === currentScanId) {
+              setLatestAuditEntry(entry);
+            }
+          } catch (recordErr) {
+            console.warn('Candidate OS audit record notice:', recordErr);
+          }
+        })();
+
         const missingCount = response.result.skillResults.filter((s) => !s.found).length;
         const matchedCount = response.result.skillResults.length - missingCount;
         useAtsToolStore.getState().addHistoryEntry({
           resumeFileName: resumeFileName || 'Pasted Resume',
-          targetRole: detectedRoleTitle || 'Target Role',
+          targetRole: effectiveTargetRole,
           score: response.result.score,
           matchedCount,
           missingCount,
+          specVersion: response.result.specVersion,
+          engineVersion: response.result.engineVersion,
+          specFingerprint: response.result.specFingerprint,
+          candidateName,
+          targetCompany: effectiveTargetCompany,
+          seniorityStatus: response.result.seniorityMatchResult?.status,
+          isEligible: response.result.seniorityMatchResult?.isEligible,
+          authoritativeSnapshot: snapshot,
         });
-
-        autoSyncManager.triggerPushSync();
       } catch (err: any) {
-        setFileError(err?.message || 'Calculation exception during ATS parsing.');
+        if (activeScanIdRef.current === currentScanId) {
+          setEngineResult(null);
+          setFileError(err?.message || 'Calculation exception during ATS parsing.');
+        }
       } finally {
-        setIsScanning(false);
+        if (activeScanIdRef.current === currentScanId) {
+          setIsScanning(false);
+        }
       }
     }, 1200);
   };
@@ -327,6 +435,8 @@ export function useAtsRoasterController() {
     stagedStageIndex,
     isFileExtracting,
     engineResult,
+    latestSnapshot,
+    latestAuditEntry,
     activeTab,
     setActiveTab,
     presentationMode,

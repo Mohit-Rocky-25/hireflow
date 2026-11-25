@@ -11,6 +11,10 @@ const strongVerbsSet = new Set(writingQualityData.strongActionVerbs.map((v) => v
 const metricRegexes = writingQualityData.metricPatterns.map((p) => new RegExp(p, 'i'));
 const weakPhrases = writingQualityData.weakPhrases.map((p) => p.toLowerCase());
 
+/**
+ * @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution.
+ * Use `analyzeBullet` in `src/features/ats/engine/bulletAnalyzer.ts` for active scoring.
+ */
 export function scoreBullet(rawBullet: string): BulletAnalysis {
   const text = rawBullet.trim();
   const lower = text.toLowerCase();
@@ -134,6 +138,9 @@ export function scoreBullet(rawBullet: string): BulletAnalysis {
   };
 }
 
+/**
+ * @deprecated Test-only legacy compatibility adapter; retired from live runAtsEngine execution.
+ */
 export function evidenceScorer(bullets: Array<{ rawText: string }>): BulletAnalysis[] {
   return bullets.map((b) => scoreBullet(b.rawText));
 }

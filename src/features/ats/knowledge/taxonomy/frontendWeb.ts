@@ -34,7 +34,7 @@ export const FRONTEND_WEB: TaxonomySkill[] = [
     category: 'frontend',
     aliases: ['Nuxt', 'Nuxt.js', 'NuxtJS', 'Nuxt 3'],
     implies: ['vue', 'javascript'],
-    substitutes: [{ id: 'nextjs', similarity: 0.65 }],
+    substitutes: [{ id: 'next_js', similarity: 0.65 }],
     weight: 4,
   },
   {
@@ -61,7 +61,7 @@ export const FRONTEND_WEB: TaxonomySkill[] = [
     category: 'frontend',
     aliases: ['Remix', 'Remix Run'],
     implies: ['react', 'javascript'],
-    substitutes: [{ id: 'nextjs', similarity: 0.75 }],
+    substitutes: [{ id: 'next_js', similarity: 0.75 }],
     weight: 4,
   },
   {

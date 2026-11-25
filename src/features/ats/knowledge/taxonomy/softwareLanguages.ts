@@ -14,7 +14,6 @@ export const SOFTWARE_LANGUAGES: TaxonomySkill[] = [
     canonical: 'JavaScript',
     category: 'languages',
     aliases: ['JavaScript', 'JS', 'ECMAScript', 'ES6', 'ES2015', 'ES2020'],
-    implies: ['web_fundamentals'],
     substitutes: [{ id: 'typescript', similarity: 0.85 }],
     weight: 5,
   },

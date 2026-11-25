@@ -21,7 +21,7 @@ export interface ConfirmedRequirement {
 interface ConfirmRequirementsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (confirmed: ConfirmedRequirement[]) => void;
+  onConfirm: (confirmed: ConfirmedRequirement[], hasCustomizations?: boolean) => void;
   extractedRequirements: ExtractedRequirement[];
   unrecognizedRequirements: ExtractedRequirement[];
 }
@@ -58,10 +58,12 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
   const [unrecognized, setUnrecognized] = useState<ExtractedRequirement[]>(() => unrecognizedRequirements);
   const [newSkillText, setNewSkillText] = useState('');
   const [newSkillType, setNewSkillType] = useState<'must' | 'nice'>('must');
+  const [isModified, setIsModified] = useState(false);
 
   if (!isOpen) return null;
 
   const handleFlip = (item: ConfirmedRequirement, from: 'must' | 'nice') => {
+    setIsModified(true);
     if (from === 'must') {
       setMustHaves((prev) => prev.filter((i) => i.text !== item.text));
       setNiceToHaves((prev) => [...prev, { ...item, type: 'nice' }]);
@@ -72,6 +74,7 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
   };
 
   const handleDelete = (text: string, from: 'must' | 'nice') => {
+    setIsModified(true);
     if (from === 'must') {
       setMustHaves((prev) => prev.filter((i) => i.text !== text));
     } else {
@@ -89,6 +92,7 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
     );
     if (exists) return;
 
+    setIsModified(true);
     const newItem: ConfirmedRequirement = {
       text: trimmed,
       type: newSkillType,
@@ -105,6 +109,7 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
   };
 
   const handleAdoptUnrecognized = (item: ExtractedRequirement, asType: 'must' | 'nice') => {
+    setIsModified(true);
     setUnrecognized((prev) => prev.filter((i) => i.id !== item.id));
     const newItem: ConfirmedRequirement = {
       text: item.text,
@@ -124,7 +129,7 @@ export const ConfirmRequirementsModal: React.FC<ConfirmRequirementsModalProps> =
   };
 
   const handleSubmit = () => {
-    onConfirm([...mustHaves, ...niceToHaves]);
+    onConfirm([...mustHaves, ...niceToHaves], isModified);
     onClose();
   };
 

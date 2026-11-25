@@ -12,7 +12,15 @@ import {
   ExtractorOutcome,
   ExtractorFailureReason,
 } from './types';
-import { verifyMagicBytes, withParserTimeout } from '../secureFileValidator';
+import {
+  MAX_EXTRACTED_TEXT_CHARS,
+  MAX_FILE_SIZE_BYTES,
+  MAX_PARSER_TIMEOUT_MS,
+  MAX_PDF_PAGES,
+  validateDocxArchive,
+  verifyMagicBytes,
+  withParserTimeout,
+} from '../secureFileValidator';
 import { parseResumeFile } from '../../features/ats/fileParser';
 import JSZip from 'jszip';
 import { DOMParser } from '@xmldom/xmldom';
@@ -373,7 +381,7 @@ async function extractFromPdfBuffer(
     });
     pdf = await withParserTimeout(
       loadingTask.promise,
-      PARSING_THRESHOLDS.maxExtractorTimeoutMs,
+      MAX_PARSER_TIMEOUT_MS,
       'PDF document loading timed out.'
     );
   } catch (err: any) {
@@ -392,7 +400,7 @@ async function extractFromPdfBuffer(
     };
   }
 
-  const totalPages = Math.min(pdf.numPages, PARSING_THRESHOLDS.maxPdfPages);
+  const totalPages = Math.min(pdf.numPages, MAX_PDF_PAGES);
   const warnings: string[] = [];
   const linksSet = new Set<string>();
   const pageLinesMap = new Map<number, ExtractionLine[]>();
@@ -400,64 +408,82 @@ async function extractFromPdfBuffer(
   let nonPrintableCount = 0;
   let totalRawChars = 0;
 
-  for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-    const page = await pdf.getPage(pageNum);
-    const viewport = page.getViewport({ scale: 1.0 });
-    const textContent = await page.getTextContent();
-    const pageWidth = viewport.width || 612;
-    const pageHeight = viewport.height || 792;
+  try {
+    await withParserTimeout(
+      (async () => {
+        for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: 1.0 });
+          const textContent = await page.getTextContent();
+          const pageWidth = viewport.width || 612;
+          const pageHeight = viewport.height || 792;
 
-    // 1. Link Annotations (Task 6)
-    try {
-      const annotations = await page.getAnnotations();
-      for (const annot of annotations) {
-        if (annot.subtype === 'Link' && annot.url) {
-          linksSet.add(annot.url);
-        }
-      }
-    } catch {
-      // Non-critical if annotations fail
-    }
-
-    // 2. Positioned Items
-    const items: RawPdfItem[] = [];
-    for (const item of textContent.items) {
-      if ('str' in item && item.str) {
-        const str = item.str;
-        totalRawChars += str.length;
-        for (let c = 0; c < str.length; c++) {
-          const code = str.charCodeAt(c);
-          if (code !== 9 && code !== 10 && code !== 13 && (code < 32 || code === 127 || code === 0xfffd)) {
-            nonPrintableCount++;
+          // 1. Link Annotations (Task 6)
+          try {
+            const annotations = await page.getAnnotations();
+            for (const annot of annotations) {
+              if (annot.subtype === 'Link' && annot.url) {
+                linksSet.add(annot.url);
+              }
+            }
+          } catch {
+            // Non-critical if annotations fail
           }
+
+          // 2. Positioned Items
+          const items: RawPdfItem[] = [];
+          for (const item of textContent.items) {
+            if ('str' in item && item.str) {
+              const str = item.str;
+              totalRawChars += str.length;
+              if (totalRawChars > MAX_EXTRACTED_TEXT_CHARS) {
+                throw new Error('PDF extracted text exceeds safe character limit.');
+              }
+              for (let c = 0; c < str.length; c++) {
+                const code = str.charCodeAt(c);
+                if (code !== 9 && code !== 10 && code !== 13 && (code < 32 || code === 127 || code === 0xfffd)) {
+                  nonPrintableCount++;
+                }
+              }
+
+              const fontSize = Math.sqrt(
+                item.transform[0] * item.transform[0] + item.transform[1] * item.transform[1]
+              ) || 9.0;
+
+              items.push({
+                str,
+                x: item.transform[4],
+                y: item.transform[5],
+                width: 'width' in item ? (item.width as number) : str.length * fontSize * 0.5,
+                height: 'height' in item ? (item.height as number) : fontSize,
+                fontSize,
+                page: pageNum,
+              });
+            }
+          }
+
+          // 3. Column & Line Assembly (Tasks 2 & 3)
+          const { lines, isTwoColumn } = assemblePageLines(
+            items,
+            pageWidth,
+            pageHeight,
+            pageNum,
+            warnings
+          );
+          if (isTwoColumn) hasTwoColumn = true;
+          pageLinesMap.set(pageNum, lines);
         }
-
-        const fontSize = Math.sqrt(
-          item.transform[0] * item.transform[0] + item.transform[1] * item.transform[1]
-        ) || 9.0;
-
-        items.push({
-          str,
-          x: item.transform[4],
-          y: item.transform[5],
-          width: 'width' in item ? (item.width as number) : str.length * fontSize * 0.5,
-          height: 'height' in item ? (item.height as number) : fontSize,
-          fontSize,
-          page: pageNum,
-        });
-      }
-    }
-
-    // 3. Column & Line Assembly (Tasks 2 & 3)
-    const { lines, isTwoColumn } = assemblePageLines(
-      items,
-      pageWidth,
-      pageHeight,
-      pageNum,
-      warnings
+      })(),
+      MAX_PARSER_TIMEOUT_MS,
+      'PDF page extraction timed out.'
     );
-    if (isTwoColumn) hasTwoColumn = true;
-    pageLinesMap.set(pageNum, lines);
+  } catch (err: any) {
+    const msg = err?.message || String(err);
+    return {
+      ok: false,
+      reason: msg.includes('character limit') ? 'too-large' : 'corrupt',
+      message: msg,
+    };
   }
 
   // 4. Repeating Header / Footer Filtering (Task 5)
@@ -568,6 +594,24 @@ async function extractFromDocxBuffer(
   const warnings: string[] = [];
   const linksSet = new Set<string>();
 
+  // Run full structural archive validation BEFORE JSZip XML parsing or mammoth fallback
+  const archiveCheck = await withParserTimeout(
+    validateDocxArchive(buffer),
+    MAX_PARSER_TIMEOUT_MS,
+    'DOCX security validation timed out.'
+  ).catch((err: any) => ({
+    valid: false as const,
+    error: err?.message || 'DOCX security validation failed.',
+  }));
+
+  if (!archiveCheck.valid) {
+    return {
+      ok: false,
+      reason: 'corrupt',
+      message: archiveCheck.error || `File "${fileName}" failed DOCX security validation.`,
+    };
+  }
+
   try {
     const outcome = await withParserTimeout(
       (async () => {
@@ -604,8 +648,10 @@ async function extractFromDocxBuffer(
             const rels = relsDoc.getElementsByTagName('Relationship');
             for (let i = 0; i < rels.length; i++) {
               const id = rels[i].getAttribute('Id');
-              const target = rels[i].getAttribute('Target');
-              if (id && target) relsMap.set(id, target);
+              const target = rels[i].getAttribute('Target')?.trim();
+              if (id && target && /^(?:https?:\/\/|mailto:)/i.test(target)) {
+                relsMap.set(id, target);
+              }
             }
           } catch {
             // Non-critical
@@ -769,6 +815,13 @@ async function extractFromDocxBuffer(
 
         const rawJoined = lines.join('\n');
         const normalizedText = normalizeExtractedText(rawJoined);
+        if (normalizedText.length > MAX_EXTRACTED_TEXT_CHARS) {
+          return {
+            ok: false as const,
+            reason: 'too-large' as const,
+            message: `DOCX "${fileName}" extracted text exceeds safe character limit.`,
+          };
+        }
 
         // Extract URLs from text to supplement relationships
         const URL_REGEX =
@@ -806,7 +859,7 @@ async function extractFromDocxBuffer(
           },
         };
       })(),
-      PARSING_THRESHOLDS.maxExtractorTimeoutMs,
+      MAX_PARSER_TIMEOUT_MS,
       'DOCX Extraction'
     );
     return outcome;
@@ -848,12 +901,12 @@ async function extractFromDocxBuffer(
 export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
   const fileName = file.name.toLowerCase();
 
-  // 1. File size check (Task 9)
-  if (file.size > PARSING_THRESHOLDS.maxFileSizeBytes) {
+  // 1. Pre-read file size check (unified 5 MB limit)
+  if (file.size > MAX_FILE_SIZE_BYTES) {
     return {
       ok: false,
       reason: 'too-large',
-      message: `File exceeds maximum allowed size of 10 MB (${(file.size / (1024 * 1024)).toFixed(1)} MB).`,
+      message: `File exceeds maximum allowed size of 5 MB (${(file.size / (1024 * 1024)).toFixed(1)} MB).`,
     };
   }
 
@@ -865,10 +918,46 @@ export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
     };
   }
 
-  // 2. JSON files
-  if (fileName.endsWith('.json')) {
+  // 2. Read raw bytes once and enforce actual byteLength bounds BEFORE text/JSON/PDF/DOCX parsing
+  const buffer = await file.arrayBuffer();
+  if (buffer.byteLength > MAX_FILE_SIZE_BYTES) {
+    return {
+      ok: false,
+      reason: 'too-large',
+      message: `File exceeds maximum allowed size of 5 MB (${(buffer.byteLength / (1024 * 1024)).toFixed(1)} MB).`,
+    };
+  }
+  if (buffer.byteLength === 0) {
+    return {
+      ok: false,
+      reason: 'empty',
+      message: `File "${file.name}" is completely empty (0 bytes).`,
+    };
+  }
+
+  // 3. Binary Magic Bytes / Text Byte Check (Rule 4.2 / Task 9) BEFORE decoding or parsing
+  const ext = fileName.endsWith('.pdf')
+    ? '.pdf'
+    : fileName.endsWith('.docx')
+    ? '.docx'
+    : fileName.endsWith('.json')
+    ? '.json'
+    : fileName.endsWith('.md')
+    ? '.md'
+    : '.txt';
+  const magicCheck = verifyMagicBytes(buffer, ext);
+  if (!magicCheck.valid) {
+    return {
+      ok: false,
+      reason: 'corrupt',
+      message: magicCheck.error || 'Invalid or corrupted file signature detected.',
+    };
+  }
+
+  // 4. JSON files (already size- and byte-checked above)
+  if (ext === '.json') {
     try {
-      const raw = await file.text();
+      const raw = new TextDecoder('utf-8', { fatal: false }).decode(new Uint8Array(buffer));
       try {
         const parsed = JSON.parse(raw);
         const text = JSON.stringify(parsed, null, 2);
@@ -903,31 +992,19 @@ export async function extractFromFile(file: File): Promise<ExtractorOutcome> {
     }
   }
 
-  // 3. Binary Magic Bytes Check (Rule 4.2 / Task 9)
-  const ext = fileName.endsWith('.pdf') ? '.pdf' : fileName.endsWith('.docx') ? '.docx' : '.txt';
-  const buffer = await file.arrayBuffer();
-  const magicCheck = verifyMagicBytes(buffer, ext);
-  if (!magicCheck.valid) {
-    return {
-      ok: false,
-      reason: 'corrupt',
-      message: magicCheck.error || 'Invalid or corrupted file signature detected.',
-    };
-  }
-
-  // 4. PDF Extraction
+  // 5. PDF Extraction
   if (ext === '.pdf') {
     return extractFromPdfBuffer(buffer, file.name);
   }
 
-  // 5. DOCX Extraction (Stage 2 Direct XML)
+  // 6. DOCX Extraction (Stage 2 Direct XML)
   if (ext === '.docx') {
     return extractFromDocxBuffer(buffer, file.name, file);
   }
 
-  // 6. Plain text / Markdown fallback
+  // 7. Plain text / Markdown fallback (decoded from already-validated bytes)
   try {
-    const raw = await file.text();
+    const raw = new TextDecoder('utf-8', { fatal: false }).decode(new Uint8Array(buffer));
     const text = normalizeExtractedText(raw);
     return {
       ok: true,

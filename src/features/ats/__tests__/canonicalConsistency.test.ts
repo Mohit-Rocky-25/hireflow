@@ -425,14 +425,18 @@ Java, Spring Boot, SQL
       expect(atsResult.talentLensReadiness?.overallStatus).toBe(canonical.talentLensReadiness.overallStatus);
     });
 
-    it('runAtsEngine includes canonicalResult with 100% agreement', () => {
+    // Phase 10.5 single-authority retirement: runAtsEngine no longer invokes legacy analyzeCanonical.
+    it('runAtsEngine retires legacy canonicalResult while exposing single-authority quickRoast, applicationGuidance, and talentLensReadiness', () => {
       const response = runAtsEngine(sampleResume, sampleJD);
       expect(response.success).toBe(true);
       if (response.success) {
-        expect(response.result.canonicalResult).toBeDefined();
-        expect(response.result.canonicalResult?.scores.finalScore).toBeGreaterThanOrEqual(0);
-        expect(response.result.canonicalResult?.inputFingerprint).toBeTruthy();
-        expect(response.result.canonicalResult?.invariants.allPassed).toBe(true);
+        expect(response.result.canonicalResult).toBeUndefined();
+        expect(response.result.quickRoast).toBeDefined();
+        expect(response.result.quickRoast?.finalScore).toBe(response.result.trace?.composite ?? response.result.score);
+        expect(response.result.quickRoast?.finalScore).toBe(response.result.score);
+        expect(response.result.applicationGuidance).toBeTruthy();
+        expect(response.result.talentLensReadiness).toBeDefined();
+        expect(response.result.talentLensReadiness?.bestFitRoles[0]?.score).toBe(response.result.score);
       }
     });
   });

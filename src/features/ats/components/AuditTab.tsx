@@ -85,6 +85,54 @@ export const AuditTab: React.FC<Props> = ({ result }) => {
             </div>
           </div>
         </div>
+
+        {/* Phase 07: Seniority & Calibrated Tenure Breakdown */}
+        {result.seniorityMatchResult && (
+          <div className="mt-6 p-4 rounded bg-black border border-charcoal space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-silver uppercase tracking-[1.4px]">Seniority & Tenure Analysis</span>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold uppercase ${
+                  result.seniorityMatchResult.status === 'MEETS_REQUIREMENT' || result.seniorityMatchResult.status === 'EXCEEDS_REQUIREMENT'
+                    ? 'bg-volt/10 text-volt border border-volt/30'
+                    : result.seniorityMatchResult.status === 'PARTIALLY_MEETS_REQUIREMENT'
+                    ? 'bg-pale-yellow/10 text-pale-yellow border border-pale-yellow/30'
+                    : 'bg-danger/10 text-danger border border-danger/30'
+                }`}>
+                  {result.seniorityMatchResult.status.replace(/_/g, ' ')}
+                </span>
+              </div>
+              <span className="text-xs font-mono text-silver">
+                Req: {result.seniorityMatchResult.formattedRequired} | Dem: {result.seniorityMatchResult.formattedDemonstrated}
+              </span>
+            </div>
+
+            <p className="text-xs text-white">
+              {result.seniorityMatchResult.explanation}
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px] font-mono">
+              <div className="p-2 rounded bg-near-black border border-charcoal">
+                <div className="text-silver">Full-Time Prof.</div>
+                <div className="text-white font-bold">{result.seniorityMatchResult.tenureBreakdown.totalProfessionalMonths} months</div>
+              </div>
+              <div className="p-2 rounded bg-near-black border border-charcoal">
+                <div className="text-silver">Internships</div>
+                <div className="text-white font-bold">{result.seniorityMatchResult.tenureBreakdown.internshipMonths} months</div>
+              </div>
+              <div className="p-2 rounded bg-near-black border border-charcoal">
+                <div className="text-silver">Contract / Free.</div>
+                <div className="text-white font-bold">{result.seniorityMatchResult.tenureBreakdown.contractMonths} months</div>
+              </div>
+              <div className="p-2 rounded bg-near-black border border-charcoal">
+                <div className="text-silver">Shortfall / Surplus</div>
+                <div className={result.seniorityMatchResult.shortfallMonths > 0 ? "text-danger font-bold" : "text-volt font-bold"}>
+                  {result.seniorityMatchResult.shortfallMonths > 0 ? `-${result.seniorityMatchResult.formattedShortfall}` : `+${result.seniorityMatchResult.formattedSurplus}`}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 2. Contact Channels & Section Checklist */}

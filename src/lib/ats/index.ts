@@ -26,6 +26,9 @@ export * from './prompts';
 export * from './invariants';
 export * from './pipeline';
 export * from './canonicalAnalysis';
+/**
+ * Primary authoritative deterministic ATS scoring entry point.
+ */
 export { runAtsEngine } from '../../features/ats/engine';
 export type { AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../features/ats/engine/types';
 
@@ -48,6 +51,10 @@ export interface AnalyzeOptions {
   skipAi?: boolean;
 }
 
+/**
+ * @deprecated Legacy hybrid analyzer facade retained for backward compatibility with legacy tests.
+ * Use `runAtsEngine` from `../../features/ats/engine` for primary authoritative ATS scoring.
+ */
 export async function analyzeResume(
   resumeText: string,
   jdText: string,
@@ -75,7 +82,6 @@ export async function analyzeResume(
         resumeText,
         jdText,
         facts,
-        apiKey: options?.geminiApiKey,
       }),
     });
 

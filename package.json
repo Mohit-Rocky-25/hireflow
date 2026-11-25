@@ -35,6 +35,7 @@
     "skills:fixtures": "npx tsx scripts/skill-fixtures/generateSkillFixtures.ts",
     "skills:eval": "npx tsx scripts/skill-eval.ts",
     "taxonomy:audit": "npx tsx scripts/taxonomy-audit.ts",
+    "ontology:audit": "npx tsx src/features/ats/knowledge/ontology/validator.ts",
     "graph:audit": "npx tsx scripts/graph-audit.ts",
     "skills:gate": "npx tsx scripts/skills-gate.ts",
     "tailor:gate": "npx tsx scripts/tailor-gate.ts",

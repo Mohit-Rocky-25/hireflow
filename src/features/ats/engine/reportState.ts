@@ -146,6 +146,10 @@ export interface ReportScoreLedgerLine {
 export interface ReportScoreLedger {
   lines: ReportScoreLedgerLine[];
   totalEarned: number;
+  totalBonuses?: number;
+  totalDeductions?: number;
+  preClampScore?: number;
+  wasClamped?: boolean;
   roundedScore: number;
 }
 
@@ -423,12 +427,27 @@ export function assertReportConsistency(state: ReportState): { valid: boolean; e
     );
   }
 
-  // 2. C7 Invariant: Ledger math integrity
+  // 2. C7 Invariant: Ledger math integrity (penalty-aware without double subtraction)
   const ledgerSum = state.scoreLedger.lines.reduce((acc, line) => acc + line.earned, 0);
-  const expectedRounded = Math.max(0, Math.min(100, Math.round(ledgerSum)));
-  if (state.scoreLedger.roundedScore !== expectedRounded) {
+  const roundedLedgerSum = Math.round(ledgerSum * 10) / 10;
+  if (Math.abs((state.scoreLedger.totalEarned ?? roundedLedgerSum) - roundedLedgerSum) > 0.1) {
     errors.push(
-      `C7 Violation: Score ledger rounding drift. Sum of earned (${ledgerSum}) rounds to ${expectedRounded}, but state has ${state.scoreLedger.roundedScore}.`
+      `C7 Violation: Score ledger totalEarned (${state.scoreLedger.totalEarned}) does not match sum of dimension lines (${roundedLedgerSum}).`
+    );
+  }
+  const totalBonuses = state.scoreLedger.totalBonuses ?? 0;
+  const totalDeductions =
+    state.scoreLedger.totalDeductions ??
+    (state.penalties || []).reduce((acc, p) => acc + Math.abs(p.points || 0), 0);
+  const netLedgerScore = ledgerSum + totalBonuses - totalDeductions;
+  const expectedRounded = Math.max(0, Math.min(100, Math.round(netLedgerScore)));
+  const isZeroMatchOverride =
+    Boolean(state.scoreLedger.wasClamped) &&
+    state.scoreLedger.roundedScore === 0 &&
+    (state.scoreLedger.preClampScore === undefined || state.scoreLedger.preClampScore >= 0);
+  if (!isZeroMatchOverride && state.scoreLedger.roundedScore !== expectedRounded) {
+    errors.push(
+      `C7 Violation: Score ledger rounding drift. Net score (${ledgerSum} + ${totalBonuses} - ${totalDeductions} = ${netLedgerScore}) rounds to ${expectedRounded}, but state has ${state.scoreLedger.roundedScore}.`
     );
   }
 
@@ -531,6 +550,12 @@ export interface BuildReportStateParams {
     subscores: any;
     penalties: Array<any>;
     activeWeights?: any;
+    rawSubtotal?: number;
+    totalBonuses?: number;
+    totalDeductions?: number;
+    preClampScore?: number;
+    wasClamped?: boolean;
+    trace?: any;
   };
   fixes: Array<{ id: string; title: string; reason: string; gain: number; effort?: any; type?: any; skillId?: string }>;
   bullets: Array<{ rawText: string; score: number; issues?: string[]; hasStrongVerb?: boolean; hasMetric?: boolean; hasTechMention?: boolean }>;
@@ -710,8 +735,24 @@ export function buildReportState(params: BuildReportStateParams): ReportState {
     },
   ];
 
-  const totalEarned = Math.round(ledgerLines.reduce((acc, l) => acc + l.earned, 0) * 10) / 10;
-  const roundedScore = Math.max(0, Math.min(100, Math.round(totalEarned)));
+  const ledgerLinesSum = Math.round(ledgerLines.reduce((acc, l) => acc + l.earned, 0) * 10) / 10;
+  const totalEarned = params.scoring.rawSubtotal ?? params.scoring.trace?.rawSubtotal ?? ledgerLinesSum;
+  const totalBonuses = params.scoring.totalBonuses ?? params.scoring.trace?.totalBonuses ?? 0;
+  const totalDeductions =
+    params.scoring.totalDeductions ??
+    params.scoring.trace?.totalDeductions ??
+    (params.scoring.penalties || []).reduce((acc, p) => acc + Math.abs(p.points || 0), 0);
+  const preClampScore =
+    params.scoring.preClampScore ??
+    params.scoring.trace?.preClampScore ??
+    Math.round((totalEarned + totalBonuses - totalDeductions) * 10) / 10;
+  const authoritativeScore =
+    params.scoring.trace?.composite !== undefined ? params.scoring.trace.composite : params.scoring.score;
+  const roundedScore = Math.max(0, Math.min(100, Math.round(authoritativeScore)));
+  const wasClamped =
+    params.scoring.wasClamped ??
+    params.scoring.trace?.wasClamped ??
+    (Math.round(preClampScore) !== roundedScore);
 
   // 6. Fixes
   const fixes: ReportFix[] = params.fixes.map((f) => {
@@ -934,6 +975,10 @@ export function buildReportState(params: BuildReportStateParams): ReportState {
     scoreLedger: {
       lines: ledgerLines,
       totalEarned,
+      totalBonuses,
+      totalDeductions,
+      preClampScore,
+      wasClamped,
       roundedScore,
     },
     penalties,
@@ -1070,6 +1115,31 @@ export function migrateReportState(oldState: any): ReportState {
     telemetryRedacted: true,
   };
 
+  let migratedScoreLedger = oldState.scoreLedger;
+  let migratedVerdict = oldState.verdict;
+  if (migratedScoreLedger && Array.isArray(migratedScoreLedger.lines) && migratedScoreLedger.totalDeductions === undefined) {
+    const ledgerSum = Math.round(migratedScoreLedger.lines.reduce((acc: number, l: any) => acc + (l.earned || 0), 0) * 10) / 10;
+    const totalBonuses = migratedScoreLedger.totalBonuses ?? 0;
+    const totalDeductions = (oldState.penalties || []).reduce((acc: number, p: any) => acc + Math.abs(p.points || 0), 0);
+    const preClampScore = Math.round((ledgerSum + totalBonuses - totalDeductions) * 10) / 10;
+    const roundedScore = Math.max(0, Math.min(100, Math.round(preClampScore)));
+    migratedScoreLedger = {
+      ...migratedScoreLedger,
+      totalEarned: ledgerSum,
+      totalBonuses,
+      totalDeductions,
+      preClampScore,
+      wasClamped: Math.round(preClampScore) !== roundedScore,
+      roundedScore,
+    };
+    if (migratedVerdict) {
+      migratedVerdict = {
+        ...migratedVerdict,
+        band: getVerdictBand(roundedScore),
+      };
+    }
+  }
+
   const migrated: ReportState = {
     ...oldState,
     schemaVersion: '2.5.0',
@@ -1084,6 +1154,8 @@ export function migrateReportState(oldState: any): ReportState {
     language: oldState.language || 'en',
     findings,
     feedbackHooks,
+    scoreLedger: migratedScoreLedger,
+    verdict: migratedVerdict,
     meta: {
       ...oldState.meta,
       engineVersion: '2.5.0',

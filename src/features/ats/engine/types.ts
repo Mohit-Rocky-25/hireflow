@@ -16,6 +16,49 @@ export interface EvidenceQuote {
   evidenceTier?: number;
   isSubstitute?: boolean;
   substituteFor?: string;
+  sourceType?: string;
+  environmentMaturity?: string;
+  candidateContribution?: string;
+}
+
+export type RequirementMatchStatus =
+  | 'SATISFIED'
+  | 'PARTIALLY_SATISFIED'
+  | 'RELATED_BUT_NOT_EQUIVALENT'
+  | 'NOT_DEMONSTRATED'
+  | 'CONTRADICTED'
+  | 'AMBIGUOUS';
+
+export type MatchMethod =
+  | 'EXACT'
+  | 'ALIAS'
+  | 'SEMANTIC'
+  | 'ONTOLOGY_RELATIONSHIP'
+  | 'ALTERNATIVE'
+  | 'TRANSFERABLE';
+
+export interface BranchEvaluation {
+  expression: string;
+  satisfied: boolean;
+  status: RequirementMatchStatus;
+  reason: string;
+  matchedTechnology?: string;
+  evidenceQuotes?: string[];
+}
+
+export interface RequirementMatchResult {
+  requirementId: string;
+  canonical: string;
+  status: RequirementMatchStatus;
+  matchMethod: MatchMethod | null;
+  evidenceIds: string[];
+  citationIds: string[];
+  competencyIds: string[];
+  evidenceContexts: string[];
+  limitations: string[];
+  explanation: string;
+  confidence: number;
+  branchResults?: BranchEvaluation[];
 }
 
 export interface SkillResult {
@@ -31,7 +74,18 @@ export interface SkillResult {
   evidenceScore?: number; // 0.0 to 1.0 tiered score
   isSubstituteMatch?: boolean;
   substituteSkillName?: string;
+  satisfiedBySkillId?: string;
+  satisfiedByCanonical?: string;
+  orGroupId?: string;
+  orAlternatives?: string[];
+  logicalExpression?: import('./logicalExpression').LogicalExpression;
+  claimSupport?: import('./citationModel').ClaimSupportStatus;
+  citationValidity?: import('./citationModel').CitationValidationStatus;
+  provenance?: import('./evidenceModel').EvidenceSource;
+  attribution?: import('./evidenceModel').CandidateContribution;
   bm25Score?: number;
+  validatedCitations?: import('./citationModel').ValidatedCitation[];
+  matchResult?: RequirementMatchResult;
 }
 
 export interface ParsedSection {
@@ -75,6 +129,11 @@ export interface BulletAnalysis {
   hasClichéVerb?: boolean;
   clichéVerbMatched?: string;
   plausibilityWarning?: string;
+  isNegated?: boolean;
+  negationSentiment?: import('./evidenceModel').NegationSentiment;
+  metricEvidences?: import('./metricModel').MetricEvidence[];
+  primaryMetricCategory?: import('./metricModel').MetricCategory;
+  metricAttribution?: import('./metricModel').MetricAttributionStatus;
 }
 
 export interface ExperienceEntry {
@@ -104,14 +163,38 @@ export interface JdRequirement {
   category: string;
   required: 'must' | 'nice';
   weight: number;
+  sourceType?: 'explicit' | 'inferred';
+  sourceSentence?: string;
+  confidence?: number;
   orGroupId?: string;
   orAlternatives?: string[];
+  logicalExpression?: import('./logicalExpression').LogicalExpression;
+  unresolved?: boolean;
+  parseError?: string;
+}
+
+export interface InferredRecommendation {
+  skillId: string;
+  canonical: string;
+  category: string;
+  weight: number;
+  sourceRole: string;
+  reason: string;
 }
 
 export interface JdAnalysis {
   roleId: string;
   roleTitle: string;
+  internalClassification?: string;
+  employerProvidedTitle?: string;
   requiredSkills: JdRequirement[];
+  inferredRecommendations?: InferredRecommendation[];
+  unresolvedRequirements?: Array<{
+    rawText: string;
+    reason: string;
+    required: 'must' | 'nice';
+    logicalExpression?: import('./logicalExpression').LogicalExpression;
+  }>;
   detectedYears?: number;
   rawText: string;
   requiredEducation?: string;
@@ -137,6 +220,8 @@ export interface PenaltyItem {
   label: string;
   points: number;
   reason: string;
+  owner?: string;
+  cause?: string;
 }
 
 export interface FixFirstItem {
@@ -146,6 +231,20 @@ export interface FixFirstItem {
   type: 'missing_must_have' | 'weak_bullet' | 'keyword_stuffed' | 'missing_section';
   skillId?: string;
 }
+
+export interface QuickRoastProjection {
+  finalScore: number;
+  oneLineVerdict: string;
+  strengths: Array<{ title: string; evidenceQuote: string }>;
+  gaps: Array<{ title: string; gapType: string }>;
+  prioritizedActions: Array<{ title: string; action: string }>;
+}
+
+export type ApplicationGuidance =
+  | 'Ready to apply'
+  | 'Apply after high-priority fixes'
+  | 'Significant gaps to address'
+  | 'Insufficient evidence to evaluate';
 
 export interface AtsEngineResult {
   score: number;
@@ -166,7 +265,11 @@ export interface AtsEngineResult {
     requiredYears: number;
     level: string;
     fitExplanation: string;
+    shortfallMonths?: number;
+    surplusMonths?: number;
+    status?: string;
   };
+  seniorityMatchResult?: import('./seniorityMatcher').SeniorityMatchResult;
   seniorityMode?: import('./senioritySignals').SeniorityModeResult;
   parseQuality: 'High' | 'Medium' | 'Poor';
   fixFirst: FixFirstItem[];
@@ -185,14 +288,28 @@ export interface AtsEngineResult {
   };
   learningPath: LearningPathResult;
   reportState?: import('./reportState').ReportState;
+  /** @deprecated Legacy canonical analysis is retired from live runAtsEngine execution. */
   canonicalResult?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis;
-  quickRoast?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['quickRoast'];
+  quickRoast?: QuickRoastProjection;
+  applicationGuidance?: ApplicationGuidance;
   talentLensReadiness?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['talentLensReadiness'];
+  activeWeights?: Record<string, number>;
+  scanIdentity?: import('./scanIdentity').ScanIdentity;
+  employerName?: string | null;
+  candidateName?: string | null;
+  targetRoleTitle?: string | null;
+  jobAnalysis?: JdAnalysis;
+  evidenceRecords?: import('./evidenceModel').CandidateEvidenceRecord[];
+  structuredProfile?: import('./evidenceModel').StructuredCandidateProfile;
+  citationLedger?: import('./citationModel').CitationLedger;
+  requirementMatches?: RequirementMatchResult[];
   trace?: import('../../../scoring/core/types').ScoreTrace;
   bandDetails?: import('../../../scoring/core/types').ScoreBand;
   specVersion?: string;
   engineVersion?: string;
   specFingerprint?: string;
+  metricEvidences?: import('./metricModel').MetricEvidence[];
+  impactTrace?: import('./metricModel').ImpactEvidenceTraceItem[];
 }
 
 export type LearningStage = 'Foundation' | 'Core Role Skills' | 'Differentiators';

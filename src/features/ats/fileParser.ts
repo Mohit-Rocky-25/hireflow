@@ -36,10 +36,16 @@ export interface FileParseResult {
   isScanned?: boolean;
 }
 
-const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB
-
 import { countWords } from '../../lib/wordCount';
-import { verifyMagicBytes, withParserTimeout } from '../../lib/secureFileValidator';
+import {
+  MAX_EXTRACTED_TEXT_CHARS,
+  MAX_FILE_SIZE_BYTES,
+  MAX_PARSER_TIMEOUT_MS,
+  MAX_PDF_PAGES,
+  validateDocxArchive,
+  verifyMagicBytes,
+  withParserTimeout,
+} from '../../lib/secureFileValidator';
 export { countWords };
 
 /**
@@ -163,8 +169,9 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
   } as any);
 
   const pdf = await loadingTask.promise;
-  const pageCount = pdf.numPages;
+  const pageCount = Math.min(pdf.numPages, MAX_PDF_PAGES);
   const pageTexts: string[] = [];
+  let totalExtractedChars = 0;
 
   for (let pageNum = 1; pageNum <= pageCount; pageNum++) {
     const page = await pdf.getPage(pageNum);
@@ -176,6 +183,10 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
     const items: TextItemWithPos[] = [];
     for (const item of textContent.items) {
       if ('str' in item && item.str) {
+        totalExtractedChars += item.str.length;
+        if (totalExtractedChars > MAX_EXTRACTED_TEXT_CHARS) {
+          throw new Error('PDF extracted text exceeds safe character limit.');
+        }
         const trimmedStr = item.str.trim();
         const y = item.transform[5];
 
@@ -252,6 +263,13 @@ async function extractTextFromPdf(buffer: ArrayBuffer): Promise<{ text: string; 
  * Extracts clean text from DOCX using mammoth extractRawText with JSZip fallback.
  */
 async function extractTextFromDocx(buffer: ArrayBuffer): Promise<string> {
+  // Pre-validate archive structure (zip bombs, traversal, macros/OLE, XXE, unsafe .rels)
+  // BEFORE mammoth or JSZip fallback unpacks any content.
+  const archiveCheck = await validateDocxArchive(buffer);
+  if (!archiveCheck.valid) {
+    throw new Error(archiveCheck.error || 'Unsafe or invalid DOCX archive.');
+  }
+
   // Strategy 1: Mammoth
   try {
     const mammothModule = (await import('mammoth')) as any;
@@ -333,6 +351,15 @@ export async function parseResumeFile(file: File): Promise<FileParseResult> {
 
   try {
     const buffer = await file.arrayBuffer();
+    if (buffer.byteLength > MAX_FILE_SIZE_BYTES) {
+      return {
+        success: false,
+        text: '',
+        wordCount: 0,
+        fileName,
+        error: `File exceeds 5 MB limit (${(buffer.byteLength / (1024 * 1024)).toFixed(1)} MB). Please upload a smaller file.`,
+      };
+    }
 
     // 2b. Magic bytes validation (Rule 4.2)
     const magicCheck = verifyMagicBytes(buffer, ext);
@@ -352,7 +379,7 @@ export async function parseResumeFile(file: File): Promise<FileParseResult> {
     if (ext === '.pdf') {
       const pdfResult = await withParserTimeout(
         extractTextFromPdf(buffer),
-        8000,
+        MAX_PARSER_TIMEOUT_MS,
         'PDF extraction timed out. The file may be password-protected or contain complex structures.'
       );
       rawExtracted = pdfResult.text;
@@ -373,7 +400,7 @@ export async function parseResumeFile(file: File): Promise<FileParseResult> {
     } else if (ext === '.docx') {
       rawExtracted = await withParserTimeout(
         extractTextFromDocx(buffer),
-        8000,
+        MAX_PARSER_TIMEOUT_MS,
         'DOCX extraction timed out. The file may be corrupted or excessively complex.'
       );
     } else {

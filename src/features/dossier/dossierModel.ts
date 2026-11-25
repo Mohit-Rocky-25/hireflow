@@ -67,6 +67,18 @@ export interface LearningPlanModel {
   resources: string[];
 }
 
+export interface AtsDimensionModel {
+  id: string;
+  label: string;
+  rawScore: number;
+  nominalWeight: number;
+  effectiveWeight: number;
+  contribution: number;
+  applicable?: boolean;
+  notApplicableReason?: string;
+  flags?: string[];
+}
+
 export interface AtsDiagnosticsModel {
   subscores: {
     mustHaveCoverage: number;
@@ -77,13 +89,70 @@ export interface AtsDiagnosticsModel {
     formatAndParse: number;
     tierFit: number;
   };
+  dimensions?: AtsDimensionModel[];
+  rawSubtotal?: number;
+  totalBonuses?: number;
+  totalDeductions?: number;
+  preClampScore?: number;
+  wasClamped?: boolean;
   penalties: Array<{ id: string; label: string; points: number; reason: string }>;
   seniorityMode?: {
     candidateYears: number;
     requiredYears: number;
+    demonstratedMonths?: number;
+    completedMonths?: number;
+    requiredMonths?: number;
+    minPossibleQualifyingMonths?: number;
+    maxPossibleQualifyingMonths?: number;
     level: string;
     fitExplanation: string;
+    isMandatoryGateActive?: boolean;
+    provenance?: string;
+    scope?: string;
+    status?: string;
+    shortfallMonths?: number;
+    touchedShortfallMonths?: number;
+    completedShortfallMonths?: number;
+    surplusMonths?: number;
+    isEligible?: boolean;
+    reachesRequirementOnlyViaActiveMonth?: boolean;
+    formattedRequired?: string;
+    formattedDemonstrated?: string;
+    formattedShortfall?: string;
   };
+  seniorityMatchResult?: any;
+  authoritativeSnapshot?: any;
+  evidenceRecordsCount?: number;
+  citationsCount?: number;
+  citationLedger?: any;
+  metricEvidences?: import('@/features/ats/engine/metricModel').MetricEvidence[];
+  impactTrace?: import('@/features/ats/engine/metricModel').ImpactEvidenceTraceItem[];
+  citationsList?: Array<{
+    id: string;
+    competencyId: string;
+    originalQuotation: string;
+    validationStatus: string;
+    presentationValidationLabel?: string;
+    claimSupport: string;
+    sourceType: string;
+    environmentMaturity?: string;
+    sourceSection: string;
+    employerOrProject?: string;
+    validationReasons?: string[];
+    limitations?: string[];
+  }>;
+  requirementsList?: Array<{
+    requirementId: string;
+    canonical: string;
+    engineStatus: string;
+    presentationStatus: string;
+    matchMethod?: string | null;
+    isCompound?: boolean;
+    limitations?: string[];
+    explanation?: string;
+    evidenceIds?: string[];
+    citationIds?: string[];
+  }>;
   fixFirst: Array<{
     title: string;
     reason: string;
@@ -96,9 +165,19 @@ export interface AtsDiagnosticsModel {
     category: string;
     required: 'must' | 'nice';
     status: 'verified' | 'weak' | 'missing';
+    engineStatus?: string;
+    matchMethod?: string | null;
     proficiency: number;
     evidenceQuotes: string[];
     isSubstituteMatch?: boolean;
+    substituteFor?: string;
+    environmentMaturity?: string;
+    durationConfidence?: string;
+    durationStatus?: string;
+    provenDurationMonths?: number;
+    isDurationUncertain?: boolean;
+    limitations?: string[];
+    explanation?: string;
   }>;
   formattingAudit: {
     wordCount: number;
@@ -197,10 +276,79 @@ export interface DossierInputs {
   entry: AuditEntry;
   resumeText: string;
   jdText: string;
-  baseline: AuditEntry | null;
-  candidate: { name?: string; email?: string };
-  planItems: readonly PlanItem[];
-  generatedAt: IsoDate;
+  baseline?: AuditEntry | null;
+  candidate?: { name?: string; email?: string };
+  planItems?: readonly PlanItem[];
+  generatedAt?: IsoDate;
+}
+
+const DEFAULT_ATS_DIMENSIONS: ReadonlyArray<{ id: keyof AtsDiagnosticsModel['subscores']; label: string; nominalWeight: number }> = [
+  { id: 'mustHaveCoverage', label: 'Must-Have Skill Coverage', nominalWeight: 30 },
+  { id: 'evidenceDepth', label: 'Evidence & Implementation Depth', nominalWeight: 20 },
+  { id: 'impactMetrics', label: 'Quantified Impact & Numerical Metrics', nominalWeight: 15 },
+  { id: 'projectsAndOss', label: 'Project Relevance & Open-Source Signals', nominalWeight: 10 },
+  { id: 'seniorityFit', label: 'Seniority Alignment & Experience Fit', nominalWeight: 10 },
+  { id: 'formatAndParse', label: 'Format, Layout & Parsing Safety', nominalWeight: 10 },
+  { id: 'tierFit', label: 'Target Company Tier Alignment', nominalWeight: 5 },
+];
+
+export function resolveDossierDimensions(
+  ats?: Partial<AtsDiagnosticsModel> | null,
+  activeWeights?: Record<string, number> | null
+): AtsDimensionModel[] {
+  const snapshotDims = ats?.authoritativeSnapshot?.scoring?.dimensions;
+  const sourceDims = Array.isArray(ats?.dimensions) && ats.dimensions.length > 0
+    ? ats.dimensions
+    : Array.isArray(snapshotDims) && snapshotDims.length > 0
+    ? snapshotDims
+    : null;
+
+  if (sourceDims) {
+    return sourceDims.map((d: any) => {
+      const effectiveWeight = typeof d.effectiveWeight === 'number' ? d.effectiveWeight : (d.nominalWeight ?? 0) / 100;
+      const applicable = d.applicable !== undefined ? Boolean(d.applicable) : effectiveWeight > 0;
+      return {
+        id: d.id,
+        label: d.label,
+        rawScore: d.rawScore ?? 0,
+        nominalWeight: d.nominalWeight ?? Math.round(effectiveWeight * 100),
+        effectiveWeight,
+        contribution: d.contribution ?? 0,
+        applicable,
+        notApplicableReason: d.notApplicableReason,
+        flags: d.flags,
+      };
+    });
+  }
+
+  const subs = ats?.subscores || {
+    mustHaveCoverage: 0,
+    evidenceDepth: 0,
+    impactMetrics: 0,
+    projectsAndOss: 0,
+    seniorityFit: 0,
+    formatAndParse: 0,
+    tierFit: 0,
+  };
+
+  return DEFAULT_ATS_DIMENSIONS.map((spec) => {
+    const weightPct = activeWeights && typeof activeWeights[spec.id] === 'number'
+      ? activeWeights[spec.id]
+      : spec.nominalWeight;
+    const effectiveWeight = weightPct / 100;
+    const contribution = Number((subs as any)[spec.id] ?? 0);
+    const rawScore = effectiveWeight > 0 ? Math.round((contribution / effectiveWeight) * 10) / 10 : 0;
+    return {
+      id: spec.id,
+      label: spec.label,
+      rawScore,
+      nominalWeight: spec.nominalWeight,
+      effectiveWeight,
+      contribution,
+      applicable: weightPct > 0,
+      notApplicableReason: weightPct === 0 ? 'Dimension weight redistributed' : undefined,
+    };
+  });
 }
 
 export function scoreBand(score: number): 'early' | 'developing' | 'competitive' | 'strong' | 'excellent' {
@@ -274,11 +422,22 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
   const tlRole = rawFindings.selectedRole;
 
   let atsResult = rawFindings.engineResult || (rawFindings.subscores ? rawFindings : null);
-  const atsCanonical = rawFindings.canonical;
 
-  // Target Metadata
-  const companyName = tlCompany?.name || entry.jd.company || (rawFindings.targetCompany as string | undefined) || 'Target Organization';
-  const roleTitle = tlRole?.title || entry.jd.roleTitle || (rawFindings.targetRole as string | undefined) || 'Software Engineer';
+  // Target Metadata (preserve unresolved honesty without fabricating fake entities)
+  const rawCompanyName =
+    rawFindings.authoritativeSnapshot?.identity?.targetCompany ||
+    tlCompany?.name ||
+    entry.jd.company ||
+    (rawFindings.targetCompany as string | undefined) ||
+    undefined;
+  const companyName = rawCompanyName && rawCompanyName !== 'Target Organization' ? rawCompanyName : undefined;
+  const rawRoleTitle =
+    rawFindings.authoritativeSnapshot?.identity?.targetRoleTitle ||
+    tlRole?.title ||
+    entry.jd.roleTitle ||
+    (rawFindings.targetRole as string | undefined) ||
+    undefined;
+  const roleTitle = rawRoleTitle || 'Unspecified Role';
 
   if (!tlCompany && companyName) {
     try {
@@ -290,7 +449,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
 
   const tier = normalizeTier(tlCompany?.tier || (atsResult?.bestFitTier as string | undefined) || 'Enterprise');
   const level = tlRole?.level || (atsResult?.seniorityFit?.level as string | undefined) || 'Mid-Level';
-  const industry = tlCompany?.industry || 'Technology & Software';
+  const industry = tlCompany?.industry || (isTalentLens ? 'Technology & Software' : undefined);
 
   const companyContext: CompanyHiringContextModel | undefined = tlCompany ? {
     hires2024: tlCompany.hiring2024 != null ? `${tlCompany.hiring2024.toLocaleString()} (Public estimate 2024-25, AI-extracted, unverified)` : undefined,
@@ -309,8 +468,16 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     atsResult?.band ||
     (score >= 75 ? 'Strong fit' : score >= 50 ? 'Developing fit' : 'Potential fit with evidence gaps');
 
-  const guidance = atsCanonical?.applicationGuidance || (score >= 75 ? 'Ready to apply' : 'Apply after high-priority fixes');
-  const confidence = atsCanonical?.confidence || tlResult?.trace?.confidence || 'High';
+  const guidance =
+    atsResult?.applicationGuidance ||
+    rawFindings.authoritativeSnapshot?.scoring?.applicationGuidance ||
+    rawFindings.applicationGuidance ||
+    (score >= 75 ? 'Ready to apply' : 'Apply after high-priority fixes');
+  const confidence =
+    atsResult?.confidence ||
+    rawFindings.authoritativeSnapshot?.scoring?.confidence ||
+    tlResult?.trace?.confidence ||
+    'High';
 
   // Dimensional Competency Breakdown
   const breakdown: BreakdownItemModel[] = [];
@@ -374,56 +541,172 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     }
   }
 
-  // Ensure ATS Diagnostics are 100% computed
-  if (!atsResult && resumeText && (jdText || roleTitle)) {
+  const snapshot = rawFindings.authoritativeSnapshot;
+
+  // Ensure ATS Diagnostics are 100% computed without re-running engine when an authoritativeSnapshot exists
+  if (!atsResult && !snapshot && resumeText && (jdText || roleTitle !== 'Unspecified Role')) {
     try {
-      atsResult = runAtsEngine(resumeText, jdText || `${roleTitle} at ${companyName}`);
+      const resp = runAtsEngine(resumeText, jdText || (companyName ? `${roleTitle} at ${companyName}` : roleTitle));
+      if (resp.success) {
+        atsResult = resp.result;
+      }
     } catch {
       /* ignore */
     }
   }
 
+  const effectiveSeniorityMatch = atsResult?.seniorityMatchResult || rawFindings.seniorityMatchResult;
+  const effectiveSeniority = snapshot?.seniority || effectiveSeniorityMatch;
+  const effectiveSubscores = snapshot?.scoring?.subscores || atsResult?.subscores;
+  const effectivePenalties = snapshot?.scoring?.penalties ?? atsResult?.penalties ?? [];
+  const computedSubscores = {
+    mustHaveCoverage: effectiveSubscores?.mustHaveCoverage ?? 0,
+    evidenceDepth: effectiveSubscores?.evidenceDepth ?? 0,
+    impactMetrics: effectiveSubscores?.impactMetrics ?? 0,
+    projectsAndOss: effectiveSubscores?.projectsAndOss ?? 0,
+    seniorityFit: effectiveSubscores?.seniorityFit ?? 0,
+    formatAndParse: effectiveSubscores?.formatAndParse ?? 0,
+    tierFit: effectiveSubscores?.tierFit ?? 0,
+  };
+  const activeWeightsFromLedger =
+    atsResult?.reportState?.scoreLedger?.lines?.length === 7
+      ? {
+          mustHaveCoverage: atsResult.reportState.scoreLedger.lines[0].max,
+          evidenceDepth: atsResult.reportState.scoreLedger.lines[1].max,
+          impactMetrics: atsResult.reportState.scoreLedger.lines[2].max,
+          projectsAndOss: atsResult.reportState.scoreLedger.lines[3].max,
+          seniorityFit: atsResult.reportState.scoreLedger.lines[4].max,
+          formatAndParse: atsResult.reportState.scoreLedger.lines[5].max,
+          tierFit: atsResult.reportState.scoreLedger.lines[6].max,
+        }
+      : undefined;
+  const resolvedActiveWeights = atsResult?.activeWeights || rawFindings.activeWeights || activeWeightsFromLedger;
+  const resolvedDimensions = resolveDossierDimensions(
+    {
+      subscores: computedSubscores,
+      dimensions: snapshot?.scoring?.dimensions || atsResult?.trace?.pillars,
+      authoritativeSnapshot: snapshot,
+    },
+    resolvedActiveWeights
+  );
+  const rawSubtotal = snapshot?.scoring?.rawSubtotal ?? Math.round(
+    resolvedDimensions.reduce((sum, dim) => sum + (dim.contribution ?? 0), 0) * 10
+  ) / 10;
+  const totalDeductions = snapshot?.scoring?.totalDeductions ?? effectivePenalties.reduce((s: number, p: any) => s + Math.abs(p.points || 0), 0);
+  const totalBonuses = snapshot?.scoring?.totalBonuses ?? 0;
+  const preClampScore = snapshot?.scoring?.preClampScore ?? Math.round((rawSubtotal + totalBonuses - totalDeductions) * 10) / 10;
+
   const atsDiagnostics: AtsDiagnosticsModel = {
-    subscores: {
-      mustHaveCoverage: atsResult?.subscores?.mustHaveCoverage ?? Math.round((score * 0.3)),
-      evidenceDepth: atsResult?.subscores?.evidenceDepth ?? Math.round((score * 0.2)),
-      impactMetrics: atsResult?.subscores?.impactMetrics ?? Math.round((score * 0.15)),
-      projectsAndOss: atsResult?.subscores?.projectsAndOss ?? Math.round((score * 0.1)),
-      seniorityFit: atsResult?.subscores?.seniorityFit ?? Math.round((score * 0.1)),
-      formatAndParse: atsResult?.subscores?.formatAndParse ?? Math.round((score * 0.1)),
-      tierFit: atsResult?.subscores?.tierFit ?? Math.round((score * 0.05)),
-    },
-    penalties: atsResult?.penalties || (score < 70 ? [
-      { id: 'p-scale', label: 'Missing Production Scale Metrics', points: -5, reason: 'Resume bullets lack numerical latency or throughput verification.' }
-    ] : []),
-    seniorityMode: atsResult?.seniorityFit || {
-      candidateYears: 3,
-      requiredYears: 4,
-      level,
-      fitExplanation: `Candidate demonstrates solid engineering fundamentals aligned with ${level} expectations.`,
-    },
-    fixFirst: atsResult?.fixFirst && atsResult.fixFirst.length > 0 ? atsResult.fixFirst : [
-      {
-        title: 'Quantify Engineering Accomplishments with Numerical Indicators',
-        reason: 'Screening models evaluate verifiable business and performance impact.',
-        expectedScoreGain: 6,
-        type: 'weak_bullet',
-      },
-      {
-        title: 'Reinforce Key Must-Have Technical Stack Competencies',
-        reason: 'Target position screening filters require direct repository evidence.',
-        expectedScoreGain: 8,
-        type: 'missing_must_have',
-      },
-    ],
-    skillsInventory: atsResult?.skillResults ? atsResult.skillResults.map((s: any) => ({
+    subscores: computedSubscores,
+    dimensions: resolvedDimensions,
+    rawSubtotal,
+    totalBonuses,
+    totalDeductions,
+    preClampScore,
+    wasClamped: snapshot?.scoring?.wasClamped ?? (Math.round(preClampScore) !== score),
+    penalties: effectivePenalties,
+    seniorityMode: effectiveSeniority ? {
+      candidateYears: effectiveSeniority.demonstratedYears,
+      requiredYears: effectiveSeniority.requiredYears,
+      demonstratedMonths: effectiveSeniority.demonstratedMonths,
+      completedMonths: effectiveSeniority.completedMonths,
+      requiredMonths: effectiveSeniority.requiredMonths,
+      minPossibleQualifyingMonths: effectiveSeniority.minPossibleQualifyingMonths,
+      maxPossibleQualifyingMonths: effectiveSeniority.maxPossibleQualifyingMonths,
+      level: atsResult?.seniorityFit?.level || level,
+      fitExplanation: effectiveSeniority.explanation || atsResult?.seniorityFit?.fitExplanation || '',
+      isMandatoryGateActive: effectiveSeniority.isMandatoryGateActive,
+      provenance: effectiveSeniority.provenance,
+      scope: effectiveSeniority.scope,
+      status: effectiveSeniority.status,
+      shortfallMonths: effectiveSeniority.shortfallMonths,
+      touchedShortfallMonths: effectiveSeniority.touchedShortfallMonths,
+      completedShortfallMonths: effectiveSeniority.completedShortfallMonths,
+      surplusMonths: effectiveSeniority.surplusMonths,
+      isEligible: effectiveSeniority.isEligible,
+      reachesRequirementOnlyViaActiveMonth: effectiveSeniority.reachesRequirementOnlyViaActiveMonth,
+      formattedRequired: effectiveSeniority.formattedRequired,
+      formattedDemonstrated: effectiveSeniority.formattedDemonstrated,
+      formattedShortfall: effectiveSeniority.formattedShortfall,
+    } : (atsResult?.seniorityFit ? {
+      candidateYears: atsResult.seniorityFit.candidateYears,
+      requiredYears: atsResult.seniorityFit.requiredYears,
+      level: atsResult.seniorityFit.level || level,
+      fitExplanation: atsResult.seniorityFit.fitExplanation,
+      shortfallMonths: atsResult.seniorityFit.shortfallMonths,
+      surplusMonths: atsResult.seniorityFit.surplusMonths,
+      status: atsResult.seniorityFit.status,
+    } : undefined),
+    seniorityMatchResult: effectiveSeniorityMatch,
+    authoritativeSnapshot: snapshot,
+    evidenceRecordsCount: snapshot?.evidence?.records?.length ?? atsResult?.evidenceRecords?.length,
+    citationsCount: snapshot?.evidence?.citations?.length ?? atsResult?.citationLedger?.citations?.length,
+    citationLedger: atsResult?.citationLedger,
+    metricEvidences: snapshot?.evidence?.metrics || atsResult?.metricEvidences || [],
+    impactTrace: snapshot?.scoring?.impactTrace || atsResult?.impactTrace || [],
+    citationsList: (snapshot?.evidence?.citations || atsResult?.citationLedger?.citations || []).map((c: any) => ({
+      id: c.id,
+      competencyId: c.competencyId,
+      originalQuotation: c.originalQuotation,
+      validationStatus: c.validationStatus,
+      presentationValidationLabel: c.presentationValidationLabel,
+      claimSupport: c.claimSupport,
+      sourceType: c.sourceType,
+      environmentMaturity: c.environmentMaturity,
+      sourceSection: c.sourceSection || c.sectionId,
+      employerOrProject: c.employerOrProject || c.entryId,
+      validationReasons: c.validationReasons,
+      limitations: c.limitations,
+    })),
+    requirementsList: (snapshot?.requirements || atsResult?.requirementMatches || []).map((r: any) => ({
+      requirementId: r.requirementId,
+      canonical: r.canonical,
+      engineStatus: r.engineStatus || r.status,
+      presentationStatus: r.presentationStatus || (r.status === 'SATISFIED' ? 'VERIFIED' : 'MISSING'),
+      matchMethod: r.matchMethod,
+      isCompound: r.isCompound,
+      limitations: r.limitations,
+      explanation: r.explanation,
+      evidenceIds: r.evidenceIds,
+      citationIds: r.citationIds,
+    })),
+    fixFirst: snapshot?.fixFirst ?? atsResult?.fixFirst ?? [],
+    skillsInventory: snapshot?.competencies ? snapshot.competencies.map((s: any) => ({
       canonical: s.canonical,
       category: s.category || 'Engineering',
       required: s.required || 'must',
-      status: s.status || 'verified',
-      proficiency: s.proficiency ?? 3,
+      status: (s.status === 'substituted' || s.status === 'partial' ? 'verified' : s.status) || (s.found ? 'verified' : 'missing'),
+      engineStatus: s.engineStatus,
+      matchMethod: s.matchMethod,
+      proficiency: s.proficiency ?? (s.found ? 3 : 0),
+      evidenceQuotes: s.evidenceQuotes || [],
+      isSubstituteMatch: s.isSubstituteMatch,
+      substituteFor: s.substituteFor,
+      environmentMaturity: s.environmentMaturity,
+      durationConfidence: s.durationConfidence,
+      durationStatus: s.durationStatus,
+      provenDurationMonths: s.provenDurationMonths,
+      isDurationUncertain: s.isDurationUncertain,
+      limitations: s.limitations,
+      explanation: s.explanation,
+    })) : atsResult?.skillResults ? atsResult.skillResults.map((s: any) => ({
+      canonical: s.canonical,
+      category: s.category || 'Engineering',
+      required: s.required || 'must',
+      status: s.status || (s.found ? 'verified' : 'missing'),
+      engineStatus: s.matchResult?.status || (s.status === 'verified' ? 'SATISFIED' : s.status === 'weak' ? 'PARTIALLY_SATISFIED' : 'NOT_DEMONSTRATED'),
+      matchMethod: s.matchResult?.matchMethod,
+      proficiency: s.proficiency ?? (s.found ? 3 : 0),
       evidenceQuotes: (s.evidence || []).map((e: any) => e.quote).filter(Boolean),
       isSubstituteMatch: s.isSubstituteMatch,
+      substituteFor: s.substituteFor,
+      environmentMaturity: s.environmentMaturity,
+      durationConfidence: s.durationConfidence,
+      durationStatus: s.durationStatus,
+      provenDurationMonths: s.provenDurationMonths,
+      isDurationUncertain: s.isDurationUncertain,
+      limitations: s.matchResult?.limitations,
+      explanation: s.matchResult?.explanation,
     })) : breakdown.map((b) => ({
       canonical: b.label,
       category: 'Core Competency',
@@ -433,20 +716,20 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       evidenceQuotes: b.evidenceQuotes,
     })),
     formattingAudit: {
-      wordCount: atsResult?.audit?.wordCount || (resumeText ? resumeText.split(/\s+/).length : 450),
-      parseQuality: atsResult?.parseQuality || 'High',
+      wordCount: snapshot?.audit?.wordCount ?? atsResult?.audit?.wordCount ?? (resumeText ? resumeText.trim().split(/\s+/).filter(Boolean).length : 0),
+      parseQuality: snapshot?.audit?.parseQuality ?? atsResult?.parseQuality ?? 'Unknown',
       contactInfo: atsResult?.audit?.contactInfo || {
-        email: 'Verified',
-        phone: 'Verified',
-        linkedin: 'Detected',
-        github: 'Detected',
+        email: snapshot?.identity?.candidateEmail ?? null,
+        phone: snapshot?.identity?.candidatePhone ?? null,
+        linkedin: null,
+        github: null,
         portfolio: null,
       },
-      sectionsFound: atsResult?.audit?.sectionsFound || ['Experience', 'Education', 'Technical Skills', 'Projects'],
-      missingStandardSections: atsResult?.audit?.missingStandardSections || [],
-      weakBulletsCount: atsResult?.audit?.weakBulletsCount || 2,
-      metricsRatio: atsResult?.audit?.metricsRatio || 0.45,
-      stuffedSkills: atsResult?.audit?.stuffedSkills || [],
+      sectionsFound: snapshot?.audit?.sectionsFound ?? atsResult?.audit?.sectionsFound ?? [],
+      missingStandardSections: snapshot?.audit?.missingStandardSections ?? atsResult?.audit?.missingStandardSections ?? [],
+      weakBulletsCount: snapshot?.audit?.weakBulletsCount ?? atsResult?.audit?.weakBulletsCount ?? 0,
+      metricsRatio: snapshot?.audit?.metricsRatio ?? atsResult?.audit?.metricsRatio ?? 0,
+      stuffedSkills: snapshot?.audit?.stuffedSkills ?? atsResult?.audit?.stuffedSkills ?? [],
     },
   };
 
@@ -476,7 +759,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       const generatedIntel = runMarketIntelligenceEngine(
         resumeText,
         breakdown.map((b) => b.key),
-        { name: companyName, tier, industry },
+        { name: companyName || 'Unspecified Employer', tier, industry: industry || 'Technology & Software' },
         { title: roleTitle }
       );
       talentLensIntel = {
@@ -504,7 +787,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
         techCurrencyScore: 75,
         buildAuthenticity: 70,
         fundamentalDepth: 80,
-        buildVerdict: `Technical profile aligns with contemporary production standards for ${companyName}.`,
+        buildVerdict: `Technical profile aligns with contemporary production standards${companyName ? ` for ${companyName}` : ''}.`,
         modernPractices: ['Automated Testing', 'Microservices', 'Clean Architecture'],
         outdatedSignals: [],
         emergingAdoption: ['TypeScript', 'Cloud Native'],
@@ -518,7 +801,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
       techCurrencyScore: 75,
       buildAuthenticity: 70,
       fundamentalDepth: 80,
-      buildVerdict: `Technical profile aligns with contemporary production standards for ${companyName}.`,
+      buildVerdict: `Technical profile aligns with contemporary production standards${companyName ? ` for ${companyName}` : ''}.`,
       modernPractices: ['Automated Testing', 'Microservices', 'Clean Architecture'],
       outdatedSignals: [],
       emergingAdoption: ['TypeScript', 'Cloud Native'],
@@ -533,7 +816,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
         competencies: breakdown.map((b) => b.key),
         reqLevels: Object.fromEntries(breakdown.map((b) => [b.key, b.reqLevel || 'strong'])),
         role: tlRole || { title: roleTitle, level },
-        company: tlCompany || { name: companyName, industry, tier },
+        company: tlCompany || { name: companyName || 'Unspecified Employer', industry: industry || 'Technology & Software', tier },
       })
     : [];
 
@@ -598,7 +881,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
 
   const projectMatch = matchProjectsWithIntegrity({
     skillStates: skillStatesForMatching,
-    company: tlCompany || { name: companyName, industry, tier },
+    company: tlCompany || { name: companyName || 'Unspecified Employer', industry: industry || 'Technology & Software', tier },
     role: tlRole || { title: roleTitle, level },
   });
 
@@ -671,7 +954,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
           },
           reqLevel: b.reqLevel || 'strong',
         })) as any,
-        tlCompany || { id: 'company', name: companyName, tier },
+        tlCompany || { id: 'company', name: companyName || 'Unspecified Employer', tier },
         tlRole || { title: roleTitle, level, competencies: breakdown.map((b) => b.key) },
         score,
         skillStatesForEvaluation,
@@ -755,15 +1038,15 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
           : entry.kind === 'ats_roast'
           ? 'HireFlow ATS Resume Roaster™ 4-Layer Diagnostic Audit & Roast Report'
           : 'HireFlow Candidate Career & Technical Audit Dossier',
-      generatedAt: i.generatedAt,
+      generatedAt: i.generatedAt ?? entry.createdAt ?? new Date().toISOString(),
       engineVersion: entry.engineVersion,
       kind: entry.kind,
       auditId: entry.id,
       integrity: { resumeHash: entry.resume.snapshotHash, jdHash: entry.jd.snapshotHash },
     },
     candidate: {
-      name: i.candidate.name?.trim() || 'Candidate',
-      ...(i.candidate.email ? { email: i.candidate.email } : {}),
+      name: (snapshot?.identity?.candidateName || rawFindings.candidateName || (atsResult as any)?.candidateName || (atsResult as any)?.audit?.contactInfo?.name || (i.candidate?.name && i.candidate.name !== 'Candidate' && i.candidate.name !== 'Unresolved Candidate' ? i.candidate.name : null) || 'Unresolved Candidate').trim(),
+      email: snapshot?.identity?.candidateEmail || (atsResult as any)?.audit?.contactInfo?.email || i.candidate?.email || undefined,
       resumeLabel: entry.resume.label,
     },
     target: {
@@ -801,7 +1084,7 @@ export function buildDossierModel(i: DossierInputs): DossierModel {
     },
     bulletRewrites: tlResult?.bulletRewrites || generateEvidenceSafeRewrites(i.resumeText, breakdown.map((b) => b.key)),
     realityFactors,
-    planned: i.planItems.filter((p) => p.targetKey === entry.targetKey).map((p) => ({ title: p.title, kind: p.kind, status: p.status })),
+    planned: (i.planItems || []).filter((p) => p.targetKey === entry.targetKey).map((p) => ({ title: p.title, kind: p.kind, status: p.status })),
     companyContext,
     appendix: { resumeText: i.resumeText, jdText: i.jdText },
   };

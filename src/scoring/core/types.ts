@@ -3,7 +3,7 @@
 // Pure data contracts for engine calculations, context, and ScoreTrace
 // ============================================================
 
-import { PillarId, ProfileId, RoleFamily, ExperienceLevel, ScoringSpec } from '../spec/types';
+import { PillarId, AtsDimensionId, ProfileId, RoleFamily, ExperienceLevel, ScoringSpec } from '../spec/types';
 
 export type ToolId = 'roaster' | 'talentlens' | 'methodology_demo';
 
@@ -43,7 +43,7 @@ export interface SubScoreTraceItem {
 }
 
 export interface PillarTraceItem {
-  id: PillarId;
+  id: PillarId | AtsDimensionId;
   label: string;
   applicable: boolean;
   notApplicableReason?: string;
@@ -68,6 +68,8 @@ export interface ScoreAdjustment {
   label: string;
   delta: number;
   rationale: string;
+  owner?: string;
+  cause?: string;
 }
 
 export interface ScoreTrace {
@@ -79,6 +81,11 @@ export interface ScoreTrace {
   profileId: ProfileId;
   pillars: PillarTraceItem[];
   adjustments: ScoreAdjustment[];
+  rawSubtotal?: number;
+  totalBonuses?: number;
+  totalDeductions?: number;
+  preClampScore?: number;
+  wasClamped?: boolean;
   composite: number;                                    // Unrounded float (0-100)
   compositeDisplay: number;                             // Math.round(composite) (0-100)
   band: ScoreBand;

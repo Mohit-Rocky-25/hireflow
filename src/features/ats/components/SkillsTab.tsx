@@ -16,7 +16,101 @@ import {
   FolderGit2,
   GraduationCap,
 } from 'lucide-react';
-import { SkillResult } from '../engine/types';
+import { EvidenceQuote, SkillResult } from '../engine/types';
+import { ClaimSupportStatus, ValidatedCitation } from '../engine/citationModel';
+
+export function findMatchingCitation(
+  evidence: EvidenceQuote,
+  citations?: ValidatedCitation[]
+): ValidatedCitation | undefined {
+  if (!citations || citations.length === 0) return undefined;
+
+  const quoteTrimmed = (evidence.quote || '').trim();
+  const evidenceId = (evidence as any).evidenceId as string | undefined;
+
+  // 1. Exact or enclosing char offset match with overlapping quotation text
+  const byOffsets = citations.find((c) => {
+    const cq = (c.originalQuotation || '').trim();
+    const hasValidOffsets =
+      typeof evidence.charStart === 'number' &&
+      typeof evidence.charEnd === 'number' &&
+      evidence.charEnd > evidence.charStart &&
+      typeof c.charStart === 'number' &&
+      typeof c.charEnd === 'number' &&
+      c.charEnd > c.charStart;
+    if (!hasValidOffsets) return false;
+    const offsetsMatch =
+      (c.charStart === evidence.charStart && c.charEnd === evidence.charEnd) ||
+      (c.charStart <= evidence.charStart && c.charEnd >= evidence.charEnd) ||
+      (evidence.charStart <= c.charStart && evidence.charEnd >= c.charEnd);
+    if (!offsetsMatch) return false;
+    return (
+      cq === quoteTrimmed ||
+      (quoteTrimmed.length > 0 && cq.includes(quoteTrimmed)) ||
+      (cq.length > 0 && quoteTrimmed.includes(cq))
+    );
+  });
+  if (byOffsets) return byOffsets;
+
+  // 2. Evidence ID match
+  if (evidenceId) {
+    const byId = citations.find((c) => c.evidenceId === evidenceId);
+    if (byId) return byId;
+  }
+
+  // 3. Direct or substring quotation match
+  return citations.find((c) => {
+    const cq = (c.originalQuotation || '').trim();
+    if (!cq || !quoteTrimmed) return false;
+    return cq === quoteTrimmed || cq.includes(quoteTrimmed) || quoteTrimmed.includes(cq);
+  });
+}
+
+function getClaimSupportBadge(status: ClaimSupportStatus): { label: string; className: string } {
+  switch (status) {
+    case 'DIRECTLY_SUPPORTED':
+      return {
+        label: 'DIRECTLY SUPPORTED',
+        className: 'bg-volt/10 text-volt border border-volt/40',
+      };
+    case 'CONTEXTUALLY_SUPPORTED':
+      return {
+        label: 'CONTEXTUALLY SUPPORTED',
+        className: 'bg-volt/10 text-volt border border-volt/40',
+      };
+    case 'PARTIALLY_SUPPORTED':
+      return {
+        label: 'PARTIALLY SUPPORTED',
+        className: 'bg-pale-yellow/10 text-pale-yellow border border-pale-yellow/40',
+      };
+    case 'RELATED_ONLY':
+      return {
+        label: 'RELATED ONLY',
+        className: 'bg-charcoal text-silver border border-charcoal-deep',
+      };
+    case 'CONTRADICTED':
+      return {
+        label: 'CONTRADICTED',
+        className: 'bg-danger/15 text-danger border border-danger/50',
+      };
+    case 'AMBIGUOUS':
+      return {
+        label: 'AMBIGUOUS',
+        className: 'bg-pale-yellow/10 text-pale-yellow border border-pale-yellow/40',
+      };
+    case 'NOT_SUPPORTED':
+    default:
+      return {
+        label: 'NOT SUPPORTED',
+        className: 'bg-danger/15 text-danger border border-danger/50',
+      };
+  }
+}
+
+function formatMetaToken(value?: string): string | null {
+  if (!value || value === 'UNKNOWN') return null;
+  return value.replace(/_/g, ' ');
+}
 
 interface Props {
   skills: SkillResult[];
@@ -161,6 +255,24 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     {/* Status */}
                     <td className="py-4 px-4 align-top">
                       {(() => {
+                        const matchRes = skill.matchResult;
+                        if (matchRes) {
+                          switch (matchRes.status) {
+                            case 'SATISFIED':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-volt border border-volt/60 uppercase tracking-[1px]"><CheckCircle2 className="w-3.5 h-3.5 text-volt stroke-[1.5px]" /> Satisfied</span>;
+                            case 'PARTIALLY_SATISFIED':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-pale-yellow border border-pale-yellow/60 uppercase tracking-[1px]"><HelpCircle className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" /> Partial</span>;
+                            case 'RELATED_BUT_NOT_EQUIVALENT':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-silver border border-charcoal uppercase tracking-[1px]">↔ Non-Equivalent</span>;
+                            case 'CONTRADICTED':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-danger border border-danger/60 uppercase tracking-[1px]"><AlertCircle className="w-3.5 h-3.5 text-danger stroke-[1.5px]" /> Contradicted</span>;
+                            case 'AMBIGUOUS':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-pale-yellow border border-pale-yellow/60 uppercase tracking-[1px]"><HelpCircle className="w-3.5 h-3.5 text-pale-yellow stroke-[1.5px]" /> Ambiguous</span>;
+                            case 'NOT_DEMONSTRATED':
+                              return <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded bg-black text-danger border border-danger/60 uppercase tracking-[1px]"><AlertCircle className="w-3.5 h-3.5 text-danger stroke-[1.5px]" /> Missing</span>;
+                          }
+                        }
+
                         const evStatus = (skill as any).evidenceStatus || 
                           (skill.status === 'verified' ? (skill.evidence && skill.evidence.some(e => e.hasMetric) ? 'proven' : 'strongly_supported')
                             : skill.status === 'weak' ? 'claimed_only'
@@ -199,8 +311,26 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                     <td className="py-4 px-6 align-top">
                       {skill.evidence.length === 0 ? (
                         <div className="space-y-2">
+                          {skill.claimSupport && (
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span
+                                className={`text-[10px] px-1.5 py-0.5 rounded font-sans font-semibold uppercase tracking-wider ${getClaimSupportBadge(skill.claimSupport).className}`}
+                              >
+                                {getClaimSupportBadge(skill.claimSupport).label}
+                              </span>
+                              {skill.substituteSkillName && (
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-black text-silver border border-charcoal font-sans">
+                                  Closest: {skill.substituteSkillName}
+                                </span>
+                              )}
+                            </div>
+                          )}
                           <span className="text-xs text-danger font-medium block">
-                            No text evidence found in resume
+                            {skill.matchResult?.status === 'CONTRADICTED'
+                              ? 'Contradicted or negated in resume context'
+                              : skill.matchResult?.status === 'RELATED_BUT_NOT_EQUIVALENT'
+                              ? 'Related technology found, but not equivalent to requirement'
+                              : 'No text evidence found in resume'}
                           </span>
                           <div className="flex flex-wrap gap-1.5 pt-0.5">
                             <Link
@@ -231,14 +361,108 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                         </div>
                       ) : (
                         <div className="space-y-2">
-                          <div className="text-xs text-white bg-black p-2.5 rounded border border-charcoal leading-relaxed font-mono">
-                            <span className="text-volt font-sans font-bold mr-1.5">
-                              [{primaryEvidence.section}]:
-                            </span>
-                            "{isExpanded || primaryEvidence.quote.length <= 110
-                              ? primaryEvidence.quote
-                              : `${primaryEvidence.quote.slice(0, 110)}...`}"
-                          </div>
+                          {(() => {
+                            const primaryCitation = findMatchingCitation(
+                              primaryEvidence,
+                              skill.validatedCitations
+                            );
+                            const effectiveClaimSupport =
+                              primaryCitation?.claimSupport ?? skill.claimSupport;
+                            const claimBadge = effectiveClaimSupport
+                              ? getClaimSupportBadge(effectiveClaimSupport)
+                              : null;
+                            const sourceLabel = formatMetaToken(
+                              primaryCitation?.sourceType ??
+                                primaryEvidence.sourceType ??
+                                skill.provenance
+                            );
+                            const maturityLabel = formatMetaToken(
+                              primaryCitation?.environmentMaturity ??
+                                primaryEvidence.environmentMaturity
+                            );
+                            const attributionLabel = formatMetaToken(
+                              primaryCitation?.candidateContribution ??
+                                primaryEvidence.candidateContribution ??
+                                skill.attribution
+                            );
+                            return (
+                              <>
+                                <div className="text-xs text-white bg-black p-2.5 rounded border border-charcoal leading-relaxed font-mono">
+                                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                    <span className="text-volt font-sans font-bold">
+                                      [{primaryEvidence.section}]:
+                                    </span>
+                                    <div className="flex flex-wrap items-center gap-1.5">
+                                      {primaryCitation && (
+                                        <span
+                                          className={`text-[10px] px-1.5 py-0.5 rounded font-sans font-semibold uppercase tracking-wider ${
+                                            primaryCitation.validationStatus === 'VERIFIED_EXACT' ||
+                                            primaryCitation.validationStatus === 'VERIFIED_CONTEXTUAL'
+                                              ? 'bg-volt/10 text-volt border border-volt/30'
+                                              : primaryCitation.validationStatus === 'PARTIALLY_SUPPORTED'
+                                              ? 'bg-pale-yellow/10 text-pale-yellow border border-pale-yellow/30'
+                                              : 'bg-danger/15 text-danger border border-danger/40'
+                                          }`}
+                                        >
+                                          {primaryCitation.validationStatus.replace(/_/g, ' ')}
+                                        </span>
+                                      )}
+                                      {claimBadge && (
+                                        <span
+                                          className={`text-[10px] px-1.5 py-0.5 rounded font-sans font-semibold uppercase tracking-wider ${claimBadge.className}`}
+                                        >
+                                          {claimBadge.label}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                  "{isExpanded || primaryEvidence.quote.length <= 110
+                                    ? primaryEvidence.quote
+                                    : `${primaryEvidence.quote.slice(0, 110)}...`}"
+
+                                  {(sourceLabel || maturityLabel || attributionLabel) && (
+                                    <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-1.5 border-t border-charcoal/80 text-[10px] font-sans text-silver">
+                                      {sourceLabel && (
+                                        <span className="px-1.5 py-0.5 rounded bg-near-black border border-charcoal">
+                                          Source: {sourceLabel}
+                                        </span>
+                                      )}
+                                      {maturityLabel && (
+                                        <span className="px-1.5 py-0.5 rounded bg-near-black border border-charcoal">
+                                          Env: {maturityLabel}
+                                        </span>
+                                      )}
+                                      {attributionLabel && (
+                                        <span className="px-1.5 py-0.5 rounded bg-near-black border border-charcoal">
+                                          Role: {attributionLabel}
+                                        </span>
+                                      )}
+                                    </div>
+                                  )}
+
+                                  {primaryCitation?.limitations && primaryCitation.limitations.length > 0 && (
+                                    <div className="text-[11px] text-pale-yellow font-sans mt-2 pt-1.5 border-t border-charcoal">
+                                      <span className="font-semibold">Limitation:</span> {primaryCitation.limitations.join(' ')}
+                                    </div>
+                                  )}
+
+                                  {skill.matchResult?.branchResults && skill.matchResult.branchResults.length > 0 && (
+                                    <div className="text-[11px] font-sans mt-2 pt-1.5 border-t border-charcoal space-y-1">
+                                      <span className="text-silver font-semibold block">Compound Branches:</span>
+                                      {skill.matchResult.branchResults.map((br, bIdx) => (
+                                        <div key={bIdx} className="flex items-center justify-between text-[10px]">
+                                          <span className="text-white font-mono">{br.expression}</span>
+                                          <span className={br.satisfied ? 'text-volt font-semibold' : 'text-danger font-semibold'}>
+                                            {br.satisfied ? '✓ Satisfied' : '✗ Incomplete'}
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              </>
+                            );
+                          })()}
 
                           {primaryEvidence.quote.length > 110 && (
                             <button
