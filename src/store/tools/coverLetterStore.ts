@@ -1,11 +1,8 @@
 // ============================================================
-// HireFlow v3 — Cover Letter Tool Store
-// Tailored cover letter drafts for campus & off-campus freshers.
-// Versioned schema with auto-migration.
+// HireFlow v3 — Cover Letter Tool Store (In-Memory)
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface SavedCoverLetter {
   id: string;
@@ -39,47 +36,31 @@ const DEFAULT_STATE = {
   targetRole: '',
 };
 
-export const useCoverLetterToolStore = create<CoverLetterToolState>()(
-  persist(
-    (set) => ({
-      ...DEFAULT_STATE,
+export const useCoverLetterToolStore = create<CoverLetterToolState>()((set) => ({
+  ...DEFAULT_STATE,
 
-      setActiveDraft: (activeDraft) => set({ activeDraft }),
+  setActiveDraft: (activeDraft) => set({ activeDraft }),
 
-      setTargetInfo: (targetCompany, targetRole) => set({ targetCompany, targetRole }),
+  setTargetInfo: (targetCompany, targetRole) => set({ targetCompany, targetRole }),
 
-      saveCurrentDraft: (tone) =>
-        set((state) => {
-          if (!state.activeDraft.trim()) return state;
-          const newDraft: SavedCoverLetter = {
-            id: 'cl-' + Date.now().toString(36),
-            companyName: state.targetCompany || 'Target Company',
-            roleTitle: state.targetRole || 'Software Engineering Fresher',
-            tone,
-            content: state.activeDraft,
-            createdAt: new Date().toISOString(),
-          };
-          return { drafts: [newDraft, ...state.drafts] };
-        }),
-
-      deleteDraft: (id) =>
-        set((state) => ({
-          drafts: state.drafts.filter((d) => d.id !== id),
-        })),
-
-      resetCoverLetterTool: () => set({ ...DEFAULT_STATE }),
+  saveCurrentDraft: (tone) =>
+    set((state) => {
+      if (!state.activeDraft.trim()) return state;
+      const newDraft: SavedCoverLetter = {
+        id: 'cl-' + Date.now().toString(36),
+        companyName: state.targetCompany || 'Target Company',
+        roleTitle: state.targetRole || 'Software Engineering Fresher',
+        tone,
+        content: state.activeDraft,
+        createdAt: new Date().toISOString(),
+      };
+      return { drafts: [newDraft, ...state.drafts] };
     }),
-    {
-      name: 'hireflow_tool_cover_letter_v3',
-      version: 3,
-      migrate: (persisted: any) => {
-        if (!persisted) return DEFAULT_STATE;
-        return {
-          ...DEFAULT_STATE,
-          ...persisted,
-          version: 3,
-        };
-      },
-    }
-  )
-);
+
+  deleteDraft: (id) =>
+    set((state) => ({
+      drafts: state.drafts.filter((d) => d.id !== id),
+    })),
+
+  resetCoverLetterTool: () => set({ ...DEFAULT_STATE }),
+}));

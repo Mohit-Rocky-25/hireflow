@@ -2,7 +2,7 @@
 -- Safe to run once on a fresh Supabase project (SQL editor or `supabase db push`).
 
 create table public.text_snapshots (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   hash text not null check (hash ~ '^[0-9a-f]{64}$'),
   body text not null check (char_length(body) <= 80000),
   char_count int not null check (char_count >= 0),
@@ -12,7 +12,7 @@ create table public.text_snapshots (
 );
 
 create table public.resume_workspaces (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   name text not null check (char_length(name) between 1 and 120),
   role_track text not null default '' check (char_length(role_track) <= 120),
@@ -25,7 +25,7 @@ create table public.resume_workspaces (
 );
 
 create table public.resume_versions (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   workspace_id uuid not null,
   parent_version_id uuid,
@@ -43,7 +43,7 @@ create table public.resume_versions (
 -- Immutable audit journal. The composite foreign keys make "snapshot-locked" a database guarantee:
 -- an audit cannot exist without the exact resume and JD text it was scored against.
 create table public.audit_entries (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   kind text not null check (kind in ('ats_roast','talentlens','jd_compare','tailor')),
   created_at timestamptz not null,
@@ -73,7 +73,7 @@ create index audit_entries_target_idx on public.audit_entries (user_id, target_k
 create index audit_entries_created_idx on public.audit_entries (user_id, created_at desc);
 
 create table public.journal_events (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   type text not null,
   created_at timestamptz not null,
@@ -86,7 +86,7 @@ create table public.journal_events (
 create index journal_events_created_idx on public.journal_events (user_id, created_at desc);
 
 create table public.watchlist_targets (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   target_key text not null,
   company_id text,
@@ -102,7 +102,7 @@ create table public.watchlist_targets (
 );
 
 create table public.plan_items (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   kind text not null check (kind in ('build_brief','credential')),
   ref_id text not null,
@@ -119,7 +119,7 @@ create table public.plan_items (
 );
 
 create table public.outreach_drafts (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   id uuid not null,
   template_id text not null,
   channel text not null,
@@ -133,7 +133,7 @@ create table public.outreach_drafts (
 );
 
 create table public.gap_status (
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
   target_key text not null,
   gap_id text not null,
   status text not null check (status in ('open','addressed_pending_rescan','resolved')),
@@ -144,7 +144,7 @@ create table public.gap_status (
 );
 
 create table public.user_profiles (
-  user_id uuid primary key references auth.users(id) on delete cascade,
+  user_id uuid primary key default auth.uid() references auth.users(id) on delete cascade,
   profile jsonb not null,
   settings jsonb not null,
   updated_at timestamptz not null

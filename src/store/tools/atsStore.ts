@@ -1,11 +1,11 @@
 // ============================================================
-// HireFlow v3 — ATS Candidate Tool Store
-// Ephemeral store for resume scanning, JD matching, fix simulation.
-// Versioned schema with auto-migration.
+// HireFlow — ATS Candidate Tool In-Memory Session Store
+// Persisted scans and snapshots for signed-in users live in Supabase Postgres
+// (`audit_entries` & `text_snapshots`), never in browser localStorage.
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import type { AuthoritativeReportSnapshot } from '@/features/ats/engine/authoritativeSnapshot';
 
 export interface AtsScanHistoryEntry {
   id: string;
@@ -18,6 +18,14 @@ export interface AtsScanHistoryEntry {
   specVersion?: string;
   engineVersion?: string;
   specFingerprint?: string;
+  candidateName?: string;
+  targetCompany?: string;
+  seniorityStatus?: string;
+  isEligible?: boolean;
+  authoritativeSnapshot?: AuthoritativeReportSnapshot;
+  isReconstructed?: boolean;
+  reconstructedFields?: string[];
+  insufficientData?: boolean;
 }
 
 export interface AtsToolState {
@@ -28,8 +36,7 @@ export interface AtsToolState {
   appliedFixIds: string[];
   scanHistory: AtsScanHistoryEntry[];
   latestMissingSkills: string[];
-  
-  // Actions
+
   setResumeText: (text: string, fileName?: string) => void;
   setJdText: (text: string) => void;
   toggleFix: (fixId: string) => void;
@@ -41,7 +48,7 @@ export interface AtsToolState {
 }
 
 const DEFAULT_STATE = {
-  version: 3,
+  version: 4,
   rawResumeText: '',
   resumeFileName: '',
   jdText: '',
@@ -50,57 +57,41 @@ const DEFAULT_STATE = {
   latestMissingSkills: [] as string[],
 };
 
-export const useAtsToolStore = create<AtsToolState>()(
-  persist(
-    (set) => ({
-      ...DEFAULT_STATE,
+export const useAtsToolStore = create<AtsToolState>()((set) => ({
+  ...DEFAULT_STATE,
 
-      setResumeText: (text, fileName = 'resume.pdf') =>
-        set({ rawResumeText: text, resumeFileName: fileName }),
+  setResumeText: (text, fileName = 'resume.pdf') =>
+    set({ rawResumeText: text, resumeFileName: fileName }),
 
-      setJdText: (text) => set({ jdText: text }),
+  setJdText: (text) => set({ jdText: text }),
 
-      toggleFix: (fixId) =>
-        set((state) => {
-          const exists = state.appliedFixIds.includes(fixId);
-          return {
-            appliedFixIds: exists
-              ? state.appliedFixIds.filter((id) => id !== fixId)
-              : [...state.appliedFixIds, fixId],
-          };
-        }),
-
-      clearFixes: () => set({ appliedFixIds: [] }),
-
-      setLatestMissingSkills: (skills) => set({ latestMissingSkills: skills }),
-
-      addHistoryEntry: (entry) =>
-        set((state) => ({
-          scanHistory: [
-            {
-              ...entry,
-              id: 'scan-' + Date.now().toString(36),
-              timestamp: new Date().toISOString(),
-            },
-            ...state.scanHistory.slice(0, 19), // Keep latest 20 scans
-          ],
-        })),
-
-      clearHistory: () => set({ scanHistory: [] }),
-
-      resetAtsTool: () => set({ ...DEFAULT_STATE }),
+  toggleFix: (fixId) =>
+    set((state) => {
+      const exists = state.appliedFixIds.includes(fixId);
+      return {
+        appliedFixIds: exists
+          ? state.appliedFixIds.filter((id) => id !== fixId)
+          : [...state.appliedFixIds, fixId],
+      };
     }),
-    {
-      name: 'hireflow_tool_ats_v3',
-      version: 3,
-      migrate: (persisted: any) => {
-        if (!persisted) return DEFAULT_STATE;
-        return {
-          ...DEFAULT_STATE,
-          ...persisted,
-          version: 3,
-        };
-      },
-    }
-  )
-);
+
+  clearFixes: () => set({ appliedFixIds: [] }),
+
+  setLatestMissingSkills: (skills) => set({ latestMissingSkills: skills }),
+
+  addHistoryEntry: (entry) =>
+    set((state) => ({
+      scanHistory: [
+        {
+          ...entry,
+          id: 'scan-' + Date.now().toString(36),
+          timestamp: new Date().toISOString(),
+        },
+        ...state.scanHistory.slice(0, 19),
+      ],
+    })),
+
+  clearHistory: () => set({ scanHistory: [] }),
+
+  resetAtsTool: () => set({ ...DEFAULT_STATE }),
+}));

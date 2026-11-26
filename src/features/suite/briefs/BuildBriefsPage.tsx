@@ -92,17 +92,7 @@ export function BuildBriefsPage() {
   const bundleResult = useMemo(() => bundleBriefsForGaps(activeGaps, ALL_PROJECT_BRIEFS, 4), [activeGaps]);
 
   useEffect(() => {
-    const loadSaved = () => {
-      try {
-        const saved = localStorage.getItem('hireflow_saved_briefs');
-        if (saved) setSavedBriefIds(JSON.parse(saved));
-      } catch { /* ignore */ }
-    };
-    loadSaved();
-    if (typeof window !== 'undefined') {
-      window.addEventListener('hireflow:cloud-synced', loadSaved);
-      return () => window.removeEventListener('hireflow:cloud-synced', loadSaved);
-    }
+    // Synced brief saves live in-memory via MySpace/PlanItems (cloud-backed when signed in).
   }, []);
 
   const handleToggleSave = useCallback((id: string) => {
@@ -110,12 +100,6 @@ export function BuildBriefsPage() {
       ? savedBriefIds.filter((x) => x !== id)
       : [...savedBriefIds, id];
     setSavedBriefIds(updated);
-    try {
-      localStorage.setItem('hireflow_saved_briefs', JSON.stringify(updated));
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('hireflow:data-changed'));
-      }
-    } catch { /* ignore */ }
   }, [savedBriefIds]);
 
   const handleCopyBullet = useCallback((id: string, text: string) => {

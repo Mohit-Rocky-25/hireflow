@@ -1,11 +1,8 @@
 // ============================================================
-// HireFlow v3 — Salary Tool Store
-// Indian Fresher CTC breakdown, Tier-based benchmarks, offer comparisons.
-// Versioned schema with auto-migration.
+// HireFlow v3 — Salary Tool Store (In-Memory)
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface SalaryBreakdown {
   id: string;
@@ -43,44 +40,28 @@ const DEFAULT_STATE = {
   selectedTier: 'TIER_1_PBC' as const,
 };
 
-export const useSalaryToolStore = create<SalaryToolState>()(
-  persist(
-    (set) => ({
-      ...DEFAULT_STATE,
+export const useSalaryToolStore = create<SalaryToolState>()((set) => ({
+  ...DEFAULT_STATE,
 
-      addOffer: (offer) =>
-        set((state) => ({
-          savedOffers: [
-            ...state.savedOffers,
-            {
-              ...offer,
-              id: 'offer-' + Date.now().toString(36),
-            },
-          ],
-        })),
+  addOffer: (offer) =>
+    set((state) => ({
+      savedOffers: [
+        ...state.savedOffers,
+        {
+          ...offer,
+          id: 'offer-' + Date.now().toString(36),
+        },
+      ],
+    })),
 
-      removeOffer: (id) =>
-        set((state) => ({
-          savedOffers: state.savedOffers.filter((o) => o.id !== id),
-        })),
+  removeOffer: (id) =>
+    set((state) => ({
+      savedOffers: state.savedOffers.filter((o) => o.id !== id),
+    })),
 
-      setTargetLpa: (targetLpa) => set({ targetLpa }),
+  setTargetLpa: (targetLpa) => set({ targetLpa }),
 
-      setSelectedTier: (selectedTier) => set({ selectedTier }),
+  setSelectedTier: (selectedTier) => set({ selectedTier }),
 
-      resetSalaryTool: () => set({ ...DEFAULT_STATE }),
-    }),
-    {
-      name: 'hireflow_tool_salary_v3',
-      version: 3,
-      migrate: (persisted: any) => {
-        if (!persisted) return DEFAULT_STATE;
-        return {
-          ...DEFAULT_STATE,
-          ...persisted,
-          version: 3,
-        };
-      },
-    }
-  )
-);
+  resetSalaryTool: () => set({ ...DEFAULT_STATE }),
+}));

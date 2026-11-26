@@ -283,9 +283,9 @@ export const DataProvenanceModal: React.FC<DataProvenanceModalProps> = ({
 
                 <div className="space-y-3 font-mono text-[11px]">
                   <div className="p-3.5 bg-black border border-charcoal rounded-lg space-y-1.5">
-                    <span className="font-bold text-white uppercase tracking-wider block">1. What Data Stays on Your Device</span>
+                    <span className="font-bold text-white uppercase tracking-wider block">1. Data Residency & Privacy Architecture</span>
                     <p className="text-silver/90">
-                      All resume text, target role selections, and audit results are stored locally in your browser memory (localStorage and IndexedDB). By default, HireFlow makes zero external network calls and transmits no candidate data to cloud servers or third-party trackers.
+                      Guest mode analyzes resumes purely in transient page memory with zero browser storage persistence. When signed in with Google via Supabase Auth, your resumes, audits, targets, and uploaded files are stored privately under your authenticated account protected by Row Level Security.
                     </p>
                   </div>
 

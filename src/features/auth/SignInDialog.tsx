@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+// ============================================================
+// HireFlow — Google OAuth Sign-In Dialog (Zero Demo Bypasses)
+// ============================================================
+
+import React, { useState } from 'react';
+import { X, ShieldAlert } from 'lucide-react';
 import { useAuthStore } from './useAuthStore';
-import { isAuthConfigured } from './supabaseClient';
-import { demoAvailability } from './demoAuth';
-import { X } from 'lucide-react';
+import { isSupabaseRuntimeConfigured, getSupabaseConfigStatus } from './supabaseClient';
 
 interface SignInDialogProps {
   isOpen: boolean;
@@ -11,110 +14,111 @@ interface SignInDialogProps {
 }
 
 export const SignInDialog: React.FC<SignInDialogProps> = ({ isOpen, onClose, returnTo }) => {
-  const { signInWithDemo, signInWithGoogle, status } = useAuthStore();
-  const modalRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-
-  const avail = demoAvailability(import.meta.env);
-  const showGoogle = isAuthConfigured && import.meta.env.VITE_GOOGLE_AUTH === '1';
-  const isLoading = status === 'loading';
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    // Focus heading on open
-    headingRef.current?.focus();
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle);
+  const dialogReason = useAuthStore((s) => s.dialogReason);
+  const authError = useAuthStore((s) => s.error);
+  const [busy, setBusy] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleDemoSignIn = async () => {
-    await signInWithDemo();
-    onClose();
-  };
+  const configured = isSupabaseRuntimeConfigured();
+  const configStatus = getSupabaseConfigStatus();
 
-  const handleGoogleSignIn = async () => {
-    await signInWithGoogle(returnTo);
+  const handleGoogle = async () => {
+    setBusy(true);
+    try {
+      await signInWithGoogle(returnTo);
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050504]/75 backdrop-blur-[3px] animate-in fade-in duration-150"
-      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="signin-dialog-title"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4"
     >
-      <div
-        ref={modalRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="signin-title"
-        tabIndex={-1}
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[440px] p-8 rounded-2xl bg-[#10100d] border border-[#24241c] text-[#f1f1e8] shadow-2xl focus:outline-none"
-      >
-        <button
-          onClick={onClose}
-          aria-label="Close sign in dialog"
-          className="absolute top-4 right-4 w-9 h-9 rounded-full border border-[#24241c] text-[#9b9b8c] hover:text-[#f1f1e8] hover:border-[#faff69]/40 flex items-center justify-center transition-colors focus:ring-2 focus:ring-[#faff69]"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
-        <div className="font-mono text-[11px] font-semibold tracking-wider text-[#6d6d61] uppercase mb-2">
-          HireFlow
+      <div className="w-full max-w-md rounded-2xl border border-white/15 bg-[#121216] text-white p-6 space-y-5 shadow-2xl">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 id="signin-dialog-title" className="text-lg font-semibold">
+              Sign in with Google
+            </h2>
+            <p className="text-xs text-neutral-400 mt-1">
+              {dialogReason ||
+                'Connect your Google identity via Supabase Auth to save resumes, scans, targets, and files in your private cloud account.'}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close sign in dialog"
+            className="p-1.5 rounded-lg text-neutral-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
-        <h2
-          id="signin-title"
-          ref={headingRef}
-          tabIndex={-1}
-          className="text-2xl font-bold tracking-tight text-[#f1f1e8] mb-2 focus:outline-none"
-        >
-          Sign in to keep your work
-        </h2>
+        {!configured && (
+          <div
+            role="alert"
+            className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-200 space-y-1"
+          >
+            <div className="font-semibold flex items-center gap-1.5">
+              <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Supabase Cloud Authentication Not Configured</span>
+            </div>
+            <p className="text-amber-100/80 leading-relaxed">
+              {configStatus.invalidReason ||
+                `Missing required variable(s): ${configStatus.missingVars.join(', ')}.`}
+            </p>
+          </div>
+        )}
 
-        <p className="text-[14.5px] leading-relaxed text-[#9b9b8c] mb-6">
-          Your scans, targets and plan are saved to your account and follow you across devices.
-        </p>
+        {authError && (
+          <div
+            role="alert"
+            className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-200"
+          >
+            {authError}
+          </div>
+        )}
 
         <div className="space-y-3">
-          {avail.enabled && (
-            <button
-              onClick={handleDemoSignIn}
-              disabled={isLoading}
-              className="w-full h-[42px] px-5 rounded-full font-bold text-sm bg-[#faff69] text-[#090907] hover:bg-[#ebf059] transition-colors focus:outline-none focus:ring-2 focus:ring-[#faff69] disabled:opacity-50"
-            >
-              {isLoading ? 'Connecting...' : 'Continue with the demo account'}
-            </button>
-          )}
+          <button
+            type="button"
+            disabled={busy}
+            onClick={handleGoogle}
+            className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-neutral-100 disabled:opacity-50 text-black text-sm font-semibold flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
+          >
+            <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+              <path
+                fill="#EA4335"
+                d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.3 9 5 12 5z"
+              />
+              <path
+                fill="#4285F4"
+                d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5.1 3.7-8.8z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.8s.2-2.1.4-2.8L1.9 6.3C.7 8.7 0 10.3 0 12s.7 3.3 1.9 5.7l3.7-2.9z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2.3-6.4-5.2L1.9 16C3.7 19.7 7.5 23 12 23z"
+              />
+            </svg>
+            <span>{busy ? 'Redirecting to Google...' : 'Continue with Google'}</span>
+          </button>
 
-          {showGoogle && (
-            <button
-              onClick={handleGoogleSignIn}
-              disabled={isLoading}
-              className="w-full h-[42px] px-5 rounded-full font-bold text-sm border border-[#24241c] bg-[#16160f] text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#faff69] disabled:opacity-50"
-            >
-              Continue with Google
-            </button>
-          )}
-        </div>
-
-        <div className="mt-5 p-3.5 rounded-lg border border-[#24241c] bg-[#16160f]/60 flex items-start gap-2.5 text-[13px] leading-relaxed text-[#9b9b8c]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#faff69] mt-1.5 flex-none" />
-          <span>
-            The demo account is shared and comes with sample data, so please do not enter personal details. Guests can still use every tool without signing in; nothing leaves your device.
-          </span>
+          <p className="text-[11px] text-neutral-400 leading-relaxed text-center">
+            Guest mode runs purely in transient page memory — closing or reloading the tab clears unauthenticated scans unless signed in.
+          </p>
         </div>
       </div>
     </div>
   );
 };
-

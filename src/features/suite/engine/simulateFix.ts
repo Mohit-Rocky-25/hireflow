@@ -28,6 +28,7 @@ export interface SimulationFacts {
   requiredYears?: number;
   targetTier?: any;
   baseScore?: number;
+  seniorityMatchResult?: import('../../ats/engine/seniorityMatcher').SeniorityMatchResult;
 }
 
 /**
@@ -49,12 +50,13 @@ export function simulateFix(
     candidateYears: facts.candidateYears ?? 0,
     requiredYears: facts.requiredYears ?? (facts.candidateYears ?? 0),
     targetTier: facts.targetTier || 'top_product',
+    seniorityMatchResult: facts.seniorityMatchResult,
   });
 
+  // Deep clone skillResults array
   const baseComputed = baseResult.score;
   const scoreBefore = facts.baseScore !== undefined ? facts.baseScore : baseComputed;
 
-  // Deep clone skillResults array
   const simulatedSkills: SkillResult[] = facts.skillResults.map((s) => {
     if (s.skillId === skillId) {
       return {
@@ -78,6 +80,7 @@ export function simulateFix(
     candidateYears: facts.candidateYears ?? 0,
     requiredYears: facts.requiredYears ?? (facts.candidateYears ?? 0),
     targetTier: facts.targetTier || 'top_product',
+    seniorityMatchResult: facts.seniorityMatchResult,
   });
 
   const skillDelta = (simulatedResult.subscores.mustHaveCoverage - baseResult.subscores.mustHaveCoverage) +

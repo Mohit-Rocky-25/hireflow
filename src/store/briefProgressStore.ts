@@ -1,17 +1,10 @@
-/**
- * HireFlow v4: Build Briefs Progress Store (D17)
- * Tracks user progress per project brief ('planned' | 'building' | 'done')
- * and integrates with the candidate's shared active resume ledger.
- */
+// ============================================================
+// HireFlow — Build Briefs Progress Store (In-Memory + Cloud)
+// ============================================================
 
 import { create } from 'zustand';
-import { storage } from '../lib/storage';
-import { BriefProgressStoreSchema, BriefProgressStoreData, BriefProgressItemSchema } from '../types/schemas-v4';
 import { nowIso } from '../lib/safeUtils';
-import { registerBackupSection } from '../lib/backup/registry';
 import { useProfileStore } from './profileStore';
-
-const STORAGE_KEY = 'brief-progress';
 
 export type BriefStatus = 'planned' | 'building' | 'done';
 
@@ -33,13 +26,8 @@ export interface BriefProgressState {
   clearProgress: () => void;
 }
 
-function loadInitialState(): BriefProgressStoreData {
-  const loaded = storage.get(STORAGE_KEY, BriefProgressStoreSchema);
-  return loaded || { progress: {} };
-}
-
 export const useBriefProgressStore = create<BriefProgressState>((set, get) => ({
-  progress: loadInitialState().progress,
+  progress: {},
 
   getStatus: (briefId: string) => {
     return get().progress[briefId]?.status || 'planned';
@@ -56,11 +44,7 @@ export const useBriefProgressStore = create<BriefProgressState>((set, get) => ({
         updatedAt: now,
       },
     };
-
-    const saved = storage.set(STORAGE_KEY, { progress: updated });
-    if (saved) {
-      set({ progress: updated });
-    }
+    set({ progress: updated });
   },
 
   addProjectToResumeLedger: (brief) => {
@@ -77,8 +61,7 @@ export const useBriefProgressStore = create<BriefProgressState>((set, get) => ({
       `Authored comprehensive unit/integration test suite, achieving [METRIC: 92% code coverage] and automated CI verification.`,
     ];
 
-    const currentProjects = ((activeResume.ledger?.projects as Array<{ name: string; techStack?: string[]; bullets?: string[] }>) || []);
-    // Prevent duplicate project entry
+    const currentProjects = (activeResume.ledger?.projects as Array<{ name: string; techStack?: string[]; bullets?: string[] }>) || [];
     if (currentProjects.some((p: { name: string }) => p.name && p.name.toLowerCase() === brief.title.toLowerCase())) {
       return true;
     }
@@ -98,33 +81,12 @@ export const useBriefProgressStore = create<BriefProgressState>((set, get) => ({
       ...activeResume,
       ledger: updatedLedger,
     });
-    // Automatically set brief status to 'done'
+
     get().setStatus(brief.id, 'done');
     return true;
   },
 
   clearProgress: () => {
-    storage.set(STORAGE_KEY, { progress: {} });
     set({ progress: {} });
   },
 }));
-
-registerBackupSection<BriefProgressStoreData>({
-  key: 'briefProgress',
-  schema: BriefProgressStoreSchema,
-  version: 1,
-  export: () => ({ progress: useBriefProgressStore.getState().progress }),
-  import: (data: BriefProgressStoreData, mode) => {
-    if (mode === 'replace') {
-      storage.set(STORAGE_KEY, data);
-      useBriefProgressStore.setState({ progress: data.progress });
-      return true;
-    } else {
-      const current = useBriefProgressStore.getState().progress;
-      const merged = { ...current, ...data.progress };
-      storage.set(STORAGE_KEY, { progress: merged });
-      useBriefProgressStore.setState({ progress: merged });
-      return true;
-    }
-  },
-});

@@ -10,32 +10,12 @@ const STORAGE_KEY = 'hireflow.suite.v1.opportunity_plan';
 const memStore = new Map<string, string>();
 
 function safeGet(): string | null {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      return localStorage.getItem(STORAGE_KEY);
-    }
-    return memStore.get(STORAGE_KEY) ?? null;
-  } catch (err) {
-    console.warn('[CredentialsStorage] Failed to read from storage:', err);
-    return null;
-  }
+  return memStore.get(STORAGE_KEY) ?? null;
 }
 
 function safeSet(val: string): boolean {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(STORAGE_KEY, val);
-      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
-        window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: STORAGE_KEY } }));
-      }
-      return true;
-    }
-    memStore.set(STORAGE_KEY, val);
-    return true;
-  } catch (err) {
-    console.warn('[CredentialsStorage] Failed to write to storage:', err);
-    return false;
-  }
+  memStore.set(STORAGE_KEY, val);
+  return true;
 }
 
 export const CredentialsStorage = {
@@ -109,9 +89,7 @@ export const CredentialsStorage = {
     expectedDate?: string;
   } {
     try {
-      const raw = typeof localStorage !== 'undefined'
-        ? localStorage.getItem(`hireflow.suite.v1.truth.${opportunityId}`)
-        : memStore.get(`hireflow.suite.v1.truth.${opportunityId}`);
+      const raw = memStore.get(`hireflow.suite.v1.truth.${opportunityId}`);
       if (raw) {
         return JSON.parse(raw);
       }
@@ -133,16 +111,13 @@ export const CredentialsStorage = {
   ): void {
     try {
       const str = JSON.stringify(details);
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem(`hireflow.suite.v1.truth.${opportunityId}`, str);
-        if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
-          window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: `hireflow.suite.v1.truth.${opportunityId}` } }));
-        }
-      } else {
-        memStore.set(`hireflow.suite.v1.truth.${opportunityId}`, str);
-      }
+      memStore.set(`hireflow.suite.v1.truth.${opportunityId}`, str);
     } catch (err) {
       console.warn('[CredentialsStorage] Failed to save truth details:', err);
     }
+  },
+
+  clearAll(): void {
+    memStore.clear();
   },
 };

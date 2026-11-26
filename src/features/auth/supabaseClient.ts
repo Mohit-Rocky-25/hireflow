@@ -1,33 +1,47 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/lib/supabase/database.types';
+import {
+  getSupabaseConfigStatus,
+  requireSupabaseEnv,
+  getAuthRedirectUrl,
+  PRIVATE_DOCUMENT_BUCKET,
+} from '@/lib/supabase/env';
 
 let clientPromise: Promise<SupabaseClient<Database>> | null = null;
+let cachedEnvSignature = '';
 
-const envUrl = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_URL : process.env.VITE_SUPABASE_URL;
-const envAnonKey = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_SUPABASE_ANON_KEY : process.env.VITE_SUPABASE_ANON_KEY;
+const initialStatus = getSupabaseConfigStatus();
+export const isAuthConfigured = initialStatus.configured;
 
-export const isAuthConfigured = Boolean(envUrl && envAnonKey);
+export { getSupabaseConfigStatus, getAuthRedirectUrl, PRIVATE_DOCUMENT_BUCKET };
+
+export function isSupabaseRuntimeConfigured(): boolean {
+  return getSupabaseConfigStatus().configured;
+}
 
 export function getSupabase(): Promise<SupabaseClient<Database>> {
-  if (!isAuthConfigured) {
-    throw new Error('AUTH_NOT_CONFIGURED');
-  }
+  const { url, anonKey } = requireSupabaseEnv();
+  const sig = `${url}|${anonKey.slice(0, 8)}`;
 
-  clientPromise ??= import('@supabase/supabase-js').then(({ createClient }) =>
-    createClient<Database>(envUrl as string, envAnonKey as string, {
-      auth: {
-        flowType: 'pkce',
-        detectSessionInUrl: true,
-        persistSession: true,
-        autoRefreshToken: true,
-      },
-    })
-  );
+  if (!clientPromise || cachedEnvSignature !== sig) {
+    cachedEnvSignature = sig;
+    clientPromise = import('@supabase/supabase-js').then(({ createClient }) =>
+      createClient<Database>(url, anonKey, {
+        auth: {
+          flowType: 'pkce',
+          detectSessionInUrl: true,
+          persistSession: true,
+          autoRefreshToken: true,
+        },
+      })
+    );
+  }
 
   return clientPromise;
 }
 
-/** Reset for testing only */
+/** Reset for testing or account/config switches */
 export function _resetSupabaseClient(): void {
   clientPromise = null;
+  cachedEnvSignature = '';
 }

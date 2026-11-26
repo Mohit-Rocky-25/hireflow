@@ -61,11 +61,6 @@ import { PLATFORM_RULES } from '../../reach-out/data/platformRules';
 
 const ALL_TEMPLATES = templatesRaw as OutreachTemplateV2[];
 
-// LocalStorage Persistence Keys
-const STORAGE_PREMIUM_KEY = 'hireflow:reachout:isPremiumLinkedIn';
-const STORAGE_DRAFT_KEY = 'hireflow:reachout:draft_v2';
-const STORAGE_TEMPLATE_KEY = 'hireflow:reachout:selectedTemplateId';
-
 // Channel Navigation Meta
 export interface ChannelMeta {
   id: string;
@@ -187,24 +182,11 @@ function downloadTextFile(filename: string, content: string) {
 export function ReachOutPage() {
   const { profile } = useProfile();
 
-  // 1. LinkedIn Free vs Premium Toggle (Evidence E1 & Decision D5)
-  const [isPremiumLinkedIn, setIsPremiumLinkedIn] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_PREMIUM_KEY);
-      return saved === 'true';
-    } catch {
-      return false;
-    }
-  });
+  // 1. LinkedIn Free vs Premium Toggle
+  const [isPremiumLinkedIn, setIsPremiumLinkedIn] = useState<boolean>(false);
 
   const toggleLinkedInMode = (premium: boolean) => {
     setIsPremiumLinkedIn(premium);
-    try {
-      localStorage.setItem(STORAGE_PREMIUM_KEY, String(premium));
-      if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('hireflow:data-changed'));
-    } catch {
-      // safe fallback
-    }
   };
 
   // Platform Rules Collapsible Section State (Default CLOSED per user requirement)
@@ -213,16 +195,8 @@ export function ReachOutPage() {
   const [showPlatformRulesModal, setShowPlatformRulesModal] = useState<boolean>(false);
   const [platformRulesSearch, setPlatformRulesSearch] = useState<string>('');
 
-  // 2. Draft Slots State (Local-only persistence per H1 & Stage 5.2)
-  const [slots, setSlots] = useState<OutreachSlotsV2>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_DRAFT_KEY);
-      if (saved) return JSON.parse(saved);
-    } catch {
-      // safe fallback
-    }
-    return DEFAULT_SLOTS;
-  });
+  // 2. Draft Slots State (In-memory; durable drafts live in Supabase `outreach_drafts`)
+  const [slots, setSlots] = useState<OutreachSlotsV2>(DEFAULT_SLOTS);
 
   // Sync profile data if loaded
   useEffect(() => {
@@ -234,36 +208,10 @@ export function ReachOutPage() {
         college: profile.education?.[0]?.institution || prev.college,
       }));
     }
-
-    const handleCloudSync = () => {
-      try {
-        const savedDraft = localStorage.getItem(STORAGE_DRAFT_KEY);
-        if (savedDraft) setSlots(JSON.parse(savedDraft));
-        const savedPremium = localStorage.getItem(STORAGE_PREMIUM_KEY);
-        if (savedPremium !== null) setIsPremiumLinkedIn(savedPremium === 'true');
-        const savedTpl = localStorage.getItem(STORAGE_TEMPLATE_KEY);
-        if (savedTpl) setSelectedTemplateId(savedTpl);
-      } catch { /* ignore */ }
-    };
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('hireflow:cloud-synced', handleCloudSync);
-      return () => window.removeEventListener('hireflow:cloud-synced', handleCloudSync);
-    }
   }, [profile]);
 
-  // Persist slot edits locally
   const handleSlotChange = (field: keyof OutreachSlotsV2, value: string | number) => {
-    setSlots((prev) => {
-      const updated = { ...prev, [field]: value };
-      try {
-        localStorage.setItem(STORAGE_DRAFT_KEY, JSON.stringify(updated));
-        if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('hireflow:data-changed'));
-      } catch {
-        // quota ignore
-      }
-      return updated;
-    });
+    setSlots((prev) => ({ ...prev, [field]: value }));
   };
 
   // 3. Selection & Filtering State (Channel-Wise Opening)
@@ -273,15 +221,9 @@ export function ReachOutPage() {
   const [filterRecipient, setFilterRecipient] = useState<string>('all');
   const [bottomTab, setBottomTab] = useState<'quality' | 'strategy' | 'guidance'>('quality');
 
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_TEMPLATE_KEY);
-      if (saved && ALL_TEMPLATES.some((t) => t.id === saved)) return saved;
-    } catch {
-      // ignore
-    }
-    return ALL_TEMPLATES.find((t) => t.channel === 'linkedin_connect')?.id || 'recruiter-direct-note';
-  });
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(
+    ALL_TEMPLATES.find((t) => t.channel === 'linkedin_connect')?.id || 'recruiter-direct-note'
+  );
 
   const [variantIndex, setVariantIndex] = useState<number>(0);
   const [copiedNote, setCopiedNote] = useState<boolean>(false);
@@ -301,11 +243,6 @@ export function ReachOutPage() {
       if (!isCurrentInChannel && channelTemplates.length > 0) {
         setSelectedTemplateId(channelTemplates[0].id);
         setVariantIndex(0);
-        try {
-          localStorage.setItem(STORAGE_TEMPLATE_KEY, channelTemplates[0].id);
-        } catch {
-          // ignore
-        }
       }
     }
   };
@@ -314,11 +251,6 @@ export function ReachOutPage() {
     setSelectedTemplateId(id);
     setVariantIndex(0);
     setShowTemplateBrowser(false);
-    try {
-      localStorage.setItem(STORAGE_TEMPLATE_KEY, id);
-    } catch {
-      // ignore
-    }
   };
 
   // 4. Filter Templates for active channel
@@ -444,15 +376,9 @@ export function ReachOutPage() {
   };
 
   const handleResetData = () => {
-    if (window.confirm('Reset Reach Out data to default state? This will clear locally stored drafts.')) {
+    if (window.confirm('Reset Reach Out draft slots to default state?')) {
       setSlots(DEFAULT_SLOTS);
       setIsPremiumLinkedIn(false);
-      try {
-        localStorage.removeItem(STORAGE_DRAFT_KEY);
-        localStorage.removeItem(STORAGE_PREMIUM_KEY);
-      } catch {
-        // ignore
-      }
     }
   };
 

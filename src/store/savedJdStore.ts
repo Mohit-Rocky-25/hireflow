@@ -1,16 +1,18 @@
-/**
- * HireFlow v4: Saved Job Description Library Store (A4.1, A4.2)
- * Local library for saving, deduplicating, and tagging target job descriptions.
- * Strict candidate scope: zero tracker or application-status fields. Max 40 JDs.
- */
+// ============================================================
+// HireFlow — Saved Job Description Library Store
+// Cloud-first (Supabase `saved_jds`) with in-memory UI state.
+// Zero localStorage persistence or silent local fallback.
+// ============================================================
 
 import { create } from 'zustand';
-import { storage } from '../lib/storage';
 import { LIMITS } from '../config/limits';
 import { createId, nowIso, hashText } from '../lib/safeUtils';
-import { SavedJD, SavedJDStoreSchema, SavedJDStoreData } from '../types/schemas-v4';
-import { registerBackupSection } from '../lib/backup/registry';
+import { SavedJD } from '../types/schemas-v4';
 import { toast } from '../components/ui/Toast';
+import { useAuthStore } from '@/features/auth/useAuthStore';
+import { getCloudGateway } from '@/sync/supabaseGateway';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
 
 export interface NewJdInput {
   title: string;
@@ -35,33 +37,27 @@ export interface SavedJdState {
   getJdByHash: (hash: string) => SavedJD | undefined;
 }
 
-const STORAGE_KEY = 'saved_jds';
-
-function loadInitialJds(): SavedJDStoreData {
-  const saved = storage.get<SavedJDStoreData>(STORAGE_KEY, SavedJDStoreSchema);
-  if (saved) {
-    return saved;
+function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
+  const auth = useAuthStore.getState();
+  if (auth.status === 'authenticated' && auth.userId && getCloudGateway().isConfigured()) {
+    return { enabled: true, userId: auth.userId };
   }
-  return { jds: [] };
+  return { enabled: false, userId: null };
 }
 
-const initialData = loadInitialJds();
-
 export const useSavedJdStore = create<SavedJdState>((set, get) => ({
-  jds: initialData.jds,
+  jds: [],
 
   saveJd: (input) => {
     const current = get();
     const textHash = hashText(input.text.trim());
 
-    // 1. Deduplication check
     const existing = current.jds.find((j) => j.textHash === textHash);
     if (existing) {
       toast('info', `This JD is already in your library as "${existing.title}".`);
       return { id: existing.id, isDuplicate: true, capReached: false };
     }
 
-    // 2. Cap check (max 40)
     if (current.jds.length >= LIMITS.maxSavedJDs) {
       toast(
         'warning',
@@ -83,27 +79,82 @@ export const useSavedJdStore = create<SavedJdState>((set, get) => ({
       updatedAt: now,
     };
 
-    const nextJds = [newJd, ...current.jds];
+    const prevJds = current.jds;
+    const nextJds = [newJd, ...prevJds];
     set({ jds: nextJds });
-    storage.set<SavedJDStoreData>(STORAGE_KEY, { jds: nextJds });
-    toast('success', `Saved "${newJd.title}" to your JD library.`);
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository
+        .saveSavedJd(cloud.userId, newJd)
+        .then(() => {
+          toast('success', `Saved "${newJd.title}" to your cloud JD library.`);
+        })
+        .catch((err) => {
+          set({ jds: prevJds });
+          const msg = err instanceof Error ? err.message : 'Failed to save job description to cloud.';
+          toast('error', msg);
+          useCloudSyncStore.getState().setError(`save JD "${newJd.title}"`, msg, async () => {
+            await cloudRepository.saveSavedJd(cloud.userId!, newJd);
+            set((state) => ({ jds: [newJd, ...state.jds.filter((j) => j.id !== newJd.id)] }));
+          });
+        });
+    } else {
+      toast('success', `Added "${newJd.title}" to session JD library.`);
+    }
 
     return { id: newJd.id, isDuplicate: false, capReached: false };
   },
 
   deleteJd: (id) => {
-    const nextJds = get().jds.filter((j) => j.id !== id);
-    set({ jds: nextJds });
-    storage.set<SavedJDStoreData>(STORAGE_KEY, { jds: nextJds });
-    toast('info', 'Job description removed from library.');
+    const prevJds = get().jds;
+    set({ jds: prevJds.filter((j) => j.id !== id) });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository
+        .deleteSavedJd(cloud.userId, id)
+        .then(() => {
+          toast('info', 'Job description removed from cloud library.');
+        })
+        .catch((err) => {
+          set({ jds: prevJds });
+          const msg = err instanceof Error ? err.message : 'Failed to delete saved JD from cloud.';
+          toast('error', msg);
+          useCloudSyncStore.getState().setError('delete saved JD', msg, async () => {
+            get().deleteJd(id);
+          });
+        });
+    } else {
+      toast('info', 'Job description removed from session library.');
+    }
   },
 
   updateJd: (id, updates) => {
-    const nextJds = get().jds.map((j) =>
-      j.id === id ? { ...j, ...updates, updatedAt: nowIso() } : j
-    );
+    const prevJds = get().jds;
+    const now = nowIso();
+    let updatedItem: SavedJD | null = null;
+    const nextJds = prevJds.map((j) => {
+      if (j.id !== id) return j;
+      updatedItem = { ...j, ...updates, updatedAt: now };
+      return updatedItem;
+    });
     set({ jds: nextJds });
-    storage.set<SavedJDStoreData>(STORAGE_KEY, { jds: nextJds });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId && updatedItem) {
+      const target = updatedItem;
+      void cloudRepository.saveSavedJd(cloud.userId, target).catch((err) => {
+        set({ jds: prevJds });
+        useCloudSyncStore.getState().setError(
+          'update saved JD',
+          err instanceof Error ? err.message : 'Failed to update saved JD.',
+          async () => {
+            get().updateJd(id, updates);
+          }
+        );
+      });
+    }
   },
 
   getJdById: (id) => {
@@ -114,32 +165,3 @@ export const useSavedJdStore = create<SavedJdState>((set, get) => ({
     return get().jds.find((j) => j.textHash === hash);
   },
 }));
-
-// Register with backup registry
-registerBackupSection<SavedJDStoreData>({
-  key: 'saved_jds',
-  schema: SavedJDStoreSchema,
-  version: 1,
-  export: () => ({ jds: useSavedJdStore.getState().jds }),
-  import: (data, mode) => {
-    if (mode === 'replace') {
-      useSavedJdStore.setState({ jds: data.jds });
-      storage.set<SavedJDStoreData>(STORAGE_KEY, data);
-      return true;
-    } else {
-      const current = useSavedJdStore.getState();
-      const existingHashes = new Set(current.jds.map((j) => j.textHash));
-      const merged = [...current.jds];
-
-      for (const j of data.jds) {
-        if (!existingHashes.has(j.textHash) && merged.length < LIMITS.maxSavedJDs) {
-          merged.push(j);
-        }
-      }
-
-      useSavedJdStore.setState({ jds: merged });
-      storage.set<SavedJDStoreData>(STORAGE_KEY, { jds: merged });
-      return true;
-    }
-  },
-});

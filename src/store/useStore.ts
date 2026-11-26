@@ -1,16 +1,24 @@
 // ============================================================
-// HireFlow — Global State Store (Zustand + localStorage)
+// HireFlow — Global In-Memory UI Session Store
+// Durable candidate state lives in Supabase Postgres & Storage.
+// Zero browser localStorage / IndexedDB persistence.
 // ============================================================
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import type {
   User, Company, CompanyMember, Job, Application,
   CandidateProfile, CandidateMatch, Interview, Notification, AuditLog
 } from '../types';
 import { generateDemoData } from './demoData';
-import { hashPassword, verifyPassword } from '../lib/security';
+import { users as seededDemoUsers } from './seedUsers';
+import { useAtsToolStore } from './tools/atsStore';
+import {
+  purgeLegacyBrowserUserData,
+  purgeInsecureLegacyCredentialKeys,
+} from '../features/auth/useAuthStore';
 import type { AppState } from './types';
 export type { AppState } from './types';
+
+const SEEDED_DEMO_USER_IDS = new Set(seededDemoUsers.map((u) => u.id));
 
 
 function genId(): string {
@@ -21,20 +29,10 @@ function now(): string {
   return new Date().toISOString();
 }
 
-// Clean up any legacy plaintext passwords stored in localStorage (SEC-001 remediation)
-if (typeof window !== 'undefined' && window.localStorage) {
-  try {
-    for (let i = localStorage.length - 1; i >= 0; i--) {
-      const key = localStorage.key(i);
-      if (key && key.startsWith('pw_')) {
-        localStorage.removeItem(key);
-      }
-    }
-  } catch {}
-}
+// Purge only stale legacy plaintext password or insecure offline simulation keys on startup
+purgeInsecureLegacyCredentialKeys();
 
 export const useStore = create<AppState>()(
-  persist(
     (set, get) => ({
       // Initial state
       currentUser: null,
@@ -58,28 +56,23 @@ export const useStore = create<AppState>()(
         const user = state.users.find(u => u.email.toLowerCase() === email.toLowerCase());
         if (!user) return null;
 
-        // Check stored salted hash (SEC-001 defense: never plaintext)
-        const storedHash = (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem(`hf_hash_${user.id}`) : null) ||
-                           (typeof localStorage !== 'undefined' ? localStorage.getItem(`hf_hash_${user.id}`) : null);
+        const isDemo =
+          email.toLowerCase().startsWith('demo-') ||
+          user.email.toLowerCase().startsWith('demo-') ||
+          SEEDED_DEMO_USER_IDS.has(user.id);
 
-        const isDemo = email.toLowerCase().startsWith('demo-') || user.email.toLowerCase().startsWith('demo-');
-
-        if (storedHash) {
-          const valid = verifyPassword(password, storedHash) || (isDemo && (password === 'password123' || password === 'demo123'));
-          if (!valid) return null;
-        } else if (isDemo) {
-          if (password !== 'password123' && password !== 'demo123') return null;
+        if (!isDemo || (password !== 'password123' && password !== 'demo123')) {
+          return null;
         }
 
         set({ currentUser: user, isAuthenticated: true });
-        // Set company context if user has one
         if (user.companyId) {
           set({ currentCompanyId: user.companyId });
         }
         return user;
       },
 
-      register: (userData, password) => {
+      register: (userData, _password) => {
         const user: User = {
           ...userData,
           id: genId(),
@@ -87,16 +80,6 @@ export const useStore = create<AppState>()(
           createdAt: now(),
           updatedAt: now(),
         };
-        // Store salted hash, NEVER plaintext password (SEC-001 remediation)
-        const pwHash = hashPassword(password);
-        try {
-          if (typeof sessionStorage !== 'undefined') {
-            sessionStorage.setItem(`hf_hash_${user.id}`, pwHash);
-          }
-          if (typeof localStorage !== 'undefined') {
-            localStorage.setItem(`hf_hash_${user.id}`, pwHash);
-          }
-        } catch {}
 
         set(s => ({
           users: [...s.users, user],
@@ -107,23 +90,14 @@ export const useStore = create<AppState>()(
       },
 
       logout: () => {
-        try {
-          if (typeof sessionStorage !== 'undefined') {
-            sessionStorage.clear();
-          }
-        } catch {}
+        useAtsToolStore.getState().resetAtsTool();
+        purgeLegacyBrowserUserData();
         set({ currentUser: null, isAuthenticated: false, currentCompanyId: null });
       },
 
       clearAllUserData: () => {
-        try {
-          if (typeof localStorage !== 'undefined') {
-            localStorage.clear();
-          }
-          if (typeof sessionStorage !== 'undefined') {
-            sessionStorage.clear();
-          }
-        } catch {}
+        useAtsToolStore.getState().resetAtsTool();
+        purgeLegacyBrowserUserData();
         set({
           currentUser: null,
           isAuthenticated: false,
@@ -400,40 +374,10 @@ export const useStore = create<AppState>()(
           notifications: demo.notifications,
           _initialized: true,
         });
-        // Store demo hashed passwords (SEC-001 defense: never plaintext)
-        const demoHash = hashPassword('password123');
-        demo.users?.forEach((u: any) => {
-          try {
-            if (typeof sessionStorage !== 'undefined') {
-              sessionStorage.setItem(`hf_hash_${u.id}`, demoHash);
-            }
-            if (typeof localStorage !== 'undefined') {
-              localStorage.setItem(`hf_hash_${u.id}`, demoHash);
-            }
-          } catch {}
-        });
+        // Seeded demo accounts authenticate via SEEDED_DEMO_USER_IDS fallback in login(),
+        // so we do not eagerly write hf_hash_* entries across browser storage on startup.
       },
-    }),
-    {
-      name: 'hireflow-storage-v4',
-      partialize: (state) => ({
-        users: state.users,
-        companies: state.companies,
-        companyMembers: state.companyMembers,
-        jobs: state.jobs,
-        applications: state.applications,
-        candidateProfiles: state.candidateProfiles,
-        candidateMatches: state.candidateMatches,
-        interviews: state.interviews,
-        notifications: state.notifications,
-        auditLogs: state.auditLogs,
-        currentUser: state.currentUser,
-        isAuthenticated: state.isAuthenticated,
-        currentCompanyId: state.currentCompanyId,
-        _initialized: state._initialized,
-      }),
-    }
-  )
+    })
 );
 
 function calculateProfileCompletion(profile: Partial<CandidateProfile>): number {

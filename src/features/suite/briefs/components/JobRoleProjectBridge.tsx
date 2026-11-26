@@ -42,25 +42,13 @@ export function JobRoleProjectBridge({
   className = '',
 }: JobRoleProjectBridgeProps) {
   const [activeModalBrief, setActiveModalBrief] = useState<ProjectBrief | null>(null);
-  const [savedBriefIds, setSavedBriefIds] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('hireflow_saved_briefs');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [savedBriefIds, setSavedBriefIds] = useState<string[]>([]);
 
   const handleToggleSave = (id: string) => {
     const next = savedBriefIds.includes(id)
       ? savedBriefIds.filter((x) => x !== id)
       : [...savedBriefIds, id];
     setSavedBriefIds(next);
-    try {
-      localStorage.setItem('hireflow_saved_briefs', JSON.stringify(next));
-    } catch {
-      /* ignore */
-    }
   };
 
   const matchResult: JobRoleProjectMatchResult = useMemo(() => {

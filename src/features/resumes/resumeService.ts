@@ -3,7 +3,6 @@ import type {
   ResumeVersion,
   VersionSource,
   Uuid,
-  Sha256,
   TextSnapshot,
 } from '@/domain/types';
 import {
@@ -14,8 +13,11 @@ import {
 } from '@/domain/limits';
 import { normalizeText, countWords } from '@/lib/text/normalize';
 import { sha256Hex } from '@/lib/crypto/sha256';
-import { kvSet, kvGet } from '@/lib/storage/kv';
-import { getSnapshotKey } from '@/lib/storage/namespace';
+import {
+  cacheSnapshotInMemory,
+  cloudRepository,
+  getCachedSnapshotInMemory,
+} from '@/lib/cloud/cloudRepository';
 
 export interface CreateWorkspaceInput {
   name: string;
@@ -42,6 +44,7 @@ export interface ForkWorkspaceInput {
   name: string;
   roleTrack: string;
   isGuest?: boolean;
+  userId?: string | null;
 }
 
 function makeId(): Uuid {
@@ -68,7 +71,7 @@ export async function createSnapshot(text: string, now = new Date().toISOString(
     wordCount: countWords(normalized),
     createdAt: now,
   };
-  await kvSet(getSnapshotKey(hash), snap);
+  cacheSnapshotInMemory(snap);
   return snap;
 }
 
@@ -88,7 +91,6 @@ export async function createWorkspaceService(
 
   const workspaceId = makeId();
   const versionId = makeId();
-
   const isFirst = activeCount === 0;
 
   const version: ResumeVersion = {
@@ -135,7 +137,6 @@ export async function addVersionService(
   const now = new Date().toISOString();
   const snapshot = await createSnapshot(input.text, now);
 
-  // Deduplication rule: If identical snapshot hash to head AND not an explicit branch, return existing head!
   if (workspace.headVersionId && input.source !== 'branch' && !input.parentVersionId) {
     const headVersion = versions[workspace.headVersionId];
     if (headVersion && headVersion.snapshotHash === snapshot.hash) {
@@ -179,7 +180,9 @@ export async function forkWorkspaceService(
     throw new Error('Source version record not found');
   }
 
-  const sourceSnap = await kvGet<TextSnapshot>(getSnapshotKey(sourceVer.snapshotHash));
+  const sourceSnap =
+    getCachedSnapshotInMemory(sourceVer.snapshotHash) ??
+    (await cloudRepository.fetchSnapshot(sourceVer.snapshotHash, input.userId));
   if (!sourceSnap) {
     throw new Error('Snapshot text not found');
   }

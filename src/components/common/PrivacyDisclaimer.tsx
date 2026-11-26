@@ -34,42 +34,7 @@ export function PrivacyDisclaimer() {
   const [storageItems, setStorageItems] = useState<StorageKeyInfo[]>([]);
 
   const loadStorageInfo = () => {
-    if (typeof window === 'undefined' || !window.localStorage) return;
-    const items: StorageKeyInfo[] = [];
-    try {
-      for (let i = 0; i < window.localStorage.length; i++) {
-        const key = window.localStorage.key(i);
-        if (!key) continue;
-        if (key.startsWith('hireflow')) {
-          const val = window.localStorage.getItem(key) || '';
-          const sizeBytes = new Blob([val]).size;
-          const formattedSize =
-            sizeBytes < 1024
-              ? `${sizeBytes} B`
-              : `${(sizeBytes / 1024).toFixed(1)} KB`;
-
-          let lastUpdated: string | undefined;
-          try {
-            const parsed = JSON.parse(val);
-            if (parsed.state?.lastModified) lastUpdated = parsed.state.lastModified;
-            else if (parsed.state?.timestamp) lastUpdated = new Date(parsed.state.timestamp).toISOString();
-          } catch {
-            // non-json or unparsed
-          }
-
-          items.push({
-            key,
-            sizeBytes,
-            formattedSize,
-            lastUpdated,
-            description: KNOWN_KEY_DESCRIPTIONS[key] || 'Locally cached application state',
-          });
-        }
-      }
-    } catch (err) {
-      console.warn('Unable to inspect localStorage:', err);
-    }
-    setStorageItems(items);
+    setStorageItems([]);
   };
 
   useEffect(() => {
@@ -89,18 +54,9 @@ export function PrivacyDisclaimer() {
 
   const handleClear = () => {
     clearAllUserData();
-    if (typeof window !== 'undefined' && window.localStorage) {
-      // Clean any other hireflow keys
-      const toRemove: string[] = [];
-      for (let i = 0; i < window.localStorage.length; i++) {
-        const k = window.localStorage.key(i);
-        if (k && k.startsWith('hireflow')) toRemove.push(k);
-      }
-      toRemove.forEach((k) => window.localStorage.removeItem(k));
-    }
-    setCleared(true);
-    setShowConfirmClear(false);
     loadStorageInfo();
+    setShowConfirmClear(false);
+    setCleared(true);
     setTimeout(() => {
       setCleared(false);
       setIsOpen(false);

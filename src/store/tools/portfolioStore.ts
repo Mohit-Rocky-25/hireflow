@@ -1,11 +1,8 @@
 // ============================================================
-// HireFlow v3 — Portfolio Candidate Tool Store
-// Projects, evidence artifacts, demo links, tech stacks.
-// Versioned schema with auto-migration.
+// HireFlow — Portfolio Candidate Tool Store (In-Memory)
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface PortfolioProject {
   id: string;
@@ -25,8 +22,7 @@ export interface PortfolioToolState {
   projects: PortfolioProject[];
   customBio: string;
   highlightedSkills: string[];
-  
-  // Actions
+
   addProject: (project: Omit<PortfolioProject, 'id' | 'createdAt'>) => void;
   updateProject: (id: string, updates: Partial<PortfolioProject>) => void;
   deleteProject: (id: string) => void;
@@ -68,50 +64,34 @@ const DEFAULT_STATE = {
   highlightedSkills: ['TypeScript', 'React', 'Node.js', 'Go', 'SQL', 'Docker'],
 };
 
-export const usePortfolioToolStore = create<PortfolioToolState>()(
-  persist(
-    (set) => ({
-      ...DEFAULT_STATE,
+export const usePortfolioToolStore = create<PortfolioToolState>()((set) => ({
+  ...DEFAULT_STATE,
 
-      addProject: (project) =>
-        set((state) => ({
-          projects: [
-            ...state.projects,
-            {
-              ...project,
-              id: 'proj-' + Date.now().toString(36),
-              createdAt: new Date().toISOString(),
-            },
-          ],
-        })),
+  addProject: (project) =>
+    set((state) => ({
+      projects: [
+        ...state.projects,
+        {
+          ...project,
+          id: 'proj-' + Date.now().toString(36),
+          createdAt: new Date().toISOString(),
+        },
+      ],
+    })),
 
-      updateProject: (id, updates) =>
-        set((state) => ({
-          projects: state.projects.map((p) => (p.id === id ? { ...p, ...updates } : p)),
-        })),
+  updateProject: (id, updates) =>
+    set((state) => ({
+      projects: state.projects.map((p) => (p.id === id ? { ...p, ...updates } : p)),
+    })),
 
-      deleteProject: (id) =>
-        set((state) => ({
-          projects: state.projects.filter((p) => p.id !== id),
-        })),
+  deleteProject: (id) =>
+    set((state) => ({
+      projects: state.projects.filter((p) => p.id !== id),
+    })),
 
-      setCustomBio: (bio) => set({ customBio: bio }),
+  setCustomBio: (bio) => set({ customBio: bio }),
 
-      setHighlightedSkills: (skills) => set({ highlightedSkills: skills }),
+  setHighlightedSkills: (skills) => set({ highlightedSkills: skills }),
 
-      resetPortfolioTool: () => set({ ...DEFAULT_STATE }),
-    }),
-    {
-      name: 'hireflow_tool_portfolio_v3',
-      version: 3,
-      migrate: (persisted: any) => {
-        if (!persisted) return DEFAULT_STATE;
-        return {
-          ...DEFAULT_STATE,
-          ...persisted,
-          version: 3,
-        };
-      },
-    }
-  )
-);
+  resetPortfolioTool: () => set({ ...DEFAULT_STATE }),
+}));

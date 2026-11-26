@@ -36,7 +36,7 @@ export const MySpaceSheet: React.FC = () => {
   const myParam = searchParams.get('my');
   const auditId = searchParams.get('audit');
 
-  const { isDemo, demoStorage } = useAuthStore();
+  const { status } = useAuthStore();
   const entries = useAuditStore((s) => s.entries);
   const watchlist = useMySpaceStore((s) => s.watchlist);
   const planItems = useMySpaceStore((s) => s.planItems);
@@ -132,9 +132,9 @@ export const MySpaceSheet: React.FC = () => {
   ];
 
   const syncFooterText =
-    demoStorage === 'local'
-      ? 'Saved on this device only. Demo data is stored in your local browser.'
-      : 'Saved to your demo account. Demo data is shared, so keep personal details out.';
+    status === 'authenticated'
+      ? 'Synced to your Supabase Cloud account across devices.'
+      : 'Running in transient Guest memory — sign in with Google to save privately to the cloud.';
 
   return (
     <>

@@ -64,7 +64,7 @@ interface TailorState {
   wipeAllData: () => void;
 }
 
-const STORAGE_KEY = 'hireflow_tailor_state_v2';
+// Pure in-memory session state (durable resumes/audits persist in Supabase cloud).
 
 function createDefaultProject(): TailoringProject {
   const initialCandidate = parseResumeRawText(DEMO_FRESHER_RESUME, 'Fictional_Candidate_Resume.pdf');
@@ -1075,13 +1075,6 @@ export const useTailorStore = create<TailorState>((set, get) => ({
   },
 
   wipeAllData: () => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.removeItem(STORAGE_KEY);
-      } catch (e) {
-        // ignore storage errors
-      }
-    }
     const freshProject = createDefaultProject();
     set({
       currentStage: 'resume',

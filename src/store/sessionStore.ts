@@ -1,12 +1,9 @@
 // ============================================================
-// HireFlow v3 — Session Store (Candidate Fresher Focus)
-// Single global session store: user identity, preferences,
-// active role mode (strictly candidate-only for freshers).
-// Versioned schema with auto-migration.
+// HireFlow — Session UI State Store (In-Memory)
+// Auth identity lives exclusively in useAuthStore / Supabase Auth.
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export interface FresherProfile {
   id: string;
@@ -33,10 +30,8 @@ export interface SessionState {
   version: number;
   profile: FresherProfile;
   preferences: UserPreferences;
-  // Strictly candidate-only for freshers
   activeRoleMode: 'CANDIDATE_FRESHER';
-  
-  // Actions
+
   updateProfile: (updates: Partial<FresherProfile>) => void;
   updatePreferences: (updates: Partial<UserPreferences>) => void;
   resetSession: () => void;
@@ -55,70 +50,31 @@ const DEFAULT_PROFILE: FresherProfile = {
 
 const DEFAULT_PREFERENCES: UserPreferences = {
   theme: 'dark',
-  telemetryOptOut: true, // Privacy-first default
+  telemetryOptOut: true,
   privacyStrict: true,
   autoSaveIntervalMs: 5000,
 };
 
-export const useSessionStore = create<SessionState>()(
-  persist(
-    (set) => ({
-      version: 3,
+export const useSessionStore = create<SessionState>()((set) => ({
+  version: 4,
+  profile: DEFAULT_PROFILE,
+  preferences: DEFAULT_PREFERENCES,
+  activeRoleMode: 'CANDIDATE_FRESHER',
+
+  updateProfile: (updates) =>
+    set((state) => ({
+      profile: { ...state.profile, ...updates },
+    })),
+
+  updatePreferences: (updates) =>
+    set((state) => ({
+      preferences: { ...state.preferences, ...updates },
+    })),
+
+  resetSession: () =>
+    set({
       profile: DEFAULT_PROFILE,
       preferences: DEFAULT_PREFERENCES,
       activeRoleMode: 'CANDIDATE_FRESHER',
-
-      updateProfile: (updates) =>
-        set((state) => ({
-          profile: { ...state.profile, ...updates },
-        })),
-
-      updatePreferences: (updates) =>
-        set((state) => ({
-          preferences: { ...state.preferences, ...updates },
-        })),
-
-      resetSession: () =>
-        set({
-          profile: DEFAULT_PROFILE,
-          preferences: DEFAULT_PREFERENCES,
-          activeRoleMode: 'CANDIDATE_FRESHER',
-        }),
     }),
-    {
-      name: 'hireflow_session_v3',
-      version: 3,
-      migrate: (persistedState: any, version: number) => {
-        if (!persistedState) {
-          return {
-            version: 3,
-            profile: DEFAULT_PROFILE,
-            preferences: DEFAULT_PREFERENCES,
-            activeRoleMode: 'CANDIDATE_FRESHER',
-          };
-        }
-        if (version < 3) {
-          // Auto-migrate legacy user or profile data
-          const legacy = persistedState as any;
-          const user = legacy.currentUser || legacy.profile || {};
-          return {
-            version: 3,
-            profile: {
-              ...DEFAULT_PROFILE,
-              id: user.id || DEFAULT_PROFILE.id,
-              name: user.name || DEFAULT_PROFILE.name,
-              email: user.email || DEFAULT_PROFILE.email,
-              targetRole: user.title || user.targetRole || DEFAULT_PROFILE.targetRole,
-            },
-            preferences: {
-              ...DEFAULT_PREFERENCES,
-              ...(legacy.preferences || {}),
-            },
-            activeRoleMode: 'CANDIDATE_FRESHER',
-          };
-        }
-        return persistedState as SessionState;
-      },
-    }
-  )
-);
+}));

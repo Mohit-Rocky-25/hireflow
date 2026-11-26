@@ -20,9 +20,6 @@ export function generateDemoData(): Partial<AppState> {
 }
 
 export function resetDemoData() {
-  localStorage.removeItem("hireflow-storage");
-  localStorage.removeItem("hireflow-storage-v2");
-  localStorage.removeItem("hireflow-storage-v3");
-  localStorage.removeItem("hireflow-storage-v4");
+// Obsolete demo data wipe helper — browser user persistence is retired.
   window.location.href = "/";
 }

@@ -1,8 +1,6 @@
 // ============================================================
 // HireFlow — Fresher Intake Modal / Drawer (Stage 4)
-// Optional light local intake for batch year, branch, CGPA, and archetype
-// Stored strictly in localStorage under 'hireflow:v4:fresher-intake'
-// Zero network egress at runtime
+// Optional light in-memory intake for batch year, branch, CGPA, and archetype
 // ============================================================
 
 import React, { useState, useEffect } from 'react';
@@ -18,8 +16,6 @@ export interface FresherIntakeData {
   targetArchetype: ArchetypeId | string;
 }
 
-const STORAGE_KEY = 'hireflow:v4:fresher-intake';
-
 export const DEFAULT_FRESHER_INTAKE: FresherIntakeData = {
   batchYear: 2026,
   branch: 'Computer Science / IT',
@@ -29,21 +25,14 @@ export const DEFAULT_FRESHER_INTAKE: FresherIntakeData = {
   targetArchetype: 'service_track',
 };
 
+let inMemoryFresherIntake: FresherIntakeData = { ...DEFAULT_FRESHER_INTAKE };
+
 export function getFresherIntake(): FresherIntakeData {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? { ...DEFAULT_FRESHER_INTAKE, ...JSON.parse(raw) } : DEFAULT_FRESHER_INTAKE;
-  } catch {
-    return DEFAULT_FRESHER_INTAKE;
-  }
+  return { ...inMemoryFresherIntake };
 }
 
 export function saveFresherIntake(data: FresherIntakeData): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch {
-    // Storage gracefully handled
-  }
+  inMemoryFresherIntake = { ...DEFAULT_FRESHER_INTAKE, ...data };
 }
 
 interface FresherIntakeModalProps {

@@ -73,16 +73,10 @@ export function SavedJdLibraryPage() {
       role: targetJd.title,
     });
 
-    // Store in session storage so Roaster picks it up
-    try {
-      sessionStorage.setItem('hireflow_prefill_jd', targetJd.text);
-      sessionStorage.setItem('hireflow_prefill_jd_title', targetJd.title);
-    } catch {
-      // ignore
-    }
-
     toast('info', `Loaded "${targetJd.title}" into ATS Resume Roaster.`);
-    navigate('/tools/resume-checker');
+    navigate('/tools/resume-checker', {
+      state: { prefillJdText: targetJd.text, prefillJdTitle: targetJd.title },
+    });
   };
 
   const handleToggleSelectForCompare = (jdId: string) => {
@@ -103,16 +97,12 @@ export function SavedJdLibraryPage() {
     }
 
     const selectedJdObjects = jds.filter((j) => selectedForCompare.includes(j.id));
-    try {
-      sessionStorage.setItem(
-        'hireflow_compare_prefill',
-        JSON.stringify(selectedJdObjects.map((j) => ({ title: j.title, text: j.text })))
-      );
-    } catch {
-      // ignore
-    }
-
     toast('success', `Sent ${selectedForCompare.length} JDs to JD Compare.`);
+    navigate('/tools/compare', {
+      state: {
+        comparePrefill: selectedJdObjects.map((j) => ({ title: j.title, text: j.text })),
+      },
+    });
     navigate('/tools/jd-compare');
   };
 

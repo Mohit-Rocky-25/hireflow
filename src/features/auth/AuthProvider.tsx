@@ -1,7 +1,16 @@
+// ============================================================
+// HireFlow — Cloud Session Provider
+// Restores Supabase Auth PKCE session across page reloads, handles
+// token refresh, session expiration, sign-out, and account switches.
+// ============================================================
+
 import React, { useEffect } from 'react';
-import { useAuthStore } from './useAuthStore';
-import { isAuthConfigured, getSupabase } from './supabaseClient';
-import { AUTH_HINT_KEY } from '@/lib/storage/namespace';
+import { getSupabase, isSupabaseRuntimeConfigured } from './supabaseClient';
+import {
+  useAuthStore,
+  purgeInsecureLegacyCredentialKeys,
+} from './useAuthStore';
+import { AUTH_CALLBACK_PATH } from '@/lib/supabase/env';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -9,114 +18,85 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
-    // Mode e2e hook: install fake harness without pulling into normal production
-    if (import.meta.env.MODE === 'e2e') {
-      void import('./e2eHarness')
-        .then(({ installE2eHarness }) => {
-          installE2eHarness();
-        })
-        .catch(() => {});
-      return;
-    }
+    let active = true;
+    let unsubscribeAuth: (() => void) | null = null;
 
-    if (typeof localStorage !== 'undefined') {
-      const demoMode = localStorage.getItem('hireflow:v5:demo-mode');
-      if (demoMode === 'local') {
-        // Local demo mode requires zero network egress
+    // Purge stale legacy plaintext password, offline outbox, or demo harness keys on startup
+    // while keeping pre-cloud user records readable for one-time /data import until erased/imported.
+    purgeInsecureLegacyCredentialKeys();
+
+    const init = async () => {
+      // Strictly non-production test harness (disabled in production bundles)
+      if (!import.meta.env.PROD && import.meta.env.VITE_E2E_AUTH_BYPASS === 'true') {
+        const mod = await import('./e2eHarness');
+        const e2eUser = mod.readE2EHarnessUser();
+        if (e2eUser && active) {
+          useAuthStore.getState().setE2EUser(e2eUser.userId, e2eUser);
+          return;
+        }
+      }
+
+      if (!isSupabaseRuntimeConfigured()) {
+        if (active && typeof window !== 'undefined' && window.location.pathname !== AUTH_CALLBACK_PATH) {
+          useAuthStore.getState().setGuest();
+        }
         return;
       }
-    }
 
-    if (!isAuthConfigured) {
-      return;
-    }
-
-    const hasAuthHint = typeof localStorage !== 'undefined' && localStorage.getItem(AUTH_HINT_KEY) === '1';
-    const isCallbackPage = typeof window !== 'undefined' && window.location.pathname === '/auth/callback';
-
-    // Zero-egress rule C2: Do NOT contact Supabase if guest has no saved auth hint and is not on callback page
-    if (!hasAuthHint && !isCallbackPage) {
-      return;
-    }
-
-    void (async () => {
       try {
         const supabase = await getSupabase();
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error || !session) {
-          if (typeof localStorage !== 'undefined') {
-            localStorage.removeItem(AUTH_HINT_KEY);
-            localStorage.removeItem('hireflow:v5:demo-mode');
-          }
-          useAuthStore.setState({
-            status: 'guest',
-            userId: null,
-            email: null,
-            displayName: null,
-            isDemo: false,
-            demoStorage: null,
-          });
-        } else {
-          const isDemoUser = session.user.email === import.meta.env.VITE_DEMO_EMAIL;
-          useAuthStore.setState({
-            status: 'authenticated',
-            userId: session.user.id,
-            email: session.user.email ?? null,
-            displayName: session.user.user_metadata?.full_name || session.user.user_metadata?.name || 'Mohit',
-            avatarUrl: session.user.user_metadata?.avatar_url || null,
-            isDemo: isDemoUser,
-            demoStorage: isDemoUser ? 'cloud' : null,
-          });
-          if (typeof localStorage !== 'undefined') {
-            localStorage.setItem(AUTH_HINT_KEY, '1');
-            if (isDemoUser) {
-              localStorage.setItem('hireflow:v5:demo-mode', 'cloud');
-            }
-          }
-        }
 
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-          if (session?.user) {
-            const isDemoUser = session.user.email === import.meta.env.VITE_DEMO_EMAIL;
-            useAuthStore.setState({
-              status: 'authenticated',
-              userId: session.user.id,
-              email: session.user.email ?? null,
-              displayName: session.user.user_metadata?.full_name || session.user.user_metadata?.name || 'Mohit',
-              avatarUrl: session.user.user_metadata?.avatar_url || null,
-              isDemo: isDemoUser,
-              demoStorage: isDemoUser ? 'cloud' : null,
-            });
-            if (typeof localStorage !== 'undefined') {
-              localStorage.setItem(AUTH_HINT_KEY, '1');
-              if (isDemoUser) {
-                localStorage.setItem('hireflow:v5:demo-mode', 'cloud');
-              }
+        const {
+          data: { subscription },
+        } = supabase.auth.onAuthStateChange((event, session) => {
+          if (!active) return;
+
+          if (event === 'SIGNED_OUT') {
+            void useAuthStore.getState().resolveSession(null);
+            return;
+          }
+
+          if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED' || event === 'USER_UPDATED') {
+            if (session) {
+              void useAuthStore.getState().resolveSession(session);
+            } else {
+              void useAuthStore.getState().handleSessionExpired('Session expired. Please sign in again.');
             }
-          } else {
-            if (typeof localStorage !== 'undefined') {
-              localStorage.removeItem(AUTH_HINT_KEY);
-              localStorage.removeItem('hireflow:v5:demo-mode');
-            }
-            useAuthStore.setState({
-              status: 'guest',
-              userId: null,
-              email: null,
-              displayName: null,
-              avatarUrl: null,
-              isDemo: false,
-              demoStorage: null,
-            });
           }
         });
+        unsubscribeAuth = () => subscription.unsubscribe();
 
-        return () => {
-          subscription.unsubscribe();
-        };
+        // When returning from OAuth redirect, AuthCallbackPage handles PKCE code verification & initial hydration.
+        if (typeof window !== 'undefined' && window.location.pathname === AUTH_CALLBACK_PATH) {
+          return;
+        }
+
+        const { data, error } = await supabase.auth.getSession();
+        if (!active) return;
+
+        if (error) {
+          await useAuthStore.getState().handleSessionExpired(error.message);
+          return;
+        }
+
+        if (data.session) {
+          await useAuthStore.getState().resolveSession(data.session);
+        } else {
+          useAuthStore.getState().setGuest();
+        }
       } catch (err) {
-        console.error('Auth initialization error:', err);
+        if (!active) return;
+        const msg = err instanceof Error ? err.message : 'Failed to initialize cloud session.';
+        useAuthStore.getState().setError(msg);
       }
-    })();
+    };
+
+    void init();
+
+    return () => {
+      active = false;
+      if (unsubscribeAuth) unsubscribeAuth();
+    };
   }, []);
 
   return <>{children}</>;

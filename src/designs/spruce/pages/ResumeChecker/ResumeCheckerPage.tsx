@@ -19,6 +19,8 @@ import {
 } from '../../ui';
 import { useAtsRoasterController, STAGED_MESSAGES } from '../../../../features/ats/hooks/useAtsRoasterController';
 import { TargetTier, ExperienceLevel } from '../../../../features/ats/components/AtsInputSection';
+import { ExportDossierButton } from '../../../../features/dossier/ExportDossierButton';
+import { buildFallbackAuditEntry, buildQuickRoastProjection } from '../../../../pages/tools/ResumeChecker';
 import { Upload, FileText, CheckCircle2, AlertTriangle, ArrowRight, X } from 'lucide-react';
 
 export function SpruceResumeCheckerPage() {
@@ -37,6 +39,11 @@ export function SpruceResumeCheckerPage() {
     isScanning,
     stagedStageIndex,
     engineResult,
+    latestSnapshot,
+    latestAuditEntry,
+    detectedTargetCompany,
+    detectedRoleTitle,
+    jobRoleBridgeSkills,
     activeTab,
     setActiveTab,
     handleFileUpload,
@@ -44,6 +51,29 @@ export function SpruceResumeCheckerPage() {
     handleClearJob,
     executeAnalysis,
   } = useAtsRoasterController();
+
+  const effectiveAudit = React.useMemo(() => {
+    if (!engineResult) return null;
+    if (latestAuditEntry) return latestAuditEntry;
+    return buildFallbackAuditEntry({
+      engineResult,
+      quickRoast: buildQuickRoastProjection(engineResult),
+      effectiveSnapshot: latestSnapshot,
+      quickSummary: null,
+      detectedTargetCompany,
+      detectedRoleTitle,
+      resumeFileName,
+      jobRoleBridgeSkills,
+    });
+  }, [
+    engineResult,
+    latestAuditEntry,
+    latestSnapshot,
+    detectedTargetCompany,
+    detectedRoleTitle,
+    resumeFileName,
+    jobRoleBridgeSkills,
+  ]);
 
   const [inputTab, setInputTab] = useState<'paste' | 'upload'>('paste');
 
@@ -53,6 +83,73 @@ export function SpruceResumeCheckerPage() {
     { id: 'audit', label: 'Format Audit' },
     { id: 'learning_path', label: 'Actionability Plan' },
   ];
+
+  const dimensionDisplay = React.useMemo(() => {
+    const sub = engineResult?.subscores;
+    if (!engineResult || !sub) return null;
+
+    if (engineResult.trace?.pillars && engineResult.trace.pillars.length > 0) {
+      const byId = Object.fromEntries(
+        engineResult.trace.pillars.map((p) => [
+          p.id,
+          {
+            weight: Math.round(p.effectiveWeight * 100),
+            applicable: p.applicable && Math.round(p.effectiveWeight * 100) > 0,
+            contribution: p.contribution,
+            reason: p.notApplicableReason,
+          },
+        ])
+      );
+      return byId;
+    }
+
+    const w = engineResult.activeWeights;
+    return {
+      mustHaveCoverage: {
+        weight: w?.mustHaveCoverage ?? 30,
+        applicable: (w?.mustHaveCoverage ?? 30) > 0,
+        contribution: sub.mustHaveCoverage,
+      },
+      evidenceDepth: {
+        weight: w?.evidenceDepth ?? 20,
+        applicable: (w?.evidenceDepth ?? 20) > 0,
+        contribution: sub.evidenceDepth,
+      },
+      impactMetrics: {
+        weight: w?.impactMetrics ?? 15,
+        applicable: (w?.impactMetrics ?? 15) > 0,
+        contribution: sub.impactMetrics,
+      },
+      projectsAndOss: {
+        weight: w?.projectsAndOss ?? 10,
+        applicable: (w?.projectsAndOss ?? 10) > 0,
+        contribution: sub.projectsAndOss,
+      },
+      seniorityFit: {
+        weight: w?.seniorityFit ?? 10,
+        applicable: (w?.seniorityFit ?? 10) > 0,
+        contribution: sub.seniorityFit,
+      },
+      formatAndParse: {
+        weight: w?.formatAndParse ?? 10,
+        applicable: (w?.formatAndParse ?? 10) > 0,
+        contribution: sub.formatAndParse,
+      },
+      tierFit: {
+        weight: w?.tierFit ?? 5,
+        applicable: (w?.tierFit ?? 5) > 0,
+        contribution: sub.tierFit,
+      },
+    } as Record<string, { weight: number; applicable: boolean; contribution: number; reason?: string }>;
+  }, [engineResult]);
+
+  const formatDimSpec = (id: string, fallbackScore: number) => {
+    const dim = dimensionDisplay?.[id];
+    if (!dim || !dim.applicable || dim.weight <= 0) {
+      return 'N/A (Redistributed)';
+    }
+    return `${dim.contribution ?? fallbackScore} / ${dim.weight}`;
+  };
 
   return (
     <SpruceShell>
@@ -239,7 +336,16 @@ export function SpruceResumeCheckerPage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                      {effectiveAudit && (
+                        <ExportDossierButton
+                          audit={effectiveAudit}
+                          resumeText={resumeText}
+                          jdText={jobText}
+                          highlighted={true}
+                          label="Download ATS Roast Report"
+                        />
+                      )}
                       <StatBlock
                         figure={`${engineResult.score}%`}
                         label="Overall ATS Score"
@@ -250,38 +356,47 @@ export function SpruceResumeCheckerPage() {
                     </div>
                   </div>
 
-                  {/* 6 Invariant Sub-scores SpecGrid */}
+                  {/* 7 Authoritative Sub-scores SpecGrid */}
                   <div className="pt-6">
                     <SpecGrid columns={3}>
                       <SpecCell
                         label="Must-Have Coverage"
-                        value={`${engineResult.subscores.mustHaveCoverage} / 30`}
+                        value={formatDimSpec('mustHaveCoverage', engineResult.subscores.mustHaveCoverage)}
                         hint={engineResult.mustHavesMet ? `${engineResult.mustHavesMet} Met` : 'Requirements met'}
                       />
                       <SpecCell
                         label="Evidence Depth"
-                        value={`${engineResult.subscores.evidenceDepth} / 20`}
+                        value={formatDimSpec('evidenceDepth', engineResult.subscores.evidenceDepth)}
                         hint="Project and bullet depth"
                       />
                       <SpecCell
                         label="Impact Metrics"
-                        value={`${engineResult.subscores.impactMetrics} / 15`}
+                        value={formatDimSpec('impactMetrics', engineResult.subscores.impactMetrics)}
                         hint="Quantified business scale"
                       />
                       <SpecCell
                         label="Projects & OSS"
-                        value={`${engineResult.subscores.projectsAndOss} / 10`}
+                        value={formatDimSpec('projectsAndOss', engineResult.subscores.projectsAndOss)}
                         hint="Code & system scope"
                       />
                       <SpecCell
                         label="Seniority Fit"
-                        value={`${engineResult.subscores.seniorityFit} / 10`}
-                        hint={engineResult.seniorityFit?.level || 'Title & years match'}
+                        value={formatDimSpec('seniorityFit', engineResult.subscores.seniorityFit)}
+                        hint={
+                          dimensionDisplay?.seniorityFit && !dimensionDisplay.seniorityFit.applicable
+                            ? 'Weight redistributed'
+                            : engineResult.seniorityFit?.level || 'Title & years match'
+                        }
                       />
                       <SpecCell
                         label="Format & Parse"
-                        value={`${engineResult.subscores.formatAndParse} / 10`}
+                        value={formatDimSpec('formatAndParse', engineResult.subscores.formatAndParse)}
                         hint={engineResult.parseQuality || 'Clean parser stream'}
+                      />
+                      <SpecCell
+                        label="Tier Fit"
+                        value={formatDimSpec('tierFit', engineResult.subscores.tierFit)}
+                        hint={engineResult.bestFitTier || 'Calibrated bar'}
                       />
                     </SpecGrid>
                   </div>
@@ -297,7 +412,9 @@ export function SpruceResumeCheckerPage() {
                       <ul className="space-y-1">
                         {engineResult.penalties.map((pen) => (
                           <li key={pen.id} className="text-xs text-sp-on-lime/90 flex items-start gap-1.5">
-                            <span className="font-bold">−{pen.points}pts:</span>
+                            <span className="font-bold">
+                              {pen.points > 0 ? `-${pen.points}` : `${pen.points}`} pts:
+                            </span>
                             <span>{pen.reason}</span>
                           </li>
                         ))}
@@ -318,22 +435,48 @@ export function SpruceResumeCheckerPage() {
                   <Card className="p-6 space-y-4">
                     <h3 className="sp-h3 text-sp-ink mb-2">Requirement Skills Match</h3>
                     <div className="divide-y divide-sp-hairline">
-                      {engineResult.skillResults?.map((skill: any, idx: number) => {
-                        const statusVariant = skill.found && skill.status === 'verified'
-                          ? 'matched'
-                          : skill.status === 'related' || skill.status === 'partial'
-                          ? 'partial'
-                          : 'missing';
+                      {engineResult.skillResults?.map((skill, idx) => {
+                        const matchStatus = skill.matchResult?.status as string | undefined;
+                        const statusVariant: 'matched' | 'partial' | 'missing' =
+                          skill.status === 'verified' || matchStatus === 'SATISFIED'
+                            ? 'matched'
+                            : skill.status === 'weak' ||
+                              matchStatus === 'PARTIALLY_SATISFIED' ||
+                              matchStatus === 'RELATED_BUT_NOT_EQUIVALENT'
+                            ? 'partial'
+                            : 'missing';
+
+                        const statusLabel =
+                          matchStatus === 'CONTRADICTED'
+                            ? 'Contradicted'
+                            : matchStatus === 'AMBIGUOUS'
+                            ? 'Ambiguous'
+                            : matchStatus === 'RELATED_BUT_NOT_EQUIVALENT'
+                            ? 'Non-Equivalent'
+                            : matchStatus === 'NOT_DEMONSTRATED' || skill.status === 'missing'
+                            ? 'Missing'
+                            : matchStatus === 'PARTIALLY_SATISFIED' || skill.status === 'weak'
+                            ? 'Partial / Weak'
+                            : 'Verified';
+
+                        const verbatimQuote = skill.evidence?.[0]?.quote;
 
                         return (
-                          <div key={idx} className="py-3.5 flex items-center justify-between gap-4">
-                            <div>
-                              <span className="sp-ui-label text-sp-ink">{skill.canonical || skill.name}</span>
-                              <span className="sp-caption text-sp-muted ml-2">
-                                ({skill.required === 'must' ? 'Must-Have' : 'Nice-to-Have'})
-                              </span>
+                          <div key={skill.skillId || idx} className="py-3.5 flex items-start justify-between gap-4">
+                            <div className="space-y-1">
+                              <div>
+                                <span className="sp-ui-label text-sp-ink">{skill.canonical || skill.skillId}</span>
+                                <span className="sp-caption text-sp-muted ml-2">
+                                  ({skill.required === 'must' ? 'Must-Have' : 'Nice-to-Have'})
+                                </span>
+                              </div>
+                              {verbatimQuote && (
+                                <p className="sp-caption text-sp-muted italic">
+                                  &ldquo;{verbatimQuote}&rdquo;
+                                </p>
+                              )}
                             </div>
-                            <StatusChip status={statusVariant} />
+                            <StatusChip status={statusVariant} label={statusLabel} />
                           </div>
                         );
                       })}
@@ -351,10 +494,20 @@ export function SpruceResumeCheckerPage() {
                       </p>
                     </div>
 
-                    {/* Verbatim Quote Highlight */}
-                    <div className="border-l-2 border-sp-primary pl-4 py-1 italic sp-body-sm text-sp-body">
-                      &ldquo;ATS filters parse digital text directly. Ensure all verified technologies are linked to active production bullets.&rdquo;
-                    </div>
+                    {/* Verbatim Quote Highlight grounded in extracted resume evidence */}
+                    {(() => {
+                      const topVerified = engineResult.skillResults?.find(
+                        (s) => s.status === 'verified' && s.evidence?.[0]?.quote
+                      );
+                      const quote = topVerified?.evidence?.[0]?.quote;
+                      return (
+                        <div className="border-l-2 border-sp-primary pl-4 py-1 italic sp-body-sm text-sp-body">
+                          {quote
+                            ? <>&ldquo;{quote}&rdquo; ({topVerified?.canonical || topVerified?.skillId})</>
+                            : 'No verified verbatim skill quote extracted from experience or projects.'}
+                        </div>
+                      );
+                    })()}
 
                     {/* Quick Summary of Gaps */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

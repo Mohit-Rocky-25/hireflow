@@ -48,7 +48,7 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({
   const targetsList = Object.values(watchlist);
   const planList = Object.values(planItems);
 
-  const firstName = (displayName || 'Mohit').split(' ')[0];
+  const firstName = (displayName || 'Candidate').split(' ')[0];
   const summarySentence = buildSummarySentence(auditsList, gapOverlay);
   const nextAction = getNextBestAction(auditsList, targetsList, planList, gapOverlay);
 

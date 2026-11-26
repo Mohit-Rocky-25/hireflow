@@ -11,6 +11,7 @@ import type {
   CandidateProfile,
   UserSettings,
 } from '@/domain/types';
+import type { SavedJD, FeedbackItem } from '@/types/schemas-v4';
 
 /** Postgres timestamptz comes back as `...+00:00`. Always normalize to canonical ISO (`...Z`) so string ordering stays valid. */
 export const toIso = (v: string): string => new Date(v).toISOString();
@@ -431,5 +432,162 @@ export function rowToProfile(r: UserProfileRow): UserProfileRecord {
     profile: r.profile as CandidateProfile,
     settings: r.settings as UserSettings,
     updatedAt: toIso(r.updated_at),
+  };
+}
+
+// Saved JDs
+export interface SavedJdRow {
+  id: string;
+  title: string;
+  company: string | null;
+  source: 'pasted' | 'talentlens' | 'upload';
+  text_body: string;
+  text_hash: string;
+  tags: unknown;
+  added_at: string;
+  updated_at: string;
+}
+
+export function savedJdToRow(j: SavedJD): SavedJdRow {
+  return {
+    id: j.id,
+    title: j.title,
+    company: j.company ?? null,
+    source: j.source,
+    text_body: j.text,
+    text_hash: j.textHash,
+    tags: j.tags,
+    added_at: j.addedAt,
+    updated_at: j.updatedAt,
+  };
+}
+
+export function rowToSavedJd(r: SavedJdRow): SavedJD {
+  return {
+    id: r.id,
+    title: r.title,
+    company: r.company ?? null,
+    source: r.source,
+    text: r.text_body,
+    textHash: r.text_hash,
+    tags: Array.isArray(r.tags) ? (r.tags as string[]) : [],
+    addedAt: toIso(r.added_at),
+    updatedAt: toIso(r.updated_at),
+  };
+}
+
+// Private User Documents Catalog
+export type UserDocumentKind =
+  | 'resume_upload'
+  | 'jd_upload'
+  | 'exported_pdf'
+  | 'exported_docx'
+  | 'exported_md';
+
+export interface UserDocumentRecord {
+  id: string;
+  docKind: UserDocumentKind;
+  workspaceId: string | null;
+  versionId: string | null;
+  auditId: string | null;
+  storageBucket: string;
+  storagePath: string;
+  fileName: string;
+  mimeType: string;
+  byteSize: number;
+  sha256: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserDocumentRow {
+  id: string;
+  doc_kind: UserDocumentKind;
+  workspace_id: string | null;
+  version_id: string | null;
+  audit_id: string | null;
+  storage_bucket: string;
+  storage_path: string;
+  file_name: string;
+  mime_type: string;
+  byte_size: number;
+  sha256: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function userDocumentToRow(d: UserDocumentRecord): UserDocumentRow {
+  return {
+    id: d.id,
+    doc_kind: d.docKind,
+    workspace_id: d.workspaceId,
+    version_id: d.versionId,
+    audit_id: d.auditId,
+    storage_bucket: d.storageBucket,
+    storage_path: d.storagePath,
+    file_name: d.fileName,
+    mime_type: d.mimeType,
+    byte_size: d.byteSize,
+    sha256: d.sha256,
+    created_at: d.createdAt,
+    updated_at: d.updatedAt,
+  };
+}
+
+export function rowToUserDocument(r: UserDocumentRow): UserDocumentRecord {
+  return {
+    id: r.id,
+    docKind: r.doc_kind,
+    workspaceId: r.workspace_id,
+    versionId: r.version_id,
+    auditId: r.audit_id,
+    storageBucket: r.storage_bucket,
+    storagePath: r.storage_path,
+    fileName: r.file_name,
+    mimeType: r.mime_type,
+    byteSize: r.byte_size,
+    sha256: r.sha256,
+    createdAt: toIso(r.created_at),
+    updatedAt: toIso(r.updated_at),
+  };
+}
+
+// Feedback Items
+export interface FeedbackItemRow {
+  id: string;
+  target_kind: string;
+  rule_id: string;
+  verdict: 'up' | 'down';
+  note: string | null;
+  audit_id: string | null;
+  engine_version: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function feedbackToRow(f: FeedbackItem): FeedbackItemRow {
+  return {
+    id: f.id,
+    target_kind: f.targetKind,
+    rule_id: f.ruleId,
+    verdict: f.verdict,
+    note: f.note || null,
+    audit_id: f.scanId || null,
+    engine_version: f.engineVersion,
+    created_at: f.createdAt,
+    updated_at: f.createdAt,
+  };
+}
+
+export function rowToFeedback(r: FeedbackItemRow): FeedbackItem {
+  return {
+    id: r.id,
+    targetKind: r.target_kind,
+    ruleId: r.rule_id,
+    verdict: r.verdict,
+    note: r.note || undefined,
+    scanId: r.audit_id || undefined,
+    engineVersion: r.engine_version,
+    createdAt: toIso(r.created_at),
   };
 }

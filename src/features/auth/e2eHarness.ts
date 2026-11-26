@@ -1,58 +1,30 @@
-// __HIREFLOW_E2E_HARNESS__
-// This harness is used ONLY during E2E testing in 'e2e' mode.
-// C9 constraint: Must not be included in the production build.
+// ============================================================
+// HireFlow — Strictly Test-Only In-Memory E2E Harness
+// Never enabled in production builds; stores zero auth flags in localStorage.
+// ============================================================
 
-import { memoryTransport } from '@/sync/memoryTransport';
-import { useAuthStore } from './useAuthStore';
+export interface E2EHarnessUser {
+  userId: string;
+  displayName?: string;
+  email?: string;
+}
 
 declare global {
   interface Window {
-    __e2eTransport?: {
-      getPushedOps: () => unknown[];
-      clear: () => void;
-    };
-    __e2eSignIn?: (userId?: string, email?: string) => void;
-    __e2eSignOut?: () => void;
+    __HIREFLOW_E2E_AUTH__?: E2EHarnessUser | null;
   }
 }
 
-export function installE2eHarness(): void {
-  if (typeof window === 'undefined') return;
+export function isE2EHarnessEnabled(): boolean {
+  return Boolean(!import.meta.env.PROD && import.meta.env.VITE_E2E_AUTH_BYPASS === 'true');
+}
 
-  window.__e2eTransport = {
-    getPushedOps: () => [...memoryTransport.pushedOps],
-    clear: () => memoryTransport.reset(),
-  };
+export function readE2EHarnessUser(): E2EHarnessUser | null {
+  if (!isE2EHarnessEnabled() || typeof window === 'undefined') return null;
+  return window.__HIREFLOW_E2E_AUTH__ ?? null;
+}
 
-  const savedUserId = localStorage.getItem('hireflow:v5:e2e-user');
-  if (localStorage.getItem('hireflow:v5:auth-hint') === '1' && savedUserId) {
-    useAuthStore.setState({
-      status: 'authenticated',
-      userId: savedUserId,
-      email: `${savedUserId}@example.com`,
-      error: null,
-    });
-  }
-
-  window.__e2eSignIn = (userId = 'e2e-user-123', email = 'test@example.com') => {
-    localStorage.setItem('hireflow:v5:e2e-user', userId);
-    localStorage.setItem('hireflow:v5:auth-hint', '1');
-    useAuthStore.setState({
-      status: 'authenticated',
-      userId,
-      email,
-      error: null,
-    });
-  };
-
-  window.__e2eSignOut = () => {
-    localStorage.removeItem('hireflow:v5:e2e-user');
-    localStorage.removeItem('hireflow:v5:auth-hint');
-    useAuthStore.setState({
-      status: 'guest',
-      userId: null,
-      email: null,
-      error: null,
-    });
-  };
+export function setE2EHarnessUser(user: E2EHarnessUser | null): void {
+  if (!isE2EHarnessEnabled() || typeof window === 'undefined') return;
+  window.__HIREFLOW_E2E_AUTH__ = user;
 }

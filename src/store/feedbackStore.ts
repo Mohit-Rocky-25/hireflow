@@ -1,18 +1,18 @@
-/**
- * HireFlow v4: Feedback Store (B8)
- * Stores local user verdicts (thumbs up/down) and notes on rule findings & metrics.
- * Bounded by LIMITS.maxFeedbackItems (500 items). Registered with backup registry.
- */
+// ============================================================
+// HireFlow — Feedback Store (Cloud-First + In-Memory UI State)
+// Persists thumbs up/down & notes to Supabase `feedback_items`
+// when signed in. Zero localStorage fallback.
+// ============================================================
 
 import { create } from 'zustand';
-import { storage } from '../lib/storage';
-import { FeedbackItem, FeedbackStoreSchema, FeedbackStoreData } from '../types/schemas-v4';
+import { FeedbackItem } from '../types/schemas-v4';
 import { LIMITS } from '../config/limits';
 import { ENGINE_VERSION } from '../config/versions';
 import { createId, nowIso } from '../lib/safeUtils';
-import { registerBackupSection } from '../lib/backup/registry';
-
-const FEEDBACK_STORE_KEY = 'feedback';
+import { useAuthStore } from '@/features/auth/useAuthStore';
+import { getCloudGateway } from '@/sync/supabaseGateway';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
 
 export interface SubmitFeedbackParams {
   targetKind: string;
@@ -32,17 +32,21 @@ export interface FeedbackStoreState {
   getSummaryStats: () => { total: number; up: number; down: number };
 }
 
-function loadInitialState(): FeedbackStoreData {
-  const loaded = storage.get(FEEDBACK_STORE_KEY, FeedbackStoreSchema);
-  return loaded || { items: [] };
+function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
+  const auth = useAuthStore.getState();
+  if (auth.status === 'authenticated' && auth.userId && getCloudGateway().isConfigured()) {
+    return { enabled: true, userId: auth.userId };
+  }
+  return { enabled: false, userId: null };
 }
 
 export const useFeedbackStore = create<FeedbackStoreState>((set, get) => ({
-  items: loadInitialState().items,
+  items: [],
 
   submitFeedback: (params: SubmitFeedbackParams) => {
     const state = get();
-    const existingIndex = state.items.findIndex(
+    const prevItems = state.items;
+    const existingIndex = prevItems.findIndex(
       (it) => it.ruleId === params.ruleId && it.targetKind === params.targetKind
     );
 
@@ -50,26 +54,23 @@ export const useFeedbackStore = create<FeedbackStoreState>((set, get) => ({
     const cleanNote = params.note ? params.note.slice(0, LIMITS.maxFindingNoteChars) : undefined;
 
     let updatedItems: FeedbackItem[];
+    let savedItem: FeedbackItem;
 
     if (existingIndex >= 0) {
-      const updatedItem: FeedbackItem = {
-        ...state.items[existingIndex],
+      savedItem = {
+        ...prevItems[existingIndex],
         verdict: params.verdict,
         note: cleanNote,
-        scanId: params.scanId || state.items[existingIndex].scanId,
+        scanId: params.scanId || prevItems[existingIndex].scanId,
         engineVersion: ENGINE_VERSION,
         createdAt: now,
       };
-      updatedItems = [...state.items];
-      updatedItems[existingIndex] = updatedItem;
+      updatedItems = [...prevItems];
+      updatedItems[existingIndex] = savedItem;
     } else {
-      if (state.items.length >= LIMITS.maxFeedbackItems) {
-        // Drop oldest item to respect max bounded limit
-        updatedItems = state.items.slice(1);
-      } else {
-        updatedItems = [...state.items];
-      }
-      const newItem: FeedbackItem = {
+      updatedItems =
+        prevItems.length >= LIMITS.maxFeedbackItems ? prevItems.slice(1) : [...prevItems];
+      savedItem = {
         id: createId(),
         targetKind: params.targetKind,
         ruleId: params.ruleId,
@@ -79,17 +80,26 @@ export const useFeedbackStore = create<FeedbackStoreState>((set, get) => ({
         engineVersion: ENGINE_VERSION,
         createdAt: now,
       };
-      updatedItems.push(newItem);
+      updatedItems.push(savedItem);
     }
 
-    const saved = storage.set(FEEDBACK_STORE_KEY, { items: updatedItems });
-    if (saved) {
-      set({ items: updatedItems });
-      const savedItem = existingIndex >= 0 ? updatedItems[existingIndex] : updatedItems[updatedItems.length - 1];
-      return { success: true, item: savedItem };
+    set({ items: updatedItems });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.saveFeedbackItem(cloud.userId, savedItem).catch((err) => {
+        set({ items: prevItems });
+        useCloudSyncStore.getState().setError(
+          'save finding feedback',
+          err instanceof Error ? err.message : 'Cloud write failed.',
+          async () => {
+            get().submitFeedback(params);
+          }
+        );
+      });
     }
 
-    return { success: false };
+    return { success: true, item: savedItem };
   },
 
   getFeedback: (ruleId: string, targetKind?: string) => {
@@ -99,48 +109,45 @@ export const useFeedbackStore = create<FeedbackStoreState>((set, get) => ({
   },
 
   removeFeedback: (id: string) => {
-    const updated = get().items.filter((it) => it.id !== id);
-    storage.set(FEEDBACK_STORE_KEY, { items: updated });
-    set({ items: updated });
+    const prev = get().items;
+    set({ items: prev.filter((it) => it.id !== id) });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.deleteFeedbackItem(cloud.userId, id).catch((err) => {
+        set({ items: prev });
+        useCloudSyncStore.getState().setError(
+          'delete finding feedback',
+          err instanceof Error ? err.message : 'Cloud delete failed.',
+          async () => {
+            get().removeFeedback(id);
+          }
+        );
+      });
+    }
   },
 
   clearFeedback: () => {
-    storage.set(FEEDBACK_STORE_KEY, { items: [] });
     set({ items: [] });
   },
 
   exportFeedbackJson: () => {
-    return JSON.stringify({ items: get().items }, null, 2);
+    return JSON.stringify(
+      {
+        app: 'hireflow',
+        exportedAt: nowIso(),
+        engineVersion: ENGINE_VERSION,
+        items: get().items,
+      },
+      null,
+      2
+    );
   },
 
   getSummaryStats: () => {
     const items = get().items;
-    let up = 0;
-    let down = 0;
-    for (const it of items) {
-      if (it.verdict === 'up') up++;
-      else if (it.verdict === 'down') down++;
-    }
+    const up = items.filter((it) => it.verdict === 'up').length;
+    const down = items.filter((it) => it.verdict === 'down').length;
     return { total: items.length, up, down };
   },
 }));
-
-registerBackupSection<FeedbackStoreData>({
-  key: 'feedback',
-  schema: FeedbackStoreSchema,
-  version: 1,
-  export: () => ({ items: useFeedbackStore.getState().items }),
-  import: (data: FeedbackStoreData, mode) => {
-    if (mode === 'replace') {
-      storage.set(FEEDBACK_STORE_KEY, data);
-      useFeedbackStore.setState({ items: data.items });
-      return true;
-    } else {
-      const current = useFeedbackStore.getState().items;
-      const combined = [...data.items, ...current].slice(0, LIMITS.maxFeedbackItems);
-      storage.set(FEEDBACK_STORE_KEY, { items: combined });
-      useFeedbackStore.setState({ items: combined });
-      return true;
-    }
-  },
-});

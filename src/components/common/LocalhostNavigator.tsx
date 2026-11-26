@@ -42,9 +42,7 @@ export function LocalhostNavigator() {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [isMinimized, setIsMinimized] = useState(() => {
-    return localStorage.getItem('hireflow_localhost_nav_minimized') === 'true';
-  });
+  const [isMinimized, setIsMinimized] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -251,9 +249,7 @@ export function LocalhostNavigator() {
 
   const toggleMinimize = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const nextVal = !isMinimized;
-    setIsMinimized(nextVal);
-    localStorage.setItem('hireflow_localhost_nav_minimized', String(nextVal));
+    setIsMinimized((prev) => !prev);
   };
 
   return (

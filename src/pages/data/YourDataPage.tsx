@@ -1,462 +1,459 @@
-/**
- * HireFlow v4: Your Data & Local Storage Settings Page (C9.1 - C9.4)
- * Local-only data inspection, JSON export/import with checksum verification,
- * storage persistence checker, and typed-confirmation data erasure.
- */
+// ============================================================
+// HireFlow — Cloud Account, Privacy, Legacy Importer & Private Documents Page
+// Replaces local-first backup/sync DB with real Supabase Auth, Postgres RLS,
+// Private `user-documents` Storage, and one-time authorized legacy browser import.
+// ============================================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PublicNavbar } from '../../components/common/PublicNavbar';
 import { ConfirmDialog } from '../../components/common/ConfirmDialog';
-import { SegmentedControl } from '../../components/common/SegmentedControl';
 import { Tag } from '../../components/common/Tag';
 import { toast } from '../../components/ui/Toast';
-import { backupRegistry, ImportMode } from '../../lib/backup/registry';
+import { useAuthStore, purgeLegacyBrowserUserData } from '../../features/auth/useAuthStore';
+import { SignInButton } from '../../features/auth/SignInButton';
+import { useCloudSyncStore } from '../../lib/cloud/useCloudSyncStore';
+import { useCloudDocumentsStore } from '../../lib/cloud/useDocumentsStore';
+import { hydrateUserFromCloud, resetAllUserMemoryStores } from '../../lib/cloud/cloudHydrator';
 import {
-  generateBackup,
-  downloadBackupFile,
-  validateBackupFile,
-  applyBackup,
-  BackupValidationResult,
-} from '../../lib/backup';
-import { storage } from '../../lib/storage';
-import { cloudSync, CloudSyncMetadata } from '../../lib/sync/cloudSync';
+  inspectLegacyBrowserData,
+  runAuthorizedLegacyMigration,
+  type LegacyMigrationPreview,
+} from '../../lib/cloud/legacyMigration';
+import {
+  getPrivateDocumentSignedUrl,
+  deletePrivateDocument,
+} from '../../lib/cloud/storageService';
+import { useAuditStore } from '../../features/journal/useAuditStore';
+import { useResumeStore } from '../../features/resumes/useResumeStore';
+import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
+import { useSavedJdStore } from '../../store/savedJdStore';
+import { useFeedbackStore } from '../../store/feedbackStore';
+import { useProfileStore } from '../../features/profile/useProfileStore';
 import {
   Database,
   Download,
   Upload,
   Trash2,
-  HardDrive,
   ShieldCheck,
-  AlertTriangle,
   RefreshCw,
-  FileCheck,
   Cloud,
-  Share2,
-  Check,
+  FileText,
+  ExternalLink,
+  AlertTriangle,
+  HardDrive,
 } from 'lucide-react';
 
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+}
+
 export function YourDataPage() {
-  const [storesInfo, setStoresInfo] = useState<
-    Array<{ key: string; itemsCount: number; sizeKb: number }>
-  >([]);
-  const [totalSizeKb, setTotalSizeKb] = useState(0);
-  const [persistentStatus, setPersistentStatus] = useState<string>('checking...');
+  const { status, userId, displayName, email, provider } = useAuthStore();
+  const { phase, lastSyncedAt, error: cloudError } = useCloudSyncStore();
+  const documents = useCloudDocumentsStore((s) => s.documents);
+  const removeDocumentFromStore = useCloudDocumentsStore((s) => s.removeDocument);
+
+  const workspaces = useResumeStore((s) => s.workspaces);
+  const versions = useResumeStore((s) => s.versions);
+  const audits = useAuditStore((s) => s.entries);
+  const savedJds = useSavedJdStore((s) => s.jds);
+  const watchlist = useMySpaceStore((s) => s.watchlist);
+  const planItems = useMySpaceStore((s) => s.planItems);
+  const outreachDrafts = useMySpaceStore((s) => s.outreachDrafts);
+  const feedbackItems = useFeedbackStore((s) => s.items);
+  const profile = useProfileStore((s) => s.profile);
+
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
-  const [importMode, setImportMode] = useState<ImportMode>('merge');
-  const [validationResult, setValidationResult] = useState<BackupValidationResult | null>(null);
-  const [allowChecksumOverride, setAllowChecksumOverride] = useState(false);
-  const [rawUploadText, setRawUploadText] = useState<string | null>(null);
-  const [syncMeta, setSyncMeta] = useState<CloudSyncMetadata>(cloudSync.getMetadata());
-  const [isSyncing, setIsSyncing] = useState(false);
+  const [isResyncing, setIsResyncing] = useState(false);
+  const [isDeletingAccountData, setIsDeletingAccountData] = useState(false);
+  const [legacyPreview, setLegacyPreview] = useState<LegacyMigrationPreview | null>(null);
+  const [isImportingLegacy, setIsImportingLegacy] = useState(false);
+  const [legacyImportMessage, setLegacyImportMessage] = useState<string | null>(null);
 
-  // Refresh storage metrics
-  const refreshStorageMetrics = () => {
-    const sections = backupRegistry.getAll();
-    const info = sections.map((sec) => {
-      let count = 0;
-      let rawSize = 0;
-      try {
-        const data = sec.export();
-        if (Array.isArray(data)) count = data.length;
-        else if (data && typeof data === 'object') count = Object.keys(data).length;
-        else if (data) count = 1;
-        rawSize = JSON.stringify(data).length * 2;
-      } catch {
-        count = 0;
-      }
-      return {
-        key: sec.key,
-        itemsCount: count,
-        sizeKb: Math.round((rawSize / 1024) * 10) / 10,
-      };
-    });
+  const isSignedIn = status === 'authenticated' && Boolean(userId);
 
-    setStoresInfo(info);
-    const totalBytes = storage.estimateBytes();
-    setTotalSizeKb(Math.round((totalBytes / 1024) * 10) / 10);
+  const refreshLegacyInspection = async () => {
+    const preview = await inspectLegacyBrowserData();
+    setLegacyPreview(preview);
   };
 
   useEffect(() => {
-    refreshStorageMetrics();
-
-    // Check navigator storage persistence
-    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persisted) {
-      navigator.storage
-        .persisted()
-        .then((persisted) => {
-          setPersistentStatus(persisted ? 'Granted (Safe from browser auto-cleanup)' : 'Not granted (Session-managed)');
-        })
-        .catch(() => setPersistentStatus('Unsupported on this browser'));
-    } else {
-      setPersistentStatus('Unsupported on this browser / HTTP LAN');
-    }
+    void refreshLegacyInspection();
   }, []);
 
-  const handleRequestPersistence = async () => {
-    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
-      try {
-        const granted = await navigator.storage.persist();
-        setPersistentStatus(granted ? 'Granted (Safe from browser auto-cleanup)' : 'Denied by browser');
-        if (granted) {
-          toast('success', 'Persistent storage granted successfully.');
-        } else {
-          toast('info', 'Persistent storage was not granted by your browser.');
-        }
-      } catch (err: any) {
-        toast('error', `Failed to request persistence: ${err.message}`);
-      }
+  const handleManualResync = async () => {
+    if (!isSignedIn || !userId) {
+      toast('warning', 'Sign in with Google first to sync your Supabase cloud workspace.');
+      return;
+    }
+    setIsResyncing(true);
+    try {
+      await hydrateUserFromCloud(userId, { displayName, email });
+      toast('success', 'Cloud account records synchronized from Supabase Postgres.');
+    } catch (err) {
+      toast('error', err instanceof Error ? err.message : 'Unable to refresh cloud account.');
+    } finally {
+      setIsResyncing(false);
     }
   };
 
-  const handleExport = () => {
-    const filename = downloadBackupFile();
-    toast('success', `Exported backup to ${filename}`);
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      setRawUploadText(text);
-      const res = validateBackupFile(text, { allowChecksumMismatch: allowChecksumOverride });
-      setValidationResult(res);
-      if (!res.valid) {
-        toast('error', res.error || 'Invalid backup file');
-      } else {
-        toast('info', 'Backup file validated. Review sections below before applying.');
-      }
+  const handleExportCloudJson = () => {
+    const bundle = {
+      exportedAt: new Date().toISOString(),
+      account: isSignedIn ? { userId, email, provider } : { mode: 'guest_in_memory' },
+      profile,
+      workspaces: Object.values(workspaces),
+      versions: Object.values(versions),
+      audits: Object.values(audits),
+      savedJds,
+      watchlist: Object.values(watchlist),
+      planItems: Object.values(planItems),
+      outreachDrafts: Object.values(outreachDrafts),
+      feedbackItems,
+      documents,
     };
-    reader.readAsText(file);
-  };
-
-  const handleApplyImport = () => {
-    if (!validationResult || !validationResult.backupFile) return;
-
-    const outcome = applyBackup(validationResult.backupFile, importMode);
-    if (outcome.success) {
-      toast('success', `Successfully imported ${outcome.applied.length} data section(s).`);
-      setValidationResult(null);
-      setRawUploadText(null);
-      refreshStorageMetrics();
-    } else {
-      toast('error', 'Import failed or all sections were skipped.');
-    }
-  };
-
-  const handleClearAllData = () => {
-    window.localStorage.clear();
-    toast('success', 'All local data has been permanently cleared.');
-    setIsClearModalOpen(false);
-    refreshStorageMetrics();
-  };
-
-  const handleTriggerSync = async () => {
-    setIsSyncing(true);
-    const result = await cloudSync.triggerSync();
-    setIsSyncing(false);
-    setSyncMeta(cloudSync.getMetadata());
-    if (result.success) {
-      toast('success', result.message);
-    } else {
-      toast('warning', result.message);
-    }
-  };
-
-  const handleExportShareableProfile = () => {
-    const profile = cloudSync.generateShareableProfile(
-      'Verified Candidate',
-      'Software Engineer',
-      ['TypeScript', 'React', 'Go', 'Docker', 'PostgreSQL'],
-      88
-    );
-    const blob = new Blob([JSON.stringify(profile, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `hireflow-verified-profile-${profile.profileId}.json`;
+    a.download = `hireflow-cloud-export-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    toast('success', 'Exported signed Shareable Candidate Profile bundle.');
+    toast('success', 'Downloaded JSON export of active session data.');
+  };
+
+  const handleImportLegacyData = async () => {
+    if (!isSignedIn || !userId) {
+      toast('warning', 'Please sign in with Google before importing legacy browser data.');
+      return;
+    }
+    setIsImportingLegacy(true);
+    setLegacyImportMessage(null);
+    try {
+      const result = await runAuthorizedLegacyMigration(userId, legacyPreview ?? undefined);
+      if (result.alreadyImported) {
+        setLegacyImportMessage(
+          'These legacy browser records were already imported previously (verified via import receipt). Local data was not duplicated.'
+        );
+      } else {
+        await hydrateUserFromCloud(userId, { displayName, email });
+        await refreshLegacyInspection();
+        setLegacyImportMessage(
+          `Imported ${result.importedCounts.savedJds} saved JDs, ${result.importedCounts.audits} audits, ${result.importedCounts.workspaces} workspaces, and ${result.importedCounts.watchlistTargets} targets into Supabase Postgres.`
+        );
+        toast('success', 'Legacy browser records safely imported into your cloud account.');
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Legacy import failed.';
+      setLegacyImportMessage(`Import failed: ${msg}. Local legacy records were preserved intact.`);
+      toast('error', msg);
+    } finally {
+      setIsImportingLegacy(false);
+    }
+  };
+
+  const handleDownloadPrivateDoc = async (storagePath: string, fileName: string) => {
+    if (!userId) return;
+    try {
+      const signedUrl = await getPrivateDocumentSignedUrl(userId, storagePath, 120);
+      const a = document.createElement('a');
+      a.href = signedUrl;
+      a.download = fileName;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.click();
+    } catch (err) {
+      toast('error', err instanceof Error ? err.message : 'Unable to generate signed download link.');
+    }
+  };
+
+  const handleDeletePrivateDoc = async (docId: string, storagePath: string) => {
+    if (!userId) return;
+    try {
+      await deletePrivateDocument(userId, docId, storagePath);
+      removeDocumentFromStore(docId);
+      toast('success', 'Deleted private document from Supabase Storage & catalog.');
+    } catch (err) {
+      toast('error', err instanceof Error ? err.message : 'Failed to delete cloud file.');
+    }
+  };
+
+  const handleEraseData = async () => {
+    setIsClearModalOpen(false);
+    setIsDeletingAccountData(true);
+    try {
+      if (isSignedIn) {
+        await useAuthStore.getState().deleteAllCloudData();
+        toast('success', 'Deleted all Supabase Postgres rows and private Storage objects.');
+      } else {
+        resetAllUserMemoryStores();
+        purgeLegacyBrowserUserData();
+        toast('success', 'Cleared transient in-memory session and any stale legacy keys.');
+      }
+      await refreshLegacyInspection();
+    } catch (err) {
+      toast('error', err instanceof Error ? err.message : 'Failed to erase cloud account data.');
+    } finally {
+      setIsDeletingAccountData(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-black text-white pt-24 pb-16">
+    <div className="min-h-screen bg-[#09090b] text-white pb-20">
       <PublicNavbar />
 
-      <header className="max-w-4xl mx-auto px-4 pt-4 pb-4 text-center sm:text-left">
-        <h1 className="text-2xl font-mono font-bold tracking-tight text-white uppercase">Your Data & Local Storage</h1>
-        <p className="mt-1 text-sm font-mono text-neutral-400">Privacy-First Data Ownership & Client-Side Control</p>
+      <header className="max-w-5xl mx-auto px-4 pt-6 pb-4">
+        <h1 className="text-2xl font-mono font-bold tracking-tight text-white flex items-center gap-2 uppercase">
+          <Database className="h-6 w-6 text-volt" />
+          <span>Your Data &amp; Cloud Storage</span>
+        </h1>
+        <p className="mt-1 text-sm font-mono text-neutral-400">
+          Supabase Postgres &amp; Private Storage management, one-time legacy browser importer, and full account erasure.
+        </p>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 pt-8 space-y-8">
-        {/* Privacy Promise Banner */}
-        <div className="rounded border border-charcoal bg-surface p-5 flex items-start gap-4">
-          <ShieldCheck className="h-6 w-6 text-volt shrink-0 mt-0.5" />
-          <div className="text-sm">
-            <h2 className="text-base font-mono font-semibold text-white uppercase tracking-tight">100% Client-Side Privacy Guarantee</h2>
-            <p className="mt-1 text-neutral-300 leading-relaxed font-mono text-xs">
-              HireFlow does not use tracking cookies, remote analytics, or telemetry. All resumes, job descriptions, scan histories, and user notes are saved strictly in your browser&apos;s local storage.
-            </p>
-          </div>
-        </div>
-
-        {/* Persistence Status */}
-        <div className="rounded border border-charcoal bg-surface p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <HardDrive className="h-5 w-5 text-volt" />
-              <h3 className="text-sm font-mono font-semibold text-white uppercase tracking-tight">Browser Storage Durability</h3>
-            </div>
-            <p className="mt-1 text-xs font-mono text-neutral-400">Status: <span className="text-neutral-200 font-medium">{persistentStatus}</span></p>
-          </div>
-          <button
-            type="button"
-            onClick={handleRequestPersistence}
-            className="inline-flex items-center gap-2 rounded border border-charcoal bg-surface-elevated px-3.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-neutral-200 hover:bg-neutral-800 hover:text-white transition-colors"
-          >
-            <RefreshCw className="h-3.5 w-3.5 text-volt" />
-            <span>Request Permanent Storage</span>
-          </button>
-        </div>
-
-        {/* What's Stored Table */}
-        <div className="rounded border border-charcoal bg-surface p-6 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Database className="h-5 w-5 text-volt" />
-              <h3 className="text-base font-mono font-semibold text-white uppercase tracking-tight">What&apos;s Stored on This Device</h3>
-            </div>
-            <span className="text-xs font-mono text-neutral-400">
-              Total Storage: <strong className="text-volt font-semibold">{totalSizeKb} KB</strong>
-            </span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="border-b border-charcoal text-neutral-400 uppercase tracking-wider font-mono font-semibold text-[11px]">
-                  <th className="py-2.5 px-3">Data Section</th>
-                  <th className="py-2.5 px-3">Items Stored</th>
-                  <th className="py-2.5 px-3">Est. Size</th>
-                  <th className="py-2.5 px-3 text-right">Location</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-charcoal/60 font-mono">
-                {storesInfo.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="py-4 text-center text-neutral-500 font-mono">
-                      No data registered yet. Run scans or save items to begin.
-                    </td>
-                  </tr>
-                ) : (
-                  storesInfo.map((item) => (
-                    <tr key={item.key} className="hover:bg-surface-elevated">
-                      <td className="py-2.5 px-3 font-medium text-white">{item.key}</td>
-                      <td className="py-2.5 px-3 text-neutral-300">{item.itemsCount}</td>
-                      <td className="py-2.5 px-3 text-neutral-400">{item.sizeKb} KB</td>
-                      <td className="py-2.5 px-3 text-right text-neutral-500">hireflow:v4:{item.key}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Export & Import Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Export Card */}
-          <div className="rounded border border-charcoal bg-surface p-6 flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <Download className="h-5 w-5 text-volt" />
-                <h3 className="text-base font-mono font-semibold text-white uppercase tracking-tight">Export Data Backup</h3>
-              </div>
-              <p className="mt-2 text-xs font-mono text-neutral-400 leading-relaxed">
-                Download a signed, tamper-checked JSON file of your resumes, scan history, saved JDs, credentials, and settings.
-              </p>
-              <div className="mt-3 rounded border border-amber-500/30 bg-amber-500/10 p-2.5 text-xs font-mono text-amber-300 flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-amber-400" />
-                <span>This backup contains personal career data. Store it in a secure location.</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleExport}
-              className="w-full inline-flex items-center justify-center gap-2 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-black shadow-xs transition-colors"
-            >
-              <Download className="h-4 w-4 text-black" />
-              <span>Download Backup (.json)</span>
-            </button>
-          </div>
-
-          {/* Import Card */}
-          <div className="rounded border border-charcoal bg-surface p-6 flex flex-col justify-between space-y-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <Upload className="h-5 w-5 text-volt" />
-                <h3 className="text-base font-mono font-semibold text-white uppercase tracking-tight">Import Data Backup</h3>
-              </div>
-              <p className="mt-2 text-xs font-mono text-neutral-400 leading-relaxed">
-                Restore data from a previously exported JSON backup. Files are strictly schema-validated before applying.
-              </p>
-
-              <div className="mt-4">
-                <label className="block text-xs font-mono font-medium text-neutral-300 mb-1.5 uppercase">Select Backup File</label>
-                <input
-                  type="file"
-                  accept=".json,application/json"
-                  onChange={handleFileUpload}
-                  className="w-full text-xs font-mono text-neutral-400 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border file:border-charcoal file:text-xs file:font-mono file:font-bold file:uppercase file:bg-surface-elevated file:text-neutral-200 hover:file:bg-neutral-800 cursor-pointer"
-                />
-              </div>
-            </div>
-
-            {/* Validation Preview */}
-            {validationResult && (
-              <div className="rounded border border-charcoal bg-black p-3 space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-white flex items-center gap-1.5 font-mono">
-                    <FileCheck className="h-4 w-4 text-volt" />
-                    <span>Backup Preview</span>
-                  </span>
-                  <Tag variant={validationResult.checksumMatch ? 'verified' : 'needs-recheck'} size="sm">
-                    {validationResult.checksumMatch ? 'Checksum Verified' : 'Checksum Mismatch'}
-                  </Tag>
-                </div>
-
-                <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                  {validationResult.preview.map((sec) => (
-                    <div
-                      key={sec.key}
-                      className="flex items-center justify-between text-xs p-1.5 rounded bg-surface-elevated font-mono"
-                    >
-                      <span className="font-medium text-neutral-200">{sec.key}</span>
-                      <span className="text-neutral-400">
-                        {sec.itemsInFile} items ({sec.isValid ? 'Valid' : 'Warning'})
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-2 border-t border-charcoal flex items-center justify-between">
-                  <SegmentedControl<ImportMode>
-                    name="importMode"
-                    size="sm"
-                    value={importMode}
-                    onChange={setImportMode}
-                    options={[
-                      { value: 'merge', label: 'Merge' },
-                      { value: 'replace', label: 'Replace' },
-                    ]}
-                  />
-
-                  <button
-                    type="button"
-                    onClick={handleApplyImport}
-                    className="rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] px-3 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-black transition-colors"
-                  >
-                    Apply Import
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Cloud Sync & Shareable Verification Portfolio (P5) */}
-        <div className="rounded border border-charcoal bg-surface p-6 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
+      <main className="max-w-5xl mx-auto px-4 pt-4 space-y-6">
+        {/* Account Status & Residency */}
+        <section className="rounded border border-charcoal bg-surface p-6 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-charcoal pb-4">
+            <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <Cloud className="h-5 w-5 text-volt" />
-                <h3 className="text-base font-mono font-semibold text-white uppercase tracking-tight">Cloud Sync & Shareable Portfolio (P5)</h3>
+                <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                  {isSignedIn ? 'Authenticated Cloud Account' : 'Guest Session (Transient In-Memory)'}
+                </h2>
               </div>
-              <p className="mt-1 text-xs font-mono text-neutral-400 leading-relaxed">
-                Offline-first state synchronization and cryptographically signed candidate verification bundles for recruiter sharing.
+              <p className="text-xs font-mono text-neutral-400">
+                {isSignedIn
+                  ? `Signed in as ${email || displayName || userId} (${provider?.toUpperCase() || 'GOOGLE'}). Protected by Supabase RLS.`
+                  : 'Zero durable browser storage is written in Guest mode. Sign in with Google to save work permanently in Postgres.'}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono px-2.5 py-1 rounded-full bg-volt/10 text-volt border border-volt/30">
-                Status: {syncMeta.status.toUpperCase()}
-              </span>
+              {isSignedIn ? (
+                <Tag variant="verified" size="sm">
+                  {phase === 'hydrating'
+                    ? 'Syncing...'
+                    : phase === 'error'
+                    ? 'Cloud Error'
+                    : 'Cloud Connected'}
+                </Tag>
+              ) : (
+                <SignInButton returnTo="/data" />
+              )}
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-3 pt-2">
-            <div className="p-4 rounded bg-black border border-charcoal space-y-2">
-              <div className="text-xs font-mono font-bold text-white flex items-center gap-1.5 uppercase">
-                <RefreshCw className={`h-3.5 w-3.5 text-volt ${isSyncing ? 'animate-spin' : ''}`} />
-                <span>Local-First State Sync</span>
-              </div>
-              <p className="text-[11px] font-mono text-neutral-400">
-                Snapshots all stores with SHA-256 fingerprinting. Queues changes when offline.
-              </p>
-              <button
-                type="button"
-                onClick={handleTriggerSync}
-                disabled={isSyncing}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-volt hover:bg-volt-hover active:shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)] text-xs font-mono font-bold uppercase tracking-wider text-black transition-colors disabled:opacity-50"
-              >
-                <Cloud className="h-3.5 w-3.5 text-black" />
-                <span>{isSyncing ? 'Syncing...' : 'Sync Snapshot Now'}</span>
-              </button>
+          {cloudError && (
+            <div role="alert" className="p-3 rounded border border-red-500/40 bg-red-950/40 text-xs font-mono text-red-200 flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-red-400 shrink-0" />
+              <span>{cloudError}</span>
             </div>
+          )}
 
-            <div className="p-4 rounded bg-black border border-charcoal space-y-2">
-              <div className="text-xs font-mono font-bold text-white flex items-center gap-1.5 uppercase">
-                <Share2 className="h-3.5 w-3.5 text-volt" />
-                <span>Shareable Candidate Portfolio</span>
+          {/* Live Data Inventory */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+            <div className="p-3 rounded bg-black border border-charcoal">
+              <div className="text-neutral-500">Workspaces / Versions</div>
+              <div className="text-lg font-bold text-white mt-0.5">
+                {Object.keys(workspaces).length} / {Object.keys(versions).length}
               </div>
-              <p className="text-[11px] font-mono text-neutral-400">
-                Generate a signed, tamper-evident JSON bundle of your verified skills and ATS readiness.
-              </p>
+            </div>
+            <div className="p-3 rounded bg-black border border-charcoal">
+              <div className="text-neutral-500">ATS Audits</div>
+              <div className="text-lg font-bold text-white mt-0.5">{Object.keys(audits).length}</div>
+            </div>
+            <div className="p-3 rounded bg-black border border-charcoal">
+              <div className="text-neutral-500">Saved JDs &amp; Targets</div>
+              <div className="text-lg font-bold text-white mt-0.5">
+                {savedJds.length} / {Object.keys(watchlist).length}
+              </div>
+            </div>
+            <div className="p-3 rounded bg-black border border-charcoal">
+              <div className="text-neutral-500">Private Files</div>
+              <div className="text-lg font-bold text-white mt-0.5">{documents.length}</div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <span className="text-[11px] font-mono text-neutral-500">
+              {lastSyncedAt ? `Last synced: ${new Date(lastSyncedAt).toLocaleString()}` : 'Session active'}
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {isSignedIn && (
+                <button
+                  type="button"
+                  onClick={handleManualResync}
+                  disabled={isResyncing}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-volt hover:bg-volt-hover text-black text-xs font-mono font-bold uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 ${isResyncing ? 'animate-spin' : ''}`} />
+                  <span>{isResyncing ? 'Syncing...' : 'Refresh from Cloud'}</span>
+                </button>
+              )}
               <button
                 type="button"
-                onClick={handleExportShareableProfile}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono font-bold uppercase tracking-wider text-neutral-200 transition-colors"
+                onClick={handleExportCloudJson}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-xs font-mono font-bold uppercase tracking-wider text-neutral-200 cursor-pointer"
               >
-                <Download className="h-3.5 w-3.5 text-neutral-400" />
-                <span>Export Signed Bundle (.json)</span>
+                <Download className="h-3.5 w-3.5 text-volt" />
+                <span>Export Session JSON</span>
               </button>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Danger Zone: Clear Data */}
-        <div className="rounded border border-rose-500/40 bg-surface p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        {/* Private Uploaded Documents Catalog (`user-documents`) */}
+        <section className="rounded border border-charcoal bg-surface p-6 space-y-4">
+          <div className="flex items-center gap-2 border-b border-charcoal pb-3">
+            <ShieldCheck className="h-5 w-5 text-volt" />
+            <div>
+              <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                Private Cloud Documents (`user-documents`)
+              </h2>
+              <p className="text-[11px] font-mono text-neutral-400">
+                Original uploaded PDF/DOCX files and generated exports are stored in a private per-user bucket with signed temporary URLs only.
+              </p>
+            </div>
+          </div>
+
+          {!isSignedIn ? (
+            <p className="text-xs font-mono text-neutral-400">
+              Sign in with Google to archive or download original files in private Supabase Storage.
+            </p>
+          ) : documents.length === 0 ? (
+            <p className="text-xs font-mono text-neutral-400">No private files stored in your cloud bucket yet.</p>
+          ) : (
+            <div className="space-y-2">
+              {documents.map((doc) => (
+                <div
+                  key={doc.id}
+                  className="flex flex-wrap items-center justify-between gap-3 p-3 rounded bg-black border border-charcoal text-xs font-mono"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <FileText className="h-4 w-4 text-volt shrink-0" />
+                    <div className="min-w-0">
+                      <div className="font-semibold text-white truncate">{doc.fileName}</div>
+                      <div className="text-[11px] text-neutral-500">
+                        {doc.docKind} &bull; {formatBytes(doc.byteSize)} &bull; sha256:{doc.sha256.slice(0, 10)}...
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => handleDownloadPrivateDoc(doc.storagePath, doc.fileName)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-elevated border border-charcoal text-neutral-200 hover:border-volt cursor-pointer"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      <span>Signed Download</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeletePrivateDoc(doc.id, doc.storagePath)}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded border border-rose-500/30 text-rose-300 hover:bg-rose-950/50 cursor-pointer"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* One-Time Authorized Legacy Browser Data Importer */}
+        <section className="rounded border border-charcoal bg-surface p-6 space-y-4">
+          <div className="flex items-center justify-between gap-4 border-b border-charcoal pb-3">
+            <div className="flex items-center gap-2">
+              <Upload className="h-5 w-5 text-volt" />
+              <div>
+                <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
+                  One-Time Legacy Browser Data Importer
+                </h2>
+                <p className="text-[11px] font-mono text-neutral-400">
+                  Reads older HireFlow data stored in this browser before cloud migration and uploads it into your Supabase account on explicit approval.
+                </p>
+              </div>
+            </div>
+            <HardDrive className="h-5 w-5 text-neutral-500 shrink-0" />
+          </div>
+
+          {!legacyPreview?.hasLegacyData ? (
+            <p className="text-xs font-mono text-neutral-400">
+              No legacy browser-stored HireFlow records detected on this device.
+            </p>
+          ) : (
+            <div className="space-y-3 text-xs font-mono">
+              <div className="p-3 rounded bg-black border border-charcoal text-neutral-300">
+                Detected legacy items: {legacyPreview.counts.workspaces} workspaces, {legacyPreview.counts.audits} audits, {legacyPreview.counts.savedJds} saved JDs, {legacyPreview.counts.watchlistTargets} targets, {legacyPreview.counts.planItems} plan items.
+              </div>
+              <button
+                type="button"
+                disabled={!isSignedIn || isImportingLegacy}
+                onClick={handleImportLegacyData}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded bg-volt hover:bg-volt-hover text-black font-bold uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+              >
+                <Upload className="h-4 w-4" />
+                <span>
+                  {isImportingLegacy
+                    ? 'Importing into Postgres...'
+                    : isSignedIn
+                    ? 'Import Legacy Data into My Cloud Account'
+                    : 'Sign in with Google above to Import'}
+                </span>
+              </button>
+            </div>
+          )}
+
+          {legacyImportMessage && (
+            <div className="p-3 rounded border border-white/10 bg-black text-xs font-mono text-neutral-200">
+              {legacyImportMessage}
+            </div>
+          )}
+        </section>
+
+        {/* Danger Zone */}
+        <section className="rounded border border-rose-500/40 bg-surface p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
               <Trash2 className="h-5 w-5 text-rose-400" />
-              <h3 className="text-base font-mono font-semibold text-white uppercase tracking-tight">Erase All Local Data</h3>
+              <h2 className="text-base font-mono font-semibold text-white uppercase tracking-tight">
+                {isSignedIn ? 'Delete All Cloud & Session Data' : 'Clear Session & Legacy Browser Keys'}
+              </h2>
             </div>
             <p className="mt-1 text-xs font-mono text-rose-300/80 leading-relaxed">
-              Permanently clears all locally stored resumes, JDs, scan history, notes, and preferences from this browser. This cannot be undone.
+              {isSignedIn
+                ? 'Permanently erases every Postgres table row (`erase_my_data`) and private Storage object belonging to your Supabase account.'
+                : 'Clears all in-memory guest state and removes any leftover pre-migration HireFlow browser storage keys.'}
             </p>
           </div>
 
           <button
             type="button"
+            disabled={isDeletingAccountData}
             onClick={() => setIsClearModalOpen(true)}
-            className="shrink-0 inline-flex items-center gap-2 rounded border border-rose-600 bg-rose-600/20 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-rose-200 hover:bg-rose-600 hover:text-white transition-colors"
+            className="shrink-0 inline-flex items-center gap-2 rounded border border-rose-600 bg-rose-600/20 px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-rose-200 hover:bg-rose-600 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
           >
             <Trash2 className="h-4 w-4" />
-            <span>Clear All Data</span>
+            <span>{isDeletingAccountData ? 'Deleting...' : 'Erase All Data'}</span>
           </button>
-        </div>
+        </section>
       </main>
 
-      {/* Confirmation Dialog for Data Erasure */}
       <ConfirmDialog
         isOpen={isClearModalOpen}
         onCancel={() => setIsClearModalOpen(false)}
-        onConfirm={handleClearAllData}
-        title="Permanently Clear All Local Data?"
-        message="This action will completely wipe all resumes, target job descriptions, scan history, and notes from this device. Please ensure you have downloaded a backup if you wish to retain your records."
+        onConfirm={() => { void handleEraseData(); }}
+        title={isSignedIn ? 'Permanently Delete Cloud Account Data?' : 'Clear Session & Browser Keys?'}
+        message={
+          isSignedIn
+            ? 'This permanently removes all resumes, audits, saved JDs, watchlist targets, and private files stored in Supabase Postgres & Storage for your account.'
+            : 'This clears transient session memory and removes any leftover legacy browser storage keys.'
+        }
         confirmText="Erase Everything"
         isDestructive={true}
         requiredConfirmationWord="CLEAR"

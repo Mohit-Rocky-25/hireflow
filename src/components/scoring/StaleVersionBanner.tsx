@@ -12,6 +12,8 @@ import { computeSpecFingerprint } from '../../scoring/core/fingerprint';
 export interface StaleVersionBannerProps {
   storedSpecVersion?: string;
   storedFingerprint?: string;
+  currentSpecVersion?: string;
+  currentFingerprint?: string;
   onRerun?: () => void;
   className?: string;
 }
@@ -19,15 +21,18 @@ export interface StaleVersionBannerProps {
 export const StaleVersionBanner: React.FC<StaleVersionBannerProps> = ({
   storedSpecVersion,
   storedFingerprint,
+  currentSpecVersion,
+  currentFingerprint,
   onRerun,
   className = '',
 }) => {
   if (!storedSpecVersion && !storedFingerprint) return null;
 
-  const currentFingerprint = computeSpecFingerprint(CANONICAL_SCORING_SPEC);
+  const activeSpecVersion = currentSpecVersion || CANONICAL_SCORING_SPEC.specVersion;
+  const activeFingerprint = currentFingerprint || computeSpecFingerprint(CANONICAL_SCORING_SPEC);
   const isStale =
-    (storedFingerprint && storedFingerprint !== currentFingerprint) ||
-    (storedSpecVersion && storedSpecVersion !== CANONICAL_SCORING_SPEC.specVersion);
+    (storedFingerprint && storedFingerprint !== activeFingerprint) ||
+    (storedSpecVersion && storedSpecVersion !== activeSpecVersion);
 
   if (!isStale) return null;
 
@@ -43,7 +48,7 @@ export const StaleVersionBanner: React.FC<StaleVersionBannerProps> = ({
             This result was computed with an earlier specification (
             <code className="text-white font-mono">v{storedSpecVersion || 'legacy'}</code>
             ). Current specification is{' '}
-            <code className="text-volt font-mono">v{CANONICAL_SCORING_SPEC.specVersion}</code>.
+            <code className="text-volt font-mono">v{activeSpecVersion}</code>.
           </span>
         </div>
       </div>

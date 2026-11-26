@@ -1,110 +1,128 @@
+// ============================================================
+// HireFlow — Google OAuth PKCE Callback Page
+// Exchanges authorization code, binds verified Supabase UUID,
+// hydrates Postgres user data BEFORE navigating, and clears transient URL state.
+// ============================================================
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getSupabase, isAuthConfigured } from './supabaseClient';
-import { useAuthStore, validateReturnTo } from './useAuthStore';
-import { AUTH_HINT_KEY } from '@/lib/storage/namespace';
-import { explainAuthError, type AuthProblem } from './demoAuth';
+import { getSupabase, isSupabaseRuntimeConfigured } from './supabaseClient';
+import { useAuthStore } from './useAuthStore';
+import { explainAuthError, validateReturnToPath, type AuthProblem } from './authErrors';
 
 export const AuthCallbackPage: React.FC = () => {
   const navigate = useNavigate();
-  const [problem, setProblem] = useState<AuthProblem | null>(null);
+  const [errorInfo, setErrorInfo] = useState<{
+    problem: AuthProblem;
+    title: string;
+    detail: string;
+    recoverable: boolean;
+  } | null>(null);
 
   useEffect(() => {
-    // 1. Check for query or hash params with error
-    const searchParams = new URLSearchParams(window.location.search);
-    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    let active = true;
 
-    const params: Record<string, string | undefined> = {
-      error: searchParams.get('error') || hashParams.get('error') || undefined,
-      error_code: searchParams.get('error_code') || hashParams.get('error_code') || undefined,
-      error_description: searchParams.get('error_description') || hashParams.get('error_description') || undefined,
-    };
+    const handleCallback = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const errorParam = params.get('error');
+      const errorDesc = params.get('error_description');
+      const codeParam = params.get('code');
 
-    const explained = explainAuthError(params);
-    if (explained) {
-      setProblem(explained);
-      return;
-    }
+      if (errorParam) {
+        if (!active) return;
+        setErrorInfo(explainAuthError(errorParam, errorDesc));
+        return;
+      }
 
-    if (!isAuthConfigured) {
-      navigate('/', { replace: true });
-      return;
-    }
+      if (!isSupabaseRuntimeConfigured()) {
+        if (!active) return;
+        setErrorInfo(explainAuthError('AUTH_NOT_CONFIGURED'));
+        return;
+      }
 
-    void (async () => {
       try {
         const supabase = await getSupabase();
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error || !session) {
-          const errExplained = explainAuthError({
-            error: error?.name || 'session_error',
-            error_description: error?.message || 'Authentication session could not be established',
-          });
-          setProblem(errExplained ?? {
-            title: 'Sign-in failed',
-            detail: error?.message || 'Authentication session could not be established.',
-            fix: 'Try again, or use the demo account.',
-          });
+        // Supabase client enables detectSessionInUrl: true, so inspect existing session first
+        // before attempting manual PKCE code exchange to avoid double-exchanging single-use codes.
+        let {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
+        if (!session && !error && codeParam) {
+          const exchanged = await supabase.auth.exchangeCodeForSession(codeParam);
+          session = exchanged.data.session;
+          error = exchanged.error;
+        }
+
+        if (error) {
+          if (!active) return;
+          setErrorInfo(explainAuthError(error.message));
           return;
         }
 
-        useAuthStore.setState({
-          status: 'authenticated',
-          userId: session.user.id,
-          email: session.user.email ?? null,
-          displayName: session.user.user_metadata?.full_name || session.user.user_metadata?.name || 'Mohit',
-          avatarUrl: session.user.user_metadata?.avatar_url || null,
-        });
-        localStorage.setItem(AUTH_HINT_KEY, '1');
+        if (!session?.user?.id) {
+          if (!active) return;
+          setErrorInfo(explainAuthError('expired_code'));
+          return;
+        }
 
-        const rawReturnTo = sessionStorage.getItem('hireflow:returnTo');
-        sessionStorage.removeItem('hireflow:returnTo');
-        const target = validateReturnTo(rawReturnTo || undefined);
-        navigate(target, { replace: true });
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Authentication failed';
-        setProblem(explainAuthError({ error_description: msg }) ?? {
-          title: 'Sign-in failed',
-          detail: msg,
-          fix: 'Try again, or use the demo account.',
-        });
+        // Hydrate cloud account BEFORE navigating into authenticated views
+        await useAuthStore.getState().resolveSession(session);
+
+        const rawReturnTo =
+          typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('hireflow:returnTo') : null;
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem('hireflow:returnTo');
+        }
+
+        const safeTarget = validateReturnToPath(rawReturnTo) || '/portal';
+        if (active) {
+          navigate(safeTarget, { replace: true });
+        }
+      } catch (err) {
+        if (!active) return;
+        setErrorInfo(explainAuthError(err instanceof Error ? err.message : 'Callback failed'));
       }
-    })();
+    };
+
+    void handleCallback();
+    return () => {
+      active = false;
+    };
   }, [navigate]);
 
-  if (problem) {
+  const handleRetryGoogle = () => {
+    const rawReturnTo =
+      typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('hireflow:returnTo') : null;
+    void useAuthStore.getState().signInWithGoogle(validateReturnToPath(rawReturnTo) || '/portal');
+  };
+
+  if (errorInfo) {
     return (
-      <div className="min-h-screen bg-[#090907] text-[#f1f1e8] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-[#10100d] border border-[#24241c] p-7 rounded-2xl shadow-xl">
-          <div className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#ff8a70] mb-2">
-            Sign-in issue
+      <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-white p-6">
+        <div className="max-w-md w-full rounded-xl border border-white/10 bg-[#121216] p-6 space-y-4">
+          <div className="text-xs font-mono uppercase tracking-wider text-rose-400">
+            Authentication Notice
           </div>
-          <h2 className="text-xl font-bold tracking-tight text-[#f1f1e8] mb-2">
-            {problem.title}
-          </h2>
-          <p className="text-[13.5px] text-[#9b9b8c] leading-relaxed mb-4">
-            {problem.detail}
-          </p>
-          <div className="p-3.5 rounded-lg border border-[#24241c] bg-[#16160f] text-xs text-[#d9d9cd] leading-relaxed mb-6">
-            <span className="font-semibold text-[#f1f1e8]">How to fix it: </span>
-            {problem.fix}
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3">
+          <h1 className="text-lg font-semibold">{errorInfo.title}</h1>
+          <p className="text-sm text-neutral-300 leading-relaxed">{errorInfo.detail}</p>
+          <div className="flex flex-wrap items-center gap-2 pt-2">
+            {errorInfo.recoverable && (
+              <button
+                type="button"
+                onClick={handleRetryGoogle}
+                className="px-4 py-2 rounded-lg bg-volt text-black text-xs font-semibold hover:bg-volt-hover transition-colors cursor-pointer"
+              >
+                Try Google sign-in again
+              </button>
+            )}
             <button
-              onClick={() => navigate('/?signin=true', { replace: true })}
-              className="flex-1 h-10 px-4 rounded-full text-xs font-semibold border border-[#24241c] text-[#f1f1e8] hover:border-[#faff69]/40 transition-colors"
+              type="button"
+              onClick={() => navigate('/portal')}
+              className="px-4 py-2 rounded-lg border border-white/15 bg-white/5 text-white text-xs font-semibold hover:bg-white/10 transition-colors cursor-pointer"
             >
-              Try again
-            </button>
-            <button
-              onClick={() => {
-                void useAuthStore.getState().signInWithDemo().then(() => {
-                  navigate('/?my=overview', { replace: true });
-                });
-              }}
-              className="flex-1 h-10 px-4 rounded-full text-xs font-bold bg-[#faff69] text-[#090907] hover:bg-[#ebf059] transition-colors"
-            >
-              Use the demo account
+              Continue as Guest
             </button>
           </div>
         </div>
@@ -113,9 +131,10 @@ export const AuthCallbackPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#090907] text-[#9b9b8c] flex items-center justify-center p-4">
-      <div className="text-xs font-mono animate-pulse">
-        Completing authentication...
+    <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-white p-6">
+      <div className="text-center space-y-3">
+        <div className="w-8 h-8 rounded-full border-2 border-volt border-t-transparent animate-spin mx-auto" />
+        <p className="text-sm text-neutral-300">Verifying Google session &amp; syncing cloud data...</p>
       </div>
     </div>
   );

@@ -31,6 +31,7 @@ import {
   ExtractionMetaInfo,
 } from '../../features/ats/components/AtsInputSection';
 import { runAtsEngine, AtsEngineResult, TargetTierId, ExperienceLevelId } from '../../lib/ats';
+import type { ApplicationGuidance, QuickRoastProjection } from '../../features/ats/engine/types';
 import { ScoreHeader } from '../../features/ats/components/ScoreHeader';
 import { FixTheseFirst } from '../../features/ats/components/FixTheseFirst';
 import { TabBar, ReportTabId } from '../../features/ats/components/TabBar';
@@ -50,20 +51,26 @@ import { ResumePreviewModal } from '../../components/common/ResumePreviewModal';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
 import { parseJD } from '../../lib/ats/parseJD';
-import { autoSyncManager } from '../../lib/sync/autoSyncManager';
+import { cloudRepository } from '../../lib/cloud/cloudRepository';
+import { uploadPrivateDocument } from '../../lib/cloud/storageService';
+import { useCloudDocumentsStore } from '../../lib/cloud/useDocumentsStore';
+import { useCloudSyncStore } from '../../lib/cloud/useCloudSyncStore';
+import { useAuthStore } from '../../features/auth/useAuthStore';
 import { ResumePicker } from '../../features/resumes/ResumePicker';
 import { useResumeStore } from '../../features/resumes/useResumeStore';
 import { useAuditStore } from '../../features/journal/useAuditStore';
 import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
 import { useHandoffStore } from '../../features/handoff/useHandoffStore';
-import { atsToAuditInput } from '../../features/ats/journalAdapter';
+import { atsToAuditInput, detectTargetRoleTitle } from '../../features/ats/journalAdapter';
+import {
+  createAuthoritativeReportSnapshot,
+  type AuthoritativeReportSnapshot,
+} from '../../features/ats/engine/authoritativeSnapshot';
 import { exportDossier } from '../../features/dossier/exportDossier';
 import { ExportDossierButton } from '../../features/dossier/ExportDossierButton';
 import { slug, makeTargetKey } from '../../domain/ids';
 import { sha256Hex } from '../../lib/crypto/sha256';
 import { normalizeText } from '../../lib/text/normalize';
-import { kvGet } from '../../lib/storage/kv';
-import { getSnapshotKey } from '../../lib/storage/namespace';
 import type { AuditEntry, TextSnapshot, Uuid } from '../../domain/types';
 
 const STAGED_MESSAGES = [
@@ -73,6 +80,162 @@ const STAGED_MESSAGES = [
   'Calculating 7-category weights & penalty metrics...',
   'Synthesizing grounded recruiter intelligence...',
 ];
+
+export function buildQuickRoastProjection(engineResult: AtsEngineResult): QuickRoastProjection {
+  if (engineResult.quickRoast) return engineResult.quickRoast;
+  const verifiedStrengths = (engineResult.skillResults || [])
+    .filter((s) => s.status === 'verified' && s.evidence?.length > 0)
+    .slice(0, 3)
+    .map((s) => ({
+      title: s.canonical || s.skillId,
+      evidenceQuote: s.evidence[0]?.quote || '',
+    }));
+  const priorityGaps = (engineResult.skillResults || [])
+    .filter((s) => s.status === 'missing' || s.status === 'weak')
+    .slice(0, 3)
+    .map((s) => ({
+      title: s.canonical || s.skillId,
+      gapType: s.status === 'missing' ? 'missing_skill' : 'weak_evidence',
+    }));
+  const prioritizedActions = (engineResult.fixFirst || []).slice(0, 3).map((f) => ({
+    title: f.title,
+    action: f.reason,
+  }));
+  return {
+    finalScore: engineResult.trace?.composite ?? engineResult.score,
+    oneLineVerdict: engineResult.headline,
+    strengths: verifiedStrengths,
+    gaps: priorityGaps,
+    prioritizedActions,
+  };
+}
+
+export function deriveApplicationGuidance(engineResult: AtsEngineResult): ApplicationGuidance {
+  if (engineResult.applicationGuidance) return engineResult.applicationGuidance;
+  if (engineResult.confidence === 'Low') return 'Insufficient evidence to evaluate';
+  const score = engineResult.trace?.composite ?? engineResult.score;
+  if (score >= 80) return 'Ready to apply';
+  if (score >= 60) return 'Apply after high-priority fixes';
+  return 'Significant gaps to address';
+}
+
+export function buildFallbackAuditEntry(params: {
+  engineResult: AtsEngineResult;
+  quickRoast: QuickRoastProjection | null;
+  effectiveSnapshot: AuthoritativeReportSnapshot | null;
+  quickSummary: ReturnType<typeof buildQuickSummary> | null;
+  detectedTargetCompany?: string;
+  detectedRoleTitle: string;
+  resumeFileName: string | null;
+  jobRoleBridgeSkills: Array<{ name: string; isMandatory: boolean; status: 'verified' | 'gap' }>;
+}): AuditEntry {
+  const {
+    engineResult,
+    quickRoast,
+    effectiveSnapshot,
+    quickSummary,
+    detectedTargetCompany,
+    detectedRoleTitle,
+    resumeFileName,
+    jobRoleBridgeSkills,
+  } = params;
+
+  const authoritativeScore = engineResult.trace?.composite ?? engineResult.score;
+  const effectiveCompany = engineResult.employerName || detectedTargetCompany;
+  const fallbackBreakdown = engineResult.trace?.pillars
+    ? engineResult.trace.pillars
+        .filter((p) => p.applicable && p.effectiveWeight > 0)
+        .map((p) => {
+          const maxPts = Math.round(p.effectiveWeight * 100);
+          return {
+            key: p.id,
+            label: p.label,
+            score: maxPts > 0 ? Math.round((p.contribution / maxPts) * 100) : 0,
+            weight: p.effectiveWeight,
+          };
+        })
+    : (() => {
+        const w = engineResult.activeWeights || {
+          mustHaveCoverage: 30,
+          evidenceDepth: 20,
+          impactMetrics: 15,
+          projectsAndOss: 10,
+          seniorityFit: 10,
+          formatAndParse: 10,
+          tierFit: 5,
+        };
+        const dims = [
+          { key: 'must_have', label: 'Must-Have Coverage', val: engineResult.subscores?.mustHaveCoverage ?? 0, max: w.mustHaveCoverage ?? 30 },
+          { key: 'evidence', label: 'Evidence Quality', val: engineResult.subscores?.evidenceDepth ?? 0, max: w.evidenceDepth ?? 20 },
+          { key: 'impact', label: 'Impact Metrics', val: engineResult.subscores?.impactMetrics ?? 0, max: w.impactMetrics ?? 15 },
+          { key: 'relevance', label: 'Project Relevance', val: engineResult.subscores?.projectsAndOss ?? 0, max: w.projectsAndOss ?? 10 },
+          { key: 'seniority', label: 'Seniority Fit', val: engineResult.subscores?.seniorityFit ?? 0, max: w.seniorityFit ?? 10 },
+          { key: 'formatting', label: 'Formatting Safety', val: engineResult.subscores?.formatAndParse ?? 0, max: w.formatAndParse ?? 10 },
+          { key: 'tier_fit', label: 'Tier Fit', val: engineResult.subscores?.tierFit ?? 0, max: w.tierFit ?? 5 },
+        ];
+        return dims
+          .filter((d) => d.max > 0)
+          .map((d) => ({
+            key: d.key,
+            label: d.label,
+            score: Math.round((d.val / d.max) * 100),
+            weight: d.max / 100,
+          }));
+      })();
+
+  return {
+    schemaVersion: 1,
+    id: 'audit-' + Date.now(),
+    targetKey: `ats:${effectiveCompany ? slug(effectiveCompany) : 'target'}:${detectedRoleTitle ? slug(detectedRoleTitle) : 'role'}`,
+    kind: 'ats_roast',
+    engineVersion: engineResult.engineVersion || engineResult.trace?.engineVersion || '4.0.0',
+    runKey: 'local-ats-run',
+    overallScore: authoritativeScore,
+    createdAt: new Date().toISOString(),
+    resume: {
+      workspaceId: null,
+      versionId: null,
+      label: resumeFileName || 'Scanned Resume',
+      snapshotHash: 'res-snapshot-local',
+    },
+    jd: {
+      origin: 'pasted',
+      company: effectiveCompany || undefined,
+      roleTitle: detectedRoleTitle || undefined,
+      snapshotHash: 'jd-snapshot-local',
+    },
+    breakdown: fallbackBreakdown,
+    strengths: (quickRoast?.strengths || [])
+      .map((s) => s.title || String(s))
+      .concat(
+        (engineResult.skillResults || [])
+          .filter((s) => s.status === 'verified')
+          .slice(0, 3)
+          .map((s) => `${s.canonical || s.skillId}: verified`)
+      )
+      .slice(0, 5),
+    gaps: (engineResult.skillResults || [])
+      .filter((s) => s.status === 'missing' && s.required === 'must')
+      .map((m, idx) => ({
+        id: `gap-${idx}`,
+        category: 'skill' as const,
+        label: m.canonical || m.skillId || 'Requirement gap',
+        severity: 3 as const,
+        detail: `Must-have skill "${m.canonical || m.skillId}" not satisfied.`,
+      })),
+    delta: null,
+    findingsJson: {
+      kind: 'ats_roast',
+      engineResult,
+      authoritativeSnapshot: effectiveSnapshot,
+      quickSummary,
+      targetCompany: effectiveCompany,
+      targetRole: detectedRoleTitle,
+      bridgeSkills: jobRoleBridgeSkills,
+    },
+    evidence: [],
+  };
+}
 
 export function ResumeChecker() {
   const navigate = useNavigate();
@@ -110,12 +273,7 @@ export function ResumeChecker() {
   }, [queryCompanyId, jobText]);
 
   const detectedRoleTitle = useMemo(() => {
-    if (queryCompanyId) return `${queryCompanyId} Target Role`;
-    const match = jobText.match(/(?:Role|Title|Position):\s*([^\r\n,]+)/i);
-    if (match && match[1]) return match[1].trim();
-    const firstLine = jobText.trim().split('\n')[0]?.trim();
-    if (firstLine && firstLine.length < 60 && !firstLine.includes(':')) return firstLine;
-    return 'Target Role';
+    return detectTargetRoleTitle(jobText, queryCompanyId);
   }, [queryCompanyId, jobText]);
 
   const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
@@ -164,17 +322,19 @@ export function ResumeChecker() {
     label: 'Custom Resume',
   });
   const [latestAuditEntry, setLatestAuditEntry] = useState<AuditEntry | null>(null);
+  const [latestSnapshot, setLatestSnapshot] = useState<AuthoritativeReportSnapshot | null>(null);
   const [lastTargetAudit, setLastTargetAudit] = useState<AuditEntry | null>(null);
   const [dismissTargetBanner, setDismissTargetBanner] = useState(false);
 
   // Consume handoff from other tools (Tailor, Matrix, Watchlist)
   useEffect(() => {
     const handoff = useHandoffStore.getState().consume('/tools/resume-checker');
+    const activeUserId = useAuthStore.getState().userId;
     if (handoff) {
       if (handoff.resumeVersionId) {
         const ver = useResumeStore.getState().versions[handoff.resumeVersionId];
         if (ver) {
-          void kvGet<TextSnapshot>(getSnapshotKey(ver.snapshotHash)).then((snap) => {
+          void cloudRepository.fetchSnapshot(ver.snapshotHash, activeUserId).then((snap) => {
             if (snap) {
               setResumeText(snap.text);
               setResumeFileName(ver.label);
@@ -188,7 +348,7 @@ export function ResumeChecker() {
         }
       }
       if (handoff.jdSnapshotHash) {
-        void kvGet<TextSnapshot>(getSnapshotKey(handoff.jdSnapshotHash)).then((snap) => {
+        void cloudRepository.fetchSnapshot(handoff.jdSnapshotHash, activeUserId).then((snap) => {
           if (snap) {
             setJobText(snap.text);
             setJobFileName('Saved Target JD');
@@ -245,6 +405,7 @@ export function ResumeChecker() {
   const tabBarRef = useRef<HTMLDivElement>(null);
   const userClearedJobRef = useRef(false);
   const userClearedResumeRef = useRef(false);
+  const activeScanIdRef = useRef(0);
 
   // Sync from TalentLens URL query parameters & ensure store has resume loaded
   useEffect(() => {
@@ -287,6 +448,30 @@ export function ResumeChecker() {
     return () => clearInterval(timer);
   }, [isScanning]);
 
+  const clearPriorUploadState = (type: 'resume' | 'job') => {
+    activeScanIdRef.current += 1;
+    setEngineResult(null);
+    setLatestSnapshot(null);
+    setLatestAuditEntry(null);
+    if (type === 'resume') {
+      userClearedResumeRef.current = true;
+      setResumeText('');
+      setResumeFileName(null);
+      setResumePageCount(undefined);
+      setResumeExtractionMeta(undefined);
+      setResumeSource(undefined);
+    } else {
+      userClearedJobRef.current = true;
+      setJobText('');
+      setJobFileName(null);
+      setJobPageCount(undefined);
+      setJobExtractionMeta(undefined);
+      setJobSource(undefined);
+      setConfirmedRequirements(null);
+      setParsedJdData(null);
+    }
+  };
+
   const handleFileUpload = async (file: File, type: 'resume' | 'job') => {
     setIsFileExtracting(true);
     setFileError(null);
@@ -302,6 +487,7 @@ export function ResumeChecker() {
         } else if (outcome.reason === 'corrupt') {
           msg = 'Corrupt File Signature: File structure is damaged or invalid. Please re-export or re-save the document.';
         }
+        clearPriorUploadState(type);
         setFileError(msg);
         return;
       }
@@ -320,6 +506,7 @@ export function ResumeChecker() {
       if (type === 'resume') {
         const validity = validateResumeAuthenticity(outcome.data.text);
         if (!validity.isValid) {
+          clearPriorUploadState('resume');
           setFileError(
             validity.reason ||
               'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).'
@@ -339,8 +526,36 @@ export function ResumeChecker() {
         setJobPageCount(outcome.data.pages);
         setJobExtractionMeta(meta);
         setJobSource('upload');
+        setConfirmedRequirements(null);
+        setParsedJdData(null);
+      }
+
+      // Archive original file into private Supabase Storage (`user-documents`) when signed in
+      const auth = useAuthStore.getState();
+      if (auth.status === 'authenticated' && auth.userId) {
+        void file
+          .arrayBuffer()
+          .then((buffer) =>
+            uploadPrivateDocument({
+              userId: auth.userId!,
+              docKind: type === 'resume' ? 'resume_upload' : 'jd_upload',
+              fileName: file.name,
+              mimeType: file.type || 'application/octet-stream',
+              buffer,
+            })
+          )
+          .then((doc) => {
+            useCloudDocumentsStore.getState().addDocument(doc);
+          })
+          .catch((err) => {
+            useCloudSyncStore.getState().setError(
+              `upload ${file.name}`,
+              err instanceof Error ? err.message : 'Failed to upload file to private cloud storage.'
+            );
+          });
       }
     } catch (err: any) {
+      clearPriorUploadState(type);
       setFileError(err?.message || 'Error processing uploaded file.');
     } finally {
       setIsFileExtracting(false);
@@ -386,7 +601,10 @@ export function ResumeChecker() {
   };
 
   const executeAnalysis = (confirmedList?: ConfirmedRequirement[]) => {
+    const currentScanId = ++activeScanIdRef.current;
     setIsScanning(true);
+    setFileError(null);
+    setLatestAuditEntry(null);
     setActiveTab('overview');
 
     const tierMap: Record<string, TargetTierId> = {
@@ -405,6 +623,9 @@ export function ResumeChecker() {
     const mappedLevel = levelMap[experienceLevel] || 'auto';
 
     setTimeout(() => {
+      if (activeScanIdRef.current !== currentScanId) {
+        return;
+      }
       try {
         const activeRequirements = confirmedList || confirmedRequirements || undefined;
         const normalizedResume = normalizeText(resumeText);
@@ -417,60 +638,94 @@ export function ResumeChecker() {
           confirmedRequirements: activeRequirements ? activeRequirements.map(r => ({ text: r.text, type: r.type })) : undefined,
         });
 
+        if (activeScanIdRef.current !== currentScanId) {
+          return;
+        }
+
         if (!response.success) {
+          setEngineResult(null);
+          setLatestSnapshot(null);
+          setLatestAuditEntry(null);
           setFileError(response.message);
           return;
         }
 
-        setEngineResult(response.result);
+        const effectiveTargetCompany = response.result.employerName || detectedTargetCompany;
+        const snapshot = createAuthoritativeReportSnapshot(
+          response.result,
+          normalizedResume,
+          normalizedJd,
+          {
+            resumeFileName: resumeFileName || 'resume.pdf',
+            targetCompany: effectiveTargetCompany,
+            targetRole: detectedRoleTitle || response.result.bestFitTier || 'Standard Role',
+            candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
+          }
+        );
 
-        // Record into Candidate OS Audit Journal
+        setEngineResult(response.result);
+        setLatestSnapshot(snapshot);
+
+        // Record into Candidate OS Audit Journal (scan-scoped to prevent stale async overwrite)
         void (async () => {
           try {
             const auditInput = atsToAuditInput({
               result: response.result,
               resumeText: normalizedResume,
               jdText: normalizedJd,
-              source: (resumeSource === 'uploaded' ? 'upload' : 'paste') as any,
+              source: (resumeSource === 'upload' ? 'upload' : 'paste') as any,
               workspaceId: selectedResumeMeta.workspaceId,
               resumeVersionId: selectedResumeMeta.versionId,
               resumeLabel: selectedResumeMeta.label,
-              targetCompany: detectedTargetCompany,
+              targetCompany: effectiveTargetCompany,
               targetRole: detectedRoleTitle,
+              candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
             });
             const { entry } = await useAuditStore.getState().record(auditInput);
-            setLatestAuditEntry(entry);
+            if (activeScanIdRef.current === currentScanId) {
+              setLatestAuditEntry(entry);
+            }
           } catch (recordErr) {
             console.warn('Candidate OS audit record notice:', recordErr);
           }
         })();
 
         const missing = (response.result.skillResults || [])
-          .filter((s: any) => s.status === 'missing')
-          .map((s: any) => s.name);
+          .filter((s) => s.status === 'missing')
+          .map((s) => s.canonical || s.skillId);
         useAtsToolStore.getState().setLatestMissingSkills(missing);
+
         useAtsToolStore.getState().addHistoryEntry({
           resumeFileName: resumeFileName || 'resume.pdf',
-          targetRole: response.result.bestFitTier || 'Standard Role',
-          score: response.result.trace?.compositeDisplay ?? response.result.score,
+          targetRole: detectedRoleTitle || response.result.bestFitTier || 'Standard Role',
+          score: response.result.score,
           matchedCount: response.result.audit.skillsParsedCount,
           missingCount: response.result.missingKeywordsCount,
           specVersion: response.result.specVersion,
           engineVersion: response.result.engineVersion,
           specFingerprint: response.result.specFingerprint,
+          candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
+          targetCompany: effectiveTargetCompany,
+          seniorityStatus: response.result.seniorityMatchResult?.status,
+          isEligible: response.result.seniorityMatchResult?.isEligible,
+          authoritativeSnapshot: snapshot,
         });
-
-        // Trigger automatic cloud sync across devices for logged-in user
-        autoSyncManager.scheduleSync(500);
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setTimeout(() => {
           headerRef.current?.focus();
         }, 150);
       } catch (err: any) {
-        setFileError(err?.message || 'Unexpected analysis error occurred.');
+        if (activeScanIdRef.current === currentScanId) {
+          setEngineResult(null);
+          setLatestSnapshot(null);
+          setLatestAuditEntry(null);
+          setFileError(err?.message || 'Unexpected analysis error occurred.');
+        }
       } finally {
-        setIsScanning(false);
+        if (activeScanIdRef.current === currentScanId) {
+          setIsScanning(false);
+        }
       }
     }, 400);
   };
@@ -488,23 +743,60 @@ export function ResumeChecker() {
     executeAnalysis(confirmedRequirements);
   };
 
-  const handleConfirmRequirements = (confirmed: ConfirmedRequirement[]) => {
+  const handleConfirmRequirements = (
+    confirmed: ConfirmedRequirement[],
+    hasCustomizations = false
+  ) => {
+    if (!hasCustomizations) {
+      // Unedited modal preserves authoritative jdAnalyzer compound & ontology parsing.
+      setConfirmedRequirements(null);
+      executeAnalysis(undefined);
+      return;
+    }
     setConfirmedRequirements(confirmed);
     executeAnalysis(confirmed);
   };
 
   const handleTryAnotherJob = () => {
+    activeScanIdRef.current += 1;
+    setIsScanning(false);
     setJobText('');
     setJobFileName(null);
     setJobPageCount(undefined);
     setEngineResult(null);
+    setLatestSnapshot(null);
+    setLatestAuditEntry(null);
     setConfirmedRequirements(null);
     setParsedJdData(null);
     setActiveTab('overview');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const canonical = engineResult?.canonicalResult;
+  const quickRoast = useMemo<QuickRoastProjection | null>(() => {
+    if (!engineResult) return null;
+    return buildQuickRoastProjection(engineResult);
+  }, [engineResult]);
+
+  const applicationGuidance = useMemo<ApplicationGuidance | null>(() => {
+    if (!engineResult) return null;
+    return deriveApplicationGuidance(engineResult);
+  }, [engineResult]);
+
+  const effectiveSnapshot = useMemo<AuthoritativeReportSnapshot | null>(() => {
+    if (!engineResult) return null;
+    if (latestSnapshot) return latestSnapshot;
+    return createAuthoritativeReportSnapshot(
+      engineResult,
+      normalizeText(resumeText),
+      normalizeText(jobText),
+      {
+        resumeFileName: resumeFileName || 'resume.pdf',
+        targetCompany: engineResult.employerName || detectedTargetCompany,
+        targetRole: detectedRoleTitle || engineResult.bestFitTier || 'Standard Role',
+        candidateName: engineResult.candidateName || engineResult.audit?.contactInfo?.name || undefined,
+      }
+    );
+  }, [engineResult, latestSnapshot, resumeText, jobText, resumeFileName, detectedTargetCompany, detectedRoleTitle]);
 
   const quickSummary = React.useMemo(() => {
     if (!engineResult) return null;
@@ -607,7 +899,10 @@ export function ResumeChecker() {
                       if (!val) return;
                       const target = useMySpaceStore.getState().watchlist[val];
                       if (target && target.jdSnapshotHash) {
-                        const snap = await kvGet<TextSnapshot>(getSnapshotKey(target.jdSnapshotHash));
+                        const snap = await cloudRepository.fetchSnapshot(
+                          target.jdSnapshotHash,
+                          useAuthStore.getState().userId
+                        );
                         if (snap) {
                           setJobText(snap.text);
                           setJobFileName(`${target.companyName}, ${target.roleTitle || 'General'}`);
@@ -658,6 +953,8 @@ export function ResumeChecker() {
               onJobTextChange={(txt) => {
                 userClearedJobRef.current = false;
                 setJobText(txt);
+                setConfirmedRequirements(null);
+                setParsedJdData(null);
                 setFileError(null);
                 if (!txt.trim()) {
                   setJobFileName(null);
@@ -678,64 +975,19 @@ export function ResumeChecker() {
 
         {/* Results Screen */}
         {engineResult && (() => {
-          const effectiveAudit: AuditEntry = latestAuditEntry || {
-            schemaVersion: 1,
-            id: 'audit-' + Date.now(),
-            targetKey: `ats:${detectedTargetCompany ? slug(detectedTargetCompany) : 'target'}:${detectedRoleTitle ? slug(detectedRoleTitle) : 'role'}`,
-            kind: 'ats_roast',
-            engineVersion: '4.0.0',
-            runKey: 'local-ats-run',
-            overallScore: engineResult.score,
-            createdAt: new Date().toISOString(),
-            resume: {
-              workspaceId: null,
-              versionId: null,
-              label: resumeFileName || 'Scanned Resume',
-              snapshotHash: 'res-snapshot-local',
-            },
-            jd: {
-              origin: 'pasted',
-              company: detectedTargetCompany || undefined,
-              roleTitle: detectedRoleTitle || undefined,
-              snapshotHash: 'jd-snapshot-local',
-            },
-            breakdown: [
-              { key: 'must_have', label: 'Must-Have Coverage', score: Math.round(((engineResult.subscores?.mustHaveCoverage ?? 0) / 30) * 100) },
-              { key: 'evidence', label: 'Evidence Quality', score: Math.round(((engineResult.subscores?.evidenceDepth ?? 0) / 20) * 100) },
-              { key: 'seniority', label: 'Seniority Fit', score: Math.round(((engineResult.subscores?.seniorityFit ?? 0) / 10) * 100) },
-              { key: 'relevance', label: 'Project Relevance', score: Math.round(((engineResult.subscores?.projectsAndOss ?? 0) / 10) * 100) },
-              { key: 'formatting', label: 'Formatting Safety', score: Math.round(((engineResult.subscores?.formatAndParse ?? 0) / 10) * 100) },
-            ],
-            strengths: (canonical?.quickRoast?.strengths || [])
-              .map((s: any) => s.title || String(s))
-              .concat(
-                (engineResult.skillResults || [])
-                  .filter((s) => s.status === 'verified')
-                  .slice(0, 3)
-                  .map((s) => `${s.canonical}: verified`)
-              )
-              .slice(0, 5),
-            gaps: (engineResult.skillResults || [])
-              .filter((s) => s.status === 'missing' && s.required === 'must')
-              .map((m, idx) => ({
-                id: `gap-${idx}`,
-                category: 'skill' as const,
-                label: m.canonical || 'Requirement gap',
-                severity: 3 as const,
-                detail: `Must-have skill "${m.canonical}" not satisfied.`,
-              })),
-            delta: null,
-            findingsJson: {
-              kind: 'ats_roast',
+          const authoritativeScore = engineResult.trace?.composite ?? engineResult.score;
+          const effectiveAudit: AuditEntry =
+            latestAuditEntry ||
+            buildFallbackAuditEntry({
               engineResult,
-              canonical,
+              quickRoast,
+              effectiveSnapshot,
               quickSummary,
-              targetCompany: detectedTargetCompany,
-              targetRole: detectedRoleTitle,
-              bridgeSkills: jobRoleBridgeSkills,
-            },
-            evidence: [],
-          };
+              detectedTargetCompany,
+              detectedRoleTitle,
+              resumeFileName,
+              jobRoleBridgeSkills,
+            });
 
           return (
           <div className="space-y-8 animate-fade-in">
@@ -769,19 +1021,19 @@ export function ResumeChecker() {
                   {engineResult.bestFitTier} ({engineResult.seniorityFit.level} Level)
                 </span>
 
-                {canonical && (
+                {applicationGuidance && (
                   <span
                     className={`text-xs font-bold px-2.5 py-0.5 rounded uppercase tracking-[1px] border ${
-                      canonical.applicationGuidance === 'Ready to apply'
+                      applicationGuidance === 'Ready to apply'
                         ? 'bg-black text-volt border-volt/60'
-                        : canonical.applicationGuidance === 'Apply after high-priority fixes'
+                        : applicationGuidance === 'Apply after high-priority fixes'
                         ? 'bg-black text-pale-yellow border-pale-yellow/60'
-                        : canonical.applicationGuidance === 'Insufficient evidence to evaluate'
+                        : applicationGuidance === 'Insufficient evidence to evaluate'
                         ? 'bg-black text-silver border-charcoal'
                         : 'bg-black text-danger border-danger/60'
                     }`}
                   >
-                    {canonical.applicationGuidance}
+                    {applicationGuidance}
                   </span>
                 )}
               </div>
@@ -866,7 +1118,7 @@ export function ResumeChecker() {
             {showFullReport && (
               <>
                 {/* PRESENTATION MODE 1: QUICK ROAST */}
-                {presentationMode === 'quick' && canonical && (
+                {presentationMode === 'quick' && quickRoast && (
                   <div className="space-y-6 animate-fade-in">
                     {/* Score & Verdict Card */}
                     <div className="bg-near-black rounded-lg p-6 sm:p-8 border border-charcoal shadow-level-1 text-center">
@@ -876,18 +1128,23 @@ export function ResumeChecker() {
 
                       <div className="flex items-center justify-center gap-3 mb-2">
                         <div className="text-6xl sm:text-7xl font-black font-mono text-white">
-                          {canonical.scores.finalScore}
+                          {authoritativeScore}
                           <span className="text-3xl text-volt ml-1">%</span>
                         </div>
                       </div>
 
                       <div className="text-xl sm:text-2xl font-bold text-white mb-2">
-                        {canonical.quickRoast.oneLineVerdict}
+                        {quickRoast.oneLineVerdict}
                       </div>
 
                       <p className="text-sm text-silver max-w-xl mx-auto mb-6">
-                        Confidence: <span className="font-bold text-white capitalize">{canonical.confidence}</span> • Guidance:{' '}
-                        <span className="font-bold text-white">{canonical.applicationGuidance}</span>
+                        Confidence: <span className="font-bold text-white capitalize">{engineResult.confidence}</span> • Band:{' '}
+                        <span className="font-bold text-white">{engineResult.band}</span>
+                        {applicationGuidance && (
+                          <>
+                            {' '}• Guidance: <span className="font-bold text-white">{applicationGuidance}</span>
+                          </>
+                        )}
                       </p>
 
                       <div className="flex justify-center items-center gap-3 flex-wrap">
@@ -917,10 +1174,10 @@ export function ResumeChecker() {
                           Key Verified Strengths (Up to 3)
                         </h3>
                         <div className="space-y-3">
-                          {canonical.quickRoast.strengths.length === 0 ? (
+                          {quickRoast.strengths.length === 0 ? (
                             <p className="text-sm text-neutral-400">No strong verified strengths detected.</p>
                           ) : (
-                            canonical.quickRoast.strengths.map((s: any, i: number) => (
+                            quickRoast.strengths.map((s, i) => (
                               <div key={i} className="p-4 bg-black rounded-lg border border-charcoal text-sm">
                                 <div className="font-bold text-white text-base">{s.title}</div>
                                 <div className="text-neutral-300 mt-1.5 italic leading-relaxed">&ldquo;{s.evidenceQuote}&rdquo;</div>
@@ -936,13 +1193,13 @@ export function ResumeChecker() {
                           Top Priority Gaps (Up to 3)
                         </h3>
                         <div className="space-y-3">
-                          {canonical.quickRoast.gaps.length === 0 ? (
+                          {quickRoast.gaps.length === 0 ? (
                             <p className="text-sm text-neutral-400">No critical skill gaps found.</p>
                           ) : (
-                            canonical.quickRoast.gaps.map((g: any, i: number) => (
+                            quickRoast.gaps.map((g, i) => (
                               <div key={i} className="p-4 bg-black rounded-lg border border-danger/40 text-sm">
                                 <div className="font-bold text-white text-base">{g.title}</div>
-                                <div className="text-danger mt-1 uppercase tracking-wider text-xs font-bold">Gap type: {g.gapType.replace('_', ' ')}</div>
+                                <div className="text-danger mt-1 uppercase tracking-wider text-xs font-bold">Gap type: {g.gapType.replace(/_/g, ' ')}</div>
                               </div>
                             ))
                           )}
@@ -956,7 +1213,7 @@ export function ResumeChecker() {
                         Top Prioritized Action Items
                       </h3>
                       <div className="space-y-3">
-                        {canonical.quickRoast.prioritizedActions.map((act: any, i: number) => (
+                        {quickRoast.prioritizedActions.map((act, i) => (
                           <div key={i} className="p-4 sm:p-5 bg-black rounded-lg border border-charcoal text-sm flex items-start gap-3.5">
                             <span className="w-7 h-7 rounded-full bg-near-black border border-charcoal text-volt font-bold text-sm flex items-center justify-center shrink-0">
                               {i + 1}

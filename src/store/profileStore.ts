@@ -1,15 +1,12 @@
-/**
- * HireFlow v4: Shared Candidate Profile Store (A1.1)
- * Single source of truth for candidate active resume, versions, preferences, and target.
- * Persists via storage adapter under hireflow:v4:profile with strict Zod validation.
- */
+// ============================================================
+// HireFlow — Shared Candidate Profile In-Memory Store
+// Authenticated profiles persist in Supabase `user_profiles`
+// & `resume_workspaces`. Zero localStorage writes.
+// ============================================================
 
 import { create } from 'zustand';
-import { storage } from '../lib/storage';
 import { LIMITS } from '../config/limits';
 import { createId, nowIso } from '../lib/safeUtils';
-import { ProfileStoreSchema, ProfileStoreData } from '../types/schemas-v4';
-import { registerBackupSection } from '../lib/backup/registry';
 
 export interface ActiveResume {
   versionId: string;
@@ -46,7 +43,6 @@ export interface ProfileState {
   lastTarget: LastTarget | null;
   preferences: ProfilePreferences;
 
-  // Actions
   setActiveResume: (resume: ActiveResume | null) => void;
   addResumeVersion: (label: string, ledger: Record<string, any>, textHash: string) => string | null;
   updateResumeLabel: (id: string, label: string) => void;
@@ -55,70 +51,14 @@ export interface ProfileState {
   setPreferences: (pref: Partial<ProfilePreferences>) => void;
 }
 
-const STORAGE_KEY = 'profile';
-
-function loadInitialProfile(): ProfileStoreData {
-  // Attempt to migrate from legacy suite profile if present
-  storage.migrateStore(
-    STORAGE_KEY,
-    ['hireflow.suite.v1.profile', 'hireflow-storage-v4'],
-    (legacy: any) => {
-      const active = legacy?.activeResume || legacy?.profile || null;
-      return {
-        activeResume: active
-          ? {
-              versionId: active.versionId || createId(),
-              label: active.label || 'Default Resume',
-              ledger: active.ledger || active.facts || {},
-              textHash: active.textHash || 'migrated',
-              updatedAt: active.updatedAt || nowIso(),
-            }
-          : null,
-        resumeVersions: (legacy?.resumeVersions || []).slice(0, LIMITS.maxResumeVersions).map((v: any) => ({
-          id: v.id || createId(),
-          label: v.label || 'Resume Version',
-          ledger: v.ledger || {},
-          textHash: v.textHash || 'migrated',
-          createdAt: v.createdAt || nowIso(),
-          updatedAt: v.updatedAt || nowIso(),
-        })),
-        lastTarget: legacy?.lastTarget || null,
-        preferences: legacy?.preferences || {},
-      };
-    },
-    ProfileStoreSchema
-  );
-
-  const saved = storage.get<ProfileStoreData>(STORAGE_KEY, ProfileStoreSchema);
-  if (saved) {
-    return saved;
-  }
-
-  return {
-    activeResume: null,
-    resumeVersions: [],
-    lastTarget: null,
-    preferences: {},
-  };
-}
-
-const initialData = loadInitialProfile();
-
 export const useProfileStore = create<ProfileState>((set, get) => ({
-  activeResume: initialData.activeResume,
-  resumeVersions: initialData.resumeVersions,
-  lastTarget: initialData.lastTarget,
-  preferences: initialData.preferences,
+  activeResume: null,
+  resumeVersions: [],
+  lastTarget: null,
+  preferences: {},
 
   setActiveResume: (resume) => {
     set({ activeResume: resume });
-    const current = get();
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: current.activeResume,
-      resumeVersions: current.resumeVersions,
-      lastTarget: current.lastTarget,
-      preferences: current.preferences,
-    });
   },
 
   addResumeVersion: (label, ledger, textHash) => {
@@ -152,36 +92,23 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       activeResume: nextActive,
     });
 
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: nextActive,
-      resumeVersions: nextVersions,
-      lastTarget: current.lastTarget,
-      preferences: current.preferences,
-    });
-
     return newId;
   },
 
   updateResumeLabel: (id, label) => {
     const current = get();
+    const now = nowIso();
     const nextVersions = current.resumeVersions.map((v) =>
-      v.id === id ? { ...v, label, updatedAt: nowIso() } : v
+      v.id === id ? { ...v, label, updatedAt: now } : v
     );
     const nextActive =
       current.activeResume?.versionId === id
-        ? { ...current.activeResume, label, updatedAt: nowIso() }
+        ? { ...current.activeResume, label, updatedAt: now }
         : current.activeResume;
 
     set({
       resumeVersions: nextVersions,
       activeResume: nextActive,
-    });
-
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: nextActive,
-      resumeVersions: nextVersions,
-      lastTarget: current.lastTarget,
-      preferences: current.preferences,
     });
   },
 
@@ -205,101 +132,13 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       resumeVersions: nextVersions,
       activeResume: nextActive,
     });
-
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: nextActive,
-      resumeVersions: nextVersions,
-      lastTarget: current.lastTarget,
-      preferences: current.preferences,
-    });
   },
 
   setLastTarget: (target) => {
     set({ lastTarget: target });
-    const current = get();
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: current.activeResume,
-      resumeVersions: current.resumeVersions,
-      lastTarget: target,
-      preferences: current.preferences,
-    });
   },
 
   setPreferences: (pref) => {
-    const current = get();
-    const nextPref = { ...current.preferences, ...pref };
-    set({ preferences: nextPref });
-    storage.set<ProfileStoreData>(STORAGE_KEY, {
-      activeResume: current.activeResume,
-      resumeVersions: current.resumeVersions,
-      lastTarget: current.lastTarget,
-      preferences: nextPref,
-    });
+    set({ preferences: { ...get().preferences, ...pref } });
   },
 }));
-
-// Register with backup registry
-registerBackupSection<ProfileStoreData>({
-  key: 'profile',
-  schema: ProfileStoreSchema,
-  version: 1,
-  export: () => {
-    const state = useProfileStore.getState();
-    return {
-      activeResume: state.activeResume,
-      resumeVersions: state.resumeVersions,
-      lastTarget: state.lastTarget,
-      preferences: state.preferences,
-    };
-  },
-  import: (data, mode) => {
-    if (mode === 'replace') {
-      useProfileStore.setState({
-        activeResume: data.activeResume,
-        resumeVersions: data.resumeVersions,
-        lastTarget: data.lastTarget,
-        preferences: data.preferences,
-      });
-      storage.set<ProfileStoreData>(STORAGE_KEY, data);
-      return true;
-    } else {
-      // Merge: keep active if existing, combine unique resume versions up to cap
-      const current = useProfileStore.getState();
-      const existingIds = new Set(current.resumeVersions.map((v) => v.id));
-      const newVersions = [...current.resumeVersions];
-
-      for (const v of data.resumeVersions) {
-        if (!existingIds.has(v.id) && newVersions.length < LIMITS.maxResumeVersions) {
-          newVersions.push(v);
-        }
-      }
-
-      const mergedData: ProfileStoreData = {
-        activeResume: current.activeResume || data.activeResume,
-        resumeVersions: newVersions,
-        lastTarget: current.lastTarget || data.lastTarget,
-        preferences: { ...data.preferences, ...current.preferences },
-      };
-
-      useProfileStore.setState(mergedData);
-      storage.set<ProfileStoreData>(STORAGE_KEY, mergedData);
-      return true;
-    }
-  },
-});
-
-if (typeof window !== 'undefined') {
-  window.addEventListener('hireflow:cloud-synced', () => {
-    try {
-      const refreshed = storage.get<ProfileStoreData>(STORAGE_KEY, ProfileStoreSchema);
-      if (refreshed) {
-        useProfileStore.setState({
-          activeResume: refreshed.activeResume,
-          resumeVersions: refreshed.resumeVersions,
-          lastTarget: refreshed.lastTarget,
-          preferences: refreshed.preferences,
-        });
-      }
-    } catch { /* ignore */ }
-  });
-}

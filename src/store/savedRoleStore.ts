@@ -1,17 +1,12 @@
-/**
- * HireFlow v4: Saved Roles Store (D19)
- * Stores saved target company roles from TalentLens for JD Compare & Tailor My Resume bridging.
- * Bounded by LIMITS.maxSavedRoles (60 items). Registered with backup registry.
- */
+// ============================================================
+// HireFlow — Saved Roles In-Memory Store
+// Durable target persistence lives in Supabase `watchlist_targets`.
+// ============================================================
 
 import { create } from 'zustand';
-import { storage } from '../lib/storage';
-import { SavedRole, SavedRoleStoreSchema, SavedRoleStoreData } from '../types/schemas-v4';
+import { SavedRole } from '../types/schemas-v4';
 import { LIMITS } from '../config/limits';
 import { createId, nowIso } from '../lib/safeUtils';
-import { registerBackupSection } from '../lib/backup/registry';
-
-const STORAGE_KEY = 'saved-roles';
 
 export interface SavedRoleState {
   roles: SavedRole[];
@@ -27,18 +22,11 @@ export interface SavedRoleState {
   clearRoles: () => void;
 }
 
-function loadInitialState(): SavedRoleStoreData {
-  const loaded = storage.get(STORAGE_KEY, SavedRoleStoreSchema);
-  return loaded || { roles: [] };
-}
-
 export const useSavedRoleStore = create<SavedRoleState>((set, get) => ({
-  roles: loadInitialState().roles,
+  roles: [],
 
   saveRole: (role) => {
     const current = get().roles;
-
-    // Check duplicate by companyName + roleTitle
     const existing = current.find(
       (r) =>
         r.companyName.toLowerCase() === role.companyName.toLowerCase() &&
@@ -59,20 +47,12 @@ export const useSavedRoleStore = create<SavedRoleState>((set, get) => ({
       savedAt: nowIso(),
     };
 
-    const updated = [newRole, ...current];
-    const saved = storage.set(STORAGE_KEY, { roles: updated });
-    if (saved) {
-      set({ roles: updated });
-      return { success: true, id, isDuplicate: false };
-    }
-
-    return { success: false };
+    set({ roles: [newRole, ...current] });
+    return { success: true, id, isDuplicate: false };
   },
 
   unsaveRole: (id) => {
-    const updated = get().roles.filter((r) => r.id !== id);
-    storage.set(STORAGE_KEY, { roles: updated });
-    set({ roles: updated });
+    set({ roles: get().roles.filter((r) => r.id !== id) });
   },
 
   isSaved: (companyName, roleTitle) => {
@@ -88,33 +68,6 @@ export const useSavedRoleStore = create<SavedRoleState>((set, get) => ({
   },
 
   clearRoles: () => {
-    storage.set(STORAGE_KEY, { roles: [] });
     set({ roles: [] });
   },
 }));
-
-registerBackupSection<SavedRoleStoreData>({
-  key: 'savedRoles',
-  schema: SavedRoleStoreSchema,
-  version: 1,
-  export: () => ({ roles: useSavedRoleStore.getState().roles }),
-  import: (data: SavedRoleStoreData, mode) => {
-    if (mode === 'replace') {
-      storage.set(STORAGE_KEY, data);
-      useSavedRoleStore.setState({ roles: data.roles });
-      return true;
-    } else {
-      const current = useSavedRoleStore.getState().roles;
-      const existingIds = new Set(current.map((r) => r.id));
-      const combined = [...current];
-      for (const r of data.roles) {
-        if (!existingIds.has(r.id) && combined.length < LIMITS.maxSavedRoles) {
-          combined.push(r);
-        }
-      }
-      storage.set(STORAGE_KEY, { roles: combined });
-      useSavedRoleStore.setState({ roles: combined });
-      return true;
-    }
-  },
-});

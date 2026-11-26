@@ -1,12 +1,9 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
 import type { CandidateProfile, UserSettings, Uuid } from '@/domain/types';
-import { asyncZustandStorage } from '@/lib/storage/zustandStorage';
-import { getStorageKey } from '@/lib/storage/namespace';
 import { useAuthStore } from '@/features/auth/useAuthStore';
-import { enqueueOp } from '@/sync/outbox';
-import { profileToRow } from '@/sync/mappers';
-import { syncEngine } from '@/sync/syncEngine';
+import { getCloudGateway } from '@/sync/supabaseGateway';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
 
 export interface ProfileStoreState {
   profile: CandidateProfile;
@@ -15,101 +12,108 @@ export interface ProfileStoreState {
   updateProfile: (patch: Partial<CandidateProfile>) => void;
   updateSettings: (patch: Partial<UserSettings>) => void;
   setActiveWorkspace: (id: Uuid | null) => void;
+  reset: () => void;
 }
 
-const initialProfile: CandidateProfile = {
-  displayName: 'Candidate',
-  email: undefined,
-  avatarUrl: undefined,
-  degree: undefined,
-  branch: undefined,
-  graduationYear: undefined,
-  targetTier: 'top_product',
-  targetRoles: [],
-  links: {},
-  activeWorkspaceId: null,
-  updatedAt: new Date().toISOString(),
-};
+export function createInitialProfile(): CandidateProfile {
+  return {
+    displayName: 'Candidate',
+    email: undefined,
+    avatarUrl: undefined,
+    degree: undefined,
+    branch: undefined,
+    graduationYear: undefined,
+    targetTier: 'top_product',
+    targetRoles: [],
+    links: {},
+    activeWorkspaceId: null,
+    updatedAt: new Date().toISOString(),
+  };
+}
 
-const initialSettings: UserSettings = {
-  cloudSyncEnabled: false,
-  consentRecordedAt: null,
-};
+export function createInitialSettings(): UserSettings {
+  return {
+    cloudSyncEnabled: true,
+    consentRecordedAt: null,
+  };
+}
 
-export const useProfileStore = create<ProfileStoreState>()(
-  persist(
-    (set, get) => ({
-      profile: initialProfile,
-      settings: initialSettings,
+function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
+  const auth = useAuthStore.getState();
+  if (auth.status === 'authenticated' && auth.userId && getCloudGateway().isConfigured()) {
+    return { enabled: true, userId: auth.userId };
+  }
+  return { enabled: false, userId: null };
+}
 
-      updateProfile: (patch) => {
-        const now = new Date().toISOString();
-        set((state) => ({
-          profile: {
-            ...state.profile,
-            ...patch,
-            updatedAt: now,
-          },
-        }));
+export const useProfileStore = create<ProfileStoreState>()((set, get) => ({
+  profile: createInitialProfile(),
+  settings: createInitialSettings(),
 
-        const auth = useAuthStore.getState();
-        if (auth.status === 'authenticated' && auth.userId && get().settings.cloudSyncEnabled) {
-          void enqueueOp(auth.userId, {
-            opId: `prof-${auth.userId}-${now}`,
-            table: 'user_profiles',
-            op: 'upsert',
-            pk: { user_id: auth.userId },
-            payload: profileToRow({
-              profile: get().profile,
-              settings: get().settings,
-              updatedAt: now,
-            }),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
-        }
-      },
+  updateProfile: (patch) => {
+    const prevProfile = get().profile;
+    const prevSettings = get().settings;
+    const now = new Date().toISOString();
+    const nextProfile: CandidateProfile = {
+      ...prevProfile,
+      ...patch,
+      updatedAt: now,
+    };
 
-      updateSettings: (patch) => {
-        const now = new Date().toISOString();
-        set((state) => ({
-          settings: {
-            ...state.settings,
-            ...patch,
-          },
-        }));
+    set({ profile: nextProfile });
 
-        const auth = useAuthStore.getState();
-        // Update sync engine with new sync state
-        syncEngine.setUser(auth.userId, get().settings.cloudSyncEnabled);
-
-        if (auth.status === 'authenticated' && auth.userId && get().settings.cloudSyncEnabled) {
-          void enqueueOp(auth.userId, {
-            opId: `prof-settings-${auth.userId}-${now}`,
-            table: 'user_profiles',
-            op: 'upsert',
-            pk: { user_id: auth.userId },
-            payload: profileToRow({
-              profile: get().profile,
-              settings: get().settings,
-              updatedAt: now,
-            }),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          }).then(() => syncEngine.scheduleFlush());
-        }
-      },
-
-      setActiveWorkspace: (id) => {
-        get().updateProfile({ activeWorkspaceId: id });
-      },
-    }),
-    {
-      name: getStorageKey('profile', null),
-      storage: createJSONStorage(() => asyncZustandStorage),
-      version: 1,
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository
+        .saveProfile(cloud.userId, nextProfile, prevSettings, now)
+        .catch((err) => {
+          set({ profile: prevProfile });
+          useCloudSyncStore.getState().setError(
+            'save profile',
+            err instanceof Error ? err.message : 'Cloud write failed.',
+            async () => {
+              get().updateProfile(patch);
+            }
+          );
+        });
     }
-  )
-);
+  },
+
+  updateSettings: (patch) => {
+    const prevProfile = get().profile;
+    const prevSettings = get().settings;
+    const now = new Date().toISOString();
+    const nextSettings: UserSettings = {
+      ...prevSettings,
+      ...patch,
+    };
+
+    set({ settings: nextSettings });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository
+        .saveProfile(cloud.userId, prevProfile, nextSettings, now)
+        .catch((err) => {
+          set({ settings: prevSettings });
+          useCloudSyncStore.getState().setError(
+            'save settings',
+            err instanceof Error ? err.message : 'Cloud write failed.',
+            async () => {
+              get().updateSettings(patch);
+            }
+          );
+        });
+    }
+  },
+
+  setActiveWorkspace: (id) => {
+    get().updateProfile({ activeWorkspaceId: id });
+  },
+
+  reset: () =>
+    set({
+      profile: createInitialProfile(),
+      settings: createInitialSettings(),
+    }),
+}));

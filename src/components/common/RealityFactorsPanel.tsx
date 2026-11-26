@@ -15,7 +15,8 @@ export interface RealityFactorsState {
   cpOrOss: boolean;
 }
 
-const STORAGE_KEY = 'hireflow:v4:reality-factors';
+// Pure in-memory session storage for reality factors (no localStorage PII writes)
+let inMemoryRealityFactors: Record<string, boolean> | null = null;
 
 const DEFAULT_FACTORS: RealityFactorsState = {
   campusAccess: false,
@@ -31,22 +32,13 @@ interface RealityFactorsPanelProps {
 
 export function RealityFactorsPanel({ className = '' }: RealityFactorsPanelProps) {
   const [factors, setFactors] = useState<RealityFactorsState>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : DEFAULT_FACTORS;
-    } catch {
-      return DEFAULT_FACTORS;
-    }
+    return (inMemoryRealityFactors as unknown as RealityFactorsState) || DEFAULT_FACTORS;
   });
 
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(factors));
-    } catch {
-      // LocalStorage error handled gracefully
-    }
+    inMemoryRealityFactors = factors as unknown as Record<string, boolean>;
   }, [factors]);
 
   const toggleFactor = (key: keyof RealityFactorsState) => {

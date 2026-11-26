@@ -3,8 +3,7 @@ import { useResumeStore } from './useResumeStore';
 import { ResumeLineage } from './ResumeLineage';
 import type { ResumeWorkspace, ResumeVersion, TextSnapshot } from '@/domain/types';
 import { diffWords, type DiffOp } from '@/lib/text/diff';
-import { kvGet } from '@/lib/storage/kv';
-import { getSnapshotKey } from '@/lib/storage/namespace';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
 import { Plus, GitFork, Star, Archive, Edit3, X } from 'lucide-react';
 import { MAX_WORKSPACES, GUEST_MAX_WORKSPACES } from '@/domain/limits';
 import { useAuthStore } from '@/features/auth/useAuthStore';
@@ -100,8 +99,9 @@ export const ResumeMatrixPage: React.FC = () => {
   };
 
   const handleCompare = async (v1: ResumeVersion, v2: ResumeVersion) => {
-    const s1 = await kvGet<TextSnapshot>(getSnapshotKey(v1.snapshotHash));
-    const s2 = await kvGet<TextSnapshot>(getSnapshotKey(v2.snapshotHash));
+    const userId = useAuthStore.getState().userId;
+    const s1 = await cloudRepository.fetchSnapshot(v1.snapshotHash, userId);
+    const s2 = await cloudRepository.fetchSnapshot(v2.snapshotHash, userId);
     if (s1 && s2) {
       const diff = diffWords(s1.text, s2.text);
       setCompareDiff(diff);
@@ -111,7 +111,7 @@ export const ResumeMatrixPage: React.FC = () => {
   };
 
   const handleViewText = async (v: ResumeVersion) => {
-    const snap = await kvGet<TextSnapshot>(getSnapshotKey(v.snapshotHash));
+    const snap = await cloudRepository.fetchSnapshot(v.snapshotHash, useAuthStore.getState().userId);
     if (snap) {
       setViewingSnapshot(snap);
       setModalMode('view_text');
@@ -257,10 +257,12 @@ export const ResumeMatrixPage: React.FC = () => {
                 onBranch={(v) => {
                   setTargetBranchVersion(v);
                   setModalVersionLabel(`Branch from ${v.label}`);
-                  void kvGet<TextSnapshot>(getSnapshotKey(v.snapshotHash)).then((snap) => {
-                    setModalText(snap?.text || '');
-                    setModalMode('branch');
-                  });
+                  void cloudRepository
+                    .fetchSnapshot(v.snapshotHash, useAuthStore.getState().userId)
+                    .then((snap) => {
+                      setModalText(snap?.text || '');
+                      setModalMode('branch');
+                    });
                 }}
                 onCompare={handleCompare}
               />

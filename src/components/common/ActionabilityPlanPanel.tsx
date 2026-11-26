@@ -5,7 +5,7 @@
 // Zero false promises: "builds evidence for", never "gap closed"
 // ============================================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   CheckCircle2,
   ExternalLink,
@@ -25,28 +25,11 @@ interface ActionabilityPlanPanelProps {
   className?: string;
 }
 
-const STORAGE_KEY = 'hireflow:v4:plan-progress';
-
 export function ActionabilityPlanPanel({ plan, className = '' }: ActionabilityPlanPanelProps) {
   const [activeTab, setActiveTab] = useState<'7days' | '30days' | '12weeks' | 'alternatives'>('7days');
   const [effortTier, setEffortTier] = useState<'at5HoursPerWeek' | 'at10HoursPerWeek' | 'at20HoursPerWeek'>('at10HoursPerWeek');
-  const [completedGaps, setCompletedGaps] = useState<Record<string, boolean>>(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : {};
-    } catch {
-      return {};
-    }
-  });
+  const [completedGaps, setCompletedGaps] = useState<Record<string, boolean>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(completedGaps));
-    } catch {
-      // Gracefully handle storage errors
-    }
-  }, [completedGaps]);
 
   const toggleComplete = (id: string) => {
     setCompletedGaps((prev) => ({ ...prev, [id]: !prev[id] }));

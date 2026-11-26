@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
 import type {
   ResumeWorkspace,
   ResumeVersion,
@@ -12,13 +11,21 @@ import {
   addVersionService,
   forkWorkspaceService,
 } from './resumeService';
-import { asyncZustandStorage } from '@/lib/storage/zustandStorage';
-import { kvGet } from '@/lib/storage/kv';
-import { getSnapshotKey, getStorageKey } from '@/lib/storage/namespace';
 import { useAuthStore } from '@/features/auth/useAuthStore';
-import { enqueueOp } from '@/sync/outbox';
-import { workspaceToRow, versionToRow, snapshotToRow } from '@/sync/mappers';
-import { syncEngine } from '@/sync/syncEngine';
+import { getCloudGateway } from '@/sync/supabaseGateway';
+import {
+  cloudRepository,
+  getCachedSnapshotInMemory,
+} from '@/lib/cloud/cloudRepository';
+import { uploadPrivateDocument } from '@/lib/cloud/storageService';
+import { useCloudDocumentsStore } from '@/lib/cloud/useDocumentsStore';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
+
+export interface ResumeFileAttachment {
+  fileName: string;
+  mimeType: string;
+  buffer: ArrayBuffer;
+}
 
 export interface ResumeState {
   workspaces: Record<Uuid, ResumeWorkspace>;
@@ -31,6 +38,7 @@ export interface ResumeState {
     text: string;
     source: VersionSource;
     fileName?: string;
+    fileAttachment?: ResumeFileAttachment;
   }) => Promise<{ workspace: ResumeWorkspace; version: ResumeVersion }>;
 
   addVersion: (i: {
@@ -41,6 +49,7 @@ export interface ResumeState {
     parentVersionId?: Uuid | null;
     note?: string;
     fileName?: string;
+    fileAttachment?: ResumeFileAttachment;
   }) => Promise<ResumeVersion>;
 
   forkWorkspace: (i: {
@@ -58,261 +67,248 @@ export interface ResumeState {
   getHeadSnapshot: (workspaceId: Uuid) => Promise<TextSnapshot | null>;
 }
 
-export const useResumeStore = create<ResumeState>()(
-  persist(
-    (set, get) => ({
-      workspaces: {},
-      versions: {},
-      activeWorkspaceId: null,
+function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
+  const auth = useAuthStore.getState();
+  const isCloudReady = getCloudGateway().isConfigured();
+  if (auth.status === 'authenticated' && auth.userId && isCloudReady) {
+    return { enabled: true, userId: auth.userId };
+  }
+  return { enabled: false, userId: null };
+}
 
-      createWorkspace: async (i) => {
-        const auth = useAuthStore.getState();
-        const isGuest = auth.status !== 'authenticated';
-        const { workspace, version, snapshot } = await createWorkspaceService(
-          get().workspaces,
-          get().versions,
-          { ...i, isGuest }
-        );
+export const useResumeStore = create<ResumeState>()((set, get) => ({
+  workspaces: {},
+  versions: {},
+  activeWorkspaceId: null,
 
-        set((state) => ({
-          workspaces: { ...state.workspaces, [workspace.id]: workspace },
-          versions: { ...state.versions, [version.id]: version },
-          activeWorkspaceId: state.activeWorkspaceId ?? workspace.id,
-        }));
+  createWorkspace: async (i) => {
+    const auth = useAuthStore.getState();
+    const isGuest = auth.status !== 'authenticated';
+    const { workspace, version, snapshot } = await createWorkspaceService(
+      get().workspaces,
+      get().versions,
+      { ...i, isGuest }
+    );
 
-        // Enqueue sync if signed in
-        if (!isGuest && auth.userId) {
-          const now = new Date().toISOString();
-          await enqueueOp(auth.userId, {
-            opId: `snap-${snapshot.hash}`,
-            table: 'text_snapshots',
-            op: 'insert_ignore',
-            pk: { hash: snapshot.hash },
-            payload: snapshotToRow(snapshot),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          await enqueueOp(auth.userId, {
-            opId: `ws-${workspace.id}`,
-            table: 'resume_workspaces',
-            op: 'upsert',
-            pk: { id: workspace.id },
-            payload: workspaceToRow(workspace),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          await enqueueOp(auth.userId, {
-            opId: `ver-${version.id}`,
-            table: 'resume_versions',
-            op: 'insert_ignore',
-            pk: { id: version.id },
-            payload: versionToRow(version),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          syncEngine.scheduleFlush();
-        }
-
-        return { workspace, version };
-      },
-
-      addVersion: async (i) => {
-        const auth = useAuthStore.getState();
-        const isGuest = auth.status !== 'authenticated';
-        const { version, isDeduplicated, snapshot } = await addVersionService(
-          get().workspaces,
-          get().versions,
-          i
-        );
-
-        if (isDeduplicated) {
-          return version;
-        }
-
-        const now = new Date().toISOString();
-        set((state) => {
-          const ws = state.workspaces[i.workspaceId];
-          if (!ws) return state;
-          const updatedWs: ResumeWorkspace = {
-            ...ws,
-            headVersionId: version.id,
-            updatedAt: now,
-          };
-          return {
-            workspaces: { ...state.workspaces, [ws.id]: updatedWs },
-            versions: { ...state.versions, [version.id]: version },
-          };
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      await cloudRepository.saveWorkspaceWithVersion(cloud.userId, workspace, version, snapshot);
+      if (i.fileAttachment) {
+        const doc = await uploadPrivateDocument({
+          userId: cloud.userId,
+          docKind: 'resume_upload',
+          fileName: i.fileAttachment.fileName,
+          mimeType: i.fileAttachment.mimeType,
+          buffer: i.fileAttachment.buffer,
+          workspaceId: workspace.id,
+          versionId: version.id,
         });
-
-        if (!isGuest && auth.userId) {
-          await enqueueOp(auth.userId, {
-            opId: `snap-${snapshot.hash}`,
-            table: 'text_snapshots',
-            op: 'insert_ignore',
-            pk: { hash: snapshot.hash },
-            payload: snapshotToRow(snapshot),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          await enqueueOp(auth.userId, {
-            opId: `ver-${version.id}`,
-            table: 'resume_versions',
-            op: 'insert_ignore',
-            pk: { id: version.id },
-            payload: versionToRow(version),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          const ws = get().workspaces[i.workspaceId];
-          if (ws) {
-            await enqueueOp(auth.userId, {
-              opId: `ws-${ws.id}`,
-              table: 'resume_workspaces',
-              op: 'upsert',
-              pk: { id: ws.id },
-              payload: workspaceToRow(ws),
-              clientUpdatedAt: now,
-              attempts: 0,
-              enqueuedAt: now,
-            });
-          }
-          syncEngine.scheduleFlush();
-        }
-
-        return version;
-      },
-
-      forkWorkspace: async (i) => {
-        const auth = useAuthStore.getState();
-        const isGuest = auth.status !== 'authenticated';
-        const { workspace, version, snapshot } = await forkWorkspaceService(
-          get().workspaces,
-          get().versions,
-          { ...i, isGuest }
-        );
-
-        set((state) => ({
-          workspaces: { ...state.workspaces, [workspace.id]: workspace },
-          versions: { ...state.versions, [version.id]: version },
-        }));
-
-        if (!isGuest && auth.userId) {
-          const now = new Date().toISOString();
-          await enqueueOp(auth.userId, {
-            opId: `snap-${snapshot.hash}`,
-            table: 'text_snapshots',
-            op: 'insert_ignore',
-            pk: { hash: snapshot.hash },
-            payload: snapshotToRow(snapshot),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          await enqueueOp(auth.userId, {
-            opId: `ws-${workspace.id}`,
-            table: 'resume_workspaces',
-            op: 'upsert',
-            pk: { id: workspace.id },
-            payload: workspaceToRow(workspace),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          await enqueueOp(auth.userId, {
-            opId: `ver-${version.id}`,
-            table: 'resume_versions',
-            op: 'insert_ignore',
-            pk: { id: version.id },
-            payload: versionToRow(version),
-            clientUpdatedAt: now,
-            attempts: 0,
-            enqueuedAt: now,
-          });
-          syncEngine.scheduleFlush();
-        }
-
-        return workspace;
-      },
-
-      setHead: (workspaceId, versionId) => {
-        const now = new Date().toISOString();
-        set((state) => {
-          const ws = state.workspaces[workspaceId];
-          if (!ws) return state;
-          return {
-            workspaces: {
-              ...state.workspaces,
-              [workspaceId]: { ...ws, headVersionId: versionId, updatedAt: now },
-            },
-          };
-        });
-      },
-
-      setPrimary: (workspaceId) => {
-        const now = new Date().toISOString();
-        set((state) => {
-          const updated: Record<Uuid, ResumeWorkspace> = {};
-          for (const [id, ws] of Object.entries(state.workspaces)) {
-            updated[id] = { ...ws, isPrimary: id === workspaceId, updatedAt: now };
-          }
-          return { workspaces: updated };
-        });
-      },
-
-      renameWorkspace: (id, name, roleTrack) => {
-        const now = new Date().toISOString();
-        set((state) => {
-          const ws = state.workspaces[id];
-          if (!ws) return state;
-          return {
-            workspaces: {
-              ...state.workspaces,
-              [id]: { ...ws, name: name.trim(), roleTrack: roleTrack.trim(), updatedAt: now },
-            },
-          };
-        });
-      },
-
-      archiveWorkspace: (id) => {
-        const now = new Date().toISOString();
-        set((state) => {
-          const ws = state.workspaces[id];
-          if (!ws) return state;
-          return {
-            workspaces: {
-              ...state.workspaces,
-              [id]: { ...ws, archivedAt: now, updatedAt: now },
-            },
-          };
-        });
-      },
-
-      setActive: (id) => set({ activeWorkspaceId: id }),
-
-      getHeadSnapshot: async (workspaceId) => {
-        const ws = get().workspaces[workspaceId];
-        if (!ws || !ws.headVersionId) return null;
-        const ver = get().versions[ws.headVersionId];
-        if (!ver) return null;
-        return kvGet<TextSnapshot>(getSnapshotKey(ver.snapshotHash));
-      },
-    }),
-    {
-      name: getStorageKey('resumes', null),
-      storage: createJSONStorage(() => asyncZustandStorage),
-      version: 1,
-      migrate: (persistedState, version) => {
-        if (version === 0) {
-          // Graceful migration from v4 if applicable
-          return persistedState as ResumeState;
-        }
-        return persistedState as ResumeState;
-      },
+        useCloudDocumentsStore.getState().addDocument(doc);
+      }
     }
-  )
-);
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [workspace.id]: workspace },
+      versions: { ...state.versions, [version.id]: version },
+      activeWorkspaceId: state.activeWorkspaceId ?? workspace.id,
+    }));
+
+    return { workspace, version };
+  },
+
+  addVersion: async (i) => {
+    const { version, isDeduplicated, snapshot } = await addVersionService(
+      get().workspaces,
+      get().versions,
+      i
+    );
+
+    if (isDeduplicated) {
+      return version;
+    }
+
+    const existingWs = get().workspaces[i.workspaceId];
+    if (!existingWs) {
+      return version;
+    }
+
+    const now = new Date().toISOString();
+    const updatedWs: ResumeWorkspace = {
+      ...existingWs,
+      headVersionId: version.id,
+      updatedAt: now,
+    };
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      await cloudRepository.saveAddedVersion(cloud.userId, updatedWs, version, snapshot);
+      if (i.fileAttachment) {
+        const doc = await uploadPrivateDocument({
+          userId: cloud.userId,
+          docKind: 'resume_upload',
+          fileName: i.fileAttachment.fileName,
+          mimeType: i.fileAttachment.mimeType,
+          buffer: i.fileAttachment.buffer,
+          workspaceId: updatedWs.id,
+          versionId: version.id,
+        });
+        useCloudDocumentsStore.getState().addDocument(doc);
+      }
+    }
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [updatedWs.id]: updatedWs },
+      versions: { ...state.versions, [version.id]: version },
+    }));
+
+    return version;
+  },
+
+  forkWorkspace: async (i) => {
+    const auth = useAuthStore.getState();
+    const isGuest = auth.status !== 'authenticated';
+    const { workspace, version, snapshot } = await forkWorkspaceService(
+      get().workspaces,
+      get().versions,
+      { ...i, isGuest, userId: auth.userId }
+    );
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      await cloudRepository.saveWorkspaceWithVersion(cloud.userId, workspace, version, snapshot);
+    }
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [workspace.id]: workspace },
+      versions: { ...state.versions, [version.id]: version },
+    }));
+
+    return workspace;
+  },
+
+  setHead: (workspaceId, versionId) => {
+    const prev = get().workspaces[workspaceId];
+    if (!prev) return;
+    const now = new Date().toISOString();
+    const updated: ResumeWorkspace = { ...prev, headVersionId: versionId, updatedAt: now };
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [workspaceId]: updated },
+    }));
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.saveWorkspace(cloud.userId, updated).catch((err) => {
+        set((state) => ({
+          workspaces: { ...state.workspaces, [workspaceId]: prev },
+        }));
+        useCloudSyncStore.getState().setError(
+          'update workspace head version',
+          err instanceof Error ? err.message : 'Failed to save workspace update.',
+          async () => {
+            get().setHead(workspaceId, versionId);
+          }
+        );
+      });
+    }
+  },
+
+  setPrimary: (workspaceId) => {
+    const prevAll = get().workspaces;
+    const now = new Date().toISOString();
+    const updated: Record<Uuid, ResumeWorkspace> = {};
+    for (const [id, ws] of Object.entries(prevAll)) {
+      updated[id] = { ...ws, isPrimary: id === workspaceId, updatedAt: now };
+    }
+    set({ workspaces: updated });
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void Promise.all(
+        Object.values(updated).map((ws) => cloudRepository.saveWorkspace(cloud.userId!, ws))
+      ).catch((err) => {
+        set({ workspaces: prevAll });
+        useCloudSyncStore.getState().setError(
+          'set primary resume workspace',
+          err instanceof Error ? err.message : 'Failed to update primary workspace.',
+          async () => {
+            get().setPrimary(workspaceId);
+          }
+        );
+      });
+    }
+  },
+
+  renameWorkspace: (id, name, roleTrack) => {
+    const prev = get().workspaces[id];
+    if (!prev) return;
+    const now = new Date().toISOString();
+    const updated: ResumeWorkspace = {
+      ...prev,
+      name: name.trim(),
+      roleTrack: roleTrack.trim(),
+      updatedAt: now,
+    };
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [id]: updated },
+    }));
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.saveWorkspace(cloud.userId, updated).catch((err) => {
+        set((state) => ({
+          workspaces: { ...state.workspaces, [id]: prev },
+        }));
+        useCloudSyncStore.getState().setError(
+          'rename resume workspace',
+          err instanceof Error ? err.message : 'Failed to rename workspace.',
+          async () => {
+            get().renameWorkspace(id, name, roleTrack);
+          }
+        );
+      });
+    }
+  },
+
+  archiveWorkspace: (id) => {
+    const prev = get().workspaces[id];
+    if (!prev) return;
+    const now = new Date().toISOString();
+    const updated: ResumeWorkspace = { ...prev, archivedAt: now, updatedAt: now };
+
+    set((state) => ({
+      workspaces: { ...state.workspaces, [id]: updated },
+    }));
+
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.saveWorkspace(cloud.userId, updated).catch((err) => {
+        set((state) => ({
+          workspaces: { ...state.workspaces, [id]: prev },
+        }));
+        useCloudSyncStore.getState().setError(
+          'archive resume workspace',
+          err instanceof Error ? err.message : 'Failed to archive workspace.',
+          async () => {
+            get().archiveWorkspace(id);
+          }
+        );
+      });
+    }
+  },
+
+  setActive: (id) => set({ activeWorkspaceId: id }),
+
+  getHeadSnapshot: async (workspaceId) => {
+    const ws = get().workspaces[workspaceId];
+    if (!ws || !ws.headVersionId) return null;
+    const ver = get().versions[ws.headVersionId];
+    if (!ver) return null;
+    const auth = useAuthStore.getState();
+    return (
+      getCachedSnapshotInMemory(ver.snapshotHash) ??
+      (await cloudRepository.fetchSnapshot(ver.snapshotHash, auth.userId))
+    );
+  },
+}));

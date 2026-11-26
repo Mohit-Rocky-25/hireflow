@@ -36,65 +36,16 @@ export interface SuiteExportPayload {
 const memStore = new Map<string, string>();
 
 function safeGet(key: string): string | null {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      const val = localStorage.getItem(`${PREFIX}${key}`);
-      if (val !== null) return val;
-    }
-    return memStore.get(`${PREFIX}${key}`) ?? null;
-  } catch (err) {
-    console.warn(`[Storage] Failed to read ${key}:`, err);
-    return memStore.get(`${PREFIX}${key}`) ?? null;
-  }
+  return memStore.get(`${PREFIX}${key}`) ?? null;
 }
 
 function safeSet(key: string, value: string): boolean {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(`${PREFIX}${key}`, value);
-      if (typeof window !== 'undefined' && typeof window.dispatchEvent === 'function') {
-        window.dispatchEvent(new CustomEvent('hireflow:data-changed', { detail: { key: `${PREFIX}${key}` } }));
-      }
-      return true;
-    }
-    memStore.set(`${PREFIX}${key}`, value);
-    return true;
-  } catch (err) {
-    console.warn(`[Storage] Quota exceeded or error saving ${key}:`, err);
-    // In-memory fallback prevents data loss during active candidate session
-    memStore.set(`${PREFIX}${key}`, value);
-
-    // Auto-prune oldest scan records if quota exceeded to free browser storage
-    try {
-      if (typeof localStorage !== 'undefined') {
-        const scanKey = `${PREFIX}scan_history`;
-        const rawHistory = localStorage.getItem(scanKey);
-        if (rawHistory) {
-          const history = JSON.parse(rawHistory);
-          if (Array.isArray(history) && history.length > 2) {
-            const trimmed = history.slice(0, 2);
-            localStorage.setItem(scanKey, JSON.stringify(trimmed));
-            localStorage.setItem(`${PREFIX}${key}`, value);
-            return true;
-          }
-        }
-      }
-    } catch {
-      // Fallback in memory preserved above
-    }
-    return false;
-  }
+  memStore.set(`${PREFIX}${key}`, value);
+  return true;
 }
 
 function safeRemove(key: string): void {
-  try {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.removeItem(`${PREFIX}${key}`);
-    }
-    memStore.delete(`${PREFIX}${key}`);
-  } catch (err) {
-    console.warn(`[Storage] Error removing ${key}:`, err);
-  }
+  memStore.delete(`${PREFIX}${key}`);
 }
 
 export const SuiteStorage = {

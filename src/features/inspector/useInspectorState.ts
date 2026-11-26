@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuditStore } from '@/features/journal/useAuditStore';
-import { kvGet } from '@/lib/storage/kv';
-import { getSnapshotKey } from '@/lib/storage/namespace';
+import { cloudRepository } from '@/lib/cloud/cloudRepository';
+import { useAuthStore } from '@/features/auth/useAuthStore';
 import { diffWords, type DiffOp } from '@/lib/text/diff';
 import type { AuditEntry, TextSnapshot, Uuid } from '@/domain/types';
 
@@ -64,12 +64,10 @@ export function useInspectorState(auditId: string | undefined): InspectorState {
       setError(null);
 
       try {
-        const resumeSnapKey = getSnapshotKey(audit.resume.snapshotHash);
-        const jdSnapKey = getSnapshotKey(audit.jd.snapshotHash);
-
+        const userId = useAuthStore.getState().userId;
         const [rSnap, jSnap] = await Promise.all([
-          kvGet<TextSnapshot>(resumeSnapKey),
-          kvGet<TextSnapshot>(jdSnapKey),
+          cloudRepository.fetchSnapshot(audit.resume.snapshotHash, userId),
+          cloudRepository.fetchSnapshot(audit.jd.snapshotHash, userId),
         ]);
 
         if (!isCancelled) {
@@ -106,8 +104,10 @@ export function useInspectorState(auditId: string | undefined): InspectorState {
       }
 
       try {
-        const cSnapKey = getSnapshotKey(compareAudit.resume.snapshotHash);
-        const cSnap = await kvGet<TextSnapshot>(cSnapKey);
+        const cSnap = await cloudRepository.fetchSnapshot(
+          compareAudit.resume.snapshotHash,
+          useAuthStore.getState().userId
+        );
 
         if (!isCancelled) {
           const compText = cSnap?.text ?? '';

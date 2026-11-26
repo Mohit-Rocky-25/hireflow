@@ -163,15 +163,11 @@ export const useTalentLensStore = create<TalentLensState>()(
     }),
     {
       name: 'hireflow_talentlens_session_v1',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => ({
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+      })),
     }
   )
 );
-
-if (typeof window !== 'undefined') {
-  window.addEventListener('hireflow:cloud-synced', () => {
-    try {
-      useTalentLensStore.persist.rehydrate();
-    } catch { /* ignore */ }
-  });
-}

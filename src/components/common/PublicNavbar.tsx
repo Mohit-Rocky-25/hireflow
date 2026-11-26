@@ -15,14 +15,14 @@ import {
 } from 'lucide-react';
 import { useAuthStore } from '@/features/auth/useAuthStore';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
-import { useSyncStore } from '@/sync/useSyncStore';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
 
 export function PublicNavbar() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { status, email, displayName, avatarUrl, isDemo, demoStorage, signOut, deleteAllCloudData, openSignIn } = useAuthStore();
+  const { status, email, displayName, avatarUrl, signOut, deleteAllCloudData, openSignIn } = useAuthStore();
   const { workspaces, activeWorkspaceId, setActive } = useResumeStore();
-  const syncStatus = useSyncStore((s) => s.status);
+  const cloudSyncPhase = useCloudSyncStore((s) => s.phase);
 
   const [chipMenuOpen, setChipMenuOpen] = useState(false);
   const [compactLinksOpen, setCompactLinksOpen] = useState(false);
@@ -33,16 +33,15 @@ export function PublicNavbar() {
   const isAuthenticated = status === 'authenticated';
   const isMySpaceOpen = Boolean(searchParams.get('my'));
 
-  const syncStatusText =
-    demoStorage === 'local'
-      ? 'Saved on this device only'
-      : syncStatus === 'synced'
-      ? 'Synced to your account'
-      : syncStatus === 'syncing'
-      ? 'Syncing changes...'
-      : syncStatus === 'offline'
-      ? 'Offline, changes saved locally'
-      : 'Synced to your account';
+  const syncStatusText = !isAuthenticated
+    ? 'Guest session (in-memory only)'
+    : cloudSyncPhase === 'hydrating'
+    ? 'Loading cloud account...'
+    : cloudSyncPhase === 'saving'
+    ? 'Saving to cloud...'
+    : cloudSyncPhase === 'error'
+    ? 'Cloud sync error — retry needed'
+    : 'Synced to Supabase Cloud';
 
   // Click outside listeners
   useEffect(() => {
@@ -88,7 +87,7 @@ export function PublicNavbar() {
     }
   };
 
-  const firstName = (displayName || 'Mohit').split(' ')[0];
+  const firstName = (displayName || 'Candidate').split(' ')[0];
   const workspaceList = Object.values(workspaces);
 
   return (
@@ -216,7 +215,7 @@ export function PublicNavbar() {
           /* Case 1: Guest -> Sign in button */
           <button
             type="button"
-            onClick={openSignIn}
+            onClick={() => openSignIn()}
             className="h-[38px] px-4 rounded-full border border-[#24241c] bg-[#16160f] text-[#f1f1e8] font-semibold text-[13px] hover:border-[#faff69]/50 hover:text-[#faff69] transition-colors cursor-pointer"
           >
             Sign in
@@ -256,18 +255,13 @@ export function PublicNavbar() {
                 <span className="text-[13px] font-semibold text-[#f1f1e8] max-sm:hidden">
                   {firstName}
                 </span>
-                {isDemo && (
-                  <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-[#24241c] text-[#9b9b8c] border border-[#333328] max-sm:hidden">
-                    Demo
-                  </span>
-                )}
               </button>
 
               {/* Account Chip Menu */}
               {chipMenuOpen && (
                 <div className="absolute right-0 top-12 w-64 p-3 rounded-2xl border border-[#24241c] bg-[#10100d] shadow-2xl text-xs z-50 animate-in fade-in zoom-in-95 duration-100">
                   <div className="pb-2.5 mb-2.5 border-b border-[#24241c]">
-                    <div className="font-semibold text-sm text-[#f1f1e8]">{displayName || 'Mohit'}</div>
+                    <div className="font-semibold text-sm text-[#f1f1e8]">{displayName || 'Candidate'}</div>
                     {email && (
                       <div className="text-[11px] text-[#9b9b8c] font-mono truncate mt-0.5">
                         {email}
@@ -303,7 +297,7 @@ export function PublicNavbar() {
 
                   {/* Actions */}
                   <div className="space-y-1 pt-1 border-t border-[#24241c]">
-                    {demoStorage === 'cloud' && (
+                    {isAuthenticated && (
                       <button
                         type="button"
                         onClick={handleDeleteCloudData}

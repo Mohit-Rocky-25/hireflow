@@ -1,11 +1,9 @@
 // ============================================================
-// Pathways Architecture — Student Profile Store
-// Governed by Constitution B7 (hireflow:v4:pathways:profile)
-// 100% Client-Side Local Storage only, Zero Network Egress
+// Pathways Architecture — Student Profile Store (In-Memory)
+// Zero browser database persistence of user profile data.
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import type { StudentProfile } from '../schema/types';
 
 interface ProfileState {
@@ -25,21 +23,14 @@ const DEFAULT_PROFILE: StudentProfile = {
   percentAggregate: null,
   isDiploma: false,
   activeBacklogs: 0,
-  gapMonths: 0
+  gapMonths: 0,
 };
 
-export const usePathwaysProfileStore = create<ProfileState>()(
-  persist(
-    (set) => ({
-      profile: DEFAULT_PROFILE,
-      setProfile: (updates) =>
-        set((state) => ({
-          profile: { ...state.profile, ...updates }
-        })),
-      resetProfile: () => set({ profile: DEFAULT_PROFILE })
-    }),
-    {
-      name: 'hireflow:v4:pathways:profile'
-    }
-  )
-);
+export const usePathwaysProfileStore = create<ProfileState>()((set) => ({
+  profile: DEFAULT_PROFILE,
+  setProfile: (updates) =>
+    set((state) => ({
+      profile: { ...state.profile, ...updates },
+    })),
+  resetProfile: () => set({ profile: DEFAULT_PROFILE }),
+}));

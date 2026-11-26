@@ -29,32 +29,20 @@ export interface MigrationResult {
 const BACKUP_PREFIX = 'hireflow_tailor_state_v2_backup_';
 
 export function migrateLegacyTailorState(
-  storageKeyOrRaw: string,
+  rawStateInput: string,
   backupTimestamp: string = '2026-10-28T12-00-00-000Z'
 ): MigrationResult {
   let rawJson: string | null = null;
 
-  // Retrieve from localStorage if key matches or exists
-  if (typeof globalThis !== 'undefined' && (globalThis as any).localStorage) {
-    try {
-      rawJson = (globalThis as any).localStorage.getItem(storageKeyOrRaw);
-    } catch {
-      // Ignore
-    }
-  }
-
-  // If not in localStorage, test if input itself is a JSON string
-  if (!rawJson) {
-    if (storageKeyOrRaw.trim().startsWith('{')) {
-      rawJson = storageKeyOrRaw;
-    } else {
-      return {
-        migrated: false,
-        factsCount: 0,
-        backupKeyWritten: '',
-        ledger: null
-      };
-    }
+  if (rawStateInput.trim().startsWith('{')) {
+    rawJson = rawStateInput;
+  } else {
+    return {
+      migrated: false,
+      factsCount: 0,
+      backupKeyWritten: '',
+      ledger: null
+    };
   }
 
   let legacy: LegacyTailorState;
@@ -71,15 +59,6 @@ export function migrateLegacyTailorState(
   }
 
   const backupKey = `${BACKUP_PREFIX}${backupTimestamp}`;
-
-  // Write backup to localStorage if available
-  if (typeof globalThis !== 'undefined' && (globalThis as any).localStorage) {
-    try {
-      (globalThis as any).localStorage.setItem(backupKey, rawJson);
-    } catch (e) {
-      console.warn('Could not write localStorage backup key:', e);
-    }
-  }
 
   const ledger = new AppendOnlyFactLedger();
   let count = 0;

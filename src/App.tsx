@@ -22,8 +22,7 @@ import {
   SpruceCompanyRolesPage,
   SpruceGalleryPage,
 } from './designs/spruce';
-import { initSupabaseAuthListener } from './lib/supabase/client';
-import { autoSyncManager } from './lib/sync/autoSyncManager';
+import { CloudSyncBanner } from './components/common/CloudSyncBanner';
 
 // Lazy-loaded Pages & Tools (C13: Code-splitting)
 const LandingPage = React.lazy(() => import('./pages/LandingPage').then((m) => ({ default: m.LandingPage })));
@@ -209,7 +208,8 @@ function RedirectWithSearch({ to }: { to: string }) {
 export default function App() {
   const { initDemoData, _initialized } = useStore();
   const design = useTheme((s) => s.design);
-  const { isSignInOpen, closeSignIn } = useAuthStore();
+  const isSignInOpen = useAuthStore((s) => s.openDialog);
+  const closeSignIn = useAuthStore((s) => s.closeSignIn);
   const [appReady, setAppReady] = useState(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {
       try {
@@ -227,34 +227,7 @@ export default function App() {
     }
   }, [_initialized, initDemoData]);
 
-  // Supabase real-time auth listener (Google OAuth redirect & session recovery)
-  useEffect(() => {
-    const unsub = initSupabaseAuthListener(
-      (user) => {
-        const currentUser = useStore.getState().currentUser;
-        if (!currentUser || currentUser.id !== user.id) {
-          useStore.setState({
-            currentUser: {
-              id: user.id,
-              email: user.email,
-              displayName: user.displayName,
-              avatarUrl: user.avatarUrl || '',
-              role: 'CANDIDATE',
-              status: 'active',
-              createdAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString(),
-            },
-            isAuthenticated: true,
-          });
-          autoSyncManager.pullFromCloud(user.id);
-        }
-      },
-      () => {
-        useStore.getState().logout();
-      }
-    );
-    return unsub;
-  }, []);
+  // Cloud session restoration & listener handled inside AuthProvider.
 
   const handleLoadingFinish = useCallback(() => {
     if (typeof window !== 'undefined' && window.sessionStorage) {
@@ -278,6 +251,7 @@ export default function App() {
       <AuthProvider>
       <ProfileProvider>
         <BrowserRouter>
+          <CloudSyncBanner />
           <RouteChangeHandler />
           <Suspense fallback={<RouteFallback />}>
             <Routes>

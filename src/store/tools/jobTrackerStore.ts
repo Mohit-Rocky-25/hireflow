@@ -1,11 +1,8 @@
 // ============================================================
-// HireFlow v3 — Job Tracker Tool Store
-// Fresher job applications pipeline, campus/off-campus tracker.
-// Versioned schema with auto-migration.
+// HireFlow — Job Tracker Tool Store (In-Memory)
 // ============================================================
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 export type ApplicationStage =
   | 'WISHLIST'
@@ -34,8 +31,7 @@ export interface TrackedApplication {
 export interface JobTrackerToolState {
   version: number;
   applications: TrackedApplication[];
-  
-  // Actions
+
   addApplication: (app: Omit<TrackedApplication, 'id'>) => void;
   updateApplicationStage: (id: string, stage: ApplicationStage) => void;
   updateApplication: (id: string, updates: Partial<TrackedApplication>) => void;
@@ -74,50 +70,34 @@ const DEFAULT_STATE = {
   applications: DEFAULT_APPLICATIONS,
 };
 
-export const useJobTrackerToolStore = create<JobTrackerToolState>()(
-  persist(
-    (set) => ({
-      ...DEFAULT_STATE,
+export const useJobTrackerToolStore = create<JobTrackerToolState>()((set) => ({
+  ...DEFAULT_STATE,
 
-      addApplication: (app) =>
-        set((state) => ({
-          applications: [
-            ...state.applications,
-            {
-              ...app,
-              id: 'app-' + Date.now().toString(36),
-            },
-          ],
-        })),
+  addApplication: (app) =>
+    set((state) => ({
+      applications: [
+        ...state.applications,
+        {
+          ...app,
+          id: 'app-' + Date.now().toString(36),
+        },
+      ],
+    })),
 
-      updateApplicationStage: (id, stage) =>
-        set((state) => ({
-          applications: state.applications.map((a) => (a.id === id ? { ...a, stage } : a)),
-        })),
+  updateApplicationStage: (id, stage) =>
+    set((state) => ({
+      applications: state.applications.map((a) => (a.id === id ? { ...a, stage } : a)),
+    })),
 
-      updateApplication: (id, updates) =>
-        set((state) => ({
-          applications: state.applications.map((a) => (a.id === id ? { ...a, ...updates } : a)),
-        })),
+  updateApplication: (id, updates) =>
+    set((state) => ({
+      applications: state.applications.map((a) => (a.id === id ? { ...a, ...updates } : a)),
+    })),
 
-      deleteApplication: (id) =>
-        set((state) => ({
-          applications: state.applications.filter((a) => a.id !== id),
-        })),
+  deleteApplication: (id) =>
+    set((state) => ({
+      applications: state.applications.filter((a) => a.id !== id),
+    })),
 
-      resetJobTrackerTool: () => set({ ...DEFAULT_STATE }),
-    }),
-    {
-      name: 'hireflow_tool_job_tracker_v3',
-      version: 3,
-      migrate: (persisted: any) => {
-        if (!persisted) return DEFAULT_STATE;
-        return {
-          ...DEFAULT_STATE,
-          ...persisted,
-          version: 3,
-        };
-      },
-    }
-  )
-);
+  resetJobTrackerTool: () => set({ ...DEFAULT_STATE }),
+}));

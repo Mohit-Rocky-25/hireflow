@@ -377,6 +377,155 @@ export interface Database {
           updated_at?: string;
         };
       };
+      saved_jds: {
+        Row: {
+          user_id: string;
+          id: string;
+          title: string;
+          company: string | null;
+          source: 'pasted' | 'talentlens' | 'upload';
+          text_body: string;
+          text_hash: string;
+          tags: Json;
+          added_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          title: string;
+          company?: string | null;
+          source: 'pasted' | 'talentlens' | 'upload';
+          text_body: string;
+          text_hash: string;
+          tags?: Json;
+          added_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          id?: string;
+          title?: string;
+          company?: string | null;
+          source?: 'pasted' | 'talentlens' | 'upload';
+          text_body?: string;
+          text_hash?: string;
+          tags?: Json;
+          added_at?: string;
+          updated_at?: string;
+        };
+      };
+      user_documents: {
+        Row: {
+          user_id: string;
+          id: string;
+          doc_kind: 'resume_upload' | 'jd_upload' | 'exported_pdf' | 'exported_docx' | 'exported_md';
+          workspace_id: string | null;
+          version_id: string | null;
+          audit_id: string | null;
+          storage_bucket: string;
+          storage_path: string;
+          file_name: string;
+          mime_type: string;
+          byte_size: number;
+          sha256: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          doc_kind: 'resume_upload' | 'jd_upload' | 'exported_pdf' | 'exported_docx' | 'exported_md';
+          workspace_id?: string | null;
+          version_id?: string | null;
+          audit_id?: string | null;
+          storage_bucket?: string;
+          storage_path: string;
+          file_name: string;
+          mime_type: string;
+          byte_size: number;
+          sha256: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          id?: string;
+          doc_kind?: 'resume_upload' | 'jd_upload' | 'exported_pdf' | 'exported_docx' | 'exported_md';
+          workspace_id?: string | null;
+          version_id?: string | null;
+          audit_id?: string | null;
+          storage_bucket?: string;
+          storage_path?: string;
+          file_name?: string;
+          mime_type?: string;
+          byte_size?: number;
+          sha256?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      feedback_items: {
+        Row: {
+          user_id: string;
+          id: string;
+          target_kind: string;
+          rule_id: string;
+          verdict: 'up' | 'down';
+          note: string | null;
+          audit_id: string | null;
+          engine_version: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          target_kind: string;
+          rule_id: string;
+          verdict: 'up' | 'down';
+          note?: string | null;
+          audit_id?: string | null;
+          engine_version: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          id?: string;
+          target_kind?: string;
+          rule_id?: string;
+          verdict?: 'up' | 'down';
+          note?: string | null;
+          audit_id?: string | null;
+          engine_version?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      legacy_import_receipts: {
+        Row: {
+          user_id: string;
+          import_key: string;
+          imported_at: string;
+          record_counts: Json;
+          source_summary: Json;
+        };
+        Insert: {
+          user_id?: string;
+          import_key: string;
+          imported_at?: string;
+          record_counts?: Json;
+          source_summary?: Json;
+        };
+        Update: {
+          user_id?: string;
+          import_key?: string;
+          imported_at?: string;
+          record_counts?: Json;
+          source_summary?: Json;
+        };
+      };
     };
     Functions: {
       erase_my_data: {

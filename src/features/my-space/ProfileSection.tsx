@@ -6,9 +6,10 @@ import { RefreshCw, Trash2, Check } from 'lucide-react';
 
 export const ProfileSection: React.FC = () => {
   const { profile, updateProfile } = useProfileStore();
-  const { isDemo, demoStorage, resetDemoData, deleteAllCloudData } = useAuthStore();
+  const { status, deleteAllCloudData } = useAuthStore();
+  const isSignedIn = status === 'authenticated';
 
-  const [displayName, setDisplayName] = useState(profile.displayName || 'Mohit');
+  const [displayName, setDisplayName] = useState(profile.displayName || 'Candidate');
   const [degree, setDegree] = useState(profile.degree || '');
   const [branch, setBranch] = useState(profile.branch || '');
   const [graduationYear, setGraduationYear] = useState<number | string>(
@@ -19,7 +20,6 @@ export const ProfileSection: React.FC = () => {
     profile.targetRoles?.join(', ') || 'Backend Engineer, Systems Engineer'
   );
   const [isSaved, setIsSaved] = useState(false);
-  const [isResetting, setIsResetting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleSave = (e: React.FormEvent) => {
@@ -43,23 +43,6 @@ export const ProfileSection: React.FC = () => {
     toast('success', 'Profile details updated.');
   };
 
-  const handleResetDemo = async () => {
-    const ok = window.confirm(
-      'Reset demo data? This will restore the shared demo account to its initial state.'
-    );
-    if (!ok) return;
-
-    try {
-      setIsResetting(true);
-      await resetDemoData();
-      toast('success', 'Demo data reset to initial sample state.');
-    } catch {
-      toast('error', 'Failed to reset demo data.');
-    } finally {
-      setIsResetting(false);
-    }
-  };
-
   const handleDeleteCloud = async () => {
     const ok = window.confirm(
       'Delete all your cloud data? This permanently removes all synced evaluations and items.'
@@ -77,10 +60,9 @@ export const ProfileSection: React.FC = () => {
     }
   };
 
-  const syncStatusDescription =
-    demoStorage === 'local'
-      ? 'Saved on this device only. Offline storage is enabled in this browser.'
-      : 'Synced to your account. Evaluations and plan items follow you across devices.';
+  const syncStatusDescription = isSignedIn
+    ? 'Synced to your Supabase Cloud account. Evaluations, targets, and plan items follow you across devices.'
+    : 'Running in transient Guest memory. Sign in with Google to save your work privately in the cloud.';
 
   return (
     <div className="max-w-[700px]">
@@ -195,26 +177,14 @@ export const ProfileSection: React.FC = () => {
         {/* Sync Settings */}
         <div className="p-6 rounded-xl border border-[#24241c] bg-[#10100d] space-y-4">
           <div className="font-mono text-xs font-semibold tracking-wider text-[#6d6d61] uppercase">
-            Data Storage and Sync
+            Cloud Account Storage
           </div>
           <p className="text-sm text-[#9b9b8c] leading-relaxed">
             {syncStatusDescription}
           </p>
 
           <div className="pt-2 flex flex-wrap gap-3">
-            {isDemo && (
-              <button
-                type="button"
-                onClick={handleResetDemo}
-                disabled={isResetting}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#24241c] bg-[#16160f] text-xs font-semibold text-[#f1f1e8] hover:border-[#faff69]/40 hover:text-[#faff69] transition-colors cursor-pointer disabled:opacity-50"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${isResetting ? 'animate-spin' : ''}`} />
-                <span>{isResetting ? 'Resetting...' : 'Reset demo data'}</span>
-              </button>
-            )}
-
-            {demoStorage === 'cloud' && (
+            {isSignedIn && (
               <button
                 type="button"
                 onClick={handleDeleteCloud}
