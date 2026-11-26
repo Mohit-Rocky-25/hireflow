@@ -27,8 +27,14 @@ describe('ATS Engine Stage 0 Bug Reproduction Suite', () => {
 
   // B2: Java evidence tagged [Contact & Header] though it is in the Career Objective.
   test('B2: Java evidence tagged [Contact & Header] though it is in the Career Objective', () => {
-    const res = runAtsEngine(fresherResume, microsoftSweJd).result;
-    const java = res.skillResults.find(s => s.canonical === 'Java' || s.skillId === 'java');
+    // Under Phase 10.2/10.3 OR-group modeling, microsoftSweJd groups Python/Java/C++/C# into one OR-group
+    // satisfied by Python (see B4). Verify both OR-group integrity on microsoftSweJd AND standalone Java section tagging.
+    const msRes = runAtsEngine(fresherResume, microsoftSweJd).result;
+    const progOrGroup = msRes.skillResults.find(s => (s.orAlternatives || []).includes('java'));
+    expect(progOrGroup).toBeDefined();
+
+    const javaRes = runAtsEngine(fresherResume, 'Java Software Engineer\nRequirements:\n- Java').result;
+    const java = javaRes.skillResults.find(s => s.canonical === 'Java' || s.skillId === 'java');
     expect(java).toBeDefined();
     const objectiveEvidence = java!.evidence.find(e => e.quote.includes('Java'));
     expect(objectiveEvidence).toBeDefined();

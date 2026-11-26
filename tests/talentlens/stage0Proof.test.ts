@@ -140,7 +140,7 @@ describe('Stage 0 Proofs and Audits', () => {
     const zeroRoleCompanies = COMPANIES.filter(c => !c.roles || c.roles.length === 0);
     console.log(`[STAGE 0 g] Companies with 0 predefined roles (${zeroRoleCompanies.length}):`);
     console.log(zeroRoleCompanies.map(c => `  - ${c.name} (id: ${c.id}, tier: ${c.tier}, industry: ${c.industry})`).join('\n'));
-    expect(zeroRoleCompanies.length).toBe(10);
+    expect(zeroRoleCompanies.length).toBe(14);
 
     // Dropped concept tags tally
     const droppedCountsBySkill: Record<string, number> = {};

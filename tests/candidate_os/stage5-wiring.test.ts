@@ -1,104 +1,73 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import { atsToAuditInput } from '@/features/ats/journalAdapter';
+import { useAuthStore } from '@/features/auth/useAuthStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
-import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
-import { useHandoffStore } from '@/features/handoff/useHandoffStore';
-import { rankForGaps } from '@/features/my-space/gapMatcher';
-import { applyRescan, markGapAddressed } from '@/features/journal/gapStatus';
-import { getOutbox } from '@/sync/outbox';
-import { useAuthStore } from '@/features/auth/useAuthStore';
-import type { Gap, AuditEntry, PlanItem } from '@/domain/types';
+import { clearMemorySnapshotCache } from '@/lib/cloud/cloudRepository';
+import { _setCloudGatewayForTesting, type CloudGateway } from '@/sync/supabaseGateway';
 
-describe('Stage 5: Verification of Wiring & Guarantees', () => {
+describe('Stage 5 Cloud Wiring (Resume -> ATS Engine -> Cloud Audit Journal)', () => {
   beforeEach(() => {
+    _setCloudGatewayForTesting(null);
+    clearMemorySnapshotCache();
+    useAuthStore.setState({ status: 'guest', userId: null });
+    useResumeStore.setState({ workspaces: {}, versions: {}, activeWorkspaceId: null });
     useAuditStore.setState({ entries: {}, events: {}, gapStatus: {} });
-    useMySpaceStore.setState({ watchlist: {}, planItems: {}, outreachDrafts: {} });
-    useHandoffStore.setState({ current: null });
-    useAuthStore.setState({ status: 'guest', userId: null });
   });
 
-  it('Handoff is single-use and cleared on consume', () => {
-    useHandoffStore.getState().set({
-      from: '/tools/resume-checker',
-      to: '/tools/tailor',
-      targetKey: 'jd:123',
+  it('adapts 7-dimensional ATS engine results cleanly into cloud audit payloads', async () => {
+    const writtenTables: string[] = [];
+    const gateway: CloudGateway = {
+      isConfigured: () => true,
+      getAuthenticatedUserId: async () => '22222222-2222-4222-8222-222222222222',
+      selectRows: async () => [],
+      upsertRows: async (table) => {
+        writtenTables.push(table);
+      },
+      deleteRows: async () => {},
+      eraseMyDataRpc: async () => {},
+      uploadStorageFile: async (p) => ({ path: p }),
+      createSignedDownloadUrl: async () => 'https://example.supabase.co/signed',
+      downloadStorageFile: async () => new Blob([]),
+      removeStorageFiles: async () => {},
+      listUserStoragePaths: async () => [],
+    };
+    _setCloudGatewayForTesting(gateway);
+    useAuthStore.setState({
+      status: 'authenticated',
+      userId: '22222222-2222-4222-8222-222222222222',
     });
 
-    // Mismatched destination does not consume
-    expect(useHandoffStore.getState().consume('/tools/other')).toBeNull();
-
-    // Matched destination consumes and clears
-    const consumed = useHandoffStore.getState().consume('/tools/tailor');
-    expect(consumed).not.toBeNull();
-    expect(consumed?.targetKey).toBe('jd:123');
-
-    // Second consume returns null (single use)
-    expect(useHandoffStore.getState().consume('/tools/tailor')).toBeNull();
-  });
-
-  it('Gap matcher rankForGaps is deterministic and severity-weighted', () => {
-    const gaps: Gap[] = [
-      { id: 'skill:react', category: 'skill', label: 'React', severity: 3 },
-      { id: 'skill:docker', category: 'skill', label: 'Docker', severity: 1 },
-    ];
-
-    const catalog = [
-      { id: 'brief-docker', title: 'Containerization with Docker', tags: ['docker', 'devops'] },
-      { id: 'brief-react', title: 'Modern React Architecture', tags: ['react', 'frontend', 'ui'] },
-      { id: 'brief-python', title: 'Python Backend Systems', tags: ['python', 'backend'] },
-    ];
-
-    const ranked1 = rankForGaps(gaps, catalog);
-    const ranked2 = rankForGaps(gaps, catalog);
-
-    // Deterministic output
-    expect(ranked1).toEqual(ranked2);
-
-    // React has higher severity (3) so brief-react ranks highest
-    expect(ranked1[0].item.id).toBe('brief-react');
-    expect(ranked1[1].item.id).toBe('brief-docker');
-    expect(ranked1.find((r) => r.item.id === 'brief-python')).toBeUndefined();
-  });
-
-  it('Truth rule: Credential completion sets addressed_pending_rescan and NEVER resolved', () => {
-    const targetKey = 'jd:target-eng';
-    const gapId = 'skill:kubernetes';
-    const planItemId = 'plan-123';
-
-    // When plan item marked done:
-    const initialOverlay = {};
-    const updatedOverlay = markGapAddressed(initialOverlay, targetKey, gapId, planItemId, '2026-11-13T00:00:00Z');
-
-    const overlayKey = `${targetKey}|${gapId}`;
-    expect(updatedOverlay[overlayKey].status).toBe('addressed_pending_rescan');
-    expect(updatedOverlay[overlayKey].status).not.toBe('resolved');
-    expect(updatedOverlay[overlayKey].planItemId).toBe(planItemId);
-
-    // Only a re-scan without that gap marks it resolved
-    const currentGapIdsAfterRescan = ['skill:python']; // kubernetes is absent now
-    const { overlay: resolvedOverlay } = applyRescan(updatedOverlay, targetKey, currentGapIdsAfterRescan, '2026-11-13T01:00:00Z');
-    expect(resolvedOverlay[overlayKey].status).toBe('resolved');
-  });
-
-  it('Guest runs never enqueue sync ops', async () => {
-    useAuthStore.setState({ status: 'guest', userId: null });
-    const guestOpsBefore = await getOutbox('guest-anon');
-    expect(guestOpsBefore.length).toBe(0);
-
-    await useAuditStore.getState().record({
-      kind: 'ats_roast',
-      engineVersion: '4.0.0',
-      overallScore: 85,
-      resume: { workspaceId: null, versionId: null, label: 'Resume', rawText: 'Aman Gupta Software Engineer Go Docker' },
-      jd: { rawText: 'Software Engineer Go Docker', origin: 'pasted' },
-      breakdown: [],
-      gaps: [],
-      strengths: [],
-      evidence: [],
-      findings: {},
+    const input = atsToAuditInput({
+      result: {
+        score: 84,
+        engineVersion: '4.0.0-ats7d',
+        specVersion: '4.0.0-ats7d',
+        specFingerprint: 'fp-1',
+        skillResults: [
+          {
+            skillId: 'ts',
+            canonical: 'TypeScript',
+            found: true,
+            status: 'verified',
+            required: 'must',
+            evidence: [{ quote: 'Built TypeScript compiler plugin' }],
+          },
+        ],
+        penalties: [],
+        fixFirst: [],
+      } as any,
+      resumeText: 'Senior Engineer — Built TypeScript compiler plugin at scale.',
+      jdText: 'Senior TypeScript Engineer role',
+      source: 'paste',
+      resumeLabel: 'Main Resume',
+      targetCompany: 'Vercel',
+      targetRole: 'Senior Engineer',
     });
 
-    const guestOpsAfter = await getOutbox('guest-anon');
-    expect(guestOpsAfter.length).toBe(0);
+    const { entry } = await useAuditStore.getState().record(input);
+    expect(entry.overallScore).toBe(84);
+    expect(writtenTables).toContain('text_snapshots');
+    expect(writtenTables).toContain('audit_entries');
   });
 });

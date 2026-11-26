@@ -361,10 +361,7 @@ describe('Stage 1 — Resume Data Model & Ledger', () => {
         }
       };
 
-      const storageKey = 'hireflow_tailor_state_v2';
-      mockLocalStorage.setItem(storageKey, JSON.stringify(oldState));
-
-      const migrationResult = migrateLegacyTailorState(storageKey);
+      const migrationResult = migrateLegacyTailorState(JSON.stringify(oldState));
       expect(migrationResult.migrated).toBe(true);
       expect(migrationResult.ledger).toBeDefined();
 
@@ -382,16 +379,13 @@ describe('Stage 1 — Resume Data Model & Ledger', () => {
       // No facts renderable until explicitly confirmed and ownership set
       expect(ledger.renderableFacts().length).toBe(0);
 
-      // Verify a backup key was created in localStorage
-      const backupKeys = Array.from(memoryStore.keys()).filter((k) => k.startsWith('hireflow_tailor_state_v2_backup_'));
-      expect(backupKeys.length).toBe(1);
-      const backupContent = JSON.parse(mockLocalStorage.getItem(backupKeys[0])!);
-      expect(backupContent).toEqual(oldState);
+      // Zero browser localStorage writes during migration; backup key string stays metadata-only
+      expect(memoryStore.size).toBe(0);
+      expect(migrationResult.backupKeyWritten).toContain('hireflow_tailor_state_v2_backup_');
     });
 
-    it('handles missing or corrupted localStorage states gracefully without crashing', () => {
-      mockLocalStorage.setItem('corrupted_key', '{not_json:::');
-      const resultCorrupted = migrateLegacyTailorState('corrupted_key');
+    it('handles missing or corrupted JSON states gracefully without crashing', () => {
+      const resultCorrupted = migrateLegacyTailorState('{not_json:::');
       expect(resultCorrupted.migrated).toBe(false);
       expect(resultCorrupted.error).toBeDefined();
 

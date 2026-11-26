@@ -1,70 +1,80 @@
-// @vitest-environment node
-import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { validateReturnTo, useAuthStore } from '@/features/auth/useAuthStore';
-import { isAuthConfigured, getSupabase } from '@/features/auth/supabaseClient';
-import { AUTH_HINT_KEY } from '@/lib/storage/namespace';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { useAuthStore, purgeLegacyBrowserUserData } from '@/features/auth/useAuthStore';
+import { explainAuthError, validateReturnToPath } from '@/features/auth/authErrors';
+import { useAtsToolStore } from '@/store/tools/atsStore';
+import { cacheSnapshotInMemory, getCachedSnapshotInMemory } from '@/lib/cloud/cloudRepository';
 
-describe('Stage 2: Auth and Guest Boundary', () => {
+describe('Cloud-First Authentication Lifecycle (Phase 10.8)', () => {
   beforeEach(() => {
-    useAuthStore.setState({ status: 'guest', userId: null, email: null, error: null });
-  });
-
-  describe('Zero-egress and Client Construction Rule (C2)', () => {
-    it('never constructs the Supabase client when in guest mode', () => {
-      // In guest mode, useAuthStore has not called getSupabase
-      expect(useAuthStore.getState().status).toBe('guest');
-      expect(useAuthStore.getState().userId).toBeNull();
-    });
-
-    it('throws or disables sign-in when isAuthConfigured is false', () => {
-      // If VITE_SUPABASE_URL and KEY are unset, getSupabase throws AUTH_NOT_CONFIGURED
-      if (!isAuthConfigured) {
-        expect(() => getSupabase()).toThrow('AUTH_NOT_CONFIGURED');
-      }
+    if (typeof localStorage !== 'undefined') localStorage.clear();
+    if (typeof sessionStorage !== 'undefined') sessionStorage.clear();
+    useAuthStore.setState({
+      status: 'guest',
+      userId: null,
+      displayName: null,
+      email: null,
+      avatarUrl: null,
+      provider: null,
+      error: null,
+      openDialog: false,
+      dialogReason: null,
+      returnTo: null,
     });
   });
 
-  describe('Hostile returnTo validation', () => {
-    const hostileInputs = [
-      '//evil.com',
-      '//evil.com/phish',
-      '/\\evil.com',
-      'https://evil.com',
-      'http://evil.com',
-      'javascript:alert(1)',
-      'data:text/html,<html>',
-      '   //evil.com',
-      '   https://evil.com',
-      '',
-      'a'.repeat(2000),
-      '/portal\nhttp://evil.com',
-      '/portal\rhttp://evil.com',
-      'ftp://server/path',
-      'mailto:test@example.com'
-    ];
-
-    it('rejects at least 12 hostile returnTo inputs and defaults to /', () => {
-      expect(hostileInputs.length).toBeGreaterThanOrEqual(12);
-      for (const hostile of hostileInputs) {
-        const validated = validateReturnTo(hostile);
-        expect(validated).toBe('/');
-      }
-    });
-
-    it('accepts valid relative paths', () => {
-      expect(validateReturnTo('/portal')).toBe('/portal');
-      expect(validateReturnTo('/portal/resumes')).toBe('/portal/resumes');
-      expect(validateReturnTo('/portal/audits/123')).toBe('/portal/audits/123');
-      expect(validateReturnTo('/tools/resume-checker')).toBe('/tools/resume-checker');
-    });
+  it('starts unauthenticated cleanly in guest mode and never falls back to a demo account on unconfigured OAuth', async () => {
+    await useAuthStore.getState().signInWithGoogle('/portal/resumes');
+    const st = useAuthStore.getState();
+    expect(st.status).toBe('error');
+    expect(st.userId).toBeNull();
+    expect(st.error).toContain('AUTH_NOT_CONFIGURED');
   });
 
-  describe('Sign out cleanup', () => {
-    it('clears auth hint and resets state on signOut', async () => {
-      useAuthStore.setState({ status: 'authenticated', userId: 'user-123', email: 'test@example.com' });
-      await useAuthStore.getState().signOut();
-      expect(useAuthStore.getState().status).toBe('guest');
-      expect(useAuthStore.getState().userId).toBeNull();
+  it('validates returnTo paths strictly against open redirects', () => {
+    expect(validateReturnToPath('/portal/audits/123')).toBe('/portal/audits/123');
+    expect(validateReturnToPath('https://evil.example/steal')).toBeNull();
+    expect(validateReturnToPath('//evil.example/steal')).toBeNull();
+    expect(validateReturnToPath('javascript:alert(1)')).toBeNull();
+    expect(validateReturnToPath('\\\\unc-path')).toBeNull();
+  });
+
+  it('explains Google OAuth error codes clearly without demo bypass copy', () => {
+    const denied = explainAuthError('access_denied', 'User denied access');
+    expect(denied.problem).toBe('access_denied');
+    expect(denied.title.toLowerCase()).toContain('cancelled');
+
+    const expired = explainAuthError('invalid_request', 'PKCE code verifier expired');
+    expect(expired.problem).toBe('expired_code');
+  });
+
+  it('wipes previous user memory stores immediately on account switch and signOut', async () => {
+    const hashA = 'a'.repeat(64);
+    cacheSnapshotInMemory({
+      hash: hashA,
+      text: 'User A Private Resume',
+      charCount: 21,
+      wordCount: 4,
+      createdAt: '2026-11-26T00:00:00.000Z',
     });
+    useAtsToolStore.getState().setResumeText('User A Private Resume', 'a.pdf');
+
+    // Switch session directly to null -> clears previous user's memory
+    useAuthStore.setState({ userId: '11111111-1111-4111-8111-111111111111', status: 'authenticated' });
+    await useAuthStore.getState().handleSessionExpired('Session token expired');
+
+    expect(useAuthStore.getState().status).toBe('guest');
+    expect(useAuthStore.getState().userId).toBeNull();
+    expect(useAuthStore.getState().error).toContain('expired');
+    expect(useAtsToolStore.getState().rawResumeText).toBe('');
+    expect(getCachedSnapshotInMemory(hashA)).toBeNull();
+
+    // Purge clears legacy keys while preserving UI theme preferences
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('hireflow_sim_cloud_u1', '{}');
+      localStorage.setItem('hireflow:v4:design', 'spruce');
+      purgeLegacyBrowserUserData();
+      expect(localStorage.getItem('hireflow_sim_cloud_u1')).toBeNull();
+      expect(localStorage.getItem('hireflow:v4:design')).toBe('spruce');
+    }
   });
 });

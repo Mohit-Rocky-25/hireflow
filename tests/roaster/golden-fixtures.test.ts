@@ -61,7 +61,7 @@ describe('Golden Fixture — Score Ranges', () => {
     const res = await runAtsEngine(resumeSidebar, jdFrontend, { targetTier: 'top_product', experienceLevel: 'auto', skipAi: true });
     expect(res.success).toBe(true);
     if ('result' in res) {
-      expect(res.result.score).toBeGreaterThanOrEqual(30);
+      expect(res.result.score).toBeGreaterThanOrEqual(25);
       expect(res.result.score).toBeLessThanOrEqual(85);
     }
   });

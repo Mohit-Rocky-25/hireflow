@@ -1,89 +1,91 @@
-// @vitest-environment node
-import { describe, expect, it, vi, beforeEach } from 'vitest';
-import { kvGet, kvSet, kvDel, kvClear, getStorageHealth, setStorageHealth } from '@/lib/storage/kv';
-import { getStorageKey, parseStorageKey } from '@/lib/storage/namespace';
-import { broadcastStoreChange, onCrossTabChange } from '@/lib/storage/crossTab';
-import { createAsyncStateStorage } from '@/lib/storage/zustandStorage';
-import { MAX_WORKSPACES, GUEST_MAX_WORKSPACES, GUEST_MAX_AUDITS } from '@/domain/limits';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {
+  cacheSnapshotInMemory,
+  clearMemorySnapshotCache,
+  getCachedSnapshotInMemory,
+  cloudRepository,
+} from '@/lib/cloud/cloudRepository';
+import { _setCloudGatewayForTesting, type CloudGateway } from '@/sync/supabaseGateway';
+import { purgeLegacyBrowserUserData } from '@/features/auth/useAuthStore';
 
-describe('Storage infrastructure', () => {
-  beforeEach(async () => {
-    await kvClear();
-    setStorageHealth('healthy');
+describe('Cloud Snapshot Cache & Non-Persistent Browser Boundary', () => {
+  beforeEach(() => {
+    clearMemorySnapshotCache();
+    _setCloudGatewayForTesting(null);
+    if (typeof localStorage !== 'undefined') localStorage.clear();
   });
 
-  describe('Namespace isolation', () => {
-    it('isolates guest and multiple user namespaces', () => {
-      const guestKey = getStorageKey('resumes', null);
-      const userAKey = getStorageKey('resumes', 'user-aaa');
-      const userBKey = getStorageKey('resumes', 'user-bbb');
-
-      expect(guestKey).toBe('hireflow:v5:guest:resumes');
-      expect(userAKey).toBe('hireflow:v5:u:user-aaa:resumes');
-      expect(userBKey).toBe('hireflow:v5:u:user-bbb:resumes');
-
-      expect(parseStorageKey(guestKey)).toEqual({ userId: null, storeName: 'resumes' });
-      expect(parseStorageKey(userAKey)).toEqual({ userId: 'user-aaa', storeName: 'resumes' });
-      expect(parseStorageKey(userBKey)).toEqual({ userId: 'user-bbb', storeName: 'resumes' });
-      expect(parseStorageKey('random_key')).toBeNull();
+  it('resolves cached text snapshots from pure session memory without browser IndexedDB', async () => {
+    const hash = 'b'.repeat(64);
+    cacheSnapshotInMemory({
+      hash,
+      text: 'Snapshot body text',
+      charCount: 18,
+      wordCount: 3,
+      createdAt: '2026-11-26T00:00:00.000Z',
     });
+
+    const resolved = await cloudRepository.fetchSnapshot(hash, null);
+    expect(resolved?.text).toBe('Snapshot body text');
+    expect(typeof localStorage !== 'undefined' ? localStorage.length : 0).toBe(0);
   });
 
-  describe('KV store with in-memory fallback', () => {
-    it('reads and writes values gracefully in fallback memory mode', async () => {
-      setStorageHealth('fallback_memory');
-      await kvSet('test-key', { foo: 'bar' });
-      const val = await kvGet<{ foo: string }>('test-key');
-      expect(val).toEqual({ foo: 'bar' });
+  it('fetches missing snapshot from Postgres via CloudGateway when user is signed in', async () => {
+    const hash = 'c'.repeat(64);
+    const mockGateway: CloudGateway = {
+      isConfigured: () => true,
+      getAuthenticatedUserId: async () => 'uid-1',
+      selectRows: async <T,>(table: string) => {
+        if (table === 'text_snapshots') {
+          return [
+            {
+              hash,
+              body: 'Remote Postgres Snapshot',
+              char_count: 24,
+              word_count: 3,
+              created_at: '2026-11-26T00:00:00.000Z',
+            } as unknown as T,
+          ];
+        }
+        return [];
+      },
+      upsertRows: async () => {},
+      deleteRows: async () => {},
+      eraseMyDataRpc: async () => {},
+      uploadStorageFile: async (p) => ({ path: p }),
+      createSignedDownloadUrl: async () => 'https://example.supabase.co/signed',
+      downloadStorageFile: async () => new Blob([]),
+      removeStorageFiles: async () => {},
+      listUserStoragePaths: async () => [],
+    };
+    _setCloudGatewayForTesting(mockGateway);
 
-      await kvDel('test-key');
-      const empty = await kvGet('test-key');
-      expect(empty).toBeNull();
-    });
-
-    it('sets health to quota_exceeded when quota error occurs', () => {
-      setStorageHealth('quota_exceeded');
-      expect(getStorageHealth()).toBe('quota_exceeded');
-    });
+    const fetched = await cloudRepository.fetchSnapshot(hash, 'uid-1');
+    expect(fetched?.text).toBe('Remote Postgres Snapshot');
+    expect(getCachedSnapshotInMemory(hash)?.text).toBe('Remote Postgres Snapshot');
   });
 
-  describe('Zustand async storage write-batching and debouncing', () => {
-    it('debounces multiple rapid writes', async () => {
-      vi.useFakeTimers();
-      const storage = createAsyncStateStorage();
-
-      for (let i = 0; i < 50; i++) {
-        void storage.setItem('test-debounced', JSON.stringify({ count: i }));
-      }
-
-      // Before timer fires, getItem returns pending value from map
-      const immediate = await storage.getItem('test-debounced');
-      expect(immediate).toBe(JSON.stringify({ count: 49 }));
-
-      // Fast-forward past 150ms debounce
-      await vi.advanceTimersByTimeAsync(200);
-
-      const persisted = await kvGet<string>('test-debounced');
-      expect(persisted).toBe(JSON.stringify({ count: 49 }));
-
-      vi.useRealTimers();
+  it('clears memory snapshot cache and legacy browser keys on purge', () => {
+    const hash = 'd'.repeat(64);
+    cacheSnapshotInMemory({
+      hash,
+      text: 'Secret',
+      charCount: 6,
+      wordCount: 1,
+      createdAt: '2026-11-26T00:00:00.000Z',
     });
-  });
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('hireflow:v5:guest:audit', '{}');
+      localStorage.setItem('hireflow:v4:theme-mode', 'dark');
+    }
 
-  describe('Limits', () => {
-    it('enforces configured constants', () => {
-      expect(MAX_WORKSPACES).toBe(8);
-      expect(GUEST_MAX_WORKSPACES).toBe(1);
-      expect(GUEST_MAX_AUDITS).toBe(10);
-    });
-  });
+    clearMemorySnapshotCache();
+    purgeLegacyBrowserUserData();
 
-  describe('CrossTab channel', () => {
-    it('allows subscribing and broadcasting without error', () => {
-      const fn = vi.fn();
-      const unsubscribe = onCrossTabChange(fn);
-      broadcastStoreChange('resumes', 1);
-      unsubscribe();
-    });
+    expect(getCachedSnapshotInMemory(hash)).toBeNull();
+    if (typeof localStorage !== 'undefined') {
+      expect(localStorage.getItem('hireflow:v5:guest:audit')).toBeNull();
+      expect(localStorage.getItem('hireflow:v4:theme-mode')).toBe('dark');
+    }
   });
 });

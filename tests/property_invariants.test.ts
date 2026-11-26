@@ -3,6 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { TEST_CORPUS } from './corpus';
 import { runAtsEngine } from '../src/features/ats/engine';
+import { computeAtsScore } from '../src/features/ats/engine/scorer';
+import { createAuthoritativeReportSnapshot } from '../src/features/ats/engine/authoritativeSnapshot';
+import { buildDossierModel } from '../src/features/dossier/dossierModel';
 import { extractContactInfo } from '../src/features/ats/engine/contactExtractor';
 import { analyzeJobDescription } from '../src/features/ats/engine/jdAnalyzer';
 import { buildQuickSummary } from '../src/features/suite/engine/quickSummary';
@@ -163,14 +166,19 @@ describe('ATS Engine Stage 0 Property & Invariant Test Suite (C1 - C14)', () => 
     expect(violationCount, `C6 Violations found:\n${violations.join('\n')}`).toBe(0);
   });
 
-  // C7: Unexplained arithmetic
-  test('C7: Unexplained arithmetic invariant — factor subscores sum must equal final score', () => {
-    let violationCount = 0;
+  // C7: Penalty-aware ScoreTrace accounting reconciliation (Phase 10.5)
+  test('C7: Authoritative score accounting invariant — rawSubtotal + bonuses - deductions -> clamped composite === ReportState & Export', () => {
     const violations: string[] = [];
 
+    // Part A: Full 14-pair corpus reconciliation across Engine -> ReportState -> Snapshot -> DossierModel
     for (const pair of TEST_CORPUS) {
-      const res = runAtsEngine(pair.resumeText, pair.jdText).result;
-      const factorSum = Math.round(
+      const response = runAtsEngine(pair.resumeText, pair.jdText);
+      expect(response.success, `${pair.id} failed engine execution`).toBe(true);
+      if (!response.success) continue;
+      const res = response.result;
+      const trace = res.trace!;
+      const pillarSum = Math.round(trace.pillars.reduce((acc, p) => acc + p.contribution, 0) * 10) / 10;
+      const subscoresSum = Math.round((
         res.subscores.mustHaveCoverage +
         res.subscores.evidenceDepth +
         res.subscores.impactMetrics +
@@ -178,15 +186,146 @@ describe('ATS Engine Stage 0 Property & Invariant Test Suite (C1 - C14)', () => 
         res.subscores.seniorityFit +
         res.subscores.formatAndParse +
         res.subscores.tierFit
-      );
+      ) * 10) / 10;
 
-      if (factorSum !== res.score) {
-        violationCount++;
-        violations.push(`${pair.id}: factorSum (${factorSum}) != total score (${res.score})`);
+      if (Math.abs(pillarSum - trace.rawSubtotal) > 0.05) {
+        violations.push(`${pair.id}: pillarSum (${pillarSum}) != trace.rawSubtotal (${trace.rawSubtotal})`);
+      }
+      if (Math.abs(subscoresSum - trace.rawSubtotal) > 0.05) {
+        violations.push(`${pair.id}: subscoresSum (${subscoresSum}) != trace.rawSubtotal (${trace.rawSubtotal})`);
+      }
+
+      const penaltyAbsSum = Math.round(res.penalties.reduce((acc, p) => acc + Math.abs(p.points), 0) * 10) / 10;
+      if (Math.abs(penaltyAbsSum - trace.totalDeductions) > 0.05) {
+        violations.push(`${pair.id}: penaltyAbsSum (${penaltyAbsSum}) != totalDeductions (${trace.totalDeductions})`);
+      }
+
+      const expectedPreClamp = Math.round((trace.rawSubtotal + trace.totalBonuses - trace.totalDeductions) * 10) / 10;
+      if (Math.abs(expectedPreClamp - trace.preClampScore) > 0.05) {
+        violations.push(`${pair.id}: expectedPreClamp (${expectedPreClamp}) != trace.preClampScore (${trace.preClampScore})`);
+      }
+
+      const zeroOverride = trace.warnings.some(w => w.includes('Zero-match override'));
+      const expectedComposite = zeroOverride ? 0 : Math.max(0, Math.min(100, Math.round(trace.preClampScore)));
+      if (expectedComposite !== res.score || trace.composite !== res.score) {
+        violations.push(`${pair.id}: expectedComposite (${expectedComposite}) != res.score (${res.score}) / trace.composite (${trace.composite})`);
+      }
+      if (res.quickRoast?.finalScore !== res.score) {
+        violations.push(`${pair.id}: quickRoast.finalScore (${res.quickRoast?.finalScore}) != res.score (${res.score})`);
+      }
+      if (res.reportState?.scoreLedger.roundedScore !== res.score) {
+        violations.push(`${pair.id}: reportState.roundedScore (${res.reportState?.scoreLedger.roundedScore}) != res.score (${res.score})`);
+      }
+
+      const snapshot = createAuthoritativeReportSnapshot(res, pair.resumeText, pair.jdText);
+      const exportModel = buildDossierModel({
+        entry: {
+          id: `audit-${pair.id}`,
+          userId: 'u-c7',
+          kind: 'ats_roast',
+          createdAt: snapshot.generatedAt,
+          targetKey: `target-${pair.id}`,
+          overallScore: res.score,
+          engineVersion: res.engineVersion || '4.0.0',
+          resume: { snapshotHash: snapshot.identity.resumeSha256 || 'r', label: 'resume.pdf' },
+          jd: { snapshotHash: snapshot.identity.jdSha256 || 'j', roleTitle: snapshot.identity.targetRoleTitle },
+          breakdown: [],
+          gaps: [],
+          strengths: [],
+          evidence: [],
+          findingsJson: { authoritativeSnapshot: snapshot, kind: 'ats_roast' },
+        },
+        resumeText: pair.resumeText,
+        jdText: pair.jdText,
+      });
+
+      if (snapshot.scoring.score !== res.score || exportModel.headline.score !== res.score) {
+        violations.push(`${pair.id}: export/snapshot score mismatch (${snapshot.scoring.score}, ${exportModel.headline.score}) vs (${res.score})`);
       }
     }
 
-    expect(violationCount, `C7 Violations found:\n${violations.join('\n')}`).toBe(0);
+    expect(violations, `C7 Violations found:\n${violations.join('\n')}`).toEqual([]);
+
+    // Part B: Controlled accounting scenarios (1..8)
+    const fullContact = { name: 'Jane Doe', email: 'jane@example.com', phone: '9876543210', linkedin: null, github: null, portfolio: null };
+    const fullSections = [
+      { type: 'experience', rawTitle: 'EXPERIENCE', content: 'Python APIs', charStart: 0, charEnd: 30 },
+      { type: 'projects', rawTitle: 'PROJECTS', content: 'Cache service', charStart: 31, charEnd: 60 },
+      { type: 'education', rawTitle: 'EDUCATION', content: 'B.Tech CS', charStart: 61, charEnd: 90 },
+      { type: 'skills', rawTitle: 'SKILLS', content: 'Python', charStart: 91, charEnd: 110 },
+    ];
+    const verifiedSkills = [
+      { skillId: 'python', canonical: 'Python', category: 'language', required: 'must' as const, weight: 5, found: true, evidence: [{ quote: 'Built Python API', section: 'EXPERIENCE', charStart: 0, charEnd: 16, hasMetric: true }], proficiency: 4, status: 'verified' as const },
+    ];
+    const strongBullets = [
+      { rawText: 'Cut API p95 latency from 500ms to 120ms using Python caching across 5M requests/day.', wordCount: 14, hasStrongVerb: true, hasWeakPhrase: false, hasMetric: true, hasTechMention: true, score: 92, issues: [] },
+      { rawText: 'Reduced billing incidents from 12 to 2 per month via Python automated workers.', wordCount: 13, hasStrongVerb: true, hasWeakPhrase: false, hasMetric: true, hasTechMention: true, score: 90, issues: [] },
+      { rawText: 'Processed 18,000,000 records/day with 86% branch coverage.', wordCount: 8, hasStrongVerb: true, hasWeakPhrase: false, hasMetric: true, hasTechMention: true, score: 88, issues: [] },
+    ];
+    const baseExp = [{ company: 'Acme', title: 'Engineer', dateRangeStr: 'Jan 2020 - Dec 2023', startYear: 2020, endYear: 2023, bullets: strongBullets, charStart: 0, charEnd: 120 }];
+    const twoProjects = [
+      { title: 'Proj 1', bullets: [], techStack: ['Python'], charStart: 0, charEnd: 20 },
+      { title: 'Proj 2', bullets: [], techStack: ['Docker'], charStart: 21, charEnd: 40 },
+    ];
+
+    // 1. No deductions
+    const s1 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: fullSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product' });
+    expect(s1.totalDeductions).toBe(0);
+    expect(s1.totalBonuses).toBe(0);
+    expect(s1.score).toBe(Math.round(s1.rawSubtotal));
+
+    // 2. One penalty (-3 missing_education)
+    const noEduSections = fullSections.filter(s => s.type !== 'education');
+    const s2 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: noEduSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product' });
+    expect(s2.totalDeductions).toBe(3);
+    expect(s2.preClampScore).toBe(Math.round((s2.rawSubtotal - 3) * 10) / 10);
+    expect(s2.score).toBe(Math.round(s2.preClampScore));
+
+    // 3. Multiple penalties (-3 missing_education, -4 word_count_outlier, -5 no_contact_info = -12)
+    const s3 = computeAtsScore({ wordCount: 150, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: { ...fullContact, phone: null }, sections: noEduSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product' });
+    expect(s3.totalDeductions).toBe(12);
+    expect(s3.preClampScore).toBe(Math.round((s3.rawSubtotal - 12) * 10) / 10);
+    expect(s3.score).toBe(Math.round(s3.preClampScore));
+
+    // 4. Positive bonus
+    const s4 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: fullSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product', bonuses: [{ id: 'oss_bonus', label: 'Verified OSS', points: 3, reason: 'Published library' }] });
+    expect(s4.totalBonuses).toBe(3);
+    expect(s4.totalDeductions).toBe(0);
+    expect(s4.preClampScore).toBe(Math.round((s4.rawSubtotal + 3) * 10) / 10);
+    expect(s4.score).toBe(Math.min(100, Math.round(s4.preClampScore)));
+
+    // 5. Combined bonuses and deductions (+6 bonus - 3 deduction = net +3)
+    const s5 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: noEduSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product', bonuses: [{ id: 'oss_bonus', label: 'Verified OSS', points: 6, reason: 'Maintainer' }] });
+    expect(s5.totalBonuses).toBe(6);
+    expect(s5.totalDeductions).toBe(3);
+    expect(s5.preClampScore).toBe(Math.round((s5.rawSubtotal + 6 - 3) * 10) / 10);
+    expect(s5.score).toBe(Math.max(0, Math.min(100, Math.round(s5.preClampScore))));
+
+    // 6. Maximum score clamp (> 100 -> 100)
+    const s6 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: fullSections, candidateYears: 4, requiredYears: 3, targetTier: 'top_product', bonuses: [{ id: 'max_clamp_test', label: 'Clamp Test', points: 25, reason: 'Boundary test' }] });
+    expect(s6.preClampScore).toBeGreaterThan(100);
+    expect(s6.wasClamped).toBe(true);
+    expect(s6.score).toBe(100);
+    expect(s6.trace.composite).toBe(100);
+
+    // 7. Minimum score clamp (< 0 -> 0 via negative preClampScore without zero-bullet override)
+    const weakSkills = [{ skillId: 'python', canonical: 'Python', category: 'language', required: 'must' as const, weight: 5, found: false, evidence: [], proficiency: 0, status: 'missing' as const }];
+    const bareBullet = [{ rawText: 'Worked on backend tasks', wordCount: 4, hasStrongVerb: false, hasWeakPhrase: true, hasMetric: false, hasTechMention: false, score: 20, issues: [] }];
+    const minimalExp = [{ company: 'Acme', title: 'Dev', dateRangeStr: '2023', bullets: bareBullet, charStart: 0, charEnd: 30 }];
+    const s7 = computeAtsScore({ wordCount: 100, skillResults: weakSkills, experience: minimalExp, projects: [], contactInfo: { ...fullContact, email: null, phone: null }, sections: [{ type: 'unknown', rawTitle: 'RAW', content: 'x', charStart: 0, charEnd: 10 }], candidateYears: 2, requiredYears: 10, targetTier: 'top_product' });
+    expect(s7.preClampScore).toBeLessThan(0);
+    expect(s7.wasClamped).toBe(true);
+    expect(s7.score).toBe(0);
+    expect(s7.trace.composite).toBe(0);
+
+    // 8. Effective-weight redistribution (0 YOE / entry-level -> seniorityFit=0, evidenceDepth=25, projectsAndOss=15)
+    const s8 = computeAtsScore({ wordCount: 400, skillResults: verifiedSkills, experience: baseExp, projects: twoProjects, contactInfo: fullContact, sections: fullSections, candidateYears: 0.5, requiredYears: 0, targetTier: 'top_product' });
+    expect(s8.activeWeights.seniorityFit).toBe(0);
+    expect(s8.activeWeights.evidenceDepth).toBe(25);
+    expect(s8.activeWeights.projectsAndOss).toBe(15);
+    const weightSum = Object.values(s8.activeWeights).reduce((acc, w) => acc + w, 0);
+    expect(weightSum).toBe(100);
+    expect(s8.score).toBe(Math.round(s8.rawSubtotal));
   });
 
   // C8: Double or misapplied penalties

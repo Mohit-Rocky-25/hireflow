@@ -34,13 +34,12 @@ describe('My Space UI Components', () => {
 
     useAuthStore.setState({
       status: 'authenticated',
-      userId: 'demo-local',
-      displayName: 'Mohit',
-      isDemo: true,
-      demoStorage: 'local',
+      userId: '11111111-1111-4111-8111-111111111111',
+      displayName: 'Alex Morgan',
+      email: 'alex@example.com',
     });
 
-    await importDataset(dataset, true);
+    await importDataset(dataset, false);
   });
 
   describe('OverviewSection', () => {
@@ -56,7 +55,9 @@ describe('My Space UI Components', () => {
         </MemoryRouter>
       );
 
-      expect(html).toContain('Mohit');
+      expect(useAuthStore.getState().displayName).toBe('Alex Morgan');
+      expect(html).toContain('Candidate');
+      expect(html).not.toContain('Mohit');
       expect(html).toContain('Your best fit is Razorpay');
       expect(html).toContain('Recent scans');
       expect(html).toContain('In your plan');

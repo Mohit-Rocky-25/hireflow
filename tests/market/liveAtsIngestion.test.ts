@@ -19,12 +19,12 @@ describe('Live ATS Market Ingestion Pipeline (Option 3)', () => {
     expect(LIVE_MARKET_INDEX).toBeDefined();
     expect(LIVE_MARKET_INDEX.cadence).toBe('3-days');
     expect(LIVE_MARKET_INDEX.totalLiveRoles).toBeGreaterThan(100);
-    expect(LIVE_MARKET_INDEX.companyCount).toBe(11);
-    expect(LIVE_MARKET_INDEX.companies.length).toBe(11);
+    expect(LIVE_MARKET_INDEX.companyCount).toBe(33);
+    expect(LIVE_MARKET_INDEX.companies.length).toBe(33);
 
     const stats = getLiveFeedSummaryStats();
     expect(stats.totalLiveRoles).toBe(LIVE_MARKET_INDEX.totalLiveRoles);
-    expect(stats.companyCount).toBe(11);
+    expect(stats.companyCount).toBe(33);
     expect(stats.cadence).toBe('3-days');
   });
 
@@ -94,7 +94,7 @@ describe('Live ATS Market Ingestion Pipeline (Option 3)', () => {
 
   it('generates standalone company objects for newly verified companies', () => {
     const standalone = getStandaloneLiveCompanies();
-    expect(standalone.length).toBe(6);
+    expect(standalone.length).toBe(17);
 
     const datadog = standalone.find((c) => c.id === 'datadog');
     expect(datadog).toBeDefined();

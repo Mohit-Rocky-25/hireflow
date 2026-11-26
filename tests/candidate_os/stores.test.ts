@@ -1,177 +1,164 @@
-// @vitest-environment node
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { useAuthStore } from '@/features/auth/useAuthStore';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
 import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
-import { useProfileStore } from '@/features/profile/useProfileStore';
-import { useHandoffStore } from '@/features/handoff/useHandoffStore';
-import { useAuthStore } from '@/features/auth/useAuthStore';
-import { kvClear } from '@/lib/storage/kv';
-import { clearOutbox, getOutbox } from '@/sync/outbox';
-import { statusOf } from '@/features/journal/gapStatus';
+import { useProfileStore, createInitialProfile, createInitialSettings } from '@/features/profile/useProfileStore';
+import { useSavedJdStore } from '@/store/savedJdStore';
+import { useFeedbackStore } from '@/store/feedbackStore';
+import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
+import { clearMemorySnapshotCache } from '@/lib/cloud/cloudRepository';
+import { _setCloudGatewayForTesting, type CloudGateway } from '@/sync/supabaseGateway';
 
-describe('Stage 4: Stores & Resume Matrix', () => {
-  beforeEach(async () => {
-    await kvClear();
-    await clearOutbox('test-user');
-    useAuthStore.setState({ status: 'guest', userId: null, email: null });
+function createMockGateway(opts?: { failWrite?: boolean; userId?: string }) {
+  const writes: Array<{ table: string; rows: Record<string, unknown>[] }> = [];
+  const deletes: Array<{ table: string; match: Record<string, unknown> }> = [];
+  const gateway: CloudGateway = {
+    isConfigured: () => true,
+    getAuthenticatedUserId: async () => opts?.userId ?? '11111111-1111-4111-8111-111111111111',
+    selectRows: async () => [],
+    upsertRows: async (table, rows) => {
+      if (opts?.failWrite) throw new Error('Simulated Postgres RLS / Network Error');
+      writes.push({ table, rows });
+    },
+    deleteRows: async (table, match) => {
+      if (opts?.failWrite) throw new Error('Simulated Delete Error');
+      deletes.push({ table, match });
+    },
+    eraseMyDataRpc: async () => {},
+    uploadStorageFile: async (p) => ({ path: p }),
+    createSignedDownloadUrl: async () => 'https://example.supabase.co/signed',
+    downloadStorageFile: async () => new Blob([]),
+    removeStorageFiles: async () => {},
+    listUserStoragePaths: async () => [],
+  };
+  return { gateway, writes, deletes };
+}
+
+describe('Candidate OS Cloud-First Domain Stores (Phase 10.8)', () => {
+  beforeEach(() => {
+    _setCloudGatewayForTesting(null);
+    clearMemorySnapshotCache();
+    useCloudSyncStore.getState().reset();
+    useAuthStore.setState({ status: 'guest', userId: null });
     useResumeStore.setState({ workspaces: {}, versions: {}, activeWorkspaceId: null });
     useAuditStore.setState({ entries: {}, events: {}, gapStatus: {} });
-    useMySpaceStore.setState({ watchlist: {}, planItems: {}, outreachDrafts: {} });
+    useMySpaceStore.getState().resetAll();
+    useSavedJdStore.setState({ jds: [] });
+    useFeedbackStore.setState({ items: [] });
     useProfileStore.setState({
-      profile: {
-        displayName: 'Candidate',
-        targetTier: 'top_product',
-        targetRoles: [],
-        links: {},
-        activeWorkspaceId: null,
-        updatedAt: '2026-11-12T00:00:00Z',
-      },
-      settings: { cloudSyncEnabled: false, consentRecordedAt: null },
-    });
-    useHandoffStore.setState({ current: null });
-  });
-
-  describe('Resume Matrix store', () => {
-    it('creates a workspace and version snapshot', async () => {
-      const { workspace, version } = await useResumeStore.getState().createWorkspace({
-        name: 'Backend Track',
-        roleTrack: 'Distributed Systems',
-        text: 'Senior Go Developer with 5 years experience',
-        source: 'paste',
-      });
-
-      expect(workspace.name).toBe('Backend Track');
-      expect(workspace.isPrimary).toBe(true);
-      expect(workspace.headVersionId).toBe(version.id);
-      expect(version.label).toBe('v1: Initial import');
-
-      const headSnap = await useResumeStore.getState().getHeadSnapshot(workspace.id);
-      expect(headSnap?.text).toBe('Senior Go Developer with 5 years experience');
-    });
-
-    it('deduplicates versions with identical text to head', async () => {
-      const { workspace, version: v1 } = await useResumeStore.getState().createWorkspace({
-        name: 'Backend Track',
-        roleTrack: 'Distributed Systems',
-        text: 'Initial resume text',
-        source: 'paste',
-      });
-
-      const v2 = await useResumeStore.getState().addVersion({
-        workspaceId: workspace.id,
-        text: 'Initial resume text',
-        label: 'v2 Attempt',
-        source: 'paste',
-      });
-
-      expect(v2.id).toBe(v1.id);
-      const wsVersions = Object.values(useResumeStore.getState().versions);
-      expect(wsVersions).toHaveLength(1);
-    });
-
-    it('forks workspace preserving parent snapshot text', async () => {
-      useAuthStore.setState({ status: 'authenticated', userId: 'user-1' });
-      const { workspace: original } = await useResumeStore.getState().createWorkspace({
-        name: 'Core',
-        roleTrack: 'General',
-        text: 'Original resume content',
-        source: 'paste',
-      });
-
-      const forked = await useResumeStore.getState().forkWorkspace({
-        fromWorkspaceId: original.id,
-        name: 'Core Forked',
-        roleTrack: 'Specialized',
-      });
-
-      expect(forked.name).toBe('Core Forked');
-      expect(forked.id).not.toBe(original.id);
-      const forkedSnap = await useResumeStore.getState().getHeadSnapshot(forked.id);
-      expect(forkedSnap?.text).toBe('Original resume content');
-    });
-
-    it('enforces guest limit of 1 workspace', async () => {
-      await useResumeStore.getState().createWorkspace({
-        name: 'WS 1',
-        roleTrack: 'Track 1',
-        text: 'Text 1',
-        source: 'paste',
-      });
-
-      await expect(
-        useResumeStore.getState().createWorkspace({
-          name: 'WS 2',
-          roleTrack: 'Track 2',
-          text: 'Text 2',
-          source: 'paste',
-        })
-      ).rejects.toThrow(/limit reached/);
+      profile: createInitialProfile(),
+      settings: createInitialSettings(),
     });
   });
 
-  describe('Audit store & gap overlay transitions', () => {
-    const sampleInput = (score = 70, gaps = [{ id: 'skill:k8s', category: 'skill' as const, label: 'Kubernetes', severity: 2 as const }], resumeText = 'Senior Backend Engineer'): RecordAuditInput => ({
+  it('runs guest workspaces and audits cleanly in memory without writing to localStorage', async () => {
+    const { workspace, version } = await useResumeStore.getState().createWorkspace({
+      name: 'Systems Track',
+      roleTrack: 'Systems',
+      text: 'Built Rust async scheduler and lock-free ring buffer.',
+      source: 'paste',
+    });
+
+    expect(useResumeStore.getState().workspaces[workspace.id]?.isPrimary).toBe(true);
+    expect(useResumeStore.getState().versions[version.id]).toBeDefined();
+
+    const { entry } = await useAuditStore.getState().record({
       kind: 'ats_roast',
-      engineVersion: '3.4.0',
-      resume: { workspaceId: null, versionId: null, label: 'Custom', rawText: resumeText },
-      jd: { rawText: 'Looking for Kubernetes engineer', origin: 'pasted' },
-      overallScore: score,
-      breakdown: [{ key: 'skills', label: 'Skills', score: 70 }],
-      gaps,
-      strengths: ['Great experience'],
+      engineVersion: '4.0.0-ats7d',
+      resume: {
+        workspaceId: workspace.id,
+        versionId: version.id,
+        label: version.label,
+        rawText: 'Built Rust async scheduler and lock-free ring buffer.',
+      },
+      jd: { rawText: 'Seeking Rust Systems Engineer with concurrency experience.', origin: 'pasted' },
+      overallScore: 86,
+      breakdown: [{ key: 'must_have_coverage', label: 'Must-Have Skills', score: 86, weight: 0.3 }],
+      gaps: [{ id: 'gap:1', category: 'skill', label: 'eBPF', severity: 2, detail: 'Missing' }],
+      strengths: ['Rust'],
       evidence: [],
       findings: {},
     });
 
-    it('records an audit and transitions gap status overlay', async () => {
-      const { entry, deduplicated } = await useAuditStore.getState().record(sampleInput());
-      expect(deduplicated).toBe(false);
-      expect(entry.overallScore).toBe(70);
-
-      // Gap overlay initially reports open via statusOf
-      expect(statusOf(useAuditStore.getState().gapStatus, entry.targetKey, 'skill:k8s')).toBe('open');
-
-      // Mark gap addressed
-      useAuditStore.getState().markGapAddressed(entry.targetKey, 'skill:k8s', 'plan-item-1');
-      expect(statusOf(useAuditStore.getState().gapStatus, entry.targetKey, 'skill:k8s')).toBe('addressed_pending_rescan');
-
-      // Rescan with updated resume where the gap is no longer reported -> becomes resolved
-      await useAuditStore.getState().record(sampleInput(85, [], 'Senior Backend Engineer with Kubernetes in production'));
-      expect(statusOf(useAuditStore.getState().gapStatus, entry.targetKey, 'skill:k8s')).toBe('resolved');
-    });
-
-    it('caps guest audit entries to 10 max', async () => {
-      for (let i = 0; i < 12; i++) {
-        await useAuditStore.getState().record(sampleInput(50 + i, []), {
-          uuid: () => `id-${i}`,
-          now: () => new Date(Date.now() + i * 1000).toISOString(),
-        });
-      }
-
-      const entries = Object.values(useAuditStore.getState().entries);
-      expect(entries.length).toBeLessThanOrEqual(10);
-    });
+    expect(entry.overallScore).toBe(86);
+    expect(useAuditStore.getState().entries[entry.id]).toBeDefined();
+    expect(typeof localStorage !== 'undefined' ? localStorage.length : 0).toBe(0);
   });
 
-  describe('Handoff store', () => {
-    it('is single use and matches destination tool', () => {
-      useHandoffStore.getState().set({
-        from: '/portal/resumes',
-        to: '/tools/resume-checker',
-        resumeVersionId: 'ver-123',
-      });
+  it('persists authenticated workspace, audit, target, saved JD, and feedback writes directly to Supabase Gateway', async () => {
+    const uid = '11111111-1111-4111-8111-111111111111';
+    const { gateway, writes } = createMockGateway({ userId: uid });
+    _setCloudGatewayForTesting(gateway);
+    useAuthStore.setState({ status: 'authenticated', userId: uid });
 
-      // Wrong tool consumption returns null
-      const wrong = useHandoffStore.getState().consume('/tools/tailor');
-      expect(wrong).toBeNull();
-
-      // Right tool consumption returns handoff and clears
-      const right = useHandoffStore.getState().consume('/tools/resume-checker');
-      expect(right?.resumeVersionId).toBe('ver-123');
-
-      // Second consumption returns null
-      expect(useHandoffStore.getState().consume('/tools/resume-checker')).toBeNull();
+    const { workspace, version } = await useResumeStore.getState().createWorkspace({
+      name: 'Cloud Resume',
+      roleTrack: 'Backend',
+      text: 'Architected Go gRPC microservices handling 20k RPS.',
+      source: 'paste',
     });
+
+    await useAuditStore.getState().record({
+      kind: 'ats_roast',
+      engineVersion: '4.0.0-ats7d',
+      resume: {
+        workspaceId: workspace.id,
+        versionId: version.id,
+        label: version.label,
+        rawText: 'Architected Go gRPC microservices handling 20k RPS.',
+      },
+      jd: { rawText: 'Backend Go gRPC Engineer', origin: 'pasted' },
+      overallScore: 92,
+      breakdown: [{ key: 'must_have_coverage', label: 'Must-Have Skills', score: 92, weight: 0.3 }],
+      gaps: [],
+      strengths: ['Go', 'gRPC'],
+      evidence: [],
+      findings: {},
+    });
+
+    useSavedJdStore.getState().saveJd({
+      title: 'Backend Engineer',
+      company: 'Acme Cloud',
+      source: 'pasted',
+      text: 'Requirements: Go, PostgreSQL, Kubernetes, distributed systems.',
+    });
+
+    useFeedbackStore.getState().submitFeedback({
+      targetKind: 'ats_rule',
+      ruleId: 'impact_metrics',
+      verdict: 'up',
+      note: 'Accurate detection',
+    });
+
+    await new Promise((r) => setTimeout(r, 20));
+    const touchedTables = writes.map((w) => w.table);
+    expect(touchedTables).toContain('resume_workspaces');
+    expect(touchedTables).toContain('resume_versions');
+    expect(touchedTables).toContain('audit_entries');
+    expect(touchedTables).toContain('saved_jds');
+    expect(touchedTables).toContain('feedback_items');
+    expect(useCloudSyncStore.getState().phase).toBe('synced');
+  });
+
+  it('fails loudly and surfaces retry callback when authenticated cloud write fails (zero silent fallback)', async () => {
+    const uid = '11111111-1111-4111-8111-111111111111';
+    const { gateway } = createMockGateway({ failWrite: true, userId: uid });
+    _setCloudGatewayForTesting(gateway);
+    useAuthStore.setState({ status: 'authenticated', userId: uid });
+
+    await expect(
+      useResumeStore.getState().createWorkspace({
+        name: 'Failed Cloud Resume',
+        roleTrack: 'Backend',
+        text: 'Python FastAPI backend engineer',
+        source: 'paste',
+      })
+    ).rejects.toThrow(/Simulated Postgres/i);
+
+    const syncState = useCloudSyncStore.getState();
+    expect(syncState.phase).toBe('error');
+    expect(syncState.error).toContain('Simulated Postgres');
+    expect(typeof syncState.pendingRetry).toBe('function');
   });
 });

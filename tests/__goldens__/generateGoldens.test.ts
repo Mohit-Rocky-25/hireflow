@@ -85,12 +85,14 @@ describe('Capture and verify engine goldens', () => {
     goldens['compare_jds'] = compareJDsAndCandidate(dummyEvidence, jdBackend, jdFrontend);
 
     const outDir = path.resolve(process.cwd(), 'tests/__goldens__');
-    if (!fs.existsSync(outDir)) {
-      fs.mkdirSync(outDir, { recursive: true });
-    }
     const targetFile = path.join(outDir, 'golden_engine_outputs.json');
-    if (!fs.existsSync(targetFile)) {
+    if (process.env.HIREFLOW_UPDATE_GOLDENS === '1') {
+      if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir, { recursive: true });
+      }
       fs.writeFileSync(targetFile, JSON.stringify(goldens, null, 2), 'utf-8');
+    } else if (!fs.existsSync(targetFile)) {
+      throw new Error(`Missing golden snapshot file at ${targetFile}. Re-run with HIREFLOW_UPDATE_GOLDENS=1 to generate.`);
     }
 
     const saved = JSON.parse(fs.readFileSync(targetFile, 'utf-8'));

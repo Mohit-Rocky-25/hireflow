@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useProfileStore } from '../../../src/store/profileStore';
 import { LIMITS } from '../../../src/config/limits';
-import { backupRegistry } from '../../../src/lib/backup/registry';
 
 describe('A1: Shared Profile Store (A1.1, A1.5)', () => {
   beforeEach(() => {
@@ -66,19 +65,11 @@ describe('A1: Shared Profile Store (A1.1, A1.5)', () => {
     expect(state.activeResume?.versionId).toBe(id1);
   });
 
-  it('registers with backup registry and supports backup export/import', () => {
+  it('resets state cleanly in memory without writing localStorage persistence keys', () => {
     const store = useProfileStore.getState();
-    store.addResumeVersion('Backup Test', { test: true }, 'hash_test');
+    store.addResumeVersion('Cloud Sync Ready', { test: true }, 'hash_test');
     store.setPreferences({ branch: 'ECE', targetFamily: 'Embedded/IoT' });
 
-    const registration = backupRegistry.get('profile');
-    expect(registration).toBeDefined();
-
-    const exported = registration?.export();
-    expect(exported.preferences.branch).toBe('ECE');
-    expect(exported.resumeVersions.length).toBe(1);
-
-    // Clear state
     useProfileStore.setState({
       activeResume: null,
       resumeVersions: [],
@@ -86,10 +77,9 @@ describe('A1: Shared Profile Store (A1.1, A1.5)', () => {
       preferences: {},
     });
 
-    // Import replace
-    const success = registration?.import(exported, 'replace');
-    expect(success).toBe(true);
-    expect(useProfileStore.getState().preferences.branch).toBe('ECE');
-    expect(useProfileStore.getState().activeResume?.label).toBe('Backup Test');
+    const state = useProfileStore.getState();
+    expect(state.activeResume).toBeNull();
+    expect(state.resumeVersions).toEqual([]);
+    expect(state.preferences).toEqual({});
   });
 });

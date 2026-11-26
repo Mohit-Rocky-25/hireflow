@@ -1,99 +1,50 @@
 // ============================================================
-// HireFlow v4 — Storage Resilience & Migration Tests
+// HireFlow — Cloud-First Browser Storage Non-Persistence & Safety Tests
+// Replaces deleted HireFlowStorageAdapter tests after Phase 10.8 migration.
 // ============================================================
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { z } from 'zod';
-import { HireFlowStorageAdapter, subscribeStorageEvents } from '../../src/lib/storage';
+import { inspectLegacyBrowserData } from '../../src/lib/cloud/legacyMigration';
+import { purgeLegacyBrowserUserData } from '../../src/features/auth/useAuthStore';
 
-describe('Issue 4 Stage 2: Persistence Safety & Storage Migrations', () => {
-  let adapter: HireFlowStorageAdapter;
+class MemoryStorage implements Storage {
+  private map: Record<string, string> = {};
+  get length() { return Object.keys(this.map).length; }
+  clear() { this.map = {}; }
+  getItem(k: string) { return this.map[k] ?? null; }
+  setItem(k: string, v: string) { this.map[k] = String(v); }
+  removeItem(k: string) { delete this.map[k]; }
+  key(i: number) { return Object.keys(this.map)[i] ?? null; }
+}
 
+if (typeof globalThis.localStorage === 'undefined') {
+  (globalThis as any).localStorage = new MemoryStorage();
+}
+
+describe('Phase 10.8 Legacy Browser Storage Non-Persistence & Corrupt Payload Safety', () => {
   beforeEach(() => {
-    adapter = new HireFlowStorageAdapter();
+    localStorage.clear();
   });
 
-  const testSchema = z.object({
-    id: z.string(),
-    score: z.number(),
-    tags: z.array(z.string()),
+  it('safely ignores malformed JSON and schema-invalid legacy payloads during inspection', async () => {
+    localStorage.setItem('hireflow:v4:saved-jds', '{malformed json');
+    localStorage.setItem('hireflow_tool_ats_v3', JSON.stringify({ state: { scanHistory: 'invalid' } }));
+
+    const preview = await inspectLegacyBrowserData();
+    expect(preview.hasLegacyData).toBe(false);
+    expect(preview.savedJds).toEqual([]);
+    expect(preview.audits).toEqual([]);
   });
 
-  type TestType = z.infer<typeof testSchema>;
+  it('purges leftover legacy keys safely while keeping non-PII theme preferences', () => {
+    localStorage.setItem('hireflow-storage-v4', '{"state":{"currentUser":{}}}');
+    localStorage.setItem('hireflow:v4:design', 'spruce');
+    localStorage.setItem('hireflow:v4:theme-mode', 'dark');
 
-  it('stores and retrieves data cleanly using in-memory / local storage', () => {
-    const data: TestType = { id: 'test_1', score: 85, tags: ['react', 'node'] };
-    adapter.set('session_state', data);
+    purgeLegacyBrowserUserData();
 
-    const retrieved = adapter.get('session_state', testSchema);
-    expect(retrieved).toEqual(data);
-  });
-
-  it('quarantines corrupt JSON and returns clean fallback without throwing', () => {
-    let quarantinedEvent = false;
-    const unsubscribe = subscribeStorageEvents((event) => {
-      if (event.type === 'corrupt_data_quarantined') {
-        quarantinedEvent = true;
-      }
-    });
-
-    // Write malformed string directly
-    const qualifiedKey = adapter.qualifyKey('corrupt_key');
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem(qualifiedKey, '{malformed json: true,');
-    }
-
-    const fallback: TestType = { id: 'fallback', score: 0, tags: [] };
-    const result = adapter.get('corrupt_key', testSchema, fallback);
-
-    expect(result).toEqual(fallback);
-    unsubscribe();
-  });
-
-  it('quarantines schema-invalid data and returns fallback', () => {
-    const qualifiedKey = adapter.qualifyKey('invalid_schema_key');
-    if (typeof window !== 'undefined' && window.localStorage) {
-      // Missing required score number
-      window.localStorage.setItem(qualifiedKey, JSON.stringify({ id: 'bad', score: 'not-a-number' }));
-    }
-
-    const fallback: TestType = { id: 'fallback', score: 0, tags: [] };
-    const result = adapter.get('invalid_schema_key', testSchema, fallback);
-
-    expect(result).toEqual(fallback);
-  });
-
-  it('successfully migrates legacy store keys to v4 schema', () => {
-    const legacyKey = 'hireflow_v3_candidate_score';
-    const legacyData = { candidate_id: 'legacy_01', score_val: 78, skills_list: ['python', 'aws'] };
-
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.setItem(legacyKey, JSON.stringify(legacyData));
-    } else {
-      (adapter as any).inMemoryFallback.set(legacyKey, JSON.stringify(legacyData));
-    }
-
-    const success = adapter.migrateStore(
-      'migrated_score',
-      [legacyKey],
-      (old: any) => ({
-        id: old.candidate_id,
-        score: old.score_val,
-        tags: old.skills_list,
-      }),
-      testSchema
-    );
-
-    expect(success).toBe(true);
-    const migrated = adapter.get('migrated_score', testSchema);
-    expect(migrated?.id).toBe('legacy_01');
-    expect(migrated?.score).toBe(78);
-    expect(migrated?.tags).toEqual(['python', 'aws']);
-  });
-
-  it('calculates storage byte footprint accurately', () => {
-    adapter.set('item_one', { test: '12345' });
-    const bytes = adapter.estimateBytes();
-    expect(bytes).toBeGreaterThan(0);
+    expect(localStorage.getItem('hireflow-storage-v4')).toBeNull();
+    expect(localStorage.getItem('hireflow:v4:design')).toBe('spruce');
+    expect(localStorage.getItem('hireflow:v4:theme-mode')).toBe('dark');
   });
 });

@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterAll } from 'vitest';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
-import { runAtsEngine } from '../../src/features/ats/engine';
-import { analyzeCanonical } from '../../src/lib/ats/canonicalAnalysis';
+import { runAtsEngine, AtsEngineOptions, AtsEngineResult } from '../../src/features/ats/engine';
 import { parseJD } from '../../src/lib/ats/parseJD';
 import { scoreBullet } from '../../src/lib/ats/evidenceScorer';
 import { CANONICAL_SCORING_SPEC } from '../../src/scoring/spec/canonicalSpec';
@@ -61,6 +61,15 @@ Nice to Have:
 `;
 
 describe('HireFlow Scoring Validation Harness (Stage 2F)', () => {
+  const tempDirs: string[] = [];
+
+  afterAll(() => {
+    for (const dir of tempDirs) {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+    tempDirs.length = 0;
+  });
+
   function runEngine(resume: string, jd: string, options?: AtsEngineOptions): AtsEngineResult {
     const resp = runAtsEngine(resume, jd, { resumeSource: 'prefilled', jdSource: 'prefilled', ...options });
     if (!resp.success) {
@@ -69,7 +78,8 @@ describe('HireFlow Scoring Validation Harness (Stage 2F)', () => {
     return resp.result;
   }
 
-  it('executes full validation suite and generates docs/validation-report.md', () => {
+  it('executes full validation suite and generates disposable validation report safely', () => {
+    allResults.length = 0;
     // ----------------------------------------------------
     // SUITE A: DETERMINISM / TEST-RETEST (20 runs)
     // ----------------------------------------------------
@@ -461,7 +471,7 @@ Bonus: Next.js, TypeScript.`,
       ...allResults.map((r) => `| ${r.suite} | ${r.testName} | ${r.passed ? 'PASSED' : 'FAILED'} | ${r.details} |`),
       '',
       '## 2. Invariance & Metamorphic Test Details',
-      '- **Test-Retest Stability:** Evaluated over 20 consecutive executions across identical raw text inputs. Both `runAtsEngine` and `analyzeCanonical` maintain complete determinism with zero non-deterministic float drift or random ordering.',
+      '- **Test-Retest Stability:** Evaluated over 20 consecutive executions across identical raw text inputs. `runAtsEngine` maintains complete determinism with zero non-deterministic float drift or random ordering.',
       '- **Irrelevant Skill Non-Inflation:** Verified that adding non-technical, irrelevant terms (e.g. hobby crafts) contributes 0 points to mandatory or evidence pillars.',
       '- **Section Permutation:** Structural reordering of standardized resume sections (Education, Projects, Skills, Experience) preserves content scoring integrity within 2 points tolerance.',
       '- **Alias Equivalence:** Tested interchangeable canonical aliases (e.g. `K8s` vs `Kubernetes`). Both yield identical credit and identically categorized evidence snippets.',
@@ -492,7 +502,23 @@ Bonus: Next.js, TypeScript.`,
     ];
 
     const reportContent = reportLines.join('\n');
-    const reportPath = path.resolve(process.cwd(), 'docs/validation-report.md');
-    fs.writeFileSync(reportPath, reportContent, 'utf-8');
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hireflow-val-'));
+    tempDirs.push(tempDir);
+    try {
+      const tempReportPath = path.join(tempDir, 'validation-report.md');
+      fs.writeFileSync(tempReportPath, reportContent, 'utf-8');
+      expect(fs.existsSync(tempReportPath)).toBe(true);
+      const written = fs.readFileSync(tempReportPath, 'utf-8');
+      expect(written).toContain('# HireFlow Scoring Validation Report');
+      expect(written).toContain(`Total Tests Executed: ${allResults.length}`);
+
+      // Explicit opt-in only (default OFF) so automated test runs never dirty docs/validation-report.md
+      if (process.env.HIREFLOW_UPDATE_VALIDATION_REPORT === '1') {
+        const repoReportPath = path.resolve(process.cwd(), 'docs/validation-report.md');
+        fs.writeFileSync(repoReportPath, reportContent, 'utf-8');
+      }
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
   }, 30000);
 });

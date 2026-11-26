@@ -50,7 +50,7 @@ describe('Stage 4 Gate — Reach Out UI State, Controls & Accessibility', () => 
   const emailTemplate = ALL_TEMPLATES.find((t) => t.channel === 'cold_email')!;
   const followUpTemplate = ALL_TEMPLATES.find((t) => t.channel === 'follow_up')!;
 
-  it('1. Toggling Free / Premium changes the counter ceiling and persists to localStorage (Evidence E1)', () => {
+  it('1. Toggling Free / Premium changes the counter ceiling without localStorage persistence (Evidence E1)', () => {
     // Free mode (default): 200 chars
     const fitFree = fitMessageToLength(connectTemplate, testSlots, 0, { isPremiumLinkedIn: false });
     expect(fitFree.hardMax).toBe(200);
@@ -63,8 +63,8 @@ describe('Stage 4 Gate — Reach Out UI State, Controls & Accessibility', () => 
     expect(fitPremium.targetMax).toBe(260);
     expect(fitPremium.charCount).toBeLessThanOrEqual(300);
 
-    // Verify localStorage persistence keys in ReachOutPage
-    expect(pageContent).toContain('hireflow:reachout:isPremiumLinkedIn');
+    // Verify in-memory Free/Premium toggle in ReachOutPage (zero browser localStorage persistence)
+    expect(pageContent).toContain('isPremiumLinkedIn');
     expect(pageContent).toContain('toggleLinkedInMode');
   });
 
