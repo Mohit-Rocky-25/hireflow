@@ -38,7 +38,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (!isSupabaseRuntimeConfigured()) {
         if (active && typeof window !== 'undefined' && window.location.pathname !== AUTH_CALLBACK_PATH) {
-          useAuthStore.getState().setGuest();
+          const restored = await useAuthStore.getState().restoreDemoSession();
+          if (!restored && active) {
+            useAuthStore.getState().setGuest();
+          }
         }
         return;
       }

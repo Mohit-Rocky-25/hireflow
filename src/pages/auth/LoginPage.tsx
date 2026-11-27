@@ -287,6 +287,13 @@ export function LoginPage({ initialMode }: { initialMode?: 'signin' | 'signup' }
           </form>
 
           <div className="pt-2 border-t border-white/5 space-y-3 text-center">
+            <Link
+              to={`/register${redirectTo ? `?returnTo=${encodeURIComponent(redirectTo === '/portal' ? '/my-space' : redirectTo)}` : ''}`}
+              className="w-full py-2.5 px-4 rounded-xl bg-[#faff69] hover:bg-[#ebf059] text-[#090907] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+            >
+              <span>Enter Demo Mode (No Credentials Required)</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
             <button
               type="button"
               onClick={handleGuestContinue}

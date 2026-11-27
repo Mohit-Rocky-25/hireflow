@@ -13,6 +13,10 @@ import {
   getAuthRedirectUrl,
 } from './supabaseClient';
 import { validateReturnToPath } from './authErrors';
+import {
+  DemoAuthProvider,
+  type AuthMethodKind,
+} from './authProviderContract';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'guest' | 'error';
 
@@ -22,7 +26,8 @@ export interface AuthState {
   displayName: string | null;
   email: string | null;
   avatarUrl: string | null;
-  provider: 'google' | 'email' | 'e2e' | null;
+  provider: AuthMethodKind | null;
+  isDemo: boolean;
   error: string | null;
   openDialog: boolean;
   dialogReason: string | null;
@@ -33,6 +38,12 @@ export interface AuthState {
   clearError: () => void;
   setGuest: () => void;
   setError: (message: string) => void;
+  registerDemoSession: (
+    fullName: string,
+    email: string,
+    options?: { seedSampleWorkspace?: boolean }
+  ) => Promise<void>;
+  restoreDemoSession: () => Promise<boolean>;
   resolveSession: (session: Session | null, options?: { skipHydration?: boolean }) => Promise<void>;
   handleSessionExpired: (reason?: string) => Promise<void>;
   signInWithGoogle: (returnTo?: string) => Promise<void>;
@@ -216,6 +227,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
   email: null,
   avatarUrl: null,
   provider: null,
+  isDemo: false,
   error: null,
   openDialog: false,
   dialogReason: null,
@@ -240,6 +252,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
 
   setGuest: () => {
     const prevUserId = get().userId;
+    DemoAuthProvider.clearSession();
     if (prevUserId) {
       void import('@/lib/cloud/cloudHydrator').then((m) => m.resetAllUserMemoryStores());
     }
@@ -250,8 +263,69 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       email: null,
       avatarUrl: null,
       provider: null,
+      isDemo: false,
       error: null,
     });
+  },
+
+  registerDemoSession: async (fullName, email, options) => {
+    const { resetAllUserMemoryStores } = await import('@/lib/cloud/cloudHydrator');
+    resetAllUserMemoryStores();
+
+    const descriptor = DemoAuthProvider.registerDemo(fullName, email, {
+      seededSample: options?.seedSampleWorkspace !== false,
+    });
+
+    set({
+      status: 'authenticated',
+      userId: descriptor.userId,
+      displayName: descriptor.displayName,
+      email: descriptor.email,
+      avatarUrl: null,
+      provider: 'demo',
+      isDemo: true,
+      error: null,
+      openDialog: false,
+      dialogReason: null,
+    });
+
+    const { useProfileStore } = await import('@/features/profile/useProfileStore');
+    useProfileStore.getState().updateProfile({ displayName: descriptor.displayName });
+
+    if (descriptor.seededSample) {
+      const { loadDemoIntoStores } = await import('@/features/demo/demoImporter');
+      await loadDemoIntoStores();
+    }
+  },
+
+  restoreDemoSession: async () => {
+    const descriptor = DemoAuthProvider.getSession();
+    if (!descriptor) return false;
+
+    set({
+      status: 'authenticated',
+      userId: descriptor.userId,
+      displayName: descriptor.displayName,
+      email: descriptor.email,
+      avatarUrl: null,
+      provider: 'demo',
+      isDemo: true,
+      error: null,
+      openDialog: false,
+      dialogReason: null,
+    });
+
+    const { useProfileStore } = await import('@/features/profile/useProfileStore');
+    useProfileStore.getState().updateProfile({ displayName: descriptor.displayName });
+
+    if (descriptor.seededSample) {
+      const { useAuditStore } = await import('@/features/journal/useAuditStore');
+      if (Object.keys(useAuditStore.getState().entries).length === 0) {
+        const { loadDemoIntoStores } = await import('@/features/demo/demoImporter');
+        await loadDemoIntoStores();
+      }
+    }
+    return true;
   },
 
   setError: (message) =>
@@ -414,6 +488,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
 
   signOut: async () => {
     const { resetAllUserMemoryStores } = await import('@/lib/cloud/cloudHydrator');
+    DemoAuthProvider.clearSession();
     resetAllUserMemoryStores();
     purgeLegacyBrowserUserData();
     await clearServiceWorkerUserCaches();
@@ -434,6 +509,7 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
       email: null,
       avatarUrl: null,
       provider: null,
+      isDemo: false,
       error: null,
       openDialog: false,
       dialogReason: null,

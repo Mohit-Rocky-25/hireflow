@@ -20,7 +20,7 @@ import { useCloudSyncStore } from '@/lib/cloud/useCloudSyncStore';
 export function PublicNavbar() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { status, email, displayName, avatarUrl, signOut, deleteAllCloudData, openSignIn } = useAuthStore();
+  const { status, email, displayName, avatarUrl, isDemo, signOut, deleteAllCloudData, openSignIn } = useAuthStore();
   const { workspaces, activeWorkspaceId, setActive } = useResumeStore();
   const cloudSyncPhase = useCloudSyncStore((s) => s.phase);
 
@@ -31,10 +31,14 @@ export function PublicNavbar() {
   const compactRef = useRef<HTMLDivElement>(null);
 
   const isAuthenticated = status === 'authenticated';
-  const isMySpaceOpen = Boolean(searchParams.get('my'));
+  const isMySpaceOpen =
+    Boolean(searchParams.get('my')) ||
+    (typeof window !== 'undefined' && window.location.pathname.startsWith('/my-space'));
 
   const syncStatusText = !isAuthenticated
     ? 'Guest session (in-memory only)'
+    : isDemo
+    ? 'Demo Mode (in-session only, not cloud-backed)'
     : cloudSyncPhase === 'hydrating'
     ? 'Loading cloud account...'
     : cloudSyncPhase === 'saving'
@@ -59,14 +63,7 @@ export function PublicNavbar() {
 
   const toggleMySpace = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
-    const next = new URLSearchParams(searchParams);
-    if (isMySpaceOpen) {
-      next.delete('my');
-      next.delete('audit');
-    } else {
-      next.set('my', 'overview');
-    }
-    setSearchParams(next);
+    navigate('/my-space');
   };
 
   const handleSignOut = async () => {
@@ -77,6 +74,9 @@ export function PublicNavbar() {
       next.delete('my');
       next.delete('audit');
       setSearchParams(next);
+      if (typeof window !== 'undefined' && window.location.pathname.startsWith('/my-space')) {
+        navigate('/');
+      }
     }
   };
 
@@ -212,14 +212,22 @@ export function PublicNavbar() {
         </div>
 
         {!isAuthenticated ? (
-          /* Case 1: Guest -> Sign in button */
-          <button
-            type="button"
-            onClick={() => openSignIn()}
-            className="h-[38px] px-4 rounded-full border border-[#24241c] bg-[#16160f] text-[#f1f1e8] font-semibold text-[13px] hover:border-[#faff69]/50 hover:text-[#faff69] transition-colors cursor-pointer"
-          >
-            Sign in
-          </button>
+          /* Case 1: Guest -> Demo Mode + Sign in */
+          <div className="flex items-center gap-2">
+            <Link
+              to="/register"
+              className="h-[38px] px-3.5 rounded-full border border-[#faff69]/40 bg-[#faff69]/10 text-[#faff69] font-semibold text-[12px] flex items-center hover:bg-[#faff69]/20 transition-colors"
+            >
+              Demo Mode
+            </Link>
+            <button
+              type="button"
+              onClick={() => openSignIn()}
+              className="h-[38px] px-4 rounded-full border border-[#24241c] bg-[#16160f] text-[#f1f1e8] font-semibold text-[13px] hover:border-[#faff69]/50 hover:text-[#faff69] transition-colors cursor-pointer"
+            >
+              Sign in
+            </button>
+          </div>
         ) : (
           /* Case 2: Signed in -> My Space button + Account Chip */
           <>
@@ -234,6 +242,11 @@ export function PublicNavbar() {
               }`}
             >
               <span>My Space</span>
+              {isDemo && (
+                <span className="px-1.5 py-0.5 rounded bg-[#faff69]/15 text-[#faff69] font-mono text-[9px] uppercase tracking-wider">
+                  Demo
+                </span>
+              )}
             </button>
 
             {/* Account Chip */}

@@ -1,9 +1,13 @@
 import type { DemoDataset } from './demoDataset';
+import { buildDemoDataset } from './demoDataset';
 import { cacheSnapshotInMemory } from '@/lib/cloud/cloudRepository';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
 import { useMySpaceStore } from '@/features/my-space/useMySpaceStore';
 import { useProfileStore } from '@/features/profile/useProfileStore';
+import { useScanHistoryStore } from '@/store/scanHistoryStore';
+import { useAtsToolStore } from '@/store/tools/atsStore';
+import { projectAuditsToScanRecords, projectAuditsToAtsHistory } from '@/lib/cloud/cloudHydrator';
 
 /**
  * Imports a sample dataset purely into in-memory session stores for unit tests & guest previews.
@@ -52,4 +56,20 @@ export async function importDataset(ds: DemoDataset, _unusedSyncFlag = false): P
   useProfileStore.setState({
     profile: ds.profile,
   });
+
+  useScanHistoryStore.setState({
+    scans: projectAuditsToScanRecords(ds.audits),
+  });
+
+  useAtsToolStore.setState({
+    scanHistory: projectAuditsToAtsHistory(ds.audits),
+  });
+}
+
+export async function loadDemoIntoStores(overrideDisplayName?: string): Promise<void> {
+  const ds = await buildDemoDataset();
+  const profile = overrideDisplayName
+    ? { ...ds.profile, displayName: overrideDisplayName }
+    : ds.profile;
+  await importDataset({ ...ds, profile });
 }

@@ -54,6 +54,8 @@ import { PortalRedirect } from './features/my-space/portalRedirectMap';
 import { MySpaceSheet } from './features/my-space/MySpaceSheet';
 import { SignInDialog } from './features/auth/SignInDialog';
 import { useAuthStore } from './features/auth/useAuthStore';
+import { DemoRegisterPage } from './pages/auth/DemoRegisterPage';
+import { MySpaceWorkspacePage } from './features/my-space/MySpaceWorkspacePage';
 const AuthCallbackPage = React.lazy(() => import('./features/auth/AuthCallbackPage').then((m) => ({ default: m.AuthCallbackPage })));
 const ResumeMatrixPage = React.lazy(() => import('./features/resumes/ResumeMatrixPage').then((m) => ({ default: m.ResumeMatrixPage })));
 const HistoricalResumeInspector = React.lazy(() => import('./features/inspector/HistoricalResumeInspector').then((m) => ({ default: m.HistoricalResumeInspector })));
@@ -258,6 +260,22 @@ export default function App() {
               {import.meta.env.DEV && <Route path="/__spruce" element={<SpruceGalleryPage />} />}
               {/* Candidate Career Operating System (v5) */}
               <Route path="/auth/callback" element={<AuthCallbackPage />} />
+              <Route
+                path="/my-space"
+                element={
+                  <RequireAuth returnTo="/my-space">
+                    <MySpaceWorkspacePage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/my-space/:section"
+                element={
+                  <RequireAuth returnTo="/my-space">
+                    <MySpaceWorkspacePage />
+                  </RequireAuth>
+                }
+              />
               <Route path="/portal" element={<PortalRedirect />} />
               <Route path="/portal/resumes" element={<PortalRedirect />} />
               <Route path="/portal/audits/:auditId" element={<PortalRedirect />} />
@@ -332,7 +350,7 @@ export default function App() {
             <Route path="/candidate/*" element={<Navigate to="/tools" replace />} />
             <Route path="/candidate" element={<Navigate to="/tools" replace />} />
             <Route path="/login" element={<LoginPage initialMode="signin" />} />
-            <Route path="/register" element={<LoginPage initialMode="signup" />} />
+            <Route path="/register" element={<DemoRegisterPage />} />
 
             {/* Catch-all: robust 404 handler with ErrorState primitive (R-WAY-3) */}
             <Route path="*" element={<NotFoundPage />} />
