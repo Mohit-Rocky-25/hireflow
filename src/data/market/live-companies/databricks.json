@@ -7,8 +7,8 @@
   "sector": "Data, Analytics & AI Platform",
   "headquarters": "Bengaluru, Karnataka",
   "website": "https://www.databricks.com",
-  "lastSyncedAt": "2026-11-25T11:00:20.813Z",
-  "liveRoleCount": 53,
+  "lastSyncedAt": "2026-11-28T09:59:25.516Z",
+  "liveRoleCount": 55,
   "status": "verified",
   "confidence": "high",
   "roles": [
@@ -22,7 +22,7 @@
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8290810002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "0b8cb59ddbe7988f9f6f4464b48b7f31a64d1193251ae532b2213f56452ba1a7",
@@ -126,16 +126,16 @@
       "id": "gh-7006090002",
       "title": "Engineering Manager - Core Experiences ",
       "level": "Engineering Manager",
-      "desc": "P-995 \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our cust...",
+      "desc": "P-995 \n\n Engineering Manager (M3)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the worl...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7006090002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "b0da830ff47550ecdfc3dbac16f2786dd76ccb1f3a99e17a92661c335cf16301",
+      "contentHash": "a573e0e134b99170676c26767f0352140aa692683668813a5472e52bf21b90d2",
       "competencies": [
         "react",
         "databases",
@@ -143,84 +143,61 @@
       ],
       "requiredSkills": [
         "Next.js",
-        "SQL",
-        "Distributed Systems",
         "Feature Engineering",
+        "SQL",
+        "High Availability & Fault Tolerance",
+        "Distributed Systems",
         "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
         "Next.js",
-        "SQL",
-        "Distributed Systems",
         "Feature Engineering",
+        "SQL",
+        "High Availability & Fault Tolerance",
+        "Distributed Systems",
         "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "You will hire great engineers to build an outstanding team",
-        "You will support engineers in their career development by providing clear feedback, as well developing engineering leaders",
-        "You will ensure high technical standards by instituting processes (architecture reviews, testing) and culture (engineering excellence)",
-        "You will work with engineering and product leadership to build a long-term roadmap",
-        "You will coordinate execution and collaborate with multiple product teams with feature requests from the platform",
-        "Great at hiring and developing talent, especially leadership",
-        "Great at creating efficient processes that increase velocity and quality",
-        "Team player that will work with other departments (PM, CS) and engineering teams."
-      ],
-      "requiredQualifications": [
-        "2+ years of experience in managing teams that build and operate high-volume distributed systems in a SaaS environment",
-        "5+ years of experience with distributed systems and building platforms and services which serve multiple product teams and customers",
-        "Have experience in scaling engineering teams from 5 to 20+"
-      ],
-      "fullText": "Engineering Manager - Core Experiences \n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business.\n\n The Core Experiences Platforms Org in Bangalore is responsible for the main set of platforms to access and interact with core assets such as Workspaces, Notebooks, SQL queries and the necessary serving infrastructure to power multiple User Experiences. \n\n Databricks is experiencing very high growth, and several critical services rely on the platforms of the Core Experiences Platforms Org. We are focused on redesigning our systems to support the next stage of growth. This is an opportunity for you to be owning several critical next generation infrastructure for databricks, and be a central part of databricks' growth.\n\n As an Engineering Manager in the Core Experiences Platform Org, you will build and operate highly available and scalable platforms which serve multiple products in Databricks, allowing it to seamlessly scale and run across various geographic regions and clouds, and make Databricks the go-to product for big data processing in the cloud. You will report directly to the Sr. Manager of Engineering.\n\n The Impact You Will Have: \n\n You will hire great engineers to build an outstanding team\n\n You will support engineers in their career development by providing clear feedback, as well developing engineering leaders\n\n You will ensure high technical standards by instituting processes (architecture reviews, testing) and culture (engineering excellence)\n\n You will work with engineering and product leadership to build a long-term roadmap\n\n You will coordinate execution and collaborate with multiple product teams with feature requests from the platform\n\n What We Look For: \n\n Great at hiring and developing talent, especially leadership\n\n Great at creating efficient processes that increase velocity and quality\n\n 2+ years of experience in managing teams that build and operate high-volume distributed systems in a SaaS environment\n\n 5+ years of experience with distributed systems and building platforms and services which serve multiple product teams and customers\n\n Have experience in scaling engineering teams from 5 to 20+\n\n Team player that will work with other departments (PM, CS) and engineering teams.\n\n BS or higher in Computer Science, or a related field\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusio"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Engineering Manager - Core Experiences \n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n Engineering Manager (M3)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n The Core Experiences Platforms organization is responsible for the platforms that enable access to and interaction with core Databricks assets including Workspaces, Notebooks, and SQL queries. These platforms power multiple user experiences and serve as critical infrastructure supporting Databricks' rapid growth. As an Engineering Manager, you will build and lead a team responsible for highly available, scalable platforms that serve multiple products across geographic regions and cloud providers.\n\n The Impact You Will Have\n\n - Build and grow a high-performing engineering team by hiring exceptional talent and developing engineering leaders\n- Ensure delivery of reliable, scalable platform services that maintain high availability and support Databricks' growth\n- Establish and maintain high technical standards through architecture reviews, testing practices, and a culture of engineering excellence\n- Partner with engineering and product leadership to define and execute a long-term technical roadmap\n- Coordinate execution across multiple product teams and manage platform feature requests effectively\n- Support team members' career development through regular feedback, coaching, and clear growth opportunities\n\n What We Look For\n\n - 8+ years of software engineering experience\n- 2+ years of engineering management experience\n- Experience building and operating high-volume distributed systems in a SaaS environment\n- Experience with platforms and services that serve multiple product teams and customers\n- Track record of hiring and developing engineering talent, including growing future leaders\n- Ability to establish efficient processes that increase team velocity and product quality\n- Experience scaling engineering teams and evolving organizational structure to meet business objectives\n- Strong collaboration skills and ability to work effectively with product management, customer success, and other engineering teams\n- B.S. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benef"
     },
     {
       "id": "gh-8357216002",
       "title": "Engineering Manager (Ingestion)",
       "level": "Engineering Manager",
-      "desc": "P-995 \n\n About the Team \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. \n\n Ingesting data into the Lakehouse is a strategic area of investment for Databr...",
+      "desc": "P-995 \n\n Engineering Manager (M3)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the worl...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8357216002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "198cd4964c4465fcefbc97e7690e1e7b41a1b7c9206198f6572320be5cda8000",
+      "contentHash": "24f41a879ec0505af422e307b552179935652287ddd4def5b9d83fbaba0b0287",
       "competencies": [
         "react",
-        "databases",
         "systemdesign"
       ],
       "requiredSkills": [
         "Next.js",
-        "SQL Server",
-        "Grafana",
-        "SQL",
-        "Distributed Systems"
+        "Feature Engineering",
+        "ETL Pipelines",
+        "Cross-Functional Collaboration",
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
         "Next.js",
-        "SQL Server",
-        "Grafana",
-        "SQL",
-        "Distributed Systems"
+        "Feature Engineering",
+        "ETL Pipelines",
+        "Cross-Functional Collaboration",
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Solve real business needs at a large scale by applying your software engineering",
-        "Ensure consistent delivery against milestones and strong alignment with the field working \"two-in-a-box\" with product leadership",
-        "Evolve organizational structure to align with long term initiatives, build strong \"5 ingredient\" teams with good comms architecture",
-        "Manage technical debt, including long term technical architecture decisions and balance product roadmap",
-        "Leading and participating in technical, product, and design discussions",
-        "Building, managing, and operating a highly scalable services in the cloud",
-        "Growing leaders on the team by providing coaching, mentorship, and growth opportunities",
-        "Building, growing, and managing high-performance teams"
-      ],
-      "requiredQualifications": [
-        "10+ years of industry experience building and supporting large-scale distributed systems",
-        "Existing experience building and running cloud platforms -or- demonstrated ability to quickly learn new concepts in the SaaS space (e.g technical background and fast learner).",
-        "Experience working cross-functionality with product management and directly with customers; ability to deeply understand product and customer personas."
-      ],
-      "fullText": "Engineering Manager (Ingestion)\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n About the Team \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. \n\n Ingesting data into the Lakehouse is a strategic area of investment for Databricks and a key enabler for Data and AI workflows. Lakeflow Connect is looking to solve this problem by providing ready-to-use, point-and-click connectors for a wide variety of sources, including enterprise applications (like Salesforce, Workday, ServiceNow, SharePoint), databases (e.g., SQL Server), cloud storage, message queues, and local files.\n\n In addition to being an important part of Lakeflow and Data Engineering, Connect is also a key platform capability. Every surface in Databricks (Dashboards, Notebooks, SQL, AI) requires ingestion capabilities and the lead for this role will need to work closely with other products to embed Connect into these surfaces.\n\n We are looking for a senior leader to run our Connect organization in India. This is a great opportunity to lead a key strategic initiative for Databricks. The ideal candidate would have experience leading teams that build Data infrastructure as well as interest/experience in running product centric organizations. We would also look for the ability to collaborate effectively across time zones as well organizational boundaries. \n\n The impact you will have: \n\n Solve real business needs at a large scale by applying your software engineering\n\n Ensure consistent delivery against milestones and strong alignment with the field working \"two-in-a-box\" with product leadership\n\n Evolve organizational structure to align with long term initiatives, build strong \"5 ingredient\" teams with good comms architecture\n\n Manage technical debt, including long term technical architecture decisions and balance product roadmap\n\n Leading and participating in technical, product, and design discussions \n\n Building, managing, and operating a highly scalable services in the cloud\n\n Growing leaders on the team by providing coaching, mentorship, and growth opportunities\n\n What we look for: \n\n 10+ years of industry experience building and supporting large-scale distributed systems\n\n Building, growing, and managing high-performance teams\n\n Ability to attract and hire engineers who meet the Databricks hiring principles\n\n Existing experience building and running cloud platforms -or- demonstrated ability to quickly learn new concepts in the SaaS space (e.g technical background and fast learner).\n\n Experience working cross-functionality with product management and directly with customers; ability to deeply understand product and customer personas.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Engineering Manager (Ingestion)\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n Engineering Manager (M3)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n Lakeflow Connect is a strategic initiative focused on simplifying data ingestion into the Lakehouse through ready-to-use connectors for enterprise applications, databases, cloud storage, and other sources. As a key platform capability embedded across Databricks products, Connect enables data and AI workflows throughout the platform. This role offers the opportunity to lead a critical team building scalable data infrastructure while collaborating across organizational and geographic boundaries.\n\n The Impact You Will Have\n- Lead the delivery of high-quality, scalable data ingestion services that power Databricks' Lakehouse platform\n- Ensure consistent execution against product milestones through close collaboration with product management\n- Build and grow a high-performing engineering team in India, hiring top talent and developing future leaders\n- Evolve team structure and processes to support long-term product initiatives and effective cross-functional collaboration\n- Drive technical strategy and architectural decisions while balancing product roadmap priorities and technical debt management\n- Partner with teams across time zones to embed Connect capabilities into multiple Databricks product surfaces\n\n What We Look For\n- 8+ years of software engineering experience\n- 2+ years of engineering management experience\n- Experience building and operating large-scale distributed systems and data infrastructure in production environments\n- Proven ability to attract, hire, and develop engineers who meet high technical standards\n- Track record of managing high-performance teams and coaching engineers into leadership roles\n- Experience building cloud platforms or demonstrated ability to quickly learn SaaS concepts with a strong technical foundation\n- Ability to work effectively with product management and understand customer needs and product strategy\n- Strong collaboration skills across organizational boundaries and time zones\n- B.S. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive b"
     },
     {
       "id": "gh-8630019002",
@@ -232,7 +209,7 @@
       "department": "Professional Services Operations",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8630019002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "6fd711b6066195965e445e9b82b6261afcc7fd08366e79c65d0726ccfbdb6959",
@@ -284,16 +261,16 @@
       "id": "gh-7495457002",
       "title": "Senior Engineering Manager - Backend ",
       "level": "Engineering Manager",
-      "desc": "P-995 \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our cust...",
+      "desc": "P-995 \n\n Sr. Engineering Manager (M4)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7495457002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "b77ed38d1f3da09ec2e3f344afa68bead8704fe5ab211ed141ea647725277bbe",
+      "contentHash": "f2962d88f4613fc8d116ced9857be9fb921bb9848d71cd007dd45da6fba0ca16",
       "competencies": [
         "react",
         "ml",
@@ -303,7 +280,6 @@
         "Next.js",
         "Feature Engineering",
         "Machine Learning",
-        "Webpack & Vite",
         "Distributed Systems",
         "Computer Science Fundamentals"
       ],
@@ -311,26 +287,12 @@
         "Next.js",
         "Feature Engineering",
         "Machine Learning",
-        "Webpack & Vite",
         "Distributed Systems",
         "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Resource management infrastructure powering the big data and machine learning workloads on the Databricks platform in a scalable, secure, and cloud-agnostic way",
-        "Develop reliable, scalable services and client libraries that work with massive amounts of data on the cloud, across geographic regions and Cloud providers",
-        "Build tools to allow Databricks engineers to operate their services across different clouds and environments",
-        "Build services, products and infrastructure at the intersection of machine learning and distributed systems.",
-        "Hire great engineers to build an outstanding team.",
-        "Support engineers in their career development by providing clear feedback and develop engineering leaders.",
-        "Ensure high technical standards by instituting processes (architecture reviews, testing) and culture (engineering excellence).",
-        "Work with engineering and product leadership to build a long-term roadmap."
-      ],
-      "requiredQualifications": [
-        "12+ years of extensive experience with large-scale distributed systems alongside the processes around testing, monitoring, SLAs etc",
-        "Extensive experience as a Software Engineering Leader , building &amp; scaling software engineering teams from ground up",
-        "Extensive experience managing a team of strong software engineers"
-      ],
-      "fullText": "Senior Engineering Manager - Backend \n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to solve technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n You will work with your team to build infrastructure and products for the Databricks platform at scale . We have multiple teams working on different domains.\n\n Resource management infrastructure powering the big data and machine learning workloads on the Databricks platform in a scalable, secure, and cloud-agnostic way\n\n Develop reliable, scalable services and client libraries that work with massive amounts of data on the cloud, across geographic regions and Cloud providers\n\n Build tools to allow Databricks engineers to operate their services across different clouds and environments\n\n Build services, products and infrastructure at the intersection of machine learning and distributed systems.\n\n The impact you will have: \n\n Hire great engineers to build an outstanding team.\n\n Support engineers in their career development by providing clear feedback and develop engineering leaders.\n\n Ensure high technical standards by instituting processes (architecture reviews, testing) and culture (engineering excellence).\n\n Work with engineering and product leadership to build a long-term roadmap.\n\n Coordinate execution and collaborate across teams to unblock cross-cutting projects.\n\n What we look for: \n\n 12+ years of extensive experience with large-scale distributed systems alongside the processes around testing, monitoring, SLAs etc\n\n Extensive experience as a Software Engineering Leader , building &amp; scaling software engineering teams from ground up \n\n Extensive experience managing a team of strong software engineers \n\n Partner with PM, Sales, and Customers to develop innovative features &amp; products.\n\n BS (or higher) in Computer Science, or a related field.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals lo"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Senior Engineering Manager - Backend \n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-995 \n\n Sr. Engineering Manager (M4)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n You will lead engineering teams building infrastructure and products for the Databricks platform at scale. Your teams work across multiple domains including resource management infrastructure, scalable cloud services, cross-cloud operational tooling, and machine learning infrastructure that powers big data and ML workloads in a secure, cloud-agnostic way.\n\n The Impact You Will Have\n- Build and scale world-class engineering teams by hiring top talent and developing engineering leaders who raise the bar across the organization.\n- Drive technical excellence by establishing strong engineering practices including architecture reviews, testing standards, and operational discipline to ensure high-quality, reliable systems.\n- Partner with engineering and product leadership to define long-term technical strategy and roadmap that aligns with business objectives.\n- Ensure consistent delivery of complex, multi-team initiatives by coordinating execution and removing blockers across organizational boundaries.\n- Maintain high service quality and reliability standards across owned services, including SLAs and production operational excellence.\n- Provide clear feedback and coaching to help engineers and managers grow their careers and technical capabilities.\n\n What We Look For\n- 10+ years of software engineering experience.\n- 4+ years managing engineering teams, including experience leading managers.\n- Proven track record building and scaling high-performing engineering teams, including hiring and developing senior technical talent and engineering leaders.\n- Deep experience with large-scale distributed systems, including responsibility for testing, monitoring, SLAs, and production operational excellence.\n- Ability to define technical strategy and drive execution of complex initiatives spanning multiple teams and system boundaries.\n- Strong partnership skills working cross-functionally with product management, sales, and customers to deliver innovative solutions.\n- Experience managing distributed teams across geographies is preferred.\n- B.S. in Computer Science, Engineering, or a related field, or equivalent practical experience.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Data"
     },
     {
       "id": "gh-7845325002",
@@ -342,7 +304,7 @@
       "department": "Support",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7845325002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "fa1b0ab9e503d7107ec78aa1adb55a80c98b640f2bf9058fce439a340217a5a3",
@@ -417,7 +379,7 @@
       "department": "Integration, Data, Engineering and Applications",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8679980002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "6cc396f5f0fd5c1b39563881cc1ae30ef4814b97de461238da99e6c15a62454f",
@@ -617,7 +579,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7647294002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "45f626113aa3d0e34e9d6d26904a1ae524c93cdf2c395064c718df10b03c4ce9",
@@ -661,7 +623,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7897431002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "951ce7810214048e82723fc5255b81278c2f2b6cc5c0297c2d76366e21db556a",
@@ -964,7 +926,7 @@
       "department": "Field Engineering - FE Direct Emerging",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8652984002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "adc19defdb6b4a31bead48e43752c8772d1a77ade49ac4299d285000c5cefff9",
@@ -1033,7 +995,7 @@
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8568023002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "e9ef0e6fa8a8c8d2689ce2bb2ba30eb0612653d516598909ee1faf6fa8b47afa",
@@ -1098,7 +1060,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8421894002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "662d21d917d5b288779bb4a6591ede8ee97e47616e9201a4d79d064073f4f94a",
@@ -1130,153 +1092,137 @@
       "fullText": "Senior Staff Software Engineer - Backend\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1385\n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n You will join Databricks' engineering organization, working with teams that develop products and features for thousands of enterprises worldwide. Our engineering teams build highly technical products at massive scale — operating one of the largest software platforms with millions of virtual machines, processing exabytes of data daily. At this scale, we regularly encounter cloud hardware, network, and operating system faults, and our software must gracefully shield customers from these challenges.\n\n The Impact You Will Have\n\n - Own the product or infrastructure direction of a major area and drive it to the next level with clear business impact and significantly increased adoption.\n- Lead complex, multi-team technical projects end-to-end that have direct impact on the long-term success of a product line.\n- Architect and deliver highly scalable, fault-tolerant systems that process massive volumes of data across thousands of customers.\n- Drive organizational roadmap and technical direction through strong influence and strategic vision.\n- Solve complex production issues wherever they occur, including low-level systems debugging and performance optimization on large-scale clusters.\n- Act as a force multiplier by initiating and developing tools, processes, and best practices that boost productivity, security, and quality across the organization.\n- Mentor senior engineers into effective technical leaders and contribute to recruiting top engineering talent.\n\n What We Look For\n\n - 10+ years of software engineering experience.\n- Deep expertise building and operating large-scale distributed systems in production environments.\n- Track record of driving major technical initiatives from vision through execution with measurable business impact.\n- Ability to break down complex, open-ended problems into solutions, knowns, and unknowns, and de-risk through prototyping and validation.\n- Strong technical judgment and ability to influence design decisions across organizations to deliver project outcomes.\n- Experience leading cross-organizational efforts with appropriate milestones and deliverables to ensure convergence and progress tracking.\n- Deep understanding of algorithms, data structures, and distributed computing fundamentals with proven application at scale.\n- Excellent written and verbal communication skills, with ability to articulate both strategy and tactics to achieve results.\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mast"
     },
     {
-      "id": "gh-7651326002",
+      "id": "gh-7651345002",
       "title": "Senior Staff Software Engineer (Backend)",
       "level": "Staff",
-      "desc": "(P-1174) \n\n We are hiring a Senior Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n A...",
+      "desc": "(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and runni...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
-      "department": "Executive Engineering - Pipeline",
+      "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
-      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7651326002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7651345002",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "31133528fba1d5e9dbf7bb43eccafeed49405b2377e6d4dc68cbcfd99026f8ee",
+      "contentHash": "572e94348f7737c1be189058a092ce860448ed5025c3eabab6a87ab7ea370f09",
       "competencies": [
         "golang",
+        "react",
         "systemdesign"
       ],
       "requiredSkills": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Solve real business needs at large scale by applying your software engineering.",
-        "Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers",
-        "Low level systems debugging, performance measurement &amp; optimization on large production clusters.",
-        "Build architecture design, influence product roadmap, and take ownership and responsibility over new projects",
-        "Plan and lead complicated technical projects that work with several teams within the company.",
-        "A strong influencer or driver in the organization’s roadmap and direction.",
-        "Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.",
-        "Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation)."
-      ],
-      "requiredQualifications": [
-        "Use your deep experience to help prevent and investigate production issues.",
-        "15+ years industry experience building and supporting large-scale distributed systems .",
-        "Experience driving company initiatives towards customer satisfaction."
-      ],
-      "fullText": "Senior Staff Software Engineer (Backend)\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\n(P-1174) \n\n We are hiring a Senior Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n As an executive engineering individual contributor at Databricks, you will have full ownership of the product or infrastructure direction in a major area, driving it from initial development to scalable solutions with clear business impact. You will serve as a force multiplier by elevating stability, reliability, and organizational processes, while bringing deep expertise in large-scale distributed systems. You will mentor senior engineers, contribute to recruiting, and lead high-impact company projects, often tackling complex problems beyond their comfort zone. \n\n Job Description \n\n At Databricks, we are obsessed with enabling data teams to solve the world's toughest problems, from security threat detection to cancer drug development. We do this by building and running the world's best data and AI infrastructure platform, so our customers can focus on the high value challenges that are central to their own missions.\n\n Our engineering teams build highly technical products that fulfill real, important needs in the world. We develop and operate one of the largest scale software platforms. The fleet consists of millions of virtual machines, generating terabytes of logs and processing exabytes of data per day. At our scale, we regularly observe cloud hardware, network, and operating system faults, and our software must gracefully shield our customers from any of the above.\n\n The Impact you will have: \n\n Solve real business needs at large scale by applying your software engineering.\n\n Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers\n\n Low level systems debugging, performance measurement &amp; optimization on large production clusters.\n\n Build architecture design, influence product roadmap, and take ownership and responsibility over new projects\n\n Use your deep experience to help prevent and investigate production issues.\n\n Plan and lead complicated technical projects that work with several teams within the company.\n\n A strong influencer or driver in the organization’s roadmap and direction.\n\n Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.\n\n Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation).\n\n Contribute as a Technical Team Lead by mentoring others, lead sprint planning, delegating work and assignments to team members and participate in project planning.\n\n What we look for: \n\n 15+ years industry experience building and supporting large-scale distributed systems .\n\n Comfortable working towards a multi-year vision with incremental deliverables.\n\n Motivated by delivering customer value and impact.\n\n Strong foundation in algorithms and data structures and their real-world use cases.\n\n Experience driving company initiatives towards customer satisfaction.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Senior Staff Software Engineer (Backend)\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\n(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n You will join Databricks' engineering organization, working with teams that develop products and features for thousands of enterprises worldwide. Our engineering teams build highly technical products at massive scale — operating one of the largest software platforms with millions of virtual machines, processing exabytes of data daily. At this scale, we regularly encounter cloud hardware, network, and operating system faults, and our software must gracefully shield customers from these challenges.\n\n The Impact You Will Have\n- Own the product or infrastructure direction of a major area and drive it to the next level with clear business impact\n- Lead complex, multi-team technical projects from conception through delivery that directly influence long-term product success\n- Solve complex production issues at scale, including low-level systems debugging and performance optimization across large clusters\n- Drive architectural decisions and influence the product roadmap across the organization\n- Act as a force multiplier by elevating engineering practices, stability, and reliability across teams\n- Mentor senior engineers into effective technical leaders and contribute to recruiting top engineering talent\n- Lead cross-engineering initiatives or review committees that improve organizational effectiveness\n\n What We Look For\n- 10+ years of software engineering experience\n- Deep expertise building and operating large-scale distributed systems in production environments\n- Track record of driving major technical initiatives with multi-year vision and incremental deliverables\n- Strong foundation in algorithms, data structures, and distributed systems fundamentals with proven application at scale\n- Ability to break down complex, ambiguous problems into actionable solutions and de-risk through prototyping\n- Experience influencing organizational roadmap and technical direction across multiple teams\n- Demonstrated ability to solve difficult problems outside comfort zones and drive customer-impacting outcomes\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on Link"
     },
     {
       "id": "gh-8433583002",
       "title": "Senior Staff Software Engineer- Networking",
       "level": "Staff",
-      "desc": "(P-1174) \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our c...",
+      "desc": "(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and runni...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8433583002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "2af497680614c621e73f601dd6ce5ced8722031bd197fc48413ea92302e6da9a",
+      "contentHash": "61491e78d32e182301e2ad1b9b52eaa8a8e37db7e3cad62f43d305e45e8c0846",
       "competencies": [
         "java",
+        "golang",
         "react",
         "kubernetes",
-        "devops",
         "systemdesign"
       ],
       "requiredSkills": [
         "Next.js",
+        "Feature Engineering",
         "Prometheus",
         "System Design",
         "Distributed Systems",
         "Rust",
         "Java",
         "C++",
+        "Go",
         "Kubernetes",
-        "Terraform"
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
         "Next.js",
+        "Feature Engineering",
         "Prometheus",
         "System Design",
         "Distributed Systems",
         "Rust",
         "Java",
         "C++",
+        "Go",
         "Kubernetes",
-        "Terraform"
+        "Computer Science Fundamentals"
       ],
       "responsibilities": [],
-      "requiredQualifications": [
-        "15+ years of production level experience in one of: Rust, Java, Scala, C++, or similar language",
-        "10+ years of experience developing large-scale distributed systems from scratch",
-        "Experience working on a SaaS platform or with Service-Oriented Architectures.",
-        "Experience with cloud networking, kubernetes, infrastructure automation languages like terraform, cloudformation, etc."
-      ],
-      "fullText": "Senior Staff Software Engineer- Networking\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\n(P-1174) \n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. \n\n Networking Infrastructure is a core part of the platform that powers all our data and AI products. The platform also powers key enterprise security features used by customers across all our products to build connectivity solutions to cloud resources and prevent data exfiltration.\n\n We are seeking an experienced Sr. Staff Software Engineer with deep networking expertise to help shape the future of Databricks’ Networking Infrastructure . As one of the early members of the rapidly growing Bangalore site, you will play a critical role in defining the technical vision and architecture for next-generation network connectivity &amp; observability services that will power &amp; manage millions of VMs across multiple clouds . \n\n In this role, you will own and drive the design of large-scale connectivity platforms that form the backbone between Databricks’ control plane and compute plane . These platforms are foundational to improving the scalability, reliability, and efficiency of our compute infrastructure, while enabling more intelligent and cost-effective use of cloud resources.\n\n You will operate at an org-wide level , setting technical direction, leading complex cross-team initiatives, and mentoring senior engineers. You’ll work closely with product management, operations, and partner engineering teams to translate long-term business goals into durable, extensible networking systems . This role requires both hands-on technical leadership and the ability to influence architecture and execution across teams.\n\n This is a unique opportunity for a senior technical leader who enjoys working in ambiguous problem spaces and is motivated by solving novel, multi-cloud distributed systems challenges at massive scale .\n\n What we look for: \n\n 15+ years of production level experience in one of: Rust, Java, Scala, C++, or similar language\n\n 10+ years of experience developing large-scale distributed systems from scratch\n\n Experience working on a SaaS platform or with Service-Oriented Architectures.\n\n Experience with cloud networking, kubernetes, infrastructure automation languages like terraform, cloudformation, etc.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering"
+      "requiredQualifications": [],
+      "fullText": "Senior Staff Software Engineer- Networking\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\n(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n Networking Infrastructure is a core part of the platform that powers all our data and AI products. The platform also powers key enterprise security features used by customers across all our products to build connectivity solutions to cloud resources and prevent data exfiltration. As a Sr. Staff Software Engineer, you will define the technical vision and architecture for next-generation network connectivity and observability services that power and manage millions of VMs across multiple clouds. You will own and drive the design of large-scale connectivity platforms that form the backbone between Databricks' control plane and compute plane, improving the scalability, reliability, and efficiency of our compute infrastructure.\n\n The Impact You Will Have\n- Define technical vision and architecture for next-generation networking infrastructure that powers millions of VMs across multiple cloud providers\n- Own and drive the design of large-scale connectivity platforms that form the backbone between Databricks' control plane and compute plane\n- Lead complex cross-team initiatives that advance the state-of-the-art in multi-cloud distributed networking systems\n- Set technical direction at the org level and influence architecture decisions across engineering teams\n- Solve novel, ambiguous problems in distributed systems and cloud networking at massive scale\n- Mentor and uplevel senior engineers, raising the technical bar across the organization\n- Collaborate with product management, operations, and partner teams to translate long-term business goals into durable, extensible systems\n\n What We Look For\n- 10+ years of software engineering experience\n- Deep expertise in building and operating large-scale distributed systems in production environments\n- Experience with one or more programming languages including Rust, Java, Scala, C++, or Go\n- Strong understanding of cloud networking fundamentals, multi-cloud architectures, and network observability\n- Experience with Kubernetes, infrastructure automation, and cloud platform APIs\n- Track record of defining technical strategy and driving complex initiatives across multiple teams\n- Ability to break down ambiguous problems into actionable solutions and drive them to completion\n- Strong written and verbal communication skills with the ability to influence technical direction across organizations\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 7"
     },
     {
       "id": "gh-8439350002",
       "title": "Senior Staff Software Engineer- Search Quality",
       "level": "Staff",
-      "desc": "P-1408\n\n The Mission \n\n We are democratizing Data and AI for every enterprise user. Our vision is a world where anyone can master their organization’s data through Apps and AI Agents. We are building the retrieval backbone for two worlds: the high-precision context layer for AI agents and the intuitive search experienc...",
+      "desc": "P-1408\n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8439350002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "1560e673b15615d583c456a280dd58eb0e22a2c4f11052f06fae35dd3d0c41a0",
+      "contentHash": "8e04dbcf1daebb7d1ad626dbb94b03b3457f1b2fefcca039f12114b7c077aa7e",
       "competencies": [
         "golang",
-        "databases",
+        "react",
         "systemdesign"
       ],
       "requiredSkills": [
+        "Next.js",
+        "Feature Engineering",
         "Natural Language Processing",
-        "SQL",
-        "Elasticsearch",
         "Algorithms",
-        "Generative AI"
+        "Vector Search & Embeddings",
+        "Generative AI",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
+        "Next.js",
+        "Feature Engineering",
         "Natural Language Processing",
-        "SQL",
-        "Elasticsearch",
         "Algorithms",
-        "Generative AI"
+        "Vector Search & Embeddings",
+        "Generative AI",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "As a Search Quality Engineer, you sit at the heart of this transformation. You aren't just building a search engine; you are building the contextual backbone of the entire company.",
-        "You will own the quality of results for two distinct but deeply connected \"users\":",
-        "The AI Agent: Optimizing the retrieval layer that allows LLMs to reason over data they weren’t trained on, ensuring they have the \"ground truth\" needed to synthesize accurate, high-stakes business actions.",
-        "Hybrid Retrieval: Balancing traditional keyword-based search (for exactness) with semantic vector search (for intent).",
-        "Dual-Optimization: Fine-tuning ranking models that satisfy both human readability and LLM-ready context.",
-        "High-Stakes Accuracy: In a world of Agents, poor search quality leads to hallucinations. You will build the guardrails and relevance scoring that ensure our AI stays grounded in reality.",
-        "Data Heterogeneity: Connecting the dots across structured SQL tables, unstructured docs, and real-time business metrics.",
-        "You will have a front-row seat to the Agentic revolution. If you want to solve the hardest problems in data discovery and see your work power the decision-making of thousands of people, let’s talk."
-      ],
-      "requiredQualifications": [
-        "The Human User: Improving the traditional search experience so employees can find assets and answers through intuitive, high-recall interfaces."
-      ],
-      "fullText": "Senior Staff Software Engineer- Search Quality\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n The Mission \n\n We are democratizing Data and AI for every enterprise user. Our vision is a world where anyone can master their organization’s data through Apps and AI Agents. We are building the retrieval backbone for two worlds: the high-precision context layer for AI agents and the intuitive search experience for people goal is the same: instant, accurate, and actionable insight.\n\n The Role : \n\n As a Search Quality Engineer, you sit at the heart of this transformation. You aren't just building a search engine; you are building the contextual backbone of the entire company.\n\n You will own the quality of results for two distinct but deeply connected \"users\":\n\n The AI Agent: Optimizing the retrieval layer that allows LLMs to reason over data they weren’t trained on, ensuring they have the \"ground truth\" needed to synthesize accurate, high-stakes business actions.\n\n The Human User: Improving the traditional search experience so employees can find assets and answers through intuitive, high-recall interfaces.\n\n The Technical Challenge \n\n This isn't a solved problem. You will be tackling \"Search\" in its most evolved form:\n\n Hybrid Retrieval: Balancing traditional keyword-based search (for exactness) with semantic vector search (for intent).\n\n Dual-Optimization: Fine-tuning ranking models that satisfy both human readability and LLM-ready context.\n\n High-Stakes Accuracy: In a world of Agents, poor search quality leads to hallucinations. You will build the guardrails and relevance scoring that ensure our AI stays grounded in reality.\n\n Data Heterogeneity: Connecting the dots across structured SQL tables, unstructured docs, and real-time business metrics.\n\n Why This is the Place to Be \n\n You will have a front-row seat to the Agentic revolution. If you want to solve the hardest problems in data discovery and see your work power the decision-making of thousands of people, let’s talk.\n\n What We’re Looking For \n\n The IR Specialist: You know your way around Lucene/Elasticsearch, embeddings, and ranking algorithms.\n\n The Quality and Metrics Obsessive: You understand that \"relevance\" is subjective and love building evaluation frameworks (human-in-the-loop and LLM-based) to measure it. You are obsessed with relevance metrics (nDCG, MRR, Precision@K).\n\n The Bridge Builder: You’re excited to apply traditional Information Retrieval (IR) wisdom to the cutting-edge world of Retrieval-Augmented Generation (RAG).\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensu"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Senior Staff Software Engineer- Search Quality\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n As a Search Quality Engineer, you will build the contextual backbone that powers both AI agents and human users across the Databricks platform. You will own the quality of retrieval systems that enable LLMs to reason over data they weren't trained on, ensuring accurate, high-stakes business actions. This role sits at the intersection of traditional information retrieval and cutting-edge retrieval-augmented generation, solving search in its most evolved form.\n\n The Impact You Will Have\n\n - Own the design and implementation of hybrid retrieval systems that balance keyword-based search with semantic vector search to optimize both precision and intent understanding\n- Define and drive the technical strategy for search quality across the platform, ensuring high-recall, low-hallucination results for both AI agents and human users\n- Build evaluation frameworks and relevance scoring systems that measure and improve search quality through human-in-the-loop and LLM-based metrics\n- Lead cross-team initiatives to connect heterogeneous data sources, including structured tables, unstructured documents, and real-time business metrics\n- Establish technical standards and best practices for search and retrieval systems that influence engineering roadmaps across the organization\n- Mentor senior engineers and raise the technical bar for search quality and information retrieval across Databricks\n\n What We Look For\n\n - 10+ years of software engineering experience\n- Deep expertise in information retrieval systems, including experience with search engines, ranking algorithms, and relevance optimization\n- Strong understanding of hybrid retrieval architectures, semantic search, embeddings, and vector databases\n- Experience building and operating evaluation frameworks for search quality, with expertise in relevance metrics including nDCG, MRR, and Precision@K\n- Track record of leading complex technical projects that span multiple teams or system boundaries, with demonstrated ability to influence technical direction at the organizational level\n- Experience applying traditional information retrieval techniques to modern AI systems, including retrieval-augmented generation\n- Strong written and verbal communication skills, with the ability to articulate technical tradeoffs and drive alignment across engineering and product teams\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related quantitative field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 "
     },
     {
       "id": "gh-8041698002",
@@ -1288,7 +1234,7 @@
       "department": "Support",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8041698002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "e97b9a966d51153f7dc36b7a0f1cdcfbfb6fdf462b32235027196eb0f091c8e3",
@@ -1350,7 +1296,7 @@
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8795446002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "1e94b70c39c5ca7d0d55443542773c5574022c552709f6469620ebc0a1fc40f8",
@@ -1422,7 +1368,7 @@
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8637781002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "a3b5ec394d96b28319c7f7b5d9154282f4a918234424090b1f8c374f4e273543",
@@ -1491,7 +1437,7 @@
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8657549002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "d7f435d769e933d33572eb1bff063956754447e4250672a7e3938ee8ff21f85c",
@@ -1544,19 +1490,19 @@
       "fullText": "Solutions Architect (Genie)\n\nLocation: Bengaluru, India; Delhi, India; India; Mumbai, India\nDepartment: Field Engineering - Other\n\nFEQ327R421\n\n Mission \n\n The Solutions Architect (Genie) team executes on Databricks’ strategic Product Operating Model that provides enhanced focus on earlier stage, highly prioritized product lines in order to establish product market fit, and set the course for rapid revenue growth. They are part of a global go-to-market team mandate, though individually will cover a specific, local region. Clients may span across one or more business units and verticals. By working in partnership with direct account teams, they will jointly engage clients, foster the necessary relationships, position in-depth the specific product line, so as to provide compelling reasons for clients to adopt and grow the usage of the given product. They understand the appropriate approach, the guardrails, and the steps needed to successfully adopt the product line, as clients deliver on their business objectives.\n\n The Solutions Architect (Genie) is paired with an Account Executive aligned to a given product line with specific targets accordingly. Together, they will devise and implement a strategy across their assigned set of accounts, develop presentations, demos and other assets and deliver them such that clients make an informed decision as they decide to adopt the product-line in a meaningful way.\n\n The impact you will have \n\n Collaborate with GTM leadership and account teams to design and execute high-impact engagement strategies across your territory.\n\n As a trusted advisor, serve as an expert Solutions Architect and \"champion,\" building technical credibility with stakeholders to drive product adoption and vision.\n\n Enable clients at scale through workshops and developing customer-facing collateral that helps increase technical knowledge and thought leadership.\n\n Influence product roadmap by translating field-derived, data-driven insights into strategic recommendations for Product and Engineering teams\n\n Handle the most complex technical challenges in this product line by acting as the tier-3 escalation point for the field, ensuring customer success in mission-critical environments.\n\n Competencies &amp; Responsibilities \n\n 6+ years in a customer-facing, pre-sales or consulting role influencing technical executives, driving high-level data strategy and product adoption.\n\n Credibility in influencing analytics, BI, and natural-language / agentic AI products, with the market insight needed to shape and prioritize roadmap capabilities.\n\n Deep understanding of AI governance across different tools and models and ability to guide customers through security blockers and concerns\n\n Proven ability to co-plan large territories with Account Executives and operate in a highly coordinated, cross-functional effort across GTM and R&amp;D teams.\n\n Experience architecting governed analytics solutions that integrate semantic models, data warehouses, and metric layers within broader Lakehouse and AI ecosystems.\n\n Experience collaborating with Global System Integrators (GSIs) and third-party consulting organizations to drive customer outcomes.\n\n Proficient in programming, debugging, and problem-solving using SQL and Python.\n\n Hands-on experience building solutions within major public cloud environments (AWS, Azure, or GCP).\n\n Broad experience (in two or more) and understanding across the fields of data engineering, data warehousing, business intelligenc"
     },
     {
-      "id": "gh-8593505002",
+      "id": "gh-8585164002",
       "title": "Specialist Solutions Architect - AI/ML",
       "level": "Staff",
       "desc": "FEQ327R299\n\n As an AI/ML Specialist Solutions Architect (SSA), you will be the trusted technical ML &amp; AI expert to both Databricks customers and the Field Engineering organization. You will work with Solution Architects to guide customers in architecting production-grade ML &amp; AI applications on Databricks, whil...",
-      "location": "Mumbai, India",
+      "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
-      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8593505002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8585164002",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "ed5e1491551191708ddd061b076da980e77ff88103cbb4a44711e8f0b6f2a788",
+      "contentHash": "3b2b3514ce5930742b473098336246e5bbaca633bff6eea2628f739f9a6acf12",
       "competencies": [
         "aws",
         "ml",
@@ -1605,7 +1551,7 @@
         "Experience communicating and/or teaching technical concepts to non-technical and technical audiences alike",
         "[Preferred] 2+ years customer-facing experience in a pre-sales or post-sales role"
       ],
-      "fullText": "Specialist Solutions Architect - AI/ML\n\nLocation: Mumbai, India\nDepartment: Field Engineering - Other\n\nFEQ327R299\n\n As an AI/ML Specialist Solutions Architect (SSA), you will be the trusted technical ML &amp; AI expert to both Databricks customers and the Field Engineering organization. You will work with Solution Architects to guide customers in architecting production-grade ML &amp; AI applications on Databricks, while aligning their technical roadmap with the continually evolving Databricks Data Intelligence Platform. You will continue to strengthen your technical skills through applying cutting-edge technologies in GenAI, MLOps, and ML more broadly, expanding your impact through mentorship, and establishing yourself as an AI thought leader. \n\n This is a Hybrid role, based in Mumbai. \n\n The impact you will have: \n\n Architect production-level ML &amp; AI workloads for customers using our unified platform, including agents, end-to-end ML pipelines, training/inference optimization, integration with cloud-native services, MLOps, etc. \n\n Serve as a trusted practitioner for enterprise GenAI solutions, including RAG architectures, agentic systems (tool-calling agents, multi-agent orchestration, guardrails), natural language querying of structured data, AI evaluation and observability, and monitoring systems\n\n Build, scale, and optimize customer AI workloads and apply best-in-class MLOps to productionize these workloads across a variety of domains\n\n Provide advanced technical support to Solution Architects during the technical sale, ranging from feature engineering, training, tracking, serving, to model monitoring, all within a single platform, as well as participating in the larger ML SME community in Databricks\n\n Collaborate cross-functionally with the product and engineering teams to represent the voice of the customer, define priorities, and influence the product roadmap, helping with the adoption of Databricks’ AI offerings\n\n What we look for: \n\n 5+ years of hands-on industry ML experience in at least one of the following:\n\n ML Engineer: Build and maintain production-grade cloud (AWS/Azure/GCP) infrastructure that supports the deployment of ML applications, including drift monitoring.\n\n AI Engineer: Experience with the latest techniques in LLMs &amp; agentic systems, including vector databases, fine-tuning LLMs, AI guardrail systems, and deploying LLMs with tools such as HuggingFace, Langchain, and OpenAI\n\n Graduate degree in a quantitative discipline (Computer Science, Engineering, Statistics, Operations Research, etc.) or equivalent practical experience\n\n Experience communicating and/or teaching technical concepts to non-technical and technical audiences alike\n\n Passion for collaboration, life-long learning, and driving business value through ML &amp; AI\n\n [Preferred] 2+ years customer-facing experience in a pre-sales or post-sales role\n\n Can meet expectations for technical training and role-specific outcomes within 3 months of hire\n\n Can travel up to 30% when needed\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, a"
+      "fullText": "Specialist Solutions Architect - AI/ML\n\nLocation: Bengaluru, India\nDepartment: Field Engineering - Other\n\nFEQ327R299\n\n As an AI/ML Specialist Solutions Architect (SSA), you will be the trusted technical ML &amp; AI expert to both Databricks customers and the Field Engineering organization. You will work with Solution Architects to guide customers in architecting production-grade ML &amp; AI applications on Databricks, while aligning their technical roadmap with the continually evolving Databricks Data Intelligence Platform. You will continue to strengthen your technical skills through applying cutting-edge technologies in GenAI, MLOps, and ML more broadly, expanding your impact through mentorship, and establishing yourself as an AI thought leader. \n\n This is a Hybrid role, based in Bengaluru. \n\n The impact you will have: \n\n Architect production-level ML &amp; AI workloads for customers using our unified platform, including agents, end-to-end ML pipelines, training/inference optimization, integration with cloud-native services, MLOps, etc. \n\n Serve as a trusted practitioner for enterprise GenAI solutions, including RAG architectures, agentic systems (tool-calling agents, multi-agent orchestration, guardrails), natural language querying of structured data, AI evaluation and observability, and monitoring systems\n\n Build, scale, and optimize customer AI workloads and apply best-in-class MLOps to productionize these workloads across a variety of domains\n\n Provide advanced technical support to Solution Architects during the technical sale, ranging from feature engineering, training, tracking, serving, to model monitoring, all within a single platform, as well as participating in the larger ML SME community in Databricks\n\n Collaborate cross-functionally with the product and engineering teams to represent the voice of the customer, define priorities, and influence the product roadmap, helping with the adoption of Databricks’ AI offerings\n\n What we look for: \n\n 5+ years of hands-on industry ML experience in at least one of the following:\n\n ML Engineer: Build and maintain production-grade cloud (AWS/Azure/GCP) infrastructure that supports the deployment of ML applications, including drift monitoring.\n\n AI Engineer: Experience with the latest techniques in LLMs &amp; agentic systems, including vector databases, fine-tuning LLMs, AI guardrail systems, and deploying LLMs with tools such as HuggingFace, Langchain, and OpenAI\n\n Graduate degree in a quantitative discipline (Computer Science, Engineering, Statistics, Operations Research, etc.) or equivalent practical experience\n\n Experience communicating and/or teaching technical concepts to non-technical and technical audiences alike\n\n Passion for collaboration, life-long learning, and driving business value through ML &amp; AI\n\n [Preferred] 2+ years customer-facing experience in a pre-sales or post-sales role\n\n Can meet expectations for technical training and role-specific outcomes within 3 months of hire\n\n Can travel up to 30% when needed\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakeho"
     },
     {
       "id": "gh-8679982002",
@@ -1617,7 +1563,7 @@
       "department": "Integration, Data, Engineering and Applications",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8679982002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "c9618fb7eb3d5b78f8118071ba67db65a741004787131a6abe893395bbbd8011",
@@ -1735,7 +1681,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8924868002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "775e8f32182ee6009e704e529018dfbc13368df5d9e98a3539fe76cac9630dfc",
@@ -1810,7 +1756,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7925560002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "c677e5b1e30f732e29e992f7e0e725ab2a8bfd43902b4ac095cc4d532502a608",
@@ -1858,7 +1804,7 @@
       "department": "Field Engineering - Other",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8476064002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "10268490349852a974b9a25bb62f5b3d1003a20df9748423dbd0ec0c657e4d6d",
@@ -1921,102 +1867,87 @@
       "id": "gh-7630152002",
       "title": "Sr Staff Software Engineer (Backend)",
       "level": "Staff",
-      "desc": "(P-1174) \n\n We are hiring a Senior Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n A...",
+      "desc": "(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and runni...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7630152002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "ceba3695ffa6badfc22464e0b6fc93f362af80f1062c9b74adc66e3020df9266",
+      "contentHash": "3fa203c94e94571a42ca81b82b3dcb41b982f938ced7b6f4ddd79c3744b6dfe4",
       "competencies": [
         "golang",
+        "react",
         "systemdesign"
       ],
       "requiredSkills": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Solve real business needs at large scale by applying your software engineering.",
-        "Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers",
-        "Low level systems debugging, performance measurement &amp; optimization on large production clusters.",
-        "Build architecture design, influence product roadmap, and take ownership and responsibility over new projects",
-        "Plan and lead complicated technical projects that work with several teams within the company.",
-        "A strong influencer or driver in the organization’s roadmap and direction.",
-        "Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.",
-        "Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation)."
-      ],
-      "requiredQualifications": [
-        "Use your deep experience to help prevent and investigate production issues.",
-        "15+ years industry experience building and supporting large-scale distributed systems.",
-        "Experience driving company initiatives towards customer satisfaction."
-      ],
-      "fullText": "Sr Staff Software Engineer (Backend)\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\n(P-1174) \n\n We are hiring a Senior Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n As an executive engineering individual contributor at Databricks, you will have full ownership of the product or infrastructure direction in a major area, driving it from initial development to scalable solutions with clear business impact. You will serve as a force multiplier by elevating stability, reliability, and organizational processes, while bringing deep expertise in large-scale distributed systems. You will mentor senior engineers, contribute to recruiting, and lead high-impact company projects, often tackling complex problems beyond their comfort zone. \n\n Job Description \n\n At Databricks, we are obsessed with enabling data teams to solve the world's toughest problems, from security threat detection to cancer drug development. We do this by building and running the world's best data and AI infrastructure platform, so our customers can focus on the high value challenges that are central to their own missions.\n\n Our engineering teams build highly technical products that fulfill real, important needs in the world. We develop and operate one of the largest scale software platforms. The fleet consists of millions of virtual machines, generating terabytes of logs and processing exabytes of data per day. At our scale, we regularly observe cloud hardware, network, and operating system faults, and our software must gracefully shield our customers from any of the above.\n\n The Impact you will have: \n\n Solve real business needs at large scale by applying your software engineering.\n\n Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers\n\n Low level systems debugging, performance measurement &amp; optimization on large production clusters.\n\n Build architecture design, influence product roadmap, and take ownership and responsibility over new projects\n\n Use your deep experience to help prevent and investigate production issues.\n\n Plan and lead complicated technical projects that work with several teams within the company.\n\n A strong influencer or driver in the organization’s roadmap and direction.\n\n Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.\n\n Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation).\n\n Contribute as a Technical Team Lead by mentoring others, lead sprint planning, delegating work and assignments to team members and participate in project planning.\n\n What we look for: \n\n 15+ years industry experience building and supporting large-scale distributed systems.\n\n Comfortable working towards a multi-year vision with incremental deliverables.\n\n Motivated by delivering customer value and impact.\n\n Strong foundation in algorithms and data structures and their real-world use cases.\n\n Experience driving company initiatives towards customer satisfaction.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Blo"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Sr Staff Software Engineer (Backend)\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\n(P-1174) \n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n You will join the Databricks engineering organization, working with teams that develop products and features for thousands of enterprises worldwide. Our platform operates at massive scale — millions of virtual machines processing exabytes of data daily — where software must gracefully handle cloud hardware, network, and operating system faults to shield customers from disruption.\n\n The Impact You Will Have\n- Own the product or infrastructure direction of a major area and drive it to the next level with clear business impact\n- Lead complex, multi-team technical projects from conception through delivery, defining strategy and execution\n- Drive organizational roadmap and technical direction through strong influence and technical judgment\n- Act as a force multiplier by elevating engineering practices, stability, and reliability across the organization\n- Mentor senior engineers into effective technical leaders and contribute to recruiting top engineering talent\n- Solve complex, open-ended problems across the organization, even outside your core domain\n\n What We Look For\n- 10+ years of software engineering experience\n- Deep expertise building and operating large-scale distributed systems in production environments\n- Track record of leading transformational technical initiatives with broad organizational impact\n- Ability to break down complex problems into solutions, knowns, and unknowns, and de-risk through prototyping\n- Strong foundation in algorithms, data structures, and distributed systems fundamentals\n- Experience driving multi-year technical vision with incremental, measurable deliverables\n- Demonstrated ability to influence technical direction and align objectives across multiple teams\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we "
     },
     {
       "id": "gh-8462811002",
       "title": "Sr.Staff Software Engineer- Network Platform",
       "level": "Staff",
-      "desc": "P-1533\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our cust...",
+      "desc": "P-1533\n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Executive Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8462811002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "bfbf13551dea70f8588afe8e3a4354cf4b95db1062b314e19638f68d9b4d638b",
+      "contentHash": "f033cf1292375e89edf9d92ee78e6e8c4876e328b75b80919b12ea6a1a308bd3",
       "competencies": [
         "java",
         "react",
-        "kubernetes",
-        "devops",
         "systemdesign"
       ],
       "requiredSkills": [
         "Next.js",
+        "Feature Engineering",
         "Prometheus",
         "System Design",
         "Distributed Systems",
         "Rust",
         "Java",
         "C++",
-        "Kubernetes",
-        "Terraform"
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
         "Next.js",
+        "Feature Engineering",
         "Prometheus",
         "System Design",
         "Distributed Systems",
         "Rust",
         "Java",
         "C++",
-        "Kubernetes",
-        "Terraform"
+        "Computer Science Fundamentals"
       ],
       "responsibilities": [],
-      "requiredQualifications": [
-        "15+ years of production level experience in one of: Rust, Java, Scala, C++, or similar language",
-        "10+ years of experience developing large-scale distributed systems from scratch",
-        "Experience working on a SaaS platform or with Service-Oriented Architectures.",
-        "Experience with cloud networking, kubernetes, infrastructure automation languages like terraform, cloudformation, etc."
-      ],
-      "fullText": "Sr.Staff Software Engineer- Network Platform\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-1533\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. \n\n Networking Infrastructure is a core part of the platform that powers all our data and AI products. The platform also powers key enterprise security features used by customers across all our products to build connectivity solutions to cloud resources and prevent data exfiltration.\n\n We are seeking an experienced Sr. Staff Software Engineer with deep networking expertise to help shape the future of Databricks’ Networking Infrastructure . As one of the early members of the rapidly growing Bangalore site, you will play a critical role in defining the technical vision and architecture for next-generation network connectivity &amp; observability services that will power &amp; manage millions of VMs across multiple clouds . \n\n In this role, you will own and drive the design of large-scale connectivity platforms that form the backbone between Databricks’ control plane and compute plane . These platforms are foundational to improving the scalability, reliability, and efficiency of our compute infrastructure, while enabling more intelligent and cost-effective use of cloud resources.\n\n You will operate at an org-wide level , setting technical direction, leading complex cross-team initiatives, and mentoring senior engineers. You’ll work closely with product management, operations, and partner engineering teams to translate long-term business goals into durable, extensible networking systems . This role requires both hands-on technical leadership and the ability to influence architecture and execution across teams.\n\n This is a unique opportunity for a senior technical leader who enjoys working in ambiguous problem spaces and is motivated by solving novel, multi-cloud distributed systems challenges at massive scale .\n\n What we look for:\n\n 15+ years of production level experience in one of: Rust, Java, Scala, C++, or similar language\n\n 10+ years of experience developing large-scale distributed systems from scratch\n\n Experience working on a SaaS platform or with Service-Oriented Architectures.\n\n Experience with cloud networking, kubernetes, infrastructure automation languages like terraform, cloudformation, etc.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a"
+      "requiredQualifications": [],
+      "fullText": "Sr.Staff Software Engineer- Network Platform\n\nLocation: Bengaluru, India\nDepartment: Executive Engineering - Pipeline\n\nP-1533\n\n Sr. Staff Software Engineer (L7)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n Networking Infrastructure is a core part of the platform that powers all our data and AI products. The team builds connectivity solutions and enterprise security features that enable customers to securely connect to cloud resources and prevent data exfiltration. As a Sr. Staff Software Engineer, you will define the technical vision and architecture for next-generation network connectivity and observability services that power and manage millions of VMs across multiple clouds. You will own the design of large-scale connectivity platforms that form the backbone between Databricks' control plane and compute plane, improving scalability, reliability, and efficiency of our compute infrastructure.\n\n The Impact You Will Have\n\n - Define and drive the technical vision and architecture for large-scale, multi-cloud networking infrastructure that powers millions of VMs.\n- Own the design and implementation of connectivity platforms that form the backbone between Databricks' control plane and compute plane.\n- Lead complex, cross-team technical initiatives that span multiple organizations and influence engineering roadmaps.\n- Translate long-term business goals into durable, extensible networking systems in collaboration with product management, operations, and partner engineering teams.\n- Solve novel distributed systems challenges in ambiguous problem spaces, advancing the state-of-the-art in cloud networking infrastructure.\n- Mentor senior engineers and raise the technical bar across the organization through technical leadership and influence.\n- Drive improvements in scalability, reliability, and operational efficiency of critical networking services.\n\n What We Look For\n\n - 10+ years of software engineering experience.\n- Deep expertise in building and operating large-scale distributed systems in production environments.\n- Strong experience with cloud networking, including multi-cloud connectivity, network observability, and infrastructure automation.\n- Experience with one or more programming languages including Rust, Java, Scala, or C++.\n- Proven track record of defining technical strategy and architectural direction for complex systems spanning multiple teams.\n- Ability to influence technical decisions at the organizational level and drive alignment across engineering teams.\n- Experience working on SaaS platforms or with service-oriented architectures.\n- Strong written and verbal communication skills, with the ability to articulate technical vision and strategy to both technical and non-technical stakeholders.\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related quantitative field, or equivalent practical ex"
     },
     {
       "id": "gh-8530855002",
@@ -2028,7 +1959,7 @@
       "department": "Professional Services Operations",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8530855002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "e0de6101007aa11e0d3885a489cb40ce554502a57b9e39160b30882a584bdd65",
@@ -2084,50 +2015,42 @@
       "id": "gh-7651346002",
       "title": "Staff Software Engineer ",
       "level": "Staff",
-      "desc": "P-375\n\n We are hiring a Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n As an execut...",
+      "desc": "P-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the w...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7651346002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "6c7387780719a268c05748e6911b52ec5e114f4f806de01083889f8a4509a106",
+      "contentHash": "43734e751605fc89b228875dceeee2a00a83f4e01e6a8201ce418bf00ac6d458",
       "competencies": [
         "golang",
+        "react",
         "systemdesign"
       ],
       "requiredSkills": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
-        "Distributed Systems",
+        "Next.js",
+        "Feature Engineering",
         "Operating Systems",
-        "Jira & Agile",
+        "Distributed Systems",
         "Algorithms",
-        "Data Structures"
+        "Data Structures",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Solve real business needs at large scale by applying your software engineering.",
-        "Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers",
-        "Low level systems debugging, performance measurement &amp; optimization on large production clusters.",
-        "Build architecture design, influence product roadmap, and take ownership and responsibility over new projects",
-        "Plan and lead complicated technical projects that work with several teams within the company.",
-        "A strong influencer or driver in the organization’s roadmap and direction.",
-        "Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.",
-        "Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation)."
-      ],
-      "requiredQualifications": [
-        "Use your deep experience to help prevent and investigate production issues.",
-        "12+ years industry experience building and supporting large-scale distributed systems.",
-        "Experience driving company initiatives towards customer satisfaction."
-      ],
-      "fullText": "Staff Software Engineer \n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n We are hiring a Staff Software Engineer for Databricks' Engineering team reporting to an Engineering Leader. You will be part of the Databricks engineering organization, working with teams that develop Databricks products and features for thousands of enterprises worldwide.\n\n Key Characteristics \n\n As an executive engineering individual contributor at Databricks, you will have full ownership of the product or infrastructure direction in a major area, driving it from initial development to scalable solutions with clear business impact. You will serve as a force multiplier by elevating stability, reliability, and organizational processes, while bringing deep expertise in large-scale distributed systems. You will mentor senior engineers, contribute to recruiting, and lead high-impact company projects, often tackling complex problems beyond their comfort zone. \n\n Job Description \n\n At Databricks, we are obsessed with enabling data teams to solve the world's toughest problems, from security threat detection to cancer drug development. We do this by building and running the world's best data and AI infrastructure platform, so our customers can focus on the high value challenges that are central to their own missions.\n\n Our engineering teams build highly technical products that fulfill real, important needs in the world. We develop and operate one of the largest scale software platforms. The fleet consists of millions of virtual machines, generating terabytes of logs and processing exabytes of data per day. At our scale, we regularly observe cloud hardware, network, and operating system faults, and our software must gracefully shield our customers from any of the above.\n\n The Impact you will have: \n\n Solve real business needs at large scale by applying your software engineering.\n\n Deliver a highly scalable, available, and fault-tolerant engine processing hundreds of TB of data daily across thousands of customers\n\n Low level systems debugging, performance measurement &amp; optimization on large production clusters.\n\n Build architecture design, influence product roadmap, and take ownership and responsibility over new projects\n\n Use your deep experience to help prevent and investigate production issues.\n\n Plan and lead complicated technical projects that work with several teams within the company.\n\n A strong influencer or driver in the organization’s roadmap and direction.\n\n Lead a TLG or similar review committee, or initiate and sustain an org/eng-wide initiative driven by engineering needs.\n\n Break down complex problems quickly into potential solutions, knowns, and unknowns, and de-risk (through prototyping/validation).\n\n Contribute as a Technical Team Lead by mentoring others, lead sprint planning, delegating work and assignments to team members and participate in project planning.\n\n What we look for: \n\n 12+ years industry experience building and supporting large-scale distributed systems.\n\n Comfortable working towards a multi-year vision with incremental deliverables.\n\n Motivated by delivering customer value and impact.\n\n Strong foundation in algorithms and data structures and their real-world use cases.\n\n Experience driving company initiatives towards customer satisfaction.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever,"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer \n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n Our engineering teams build highly technical products at massive scale. We develop and operate one of the largest software platforms in the world, with a fleet of millions of virtual machines processing exabytes of data daily. At this scale, we regularly encounter cloud hardware, network, and operating system faults, and our software must gracefully shield customers from these challenges.\n\n The Impact You Will Have\n\n - Own the technical direction and architecture for a major product area or infrastructure component, driving it from initial development to production at scale with measurable business impact\n- Design and build highly scalable, fault-tolerant distributed systems that process hundreds of terabytes of data daily across thousands of customers\n- Lead complex, multi-quarter technical projects that span multiple teams and require coordination across the organization\n- Drive improvements in system reliability, performance, and operational excellence through deep technical expertise and organizational influence\n- Mentor senior engineers and elevate engineering practices across the team\n- Influence product roadmap and technical strategy through strong technical judgment and clear communication\n\n What We Look For\n\n - 8+ years of software engineering experience\n- Extensive experience building and operating large-scale distributed systems in production environments\n- Strong foundation in algorithms, data structures, and distributed systems fundamentals\n- Track record of leading complex technical projects from conception through delivery with measurable customer impact\n- Ability to break down ambiguous problems, identify solutions and risks, and drive execution through prototyping and validation\n- Experience with low-level systems debugging, performance optimization, and production issue resolution at scale\n- Strong communication skills and ability to influence technical direction across teams\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks th"
     },
     {
       "id": "gh-8944097002",
@@ -2224,53 +2147,45 @@
       "id": "gh-7601565002",
       "title": "Staff Software Engineer - Databases",
       "level": "Staff",
-      "desc": "P-375\n\n At Databricks, we build powerful infrastructure that accelerates innovation and enables data teams to deliver with confidence and scale. Our unified schema migration platform underpins automated, observable, and developer-friendly workflows—ensuring Databricks can continue evolving rapidly across thousands of d...",
+      "desc": "P-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the w...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7601565002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "9dbf7f9f9a2d3f0b530eaa8a25e049623abd4cd0ca7a2b64caab240d61283bb2",
+      "contentHash": "5ec7a4e1b8d2868f58b2d3ec7d044ef914cfcaac07236d500b320cee379bbd98",
       "competencies": [
+        "react",
         "databases",
         "devops",
         "systemdesign"
       ],
       "requiredSkills": [
+        "Next.js",
+        "Feature Engineering",
+        "System Design",
         "MySQL",
         "Prometheus",
         "CI/CD Pipelines",
-        "System Design",
-        "Feature Engineering"
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
+        "Next.js",
+        "Feature Engineering",
+        "System Design",
         "MySQL",
         "Prometheus",
         "CI/CD Pipelines",
-        "System Design",
-        "Feature Engineering"
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Schema Migration Platform: Architecting and maintaining automated schema change infrastructure for MySQL and TiDB, while implementing versioning, rollback, validation, and auditing for safe, predictable, and fast migrations.",
-        "Scale, Reliability &amp; Test Harness: Ensuring the platform operates across thousands of global databases with zero downtime, enhancing resilience, observability, and recovery, and building a test harness for migration and deployment validation.",
-        "Schema &amp; Data management: Designing infrastructure for safe, large-scale schema and data operations like backfills and purging. This includes ensuring backfill operations are monitored, retryable, minimally disruptive, and automated to align with schema/data evolution and maintain data integrity.",
-        "Ensuring the scalability and reliability of schema and data operations across Databricks’ global footprint.",
-        "Driving predictable deployments by architecting robust test harnesses and automation.",
-        "Guaranteeing the integrity of both schema and data through safe, efficient backfill strategies.",
-        "Track record of building and scaling mission-critical platforms supporting high-throughput, global services."
-      ],
-      "requiredQualifications": [
-        "Developer Experience &amp; CI/CD Integration: Designing intuitive tools and APIs for seamless schema and data change management, and embedding migration workflows into CI/CD pipelines to increase velocity and reduce friction.",
-        "Elevating the developer experience by building accessible, resilient tools that make complex migrations feel simple.",
-        "12+ years of professional experience in backend systems or platform engineering.",
-        "Experience in building platforms, infrastructure, or database engineering , especially with MySQL , TiDB .",
-        "Experience with schema migration frameworks, CI/CD automation and developer tooling.",
-        "Champion of developer experience , creating clear, reliable, and user-friendly workflows."
-      ],
-      "fullText": "Staff Software Engineer - Databases\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n At Databricks, we build powerful infrastructure that accelerates innovation and enables data teams to deliver with confidence and scale. Our unified schema migration platform underpins automated, observable, and developer-friendly workflows—ensuring Databricks can continue evolving rapidly across thousands of databases and 60+ mission-critical services.\n\n What You’ll Do \n\n As a Staff Software Engineer, you’ll lead the design, development, and reliability of our global platform that manages schema and data changes at scale:\n\n Schema Migration Platform: Architecting and maintaining automated schema change infrastructure for MySQL and TiDB, while implementing versioning, rollback, validation, and auditing for safe, predictable, and fast migrations.\n\n Scale, Reliability &amp; Test Harness: Ensuring the platform operates across thousands of global databases with zero downtime, enhancing resilience, observability, and recovery, and building a test harness for migration and deployment validation.\n\n Developer Experience &amp; CI/CD Integration: Designing intuitive tools and APIs for seamless schema and data change management, and embedding migration workflows into CI/CD pipelines to increase velocity and reduce friction.\n\n Schema &amp; Data management: Designing infrastructure for safe, large-scale schema and data operations like backfills and purging. This includes ensuring backfill operations are monitored, retryable, minimally disruptive, and automated to align with schema/data evolution and maintain data integrity.\n\n Your role will be crucial in: \n\n Ensuring the scalability and reliability of schema and data operations across Databricks’ global footprint.\n\n Driving predictable deployments by architecting robust test harnesses and automation.\n\n Elevating the developer experience by building accessible, resilient tools that make complex migrations feel simple.\n\n Guaranteeing the integrity of both schema and data through safe, efficient backfill strategies.\n\n What we look for: \n\n 12+ years of professional experience in backend systems or platform engineering.\n\n Experience in building platforms, infrastructure, or database engineering , especially with MySQL , TiDB .\n\n Track record of building and scaling mission-critical platforms supporting high-throughput, global services.\n\n Experience with schema migration frameworks, CI/CD automation and developer tooling.\n\n Champion of developer experience , creating clear, reliable, and user-friendly workflows.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where eve"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer - Databases\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n As a Staff Software Engineer, you will lead the design and operation of our global platform that manages schema and data changes at scale. You will architect automated infrastructure for safe, predictable migrations across thousands of databases, build robust test harnesses to validate deployments, and create developer-friendly tools that make complex operations simple and reliable. Your work will directly impact the scalability, reliability, and velocity of Databricks' global platform.\n\n The Impact You Will Have\n\n - Lead the design and implementation of automated schema migration infrastructure for MySQL and TiDB, including versioning, rollback, validation, and auditing capabilities\n- Ensure platform reliability and zero-downtime operations across thousands of global databases through enhanced resilience, observability, and recovery mechanisms\n- Build comprehensive test harnesses to validate migrations and deployments, enabling predictable and safe schema changes at scale\n- Design and implement infrastructure for large-scale data operations including backfills and purging, with monitoring, retry logic, and minimal disruption\n- Create intuitive developer tools and APIs that simplify schema and data change management\n- Integrate migration workflows into CI/CD pipelines to increase deployment velocity and reduce operational friction\n- Drive technical strategy and architectural decisions for database platform infrastructure\n\n What We Look For\n\n - 8+ years of software engineering experience\n- Experience building and operating large-scale distributed systems in production environments\n- Strong background in platform engineering, infrastructure development, or database systems\n- Experience with relational databases including MySQL or similar technologies\n- Track record of leading complex technical projects that span multiple systems or teams\n- Experience designing schema migration frameworks, CI/CD automation, or developer tooling\n- Ability to balance technical complexity with developer experience, creating reliable and user-friendly workflows\n- Strong problem-solving skills with focus on scalability, reliability, and operational excellence\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unifie"
     },
     {
       "id": "gh-8926498002",
@@ -2282,7 +2197,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8926498002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "92b273170031b66b11e5b6938c04f20dfa895bfd64779c4d71b5216f8e448840",
@@ -2349,16 +2264,16 @@
       "id": "gh-7601572002",
       "title": "Staff Software Engineer - Data Platform",
       "level": "Staff",
-      "desc": "P-375\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our custo...",
+      "desc": "P-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the w...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7601572002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "1227536f7c61d35b044637295957ff44892a304f337668d20651dc5c3362ec20",
+      "contentHash": "6c5d78ed50a31ea973ed69db54258076b912ecdb660f9948c6fdbd33993982a3",
       "competencies": [
         "react",
         "devops",
@@ -2367,34 +2282,24 @@
       "requiredSkills": [
         "Next.js",
         "Feature Engineering",
+        "Design Systems",
         "CI/CD Pipelines",
         "ETL Pipelines",
-        "Distributed Systems"
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
         "Next.js",
         "Feature Engineering",
+        "Design Systems",
         "CI/CD Pipelines",
         "ETL Pipelines",
-        "Distributed Systems"
+        "Distributed Systems",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "Design and run the cross-company Data Intelligence Platform, which contains every business and product metric used to run Databricks. You’ll play a key role in developing the right balance of data protection and ease of shareability for the Data Intelligence Platform as we transition to a public company.",
-        "Develop tooling and infrastructure to efficiently manage and run Databricks on Databricks at scale, across multiple clouds, geographies, and deployment types. This includes CI/CD processes, test frameworks for pipelines and data quality, and infrastructure-as-code tooling.",
-        "Partner with our engineering teams to provide leadership in developing the long-term vision and requirements for the Databricks product.",
-        "Build reliable data pipelines and solve data problems using Databricks, our partner’s products, and other OSS tools. Provide early feedback on the design and operations of these products.",
-        "Represent Databricks at academic and industrial conferences &amp; events.",
-        "Strong communication skills and the ability to operate effectively in fast-paced, cross-functional environments.",
-        "A strategic mindset with the ability to align engineering execution with longer-term product and company goals.",
-        "Passion for mentoring and developing other engineers."
-      ],
-      "requiredQualifications": [
-        "BS/MS/PhD in Computer Science or related majors, or equivalent experience.",
-        "10+ years of industry experience building and operating large-scale distributed systems.",
-        "4+ years of experience providing technical leadership on planet-scale production data systems",
-        "Experience leading architecture efforts for performance-sensitive systems (e.g., latency-critical services, multi-tenant platforms, large-scale indexing pipelines)."
-      ],
-      "fullText": "Staff Software Engineer - Data Platform\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n As a Staff Software Engineer working on the Data Platform team, you will leverage bleeding-edge AI developer tools and techniques to help build the Data Intelligence Platform for Databricks that will allow us to automate decision-making across the entire company. You will achieve this in collaboration with Databricks Product Teams, Data Science, and many more. You will define the future of a variety of tools spanning logging, orchestration, data transformation, metric store, governance platforms, and data consumption layers, just to name a few.\n\n The impact you will have: \n\n Design and run the cross-company Data Intelligence Platform, which contains every business and product metric used to run Databricks. You’ll play a key role in developing the right balance of data protection and ease of shareability for the Data Intelligence Platform as we transition to a public company.\n\n Develop tooling and infrastructure to efficiently manage and run Databricks on Databricks at scale, across multiple clouds, geographies, and deployment types. This includes CI/CD processes, test frameworks for pipelines and data quality, and infrastructure-as-code tooling.\n\n Partner with our engineering teams to provide leadership in developing the long-term vision and requirements for the Databricks product.\n\n Build reliable data pipelines and solve data problems using Databricks, our partner’s products, and other OSS tools. Provide early feedback on the design and operations of these products.\n\n Represent Databricks at academic and industrial conferences &amp; events.\n\n What we look for: \n\n BS/MS/PhD in Computer Science or related majors, or equivalent experience.\n\n 10+ years of industry experience building and operating large-scale distributed systems.\n\n 4+ years of experience providing technical leadership on planet-scale production data systems \n\n Experience leading architecture efforts for performance-sensitive systems (e.g., latency-critical services, multi-tenant platforms, large-scale indexing pipelines).\n\n Strong communication skills and the ability to operate effectively in fast-paced, cross-functional environments.\n\n A strategic mindset with the ability to align engineering execution with longer-term product and company goals.\n\n Passion for mentoring and developing other engineers.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, La"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer - Data Platform\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n The Data Platform team builds the Data Intelligence Platform that powers decision-making across Databricks. Working at the intersection of data infrastructure and AI, you will design systems that manage business and product metrics at scale, develop tooling to operate Databricks on Databricks across multiple clouds and geographies, and partner with engineering teams to shape the long-term vision of the Databricks product.\n\n The Impact You Will Have\n\n - Design and operate the cross-company Data Intelligence Platform, balancing data protection with accessibility as the company scales\n- Build tooling and infrastructure to efficiently manage and run Databricks on Databricks at scale across multiple clouds, geographies, and deployment types\n- Develop CI/CD processes, test frameworks for pipelines and data quality, and infrastructure-as-code tooling\n- Partner with engineering teams to provide technical leadership and define long-term product requirements\n- Build reliable data pipelines using Databricks, partner products, and open-source tools, providing early feedback on design and operations\n- Represent Databricks at academic and industrial conferences and events\n\n What We Look For\n\n - 8+ years of software engineering experience\n- Experience building and operating large-scale distributed systems in production environments\n- Experience leading architecture efforts for performance-sensitive systems including latency-critical services, multi-tenant platforms, or large-scale data pipelines\n- Experience providing technical leadership on production data systems at scale\n- Strong communication skills and ability to operate effectively in fast-paced, cross-functional environments\n- Strategic mindset with ability to align engineering execution with longer-term product and company goals\n- Passion for mentoring and developing other engineers\n- B.S., M.S., or Ph.D. in Computer Science or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on t"
     },
     {
       "id": "gh-7652016002",
@@ -2406,7 +2311,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7652016002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "5d467c4c8c7d353cdf2cf953b9ac2948d79381d8a45390b34a004f70010f5126",
@@ -2455,7 +2360,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8201686002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "4f2c71c147e7efd07c750dfb8c9a411053573403fd3fce29f0f8f394c8799ec3",
@@ -2615,7 +2520,7 @@
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7648669002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "14c1546a73e4c078bd5d917e637c8620d5ea22da450fbe5338c14868abab9b92",
@@ -2653,155 +2558,142 @@
       "id": "gh-7841778002",
       "title": "Staff Software Engineer - Search Platform",
       "level": "Staff",
-      "desc": "P-375\n\n The Search team at Databricks sits at the forefront of advancing AI/ML-powered products. Databricks’ customers are continuously creating new assets (tables, notebooks, dashboards, datarooms, pipelines, sql queries, ml models etc.) on the platform. Finding an asset is a critical user journey for Databricks’ cust...",
+      "desc": "P-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the w...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7841778002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "70729c07c282630bb3add9136764e3d436ccda044f1ec638f5dc016202d5ae40",
+      "contentHash": "4ccb1b6bac728d3ff9b4a8227ddbaa734cf4507e7f8d11b45b2b4b631861ed04",
       "competencies": [
+        "react",
         "ml",
-        "databases",
         "systemdesign"
       ],
       "requiredSkills": [
+        "Next.js",
+        "Feature Engineering",
         "Machine Learning",
         "Grafana",
-        "SQL",
         "Natural Language Processing",
         "Statistical Analysis & A/B Testing",
-        "Computer Science Fundamentals"
+        "Computer Science Fundamentals",
+        "Distributed Systems"
       ],
       "toolsAndTech": [
+        "Next.js",
+        "Feature Engineering",
         "Machine Learning",
         "Grafana",
-        "SQL",
         "Natural Language Processing",
         "Statistical Analysis & A/B Testing",
-        "Computer Science Fundamentals"
+        "Computer Science Fundamentals",
+        "Distributed Systems"
       ],
-      "responsibilities": [
-        "Drive the development and deployment of ML based search and discovery relevance models and systems integrated with Databricks' products and services.",
-        "Design and implement automated ML and NLP pipelines for data preprocessing, query understanding and rewrite, ranking and retrieval, and model evaluation, enabling rapid experimentation and iteration.",
-        "Contribute to building a robust framework for evaluating search ranking improvements - both offline and online.",
-        "BS+ (M.S. or PhD preferred) in Computer Science, or a related field.",
-        "Query understanding",
-        "Text mining",
-        "Recommendations",
-        "Personalization"
-      ],
-      "requiredQualifications": [
-        "Collaborate with product managers and cross-functional teams to drive technology-first initiatives that enable novel business strategies and product roadmaps for the search and discovery experience.",
-        "10+ years experience developing search relevance systems at scale in production or in high-impact research environments.",
-        "Experience applying LLM to search relevance",
-        "Experience in one or more of the following:"
-      ],
-      "fullText": "Staff Software Engineer - Search Platform\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n The Search team at Databricks sits at the forefront of advancing AI/ML-powered products. Databricks’ customers are continuously creating new assets (tables, notebooks, dashboards, datarooms, pipelines, sql queries, ml models etc.) on the platform. Finding an asset is a critical user journey for Databricks’ customers which helps them accomplish their tasks. \n\n As our Search product continues to evolve, we are seeking a Staff Engineer to lead enhancements to our Search Quality. We are focusing on enhancing search ranking, improving query understanding, building robust evals and growing the coverage of assets to enable seamless search at scale.\n\n Key Responsibilities \n\n Drive the development and deployment of ML based search and discovery relevance models and systems integrated with Databricks' products and services. \n\n Design and implement automated ML and NLP pipelines for data preprocessing, query understanding and rewrite, ranking and retrieval, and model evaluation, enabling rapid experimentation and iteration. \n\n Collaborate with product managers and cross-functional teams to drive technology-first initiatives that enable novel business strategies and product roadmaps for the search and discovery experience. \n\n Contribute to building a robust framework for evaluating search ranking improvements - both offline and online.\n\n What We’re Looking For \n\n BS+ (M.S. or PhD preferred) in Computer Science, or a related field.\n\n 10+ years experience developing search relevance systems at scale in production or in high-impact research environments.\n\n Experience applying LLM to search relevance\n\n Experience in one or more of the following: \n\n Query understanding\n\n NLP\n\n Text mining\n\n Recommendations\n\n Personalization\n\n Discovery\n\n Conversational AI \n\n Strong understanding of computer science fundamentals.\n\n Contributions to well-used open-source projects. \n\n Why Join Us? \n At Databricks, we are building state-of-the-art AI solutions that redefine how users interact with data and our products. You’ll have the opportunity to shape the future of AI-driven products at Databricks, work with cutting-edge models, and collaborate with a world-class team of AI and ML experts.\n\n If you're excited about pushing the boundaries of AI in real-world applications, we’d love to hear from you!\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Da"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer - Search Platform\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-375\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n The Search team sits at the forefront of advancing AI/ML-powered products at Databricks. As customers continuously create new assets on the platform — tables, notebooks, dashboards, pipelines, models, and more — finding the right asset becomes critical to their success. You will lead enhancements to search quality, focusing on ranking, query understanding, evaluation frameworks, and asset coverage to enable seamless search at scale.\n\n The Impact You Will Have\n\n - Lead the design and implementation of ML-based search and discovery systems that power asset retrieval across the Databricks platform.\n- Build automated ML and NLP pipelines for data preprocessing, query understanding, ranking, and model evaluation to enable rapid experimentation.\n- Drive technical strategy for search relevance, applying large language models and advanced NLP techniques to improve user experience.\n- Establish robust evaluation frameworks for search ranking improvements, including offline metrics and online experimentation.\n- Collaborate with product management and cross-functional teams to shape the roadmap for search and discovery experiences.\n- Mentor engineers and raise the technical bar for machine learning and search engineering across the organization.\n\n What We Look For\n\n - 8+ years of software engineering experience.\n- Experience developing search relevance systems at scale in production or high-impact research environments.\n- Experience applying large language models to search relevance problems.\n- Strong background in one or more areas including query understanding, NLP, text mining, recommendations, personalization, or conversational AI.\n- Deep understanding of computer science fundamentals and distributed systems.\n- Proven ability to lead complex technical projects from conception through delivery.\n- Strong collaboration and communication skills, with the ability to influence technical direction across teams.\n- B.S., M.S., or Ph.D. in Computer Science or a related field, or equivalent practical experience.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and p"
     },
     {
       "id": "gh-8439348002",
       "title": "Staff Software Engineer- Search Quality",
       "level": "Staff",
-      "desc": "P-1408\n\n The Mission \n\n We are democratizing Data and AI for every enterprise user. Our vision is a world where anyone can master their organization’s data through Apps and AI Agents. We are building the retrieval backbone for two worlds: the high-precision context layer for AI agents and the intuitive search experienc...",
+      "desc": "P-1408\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8439348002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "34b67c92dc5aa6d42f07141ce2dc5d8e75ad172f8b53dfd7f5fd70a620644f7b",
+      "contentHash": "46e36fdc2bec42da6f9fa15609c86a9cd79dd81b1b84aef8c61bf6d6519ffbb7",
       "competencies": [
         "golang",
+        "react",
         "databases",
         "systemdesign"
       ],
       "requiredSkills": [
+        "Next.js",
+        "Feature Engineering",
         "Natural Language Processing",
         "SQL",
-        "Elasticsearch",
         "Algorithms",
-        "Generative AI"
+        "Vector Search & Embeddings",
+        "Elasticsearch",
+        "Generative AI",
+        "Computer Science Fundamentals"
       ],
       "toolsAndTech": [
+        "Next.js",
+        "Feature Engineering",
         "Natural Language Processing",
         "SQL",
-        "Elasticsearch",
         "Algorithms",
-        "Generative AI"
+        "Vector Search & Embeddings",
+        "Elasticsearch",
+        "Generative AI",
+        "Computer Science Fundamentals"
       ],
-      "responsibilities": [
-        "As a Search Quality Engineer, you sit at the heart of this transformation. You aren't just building a search engine; you are building the contextual backbone of the entire company.",
-        "You will own the quality of results for two distinct but deeply connected \"users\":",
-        "The AI Agent: Optimizing the retrieval layer that allows LLMs to reason over data they weren’t trained on, ensuring they have the \"ground truth\" needed to synthesize accurate, high-stakes business actions.",
-        "Hybrid Retrieval: Balancing traditional keyword-based search (for exactness) with semantic vector search (for intent).",
-        "Dual-Optimization: Fine-tuning ranking models that satisfy both human readability and LLM-ready context.",
-        "High-Stakes Accuracy: In a world of Agents, poor search quality leads to hallucinations. You will build the guardrails and relevance scoring that ensure our AI stays grounded in reality.",
-        "Data Heterogeneity: Connecting the dots across structured SQL tables, unstructured docs, and real-time business metrics.",
-        "You will have a front-row seat to the Agentic revolution. If you want to solve the hardest problems in data discovery and see your work power the decision-making of thousands of people, let’s talk."
-      ],
-      "requiredQualifications": [
-        "The Human User: Improving the traditional search experience so employees can find assets and answers through intuitive, high-recall interfaces."
-      ],
-      "fullText": "Staff Software Engineer- Search Quality\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n The Mission \n\n We are democratizing Data and AI for every enterprise user. Our vision is a world where anyone can master their organization’s data through Apps and AI Agents. We are building the retrieval backbone for two worlds: the high-precision context layer for AI agents and the intuitive search experience for people goal is the same: instant, accurate, and actionable insight.\n\n The Role : \n\n As a Search Quality Engineer, you sit at the heart of this transformation. You aren't just building a search engine; you are building the contextual backbone of the entire company.\n\n You will own the quality of results for two distinct but deeply connected \"users\":\n\n The AI Agent: Optimizing the retrieval layer that allows LLMs to reason over data they weren’t trained on, ensuring they have the \"ground truth\" needed to synthesize accurate, high-stakes business actions.\n\n The Human User: Improving the traditional search experience so employees can find assets and answers through intuitive, high-recall interfaces.\n\n The Technical Challenge \n\n This isn't a solved problem. You will be tackling \"Search\" in its most evolved form:\n\n Hybrid Retrieval: Balancing traditional keyword-based search (for exactness) with semantic vector search (for intent).\n\n Dual-Optimization: Fine-tuning ranking models that satisfy both human readability and LLM-ready context.\n\n High-Stakes Accuracy: In a world of Agents, poor search quality leads to hallucinations. You will build the guardrails and relevance scoring that ensure our AI stays grounded in reality.\n\n Data Heterogeneity: Connecting the dots across structured SQL tables, unstructured docs, and real-time business metrics.\n\n Why This is the Place to Be \n\n You will have a front-row seat to the Agentic revolution. If you want to solve the hardest problems in data discovery and see your work power the decision-making of thousands of people, let’s talk.\n\n What We’re Looking For \n\n The IR Specialist: You know your way around Lucene/Elasticsearch, embeddings, and ranking algorithms.\n\n The Quality and Metrics Obsessive: You understand that \"relevance\" is subjective and love building evaluation frameworks (human-in-the-loop and LLM-based) to measure it. You are obsessed with relevance metrics (nDCG, MRR, Precision@K).\n\n The Bridge Builder: You’re excited to apply traditional Information Retrieval (IR) wisdom to the cutting-edge world of Retrieval-Augmented Generation (RAG).\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer- Search Quality\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n As a Search Quality Engineer, you will build the contextual backbone that powers both AI agents and human users across the Databricks platform. You will own the quality of retrieval systems that enable LLMs to reason over data they weren't trained on, ensuring accurate, high-stakes business actions. Your work will connect structured and unstructured data sources, balancing traditional keyword-based search with semantic vector search to deliver high-recall, intuitive experiences.\n\n The Impact You Will Have\n\n - Own the design and implementation of hybrid retrieval systems that balance keyword-based and semantic vector search for both AI agents and human users\n- Build and optimize ranking models that satisfy human readability requirements while providing LLM-ready context\n- Develop evaluation frameworks and relevance scoring systems to ensure search quality and prevent AI hallucinations\n- Drive technical strategy for search quality across heterogeneous data sources including SQL tables, unstructured documents, and real-time metrics\n- Lead cross-team initiatives to improve data discovery and retrieval infrastructure at scale\n- Mentor engineers and raise the technical bar for search and information retrieval across the organization\n\n What We Look For\n\n - 8+ years of software engineering experience\n- Deep experience with information retrieval systems including search engines, ranking algorithms, and relevance optimization\n- Strong understanding of hybrid retrieval approaches combining traditional IR methods with semantic search and embeddings\n- Experience building and operating evaluation frameworks for search quality, including relevance metrics such as nDCG, MRR, and Precision@K\n- Proficiency in technologies including Lucene, Elasticsearch, or similar search platforms\n- Experience with Retrieval-Augmented Generation (RAG) architectures and LLM-based systems\n- Strong problem-solving skills and ability to balance competing optimization goals across different user types\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram"
     },
     {
       "id": "gh-7958688002",
       "title": "Staff Software Engineer  (Search Ranking)",
       "level": "Staff",
-      "desc": "P-1408\n\n The Applied AI team at Databricks sits at the forefront of advancing AI/ML-powered products. Databricks’ customers are continuously creating new assets (tables, notebooks, dashboards, datarooms, pipelines, sql queries, ml models etc.) on the platform. Some of them can have hundreds of millions of assets. Findi...",
+      "desc": "P-1408\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the...",
       "location": "Bengaluru, India",
       "workplaceType": "unspecified",
       "department": "Engineering - Pipeline",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7958688002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
-      "contentHash": "b6f1fdafabfe5ffc6849042f605d811eba34d080622c5d40fb9bb8a145908b77",
+      "contentHash": "41a92647e87685e56b59db8b82f9913354268f56f25a787adee72d3a6d1cef2e",
       "competencies": [
+        "java",
+        "python",
+        "golang",
+        "react",
         "ml",
-        "databases",
         "systemdesign"
       ],
       "requiredSkills": [
+        "Next.js",
+        "Feature Engineering",
         "Machine Learning",
         "Grafana",
-        "SQL",
         "Natural Language Processing",
         "Statistical Analysis & A/B Testing",
-        "Computer Science Fundamentals"
+        "Computer Science Fundamentals",
+        "Distributed Systems",
+        "Python",
+        "Java",
+        "Go"
       ],
       "toolsAndTech": [
+        "Next.js",
+        "Feature Engineering",
         "Machine Learning",
         "Grafana",
-        "SQL",
         "Natural Language Processing",
         "Statistical Analysis & A/B Testing",
-        "Computer Science Fundamentals"
+        "Computer Science Fundamentals",
+        "Distributed Systems",
+        "Python",
+        "Java",
+        "Go"
       ],
-      "responsibilities": [
-        "Drive the development and deployment of ML based search and discovery relevance models and systems integrated with Databricks' products and services.",
-        "Design and implement automated ML and NLP pipelines for data preprocessing, query understanding and rewrite, ranking and retrieval, and model evaluation, enabling rapid experimentation and iteration.",
-        "Contribute to building a robust framework for evaluating search ranking improvements - both offline and online.",
-        "BS+ (M.S. or PhD preferred) in Computer Science, or a related field.",
-        "Query understanding",
-        "Text mining",
-        "Recommendations",
-        "Personalization"
-      ],
-      "requiredQualifications": [
-        "Collaborate with product managers and cross-functional teams to drive technology-first initiatives that enable novel business strategies and product roadmaps for the search and discovery experience.",
-        "10+ years experience developing search relevance systems at scale in production or in high-impact research environments.",
-        "Experience applying LLM to search relevance",
-        "Experience in one or more of the following:"
-      ],
-      "fullText": "Staff Software Engineer  (Search Ranking)\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n The Applied AI team at Databricks sits at the forefront of advancing AI/ML-powered products. Databricks’ customers are continuously creating new assets (tables, notebooks, dashboards, datarooms, pipelines, sql queries, ml models etc.) on the platform. Some of them can have hundreds of millions of assets. Finding an asset is a critical user journey for Databricks’ customers which helps them accomplish their tasks. \n\n As our Search product continues to evolve, we are seeking a Staff Engineer to lead enhancements to our Search Quality. In 2026, we will focus on enhancing search ranking, improving query understanding, building robust evals and growing the coverage of assets to enable seamless search at scale.\n\n Key Responsibilities \n\n Drive the development and deployment of ML based search and discovery relevance models and systems integrated with Databricks' products and services. \n\n Design and implement automated ML and NLP pipelines for data preprocessing, query understanding and rewrite, ranking and retrieval, and model evaluation, enabling rapid experimentation and iteration. \n\n Collaborate with product managers and cross-functional teams to drive technology-first initiatives that enable novel business strategies and product roadmaps for the search and discovery experience. \n\n Contribute to building a robust framework for evaluating search ranking improvements - both offline and online.\n\n What We’re Looking For \n\n BS+ (M.S. or PhD preferred) in Computer Science, or a related field.\n\n 10+ years experience developing search relevance systems at scale in production or in high-impact research environments.\n\n Experience applying LLM to search relevance\n\n Experience in one or more of the following: \n\n Query understanding\n\n NLP\n\n Text mining\n\n Recommendations\n\n Personalization\n\n Discovery\n\n Conversational AI \n\n Strong understanding of computer science fundamentals.\n\n Contributions to well-used open-source projects. \n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram .\n\n Benefits\n\n At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here .\n\n Our Commitment to Diversity and Inclusion \n\n At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics.\n\n Compliance \n\n If access to export-c"
+      "responsibilities": [],
+      "requiredQualifications": [],
+      "fullText": "Staff Software Engineer  (Search Ranking)\n\nLocation: Bengaluru, India\nDepartment: Engineering - Pipeline\n\nP-1408\n\n Staff Software Engineer (L6)\n\n Location: Bangalore, India\n\n At Databricks, we are passionate about enabling data teams to solve the world's toughest problems — from making the next mode of transportation a reality to accelerating the development of medical breakthroughs. We do this by building and running the world's best data and AI infrastructure platform so our customers can use deep data insights to improve their business. Founded by engineers — and customer obsessed — we leap at every opportunity to tackle technical challenges, from designing next-gen UI/UX for interfacing with data to scaling our services and infrastructure across millions of virtual machines. And we're only getting started.\n\n The Applied AI team at Databricks sits at the forefront of advancing AI/ML-powered products. As our platform grows to support hundreds of millions of customer assets—tables, notebooks, dashboards, pipelines, models, and more—finding the right asset becomes a critical user journey. You will lead enhancements to our Search Quality, focusing on search ranking, query understanding, robust evaluation frameworks, and expanding asset coverage to enable seamless search at scale.\n\n The Impact You Will Have\n\n - Lead the design and implementation of ML-based search and discovery systems that power asset retrieval across the Databricks platform.\n- Build automated ML and NLP pipelines for data preprocessing, query understanding, ranking, and model evaluation to enable rapid experimentation.\n- Drive technical strategy for search relevance, applying large language models and advanced NLP techniques to improve query understanding and ranking quality.\n- Develop robust evaluation frameworks for measuring search ranking improvements through offline and online experimentation.\n- Collaborate with product managers and cross-functional teams to define and deliver technology-first initiatives that shape the search and discovery roadmap.\n- Mentor engineers and raise the technical bar for ML and search engineering across the organization.\n\n What We Look For\n\n - 8+ years of software engineering experience.\n- 10+ years of experience developing search relevance systems at scale in production or high-impact research environments.\n- Experience applying large language models to search relevance problems.\n- Deep expertise in one or more areas including query understanding, NLP, text mining, recommendations, personalization, or conversational AI.\n- Strong understanding of computer science fundamentals and distributed systems.\n- Experience with one or more programming languages including Python, Java, Scala, or Go.\n- Track record of leading complex technical projects from conception through delivery.\n- B.S., M.S., or Ph.D. in Computer Science, Engineering, or a related field, or equivalent practical experience.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Ins"
     },
     {
       "id": "gh-7845334002",
@@ -2813,7 +2705,7 @@
       "department": "Support",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=7845334002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "fe3230fb532e3ac56e936efe1414459250d2cb828779b91231a4e1d01e172941",
@@ -2875,7 +2767,7 @@
       "department": "Support",
       "source": "Official Databricks India Greenhouse ATS Feed",
       "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8788176002",
-      "lastVerified": "2026-11-25T11:00:20.813Z",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
       "confidence": "high",
       "status": "verified",
       "contentHash": "65f7a86585f9992793bfd0c1dbd5713ea4bda17da8620831e12ab29b93585043",
@@ -2931,6 +2823,130 @@
         "Experience owning critical phases of the incident lifecycle from detection through resolution and post-mortem analysis in demanding production environments."
       ],
       "fullText": "Team Lead - Platform Monitoring Engineer\n\nLocation: Bengaluru, India\nDepartment: Support\n\nTeam Lead - Platform Monitoring Engineer\n\n We are seeking an experienced, hands-on Team Lead to shape the future of platform observability and proactive customer monitoring. This is a high-impact technical role for someone who thrives at the intersection of platform reliability, incident response, and customer obsession.\n\n The successful candidate will balance technical depth with people leadership: driving monitoring solutions, alerting mechanisms, and customer-focused incident detection tools, and raising the bar of the engineers around them. You will partner closely with cross-functional engineering teams to investigate and resolve incidents, drive root cause analyses, and champion solutions that improve customer reliability and stability of the Databricks Platform.\n\n The Impact You Will Have \n Technical Leadership\n\n Lead platform incident investigation, coordinating cross-functional teams through rapid detection, mitigation, and resolution to minimize customer impact.\n\n Conduct thorough post-incident root cause analysis across infrastructure, services, and cloud providers to identify systemic patterns and prevent future occurrences.\n\n Guide the design and implementation of customer-focused alerting pipelines and end-to-end observability workflows that expand detection coverage and reduce mean time to detection.\n\n Build automation tools, establish reusable monitoring patterns, and resolve reliability gaps that directly impact customer experience.\n\n Participate in and help structure the on-call rotation, leading by example during high-severity incidents.\n\n People Leadership\n\n Collaborate with internal customer stakeholders to design and execute the customers' reliability plan, focusing on observability and monitoring.\n\n Participate in growing the local team of Platform Monitoring Engineers, including hiring and onboarding.\n\n Act as the local point of leadership and a connection to the broader global team, aligning local execution with global goals.\n\n What We Are Looking For: \n \n Minimum of 6 years of experience as an SRE, DevOps Engineer, CRE, Production Engineer, or similar role.\n\n 2+ years of experience leading engineers, whether as a people manager or team lead, with clear mentorship and coaching responsibilities.\n\n Production-level experience with at least one major cloud provider (AWS, Azure, GCP) and proficiency in container and orchestration technologies (Docker, Kubernetes).\n\n Hands-on experience with monitoring, logging, and alerting tools such as ELK, Prometheus, Grafana, PagerDuty, etc. Ability to architect monitoring solutions that correlate metrics, logs, and traces.\n\n Strong proficiency in Python or similar languages with the ability to build production-quality automation tools.\n\n Experience owning critical phases of the incident lifecycle from detection through resolution and post-mortem analysis in demanding production environments.\n\n Excellent communication skills, with the ability to influence cross-functional partners.\n\n BS, Master's, or PhD in Computer Science or Computer Engineering, or a related Engineering field.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquarte"
+    },
+    {
+      "id": "gh-8735814002",
+      "title": "Delivery Solutions Architect",
+      "level": "Staff",
+      "desc": "CSQ427R264\n\n At Databricks, we are on a mission to empower our customers to solve the world's toughest data problems by utilising the the Databricks Data Intelligence Platform.\n\nAs a Delivery Solutions Architect (DSA), you will play an important role during this journey. You will collaborate with our sales and field en...",
+      "location": "Mumbai, India",
+      "workplaceType": "unspecified",
+      "department": "Delivery Solutions Architects",
+      "source": "Official Databricks India Greenhouse ATS Feed",
+      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8735814002",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "9b4d57a9a59c9c232e975bf4b5ebbf5e5d0e8c7dccace44bd3cc93d0441b3811",
+      "competencies": [
+        "python",
+        "golang",
+        "databases",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Data Structures & Algorithms",
+        "Python",
+        "SQL"
+      ],
+      "toolsAndTech": [
+        "Data Structures & Algorithms",
+        "Python",
+        "SQL"
+      ],
+      "responsibilities": [
+        "Engage with Solutions Architects to understand the full use case demand plan for prioritised customers",
+        "Lead the post-technical win technical account strategy and execution plan for the majority of Databricks use cases within our most strategic accounts",
+        "Be the accountable technical leader assigned to specific use cases and customer(s) across multiple selling teams and internal stakeholders, creating certainty from uncertainty and driving onboarding, enablement, success, go-live and healthy consumption of the workloads where the customer has made the decision to consume Databricks",
+        "Be the first contact for any technical issues or questions related to production/go live status of agreed upon use cases within an account, oftentimes services multiple use cases within the largest and most complex organizations",
+        "Leverage both Shared Services, User Education, Onboarding/Technical Services and Support resources, along with escalating to expert level technical experts to build the right tasks that are beyond your scope of activities or expertise",
+        "Create, own and execute a point-of-view as to how key use cases can be accelerated into production, coordinating with Professional Services (PS) resources on the delivery of PS Engagement proposals",
+        "Navigate Databricks Product and Engineering teams for new product Innovations, private previews and upgrade needs",
+        "Develop an execution plan that covers all activities of all customer-facing technical roles and teams to cover the below work streams: Main use cases moving from ‘win’ to production"
+      ],
+      "requiredQualifications": [
+        "10+ years of experience where you have been accountable for technical project / program delivery within the domain of Data and AI and where you can contribute to technical debate and design choices with customers",
+        "Programming experience in Python, SQL or Scala",
+        "Experience in a customer-facing pre-sales, technical architecture, customer success, or consulting role",
+        "Experience resolving complex and important escalation with senior customer executives",
+        "Experience conducting open-ended discovery workshops, creating strategic roadmaps, conducting business analysis and managing delivery of complex programmes/projects",
+        "Bachelor's degree in Computer Science, Information Systems, Engineering, or equivalent experience through work experience"
+      ],
+      "fullText": "Delivery Solutions Architect\n\nLocation: Mumbai, India\nDepartment: Delivery Solutions Architects\n\nCSQ427R264\n\n At Databricks, we are on a mission to empower our customers to solve the world's toughest data problems by utilising the the Databricks Data Intelligence Platform.\n\nAs a Delivery Solutions Architect (DSA), you will play an important role during this journey. You will collaborate with our sales and field engineering teams to accelerate the adoption and growth of the Databricks platform in your customers. You will also help ensure customer success by increasing focus and technical accountability to our most complex customers who need guidance to accelerate usage on Databricks workloads that they have already selected, helping them maximise the value they get of our platform and the return on investment.\n\nThis is a hybrid technical and commercial role. It is commercial in the sense that you will drive growth in your assigned customers and use cases through leading your customers' stakeholders, building executive relationships, orchestration of other focused/ specialised teams within Databricks, and creating and driving plans and strategies for Databricks colleagues to build upon. This is in parallel to being technical, with expectations being that you become the post-sale technical lead across all Databricks products. This requires you to use your skills and technical credibility to engage and communicate at all levels with an organisation. You will report directly to a DSA Manager within the Field Engineering organization.\n\n The impact you will have: \n \n Engage with Solutions Architects to understand the full use case demand plan for prioritised customers\n\n Lead the post-technical win technical account strategy and execution plan for the majority of Databricks use cases within our most strategic accounts\n\n Be the accountable technical leader assigned to specific use cases and customer(s) across multiple selling teams and internal stakeholders, creating certainty from uncertainty and driving onboarding, enablement, success, go-live and healthy consumption of the workloads where the customer has made the decision to consume Databricks\n\n Be the first contact for any technical issues or questions related to production/go live status of agreed upon use cases within an account, oftentimes services multiple use cases within the largest and most complex organizations\n\n Leverage both Shared Services, User Education, Onboarding/Technical Services and Support resources, along with escalating to expert level technical experts to build the right tasks that are beyond your scope of activities or expertise\n\n Create, own and execute a point-of-view as to how key use cases can be accelerated into production, coordinating with Professional Services (PS) resources on the delivery of PS Engagement proposals\n\n Navigate Databricks Product and Engineering teams for new product Innovations, private previews and upgrade needs\n\n Develop an execution plan that covers all activities of all customer-facing technical roles and teams to cover the below work streams:\n \n Main use cases moving from ‘win’ to production\n\n Enablement / user growth plan\n\n Product adoption (strategy and activities to increase adoption of Databricks’ Lakehouse vision)\n\n Organic needs for current investment (e.g. cloud cost control, tuning &amp; optimization)\n\n Executive and operational governance\n\n Provide internal and external updates - KPI reporting on the status of usage and customer"
+    },
+    {
+      "id": "gh-8829029002",
+      "title": "Software Engineer, Infrastructure",
+      "level": "Mid-Level",
+      "desc": "GAQ327R265\n\n About the Role \n\n At Databricks Information Technology, we are a product-led organisation transforming the way we work, from how easy it is to use our IT services to the applications we develop to help us scale seamlessly amid incredible growth.\n\n As an IT Software Engineer (Infrastructure) , you will be a...",
+      "location": "Bengaluru, India",
+      "workplaceType": "unspecified",
+      "department": "Infrastructure",
+      "source": "Official Databricks India Greenhouse ATS Feed",
+      "sourceUrl": "https://databricks.com/company/careers/open-positions/job?gh_jid=8829029002",
+      "lastVerified": "2026-11-28T09:59:25.516Z",
+      "confidence": "high",
+      "status": "verified",
+      "contentHash": "830445b86c777b8a8d14c30bce23952e27116991cff10dd0c6cc9ab8975171d8",
+      "competencies": [
+        "python",
+        "aws",
+        "kubernetes",
+        "devops",
+        "systemdesign"
+      ],
+      "requiredSkills": [
+        "Prometheus",
+        "Site Reliability Engineering",
+        "AWS",
+        "Terraform",
+        "Kubernetes",
+        "EKS",
+        "Azure",
+        "CI/CD Pipelines",
+        "GitHub Actions",
+        "Technical Leadership & Mentorship",
+        "Ansible",
+        "Python",
+        "State Management",
+        "Docker",
+        "GCP"
+      ],
+      "toolsAndTech": [
+        "Prometheus",
+        "Site Reliability Engineering",
+        "AWS",
+        "Terraform",
+        "Kubernetes",
+        "EKS",
+        "Azure",
+        "CI/CD Pipelines",
+        "GitHub Actions",
+        "Technical Leadership & Mentorship",
+        "Ansible",
+        "Python",
+        "State Management",
+        "Docker",
+        "GCP"
+      ],
+      "responsibilities": [
+        "Automate: Develop and deploy production-grade infrastructure on cloud platforms (AWS preferred) using Infrastructure as Code tools like Terraform or Pulumi.",
+        "Orchestration: Deploy, manage, and scale containerised workloads using Kubernetes (EKS/AKS), focusing on security, reliability, and resource efficiency.",
+        "CI/CD Excellence: Build and maintain robust deployment pipelines using GitHub Actions, including both cloud-hosted and self-hosted runners for specialised build requirements.",
+        "Drive \"Observable by Default\" Frameworks: Implement infrastructure standards to ensure new internal applications are secure, with logging, metrics, and tracing configured out of the box.",
+        "Tooling, Scripting &amp; AI: Build internal CLI tools, AI-assisted workflows, and automation scripts to streamline developer workflows and reduce manual toil.",
+        "Partner Cross-Functionally: Collaborate with Security, Engineering, Infrastructure, and Support teams to execute technical projects aligned with business outcomes.",
+        "Document &amp; Knowledge Share: Participate in peer code reviews, maintain operational playbooks/failure triage guides, and help onboard team members onto platforms you maintain.",
+        "Independent Execution: Proven ability to own end-to-end tasks with guidance from Tech Leads, breaking down broader technical goals into actionable technical solutions."
+      ],
+      "requiredQualifications": [
+        "Software Engineering Expertise: 3–5 years of hands-on software engineering experience, with strong proficiency in Python for scripting, automation, and tooling (required).",
+        "Infrastructure as Code (IaC): Solid working knowledge of Terraform (modules, state management) or Pulumi (preferred).",
+        "Cloud &amp; Containerization: Hands-on experience building and supporting production workloads in AWS (or Azure/GCP), along with Kubernetes and Docker fundamentals.",
+        "CI/CD &amp; Automation: Practical experience designing, maintaining, and troubleshooting pipelines using GitHub Actions or similar modern CI/CD tools.",
+        "Observability Foundations: Practical understanding of observability pillars (logging, metrics, tracing) and hands-on experience integrating tools such as Datadog, Prometheus, or Grafana."
+      ],
+      "fullText": "Software Engineer, Infrastructure\n\nLocation: Bengaluru, India\nDepartment: Infrastructure\n\nGAQ327R265\n\n About the Role \n\n At Databricks Information Technology, we are a product-led organisation transforming the way we work, from how easy it is to use our IT services to the applications we develop to help us scale seamlessly amid incredible growth.\n\n As an IT Software Engineer (Infrastructure) , you will be a core technical contributor on the IT CorpEng Infrastructure team, owning and driving the evolution of our core infrastructure and observability platforms. This role requires a strong software engineering mindset, deep technical breadth across SRE and infrastructure worlds, and the ability to deliver high-quality, scalable solutions for currently \"immature\" system problems. You will be responsible for building resilient, scalable, and automated infrastructure that empowers our development teams. As a member of the team, you will bridge the gap between software engineering and systems architecture, ensuring our AWS environment is cost-optimised, secure, and highly available.\n\n The impact you will have: \n\n Automate: Develop and deploy production-grade infrastructure on cloud platforms (AWS preferred) using Infrastructure as Code tools like Terraform or Pulumi.\n\n Orchestration: Deploy, manage, and scale containerised workloads using Kubernetes (EKS/AKS), focusing on security, reliability, and resource efficiency.\n\n CI/CD Excellence: Build and maintain robust deployment pipelines using GitHub Actions, including both cloud-hosted and self-hosted runners for specialised build requirements.\n\n Drive \"Observable by Default\" Frameworks: Implement infrastructure standards to ensure new internal applications are secure, with logging, metrics, and tracing configured out of the box.\n\n Tooling, Scripting &amp; AI: Build internal CLI tools, AI-assisted workflows, and automation scripts to streamline developer workflows and reduce manual toil.\n\n Partner Cross-Functionally: Collaborate with Security, Engineering, Infrastructure, and Support teams to execute technical projects aligned with business outcomes.\n\n Document &amp; Knowledge Share: Participate in peer code reviews, maintain operational playbooks/failure triage guides, and help onboard team members onto platforms you maintain.\n\n What we look for: \n\n Software Engineering Expertise: 3–5 years of hands-on software engineering experience, with strong proficiency in Python for scripting, automation, and tooling (required).\n\n Infrastructure as Code (IaC): Solid working knowledge of Terraform (modules, state management) or Pulumi (preferred).\n\n Cloud &amp; Containerization: Hands-on experience building and supporting production workloads in AWS (or Azure/GCP), along with Kubernetes and Docker fundamentals.\n\n CI/CD &amp; Automation: Practical experience designing, maintaining, and troubleshooting pipelines using GitHub Actions or similar modern CI/CD tools.\n\n Observability Foundations: Practical understanding of observability pillars (logging, metrics, tracing) and hands-on experience integrating tools such as Datadog, Prometheus, or Grafana.\n\n Independent Execution: Proven ability to own end-to-end tasks with guidance from Tech Leads, breaking down broader technical goals into actionable technical solutions.\n\n About Databricks \n\n Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&amp;T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortu"
     }
   ]
 }
