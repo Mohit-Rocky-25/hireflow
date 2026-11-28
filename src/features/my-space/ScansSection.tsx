@@ -81,7 +81,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
                 <p className="text-xs text-[#9b9b8c] font-medium">{group.roleTitle}</p>
               )}
             </div>
-            <span className="text-xs font-mono text-[#6d6d61]">
+            <span className="text-xs font-mono text-[#9b9b8c]">
               {group.audits.length} {group.audits.length === 1 ? 'scan' : 'scans'}
             </span>
           </div>
@@ -105,7 +105,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
                     <div className="font-semibold text-sm text-[#f1f1e8] group-hover:text-[#faff69] transition-colors truncate">
                       {audit.resume.label}
                     </div>
-                    <div className="text-xs text-[#6d6d61] mt-1 flex items-center gap-2">
+                    <div className="text-xs text-[#9b9b8c] mt-1 flex items-center gap-2">
                       <span
                         className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider ${
                           audit.kind === 'talentlens'
@@ -122,7 +122,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="text-base font-bold font-mono tabular-nums text-[#f1f1e8]">
                       {audit.overallScore}{' '}
-                      <small className="text-[#6d6d61] font-normal text-xs">of 100</small>
+                      <small className="text-[#9b9b8c] font-normal text-xs">of 100</small>
                     </span>
 
                     {deltaPts !== null ? (
@@ -136,7 +136,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
                         {formatDelta(deltaPts)}
                       </span>
                     ) : (
-                      <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#181814] text-[#6d6d61]">
+                      <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-[#181814] text-[#9b9b8c]">
                         Baseline
                       </span>
                     )}
@@ -165,7 +165,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
     <div className="max-w-[900px] space-y-8 animate-fade-in">
       {/* Top Header */}
       <div>
-        <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#6d6d61] uppercase mb-2">
+        <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#9b9b8c] uppercase mb-2">
           Candidate Career History
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -221,7 +221,7 @@ export const ScansSection: React.FC<ScansSectionProps> = ({
 
       {auditsList.length === 0 ? (
         <div className="py-12 text-center border border-[#24241c] rounded-xl bg-[#10100d] p-8 space-y-4">
-          <FileSearch className="w-10 h-10 text-[#6d6d61] mx-auto" />
+          <FileSearch className="w-10 h-10 text-[#9b9b8c] mx-auto" />
           <div>
             <h3 className="text-base font-bold text-[#f1f1e8]">No Scans Recorded Yet</h3>
             <p className="text-[#9b9b8c] text-xs mt-1 max-w-md mx-auto leading-relaxed">

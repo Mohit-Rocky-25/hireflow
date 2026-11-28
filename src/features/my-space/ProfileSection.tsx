@@ -4,10 +4,14 @@ import { useAuthStore } from '@/features/auth/useAuthStore';
 import { toast } from '@/components/ui/Toast';
 import { RefreshCw, Trash2, Check } from 'lucide-react';
 
-export const ProfileSection: React.FC = () => {
+export const ProfileSection: React.FC<{ authOverride?: { status?: string; isDemo?: boolean } }> = ({
+  authOverride,
+}) => {
   const { profile, updateProfile } = useProfileStore();
-  const { status, deleteAllCloudData } = useAuthStore();
-  const isSignedIn = status === 'authenticated';
+  const { status: storeStatus, isDemo: storeIsDemo, deleteAllCloudData } = useAuthStore();
+  const status = authOverride?.status ?? storeStatus;
+  const isDemo = authOverride?.isDemo ?? storeIsDemo;
+  const isCloudSignedIn = status === 'authenticated' && !isDemo;
 
   const [displayName, setDisplayName] = useState(profile.displayName || 'Candidate');
   const [degree, setDegree] = useState(profile.degree || '');
@@ -60,13 +64,15 @@ export const ProfileSection: React.FC = () => {
     }
   };
 
-  const syncStatusDescription = isSignedIn
+  const syncStatusDescription = isCloudSignedIn
     ? 'Synced to your Supabase Cloud account. Evaluations, targets, and plan items follow you across devices.'
+    : isDemo
+    ? 'Demo Mode active (session memory only). Preloaded records are labelled Sample / Demo and do not sync permanently to cloud storage.'
     : 'Running in transient Guest memory. Sign in with Google to save your work privately in the cloud.';
 
   return (
     <div className="max-w-[700px]">
-      <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#6d6d61] uppercase mb-2">
+      <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#9b9b8c] uppercase mb-2">
         Candidate Identity
       </div>
       <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-6">
@@ -76,7 +82,7 @@ export const ProfileSection: React.FC = () => {
       <form onSubmit={handleSave} className="space-y-6">
         <div className="p-6 rounded-xl border border-[#24241c] bg-[#10100d] space-y-4">
           <div>
-            <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+            <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
               First Name or Display Name
             </label>
             <input
@@ -90,7 +96,7 @@ export const ProfileSection: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+              <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
                 Degree
               </label>
               <input
@@ -103,7 +109,7 @@ export const ProfileSection: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+              <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
                 Branch or Major
               </label>
               <input
@@ -118,7 +124,7 @@ export const ProfileSection: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+              <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
                 Graduation Year
               </label>
               <input
@@ -130,7 +136,7 @@ export const ProfileSection: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+              <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
                 Target Tier
               </label>
               <select
@@ -146,7 +152,7 @@ export const ProfileSection: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-[#6d6d61] mb-1.5">
+            <label className="block text-xs font-mono uppercase text-[#9b9b8c] mb-1.5">
               Target Roles (comma-separated)
             </label>
             <input
@@ -176,7 +182,7 @@ export const ProfileSection: React.FC = () => {
 
         {/* Sync Settings */}
         <div className="p-6 rounded-xl border border-[#24241c] bg-[#10100d] space-y-4">
-          <div className="font-mono text-xs font-semibold tracking-wider text-[#6d6d61] uppercase">
+          <div className="font-mono text-xs font-semibold tracking-wider text-[#9b9b8c] uppercase">
             Cloud Account Storage
           </div>
           <p className="text-sm text-[#9b9b8c] leading-relaxed">
@@ -184,7 +190,7 @@ export const ProfileSection: React.FC = () => {
           </p>
 
           <div className="pt-2 flex flex-wrap gap-3">
-            {isSignedIn && (
+            {isCloudSignedIn && (
               <button
                 type="button"
                 onClick={handleDeleteCloud}

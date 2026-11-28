@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMySpaceStore } from './useMySpaceStore';
 import { useAuditStore } from '@/features/journal/useAuditStore';
+import { useResumeStore } from '@/features/resumes/useResumeStore';
+import { useTailorLaunchStore } from '@/lib/tailor/launchContext';
 import { buildWatchlistRows, type WatchlistRow } from './mySpaceSelectors';
 import { formatDelta } from '@/features/journal/deltaEngine';
 import { toast } from '@/components/ui/Toast';
 import { slug } from '@/domain/ids';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Search } from 'lucide-react';
 import type { AuditEntry, WatchlistTarget } from '@/domain/types';
 
 interface TargetsSectionProps {
@@ -33,11 +35,31 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
   const [isAdding, setIsAdding] = useState(false);
   const [companyName, setCompanyName] = useState('');
   const [roleTitle, setRoleTitle] = useState('');
+  const [query, setQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'scanned' | 'unscanned'>('all');
 
   const rows: WatchlistRow[] = buildWatchlistRows(
     Object.values(watchlist),
     Object.values(entries)
   );
+
+  const filteredRows = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return rows
+      .filter((r) =>
+        statusFilter === 'all'
+          ? true
+          : statusFilter === 'scanned'
+          ? r.latestScore !== null
+          : r.latestScore === null
+      )
+      .filter((r) =>
+        !q
+          ? true
+          : r.target.companyName.toLowerCase().includes(q) ||
+            (r.target.roleTitle || '').toLowerCase().includes(q)
+      );
+  }, [rows, query, statusFilter]);
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,10 +98,38 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
     navigate(`/tools/resume-checker?${params.toString()}`);
   };
 
+  const handleTailorTarget = (row: WatchlistRow) => {
+    const workspaces = Object.values(useResumeStore.getState().workspaces).filter((w) => !w.archivedAt);
+    const primaryWs = workspaces.find((w) => w.isPrimary) ?? workspaces[0];
+    const headVer = primaryWs?.headVersionId
+      ? useResumeStore.getState().versions[primaryWs.headVersionId]
+      : undefined;
+    const launch = useTailorLaunchStore.getState().registerLaunchContext({
+      sourceEntryPoint: 'my_space',
+      mode: 'full_tailor',
+      workspaceId: primaryWs?.id ?? null,
+      versionId: headVer?.id ?? null,
+      snapshotHash: headVer?.snapshotHash ?? null,
+      resumeLabel: primaryWs?.name,
+      auditId: row.lastAuditId,
+      talentLensAssessmentId: null,
+      jdIds: [],
+      jdSnapshotHash: null,
+      jdTitle: row.target.roleTitle || row.target.companyName,
+      jdCompany: row.target.companyName,
+      dualJdComparisonId: null,
+      targetKey: row.target.targetKey,
+      selectedSection: null,
+      selectedBullet: null,
+      focusSkill: null,
+    });
+    navigate(`/tools/tailor?ctx=${launch.launchId}`);
+  };
+
   return (
-    <div className="max-w-[900px]">
+    <div className="max-w-[960px]">
       <div className="flex justify-between items-baseline mb-2">
-        <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#6d6d61] uppercase">
+        <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#9b9b8c] uppercase">
           Target Watchlist
         </div>
         <button
@@ -92,9 +142,37 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
         </button>
       </div>
 
-      <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-6">
-        Targets
-      </h2>
+      <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-5">Targets</h2>
+
+      {rows.length > 0 && (
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#10100d] border border-[#24241c]">
+            {(['all', 'scanned', 'unscanned'] as const).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setStatusFilter(tab)}
+                className={`px-3 py-1 rounded-md text-xs font-medium capitalize cursor-pointer ${
+                  statusFilter === tab ? 'bg-[#1b1b15] text-[#faff69]' : 'text-[#9b9b8c] hover:text-[#f1f1e8]'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full sm:w-64">
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#9b9b8c]" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Filter company or role..."
+              aria-label="Filter targets"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#10100d] border border-[#24241c] text-xs text-[#f1f1e8] placeholder-[#9b9b8c]/70 focus:outline-none focus:border-[#faff69]"
+            />
+          </div>
+        </div>
+      )}
 
       {isAdding && (
         <form
@@ -143,39 +221,43 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
             Add Your First Target
           </button>
         </div>
+      ) : filteredRows.length === 0 ? (
+        <div className="p-8 rounded-xl border border-[#24241c] bg-[#10100d] text-center text-sm text-[#9b9b8c]">
+          No targets match your filter.
+        </div>
       ) : (
         <div className="divide-y divide-[#1b1b15] border border-[#24241c] rounded-xl bg-[#10100d] px-5">
-          {rows.map((row) => {
+          {filteredRows.map((row) => {
             const hasScans = row.latestScore !== null;
             return (
               <div
                 key={row.target.id}
                 className="py-4 flex max-sm:flex-col sm:items-center justify-between gap-4"
               >
-                <div>
-                  <div className="font-semibold text-base text-[#f1f1e8]">
+                <div className="min-w-0">
+                  <div className="font-semibold text-base text-[#f1f1e8] truncate">
                     {row.target.companyName}
                   </div>
                   {row.target.roleTitle && (
-                    <div className="text-xs text-[#9b9b8c] mt-0.5">{row.target.roleTitle}</div>
+                    <div className="text-xs text-[#9b9b8c] mt-0.5 truncate">{row.target.roleTitle}</div>
                   )}
                   {hasScans ? (
-                    <div className="text-xs text-[#6d6d61] mt-1 flex items-center gap-3">
+                    <div className="text-xs text-[#9b9b8c] mt-1 flex items-center gap-3">
                       <span>
                         {row.openGapCount} open {row.openGapCount === 1 ? 'gap' : 'gaps'}
                       </span>
                     </div>
                   ) : (
-                    <div className="text-xs text-[#6d6d61] mt-1">Not scanned yet</div>
+                    <div className="text-xs text-[#9b9b8c] mt-1">Not scanned yet</div>
                   )}
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2.5">
                   {hasScans ? (
                     <>
-                      <div className="text-right font-mono tabular-nums">
+                      <div className="text-right font-mono tabular-nums mr-1">
                         <span className="text-base font-bold text-[#f1f1e8]">
-                          {row.latestScore} <small className="text-[#6d6d61] font-normal text-xs">of 100</small>
+                          {row.latestScore} <small className="text-[#9b9b8c] font-normal text-xs">of 100</small>
                         </span>
                         {row.latestDeltaPts !== null && (
                           <span
@@ -220,9 +302,17 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
 
                   <button
                     type="button"
+                    onClick={() => handleTailorTarget(row)}
+                    className="px-3 py-1.5 rounded-full border border-[#24241c] text-xs font-semibold text-[#f1f1e8] hover:border-[#faff69]/40 cursor-pointer"
+                  >
+                    Tailor
+                  </button>
+
+                  <button
+                    type="button"
                     aria-label={`Remove ${row.target.companyName}`}
                     onClick={() => handleRemove(row.target)}
-                    className="p-2 rounded-full text-[#6d6d61] hover:text-[#ff8a70] hover:bg-[#16160f] transition-colors cursor-pointer"
+                    className="p-2 rounded-full text-[#9b9b8c] hover:text-[#ff8a70] hover:bg-[#16160f] transition-colors cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -235,4 +325,3 @@ export const TargetsSection: React.FC<TargetsSectionProps> = ({
     </div>
   );
 };
-

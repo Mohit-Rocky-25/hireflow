@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMySpaceStore } from './useMySpaceStore';
 import { humanizeEnum } from '@/lib/ui/copy';
 import { toast } from '@/components/ui/Toast';
-import { Copy, Check, ExternalLink, Trash2 } from 'lucide-react';
+import { Copy, Check, ExternalLink, Trash2, Search } from 'lucide-react';
 import type { OutreachDraft, OutreachStatus } from '@/domain/types';
 
 interface OutreachSectionProps {
@@ -20,10 +20,22 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
   const outreachDrafts = propDrafts ?? storeOutreachDrafts;
 
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<'all' | OutreachStatus>('all');
+  const [query, setQuery] = useState('');
 
-  const draftsList = Object.values(outreachDrafts).sort((a, b) =>
-    b.updatedAt.localeCompare(a.updatedAt)
-  );
+  const draftsList = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return Object.values(outreachDrafts)
+      .filter((d) => (statusFilter === 'all' ? true : d.status === statusFilter))
+      .filter((d) =>
+        !q
+          ? true
+          : (d.slots.person || '').toLowerCase().includes(q) ||
+            (d.slots.company || '').toLowerCase().includes(q) ||
+            d.renderedText.toLowerCase().includes(q)
+      )
+      .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+  }, [outreachDrafts, statusFilter, query]);
 
   const handleCopy = async (draft: OutreachDraft) => {
     try {
@@ -55,14 +67,44 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
 
   return (
     <div className="max-w-[900px]">
-      <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#6d6d61] uppercase mb-2">
+      <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#9b9b8c] uppercase mb-2">
         Outreach Vault
       </div>
-      <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-6">
+      <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-5">
         Outreach
       </h2>
 
-      {draftsList.length === 0 ? (
+      {Object.keys(outreachDrafts).length > 0 && (
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[#10100d] border border-[#24241c]">
+            {(['all', 'draft', 'sent', 'replied'] as const).map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setStatusFilter(tab)}
+                className={`px-3 py-1 rounded-md text-xs font-medium capitalize cursor-pointer ${
+                  statusFilter === tab ? 'bg-[#1b1b15] text-[#faff69]' : 'text-[#9b9b8c] hover:text-[#f1f1e8]'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full sm:w-64">
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#9b9b8c]" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Filter contact or message..."
+              aria-label="Filter outreach drafts"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#10100d] border border-[#24241c] text-xs text-[#f1f1e8] placeholder-[#9b9b8c]/70 focus:outline-none focus:border-[#faff69]"
+            />
+          </div>
+        </div>
+      )}
+
+      {Object.keys(outreachDrafts).length === 0 ? (
         <div className="py-12 text-center border border-[#24241c] rounded-xl bg-[#10100d] p-8">
           <p className="text-[#9b9b8c] text-sm mb-4">No outreach drafts saved yet.</p>
           <button
@@ -72,6 +114,10 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
           >
             Create an Outreach Message
           </button>
+        </div>
+      ) : draftsList.length === 0 ? (
+        <div className="p-8 rounded-xl border border-[#24241c] bg-[#10100d] text-center text-sm text-[#9b9b8c]">
+          No outreach drafts match your current filter.
         </div>
       ) : (
         <div className="space-y-6">
@@ -93,7 +139,7 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
                         <span className="text-xs text-[#9b9b8c] font-medium">at {company}</span>
                       )}
                     </div>
-                    <div className="text-xs text-[#6d6d61] font-mono mt-0.5">
+                    <div className="text-xs text-[#9b9b8c] font-mono mt-0.5">
                       {humanizeEnum(draft.channel)}
                     </div>
                   </div>
@@ -119,7 +165,7 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
                       type="button"
                       aria-label={`Remove draft for ${person}`}
                       onClick={() => handleRemove(draft)}
-                      className="p-2 rounded-full text-[#6d6d61] hover:text-[#ff8a70] hover:bg-[#16160f] transition-colors cursor-pointer"
+                      className="p-2 rounded-full text-[#9b9b8c] hover:text-[#ff8a70] hover:bg-[#16160f] transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

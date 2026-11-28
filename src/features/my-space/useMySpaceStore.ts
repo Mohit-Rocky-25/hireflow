@@ -25,7 +25,12 @@ function makeId(): Uuid {
 
 function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
   const auth = useAuthStore.getState();
-  if (auth.status === 'authenticated' && auth.userId && getCloudGateway().isConfigured()) {
+  if (
+    auth.status === 'authenticated' &&
+    !auth.isDemo &&
+    auth.userId &&
+    getCloudGateway().isConfigured()
+  ) {
     return { enabled: true, userId: auth.userId };
   }
   return { enabled: false, userId: null };

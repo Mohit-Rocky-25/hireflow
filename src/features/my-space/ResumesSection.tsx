@@ -3,14 +3,16 @@ import { ResumeMatrixPage } from '@/features/resumes/ResumeMatrixPage';
 
 export const ResumesSection: React.FC = () => {
   return (
-    <div className="max-w-[1100px]">
-      <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#6d6d61] uppercase mb-2">
-        Resume Matrix
+    <div className="max-w-[1160px] space-y-4">
+      <div>
+        <div className="font-mono text-[11px] font-semibold tracking-[0.14em] text-[#9b9b8c] uppercase mb-1">
+          Resume Matrix
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8]">
+          Resumes
+        </h2>
       </div>
-      <h2 className="text-3xl font-bold tracking-tight text-[#f1f1e8] mb-6">
-        Resumes
-      </h2>
-      <ResumeMatrixPage />
+      <ResumeMatrixPage embedded />
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { Plus, GitFork, Star, Archive, Edit3, X } from 'lucide-react';
 import { MAX_WORKSPACES, GUEST_MAX_WORKSPACES } from '@/domain/limits';
 import { useAuthStore } from '@/features/auth/useAuthStore';
 
-export const ResumeMatrixPage: React.FC = () => {
+export const ResumeMatrixPage: React.FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const {
     workspaces,
     versions,
@@ -119,8 +119,8 @@ export const ResumeMatrixPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#090907] text-neutral-200">
-      <div className="max-w-[1400px] mx-auto p-6">
+    <div className={embedded ? 'text-neutral-200' : 'min-h-screen bg-[#090907] text-neutral-200'}>
+      <div className={embedded ? '' : 'max-w-[1400px] mx-auto p-6'}>
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-neutral-800">
           <div>
