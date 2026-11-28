@@ -78,7 +78,7 @@ export const FixTheseFirst: React.FC<Props> = ({ items, auditContext }) => {
                 </span>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-black text-volt font-mono text-xs font-bold border border-volt/60">
                   <TrendingUp className="w-3.5 h-3.5 text-volt stroke-[1.5px]" />
-                  +{item.expectedScoreGain} pts
+                  {item.expectedScoreGain > 0 ? `~+${item.expectedScoreGain} pts (sim)` : 'Qualitative Priority'}
                 </span>
               </div>
 

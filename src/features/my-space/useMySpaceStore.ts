@@ -23,6 +23,23 @@ function makeId(): Uuid {
   });
 }
 
+export function addCalendarDaysIso(isoDate: string, days: number): string {
+  const parsed = new Date(isoDate);
+  const base = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+  const target = new Date(
+    Date.UTC(
+      base.getUTCFullYear(),
+      base.getUTCMonth(),
+      base.getUTCDate() + days,
+      base.getUTCHours(),
+      base.getUTCMinutes(),
+      base.getUTCSeconds(),
+      base.getUTCMilliseconds()
+    )
+  );
+  return target.toISOString();
+}
+
 function shouldPersistToCloud(): { enabled: boolean; userId: string | null } {
   const auth = useAuthStore.getState();
   if (
@@ -50,7 +67,14 @@ export interface MySpaceStoreState {
   removePlanItem: (id: Uuid) => void;
   restorePlanItem: (item: PlanItem) => void;
 
-  saveOutreachDraft: (d: Omit<OutreachDraft, 'id' | 'createdAt' | 'updatedAt'>) => OutreachDraft;
+  saveOutreachDraft: (
+    d: Omit<OutreachDraft, 'id' | 'createdAt' | 'updatedAt'> & { id?: Uuid }
+  ) => OutreachDraft;
+  updateOutreachDraft: (
+    id: Uuid,
+    patch: Partial<Omit<OutreachDraft, 'id' | 'createdAt'>>
+  ) => OutreachDraft | undefined;
+  markOutreachSent: (id: Uuid) => OutreachDraft | undefined;
   updateOutreachStatus: (id: Uuid, status: OutreachStatus) => void;
   removeOutreachDraft: (id: Uuid) => void;
   restoreOutreachDraft: (draft: OutreachDraft) => void;
@@ -268,12 +292,23 @@ export const useMySpaceStore = create<MySpaceStoreState>()((set, get) => ({
   },
 
   saveOutreachDraft: (d) => {
-    const id = makeId();
+    const existing = d.id ? get().outreachDrafts[d.id] : undefined;
+    const id = existing?.id || d.id || makeId();
     const now = new Date().toISOString();
+    const isSent = d.status === 'sent';
+    const sentAt = isSent ? (d.sentAt || existing?.sentAt || now) : (d.sentAt ?? existing?.sentAt ?? null);
+    const followUpDueAt = isSent
+      ? (d.followUpDueAt || existing?.followUpDueAt || addCalendarDaysIso(sentAt || now, 5))
+      : (d.followUpDueAt ?? existing?.followUpDueAt ?? null);
     const draft: OutreachDraft = {
+      ...existing,
       ...d,
       id,
-      createdAt: now,
+      person: d.person || d.slots?.person || existing?.person,
+      company: d.company || d.slots?.company || existing?.company,
+      sentAt,
+      followUpDueAt,
+      createdAt: existing?.createdAt || now,
       updatedAt: now,
     };
 
@@ -286,7 +321,8 @@ export const useMySpaceStore = create<MySpaceStoreState>()((set, get) => ({
       void cloudRepository.saveOutreachDraft(cloud.userId, draft).catch((err) => {
         set((state) => {
           const next = { ...state.outreachDrafts };
-          delete next[id];
+          if (existing) next[id] = existing;
+          else delete next[id];
           return { outreachDrafts: next };
         });
         useCloudSyncStore.getState().setError(
@@ -303,14 +339,65 @@ export const useMySpaceStore = create<MySpaceStoreState>()((set, get) => ({
     return draft;
   },
 
+  updateOutreachDraft: (id, patch) => {
+    const draft = get().outreachDrafts[id];
+    if (!draft) return undefined;
+    const now = new Date().toISOString();
+    const updated: OutreachDraft = {
+      ...draft,
+      ...patch,
+      id,
+      updatedAt: now,
+    };
+    set((state) => ({
+      outreachDrafts: { ...state.outreachDrafts, [id]: updated },
+    }));
+    const cloud = shouldPersistToCloud();
+    if (cloud.enabled && cloud.userId) {
+      void cloudRepository.saveOutreachDraft(cloud.userId, updated).catch((err) => {
+        set((state) => ({
+          outreachDrafts: { ...state.outreachDrafts, [id]: draft },
+        }));
+        useCloudSyncStore.getState().setError(
+          'update outreach draft',
+          err instanceof Error ? err.message : 'Cloud update failed.',
+          async () => {
+            get().updateOutreachDraft(id, patch);
+          }
+        );
+      });
+    }
+    return updated;
+  },
+
+  markOutreachSent: (id) => {
+    const draft = get().outreachDrafts[id];
+    if (!draft) return undefined;
+    const now = new Date().toISOString();
+    const sentAt = draft.sentAt || now;
+    const followUpDueAt = draft.followUpDueAt || addCalendarDaysIso(sentAt, 5);
+    return get().updateOutreachDraft(id, {
+      status: 'sent',
+      sentAt,
+      followUpDueAt,
+    });
+  },
+
   updateOutreachStatus: (id, status) => {
     const draft = get().outreachDrafts[id];
     if (!draft) return;
 
     const now = new Date().toISOString();
+    const sentAt = status === 'sent' ? (draft.sentAt || now) : draft.sentAt;
+    const followUpDueAt =
+      status === 'sent'
+        ? (draft.followUpDueAt || addCalendarDaysIso(sentAt || now, 5))
+        : draft.followUpDueAt;
     const updated: OutreachDraft = {
       ...draft,
       status,
+      sentAt,
+      followUpDueAt,
       updatedAt: now,
     };
 

@@ -158,6 +158,14 @@ function matchSingleSkillInSections(
   let maxEvidenceTier = 0.0;
 
   for (const section of sections) {
+    // Contact & Header preamble is metadata, never legitimate technical skill evidence
+    if (
+      section.type === 'header' ||
+      section.type === 'contact' ||
+      section.rawTitle === 'Contact & Header'
+    ) {
+      continue;
+    }
     const isSkillsSection = section.type === 'skills';
     const isExperience = section.type === 'experience';
     const isProject = section.type === 'projects';

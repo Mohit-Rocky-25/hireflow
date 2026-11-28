@@ -11,6 +11,7 @@ export interface PlatformRule {
   sourceName: string;
   sourceUrl: string | null;
   lastCheckedDate: string | null;
+  ruleOrigin?: 'external_reference' | 'hireflow_safety_limit';
 }
 
 export const PLATFORM_RULES: PlatformRule[] = [

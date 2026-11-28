@@ -36,6 +36,7 @@ import { extractStructuredCandidateProfile } from './evidenceExtractor';
 import { validateCitationLedger } from './citationValidator';
 import { evaluateSeniorityFit } from './seniorityMatcher';
 import { DEFAULT_ANCHOR_DATE } from './tenureCalculator';
+import { classifyJdStateAndDomain } from './domainClassifier';
 
 export * from './types';
 export * from './evidenceModel';
@@ -109,6 +110,8 @@ function buildPresentationProjections(input: {
   seniorityMatchResult?: SeniorityMatchResult;
   fixFirst: FixFirstItem[];
   learningPath: AtsEngineResult['learningPath'];
+  jdState?: import('./types').JdInputState;
+  domainCapability?: import('./types').DomainCapability;
 }): {
   quickRoast: QuickRoastProjection;
   applicationGuidance: ApplicationGuidance;
@@ -128,6 +131,8 @@ function buildPresentationProjections(input: {
     seniorityMatchResult,
     fixFirst,
     learningPath,
+    jdState,
+    domainCapability,
   } = input;
 
   const isMandatorySeniorityGateActive = Boolean(seniorityMatchResult?.isMandatoryGateActive);
@@ -162,10 +167,28 @@ function buildPresentationProjections(input: {
       sr.claimSupport !== 'NOT_SUPPORTED'
   );
 
-  // 1. Grounded Application Guidance
+  // 1. Grounded Application Guidance (never claim Ready to Apply when 0 mandatory JD requirements or unsupported domain)
+  const hasExtractedRequirements = skillResults.length > 0;
+  const hasMandatoryRequirements = skillResults.some((sr) => sr.required === 'must');
+  const isUnsupportedJdOrDomain =
+    jdState === 'no_jd' ||
+    jdState === 'insufficient_context' ||
+    jdState === 'no_requirements_recognized' ||
+    jdState === 'edu_cert_only' ||
+    jdState === 'unsupported_domain' ||
+    domainCapability?.tier === 'unsupported';
+
   let applicationGuidance: ApplicationGuidance;
-  if (parseQuality === 'Poor' || (bulletsCount === 0 && verifiedSkills.length === 0)) {
+  if (
+    parseQuality === 'Poor' ||
+    (bulletsCount === 0 && verifiedSkills.length === 0) ||
+    !hasExtractedRequirements ||
+    isUnsupportedJdOrDomain
+  ) {
     applicationGuidance = 'Insufficient evidence to evaluate';
+  } else if (!hasMandatoryRequirements || domainCapability?.tier === 'experimental') {
+    // Preferred-only or experimental domain JD: never treat as Ready to apply
+    applicationGuidance = finalScore >= 60 ? 'Apply after high-priority fixes' : 'Significant gaps to address';
   } else if (
     finalScore >= 80 &&
     mustHavesMetRatio >= 0.8 &&
@@ -181,7 +204,17 @@ function buildPresentationProjections(input: {
 
   // 2. Deterministic One-Line Verdict
   let oneLineVerdict: string;
-  if (applicationGuidance === 'Insufficient evidence to evaluate') {
+  if (jdState === 'no_jd') {
+    oneLineVerdict = 'No job description provided; paste a complete JD to evaluate role compatibility.';
+  } else if (jdState === 'unsupported_domain' || domainCapability?.tier === 'unsupported') {
+    oneLineVerdict = `${domainCapability?.label || 'Unsupported domain'} is outside HireFlow’s validated technical taxonomy; standard ATS readiness cannot be scored reliably.`;
+  } else if (jdState === 'edu_cert_only') {
+    oneLineVerdict = `Education/certification qualifications detected for ${roleTitle}, but 0 technical competencies were extracted for scoring.`;
+  } else if (!hasExtractedRequirements) {
+    oneLineVerdict = `No verifiable technical/role requirements were extracted for ${roleTitle}; paste a complete job description or confirm requirements manually.`;
+  } else if (!hasMandatoryRequirements) {
+    oneLineVerdict = `Preferred-only JD (${skillResults.length} preferred requirement(s), 0 mandatory) for ${roleTitle}; ${verifiedSkills.length} matching skill(s) verified (${finalScore}%).`;
+  } else if (applicationGuidance === 'Insufficient evidence to evaluate') {
     oneLineVerdict = `Insufficient parseable resume evidence for ${roleTitle}; add structured experience or project bullets.`;
   } else if (isMandatorySeniorityGateActive && !isSeniorityEligible && seniorityMatchResult) {
     oneLineVerdict = `${band} match (${finalScore}%, ${mustHavesMet} must-haves met) for ${roleTitle}, but below required ${seniorityMatchResult.requiredYears} YOE (${seniorityMatchResult.shortfallMonths}m shortfall).`;
@@ -620,6 +653,12 @@ export function runAtsEngine(
   const effectiveFixFirst = fixFirstItems.length > 0 ? fixFirstItems : scoring.fixFirst;
   const finalScore = unifiedTrace.composite ?? scoring.score;
 
+  const { jdState, domainCapability, contradictionDetected } = classifyJdStateAndDomain(
+    jdText,
+    jdAnalysis,
+    authoritativeRequiredYears
+  );
+
   const { quickRoast, applicationGuidance, talentLensReadiness } = buildPresentationProjections({
     finalScore,
     band: scoring.band,
@@ -634,6 +673,8 @@ export function runAtsEngine(
     seniorityMatchResult,
     fixFirst: effectiveFixFirst,
     learningPath,
+    jdState,
+    domainCapability,
   });
 
   const result: AtsEngineResult = {
@@ -646,6 +687,9 @@ export function runAtsEngine(
     employerName: scanIdentity.employerName,
     targetRoleTitle: jdAnalysis.roleTitle,
     jobAnalysis: jdAnalysis,
+    jdState,
+    domainCapability,
+    contradictionDetected,
     scanIdentity,
     evidenceRecords: structuredProfile.allEvidenceRecords,
     structuredProfile,

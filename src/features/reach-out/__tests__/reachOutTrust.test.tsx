@@ -151,7 +151,7 @@ describe('Trust Layer: Reach Out Section Verification', () => {
     }
   });
 
-  it('renders official source links with last checked date for verified platform rules', () => {
+  it('renders Platform rules section and verified check date cleanly without hidden DOM dump', () => {
     const html = renderToString(
       <MemoryRouter initialEntries={['/tools/reach-out']}>
         <ProfileProvider>
@@ -160,9 +160,9 @@ describe('Trust Layer: Reach Out Section Verification', () => {
       </MemoryRouter>
     );
 
-    // Platform rules section is included in the page
+    // Accessible Platform rules card & viewer trigger are rendered cleanly
     expect(html).toContain('Platform rules');
-    expect(html).toContain('Source:');
+    expect(html).toContain('Open Rules Viewer');
     expect(html).toContain('last checked 2026-10-23');
   });
 

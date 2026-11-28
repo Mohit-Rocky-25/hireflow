@@ -50,7 +50,11 @@ import { JobRoleProjectBridge } from '../../features/suite/briefs/components/Job
 import { ResumePreviewModal } from '../../components/common/ResumePreviewModal';
 import { FresherChecksPanel } from '../../components/common/FresherChecksPanel';
 import { DataProvenanceModal } from '../../components/common/DataProvenanceModal';
-import { parseJD } from '../../lib/ats/parseJD';
+import {
+  useAtsRoasterController,
+  previewJdRequirementsForModal,
+  STAGED_MESSAGES as CONTROLLER_STAGED_MESSAGES,
+} from '../../features/ats/hooks/useAtsRoasterController';
 import { cloudRepository } from '../../lib/cloud/cloudRepository';
 import { uploadPrivateDocument } from '../../lib/cloud/storageService';
 import { useCloudDocumentsStore } from '../../lib/cloud/useDocumentsStore';
@@ -242,91 +246,72 @@ export function buildFallbackAuditEntry(params: {
 }
 
 export function ResumeChecker() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { profile, saveFromResumeText, openDrawer } = useProfile();
-  const [showFullReport, setShowFullReport] = useState(true);
+  const {
+    navigate,
+    resumeText,
+    setResumeText,
+    jobText,
+    setJobText,
+    resumeFileName,
+    setResumeFileName,
+    jobFileName,
+    setJobFileName,
+    resumePageCount,
+    setResumePageCount,
+    jobPageCount,
+    setJobPageCount,
+    resumeExtractionMeta,
+    jobExtractionMeta,
+    resumeSource,
+    setResumeSource,
+    jobSource,
+    setJobSource,
+    userClearedResumeRef,
+    userClearedJobRef,
+    activeScanIdRef,
+    targetTier,
+    setTargetTier,
+    experienceLevel,
+    setExperienceLevel,
+    fileError,
+    setFileError,
+    isScanning,
+    stagedStageIndex,
+    isFileExtracting,
+    engineResult,
+    setEngineResult,
+    latestSnapshot,
+    latestAuditEntry,
+    setLatestAuditEntry,
+    activeTab,
+    setActiveTab,
+    presentationMode,
+    setPresentationMode,
+    showFullReport,
+    setShowFullReport,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+    confirmedRequirements,
+    setConfirmedRequirements,
+    parsedJdData,
+    setParsedJdData,
+    selectedResumeMeta,
+    setSelectedResumeMeta,
+    detectedTargetCompany,
+    detectedRoleTitle,
+    jobRoleBridgeSkills,
+    handleFileUpload,
+    handleClearResume,
+    handleClearJob,
+    handleTabChange: controllerTabChange,
+    handleImportTalentLensResume,
+    handleAnalyze,
+    handleConfirmRequirements,
+    handleTryAnotherJob,
+  } = useAtsRoasterController();
 
-  const queryCompanyId = searchParams.get('company');
-  const queryRoleTitle = searchParams.get('role');
-  const queryProgramId = searchParams.get('program');
-  const isFromTalentLens = Boolean(queryCompanyId && (queryRoleTitle || queryProgramId));
-
-  const initialStoredResume = useTalentLensStore.getState().resumeText;
-  const initialStoredFileName = useTalentLensStore.getState().resumeFileName;
-
-  const initialResolvedJob = useMemo(() => {
-    return resolveTargetJob(queryCompanyId, queryRoleTitle, queryProgramId);
-  }, [queryCompanyId, queryRoleTitle, queryProgramId]);
-
-  const [resumeText, setResumeText] = useState<string>(() => {
-    if (initialStoredResume) return initialStoredResume;
-    if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.text;
-    return '';
-  });
-
-  const [jobText, setJobText] = useState<string>(() => {
-    return initialResolvedJob.text;
-  });
-
-  const detectedTargetCompany = useMemo(() => {
-    if (queryCompanyId) return queryCompanyId;
-    const match = jobText.match(/(?:Company|Employer|Organization):\s*([^\r\n,]+)/i);
-    if (match && match[1]) return match[1].trim();
-    return undefined;
-  }, [queryCompanyId, jobText]);
-
-  const detectedRoleTitle = useMemo(() => {
-    return detectTargetRoleTitle(jobText, queryCompanyId);
-  }, [queryCompanyId, jobText]);
-
-  const [resumeFileName, setResumeFileName] = useState<string | null>(() => {
-    if (initialStoredResume) return initialStoredFileName || DEMO_TALENTLENS_RESUME.fileName;
-    if (isFromTalentLens) return DEMO_TALENTLENS_RESUME.fileName;
-    return null;
-  });
-
-  const [jobFileName, setJobFileName] = useState<string | null>(() => {
-    return initialResolvedJob.fileName;
-  });
-
-  const [resumeSource, setResumeSource] = useState<WordLimitSource>(() => {
-    if (initialStoredResume || isFromTalentLens) return 'talentlens';
-    return undefined;
-  });
-
-  const [jobSource, setJobSource] = useState<WordLimitSource>(() => {
-    if (initialResolvedJob.text) return 'prefilled';
-    if (isFromTalentLens) return 'prefilled';
-    return undefined;
-  });
-
-  const [resumePageCount, setResumePageCount] = useState<number | undefined>();
-  const [jobPageCount, setJobPageCount] = useState<number | undefined>();
-  const [resumeExtractionMeta, setResumeExtractionMeta] = useState<ExtractionMetaInfo | undefined>();
-  const [jobExtractionMeta, setJobExtractionMeta] = useState<ExtractionMetaInfo | undefined>();
-  const [targetTier, setTargetTier] = useState<TargetTier>('Auto');
-  const [experienceLevel, setExperienceLevel] = useState<ExperienceLevel>('Auto');
-  const [fileError, setFileError] = useState<string | null>(null);
-
-  const [isScanning, setIsScanning] = useState(false);
-  const [stagedStageIndex, setStagedStageIndex] = useState(0);
-  const [isFileExtracting, setIsFileExtracting] = useState(false);
-  const [engineResult, setEngineResult] = useState<AtsEngineResult | null>(null);
-  const [activeTab, setActiveTab] = useState<ReportTabId>('overview');
-  const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmedRequirements, setConfirmedRequirements] = useState<ConfirmedRequirement[] | null>(null);
-  const [parsedJdData, setParsedJdData] = useState<ReturnType<typeof parseJD> | null>(null);
-
-  // Candidate OS State
-  const [selectedResumeMeta, setSelectedResumeMeta] = useState<{ workspaceId: Uuid | null; versionId: Uuid | null; label: string }>({
-    workspaceId: null,
-    versionId: null,
-    label: 'Custom Resume',
-  });
-  const [latestAuditEntry, setLatestAuditEntry] = useState<AuditEntry | null>(null);
-  const [latestSnapshot, setLatestSnapshot] = useState<AuthoritativeReportSnapshot | null>(null);
   const [lastTargetAudit, setLastTargetAudit] = useState<AuditEntry | null>(null);
   const [dismissTargetBanner, setDismissTargetBanner] = useState(false);
 
@@ -391,390 +376,23 @@ export function ResumeChecker() {
     })();
   }, [jobText, detectedTargetCompany, detectedRoleTitle]);
 
-  const jobRoleBridgeSkills = useMemo(() => {
-    if (!engineResult?.skillResults) return [];
-    return engineResult.skillResults.map((s: any) => ({
-      name: s.canonical,
-      isMandatory: s.required === 'must',
-      status: (s.found && s.status === 'verified' ? 'verified' : 'gap') as 'verified' | 'gap',
-    }));
-  }, [engineResult?.skillResults]);
-
-
-
-
-  // Campus UI removed for TalentLens JD single source
-
   const headerRef = useRef<HTMLDivElement>(null);
   const tabBarRef = useRef<HTMLDivElement>(null);
-  const userClearedJobRef = useRef(false);
-  const userClearedResumeRef = useRef(false);
-  const activeScanIdRef = useRef(0);
-
-  // Sync from TalentLens URL query parameters & ensure store has resume loaded
-  useEffect(() => {
-    const compId = searchParams.get('company');
-    const rTitle = searchParams.get('role');
-    const pId = searchParams.get('program');
-    if (compId && (rTitle || pId)) {
-      const stored = useTalentLensStore.getState().resumeText;
-      const storedFile = useTalentLensStore.getState().resumeFileName;
-      if (!userClearedResumeRef.current && !resumeText) {
-        const textToUse = stored || DEMO_TALENTLENS_RESUME.text;
-        const fileToUse = storedFile || DEMO_TALENTLENS_RESUME.fileName;
-        setResumeText(textToUse);
-        setResumeFileName(fileToUse);
-        setResumeSource('talentlens');
-        if (!stored) {
-          useTalentLensStore.getState().setResume(textToUse, fileToUse);
-        }
-      }
-
-      if (!userClearedJobRef.current && !jobText) {
-        const resolved = resolveTargetJob(compId, rTitle, pId);
-        if (resolved.text) {
-          setJobText(resolved.text);
-          setJobFileName(resolved.fileName);
-          setJobSource('prefilled');
-        }
-      }
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (!isScanning) {
-      setStagedStageIndex(0);
-      return;
-    }
-    const timer = setInterval(() => {
-      setStagedStageIndex((prev) => (prev + 1) % STAGED_MESSAGES.length);
-    }, 600);
-    return () => clearInterval(timer);
-  }, [isScanning]);
-
-  const clearPriorUploadState = (type: 'resume' | 'job') => {
-    activeScanIdRef.current += 1;
-    setEngineResult(null);
-    setLatestSnapshot(null);
-    setLatestAuditEntry(null);
-    if (type === 'resume') {
-      userClearedResumeRef.current = true;
-      setResumeText('');
-      setResumeFileName(null);
-      setResumePageCount(undefined);
-      setResumeExtractionMeta(undefined);
-      setResumeSource(undefined);
-    } else {
-      userClearedJobRef.current = true;
-      setJobText('');
-      setJobFileName(null);
-      setJobPageCount(undefined);
-      setJobExtractionMeta(undefined);
-      setJobSource(undefined);
-      setConfirmedRequirements(null);
-      setParsedJdData(null);
-    }
-  };
-
-  const handleFileUpload = async (file: File, type: 'resume' | 'job') => {
-    setIsFileExtracting(true);
-    setFileError(null);
-    try {
-      const outcome = await extractFromFile(file);
-      if (!outcome.ok) {
-        let msg = outcome.message;
-        if (outcome.reason === 'image-only') {
-          msg =
-            'Scanned / Image-Only Document: This file contains raster images without selectable text. ATS engines require digital text. Please export your resume directly as a text PDF from Google Docs / Microsoft Word, or switch to the Paste Text tab.';
-        } else if (outcome.reason === 'encrypted') {
-          msg = 'Password Protected File: This document is encrypted and cannot be processed without a password.';
-        } else if (outcome.reason === 'corrupt') {
-          msg = 'Corrupt File Signature: File structure is damaged or invalid. Please re-export or re-save the document.';
-        }
-        clearPriorUploadState(type);
-        setFileError(msg);
-        return;
-      }
-
-      const meta: ExtractionMetaInfo = {
-        confidencePct: Math.round(outcome.data.confidence * 100),
-        methodLabel:
-          outcome.data.method === 'pdf-text'
-            ? 'PDF Text'
-            : outcome.data.method === 'docx'
-            ? 'DOCX XML'
-            : 'Local Text',
-        warnings: outcome.data.warnings || [],
-      };
-
-      if (type === 'resume') {
-        const validity = validateResumeAuthenticity(outcome.data.text);
-        if (!validity.isValid) {
-          clearPriorUploadState('resume');
-          setFileError(
-            validity.reason ||
-              'Uploaded file is not a resume. It lacks standard resume sections (Experience, Education, Skills).'
-          );
-          return;
-        }
-        userClearedResumeRef.current = false;
-        setResumeText(outcome.data.text);
-        setResumeFileName(file.name);
-        setResumePageCount(outcome.data.pages);
-        setResumeExtractionMeta(meta);
-        setResumeSource('upload');
-      } else {
-        userClearedJobRef.current = false;
-        setJobText(outcome.data.text);
-        setJobFileName(file.name);
-        setJobPageCount(outcome.data.pages);
-        setJobExtractionMeta(meta);
-        setJobSource('upload');
-        setConfirmedRequirements(null);
-        setParsedJdData(null);
-      }
-
-      // Archive original file into private Supabase Storage (`user-documents`) when signed in
-      const auth = useAuthStore.getState();
-      if (auth.status === 'authenticated' && auth.userId) {
-        void file
-          .arrayBuffer()
-          .then((buffer) =>
-            uploadPrivateDocument({
-              userId: auth.userId!,
-              docKind: type === 'resume' ? 'resume_upload' : 'jd_upload',
-              fileName: file.name,
-              mimeType: file.type || 'application/octet-stream',
-              buffer,
-            })
-          )
-          .then((doc) => {
-            useCloudDocumentsStore.getState().addDocument(doc);
-          })
-          .catch((err) => {
-            useCloudSyncStore.getState().setError(
-              `upload ${file.name}`,
-              err instanceof Error ? err.message : 'Failed to upload file to private cloud storage.'
-            );
-          });
-      }
-    } catch (err: any) {
-      clearPriorUploadState(type);
-      setFileError(err?.message || 'Error processing uploaded file.');
-    } finally {
-      setIsFileExtracting(false);
-    }
-  };
-
-  const handleClearResume = () => {
-    userClearedResumeRef.current = true;
-    setResumeText('');
-    setResumeFileName(null);
-    setResumePageCount(undefined);
-    setResumeExtractionMeta(undefined);
-    setResumeSource(undefined);
-    setFileError(null);
-  };
-
-  const handleClearJob = () => {
-    userClearedJobRef.current = true;
-    setJobText('');
-    setJobFileName(null);
-    setJobPageCount(undefined);
-    setJobExtractionMeta(undefined);
-    setJobSource(undefined);
-    setFileError(null);
-    setConfirmedRequirements(null);
-    setParsedJdData(null);
-  };
 
   const handleTabChange = (tab: ReportTabId) => {
-    setActiveTab(tab);
+    void activeScanIdRef.current;
+    controllerTabChange(tab);
     if (tabBarRef.current) {
       tabBarRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   };
 
-  const handleImportTalentLensResume = (text: string, fileName: string) => {
-    userClearedResumeRef.current = false;
-    setResumeText(text);
-    setResumeFileName(fileName || DEMO_TALENTLENS_RESUME.fileName);
-    setResumePageCount(1);
-    setResumeSource('talentlens');
-    setFileError(null);
-  };
-
-  const executeAnalysis = (confirmedList?: ConfirmedRequirement[]) => {
-    const currentScanId = ++activeScanIdRef.current;
-    setIsScanning(true);
-    setFileError(null);
-    setLatestAuditEntry(null);
-    setActiveTab('overview');
-
-    const tierMap: Record<string, TargetTierId> = {
-      'Top Product': 'top_product',
-      'Startup / Unicorn': 'startup_unicorn',
-      'Service / MNC': 'service_mnc',
-    };
-    const levelMap: Record<string, ExperienceLevelId> = {
-      Fresher: 'fresher',
-      '1-3 yrs': '1-3',
-      '3-6 yrs': '3-6',
-      '6+ yrs': '6+',
-    };
-
-    const mappedTier = tierMap[targetTier] || 'auto';
-    const mappedLevel = levelMap[experienceLevel] || 'auto';
-
-    setTimeout(() => {
-      if (activeScanIdRef.current !== currentScanId) {
-        return;
-      }
-      try {
-        const activeRequirements = confirmedList || confirmedRequirements || undefined;
-        const normalizedResume = normalizeText(resumeText);
-        const normalizedJd = normalizeText(jobText);
-        const response = runAtsEngine(normalizedResume, normalizedJd, {
-          tier: mappedTier,
-          level: mappedLevel,
-          resumeSource,
-          jdSource: jobSource,
-          confirmedRequirements: activeRequirements ? activeRequirements.map(r => ({ text: r.text, type: r.type })) : undefined,
-        });
-
-        if (activeScanIdRef.current !== currentScanId) {
-          return;
-        }
-
-        if (!response.success) {
-          setEngineResult(null);
-          setLatestSnapshot(null);
-          setLatestAuditEntry(null);
-          setFileError(response.message);
-          return;
-        }
-
-        const effectiveTargetCompany = response.result.employerName || detectedTargetCompany;
-        const snapshot = createAuthoritativeReportSnapshot(
-          response.result,
-          normalizedResume,
-          normalizedJd,
-          {
-            resumeFileName: resumeFileName || 'resume.pdf',
-            targetCompany: effectiveTargetCompany,
-            targetRole: detectedRoleTitle || response.result.bestFitTier || 'Standard Role',
-            candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
-          }
-        );
-
-        setEngineResult(response.result);
-        setLatestSnapshot(snapshot);
-
-        // Record into Candidate OS Audit Journal (scan-scoped to prevent stale async overwrite)
-        void (async () => {
-          try {
-            const auditInput = atsToAuditInput({
-              result: response.result,
-              resumeText: normalizedResume,
-              jdText: normalizedJd,
-              source: (resumeSource === 'upload' ? 'upload' : 'paste') as any,
-              workspaceId: selectedResumeMeta.workspaceId,
-              resumeVersionId: selectedResumeMeta.versionId,
-              resumeLabel: selectedResumeMeta.label,
-              targetCompany: effectiveTargetCompany,
-              targetRole: detectedRoleTitle,
-              candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
-            });
-            const { entry } = await useAuditStore.getState().record(auditInput);
-            if (activeScanIdRef.current === currentScanId) {
-              setLatestAuditEntry(entry);
-            }
-          } catch (recordErr) {
-            console.warn('Candidate OS audit record notice:', recordErr);
-          }
-        })();
-
-        const missing = (response.result.skillResults || [])
-          .filter((s) => s.status === 'missing')
-          .map((s) => s.canonical || s.skillId);
-        useAtsToolStore.getState().setLatestMissingSkills(missing);
-
-        useAtsToolStore.getState().addHistoryEntry({
-          resumeFileName: resumeFileName || 'resume.pdf',
-          targetRole: detectedRoleTitle || response.result.bestFitTier || 'Standard Role',
-          score: response.result.score,
-          matchedCount: response.result.audit.skillsParsedCount,
-          missingCount: response.result.missingKeywordsCount,
-          specVersion: response.result.specVersion,
-          engineVersion: response.result.engineVersion,
-          specFingerprint: response.result.specFingerprint,
-          candidateName: response.result.candidateName || response.result.audit?.contactInfo?.name || undefined,
-          targetCompany: effectiveTargetCompany,
-          seniorityStatus: response.result.seniorityMatchResult?.status,
-          isEligible: response.result.seniorityMatchResult?.isEligible,
-          authoritativeSnapshot: snapshot,
-        });
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        setTimeout(() => {
-          headerRef.current?.focus();
-        }, 150);
-      } catch (err: any) {
-        if (activeScanIdRef.current === currentScanId) {
-          setEngineResult(null);
-          setLatestSnapshot(null);
-          setLatestAuditEntry(null);
-          setFileError(err?.message || 'Unexpected analysis error occurred.');
-        }
-      } finally {
-        if (activeScanIdRef.current === currentScanId) {
-          setIsScanning(false);
-        }
-      }
-    }, 400);
-  };
-
-  const handleAnalyze = () => {
-    if (!resumeText.trim() || !jobText.trim()) return;
-
-    if (!confirmedRequirements) {
-      const pj = parseJD(jobText);
-      setParsedJdData(pj);
-      setIsConfirmModalOpen(true);
-      return;
-    }
-
-    executeAnalysis(confirmedRequirements);
-  };
-
-  const handleConfirmRequirements = (
-    confirmed: ConfirmedRequirement[],
-    hasCustomizations = false
-  ) => {
-    if (!hasCustomizations) {
-      // Unedited modal preserves authoritative jdAnalyzer compound & ontology parsing.
-      setConfirmedRequirements(null);
-      executeAnalysis(undefined);
-      return;
-    }
-    setConfirmedRequirements(confirmed);
-    executeAnalysis(confirmed);
-  };
-
-  const handleTryAnotherJob = () => {
-    activeScanIdRef.current += 1;
-    setIsScanning(false);
-    setJobText('');
-    setJobFileName(null);
-    setJobPageCount(undefined);
+  // Preserve lifecycle reset helper compatibility
+  const resetScanOutputs = () => {
     setEngineResult(null);
-    setLatestSnapshot(null);
     setLatestAuditEntry(null);
-    setConfirmedRequirements(null);
-    setParsedJdData(null);
-    setActiveTab('overview');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  void resetScanOutputs;
 
   const quickRoast = useMemo<QuickRoastProjection | null>(() => {
     if (!engineResult) return null;
@@ -1081,7 +699,12 @@ export function ResumeChecker() {
                 <button
                   type="button"
                   onClick={() => {
-                    const pj = parseJD(jobText, confirmedRequirements ? confirmedRequirements.map(r => ({ text: r.text, type: r.type })) : undefined);
+                    const pj = previewJdRequirementsForModal(
+                      jobText,
+                      confirmedRequirements
+                        ? confirmedRequirements.map((r) => ({ text: r.text, type: r.type }))
+                        : undefined
+                    );
                     setParsedJdData(pj);
                     setIsConfirmModalOpen(true);
                   }}

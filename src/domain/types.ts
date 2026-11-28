@@ -158,6 +158,25 @@ export interface ResumeVersion {
 // Outreach vault
 export type OutreachStatus = 'draft' | 'sent' | 'replied' | 'archived';
 
+export type OutreachIntent =
+  | 'introduction'
+  | 'referral_ask'
+  | 'advice'
+  | 'role_pitch'
+  | 'work_share'
+  | 'follow_up'
+  | 'thank_you'
+  | 'event_connect';
+
+export interface OutreachSlotsSnapshot {
+  slots: Record<string, string>;
+  candidateSourceLabel?: string;
+  candidateSourceKind?: 'profile' | 'resume_matrix' | 'tailor' | 'manual' | 'sample';
+  targetSourceLabel?: string;
+  targetSourceKind?: 'saved_jd' | 'watchlist' | 'saved_role' | 'manual' | 'sample';
+  provenanceNotes?: string[];
+}
+
 export interface OutreachDraft {
   id: Uuid;
   templateId: string;
@@ -166,6 +185,19 @@ export interface OutreachDraft {
   slots: Record<string, string>;
   renderedText: string;
   targetKey?: string;
+  // Phase 13 V3 fields (backward-compatible)
+  person?: string;
+  company?: string;
+  targetRole?: string;
+  intent?: OutreachIntent;
+  relationship?: string;
+  subject?: string;
+  message?: string;
+  sentAt?: IsoDate | null;
+  followUpDueAt?: IsoDate | null;
+  parentDraftId?: Uuid | null;
+  isIncomplete?: boolean;
+  slotsSnapshot?: OutreachSlotsSnapshot;
   createdAt: IsoDate;
   updatedAt: IsoDate;
 }

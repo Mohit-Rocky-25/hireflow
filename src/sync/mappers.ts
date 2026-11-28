@@ -338,12 +338,27 @@ export interface OutreachDraftRow {
 }
 
 export function outreachToRow(o: OutreachDraft): OutreachDraftRow {
+  const cleanSlots: Record<string, unknown> = { ...(o.slots || {}) };
+  cleanSlots.__v3Meta = {
+    person: o.person,
+    company: o.company,
+    targetRole: o.targetRole,
+    intent: o.intent,
+    relationship: o.relationship,
+    subject: o.subject,
+    message: o.message,
+    sentAt: o.sentAt ?? null,
+    followUpDueAt: o.followUpDueAt ?? null,
+    parentDraftId: o.parentDraftId ?? null,
+    isIncomplete: Boolean(o.isIncomplete),
+    slotsSnapshot: o.slotsSnapshot,
+  };
   return {
     id: o.id,
     template_id: o.templateId,
     channel: o.channel,
     status: o.status,
-    slots: o.slots,
+    slots: cleanSlots,
     rendered_text: o.renderedText,
     target_key: o.targetKey || null,
     created_at: o.createdAt,
@@ -352,14 +367,40 @@ export function outreachToRow(o: OutreachDraft): OutreachDraftRow {
 }
 
 export function rowToOutreach(r: OutreachDraftRow): OutreachDraft {
+  const rawSlots = ((r.slots as Record<string, unknown>) || {});
+  const v3Meta = (rawSlots.__v3Meta as Record<string, unknown> | undefined) || {};
+  const cleanSlots: Record<string, string> = {};
+  for (const [k, v] of Object.entries(rawSlots)) {
+    if (k !== '__v3Meta' && typeof v === 'string') {
+      cleanSlots[k] = v;
+    }
+  }
+  const derivedSubject =
+    typeof v3Meta.subject === 'string' ? v3Meta.subject : undefined;
+  const derivedMessage =
+    typeof v3Meta.message === 'string'
+      ? v3Meta.message
+      : r.rendered_text.replace(/^Subject:\s*[^\r\n]+\r?\n\r?\n/, '');
   return {
     id: r.id,
     templateId: r.template_id,
     channel: r.channel,
     status: r.status,
-    slots: (r.slots as Record<string, string>) || {},
+    slots: cleanSlots,
     renderedText: r.rendered_text,
     targetKey: r.target_key || undefined,
+    person: typeof v3Meta.person === 'string' ? v3Meta.person : cleanSlots.person,
+    company: typeof v3Meta.company === 'string' ? v3Meta.company : cleanSlots.company,
+    targetRole: typeof v3Meta.targetRole === 'string' ? v3Meta.targetRole : undefined,
+    intent: v3Meta.intent as OutreachDraft['intent'],
+    relationship: typeof v3Meta.relationship === 'string' ? v3Meta.relationship : undefined,
+    subject: derivedSubject,
+    message: derivedMessage,
+    sentAt: typeof v3Meta.sentAt === 'string' ? v3Meta.sentAt : null,
+    followUpDueAt: typeof v3Meta.followUpDueAt === 'string' ? v3Meta.followUpDueAt : null,
+    parentDraftId: typeof v3Meta.parentDraftId === 'string' ? v3Meta.parentDraftId : null,
+    isIncomplete: typeof v3Meta.isIncomplete === 'boolean' ? v3Meta.isIncomplete : false,
+    slotsSnapshot: v3Meta.slotsSnapshot as OutreachDraft['slotsSnapshot'],
     createdAt: toIso(r.created_at),
     updatedAt: toIso(r.updated_at),
   };

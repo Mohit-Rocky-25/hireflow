@@ -169,6 +169,14 @@
         "detectedYears": 0,
         "rawText": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)\r\nRole: Software Development Engineer I (Backend)\r\nLevel: SDE-1 (0-2 years experience)\r\nLocation: Bengaluru / Hyderabad\r\n\r\nAbout the Role:\r\nWe are looking for an SDE-1 to join our core backend engineering team. You will build and scale distributed microservices handling millions of daily customer requests.\r\n\r\nKey Responsibilities:\r\n- Design and develop scalable backend APIs using Java or Go.\r\n- Optimize database queries and schema designs across PostgreSQL and Redis.\r\n- Collaborate with frontend and mobile teams to define contract schemas.\r\n- Write unit, integration, and performance tests to maintain high reliability.\r\n\r\nRequirements:\r\n- Strong proficiency in Java, Go, or C++.\r\n- Solid understanding of Data Structures, Algorithms, and Object-Oriented Design.\r\n- Familiarity with relational databases (PostgreSQL/MySQL) and caching (Redis).\r\n- Hands-on experience with Git, Docker, and Linux environments.\r\n- Excellent communication and analytical skills.\r\n"
       },
+      "jdState": "ambiguous_or_contradictory",
+      "domainCapability": {
+        "domainId": "cloud_devops",
+        "label": "Cloud & DevOps / SRE",
+        "tier": "supported",
+        "reason": "Supported domain with structured cloud, container, IaC, and observability competency matching."
+      },
+      "contradictionDetected": false,
       "scanIdentity": {
         "scanId": "scan_eb49e79a_fb39fcf4",
         "candidateName": "ADITYA SHARMA",
@@ -8743,10 +8751,10 @@
   "ats_single_frontend": {
     "success": true,
     "result": {
-      "score": 46,
+      "score": 45,
       "band": "Needs work",
       "confidence": "High",
-      "headline": "High Risk ATS Profile (0/13 must-haves met) · Missing core job requirements",
+      "headline": "High Risk ATS Profile (0/14 must-haves met) · Missing core job requirements",
       "candidateName": "ADITYA SHARMA",
       "employerName": "the Role",
       "targetRoleTitle": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)",
@@ -8774,6 +8782,16 @@
             "weight": 4,
             "sourceType": "explicit",
             "sourceSentence": "Role: Frontend Engineer (React & TypeScript)",
+            "confidence": 1
+          },
+          {
+            "skillId": "design_systems",
+            "canonical": "Design Systems",
+            "category": "design_ux",
+            "required": "must",
+            "weight": 4,
+            "sourceType": "explicit",
+            "sourceSentence": "Join our design systems and web application team building responsive, highly accessible user interfaces for our flagship analytics product.",
             "confidence": 1
           },
           {
@@ -8994,6 +9012,14 @@
         "detectedYears": 1,
         "rawText": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)\r\nRole: Frontend Engineer (React & TypeScript)\r\nLevel: Entry to Mid (1-3 years experience)\r\nLocation: Remote / Bengaluru\r\n\r\nAbout the Role:\r\nJoin our design systems and web application team building responsive, highly accessible user interfaces for our flagship analytics product.\r\n\r\nKey Responsibilities:\r\n- Build clean, modular components in React 19 and TypeScript.\r\n- Implement responsive UI with Tailwind CSS ensuring pixel-perfect layout and WCAG accessibility.\r\n- Manage client state efficiently using Zustand or Redux Toolkit.\r\n- Optimize web vitals (LCP, FID, CLS) and bundle size.\r\n\r\nRequirements:\r\n- Hands-on expertise with modern JavaScript/TypeScript and React ecosystem.\r\n- Deep knowledge of CSS, Tailwind CSS, DOM APIs, and responsive layout.\r\n- Experience writing automated component tests with React Testing Library / Vitest.\r\n- Understanding of web performance, caching, and REST/GraphQL APIs.\r\n"
       },
+      "jdState": "supported_technical",
+      "domainCapability": {
+        "domainId": "design_ux",
+        "label": "Design & UX",
+        "tier": "partial",
+        "reason": "Partial coverage: Figma, UX research, and design systems are recognized; visual portfolio quality cannot be evaluated from resume text alone."
+      },
+      "contradictionDetected": false,
       "scanIdentity": {
         "scanId": "scan_eb49e79a_e9895278",
         "candidateName": "ADITYA SHARMA",
@@ -13201,6 +13227,10 @@
         "failedCitations": [],
         "unsupportedClaims": [
           {
+            "competencyId": "design_systems",
+            "reason": "Required skill \"Design Systems\" has no validated supporting citations in the source document."
+          },
+          {
             "competencyId": "accessibility",
             "reason": "Required skill \"Accessibility\" has no validated supporting citations in the source document."
           },
@@ -13252,7 +13282,7 @@
           "ambiguousCount": 0,
           "unresolvedCount": 0,
           "duplicateCount": 0,
-          "claimsWithoutCitationCount": 9,
+          "claimsWithoutCitationCount": 10,
           "citationAccuracyPct": 100,
           "claimSupportAccuracyPct": 28.6
         }
@@ -13313,6 +13343,21 @@
           ],
           "explanation": "Listed in skills section only without contextual deliverables or implementation statements.",
           "confidence": 0.5
+        },
+        {
+          "requirementId": "design_systems",
+          "canonical": "Design Systems",
+          "status": "NOT_DEMONSTRATED",
+          "matchMethod": null,
+          "evidenceIds": [],
+          "citationIds": [],
+          "competencyIds": [],
+          "evidenceContexts": [],
+          "limitations": [
+            "No qualifying evidence found in resume for \"Design Systems\"."
+          ],
+          "explanation": "No verified evidence was found for \"Design Systems\" in the resume.",
+          "confidence": 0.95
         },
         {
           "requirementId": "accessibility",
@@ -13605,10 +13650,10 @@
           ]
         }
       ],
-      "oneParagraphSummary": "Evaluation against target REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) role: Candidate achieves a 46% fit score in the Needs work band with 0/13 must-have competencies verified. Entry-Level / Fresher mode (~0.3 YOE): Inferred from detected experience span. Evaluated 4 core level signals (100/100 pts).",
+      "oneParagraphSummary": "Evaluation against target REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) role: Candidate achieves a 45% fit score in the Needs work band with 0/14 must-have competencies verified. Entry-Level / Fresher mode (~0.3 YOE): Inferred from detected experience span. Evaluated 4 core level signals (100/100 pts).",
       "subscores": {
-        "mustHaveCoverage": 8.1,
-        "evidenceDepth": 3.3,
+        "mustHaveCoverage": 7.5,
+        "evidenceDepth": 3,
         "impactMetrics": 9.6,
         "projectsAndOss": 10,
         "seniorityFit": 2.5,
@@ -13829,6 +13874,36 @@
           "citationValidity": "VERIFIED_EXACT",
           "provenance": "SKILLS_SECTION",
           "attribution": "FAMILIARITY_ONLY"
+        },
+        {
+          "skillId": "design_systems",
+          "canonical": "Design Systems",
+          "category": "design_ux",
+          "required": "must",
+          "weight": 4,
+          "found": false,
+          "evidence": [],
+          "proficiency": 0,
+          "status": "missing",
+          "evidenceScore": 0,
+          "bm25Score": 0,
+          "matchResult": {
+            "requirementId": "design_systems",
+            "canonical": "Design Systems",
+            "status": "NOT_DEMONSTRATED",
+            "matchMethod": null,
+            "evidenceIds": [],
+            "citationIds": [],
+            "competencyIds": [],
+            "evidenceContexts": [],
+            "limitations": [
+              "No qualifying evidence found in resume for \"Design Systems\"."
+            ],
+            "explanation": "No verified evidence was found for \"Design Systems\" in the resume.",
+            "confidence": 0.95
+          },
+          "claimSupport": "NOT_SUPPORTED",
+          "validatedCitations": []
         },
         {
           "skillId": "accessibility",
@@ -14629,9 +14704,9 @@
           "validatedCitations": []
         }
       ],
-      "mustHavesMet": "0/13",
+      "mustHavesMet": "0/14",
       "mustHavesMetRatio": 0,
-      "missingKeywordsCount": 6,
+      "missingKeywordsCount": 7,
       "bestFitTier": "Top Product",
       "seniorityFit": {
         "candidateYears": 0.3,
@@ -14807,19 +14882,19 @@
           "skillId": "caching_strategies"
         },
         {
-          "title": "Add Verifiable Evidence for Testing Library",
-          "reason": "Missing requirement: Testing Library. Add a concrete project or work experience bullet.",
+          "title": "Add Verifiable Evidence for Design Systems",
+          "reason": "Missing requirement: Design Systems. Add a concrete project or work experience bullet.",
           "expectedScoreGain": 2,
           "type": "missing_must_have",
-          "skillId": "react_testing_library"
+          "skillId": "design_systems"
         }
       ],
       "reportState": {
         "schemaVersion": "2.5.0",
-        "scanId": "scan_4057e4206882",
+        "scanId": "scan_e3208149ea2d",
         "parentScanId": null,
         "resumeHash": "0a862b0fcc2c",
-        "jdHash": "aa344266d98a",
+        "jdHash": "eabe18be055f",
         "appliedProfile": {
           "profileId": "entry",
           "displayName": "Entry-Level / Fresher",
@@ -14871,6 +14946,16 @@
               "Languages: Go, Java,"
             ],
             "ruleOrSkillId": "typescript"
+          },
+          {
+            "id": "fnd_04c128524873",
+            "type": "skill_gap",
+            "confidence": "verified",
+            "title": "Missing Must-Have: Design Systems",
+            "explanation": "Target role requires \"Design Systems\". No matching keyword or project bullet was detected.",
+            "linkedLedgerFactor": "mustHaveCoverage",
+            "linkedEvidenceIds": [],
+            "ruleOrSkillId": "design_systems"
           },
           {
             "id": "fnd_8e22487ca62c",
@@ -15346,6 +15431,15 @@
             "weight": 4
           },
           {
+            "id": "design_systems",
+            "canonicalName": "Design Systems",
+            "category": "design_ux",
+            "importance": "must",
+            "groupId": null,
+            "sourceQuote": "Design Systems",
+            "weight": 4
+          },
+          {
             "id": "accessibility",
             "canonicalName": "Accessibility",
             "category": "frontend",
@@ -15670,6 +15764,18 @@
             "weight": 4
           },
           {
+            "skillId": "design_systems",
+            "canonicalName": "Design Systems",
+            "category": "design_ux",
+            "importance": "must",
+            "groupId": null,
+            "status": "missing",
+            "proficiency": 0,
+            "label": "Missing / Not Detected",
+            "evidence": [],
+            "weight": 4
+          },
+          {
             "skillId": "accessibility",
             "canonicalName": "Accessibility",
             "category": "frontend",
@@ -15903,21 +16009,21 @@
             {
               "factor": "mustHaveCoverage",
               "factorLabel": "Core Competency Coverage",
-              "earned": 8.1,
+              "earned": 7.5,
               "max": 30,
               "formula": "sum(verifiedMustWeight * 1.0 + weakMustWeight * 0.5) / totalMustWeight * 30",
               "inputs": {
-                "count": 8.1
+                "count": 7.5
               }
             },
             {
               "factor": "evidenceDepth",
               "factorLabel": "Depth of Evidence",
-              "earned": 3.3,
+              "earned": 3,
               "max": 20,
               "formula": "min(1.0, (verified * 1.0 + weak * 0.25 + tiers * 0.1) / target) * 20",
               "inputs": {
-                "count": 3.3
+                "count": 3
               }
             },
             {
@@ -15971,12 +16077,12 @@
               }
             }
           ],
-          "totalEarned": 46,
+          "totalEarned": 45.1,
           "totalBonuses": 0,
           "totalDeductions": 0,
-          "preClampScore": 46,
+          "preClampScore": 45.1,
           "wasClamped": false,
-          "roundedScore": 46
+          "roundedScore": 45
         },
         "penalties": [],
         "fixes": [
@@ -15999,13 +16105,13 @@
             "targetSkillId": "caching_strategies"
           },
           {
-            "id": "fix-react_testing_library",
-            "title": "Add Verifiable Evidence for Testing Library",
-            "reason": "Missing requirement: Testing Library. Add a concrete project or work experience bullet.",
+            "id": "fix-design_systems",
+            "title": "Add Verifiable Evidence for Design Systems",
+            "reason": "Missing requirement: Design Systems. Add a concrete project or work experience bullet.",
             "gain": 2,
             "effort": "small_addition",
             "type": "missing_must_have",
-            "targetSkillId": "react_testing_library"
+            "targetSkillId": "design_systems"
           }
         ],
         "bullets": [
@@ -16455,11 +16561,54 @@
             ]
           },
           {
+            "skillId": "design_systems",
+            "canonicalName": "Design Systems",
+            "category": "design_ux",
+            "stage": "core role skills",
+            "priority": 8,
+            "whyItMatters": "Proficiency in Design Systems validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
+            "steps": [
+              {
+                "stepNumber": 1,
+                "title": "Master Architectural Concepts",
+                "action": "Study core Design Systems architectural patterns, official API documentation, and industry best practices."
+              },
+              {
+                "stepNumber": 2,
+                "title": "Construct Verifiable Proof Project",
+                "action": "Build a functional proof module integrating Design Systems into a clean, testable application workflow."
+              },
+              {
+                "stepNumber": 3,
+                "title": "Document Measurable Resume Bullet",
+                "action": "Add an impact bullet highlighting Design Systems implementation and system improvements."
+              }
+            ],
+            "miniProject": {
+              "title": "Design Systems Verification Project",
+              "acceptanceCriteria": [
+                "Version-controlled repository demonstrating idiomatic Design Systems implementation.",
+                "Documented architecture design and setup instructions in the project repository.",
+                "Automated validation suite verifying correct runtime execution."
+              ]
+            },
+            "exampleBullet": "Add an impact bullet highlighting Design Systems implementation and system improvements. [e.g. for project \"Distributed KV Store\": Integrated Design Systems to process [N] requests with [X%] latency reduction].",
+            "evidenceOfDone": [
+              "Version-controlled repository demonstrating idiomatic Design Systems implementation.",
+              "Documented architecture design and setup instructions in the project repository.",
+              "Automated validation suite verifying correct runtime execution."
+            ],
+            "estimatedHours": 15,
+            "resources": [
+              "Design Systems"
+            ]
+          },
+          {
             "skillId": "tailwind_css",
             "canonicalName": "Tailwind CSS",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 8,
+            "priority": 9,
             "whyItMatters": "Proficiency in Tailwind CSS validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16502,7 +16651,7 @@
             "canonicalName": "Testing Library",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 9,
+            "priority": 10,
             "whyItMatters": "Proficiency in Testing Library validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16545,7 +16694,7 @@
             "canonicalName": "Web Accessibility (a11y)",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 10,
+            "priority": 11,
             "whyItMatters": "Proficiency in Web Accessibility (a11y) validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16588,7 +16737,7 @@
             "canonicalName": "Web Performance Optimization",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 11,
+            "priority": 12,
             "whyItMatters": "Proficiency in Web Performance Optimization validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16631,7 +16780,7 @@
             "canonicalName": "Web Vitals",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 12,
+            "priority": 13,
             "whyItMatters": "Proficiency in Web Vitals validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16674,7 +16823,7 @@
             "canonicalName": "Zustand",
             "category": "frontend",
             "stage": "core role skills",
-            "priority": 13,
+            "priority": 14,
             "whyItMatters": "Proficiency in Zustand validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
             "steps": [
               {
@@ -16715,8 +16864,8 @@
         ],
         "verdict": {
           "band": "Needs work",
-          "headline": "High Risk ATS Profile (0/13 must-haves met) · Missing core job requirements",
-          "oneParagraphSummary": "Evaluation against target REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) role: Candidate achieves a 46% fit score in the Needs work band."
+          "headline": "High Risk ATS Profile (0/14 must-haves met) · Missing core job requirements",
+          "oneParagraphSummary": "Evaluation against target REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) role: Candidate achieves a 45% fit score in the Needs work band."
         },
         "meta": {
           "detectedRequiredLevel": "entry",
@@ -16783,8 +16932,8 @@
         }
       },
       "quickRoast": {
-        "finalScore": 46,
-        "oneLineVerdict": "Needs work match (46%, 0/13 must-haves met) for REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark), but below required 1 YOE (9m shortfall).",
+        "finalScore": 45,
+        "oneLineVerdict": "Needs work match (45%, 0/14 must-haves met) for REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark), but below required 1 YOE (9m shortfall).",
         "strengths": [
           {
             "title": "Quantified scale impact (15,000 requests/minute)",
@@ -16805,11 +16954,11 @@
             "gapType": "seniority_shortfall"
           },
           {
-            "title": "Missing Accessibility",
+            "title": "Missing Design Systems",
             "gapType": "missing_required"
           },
           {
-            "title": "Missing Web Accessibility (a11y)",
+            "title": "Missing Accessibility",
             "gapType": "missing_required"
           }
         ],
@@ -16823,8 +16972,8 @@
             "action": "Missing requirement: Caching Strategies. Add a concrete project or work experience bullet."
           },
           {
-            "title": "Add Verifiable Evidence for Testing Library",
-            "action": "Missing requirement: Testing Library. Add a concrete project or work experience bullet."
+            "title": "Add Verifiable Evidence for Design Systems",
+            "action": "Missing requirement: Design Systems. Add a concrete project or work experience bullet."
           }
         ]
       },
@@ -16835,7 +16984,7 @@
           {
             "title": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)",
             "fitStatus": "Potential fit with evidence gaps",
-            "score": 46
+            "score": 45
           }
         ],
         "strongestEvidence": [],
@@ -16846,10 +16995,10 @@
           "Tailwind CSS"
         ],
         "missingCompetencies": [
+          "Design Systems",
           "Accessibility",
           "Web Accessibility (a11y)",
-          "Zustand",
-          "Testing Library"
+          "Zustand"
         ],
         "bestFitCompanyGroups": [
           "Early Career & Incubator Programs"
@@ -16858,7 +17007,7 @@
         "threeNextActions": [
           "Missing requirement: Accessibility. Add a concrete project or work experience bullet.",
           "Missing requirement: Caching Strategies. Add a concrete project or work experience bullet.",
-          "Missing requirement: Testing Library. Add a concrete project or work experience bullet."
+          "Missing requirement: Design Systems. Add a concrete project or work experience bullet."
         ]
       },
       "audit": {
@@ -17168,11 +17317,48 @@
             ]
           },
           {
+            "skillId": "design_systems",
+            "canonical": "Design Systems",
+            "category": "design_ux",
+            "stage": "Core Role Skills",
+            "stageOrder": 8,
+            "required": "must",
+            "status": "missing",
+            "weight": 4,
+            "whyItMatters": "Proficiency in Design Systems validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
+            "orderRationale": "Core requirement carrying 4/5 priority for target roles.",
+            "prerequisitesNeeded": [],
+            "unlocksSkills": [],
+            "steps": [
+              {
+                "stepNumber": 1,
+                "title": "Master Architectural Concepts",
+                "action": "Study core Design Systems architectural patterns, official API documentation, and industry best practices."
+              },
+              {
+                "stepNumber": 2,
+                "title": "Construct Verifiable Proof Project",
+                "action": "Build a functional proof module integrating Design Systems into a clean, testable application workflow."
+              },
+              {
+                "stepNumber": 3,
+                "title": "Document Measurable Resume Bullet",
+                "action": "Add an impact bullet highlighting Design Systems implementation and system improvements."
+              }
+            ],
+            "exampleBullet": "Add an impact bullet highlighting Design Systems implementation and system improvements. [e.g. for project \"Distributed KV Store\": Integrated Design Systems to process [N] requests with [X%] latency reduction].",
+            "evidenceOfDone": [
+              "Version-controlled repository demonstrating idiomatic Design Systems implementation.",
+              "Documented architecture design and setup instructions in the project repository.",
+              "Automated validation suite verifying correct runtime execution."
+            ]
+          },
+          {
             "skillId": "tailwind_css",
             "canonical": "Tailwind CSS",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 8,
+            "stageOrder": 9,
             "required": "must",
             "status": "weak",
             "weight": 4,
@@ -17209,7 +17395,7 @@
             "canonical": "Testing Library",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 9,
+            "stageOrder": 10,
             "required": "must",
             "status": "missing",
             "weight": 4,
@@ -17246,7 +17432,7 @@
             "canonical": "Web Accessibility (a11y)",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 10,
+            "stageOrder": 11,
             "required": "must",
             "status": "missing",
             "weight": 4,
@@ -17283,7 +17469,7 @@
             "canonical": "Web Performance Optimization",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 11,
+            "stageOrder": 12,
             "required": "must",
             "status": "weak",
             "weight": 4,
@@ -17320,7 +17506,7 @@
             "canonical": "Web Vitals",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 12,
+            "stageOrder": 13,
             "required": "must",
             "status": "weak",
             "weight": 4,
@@ -17357,7 +17543,7 @@
             "canonical": "Zustand",
             "category": "frontend",
             "stage": "Core Role Skills",
-            "stageOrder": 13,
+            "stageOrder": 14,
             "required": "must",
             "status": "missing",
             "weight": 4,
@@ -17665,11 +17851,48 @@
               ]
             },
             {
+              "skillId": "design_systems",
+              "canonical": "Design Systems",
+              "category": "design_ux",
+              "stage": "Core Role Skills",
+              "stageOrder": 8,
+              "required": "must",
+              "status": "missing",
+              "weight": 4,
+              "whyItMatters": "Proficiency in Design Systems validates your technical depth for modern REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark) engineering standards.",
+              "orderRationale": "Core requirement carrying 4/5 priority for target roles.",
+              "prerequisitesNeeded": [],
+              "unlocksSkills": [],
+              "steps": [
+                {
+                  "stepNumber": 1,
+                  "title": "Master Architectural Concepts",
+                  "action": "Study core Design Systems architectural patterns, official API documentation, and industry best practices."
+                },
+                {
+                  "stepNumber": 2,
+                  "title": "Construct Verifiable Proof Project",
+                  "action": "Build a functional proof module integrating Design Systems into a clean, testable application workflow."
+                },
+                {
+                  "stepNumber": 3,
+                  "title": "Document Measurable Resume Bullet",
+                  "action": "Add an impact bullet highlighting Design Systems implementation and system improvements."
+                }
+              ],
+              "exampleBullet": "Add an impact bullet highlighting Design Systems implementation and system improvements. [e.g. for project \"Distributed KV Store\": Integrated Design Systems to process [N] requests with [X%] latency reduction].",
+              "evidenceOfDone": [
+                "Version-controlled repository demonstrating idiomatic Design Systems implementation.",
+                "Documented architecture design and setup instructions in the project repository.",
+                "Automated validation suite verifying correct runtime execution."
+              ]
+            },
+            {
               "skillId": "tailwind_css",
               "canonical": "Tailwind CSS",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 8,
+              "stageOrder": 9,
               "required": "must",
               "status": "weak",
               "weight": 4,
@@ -17706,7 +17929,7 @@
               "canonical": "Testing Library",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 9,
+              "stageOrder": 10,
               "required": "must",
               "status": "missing",
               "weight": 4,
@@ -17743,7 +17966,7 @@
               "canonical": "Web Accessibility (a11y)",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 10,
+              "stageOrder": 11,
               "required": "must",
               "status": "missing",
               "weight": 4,
@@ -17780,7 +18003,7 @@
               "canonical": "Web Performance Optimization",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 11,
+              "stageOrder": 12,
               "required": "must",
               "status": "weak",
               "weight": 4,
@@ -17817,7 +18040,7 @@
               "canonical": "Web Vitals",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 12,
+              "stageOrder": 13,
               "required": "must",
               "status": "weak",
               "weight": 4,
@@ -17854,7 +18077,7 @@
               "canonical": "Zustand",
               "category": "frontend",
               "stage": "Core Role Skills",
-              "stageOrder": 13,
+              "stageOrder": 14,
               "required": "must",
               "status": "missing",
               "weight": 4,
@@ -17889,8 +18112,8 @@
           ],
           "differentiators": []
         },
-        "totalSkillsToAcquire": 13,
-        "mustHaveCount": 13,
+        "totalSkillsToAcquire": 14,
+        "mustHaveCount": 14,
         "niceToHaveCount": 0,
         "rewrites": [
           {
@@ -17981,6 +18204,13 @@
             {
               "id": "typescript",
               "text": "TypeScript",
+              "category": "must",
+              "confidence": 1,
+              "inTaxonomy": true
+            },
+            {
+              "id": "design_systems",
+              "text": "Design Systems",
               "category": "must",
               "confidence": 1,
               "inTaxonomy": true
@@ -18081,15 +18311,15 @@
             "label": "Must-Have Skill Coverage",
             "applicable": true,
             "rawInputs": {
-              "mustTotalCount": 13,
+              "mustTotalCount": 14,
               "mustMetCount": 0,
               "mustPartialCount": 7,
               "earnedCreditSum": 3.5
             },
-            "rawScore": 26.9,
+            "rawScore": 25,
             "nominalWeight": 30,
             "effectiveWeight": 0.3,
-            "contribution": 8.1,
+            "contribution": 7.5,
             "subScores": [],
             "flags": []
           },
@@ -18101,10 +18331,10 @@
               "verifiedCount": 0,
               "weakCount": 6
             },
-            "rawScore": 16.4,
+            "rawScore": 15.2,
             "nominalWeight": 20,
             "effectiveWeight": 0.2,
-            "contribution": 3.3,
+            "contribution": 3,
             "subScores": [],
             "flags": []
           },
@@ -18196,16 +18426,16 @@
           }
         ],
         "adjustments": [],
-        "rawSubtotal": 46,
+        "rawSubtotal": 45.1,
         "totalBonuses": 0,
         "totalDeductions": 0,
-        "preClampScore": 46,
+        "preClampScore": 45.1,
         "wasClamped": false,
-        "composite": 46,
-        "compositeDisplay": 46,
+        "composite": 45,
+        "compositeDisplay": 45,
         "band": {
-          "low": 44,
-          "high": 48,
+          "low": 43,
+          "high": 47,
           "width": 4,
           "label": "Stable"
         },
@@ -18214,8 +18444,8 @@
         "advisories": []
       },
       "bandDetails": {
-        "low": 44,
-        "high": 48,
+        "low": 43,
+        "high": 47,
         "width": 4,
         "label": "Stable"
       },
@@ -18700,6 +18930,14 @@
         "detectedYears": 0,
         "rawText": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)\r\nRole: Software Development Engineer I (Backend)\r\nLevel: SDE-1 (0-2 years experience)\r\nLocation: Bengaluru / Hyderabad\r\n\r\nAbout the Role:\r\nWe are looking for an SDE-1 to join our core backend engineering team. You will build and scale distributed microservices handling millions of daily customer requests.\r\n\r\nKey Responsibilities:\r\n- Design and develop scalable backend APIs using Java or Go.\r\n- Optimize database queries and schema designs across PostgreSQL and Redis.\r\n- Collaborate with frontend and mobile teams to define contract schemas.\r\n- Write unit, integration, and performance tests to maintain high reliability.\r\n\r\nRequirements:\r\n- Strong proficiency in Java, Go, or C++.\r\n- Solid understanding of Data Structures, Algorithms, and Object-Oriented Design.\r\n- Familiarity with relational databases (PostgreSQL/MySQL) and caching (Redis).\r\n- Hands-on experience with Git, Docker, and Linux environments.\r\n- Excellent communication and analytical skills.\r\n"
       },
+      "jdState": "ambiguous_or_contradictory",
+      "domainCapability": {
+        "domainId": "cloud_devops",
+        "label": "Cloud & DevOps / SRE",
+        "tier": "supported",
+        "reason": "Supported domain with structured cloud, container, IaC, and observability competency matching."
+      },
+      "contradictionDetected": false,
       "scanIdentity": {
         "scanId": "scan_4ebf3c8d_fb39fcf4",
         "candidateName": "RAJESH K",
@@ -29204,6 +29442,14 @@
         "detectedYears": 0,
         "rawText": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)\r\nRole: Software Development Engineer I (Backend)\r\nLevel: SDE-1 (0-2 years experience)\r\nLocation: Bengaluru / Hyderabad\r\n\r\nAbout the Role:\r\nWe are looking for an SDE-1 to join our core backend engineering team. You will build and scale distributed microservices handling millions of daily customer requests.\r\n\r\nKey Responsibilities:\r\n- Design and develop scalable backend APIs using Java or Go.\r\n- Optimize database queries and schema designs across PostgreSQL and Redis.\r\n- Collaborate with frontend and mobile teams to define contract schemas.\r\n- Write unit, integration, and performance tests to maintain high reliability.\r\n\r\nRequirements:\r\n- Strong proficiency in Java, Go, or C++.\r\n- Solid understanding of Data Structures, Algorithms, and Object-Oriented Design.\r\n- Familiarity with relational databases (PostgreSQL/MySQL) and caching (Redis).\r\n- Hands-on experience with Git, Docker, and Linux environments.\r\n- Excellent communication and analytical skills.\r\n"
       },
+      "jdState": "ambiguous_or_contradictory",
+      "domainCapability": {
+        "domainId": "cloud_devops",
+        "label": "Cloud & DevOps / SRE",
+        "tier": "supported",
+        "reason": "Supported domain with structured cloud, container, IaC, and observability competency matching."
+      },
+      "contradictionDetected": false,
       "scanIdentity": {
         "scanId": "scan_bc161474_fb39fcf4",
         "candidateName": "AMIT KUMAR",
@@ -34350,6 +34596,14 @@
         "detectedYears": 0,
         "rawText": "REPRESENTATIVE JOB DESCRIPTION (Illustrative benchmark)\r\nRole: Software Development Engineer I (Backend)\r\nLevel: SDE-1 (0-2 years experience)\r\nLocation: Bengaluru / Hyderabad\r\n\r\nAbout the Role:\r\nWe are looking for an SDE-1 to join our core backend engineering team. You will build and scale distributed microservices handling millions of daily customer requests.\r\n\r\nKey Responsibilities:\r\n- Design and develop scalable backend APIs using Java or Go.\r\n- Optimize database queries and schema designs across PostgreSQL and Redis.\r\n- Collaborate with frontend and mobile teams to define contract schemas.\r\n- Write unit, integration, and performance tests to maintain high reliability.\r\n\r\nRequirements:\r\n- Strong proficiency in Java, Go, or C++.\r\n- Solid understanding of Data Structures, Algorithms, and Object-Oriented Design.\r\n- Familiarity with relational databases (PostgreSQL/MySQL) and caching (Redis).\r\n- Hands-on experience with Git, Docker, and Linux environments.\r\n- Excellent communication and analytical skills.\r\n"
       },
+      "jdState": "ambiguous_or_contradictory",
+      "domainCapability": {
+        "domainId": "cloud_devops",
+        "label": "Cloud & DevOps / SRE",
+        "tier": "supported",
+        "reason": "Supported domain with structured cloud, container, IaC, and observability competency matching."
+      },
+      "contradictionDetected": false,
       "scanIdentity": {
         "scanId": "scan_381e1b61_fb39fcf4",
         "candidateName": "SNEHA PATEL",

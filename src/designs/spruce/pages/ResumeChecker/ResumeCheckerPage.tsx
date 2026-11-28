@@ -333,7 +333,26 @@ export function SpruceResumeCheckerPage() {
                       <h2 className="sp-h2 text-sp-ink mt-0.5">{engineResult.band} Candidate Match</h2>
                       <p className="sp-caption text-sp-muted mt-1">
                         Calibrated for {targetTier} • {experienceLevel} • Best fit: {engineResult.bestFitTier}
+                        {engineResult.applicationGuidance && (
+                          <>
+                            {' '}• Guidance: <strong className="text-sp-ink">{engineResult.applicationGuidance}</strong>
+                          </>
+                        )}
                       </p>
+                      {((engineResult.domainCapability && engineResult.domainCapability.tier !== 'supported') ||
+                        (engineResult.jdState && engineResult.jdState !== 'supported_technical')) && (
+                        <p className="mt-2 text-xs text-amber-800 bg-amber-50 border border-amber-300 rounded px-2.5 py-1.5">
+                          <strong>{engineResult.domainCapability?.label} ({engineResult.domainCapability?.tier}):</strong>{' '}
+                          {engineResult.jdState === 'preferred_only' && engineResult.quickRoast?.oneLineVerdict
+                            ? `${engineResult.quickRoast.oneLineVerdict} (${engineResult.domainCapability?.reason || ''})`
+                            : (engineResult.domainCapability?.reason || engineResult.quickRoast?.oneLineVerdict)}
+                          {engineResult.jobAnalysis?.unresolvedRequirements && engineResult.jobAnalysis.unresolvedRequirements.length > 0 && (
+                            <span className="block mt-1">
+                              Unresolved JD clause(s): {engineResult.jobAnalysis.unresolvedRequirements.map((u) => u.rawText).join('; ')}
+                            </span>
+                          )}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
@@ -466,10 +485,20 @@ export function SpruceResumeCheckerPage() {
                             <div className="space-y-1">
                               <div>
                                 <span className="sp-ui-label text-sp-ink">{skill.canonical || skill.skillId}</span>
+                                {skill.isSubstituteMatch && skill.satisfiedByCanonical && (
+                                  <span className="sp-caption text-sp-primary-text ml-1.5 font-medium">
+                                    (satisfied via {skill.satisfiedByCanonical})
+                                  </span>
+                                )}
                                 <span className="sp-caption text-sp-muted ml-2">
                                   ({skill.required === 'must' ? 'Must-Have' : 'Nice-to-Have'})
                                 </span>
                               </div>
+                              {skill.matchResult?.explanation && (
+                                <p className="sp-caption text-sp-muted">
+                                  {skill.matchResult.explanation}
+                                </p>
+                              )}
                               {verbatimQuote && (
                                 <p className="sp-caption text-sp-muted italic">
                                   &ldquo;{verbatimQuote}&rdquo;
@@ -562,7 +591,11 @@ export function SpruceResumeCheckerPage() {
                               <span className="sp-ui-label text-sp-ink">{idx + 1}. {fix.title}</span>
                               <StatusChip
                                 status={fix.type === 'missing_must_have' ? 'missing' : 'partial'}
-                                label={`+${fix.expectedScoreGain} pts`}
+                                label={
+                                  fix.expectedScoreGain > 0
+                                    ? `~+${fix.expectedScoreGain} pts (sim)`
+                                    : 'Qualitative Priority'
+                                }
                               />
                             </div>
                             <p className="sp-body-sm text-sp-muted mt-1.5 leading-relaxed">

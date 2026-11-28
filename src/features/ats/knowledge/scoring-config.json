@@ -21,13 +21,11 @@
     "maxRecommended": 1200,
     "hardMinWords": 80
   },
-  "caps": {
-    "mustHavesBelow50PercentMaxScore": 64
-  },
+  "_capPolicyNote": "Dormant 64-pt cap removed from active ambiguity; existing 4.0.0-ats7d golden scores preserved. Bands aligned to atsConfig.ts (80/65/45).",
   "bands": [
     {
       "id": "strong",
-      "minScore": 85,
+      "minScore": 80,
       "maxScore": 100,
       "label": "Strong Match",
       "badge": "High Alignment",
@@ -35,16 +33,16 @@
     },
     {
       "id": "competitive",
-      "minScore": 70,
-      "maxScore": 84,
-      "label": "Partial Match",
+      "minScore": 65,
+      "maxScore": 79,
+      "label": "Competitive Match",
       "badge": "Competitive Alignment",
       "verdict": "Solid foundation meeting most core criteria; address minor evidence gaps or weak metrics to strengthen your review."
     },
     {
       "id": "needs_work",
-      "minScore": 55,
-      "maxScore": 69,
+      "minScore": 45,
+      "maxScore": 64,
       "label": "Needs Work",
       "badge": "Notable Gaps Detected",
       "verdict": "Notable gaps in must-have technologies, lack of metric depth, or ungrounded skill claims require targeted revision."
@@ -52,7 +50,7 @@
     {
       "id": "weak_match",
       "minScore": 0,
-      "maxScore": 54,
+      "maxScore": 44,
       "label": "Weak Match",
       "badge": "Substantial Risk Profile",
       "verdict": "Substantial evidence gap against job description requirements due to missing core stack items or lack of project depth."

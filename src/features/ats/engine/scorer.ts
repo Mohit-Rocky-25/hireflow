@@ -372,11 +372,15 @@ export function computeAtsScore(input: ScorerInput) {
     });
   }
 
-  // Missing contact info (owned solely by penalties ledger)
+  // Missing contact info (owned solely by penalties ledger; 4.0.0-ats7d frozen golden contract)
   if (!contactInfo.email || !contactInfo.phone) {
     penalties.push({
       id: 'no_contact_info',
-      label: 'Missing Critical Contact Information',
+      label: !contactInfo.email && !contactInfo.phone
+        ? 'Missing Critical Contact Information'
+        : !contactInfo.email
+          ? 'Missing Email Contact Channel'
+          : 'Missing Phone Contact Channel',
       points: penaltiesConfig.noContactInfo,
       reason: 'Resume is missing direct recruiter contact channels (email or phone).',
       owner: 'penalties',
@@ -399,7 +403,7 @@ export function computeAtsScore(input: ScorerInput) {
     });
   }
 
-  // Word count outlier (owned solely by penalties ledger)
+  // Word count outlier (owned solely by penalties ledger; 140 fresher / 250 experienced preserves 4.0.0-ats7d Frozen Benchmarks)
   const minWords = isFresher ? 140 : 250;
   if (wordCount < minWords || wordCount > 1200) {
     penalties.push({
@@ -475,14 +479,14 @@ export function computeAtsScore(input: ScorerInput) {
     confidenceReason = `Missing standard sections (${missingStandardSections.join(', ')}) may reduce ATS parsing reliability.`;
   }
 
-  // Fix First items
+  // Fix First items (qualitative priority when not backed by simulateFix delta)
   const fixFirst: FixFirstItem[] = [];
   const missingMust = skillResults.filter(s => s.required === 'must' && s.status === 'missing');
   for (const m of missingMust.slice(0, 2)) {
     fixFirst.push({
       title: `Add Verifiable Evidence for ${m.canonical}`,
-      reason: `Missing mandatory requirement: ${m.canonical}. Add a concrete project or work experience bullet.`,
-      expectedScoreGain: Math.round(m.weight * 2.5),
+      reason: `Missing mandatory requirement: ${m.canonical}. Add a concrete project or work experience bullet if you have used it.`,
+      expectedScoreGain: 0,
       type: 'missing_must_have',
       skillId: m.skillId,
     });
@@ -491,9 +495,9 @@ export function computeAtsScore(input: ScorerInput) {
   const weakBullets = allBullets.filter(b => b.rawText && b.rawText.trim().length > 15 && b.score < 60);
   if (weakBullets.length > 0 && fixFirst.length < 3) {
     fixFirst.push({
-      title: 'Quantify Engineering Impact in Bullets',
+      title: 'Strengthen Impact & Action Verbs in Bullets',
       reason: `${weakBullets.length} bullet point(s) lack measurable outcomes or strong action verbs.`,
-      expectedScoreGain: 8,
+      expectedScoreGain: 0,
       type: 'weak_bullet',
     });
   }
@@ -503,15 +507,17 @@ export function computeAtsScore(input: ScorerInput) {
     fixFirst.push({
       title: 'Back Up Listed Skills with Experience',
       reason: `${stuffedSkills.length} skills listed in skills section have zero project or experience bullets.`,
-      expectedScoreGain: 6,
+      expectedScoreGain: 0,
       type: 'keyword_stuffed',
     });
   }
 
-  // Headline & Summary single source of truth
+  // Headline & Summary single source of truth (never claim 100% match when 0 requirements extracted)
   const mustHavesMetStr = `${mustMetCount}/${mustTotalCount}`;
   let headline = '';
-  if (mustMetCount === mustTotalCount && mustTotalCount > 0) {
+  if (mustTotalCount === 0) {
+    headline = `No Mandatory Requirements Extracted (0/0) · Add a full JD or confirm requirements`;
+  } else if (mustMetCount === mustTotalCount) {
     headline = `Meets 100% of Must-Have Requirements (${mustHavesMetStr}) · Verified ATS Compatibility`;
   } else if (mustMetRatio >= 0.75) { // spec-exempt: legacy scorer awaiting Stage 3
     headline = `Strong Core Match (${mustHavesMetStr} must-haves met) · Minor evidence gaps detected`;

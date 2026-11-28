@@ -126,8 +126,8 @@ describe('Stage 6: Golden Snapshot Regression Suite', () => {
     const serialized = corpus.join('\n===ENTRY===\n');
     const hash = crypto.createHash('sha256').update(serialized, 'utf8').digest('hex');
 
-    // Expected golden SHA-256 hash for deterministic corpus regression
-    const EXPECTED_GOLDEN_HASH = '5fc260bafb5525d15fe6557c723fa115504b8e3c55d8efe6621a69d9054d617e';
+    // Expected golden SHA-256 hash for deterministic corpus regression (updated for Phase 13.1 targeted template quality fixes)
+    const EXPECTED_GOLDEN_HASH = '42a8963ddedb183729fcf9598fe01ae9e6527aed51ba2f812f465f680f38e05c';
 
     expect(hash).toBe(EXPECTED_GOLDEN_HASH);
   });

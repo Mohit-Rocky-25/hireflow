@@ -39,33 +39,48 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
   const scoreMax = trace?.band ? trace.band.high : (result.bandDetails ? result.bandDetails.high : score);
   const displayScore = trace?.compositeDisplay ?? score;
 
-  // Honest band label
-  const honestBandLabel = trace?.band ? `${trace.band.label} match` : (score >= 80 ? 'Strong match' : score >= 60 ? 'Partial match' : 'Weak match');
+  // Honest band label — aligned with authoritative engine band & oneParagraphSummary
+  const honestBandLabel = band ? `${band} match` : (trace?.band ? `${trace.band.label} match` : (score >= 80 ? 'Strong match' : score >= 60 ? 'Partial match' : 'Weak match'));
   const cautionText = 'Score is based on a local rule-based engine that simulates keyword and structure screening. Real ATS systems differ by employer, vendor, and role. This score is a directional signal, not a guarantee.';
 
-  // Top 3 reasons moving the score
+  // Top 3 reasons moving the score — strictly derived from authoritative ScoreTrace & canonical skills
   const topReasons = React.useMemo(() => {
     const reasons: { label: string; impact: string; isPositive: boolean }[] = [];
+
     const missingMust = (result.skillResults || []).filter((s) => s.required === 'must' && s.status === 'missing');
     if (missingMust.length > 0) {
       reasons.push({
         label: `Missing must-have: ${missingMust.slice(0, 2).map((m) => m.canonical || m.skillId).join(', ')}`,
-        impact: `-${Math.min(20, missingMust.length * 6)} pts`,
+        impact: 'Unmet requirement',
         isPositive: false,
       });
     }
 
     const verifiedMust = (result.skillResults || []).filter((s) => s.required === 'must' && s.status === 'verified');
     if (verifiedMust.length > 0) {
+      const mustPillar = trace?.pillars?.find((p) => p.id === 'mustHaveCoverage');
       reasons.push({
         label: `Evidenced in bullets: ${verifiedMust.slice(0, 2).map((m) => m.canonical || m.skillId).join(', ')}`,
-        impact: `+${Math.min(25, verifiedMust.length * 5)} pts`,
+        impact: mustPillar
+          ? `+${mustPillar.contribution} / ${Math.round(mustPillar.effectiveWeight * 100)} pts`
+          : 'Verified in bullets',
         isPositive: true,
       });
     }
 
+    if (trace?.adjustments) {
+      const deductions = trace.adjustments.filter((a) => a.delta < 0);
+      for (const d of deductions.slice(0, 2)) {
+        reasons.push({
+          label: d.label,
+          impact: `${d.delta} pts`,
+          isPositive: false,
+        });
+      }
+    }
+
     return reasons.slice(0, 3);
-  }, [result]);
+  }, [result.skillResults, trace]);
 
   const fallbackDimensions = React.useMemo(() => {
     const w = result.activeWeights;
@@ -108,6 +123,29 @@ export const ScoreHeader: React.FC<Props> = ({ result, headerRef }) => {
           <div className="text-sm">
             <span className="font-bold uppercase tracking-wider">Confidence Notice ({confidence} Confidence): </span>
             <span>{confidenceReason}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Domain Coverage & JD State Disclosure */}
+      {((result.domainCapability && result.domainCapability.tier !== 'supported') ||
+        (result.jdState && result.jdState !== 'supported_technical')) && (
+        <div className="p-4 rounded-lg bg-near-black border border-amber-400/50 flex items-start gap-3.5 text-amber-200">
+          <ShieldAlert className="w-5 h-5 text-amber-300 shrink-0 mt-0.5 stroke-[1.5px]" />
+          <div className="text-sm">
+            <span className="font-bold uppercase tracking-wider">
+              {result.domainCapability?.label || 'Domain Coverage'} ({result.domainCapability?.tier || 'limited'}):{' '}
+            </span>
+            <span>
+              {result.jdState === 'preferred_only' && result.quickRoast?.oneLineVerdict
+                ? `${result.quickRoast.oneLineVerdict} (${result.domainCapability?.reason || ''})`
+                : (result.domainCapability?.reason || result.quickRoast?.oneLineVerdict)}
+            </span>
+            {result.jobAnalysis?.unresolvedRequirements && result.jobAnalysis.unresolvedRequirements.length > 0 && (
+              <div className="mt-1.5 text-xs text-amber-300/90">
+                Unresolved JD clause(s): {result.jobAnalysis.unresolvedRequirements.map((u) => u.rawText).join('; ')}
+              </div>
+            )}
           </div>
         </div>
       )}

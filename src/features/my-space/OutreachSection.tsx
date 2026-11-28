@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMySpaceStore } from './useMySpaceStore';
 import { humanizeEnum } from '@/lib/ui/copy';
 import { toast } from '@/components/ui/Toast';
-import { Copy, Check, ExternalLink, Trash2, Search } from 'lucide-react';
+import { Copy, Check, ExternalLink, Trash2, Search, Send, Clock, Mail } from 'lucide-react';
 import type { OutreachDraft, OutreachStatus } from '@/domain/types';
 
 interface OutreachSectionProps {
@@ -14,6 +14,7 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
   const navigate = useNavigate();
   const storeOutreachDrafts = useMySpaceStore((s) => s.outreachDrafts);
   const updateOutreachStatus = useMySpaceStore((s) => s.updateOutreachStatus);
+  const markOutreachSent = useMySpaceStore((s) => s.markOutreachSent);
   const removeOutreachDraft = useMySpaceStore((s) => s.removeOutreachDraft);
   const restoreOutreachDraft = useMySpaceStore((s) => s.restoreOutreachDraft);
 
@@ -23,17 +24,33 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
   const [statusFilter, setStatusFilter] = useState<'all' | OutreachStatus>('all');
   const [query, setQuery] = useState('');
 
+  const childFollowUpParentIds = useMemo(
+    () =>
+      new Set(
+        Object.values(outreachDrafts)
+          .map((d) => d.parentDraftId)
+          .filter((id): id is string => Boolean(id))
+      ),
+    [outreachDrafts]
+  );
+
   const draftsList = useMemo(() => {
     const q = query.trim().toLowerCase();
     return Object.values(outreachDrafts)
       .filter((d) => (statusFilter === 'all' ? true : d.status === statusFilter))
-      .filter((d) =>
-        !q
-          ? true
-          : (d.slots.person || '').toLowerCase().includes(q) ||
-            (d.slots.company || '').toLowerCase().includes(q) ||
-            d.renderedText.toLowerCase().includes(q)
-      )
+      .filter((d) => {
+        if (!q) return true;
+        const person = d.person || d.slots?.person || '';
+        const company = d.company || d.slots?.company || '';
+        const role = d.targetRole || '';
+        return (
+          person.toLowerCase().includes(q) ||
+          company.toLowerCase().includes(q) ||
+          role.toLowerCase().includes(q) ||
+          (d.subject || '').toLowerCase().includes(q) ||
+          d.renderedText.toLowerCase().includes(q)
+        );
+      })
       .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
   }, [outreachDrafts, statusFilter, query]);
 
@@ -59,11 +76,25 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
   };
 
   const handleOpenInReachOut = (draft: OutreachDraft) => {
-    const params = new URLSearchParams();
-    if (draft.slots.company) params.set('company', draft.slots.company);
-    if (draft.slots.person) params.set('person', draft.slots.person);
-    navigate(`/tools/reach-out?${params.toString()}`);
+    navigate(`/tools/reach-out?draftId=${encodeURIComponent(draft.id)}`);
   };
+
+  const handleDraftFollowUp = (draft: OutreachDraft) => {
+    navigate(`/tools/reach-out?followUpFrom=${encodeURIComponent(draft.id)}`);
+  };
+
+  const buildMailtoHref = (draft: OutreachDraft): string | null => {
+    if (draft.channel === 'linkedin_connect' || draft.channel === 'linkedin_inmail') {
+      return null;
+    }
+    const body = draft.message ?? draft.renderedText.replace(/^Subject:\s*[^\r\n]+\r?\n\r?\n/, '');
+    const params = new URLSearchParams();
+    if (draft.subject) params.set('subject', draft.subject);
+    params.set('body', body);
+    return `mailto:?${params.toString().replace(/\+/g, '%20')}`;
+  };
+
+  const todayIsoDay = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="max-w-[900px]">
@@ -96,7 +127,7 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Filter contact or message..."
+              placeholder="Filter contact, company, or role..."
               aria-label="Filter outreach drafts"
               className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-[#10100d] border border-[#24241c] text-xs text-[#f1f1e8] placeholder-[#9b9b8c]/70 focus:outline-none focus:border-[#faff69]"
             />
@@ -123,8 +154,14 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
         <div className="space-y-6">
           {draftsList.map((draft) => {
             const isCopied = copiedId === draft.id;
-            const person = draft.slots.person || 'Contact';
-            const company = draft.slots.company || '';
+            const person = draft.person || draft.slots?.person || 'Contact';
+            const company = draft.company || draft.slots?.company || '';
+            const hasChildFollowUp = childFollowUpParentIds.has(draft.id);
+            const dueDay = draft.followUpDueAt ? draft.followUpDueAt.slice(0, 10) : null;
+            const isFollowUpDue =
+              draft.status === 'sent' && !hasChildFollowUp && Boolean(dueDay && dueDay <= todayIsoDay);
+            const isOverdue = Boolean(isFollowUpDue && dueDay && dueDay < todayIsoDay);
+            const mailtoHref = buildMailtoHref(draft);
 
             return (
               <div
@@ -133,18 +170,57 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
               >
                 <div className="flex max-sm:flex-col sm:items-center justify-between gap-3 pb-3 border-b border-[#24241c]">
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-semibold text-base text-[#f1f1e8]">{person}</span>
                       {company && (
                         <span className="text-xs text-[#9b9b8c] font-medium">at {company}</span>
                       )}
+                      {draft.targetRole && (
+                        <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#16160f] border border-[#24241c] text-[#9b9b8c]">
+                          {draft.targetRole}
+                        </span>
+                      )}
+                      {draft.isIncomplete && (
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300">
+                          Incomplete Draft
+                        </span>
+                      )}
+                      {draft.parentDraftId && (
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300">
+                          Follow-Up
+                        </span>
+                      )}
                     </div>
-                    <div className="text-xs text-[#9b9b8c] font-mono mt-0.5">
-                      {humanizeEnum(draft.channel)}
+                    <div className="text-xs text-[#9b9b8c] font-mono mt-1 flex flex-wrap items-center gap-2">
+                      <span>{humanizeEnum(draft.channel)}</span>
+                      {draft.intent && <span>&middot; {humanizeEnum(draft.intent)}</span>}
+                      {draft.sentAt && (
+                        <span>&middot; Sent {new Date(draft.sentAt).toLocaleDateString()}</span>
+                      )}
+                      {dueDay && draft.status === 'sent' && !hasChildFollowUp && (
+                        <span
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[10px] ${
+                            isOverdue
+                              ? 'border-rose-500/40 bg-rose-950/40 text-rose-300'
+                              : isFollowUpDue
+                              ? 'border-[#faff69]/40 bg-[#faff69]/10 text-[#faff69]'
+                              : 'border-[#24241c] text-[#9b9b8c]'
+                          }`}
+                        >
+                          <Clock className="w-3 h-3" />
+                          <span>
+                            {isOverdue
+                              ? `Follow-up overdue (${dueDay})`
+                              : isFollowUpDue
+                              ? `Follow-up due today`
+                              : `Follow-up due ${dueDay}`}
+                          </span>
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2.5">
                     <label className="sr-only" htmlFor={`outreach-status-${draft.id}`}>
                       Status for {person}
                     </label>
@@ -173,12 +249,19 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
                 </div>
 
                 {/* Draft content */}
-                <div className="p-4 rounded-lg bg-[#090907] border border-[#1b1b15] text-[13.5px] leading-relaxed text-[#d9d9cd] whitespace-pre-wrap font-sans">
-                  {draft.renderedText}
+                <div className="p-4 rounded-lg bg-[#090907] border border-[#1b1b15] text-[13.5px] leading-relaxed text-[#d9d9cd] whitespace-pre-wrap font-sans space-y-2">
+                  {draft.subject && (
+                    <div className="text-xs font-semibold text-[#f1f1e8] border-b border-[#1b1b15] pb-1.5">
+                      Subject: {draft.subject}
+                    </div>
+                  )}
+                  <div>
+                    {draft.message ?? draft.renderedText.replace(/^Subject:\s*[^\r\n]+\r?\n\r?\n/, '')}
+                  </div>
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex items-center gap-3 pt-1">
+                <div className="flex flex-wrap items-center gap-2.5 pt-1">
                   <button
                     type="button"
                     onClick={() => handleCopy(draft)}
@@ -197,6 +280,38 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
                     )}
                   </button>
 
+                  {mailtoHref && (
+                    <a
+                      href={mailtoHref}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#24241c] bg-[#16160f] text-xs font-semibold text-[#f1f1e8] hover:border-[#faff69]/40"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-[#faff69]" />
+                      <span>Open Email App</span>
+                    </a>
+                  )}
+
+                  {draft.status === 'draft' && (
+                    <button
+                      type="button"
+                      onClick={() => markOutreachSent(draft.id)}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-emerald-500/35 bg-emerald-950/30 text-xs font-semibold text-emerald-300 hover:bg-emerald-900/40 cursor-pointer"
+                    >
+                      <Send className="w-3.5 h-3.5" />
+                      <span>Mark as Sent</span>
+                    </button>
+                  )}
+
+                  {draft.status === 'sent' && !hasChildFollowUp && (
+                    <button
+                      type="button"
+                      onClick={() => handleDraftFollowUp(draft)}
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#faff69]/40 bg-[#faff69]/10 text-xs font-semibold text-[#faff69] hover:bg-[#faff69] hover:text-[#090907] transition-colors cursor-pointer"
+                    >
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>Draft Follow-Up</span>
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => handleOpenInReachOut(draft)}
@@ -214,4 +329,3 @@ export const OutreachSection: React.FC<OutreachSectionProps> = ({ outreachDrafts
     </div>
   );
 };
-

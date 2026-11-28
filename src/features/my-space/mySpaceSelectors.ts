@@ -4,6 +4,7 @@ import type {
   GapOverlay,
   IsoDate,
   JournalEvent,
+  OutreachDraft,
   PlanItem,
   ToolKind,
   Uuid,
@@ -281,7 +282,7 @@ export interface WorkspaceAssetSummary {
 
 export interface ContinueWorkItem {
   id: string;
-  kind: 'tailor_draft' | 'build_brief' | 'plan_item' | 'unscanned_target';
+  kind: 'tailor_draft' | 'build_brief' | 'plan_item' | 'unscanned_target' | 'outreach_followup';
   title: string;
   subtitle: string;
   actionLabel: string;
@@ -350,6 +351,43 @@ export function buildWorkspaceAssetSummary(input: {
   };
 }
 
+export function buildFollowUpReminderItems(
+  outreachDrafts: OutreachDraft[],
+  nowIso: string = new Date().toISOString()
+): ContinueWorkItem[] {
+  const draftsWithChildFollowUp = new Set(
+    outreachDrafts.map((d) => d.parentDraftId).filter((pid): pid is string => Boolean(pid))
+  );
+  const nowDay = nowIso.slice(0, 10);
+  const items: ContinueWorkItem[] = [];
+
+  for (const draft of outreachDrafts) {
+    if (draft.status !== 'sent') continue;
+    if (!draft.followUpDueAt) continue;
+    if (draftsWithChildFollowUp.has(draft.id)) continue;
+
+    const dueDay = draft.followUpDueAt.slice(0, 10);
+    if (dueDay > nowDay) continue;
+
+    const person = draft.person || draft.slots?.person || 'Contact';
+    const company = draft.company || draft.slots?.company || '';
+    const isOverdue = dueDay < nowDay;
+
+    items.push({
+      id: `continue_followup_${draft.id}`,
+      kind: 'outreach_followup',
+      title: company ? `Follow up with ${person} (${company})` : `Follow up with ${person}`,
+      subtitle: `Outreach due ${dueDay} · Follow-Up`,
+      actionLabel: 'Draft Follow-Up',
+      to: `/my-space/outreach?highlight=${encodeURIComponent(draft.id)}`,
+      updatedAt: draft.followUpDueAt,
+      statusLabel: isOverdue ? 'overdue' : 'due today',
+    });
+  }
+
+  return items;
+}
+
 export function buildContinueWorkItems(input: {
   tailorSessions: Array<{
     sessionId: string;
@@ -365,8 +403,14 @@ export function buildContinueWorkItems(input: {
   briefTitlesById?: Record<string, string>;
   targets: WatchlistTarget[];
   audits: AuditEntry[];
+  outreachDrafts?: OutreachDraft[];
+  nowIso?: string;
 }): ContinueWorkItem[] {
   const items: ContinueWorkItem[] = [];
+
+  if (input.outreachDrafts?.length) {
+    items.push(...buildFollowUpReminderItems(input.outreachDrafts, input.nowIso));
+  }
 
   for (const s of input.tailorSessions) {
     if (s.draftStatus === 'exported' || s.draftStatus === 'archived') continue;

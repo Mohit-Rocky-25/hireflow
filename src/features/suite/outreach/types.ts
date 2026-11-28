@@ -23,7 +23,13 @@ export type OutreachGoal =
   | 'G8' // thank you after a conversation
   | 'G9'; // outreach built on a shared event/hackathon/campus context
 
-export type OutreachRelationship = 'cold' | 'warm' | 'alumni' | 'after-accept';
+export type OutreachRelationship =
+  | 'cold'
+  | 'warm'
+  | 'alumni'
+  | 'after-accept'
+  | 'existing'
+  | 'previous-contact';
 
 export type OutreachRecipientType =
   | 'in-house recruiter'
@@ -33,7 +39,34 @@ export type OutreachRecipientType =
   | 'senior leader or founder'
   | 'campus/university relations';
 
-export type CandidateStage = 'student' | 'fresher' | 'intern-seeker';
+export type CandidateStage =
+  | 'student'
+  | 'graduate'
+  | 'ic_engineer'
+  | 'senior_lead'
+  | 'manager'
+  | 'researcher'
+  | 'career_switcher'
+  | 'fresher'
+  | 'intern-seeker';
+
+export type OutreachEvidenceProvenance =
+  | 'source_supported'
+  | 'supported_paraphrase'
+  | 'candidate_attested'
+  | 'unconfirmed';
+
+export type OutreachPurpose =
+  | 'cold_intro'
+  | 'recruiter_outreach'
+  | 'hiring_manager'
+  | 'alumni_networking'
+  | 'warm_referral'
+  | 'post_application'
+  | 'conversation_follow_up'
+  | 'event_follow_up'
+  | 'connection_invite'
+  | 'thank_you';
 
 export type CompanyType = 'it-services' | 'product' | 'startup' | 'gcc' | 'any';
 

@@ -72,3 +72,6 @@
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-24T13:05:08.888Z","subjectId":"mock-portal"}
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-24T14:37:06.743Z","subjectId":"mock-portal"}
 {"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-27T20:59:17.006Z","subjectId":"mock-portal"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-28T11:51:04.553Z","subjectId":"mock-portal"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-28T12:26:07.483Z","subjectId":"mock-portal"}
+{"url":"https://mock-company-portal.example/campus","httpStatus":200,"timestamp":"2026-11-28T13:27:09.815Z","subjectId":"mock-portal"}

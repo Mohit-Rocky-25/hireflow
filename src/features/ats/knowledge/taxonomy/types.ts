@@ -12,7 +12,10 @@ export type TaxonomyCategory =
   | 'mobile'
   | 'security'
   | 'embedded'
-  | 'core_engineering';
+  | 'core_engineering'
+  | 'product_analytics'
+  | 'design_ux'
+  | 'business_ops';
 
 export interface SubstituteSkill {
   id: string;

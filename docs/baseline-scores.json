@@ -510,7 +510,7 @@
       "success": true,
       "score": 56,
       "band": "Needs work",
-      "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
+      "headline": "No Mandatory Requirements Extracted (0/0) · Add a full JD or confirm requirements",
       "subscores": {
         "mustHaveCoverage": 30,
         "evidenceDepth": 0,
@@ -583,7 +583,7 @@
       "success": true,
       "score": 53,
       "band": "Needs work",
-      "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
+      "headline": "No Mandatory Requirements Extracted (0/0) · Add a full JD or confirm requirements",
       "subscores": {
         "mustHaveCoverage": 30,
         "evidenceDepth": 0,
@@ -1127,7 +1127,7 @@
       "penalties": [
         {
           "id": "no_contact_info",
-          "label": "Missing Critical Contact Information",
+          "label": "Missing Phone Contact Channel",
           "points": -5,
           "reason": "Resume is missing direct recruiter contact channels (email or phone).",
           "owner": "penalties",

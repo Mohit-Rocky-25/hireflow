@@ -233,10 +233,22 @@ export const SkillsTab: React.FC<Props> = ({ skills }) => {
                   <tr key={skill.skillId} className="hover:bg-hover-gray/20 transition-colors">
                     {/* Skill Name & Category */}
                     <td className="py-4 px-6 font-bold text-white align-top">
-                      <div>{skill.canonical}</div>
+                      <div>
+                        {skill.canonical}
+                        {skill.isSubstituteMatch && skill.satisfiedByCanonical && (
+                          <span className="ml-1.5 text-xs font-normal text-volt">
+                            (satisfied via {skill.satisfiedByCanonical})
+                          </span>
+                        )}
+                      </div>
                       <span className="text-xs text-silver font-normal capitalize">
                         {skill.category.replace('_', ' ')}
                       </span>
+                      {skill.matchResult?.explanation && (
+                        <p className="text-[11px] text-silver font-normal mt-1 max-w-xs">
+                          {skill.matchResult.explanation}
+                        </p>
+                      )}
                     </td>
 
                     {/* Importance */}

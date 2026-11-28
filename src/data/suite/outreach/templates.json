@@ -34,9 +34,9 @@
     ],
     "blocks": {
       "hook": [
-        "Hi {{recipient_name}}, saw {{company}} is actively recruiting for {{role}} roles.",
-        "Hi {{recipient_name}}, noticed your team is building out {{company}}'s {{role}} bench.",
-        "Hi {{recipient_name}}, reaching out as {{company}} scales its technical engineering teams."
+        "Hi {{recipient_name}}, I'm interested in {{role}} work on {{company}}'s engineering team.",
+        "Hi {{recipient_name}}, reaching out to introduce my background for {{role}} work at {{company}}.",
+        "Hi {{recipient_name}}, wanted to connect regarding {{role}} engineering opportunities at {{company}}."
       ],
       "proof": [
         "I build with {{primary_skill}}, recently {{proof_point}}.",
@@ -274,21 +274,21 @@
     ],
     "subjectVariants": [
       "{{role}} candidate: {{primary_skill}} background",
-      "Inquiry: {{role}} hiring at {{company}}",
-      "{{role}} fresher profile — {{primary_skill}}"
+      "Inquiry: {{role}} opportunities at {{company}}",
+      "{{role}} profile — {{primary_skill}}"
     ],
     "blocks": {
       "hook": [
-        "Hi {{recipient_name}},\n\nI am getting in touch regarding entry-level {{role}} opportunities at {{company}}.",
-        "Hi {{recipient_name}},\n\nReaching out to explore upcoming junior {{role}} opportunities on your engineering teams at {{company}}."
+        "Hi {{recipient_name}},\n\nI am reaching out regarding {{role}} opportunities at {{company}}.",
+        "Hi {{recipient_name}},\n\nWanted to share a concise summary of my background for {{role}} roles at {{company}}."
       ],
       "proof": [
         "Here is a quick snapshot of my technical background:\n• Primary Stack: {{primary_skill}}\n• Key Project: {{proof_point}}\n• Repository & Demos: {{portfolio}}",
         "A quick 3-bullet summary of my engineering work:\n• Stack: {{primary_skill}}\n• Shipped: {{proof_point}}\n• Portfolio: {{portfolio}}"
       ],
       "ask": [
-        "Does {{company}} currently have upcoming graduate or fresher openings where this background would be a fit?",
-        "Could you guide me toward the appropriate hiring drive or portal for early-career applicants with this profile?"
+        "Are there {{role}} openings on your team where this background would be relevant?",
+        "Could you point me to the right team or process if {{company}} is hiring for {{role}}?"
       ],
       "close": [
         "No worries if hiring is currently closed. Thank you for your time.\n\nBest regards,\n{{your_name}}",
@@ -518,7 +518,7 @@
         "Working with {{primary_skill}}, your technical approach was really insightful."
       ],
       "ask": [
-        "Would be glad to connect and learn about {{company}}'s engineering culture.",
+        "Would be glad to connect and follow your team's {{primary_skill}} work.",
         "Glad to connect with fellow engineers working in this stack.",
         "Would love to connect here if you are open to it."
       ],
@@ -825,7 +825,7 @@
     ],
     "blocks": {
       "hook": [
-        "Hi {{recipient_name}},\n\nHope you are doing well! I saw you are working closely with engineering at {{company}}.",
+        "Hi {{recipient_name}},\n\nI noticed you are working closely with engineering at {{company}} and wanted to reach out.",
         "Hi {{recipient_name}},\n\nReaching out as I am actively preparing an application for the {{role}} opening at {{company}}."
       ],
       "proof": [
@@ -902,8 +902,8 @@
     ],
     "blocks": {
       "hook": [
-        "Hi {{recipient_name}},\n\nHope you and the team are having a great quarter! Wanted to share a quick update on my engineering journey since our time together.",
-        "Hi {{recipient_name}},\n\nHope all is thriving on your end. I wanted to reach out with a brief career update."
+        "Hi {{recipient_name}},\n\nWanted to share a quick update on my recent engineering work since we last worked together.",
+        "Hi {{recipient_name}},\n\nReaching out with a brief update on what I have been building recently."
       ],
       "proof": [
         "I have continued deepening my work in {{primary_skill}}, and recently {{proof_point}} (documented at {{portfolio}}).",
@@ -5182,7 +5182,7 @@
     ],
     "blocks": {
       "hook": [
-        "Hi {{recipient_name}},\n\nThanks for accepting my connection request. Reaching out as I noticed {{company}} is actively growing its technical team.",
+        "Hi {{recipient_name}},\n\nThanks for accepting my connection request. I wanted to introduce my background for {{role}} opportunities at {{company}}.",
         "Hi {{recipient_name}},\n\nAppreciate you connecting here. Wanted to share a quick overview of my background for {{role}} opportunities."
       ],
       "proof": [
@@ -5190,7 +5190,7 @@
         "Working deeply in {{primary_skill}}, I recently {{proof_point}}."
       ],
       "ask": [
-        "Could you let me know if {{company}} is currently reviewing early-career applicants for this stack?",
+        "Could you let me know if {{company}} is currently reviewing {{role}} applicants with this stack?",
         "Are there open requisitions matching this profile where I could share a brief PDF resume?"
       ],
       "close": [

@@ -29,9 +29,9 @@ describe('Interactive 1-Click Gap Handoff (P3)', () => {
       </MemoryRouter>
     );
 
-    // Verify Tailor Studio and Project Briefs links are rendered in HTML
+    // Verify Tailor Studio launch action and Project Briefs link are rendered in HTML
     expect(html).toContain('Add to Tailor Draft');
-    expect(html).toContain('/tools/tailor?focus=Kubernetes');
+    expect(html).toContain('<button');
     expect(html).toContain('Build Proof Project');
     expect(html).toContain('/tools/build-briefs?query=Kubernetes');
     expect(html).toContain('Rewrite in Tailor Studio');

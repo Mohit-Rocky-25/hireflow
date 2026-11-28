@@ -5,7 +5,7 @@
 // placeholder detection, and Candidate Profile integration.
 // ============================================================
 
-import templatesData from '../../../data/suite/outreach-templates.json';
+import templatesData from '../../../data/suite/outreach/templates.json';
 import { CandidateProfile } from '../profile/types';
 import { ALL_REACH_OUT_TEMPLATES } from '../../reach-out/data';
 import { fitMessageToLength } from './engine/lengthFit';

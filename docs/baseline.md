@@ -1,6 +1,6 @@
 # HireFlow v3 Baseline Performance Report (Stage 0.6)
 
-> Recorded on: 2026-11-27
+> Recorded on: 2026-11-28
 > Status: Baseline measurements before any engine changes or refactoring.
 
 ## Baseline Evaluation Matrix
@@ -10,7 +10,7 @@
 | **Pair 1** | Strong CS B.Tech, 8.64 CGPA, Node/React/PG, Internship | **71 / 100** | 2/9 | N/A | 0 | N/A | None |
 | **Pair 2** | ECE B.E., Embedded C, FreeRTOS, STM32/ESP32, No internship | **44 / 100** | 0/9 | N/A | 0 | N/A | None |
 | **Pair 3** | Tier-3 IT B.Tech, 7.15 CGPA, weak verbs, no metrics | **43 / 100** | 0/9 | N/A | 0 | N/A | None |
-| **Pair 4** | Two-column interleaved paste, React/TS/Next, FinTech intern | **16 / 100** | 0/16 | N/A | 0 | N/A | Missing Dedicated SKILLS Section (-3); Missing Dedicated PROJECTS Section (-3) |
+| **Pair 4** | Two-column interleaved paste, React/TS/Next, FinTech intern | **7 / 100** | 0/17 | N/A | 0 | N/A | Missing Dedicated SKILLS Section (-3); Missing Dedicated PROJECTS Section (-3) |
 | **Pair 5** | Mechanical B.Tech switcher, Django/Python/SQL projects | **39 / 100** | 0/19 | N/A | 0 | N/A | Missing Dedicated SKILLS Section (-3) |
 | **Pair 6** | 40+ buzzwords listed, only 1 basic portfolio project | **24 / 100** | 0/19 | N/A | 0 | N/A | Keyword Stuffing Detected (-10) |
 
@@ -64,14 +64,14 @@
 ### Pair 4: Two-Column Paste Fresher vs Junior Frontend Startup
 - **Resume Fixture:** `resume_04_twocolumn_raw_paste.txt`
 - **JD Fixture:** `jd_02_startup_frontend_fresher.txt`
-- **ATS Overall Score:** 16
+- **ATS Overall Score:** 7
 - **Band:** Weak match
 - **Confidence:** Low
-- **Headline:** High Risk ATS Profile (0/16 must-haves met) · Missing core job requirements
-- **Must Haves Met:** 0/16
+- **Headline:** High Risk ATS Profile (0/17 must-haves met) · Missing core job requirements
+- **Must Haves Met:** 0/17
 - **Subscores:** Hard Skills: undefined, Evidence: undefined, Seniority: 0, Format Safety: undefined
 - **Penalties:** Missing Dedicated SKILLS Section (-3), Missing Dedicated PROJECTS Section (-3)
-- **Skills Detected (11):** css, react, tailwind_css, typescript, rest_apis, tanstack_query, vitest, javascript, zustand, next_js, docker
+- **Skills Detected (3):** css, react, javascript
 - **Missing Sections:** education, skills, projects
 - **Weak Bullets Count:** 0
 - **Metrics Ratio:** 0%

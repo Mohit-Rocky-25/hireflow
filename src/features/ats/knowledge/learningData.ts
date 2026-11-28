@@ -177,6 +177,43 @@ export const SKILL_PLAYBOOKS: Record<string, SkillPlaybook> = {
       'Centralized health check endpoints enabling container orchestration monitoring.',
     ],
   },
+  python: {
+    whyItMatters: 'Python powers backend services, data pipelines, automation, and ML tooling.',
+    concepts: 'Master typing hints, virtual environments, async I/O, data structures, and pytest testing.',
+    proofProject: 'Build a typed Python service or CLI pipeline with automated unit tests and clean packaging.',
+    resumeAction: 'Quantify throughput, runtime reduction, or automation savings from Python workflows.',
+    evidence: [
+      'Typed Python repository with pytest suite and dependency manifest.',
+      'Documented benchmark or data-processing validation output.',
+    ],
+  },
+  tableau: {
+    whyItMatters: 'BI dashboards translate raw SQL metrics into executive and product decisions.',
+    concepts: 'Master calculated fields, LOD expressions, data blending, and dashboard performance tuning.',
+    proofProject: 'Build an interactive cohort and funnel dashboard backed by clean SQL views.',
+    resumeAction: 'Describe decisions enabled and manual reporting effort reduced by your dashboards.',
+    evidence: [
+      'Published Tableau Public workbook or screenshots with documented SQL backing.',
+    ],
+  },
+  figma: {
+    whyItMatters: 'Product teams rely on Figma for component systems, prototyping, and engineering handoff.',
+    concepts: 'Master Auto Layout, component variants, design tokens, and interactive prototypes.',
+    proofProject: 'Design a responsive multi-screen flow with reusable tokens and usability test notes.',
+    resumeAction: 'Highlight usability findings resolved and design-to-dev handoff clarity.',
+    evidence: [
+      'Shareable Figma prototype link with documented component specs.',
+    ],
+  },
+  product_analytics: {
+    whyItMatters: 'Product analytics grounds roadmap prioritization in retention, funnel, and experiment data.',
+    concepts: 'Master event taxonomy, funnel conversion, retention cohorts, and A/B test guardrails.',
+    proofProject: 'Define an event tracking plan and analyze a conversion funnel with actionable hypotheses.',
+    resumeAction: 'Cite measurable funnel or retention changes from shipped product iterations.',
+    evidence: [
+      'Event schema and experiment readout summary.',
+    ],
+  },
 };
 
 /**

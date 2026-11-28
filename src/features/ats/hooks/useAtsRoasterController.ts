@@ -11,7 +11,51 @@ import { useAtsToolStore } from '../../../store/tools/atsStore';
 import { WordLimitSource } from '../../../lib/config/limits';
 import { resolveTargetJob } from '../../career-path/resolveTargetJob';
 import { ConfirmedRequirement } from '../components/ConfirmRequirementsModal';
-import { parseJD } from '../../../lib/ats/parseJD';
+import { analyzeJobDescription } from '../engine/jdAnalyzer';
+import type { JdAnalysis } from '../engine/types';
+import type { ExtractedRequirement } from '../../../lib/ats/types';
+
+export interface ModalParsedJdPreview {
+  extractedRequirements: ExtractedRequirement[];
+  unrecognizedRequirements: ExtractedRequirement[];
+  analysis: JdAnalysis;
+}
+
+/**
+ * Canonical JD requirement preview for ConfirmRequirementsModal.
+ * Uses the exact same `analyzeJobDescription()` logic as `runAtsEngine()`.
+ */
+export function previewJdRequirementsForModal(
+  jdText: string,
+  confirmedList?: Array<{ text: string; type: 'must' | 'nice' }>
+): ModalParsedJdPreview {
+  const analysis = analyzeJobDescription(jdText, confirmedList);
+  const extractedRequirements: ExtractedRequirement[] = analysis.requiredSkills.map((req) => ({
+    id: req.skillId,
+    text: req.canonical,
+    canonical: req.canonical,
+    type: req.required === 'must' ? 'must' : 'nice',
+    confidence: 'high',
+    sourceSentence: req.canonical,
+    inTaxonomy: true,
+  }));
+  const unrecognizedRequirements: ExtractedRequirement[] = (analysis.unresolvedRequirements || []).map(
+    (u, idx) => ({
+      id: `unresolved_${idx}`,
+      text: u.rawText,
+      canonical: u.rawText,
+      type: u.required === 'must' ? 'must' : 'nice',
+      confidence: 'low',
+      sourceSentence: u.reason,
+      inTaxonomy: false,
+    })
+  );
+  return {
+    extractedRequirements,
+    unrecognizedRequirements,
+    analysis,
+  };
+}
 // autoSync removed (cloud-first)
 import { createAuthoritativeReportSnapshot, type AuthoritativeReportSnapshot } from '../engine/authoritativeSnapshot';
 import { normalizeText } from '../../../lib/text/normalize';
@@ -101,7 +145,16 @@ export function useAtsRoasterController() {
   const [presentationMode, setPresentationMode] = useState<'deep' | 'quick'>('deep');
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [confirmedRequirements, setConfirmedRequirements] = useState<ConfirmedRequirement[] | null>(null);
-  const [parsedJdData, setParsedJdData] = useState<ReturnType<typeof parseJD> | null>(null);
+  const [parsedJdData, setParsedJdData] = useState<ModalParsedJdPreview | null>(null);
+  const [selectedResumeMeta, setSelectedResumeMeta] = useState<{
+    workspaceId: string | null;
+    versionId: string | null;
+    label: string;
+  }>({
+    workspaceId: null,
+    versionId: null,
+    label: 'Custom Resume',
+  });
 
   const jobRoleBridgeSkills = useMemo(() => {
     if (!engineResult?.skillResults) return [];
@@ -340,7 +393,12 @@ export function useAtsRoasterController() {
 
         if (!response.success) {
           setEngineResult(null);
-          setFileError(response.message);
+          const isPdf = (resumeFileName || '').toLowerCase().endsWith('.pdf');
+          const scannedHint =
+            isPdf && response.error === 'UNREADABLE_RESUME'
+              ? ' If this is a scanned or image-only PDF, export a text-based PDF, upload DOCX, or paste your resume text.'
+              : '';
+          setFileError(`${response.message}${scannedHint}`);
           return;
         }
 
@@ -417,6 +475,34 @@ export function useAtsRoasterController() {
     }, 1200);
   };
 
+  const handleAnalyze = () => {
+    if (!resumeText.trim() || !jobText.trim()) return;
+    if (!confirmedRequirements) {
+      setParsedJdData(previewJdRequirementsForModal(jobText));
+      setIsConfirmModalOpen(true);
+      return;
+    }
+    executeAnalysis(confirmedRequirements);
+  };
+
+  const handleConfirmRequirements = (
+    confirmed: ConfirmedRequirement[],
+    hasCustomizations = false
+  ) => {
+    if (!hasCustomizations) {
+      setConfirmedRequirements(null);
+      executeAnalysis(undefined);
+      return;
+    }
+    setConfirmedRequirements(confirmed);
+    executeAnalysis(confirmed);
+  };
+
+  const handleTryAnotherJob = () => {
+    handleClearJob();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return {
     navigate,
     resumeText,
@@ -424,7 +510,24 @@ export function useAtsRoasterController() {
     jobText,
     setJobText,
     resumeFileName,
+    setResumeFileName,
     jobFileName,
+    setJobFileName,
+    resumePageCount,
+    setResumePageCount,
+    jobPageCount,
+    setJobPageCount,
+    resumeExtractionMeta,
+    jobExtractionMeta,
+    resumeSource,
+    setResumeSource,
+    jobSource,
+    setJobSource,
+    userClearedResumeRef,
+    userClearedJobRef,
+    activeScanIdRef,
+    setEngineResult,
+    setLatestAuditEntry,
     targetTier,
     setTargetTier,
     experienceLevel,
@@ -443,6 +546,14 @@ export function useAtsRoasterController() {
     setPresentationMode,
     showFullReport,
     setShowFullReport,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+    confirmedRequirements,
+    setConfirmedRequirements,
+    parsedJdData,
+    setParsedJdData,
+    selectedResumeMeta,
+    setSelectedResumeMeta,
     detectedTargetCompany,
     detectedRoleTitle,
     jobRoleBridgeSkills,
@@ -451,6 +562,9 @@ export function useAtsRoasterController() {
     handleClearJob,
     handleTabChange,
     handleImportTalentLensResume,
+    handleAnalyze,
+    handleConfirmRequirements,
+    handleTryAnotherJob,
     executeAnalysis,
   };
 }

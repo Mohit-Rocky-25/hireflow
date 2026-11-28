@@ -13,6 +13,7 @@ import { DATA_ML_AI } from './dataMlAi';
 import { CLOUD_DEVOPS_INFRA } from './cloudDevopsInfra';
 import { MOBILE_SECURITY_EMBEDDED } from './mobileSecurityEmbedded';
 import { CORE_ENGINEERING_TOOLS } from './coreEngineeringTools';
+import { PRODUCT_BUSINESS_DESIGN } from './productBusinessDesign';
 import { DOMAIN_COMPETENCIES } from '../ontology/competencies';
 import { CompetencyNode } from '../ontology/types';
 import legacySkillsJson from '../skills.json';
@@ -473,6 +474,7 @@ export const TAXONOMY_REGISTRY: TaxonomySkill[] = [
   ...CLOUD_DEVOPS_INFRA,
   ...MOBILE_SECURITY_EMBEDDED,
   ...CORE_ENGINEERING_TOOLS,
+  ...PRODUCT_BUSINESS_DESIGN,
   ...ONTOLOGY_AS_TAXONOMY,
 ];
 
@@ -485,6 +487,7 @@ const TAXONOMY_SOURCE_ENTRIES: TaxonomySourceEntry[] = [
   ...CLOUD_DEVOPS_INFRA.map(skill => ({ source: 'taxonomy' as const, sourceName: 'cloudDevopsInfra', skill })),
   ...MOBILE_SECURITY_EMBEDDED.map(skill => ({ source: 'taxonomy' as const, sourceName: 'mobileSecurityEmbedded', skill })),
   ...CORE_ENGINEERING_TOOLS.map(skill => ({ source: 'taxonomy' as const, sourceName: 'coreEngineeringTools', skill })),
+  ...PRODUCT_BUSINESS_DESIGN.map(skill => ({ source: 'taxonomy' as const, sourceName: 'productBusinessDesign', skill })),
   ...ONTOLOGY_AS_TAXONOMY.map(skill => ({ source: 'ontology' as const, sourceName: 'domainCompetencies', skill })),
   ...(legacySkillsJson && Array.isArray((legacySkillsJson as any).skills)
     ? ((legacySkillsJson as any).skills as any[]).map(legacy => ({

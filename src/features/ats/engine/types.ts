@@ -246,6 +246,38 @@ export type ApplicationGuidance =
   | 'Significant gaps to address'
   | 'Insufficient evidence to evaluate';
 
+export type JdInputState =
+  | 'no_jd'
+  | 'insufficient_context'
+  | 'unsupported_domain'
+  | 'edu_cert_only'
+  | 'no_requirements_recognized'
+  | 'preferred_only'
+  | 'ambiguous_or_contradictory'
+  | 'supported_technical';
+
+export type DomainCapabilityTier = 'supported' | 'partial' | 'experimental' | 'unsupported';
+
+export interface DomainCapability {
+  domainId:
+    | 'software_engineering'
+    | 'cloud_devops'
+    | 'data_analytics'
+    | 'cybersecurity'
+    | 'product_management'
+    | 'design_ux'
+    | 'business_ops'
+    | 'marketing'
+    | 'finance'
+    | 'sales'
+    | 'hr'
+    | 'research'
+    | 'unknown';
+  label: string;
+  tier: DomainCapabilityTier;
+  reason: string;
+}
+
 export interface AtsEngineResult {
   score: number;
   band: 'Strong' | 'Competitive' | 'Needs work' | 'Weak match';
@@ -292,6 +324,9 @@ export interface AtsEngineResult {
   canonicalResult?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis;
   quickRoast?: QuickRoastProjection;
   applicationGuidance?: ApplicationGuidance;
+  jdState?: JdInputState;
+  domainCapability?: DomainCapability;
+  contradictionDetected?: boolean;
   talentLensReadiness?: import('../../../lib/ats/canonicalAnalysis').CanonicalAnalysis['talentLensReadiness'];
   activeWeights?: Record<string, number>;
   scanIdentity?: import('./scanIdentity').ScanIdentity;

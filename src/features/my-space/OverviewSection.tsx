@@ -128,8 +128,9 @@ export const OverviewSection: React.FC<OverviewSectionProps> = ({
         briefProgress,
         targets: targetsList,
         audits: auditsList,
+        outreachDrafts: Object.values(outreachDrafts),
       }).slice(0, 4),
-    [tailorSessions, planList, briefProgress, targetsList, auditsList]
+    [tailorSessions, planList, briefProgress, targetsList, auditsList, outreachDrafts]
   );
 
   const activityFeed = useMemo(
