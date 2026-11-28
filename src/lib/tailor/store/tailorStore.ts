@@ -143,6 +143,9 @@ export function buildInitialTailoredSections(candidate: CandidateProfile): Tailo
   if (candidate.skills.cloudAndDevOps?.length) skillsByCategory['Cloud & DevOps'] = candidate.skills.cloudAndDevOps;
   if (candidate.skills.databases?.length) skillsByCategory['Databases'] = candidate.skills.databases;
   if (candidate.skills.developerTools?.length) skillsByCategory['Developer Tools'] = candidate.skills.developerTools;
+  if (candidate.skills.coreConcepts?.length) skillsByCategory['Core Concepts'] = candidate.skills.coreConcepts;
+  if (candidate.skills.softSkills?.length) skillsByCategory['Soft Skills'] = candidate.skills.softSkills;
+  if (candidate.skills.other?.length) skillsByCategory['Additional Skills'] = candidate.skills.other;
 
   if (Object.keys(skillsByCategory).length === 0) {
     skillsByCategory['Languages'] = ['TypeScript', 'JavaScript', 'Python', 'SQL'];

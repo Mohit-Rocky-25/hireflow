@@ -2,20 +2,20 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 /**
- * Redirect map for legacy routes:
- * /portal -> /?my=overview
- * /portal/resumes -> /?my=resumes
- * /portal/audits/:id -> /?my=scans&audit=:id
+ * Canonical redirect map for legacy /portal routes -> /my-space:
+ * /portal -> /my-space
+ * /portal/resumes -> /my-space/resumes
+ * /portal/audits/:id -> /my-space/scans?audit=:id
  */
 export function getRedirectTarget(pathname: string, auditId?: string): string {
   if (auditId || pathname.startsWith('/portal/audits/')) {
     const id = auditId || pathname.replace(/^\/portal\/audits\//, '');
-    return `/?my=scans&audit=${encodeURIComponent(id)}`;
+    return `/my-space/scans?audit=${encodeURIComponent(id)}`;
   }
   if (pathname === '/portal/resumes') {
-    return '/?my=resumes';
+    return '/my-space/resumes';
   }
-  return '/?my=overview';
+  return '/my-space';
 }
 
 export const PortalRedirect: React.FC = () => {

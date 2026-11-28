@@ -4,16 +4,53 @@
 // ============================================================
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TrendingUp, AlertCircle, Sparkles, ArrowRight, PenTool, FolderGit2 } from 'lucide-react';
 import { FixFirstItem } from '../engine/types';
+import {
+  useTailorLaunchStore,
+  buildTailorLaunchUrl,
+} from '../../../lib/tailor/launchContext';
+
+export interface AtsTailorAuditContext {
+  workspaceId: string | null;
+  versionId: string | null;
+  snapshotHash: string | null;
+  auditId: string | null;
+  jdSnapshotHash: string | null;
+  targetKey: string | null;
+}
 
 interface Props {
   items: FixFirstItem[];
+  auditContext?: AtsTailorAuditContext;
 }
 
-export const FixTheseFirst: React.FC<Props> = ({ items }) => {
+export const FixTheseFirst: React.FC<Props> = ({ items, auditContext }) => {
+  const navigate = useNavigate();
   if (!items || items.length === 0) return null;
+
+  const handleLaunchTailor = (mode: 'add_gap' | 'upgrade_bullet', title: string) => {
+    const ctx = useTailorLaunchStore.getState().registerLaunchContext({
+      sourceEntryPoint: 'resume_roaster',
+      mode,
+      workspaceId: auditContext?.workspaceId ?? null,
+      versionId: auditContext?.versionId ?? null,
+      snapshotHash: auditContext?.snapshotHash ?? null,
+      auditId: auditContext?.auditId ?? null,
+      talentLensAssessmentId: null,
+      findingIds: [title],
+      evidenceIds: [],
+      jdIds: [],
+      jdSnapshotHash: auditContext?.jdSnapshotHash ?? null,
+      dualJdComparisonId: null,
+      targetKey: auditContext?.targetKey ?? null,
+      selectedSection: mode === 'upgrade_bullet' ? 'Experience' : null,
+      selectedBullet: mode === 'upgrade_bullet' ? title : null,
+      focusSkill: mode === 'add_gap' ? title : null,
+    });
+    navigate(buildTailorLaunchUrl(ctx));
+  };
 
   return (
     <div className="space-y-4">
@@ -71,14 +108,15 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
               <div className="flex flex-wrap gap-2 pt-1">
                 {item.type === 'missing_must_have' ? (
                   <>
-                    <Link
-                      to={`/tools/tailor?focus=${encodeURIComponent(item.title)}`}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors"
+                    <button
+                      type="button"
+                      onClick={() => handleLaunchTailor('add_gap', item.title)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors cursor-pointer"
                     >
                       <PenTool className="w-3 h-3 stroke-[1.5px]" />
                       Add to Tailor Draft
                       <ArrowRight className="w-3 h-3 ml-0.5 stroke-[1.5px]" />
-                    </Link>
+                    </button>
                     <Link
                       to={`/tools/build-briefs?query=${encodeURIComponent(item.title)}`}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold uppercase tracking-[1px] bg-black text-silver hover:text-white border border-charcoal hover:border-silver transition-colors"
@@ -88,14 +126,15 @@ export const FixTheseFirst: React.FC<Props> = ({ items }) => {
                     </Link>
                   </>
                 ) : (
-                  <Link
-                    to={`/tools/tailor?mode=upgrade&bullet=${encodeURIComponent(item.title)}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => handleLaunchTailor('upgrade_bullet', item.title)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-bold uppercase tracking-[1px] bg-forest text-white border border-[#141414] hover:bg-[#3a3a3a] transition-colors cursor-pointer"
                   >
                     <PenTool className="w-3 h-3 stroke-[1.5px]" />
                     Rewrite in Tailor Studio
                     <ArrowRight className="w-3 h-3 ml-0.5 stroke-[1.5px]" />
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>

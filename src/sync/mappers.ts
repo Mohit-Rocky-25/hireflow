@@ -591,3 +591,274 @@ export function rowToFeedback(r: FeedbackItemRow): FeedbackItem {
     createdAt: toIso(r.created_at),
   };
 }
+
+// Phase 11.1 Tailor Sessions, Changes, and Export Artifacts (Migration 0004)
+import type {
+  CandidateOwnedProjectRecord,
+  DraftLifecycleStatus,
+  LaunchFocusContext,
+  StructuredResumeDocument,
+  TailorLayoutId,
+  TailorMode,
+  TailorSuggestion,
+  TailorWorkspaceSession,
+  UserConfirmedEvidenceRecord,
+} from '@/features/tailor/model/tailorWorkspaceTypes';
+import type { ExportArtifactContract } from '@/domain/sharedAssetContracts';
+
+export interface TailoringSessionRow {
+  id: string;
+  title: string;
+  mode: TailorMode;
+  draft_status: DraftLifecycleStatus;
+  entry_source: string;
+  workspace_id: string | null;
+  parent_version_id: string | null;
+  source_snapshot_hash: string | null;
+  produced_version_id: string | null;
+  produced_snapshot_hash: string | null;
+  source_audit_id: string | null;
+  reanalysis_audit_id: string | null;
+  talentlens_assessment_id: string | null;
+  dual_jd_comparison_id: string | null;
+  target_role: string;
+  target_industry: string;
+  target_seniority: string;
+  jd_title: string;
+  jd_company: string;
+  jd_snapshot_hash: string | null;
+  layout_id: TailorLayoutId;
+  document_state: unknown;
+  user_confirmations: unknown;
+  baseline_score: number | null;
+  reanalysis_score: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TailoringChangeRow {
+  id: string;
+  session_id: string;
+  section_id: string;
+  bullet_id: string | null;
+  original_text: string;
+  proposed_text: string;
+  provenance_kind: string;
+  evidence_class: string;
+  truth_gate_passed: boolean;
+  status: TailorSuggestion['status'];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ExportArtifactRow {
+  id: string;
+  session_id: string | null;
+  source_version_id: string | null;
+  source_audit_id: string | null;
+  format: ExportArtifactContract['format'];
+  file_name: string;
+  byte_size: number;
+  created_at: string;
+}
+
+interface DocumentStateEnvelope {
+  document: StructuredResumeDocument;
+  sessionMeta?: {
+    resumeLabel?: string;
+    targetMarket?: string;
+    targetKey?: string | null;
+    jdId?: string | null;
+    demonstratedEvidenceLabels?: string[];
+    missingQualificationLabels?: string[];
+    linkedProjectIds?: string[];
+    plannedProjectBriefIds?: string[];
+    ownedProjects?: CandidateOwnedProjectRecord[];
+    launchFocus?: LaunchFocusContext | null;
+    reanalysisIsDraftSnapshot?: boolean;
+  };
+}
+
+export function tailoringSessionToRow(s: TailorWorkspaceSession): TailoringSessionRow {
+  const envelope: DocumentStateEnvelope = {
+    document: s.document,
+    sessionMeta: {
+      resumeLabel: s.resumeLabel,
+      targetMarket: s.targetMarket,
+      targetKey: s.targetKey,
+      jdId: s.jdId,
+      demonstratedEvidenceLabels: s.demonstratedEvidenceLabels,
+      missingQualificationLabels: s.missingQualificationLabels,
+      linkedProjectIds: s.linkedProjectIds,
+      plannedProjectBriefIds: s.plannedProjectBriefIds ?? [],
+      ownedProjects: s.ownedProjects ?? [],
+      launchFocus: s.launchFocus ?? null,
+      reanalysisIsDraftSnapshot: s.reanalysisIsDraftSnapshot ?? false,
+    },
+  };
+  return {
+    id: s.sessionId,
+    title: s.title.slice(0, 200),
+    mode: s.mode,
+    draft_status: s.draftStatus,
+    entry_source: s.entrySource,
+    workspace_id: s.workspaceId,
+    parent_version_id: s.parentVersionId,
+    source_snapshot_hash: s.sourceSnapshotHash,
+    produced_version_id: s.committedVersionId,
+    produced_snapshot_hash: s.committedSnapshotHash,
+    source_audit_id: s.sourceAuditId,
+    reanalysis_audit_id: s.reanalysisAuditId,
+    talentlens_assessment_id: s.talentLensAssessmentId,
+    dual_jd_comparison_id: s.dualJdComparisonId,
+    target_role: s.targetRole.slice(0, 160),
+    target_industry: s.targetIndustry.slice(0, 120),
+    target_seniority: s.targetSeniority.slice(0, 80),
+    jd_title: s.jdTitle.slice(0, 200),
+    jd_company: s.jdCompany.slice(0, 160),
+    jd_snapshot_hash: s.jdSnapshotHash,
+    layout_id: s.document.layoutId,
+    document_state: envelope,
+    user_confirmations: s.userConfirmations,
+    baseline_score: s.baselineScore,
+    reanalysis_score: s.reanalysisScore,
+    created_at: s.createdAt,
+    updated_at: s.updatedAt,
+  };
+}
+
+export function rowToTailoringSession(
+  r: TailoringSessionRow,
+  resolvedJdText = '',
+  changes: TailoringChangeRow[] = []
+): TailorWorkspaceSession {
+  const rawEnvelope = (r.document_state || {}) as Partial<DocumentStateEnvelope> & Partial<StructuredResumeDocument>;
+  const doc: StructuredResumeDocument = rawEnvelope.document
+    ? rawEnvelope.document
+    : ({
+        candidateName: (rawEnvelope as StructuredResumeDocument).candidateName || 'Candidate',
+        contact: (rawEnvelope as StructuredResumeDocument).contact || {},
+        layoutId: r.layout_id || 'ats_single',
+        paperSize: (rawEnvelope as StructuredResumeDocument).paperSize || 'a4',
+        rawSourceText: (rawEnvelope as StructuredResumeDocument).rawSourceText || '',
+        sections: (rawEnvelope as StructuredResumeDocument).sections || [],
+      } as StructuredResumeDocument);
+  const meta = rawEnvelope.sessionMeta ?? {};
+  const confirmations = Array.isArray(r.user_confirmations)
+    ? (r.user_confirmations as UserConfirmedEvidenceRecord[])
+    : [];
+
+  return {
+    sessionId: r.id,
+    title: r.title,
+    mode: r.mode,
+    draftStatus: r.draft_status,
+    entrySource: r.entry_source as TailorWorkspaceSession['entrySource'],
+    workspaceId: r.workspace_id,
+    parentVersionId: r.parent_version_id,
+    sourceSnapshotHash: r.source_snapshot_hash,
+    resumeLabel: meta.resumeLabel || r.title,
+    launchId: null,
+    dualJdComparisonId: r.dual_jd_comparison_id,
+    sourceAuditId: r.source_audit_id,
+    talentLensAssessmentId: r.talentlens_assessment_id,
+    demonstratedEvidenceLabels: meta.demonstratedEvidenceLabels ?? [],
+    missingQualificationLabels: meta.missingQualificationLabels ?? [],
+    targetKey: meta.targetKey ?? null,
+    targetRole: r.target_role || '',
+    targetIndustry: r.target_industry || '',
+    targetSeniority: r.target_seniority || '',
+    targetMarket: meta.targetMarket || '',
+    jdId: meta.jdId ?? null,
+    jdTitle: r.jd_title || '',
+    jdCompany: r.jd_company || '',
+    jdText: resolvedJdText,
+    jdSnapshotHash: r.jd_snapshot_hash,
+    document: doc,
+    atomicClaims: [],
+    strategyPlan: [],
+    requirements: [],
+    suggestions: changes.map((c) => ({
+      id: c.id,
+      severity: 'important',
+      mode: r.mode,
+      sectionId: c.section_id,
+      bulletId: c.bullet_id ?? undefined,
+      title: 'Restored tailoring change',
+      rationale: 'Restored from cloud tailoring ledger.',
+      originalText: c.original_text,
+      proposedText: c.proposed_text,
+      needsMetricPrompt: false,
+      evidenceClass: c.evidence_class as TailorSuggestion['evidenceClass'],
+      evidenceExcerpts: [c.original_text],
+      provenanceKind: c.provenance_kind as TailorSuggestion['provenanceKind'],
+      status: c.status,
+      truthGatePassed: c.truth_gate_passed,
+      truthGateIssues: [],
+    })),
+    userConfirmations: confirmations,
+    linkedProjectIds: meta.linkedProjectIds ?? [],
+    plannedProjectBriefIds: meta.plannedProjectBriefIds ?? [],
+    ownedProjects: meta.ownedProjects ?? [],
+    launchFocus: meta.launchFocus ?? null,
+    validationReport: null,
+    undoStack: [],
+    redoStack: [],
+    committedVersionId: r.produced_version_id,
+    committedSnapshotHash: r.produced_snapshot_hash,
+    reanalysisAuditId: r.reanalysis_audit_id,
+    reanalysisIsDraftSnapshot: meta.reanalysisIsDraftSnapshot ?? false,
+    baselineScore: r.baseline_score,
+    reanalysisScore: r.reanalysis_score,
+    cloudSyncStatus: 'saved',
+    cloudSyncError: null,
+    syncRevision: 1,
+    createdAt: toIso(r.created_at),
+    updatedAt: toIso(r.updated_at),
+  };
+}
+
+export function tailoringChangeToRow(sessionId: string, s: TailorSuggestion, nowIso: string): TailoringChangeRow {
+  return {
+    id: s.id,
+    session_id: sessionId,
+    section_id: s.sectionId.slice(0, 80),
+    bullet_id: s.bulletId ? s.bulletId.slice(0, 80) : null,
+    original_text: s.originalText.slice(0, 2000),
+    proposed_text: s.proposedText.slice(0, 2000),
+    provenance_kind: s.provenanceKind.slice(0, 40),
+    evidence_class: s.evidenceClass,
+    truth_gate_passed: Boolean(s.truthGatePassed),
+    status: s.status,
+    created_at: nowIso,
+    updated_at: nowIso,
+  };
+}
+
+export function exportArtifactToRow(
+  a: ExportArtifactContract,
+  sessionId: string | null
+): ExportArtifactRow {
+  return {
+    id: a.artifactId,
+    session_id: sessionId,
+    source_version_id: a.sourceVersionId ?? null,
+    source_audit_id: a.sourceAuditId ?? null,
+    format: a.format,
+    file_name: a.fileName.slice(0, 255),
+    byte_size: Math.min(5242880, Math.max(0, Math.round(a.byteSize))),
+    created_at: a.createdAt,
+  };
+}
+
+export function rowToExportArtifact(r: ExportArtifactRow): ExportArtifactContract {
+  return {
+    artifactId: r.id,
+    format: r.format,
+    fileName: r.file_name,
+    sourceAuditId: r.source_audit_id,
+    sourceVersionId: r.source_version_id,
+    byteSize: r.byte_size,
+    createdAt: toIso(r.created_at),
+  };
+}

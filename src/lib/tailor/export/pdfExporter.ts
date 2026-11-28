@@ -54,13 +54,6 @@ function wrapText(
  */
 export function sanitizeForPdf(text: string): string {
   return sanitizeTextForPdf(text);
-  if (!text) return '';
-  return text
-    .replace(/[\u2018\u2019]/g, "'")
-    .replace(/[\u201C\u201D]/g, '"')
-    .replace(/[\u2013\u2014]/g, '-')
-    .replace(/[\u2022\u25E6\u2023]/g, '*')
-    .replace(/[^\x00-\x7F]/g, ' ');
 }
 
 /**
@@ -136,7 +129,24 @@ export async function generatePdfResume(
     font: boldFont,
     color: colorPrimary,
   });
-  y -= nameSize + 6;
+  y -= nameSize + 4;
+
+  if (candidate.headline?.trim()) {
+    const headlineText = sanitizeForPdf(candidate.headline.trim());
+    const headlineLines = wrapText(headlineText, contentWidth, italicFont, bodySize + 0.5);
+    for (const hline of headlineLines) {
+      ensureSpace(lineSpacing);
+      currentPage.drawText(hline, {
+        x: margin,
+        y: y - bodySize,
+        size: bodySize + 0.5,
+        font: italicFont,
+        color: colorSubheading,
+      });
+      y -= lineSpacing;
+    }
+  }
+  y -= 2;
 
   // Contact Details
   const contactItems: string[] = [];
@@ -224,14 +234,15 @@ export async function generatePdfResume(
 
         const category = sanitizeForPdf(rawCategory);
         const skillsString = sanitizeForPdf(skills.join(', '));
-        const fullSkillText = `${category}: ${skillsString}`;
+        const suppressPrefix = rawCategory === 'Skills' || rawCategory === 'Core';
+        const fullSkillText = suppressPrefix ? skillsString : `${category}: ${skillsString}`;
 
         const lines = wrapText(fullSkillText, contentWidth, regularFont, bodySize);
         for (let i = 0; i < lines.length; i++) {
           ensureSpace(lineSpacing);
           const line = lines[i];
 
-          if (i === 0 && line.startsWith(`${category}:`)) {
+          if (!suppressPrefix && i === 0 && line.startsWith(`${category}:`)) {
             const prefix = `${category}: `;
             const rest = line.substring(prefix.length);
             const prefixWidth = boldFont.widthOfTextAtSize(prefix, bodySize);
@@ -274,47 +285,70 @@ export async function generatePdfResume(
         const secondaryTitle = entry.secondaryTitle ? sanitizeForPdf(entry.secondaryTitle) : '';
         const dateRange = entry.dateRange ? sanitizeForPdf(entry.dateRange) : '';
 
-        // Draw primary & secondary title on left
-        const primaryWidth = boldFont.widthOfTextAtSize(primaryTitle, bodySize);
-        currentPage.drawText(primaryTitle, {
-          x: margin,
-          y: y - bodySize,
-          size: bodySize,
-          font: boldFont,
-          color: colorPrimary,
-        });
+        if (primaryTitle || secondaryTitle || dateRange) {
+          const primaryWidth = primaryTitle
+            ? boldFont.widthOfTextAtSize(primaryTitle, bodySize)
+            : 0;
+          if (primaryTitle) {
+            currentPage.drawText(primaryTitle, {
+              x: margin,
+              y: y - bodySize,
+              size: bodySize,
+              font: boldFont,
+              color: colorPrimary,
+            });
+          }
 
-        if (secondaryTitle) {
-          const separator = ' - ';
-          const sepWidth = regularFont.widthOfTextAtSize(separator, bodySize);
-          currentPage.drawText(separator, {
-            x: margin + primaryWidth,
-            y: y - bodySize,
-            size: bodySize,
-            font: regularFont,
-            color: colorMuted,
-          });
-          currentPage.drawText(secondaryTitle, {
-            x: margin + primaryWidth + sepWidth,
-            y: y - bodySize,
-            size: bodySize,
-            font: italicFont,
-            color: colorSubheading,
-          });
+          if (secondaryTitle) {
+            const separator = primaryTitle ? ' - ' : '';
+            const sepWidth = separator ? regularFont.widthOfTextAtSize(separator, bodySize) : 0;
+            if (separator) {
+              currentPage.drawText(separator, {
+                x: margin + primaryWidth,
+                y: y - bodySize,
+                size: bodySize,
+                font: regularFont,
+                color: colorMuted,
+              });
+            }
+            currentPage.drawText(secondaryTitle, {
+              x: margin + primaryWidth + sepWidth,
+              y: y - bodySize,
+              size: bodySize,
+              font: italicFont,
+              color: colorSubheading,
+            });
+          }
+
+          // Draw Date Range aligned to the right
+          if (dateRange) {
+            const dateWidth = boldFont.widthOfTextAtSize(dateRange, bodySize - 0.5);
+            currentPage.drawText(dateRange, {
+              x: pageWidth - margin - dateWidth,
+              y: y - bodySize,
+              size: bodySize - 0.5,
+              font: boldFont,
+              color: colorMuted,
+            });
+          }
+          y -= lineSpacing;
         }
 
-        // Draw Date Range aligned to the right
-        if (dateRange) {
-          const dateWidth = boldFont.widthOfTextAtSize(dateRange, bodySize - 0.5);
-          currentPage.drawText(dateRange, {
-            x: pageWidth - margin - dateWidth,
-            y: y - bodySize,
-            size: bodySize - 0.5,
-            font: boldFont,
-            color: colorMuted,
-          });
+        if (entry.metadata?.technologies) {
+          const techLine = sanitizeForPdf(`Technologies: ${entry.metadata.technologies}`);
+          const wrappedTech = wrapText(techLine, contentWidth, italicFont, bodySize - 0.5);
+          for (const tl of wrappedTech) {
+            ensureSpace(lineSpacing);
+            currentPage.drawText(tl, {
+              x: margin,
+              y: y - (bodySize - 0.5),
+              size: bodySize - 0.5,
+              font: italicFont,
+              color: colorMuted,
+            });
+            y -= lineSpacing;
+          }
         }
-        y -= lineSpacing;
 
         // Bullets
         if (entry.bullets && entry.bullets.length > 0) {

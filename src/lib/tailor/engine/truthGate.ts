@@ -63,6 +63,7 @@ export function verifyFactualIntegrity(
         totalBullets++;
 
         // 1. Check claim-strength verb escalation (I-02)
+        // Empty originalText means newly introduced claim with zero baseline rank -> block ownership > rank 1 unless matched in source or candidate-confirmed
         if (bullet.originalText && bullet.originalText.trim() !== bullet.text.trim()) {
           const original = getVerbRank(bullet.originalText);
           const tailored = getVerbRank(bullet.text);
@@ -71,6 +72,18 @@ export function verifyFactualIntegrity(
             blockingIssues.push({
               id: `block_verb_${Math.random().toString(36).substr(2, 7)}`,
               message: `Verb escalation detected: "${tailored.verb}" (rank ${tailored.rank}) escalates candidate ownership from original "${original.verb}" (rank ${original.rank}). Violates claim-strength ladder.`,
+              section: section.title,
+              severity: 'CRITICAL',
+            });
+          }
+        } else if (!bullet.originalText?.trim() && bullet.text.trim() && !bullet.isEditedByUser) {
+          const rawLower = (candidateProfile.rawText || '').toLowerCase();
+          const inSource = rawLower.includes(bullet.text.trim().toLowerCase());
+          const tailored = getVerbRank(bullet.text);
+          if (!inSource && tailored.rank > 1) {
+            blockingIssues.push({
+              id: `block_new_verb_${Math.random().toString(36).substr(2, 7)}`,
+              message: `Unverified claim verb "${tailored.verb}" (rank ${tailored.rank}) in empty-baseline section "${section.title}" requires source provenance or candidate confirmation.`,
               section: section.title,
               severity: 'CRITICAL',
             });

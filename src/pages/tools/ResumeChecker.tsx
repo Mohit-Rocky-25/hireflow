@@ -61,6 +61,10 @@ import { useResumeStore } from '../../features/resumes/useResumeStore';
 import { useAuditStore } from '../../features/journal/useAuditStore';
 import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
 import { useHandoffStore } from '../../features/handoff/useHandoffStore';
+import {
+  useTailorLaunchStore,
+  buildTailorLaunchUrl,
+} from '../../lib/tailor/launchContext';
 import { atsToAuditInput, detectTargetRoleTitle } from '../../features/ats/journalAdapter';
 import {
   createAuthoritativeReportSnapshot,
@@ -1285,14 +1289,28 @@ export function ResumeChecker() {
                         <button
                           type="button"
                           onClick={() => {
-                            useHandoffStore.getState().set({
-                              from: '/tools/resume-checker',
-                              to: '/tools/tailor',
-                              resumeVersionId: latestAuditEntry.resume.versionId || undefined,
+                            const ctx = useTailorLaunchStore.getState().registerLaunchContext({
+                              sourceEntryPoint: 'resume_roaster',
+                              mode: 'full_tailor',
+                              workspaceId: latestAuditEntry.resume.workspaceId,
+                              versionId: latestAuditEntry.resume.versionId,
+                              snapshotHash: latestAuditEntry.resume.snapshotHash,
+                              resumeLabel: latestAuditEntry.resume.label,
+                              auditId: latestAuditEntry.id,
+                              talentLensAssessmentId: null,
+                              findingIds: latestAuditEntry.gaps.map((g) => g.id),
+                              evidenceIds: latestAuditEntry.evidence.map((ev) => ev.findingId),
+                              jdIds: [],
                               jdSnapshotHash: latestAuditEntry.jd.snapshotHash,
+                              jdTitle: detectedRoleTitle || undefined,
+                              jdCompany: detectedTargetCompany || undefined,
+                              dualJdComparisonId: null,
                               targetKey: latestAuditEntry.targetKey,
+                              selectedSection: null,
+                              selectedBullet: null,
+                              focusSkill: latestAuditEntry.gaps[0]?.label ?? null,
                             });
-                            navigate('/tools/tailor');
+                            navigate(buildTailorLaunchUrl(ctx));
                           }}
                           className="px-3 py-1.5 rounded font-semibold bg-[#faff69] text-[#090907] hover:bg-[#faff69]/90 transition-colors cursor-pointer"
                         >
@@ -1306,7 +1324,7 @@ export function ResumeChecker() {
                           label="Download ATS Roast Report"
                         />
                         <Link
-                          to="/?my=scans"
+                          to="/my-space/scans"
                           className="px-3 py-1.5 rounded border border-neutral-700 text-neutral-400 hover:text-white transition-colors"
                         >
                           View in My Space
@@ -1331,7 +1349,21 @@ export function ResumeChecker() {
                 <FresherChecksPanel resumeText={resumeText} className="mb-6" />
 
                 {/* Layout Section B: Fix These First */}
-                <FixTheseFirst items={engineResult.fixFirst} />
+                <FixTheseFirst
+                  items={engineResult.fixFirst}
+                  auditContext={
+                    latestAuditEntry
+                      ? {
+                          workspaceId: latestAuditEntry.resume.workspaceId,
+                          versionId: latestAuditEntry.resume.versionId,
+                          snapshotHash: latestAuditEntry.resume.snapshotHash,
+                          auditId: latestAuditEntry.id,
+                          jdSnapshotHash: latestAuditEntry.jd.snapshotHash,
+                          targetKey: latestAuditEntry.targetKey,
+                        }
+                      : undefined
+                  }
+                />
 
                 {/* Target Role Skills & Project Brief Bridge */}
                 <JobRoleProjectBridge

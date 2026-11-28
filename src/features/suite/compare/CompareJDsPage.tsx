@@ -5,7 +5,15 @@
 // ============================================================
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  useTailorLaunchStore,
+  buildTailorLaunchUrl,
+  createDualJdLaunchPair,
+} from '../../../lib/tailor/launchContext';
+import { useResumeStore } from '../../resumes/useResumeStore';
+import { sha256Hex } from '../../../lib/crypto/sha256';
+import { cacheSnapshotInMemory, getCachedSnapshotInMemory } from '../../../lib/cloud/cloudRepository';
 import {
   Plus,
   Trash2,
@@ -57,10 +65,37 @@ import { SharedGapsView } from './components/SharedGapsView';
 import { OverlapMatrixView } from './components/OverlapMatrixView';
 
 export function CompareJDsPage() {
+  const navigate = useNavigate();
   const { profile } = useProfile();
+  const matrixWorkspaces = useResumeStore((s) => s.workspaces);
+  const matrixVersions = useResumeStore((s) => s.versions);
+  const activeMatrixWorkspaceId = useResumeStore((s) => s.activeWorkspaceId);
+
+  const primaryMatrixWorkspace = useMemo(() => {
+    const active = activeMatrixWorkspaceId ? matrixWorkspaces[activeMatrixWorkspaceId] : null;
+    if (active && !active.archivedAt) return active;
+    return (
+      Object.values(matrixWorkspaces).find((w) => !w.archivedAt && w.isPrimary) ??
+      Object.values(matrixWorkspaces).find((w) => !w.archivedAt) ??
+      null
+    );
+  }, [matrixWorkspaces, activeMatrixWorkspaceId]);
+
+  const primaryMatrixText = useMemo(() => {
+    if (!primaryMatrixWorkspace?.headVersionId) return '';
+    const ver = matrixVersions[primaryMatrixWorkspace.headVersionId];
+    if (!ver) return '';
+    return getCachedSnapshotInMemory(ver.snapshotHash)?.text ?? '';
+  }, [primaryMatrixWorkspace, matrixVersions]);
+
   const [resumeText, setResumeText] = useState<string>('');
   const [activePersonaId, setActivePersonaId] = useState<string>('profile');
   const [selectedPresetId, setSelectedPresetId] = useState<string>(COMPARISON_PRESETS[0].id);
+  const [comparisonSessionId, setComparisonSessionId] = useState<string>(() =>
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `dual-${Date.now()}`
+  );
   const [jds, setJds] = useState<JDInput[]>([
     COMPARISON_PRESETS[0].jdA,
     COMPARISON_PRESETS[0].jdB,
@@ -72,17 +107,28 @@ export function CompareJDsPage() {
   const [copiedSummary, setCopiedSummary] = useState(false);
   const [showResumeDrawer, setShowResumeDrawer] = useState(false);
 
-  // Initialize resume from profile or first sample persona
+  const refreshComparisonId = useCallback(() => {
+    setComparisonSessionId(
+      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `dual-${Date.now()}`
+    );
+  }, []);
+
+  // Initialize resume from active Resume Matrix workspace, profile, or explicit sample candidate
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (profile?.masterResumeText) {
+    if (primaryMatrixText.trim()) {
+      setResumeText(primaryMatrixText);
+      setActivePersonaId('matrix');
+    } else if (profile?.masterResumeText) {
       setResumeText(profile.masterResumeText);
       setActivePersonaId('profile');
     } else {
       setResumeText(SAMPLE_CANDIDATES[0].resumeText);
       setActivePersonaId(SAMPLE_CANDIDATES[0].id);
     }
-  }, [profile]);
+  }, [profile, primaryMatrixText]);
 
   const handleSelectPreset = (preset: ComparisonPreset) => {
     setSelectedPresetId(preset.id);
@@ -90,13 +136,17 @@ export function CompareJDsPage() {
       { ...preset.jdA, id: 'jd-a' },
       { ...preset.jdB, id: 'jd-b' },
     ]);
+    refreshComparisonId();
     if (result) {
       setResult(null);
     }
   };
 
-  const handleSelectPersona = (persona: CandidatePersona | 'profile') => {
-    if (persona === 'profile') {
+  const handleSelectPersona = (persona: CandidatePersona | 'profile' | 'matrix') => {
+    if (persona === 'matrix') {
+      setActivePersonaId('matrix');
+      setResumeText(primaryMatrixText || '');
+    } else if (persona === 'profile') {
       setActivePersonaId('profile');
       setResumeText(profile?.masterResumeText || '');
     } else {
@@ -111,6 +161,7 @@ export function CompareJDsPage() {
   const handleSwapRoles = () => {
     if (jds.length !== 2) return;
     setJds([jds[1], jds[0]]);
+    refreshComparisonId();
     if (result) {
       setResult(null);
     }
@@ -144,7 +195,11 @@ export function CompareJDsPage() {
   };
 
   const sortedCompanies = useMemo(() => {
-    return [...COMPANIES].sort((a, b) => a.name.localeCompare(b.name));
+    const byId = new Map<string, (typeof COMPANIES)[number]>();
+    for (const c of COMPANIES) {
+      if (!byId.has(c.id)) byId.set(c.id, c);
+    }
+    return Array.from(byId.values()).sort((a, b) => a.name.localeCompare(b.name));
   }, []);
 
   const matchedCompanyForJD = useCallback((companyName?: string) => {
@@ -374,14 +429,29 @@ export function CompareJDsPage() {
                 </span>
               </div>
               <p className="text-xs text-neutral-300 mt-0.5">
-                {activePersonaId === 'profile'
+                {activePersonaId === 'matrix' && primaryMatrixWorkspace
+                  ? `Using Resume Matrix: ${primaryMatrixWorkspace.name} (matches Tailor launch)`
+                  : activePersonaId === 'profile'
                   ? 'Using your active Master Resume from profile'
-                  : SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.skillsHeadline || 'Custom resume loaded'}
+                  : `Sample Demo Persona (${SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.name || 'Custom'}) — launches identical candidate into Tailor`}
               </p>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            {primaryMatrixText.trim() && primaryMatrixWorkspace && (
+              <button
+                type="button"
+                onClick={() => handleSelectPersona('matrix')}
+                className={`px-3 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  activePersonaId === 'matrix'
+                    ? 'bg-volt text-black shadow-xs'
+                    : 'bg-surface-elevated hover:bg-neutral-800 border border-charcoal text-neutral-300 hover:text-white'
+                }`}
+              >
+                My Resume ({primaryMatrixWorkspace.name})
+              </button>
+            )}
             {profile?.masterResumeText && (
               <button
                 type="button"
@@ -787,6 +857,99 @@ export function CompareJDsPage() {
                 </button>
               </div>
             </div>
+
+            {result.rankedJDs.length >= 2 && (
+              <div className="p-3.5 rounded-xl border border-charcoal bg-surface-elevated flex flex-wrap items-center justify-between gap-3 text-xs">
+                <span className="text-neutral-300">
+                  Launch two <strong className="text-white">independent</strong> target-specific Tailor drafts (jobs remain separate):
+                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  {result.rankedJDs.slice(0, 2).map((jdItem, idx) => (
+                    <button
+                      key={jdItem.id}
+                      type="button"
+                      onClick={async () => {
+                        const rState = useResumeStore.getState();
+                        const usingMatrix = activePersonaId === 'matrix' && primaryMatrixWorkspace;
+                        const activeWs = usingMatrix ? primaryMatrixWorkspace : null;
+                        const headVer = activeWs?.headVersionId ? rState.versions[activeWs.headVersionId] : null;
+                        const evaluatedResumeText = (resumeText.trim() || profile?.masterResumeText || '').trim();
+                        let resumeSnapshotHash = headVer?.snapshotHash ?? null;
+                        const nowIso = new Date().toISOString();
+
+                        if (!usingMatrix && evaluatedResumeText) {
+                          resumeSnapshotHash = await sha256Hex(evaluatedResumeText);
+                          cacheSnapshotInMemory({
+                            hash: resumeSnapshotHash,
+                            text: evaluatedResumeText,
+                            charCount: evaluatedResumeText.length,
+                            wordCount: evaluatedResumeText.split(/\s+/).filter(Boolean).length,
+                            createdAt: nowIso,
+                          });
+                        }
+
+                        const [first, second] = result.rankedJDs;
+                        const jdTextA = jds.find((j) => j.id === first.id)?.text || '';
+                        const jdTextB = jds.find((j) => j.id === second.id)?.text || '';
+                        const hashA = jdTextA.trim() ? await sha256Hex(jdTextA.trim()) : null;
+                        const hashB = jdTextB.trim() ? await sha256Hex(jdTextB.trim()) : null;
+                        if (hashA && jdTextA.trim()) {
+                          cacheSnapshotInMemory({
+                            hash: hashA,
+                            text: jdTextA.trim(),
+                            charCount: jdTextA.trim().length,
+                            wordCount: jdTextA.trim().split(/\s+/).filter(Boolean).length,
+                            createdAt: nowIso,
+                          });
+                        }
+                        if (hashB && jdTextB.trim()) {
+                          cacheSnapshotInMemory({
+                            hash: hashB,
+                            text: jdTextB.trim(),
+                            charCount: jdTextB.trim().length,
+                            wordCount: jdTextB.trim().split(/\s+/).filter(Boolean).length,
+                            createdAt: nowIso,
+                          });
+                        }
+                        const pair = createDualJdLaunchPair({
+                          comparisonId: comparisonSessionId,
+                          workspaceId: activeWs?.id ?? null,
+                          versionId: headVer?.id ?? null,
+                          snapshotHash: resumeSnapshotHash,
+                          jdA: {
+                            id: first.id,
+                            title: first.roleTitle || first.label,
+                            company: first.company || 'Target A',
+                            targetKey: `dual:${first.id}`,
+                            snapshotHash: hashA,
+                            missingSkills: first.missingMustHaves,
+                          },
+                          jdB: {
+                            id: second.id,
+                            title: second.roleTitle || second.label,
+                            company: second.company || 'Target B',
+                            targetKey: `dual:${second.id}`,
+                            snapshotHash: hashB,
+                            missingSkills: second.missingMustHaves,
+                          },
+                        });
+                        const targetCtx = idx === 0 ? pair.ctxA : pair.ctxB;
+                        const candName = usingMatrix
+                          ? activeWs?.name
+                          : SAMPLE_CANDIDATES.find((c) => c.id === activePersonaId)?.name;
+                        if (candName) {
+                          targetCtx.resumeLabel = candName;
+                        }
+                        navigate(buildTailorLaunchUrl(targetCtx));
+                      }}
+                      className="px-3 py-1.5 rounded border border-volt/40 bg-volt/10 text-volt font-mono font-semibold hover:bg-volt/20 transition-colors cursor-pointer"
+                    >
+                      Tailor JD #{idx + 1}: {jdItem.company || jdItem.roleTitle || jdItem.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* TAB 1: HEAD-TO-HEAD COMPARISON (Primary View) */}
             {activeTab === 'headtohead' && result.headToHead && (

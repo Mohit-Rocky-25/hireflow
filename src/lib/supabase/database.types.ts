@@ -526,6 +526,146 @@ export interface Database {
           source_summary?: Json;
         };
       };
+      tailoring_sessions: {
+        Row: {
+          user_id: string;
+          id: string;
+          title: string;
+          mode: 'improve' | 'role' | 'jd';
+          draft_status: string;
+          entry_source: string;
+          workspace_id: string | null;
+          parent_version_id: string | null;
+          source_snapshot_hash: string | null;
+          produced_version_id: string | null;
+          produced_snapshot_hash: string | null;
+          source_audit_id: string | null;
+          reanalysis_audit_id: string | null;
+          talentlens_assessment_id: string | null;
+          dual_jd_comparison_id: string | null;
+          target_role: string;
+          target_industry: string;
+          target_seniority: string;
+          jd_title: string;
+          jd_company: string;
+          jd_snapshot_hash: string | null;
+          layout_id: string;
+          document_state: Json;
+          user_confirmations: Json;
+          baseline_score: number | null;
+          reanalysis_score: number | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          title: string;
+          mode: 'improve' | 'role' | 'jd';
+          draft_status: string;
+          entry_source: string;
+          workspace_id?: string | null;
+          parent_version_id?: string | null;
+          source_snapshot_hash?: string | null;
+          produced_version_id?: string | null;
+          produced_snapshot_hash?: string | null;
+          source_audit_id?: string | null;
+          reanalysis_audit_id?: string | null;
+          talentlens_assessment_id?: string | null;
+          dual_jd_comparison_id?: string | null;
+          target_role?: string;
+          target_industry?: string;
+          target_seniority?: string;
+          jd_title?: string;
+          jd_company?: string;
+          jd_snapshot_hash?: string | null;
+          layout_id?: string;
+          document_state?: Json;
+          user_confirmations?: Json;
+          baseline_score?: number | null;
+          reanalysis_score?: number | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          title?: string;
+          mode?: 'improve' | 'role' | 'jd';
+          draft_status?: string;
+          produced_version_id?: string | null;
+          produced_snapshot_hash?: string | null;
+          reanalysis_audit_id?: string | null;
+          document_state?: Json;
+          user_confirmations?: Json;
+          baseline_score?: number | null;
+          reanalysis_score?: number | null;
+          updated_at?: string;
+        };
+      };
+      tailoring_changes: {
+        Row: {
+          user_id: string;
+          id: string;
+          session_id: string;
+          section_id: string;
+          bullet_id: string | null;
+          original_text: string;
+          proposed_text: string;
+          provenance_kind: string;
+          evidence_class: string;
+          truth_gate_passed: boolean;
+          status: 'pending' | 'accepted' | 'rejected' | 'edited';
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          session_id: string;
+          section_id: string;
+          bullet_id?: string | null;
+          original_text: string;
+          proposed_text: string;
+          provenance_kind: string;
+          evidence_class: string;
+          truth_gate_passed: boolean;
+          status: 'pending' | 'accepted' | 'rejected' | 'edited';
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          proposed_text?: string;
+          truth_gate_passed?: boolean;
+          status?: 'pending' | 'accepted' | 'rejected' | 'edited';
+          updated_at?: string;
+        };
+      };
+      export_artifacts: {
+        Row: {
+          user_id: string;
+          id: string;
+          session_id: string | null;
+          source_version_id: string | null;
+          source_audit_id: string | null;
+          format: 'pdf' | 'docx' | 'md';
+          file_name: string;
+          byte_size: number;
+          created_at: string;
+        };
+        Insert: {
+          user_id?: string;
+          id: string;
+          session_id?: string | null;
+          source_version_id?: string | null;
+          source_audit_id?: string | null;
+          format: 'pdf' | 'docx' | 'md';
+          file_name: string;
+          byte_size: number;
+          created_at?: string;
+        };
+        Update: {
+          file_name?: string;
+        };
+      };
     };
     Functions: {
       erase_my_data: {

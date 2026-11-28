@@ -23,6 +23,7 @@ const UNICODE_TRANSLITERATION_MAP: Record<string, string> = {
   // Smart quotes and typography
   '\u2018': "'", '\u2019': "'", '\u201C': '"', '\u201D': '"',
   '\u2013': '-', '\u2014': '-', '\u2022': '*', '\u25E6': '*', '\u2023': '*',
+  '\u2192': '->', '\u21D2': '=>', '\u2713': '*', '\u2714': '*',
   '\u00A0': ' ', // Non-breaking space
 };
 
@@ -49,9 +50,9 @@ export function sanitizeTextForPdf(text: string): string {
     }
   }
 
-  // 3. Fallback: if any non-ASCII remains, retain printable form or hex code instead of dropping into space
+  // 3. Fallback: safely replace any remaining characters outside WinAnsi range so Standard14 PDF fonts never throw
   result = result.replace(/[^\x20-\x7E\xA0-\xFF]/g, (c) => {
-    return UNICODE_TRANSLITERATION_MAP[c] || c;
+    return UNICODE_TRANSLITERATION_MAP[c] || '?';
   });
 
   return result.replace(/\s+/g, ' ').trim();

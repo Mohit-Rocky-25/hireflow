@@ -137,7 +137,9 @@ export function resolveCanonicalSkill(term: string): CanonicalSkill | undefined 
 }
 
 /**
- * Extracts recognized canonical skills from any body of text
+ * Extracts recognized canonical skills from any body of text.
+ * Uses dot-aware boundaries so ".js" / ".py" / ".ts" file/library suffixes
+ * (e.g. Node.js, Next.js) never spuriously match standalone "JS" / "Python" / "TypeScript".
  */
 export function extractSkillsFromText(text: string): CanonicalSkill[] {
   if (!text) return [];
@@ -146,7 +148,8 @@ export function extractSkillsFromText(text: string): CanonicalSkill[] {
 
   for (const skill of CANONICAL_SKILLS) {
     // Check main name
-    const mainRegex = new RegExp(`\\b${escapeRegExp(skill.name.toLowerCase())}\\b`, 'i');
+    const mainPattern = `(?:^|[^a-z0-9.])${escapeRegExp(skill.name.toLowerCase())}(?=$|[^a-z0-9.])`;
+    const mainRegex = new RegExp(mainPattern, 'i');
     if (mainRegex.test(lower)) {
       matched.set(skill.id, skill);
       continue;
@@ -155,7 +158,8 @@ export function extractSkillsFromText(text: string): CanonicalSkill[] {
     // Check aliases
     for (const alias of skill.aliases) {
       if (alias.length <= 1) continue; // avoid 1-char false positives
-      const aliasRegex = new RegExp(`\\b${escapeRegExp(alias.toLowerCase())}\\b`, 'i');
+      const aliasPattern = `(?:^|[^a-z0-9.])${escapeRegExp(alias.toLowerCase())}(?=$|[^a-z0-9.])`;
+      const aliasRegex = new RegExp(aliasPattern, 'i');
       if (aliasRegex.test(lower)) {
         matched.set(skill.id, skill);
         break;
@@ -164,6 +168,76 @@ export function extractSkillsFromText(text: string): CanonicalSkill[] {
   }
 
   return Array.from(matched.values());
+}
+
+export interface StructuredSkillExtraction {
+  rawSkill: string;
+  normalizedSkill: string;
+  taxonomyMatch: string | null;
+  taxonomyId: string | null;
+  confidence: number;
+  sourceEvidence: string;
+  unresolved: boolean;
+}
+
+/**
+ * Extracts explicit candidate skill tokens without discarding non-taxonomy skills
+ * and without treating semantic relationships as equivalence.
+ */
+export function extractStructuredSkillsFromSection(
+  skillSectionLines: string[]
+): StructuredSkillExtraction[] {
+  const results: StructuredSkillExtraction[] = [];
+  const seen = new Set<string>();
+
+  for (const rawLine of skillSectionLines) {
+    const strippedBullet = rawLine.replace(/^[-•*]\s*/, '').trim();
+    if (!strippedBullet) continue;
+    // Strip optional category prefix like "Languages: Go, TypeScript" or "Clinical Tools: EHR, Epic"
+    const colonIdx = strippedBullet.indexOf(':');
+    const tokenString =
+      colonIdx > 0 && colonIdx < 36
+        ? strippedBullet.slice(colonIdx + 1)
+        : strippedBullet;
+
+    const rawTokens = tokenString
+      .split(/[,;|•]+/)
+      .map((t) => t.trim())
+      .filter((t) => t.length >= 1 && t.length <= 80);
+
+    for (const rawToken of rawTokens) {
+      const key = rawToken.toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+
+      const directMatch = resolveCanonicalSkill(rawToken);
+      if (directMatch) {
+        const isExactName = directMatch.name.toLowerCase() === key;
+        results.push({
+          rawSkill: rawToken,
+          normalizedSkill: directMatch.name,
+          taxonomyMatch: directMatch.name,
+          taxonomyId: directMatch.id,
+          confidence: isExactName ? 1.0 : 0.9,
+          sourceEvidence: strippedBullet,
+          unresolved: false,
+        });
+      } else {
+        // Preserve raw skill verbatim cleanly without discarding or forcing false alias
+        results.push({
+          rawSkill: rawToken,
+          normalizedSkill: rawToken,
+          taxonomyMatch: null,
+          taxonomyId: null,
+          confidence: 0,
+          sourceEvidence: strippedBullet,
+          unresolved: true,
+        });
+      }
+    }
+  }
+
+  return results;
 }
 
 function escapeRegExp(string: string) {

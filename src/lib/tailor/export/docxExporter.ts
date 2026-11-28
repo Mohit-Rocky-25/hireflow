@@ -26,7 +26,7 @@ export async function generateDocxBlob(
   children.push(
     new Paragraph({
       alignment: AlignmentType.CENTER,
-      spacing: { after: 120 },
+      spacing: { after: candidate.headline?.trim() ? 40 : 120 },
       children: [
         new TextRun({
           text: candidate.fullName.toUpperCase(),
@@ -37,6 +37,24 @@ export async function generateDocxBlob(
       ]
     })
   );
+
+  if (candidate.headline?.trim()) {
+    children.push(
+      new Paragraph({
+        alignment: AlignmentType.CENTER,
+        spacing: { after: 100 },
+        children: [
+          new TextRun({
+            text: candidate.headline.trim(),
+            italics: true,
+            size: 21,
+            font: 'Calibri',
+            color: '333333'
+          })
+        ]
+      })
+    );
+  }
 
   // Subheader / Contact line
   const contactParts: string[] = [];
@@ -112,16 +130,21 @@ export async function generateDocxBlob(
     if (section.content.skillsByCategory) {
       for (const [category, skills] of Object.entries(section.content.skillsByCategory)) {
         if (skills.length === 0) continue;
+        const suppressPrefix = category === 'Skills' || category === 'Core';
         children.push(
           new Paragraph({
             spacing: { after: 80 },
             children: [
-              new TextRun({
-                text: `${category}: `,
-                bold: true,
-                size: 20,
-                font: 'Calibri'
-              }),
+              ...(suppressPrefix
+                ? []
+                : [
+                    new TextRun({
+                      text: `${category}: `,
+                      bold: true,
+                      size: 20,
+                      font: 'Calibri'
+                    }),
+                  ]),
               new TextRun({
                 text: skills.join(', '),
                 size: 20,
@@ -137,33 +160,60 @@ export async function generateDocxBlob(
     if (section.content.entries) {
       for (const entry of section.content.entries) {
         // Entry title line (Primary + Date)
-        children.push(
-          new Paragraph({
-            spacing: { before: 120, after: 40 },
-            children: [
-              new TextRun({
-                text: entry.primaryTitle,
-                bold: true,
-                size: 21,
-                font: 'Calibri'
-              }),
-              new TextRun({
-                text: entry.secondaryTitle ? `  —  ${entry.secondaryTitle}` : '',
-                italics: true,
-                size: 20,
-                font: 'Calibri',
-                color: '333333'
-              }),
-              new TextRun({
-                text: entry.dateRange ? `\t${entry.dateRange}` : '',
-                bold: true,
-                size: 19,
-                font: 'Calibri',
-                color: '555555'
-              })
-            ]
-          })
-        );
+        if (entry.primaryTitle || entry.secondaryTitle || entry.dateRange) {
+          children.push(
+            new Paragraph({
+              spacing: { before: 120, after: 40 },
+              children: [
+                ...(entry.primaryTitle
+                  ? [
+                      new TextRun({
+                        text: entry.primaryTitle,
+                        bold: true,
+                        size: 21,
+                        font: 'Calibri'
+                      }),
+                    ]
+                  : []),
+                ...(entry.secondaryTitle
+                  ? [
+                      new TextRun({
+                        text: entry.primaryTitle ? `  —  ${entry.secondaryTitle}` : entry.secondaryTitle,
+                        italics: true,
+                        size: 20,
+                        font: 'Calibri',
+                        color: '333333'
+                      }),
+                    ]
+                  : []),
+                new TextRun({
+                  text: entry.dateRange ? `\t${entry.dateRange}` : '',
+                  bold: true,
+                  size: 19,
+                  font: 'Calibri',
+                  color: '555555'
+                })
+              ]
+            })
+          );
+        }
+
+        if (entry.metadata?.technologies) {
+          children.push(
+            new Paragraph({
+              spacing: { after: 60 },
+              children: [
+                new TextRun({
+                  text: `Technologies: ${entry.metadata.technologies}`,
+                  italics: true,
+                  size: 18,
+                  font: 'Calibri',
+                  color: '555555'
+                })
+              ]
+            })
+          );
+        }
 
         // Subtitle / Location if available
         if (entry.location) {
@@ -205,11 +255,16 @@ export async function generateDocxBlob(
     }
   }
 
+  const isA4 = resume.layoutSettings?.paperSize === 'a4';
   const doc = new Document({
     sections: [
       {
         properties: {
           page: {
+            size: {
+              width: convertInchesToTwip(isA4 ? 8.27 : 8.5),
+              height: convertInchesToTwip(isA4 ? 11.69 : 11.0),
+            },
             margin: {
               top: convertInchesToTwip(0.5),
               bottom: convertInchesToTwip(0.5),

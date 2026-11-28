@@ -21,6 +21,10 @@ import { useTalentLensStore, DEMO_TALENTLENS_RESUME, setCompaniesResolver } from
 import { useProfileStore } from '../../store/profileStore';
 import { talentlensToAuditInput } from '../../features/talentlens/journalAdapter';
 import { useAuditStore } from '../../features/journal/useAuditStore';
+import {
+  useTailorLaunchStore,
+  buildTailorLaunchUrl,
+} from '../../lib/tailor/launchContext';
 import { useMySpaceStore } from '../../features/my-space/useMySpaceStore';
 import { useResumeStore } from '../../features/resumes/useResumeStore';
 import { ResumePicker } from '../../features/resumes/ResumePicker';
@@ -696,11 +700,43 @@ export function CompanyRolesPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const ctx = useTailorLaunchStore.getState().registerLaunchContext({
+                        sourceEntryPoint: 'talentlens',
+                        mode: 'full_tailor',
+                        workspaceId: latestTlAuditEntry.resume.workspaceId,
+                        versionId: latestTlAuditEntry.resume.versionId,
+                        snapshotHash: latestTlAuditEntry.resume.snapshotHash,
+                        resumeLabel: latestTlAuditEntry.resume.label,
+                        auditId: latestTlAuditEntry.id,
+                        talentLensAssessmentId: latestTlAuditEntry.id,
+                        findingIds: latestTlAuditEntry.gaps.map((g) => g.id),
+                        evidenceIds: latestTlAuditEntry.evidence.map((ev) => ev.findingId),
+                        jdIds: [],
+                        jdSnapshotHash: latestTlAuditEntry.jd.snapshotHash,
+                        jdTitle: selectedRole.title,
+                        jdCompany: company.name,
+                        dualJdComparisonId: null,
+                        targetKey: latestTlAuditEntry.targetKey,
+                        selectedSection: null,
+                        selectedBullet: null,
+                        focusSkill: latestTlAuditEntry.gaps[0]?.label ?? null,
+                        demonstratedEvidenceLabels: latestTlAuditEntry.strengths,
+                        missingQualificationLabels: latestTlAuditEntry.gaps.map((g) => g.label),
+                      });
+                      navigate(buildTailorLaunchUrl(ctx));
+                    }}
+                    className="px-3 py-1.5 rounded font-semibold bg-[#faff69] text-[#090907] hover:bg-[#faff69]/90 transition-colors cursor-pointer"
+                  >
+                    Tailor for this Role
+                  </button>
                   <Link
-                    to="/portal"
+                    to="/my-space/scans"
                     className="px-3 py-1.5 rounded border border-neutral-700 bg-[#141410] text-neutral-300 hover:text-white transition-colors"
                   >
-                    Open in Portal
+                    Open in My Space
                   </Link>
                 </div>
               </div>

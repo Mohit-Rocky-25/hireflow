@@ -32,6 +32,8 @@ import { usePortfolioToolStore } from '@/store/tools/portfolioStore';
 import { usePathwaysProfileStore } from '@/pathways/profile/profileStore';
 import { useStore } from '@/store/useStore';
 import { useTailorStore } from '@/lib/tailor/store/tailorStore';
+import { useTailorLaunchStore } from '@/lib/tailor/launchContext';
+import { useTailorWorkspaceStore } from '@/features/tailor/store/useTailorWorkspaceStore';
 import { SuiteStorage } from '@/features/suite/profile/storage';
 import { CredentialsStorage } from '@/features/suite/credentials/storage';
 import { useCoverLetterToolStore } from '@/store/tools/coverLetterStore';
@@ -163,6 +165,8 @@ export function resetAllUserMemoryStores(): void {
   usePathwaysProfileStore.getState().resetProfile();
   useStore.getState().clearAllUserData();
   useTailorStore.getState().wipeAllData();
+  useTailorLaunchStore.getState().clearAll();
+  useTailorWorkspaceStore.getState().resetAll();
   SuiteStorage.clearAll();
   CredentialsStorage.clearAll();
   useCoverLetterToolStore.getState().resetCoverLetterTool();
@@ -266,6 +270,13 @@ export function applyHydratedDataset(
     email: mergedProfile.email || '',
     targetRole: mergedProfile.targetRoles[0] || 'Software Engineer',
   });
+
+  if (data.tailoringSessions && Object.keys(data.tailoringSessions).length > 0) {
+    useTailorWorkspaceStore.getState().hydrateFromCloudSessions(
+      data.tailoringSessions,
+      data.exportArtifacts ?? {}
+    );
+  }
 }
 
 /**

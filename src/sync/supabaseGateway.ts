@@ -175,14 +175,45 @@ class LiveSupabaseGateway implements CloudGateway {
 
   async listUserStoragePaths(userId: string): Promise<string[]> {
     const supabase = await getSupabase();
-    const { data, error } = await supabase
-      .from('user_documents')
-      .select('storage_path')
-      .eq('user_id', userId);
-    if (error) {
-      throw new Error(error.message || 'Failed to list user document paths');
+    const collected = new Set<string>();
+
+    const [{ data: docRows, error: docErr }, { data: exportRows }] = await Promise.all([
+      supabase.from('user_documents').select('storage_path').eq('user_id', userId),
+      supabase.from('export_artifacts').select('storage_path').eq('user_id', userId),
+    ]);
+    if (docErr) {
+      throw new Error(docErr.message || 'Failed to list user document paths');
     }
-    return ((data as Array<{ storage_path: string }>) || []).map((r) => r.storage_path);
+    for (const row of (docRows as Array<{ storage_path: string | null }>) || []) {
+      if (row.storage_path && row.storage_path.startsWith(`${userId}/`)) {
+        collected.add(row.storage_path);
+      }
+    }
+    for (const row of (exportRows as Array<{ storage_path: string | null }>) || []) {
+      if (row.storage_path && row.storage_path.startsWith(`${userId}/`)) {
+        collected.add(row.storage_path);
+      }
+    }
+
+    // Recursively walk private bucket folder `${userId}/` so orphaned uploads/exports are also discovered
+    const walkPrefix = async (prefix: string): Promise<void> => {
+      const { data: items, error: listErr } = await supabase.storage
+        .from(PRIVATE_DOCUMENT_BUCKET)
+        .list(prefix, { limit: 1000 });
+      if (listErr || !items) return;
+      for (const item of items) {
+        if (!item?.name) continue;
+        const fullPath = `${prefix}/${item.name}`;
+        if (item.id == null) {
+          await walkPrefix(fullPath);
+        } else if (fullPath.startsWith(`${userId}/`)) {
+          collected.add(fullPath);
+        }
+      }
+    };
+    await walkPrefix(userId);
+
+    return Array.from(collected);
   }
 
   async eraseMyDataRpc(): Promise<void> {

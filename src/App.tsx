@@ -12,7 +12,6 @@ import {
   SpruceLandingPage,
   SpruceToolsHubPage,
   SpruceResumeCheckerPage,
-  SpruceTailorPage,
   SpruceReachOutPage,
   SpruceBuildBriefsPage,
   SpruceCredentialEnginePage,
@@ -36,7 +35,7 @@ const CompanyLevelsPage = React.lazy(() => import('./pages/tools/career-path/Com
 const TalentLens = React.lazy(() => import('./pages/tools/TalentLens').then((m) => ({ default: m.TalentLens })));
 const ToolsHubPage = React.lazy(() => import('./pages/tools/ToolsHubPage').then((m) => ({ default: m.ToolsHubPage })));
 const CompareJDsPage = React.lazy(() => import('./features/suite/compare/CompareJDsPage').then((m) => ({ default: m.CompareJDsPage })));
-const TailorResumePage = React.lazy(() => import('./features/suite/tailor/TailorResumePage').then((m) => ({ default: m.TailorResumePage })));
+const TailorWorkspacePage = React.lazy(() => import('./features/tailor/TailorWorkspacePage').then((m) => ({ default: m.TailorWorkspacePage })));
 const ReachOutPage = React.lazy(() => import('./features/suite/outreach/ReachOutPage').then((m) => ({ default: m.ReachOutPage })));
 const BuildBriefsPage = React.lazy(() => import('./features/suite/briefs/BuildBriefsPage').then((m) => ({ default: m.BuildBriefsPage })));
 const CredentialOpportunityEnginePage = React.lazy(() => import('./features/suite/credentials/CredentialOpportunityEnginePage').then((m) => ({ default: m.CredentialOpportunityEnginePage })));
@@ -290,7 +289,7 @@ export default function App() {
               <Route path="/tools" element={<DesignGate spruce={SpruceToolsHubPage} default={ToolsHubPage} />} />
               <Route path="/tools/resume-checker" element={<DesignGate spruce={SpruceResumeCheckerPage} default={ResumeChecker} />} />
               <Route path="/tools/jd-compare" element={<DesignGate spruce={SpruceCompareJDsPage} default={CompareJDsPage} />} />
-              <Route path="/tools/tailor" element={<DesignGate spruce={SpruceTailorPage} default={TailorResumePage} />} />
+              <Route path="/tools/tailor" element={<TailorWorkspacePage />} />
               <Route path="/tools/reach-out" element={<DesignGate spruce={SpruceReachOutPage} default={ReachOutPage} />} />
               <Route path="/tools/build-briefs" element={<DesignGate spruce={SpruceBuildBriefsPage} default={BuildBriefsPage} />} />
               <Route path="/tools/career-path" element={<DesignGate spruce={SpruceCareerPathHubPage} default={CareerPathHub} />} />

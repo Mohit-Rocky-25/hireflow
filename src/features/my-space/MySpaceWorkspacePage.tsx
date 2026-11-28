@@ -42,6 +42,8 @@ import { useMySpaceStore } from './useMySpaceStore';
 import { useResumeStore } from '@/features/resumes/useResumeStore';
 import { useSavedJdStore } from '@/store/savedJdStore';
 import { useScanHistoryStore } from '@/store/scanHistoryStore';
+import { useTailorWorkspaceStore } from '@/features/tailor/store/useTailorWorkspaceStore';
+import { useTailorLaunchStore } from '@/lib/tailor/launchContext';
 import { loadDemoIntoStores } from '@/features/demo/demoImporter';
 import { OverviewSection } from './OverviewSection';
 import { ScansSection } from './ScansSection';
@@ -543,6 +545,7 @@ export const MySpaceWorkspacePage: React.FC = () => {
                   </Link>
                 </div>
               </div>
+              <SavedTailorDraftsPanel />
               <ResumesSection />
             </div>
           )}
@@ -601,6 +604,44 @@ export const MySpaceWorkspacePage: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const primaryWs =
+                              Object.values(useResumeStore.getState().workspaces).find(
+                                (w) => !w.archivedAt && w.isPrimary
+                              ) ??
+                              Object.values(useResumeStore.getState().workspaces).find(
+                                (w) => !w.archivedAt
+                              );
+                            const headVer = primaryWs?.headVersionId
+                              ? useResumeStore.getState().versions[primaryWs.headVersionId]
+                              : undefined;
+                            const launch = useTailorLaunchStore.getState().registerLaunchContext({
+                              sourceEntryPoint: 'my_space',
+                              mode: 'full_tailor',
+                              workspaceId: primaryWs?.id ?? null,
+                              versionId: headVer?.id ?? null,
+                              snapshotHash: headVer?.snapshotHash ?? null,
+                              resumeLabel: primaryWs?.name,
+                              auditId: null,
+                              talentLensAssessmentId: null,
+                              jdIds: [jd.id],
+                              jdSnapshotHash: jd.textHash,
+                              jdTitle: jd.title,
+                              jdCompany: jd.company ?? undefined,
+                              dualJdComparisonId: null,
+                              targetKey: null,
+                              selectedSection: null,
+                              selectedBullet: null,
+                              focusSkill: null,
+                            });
+                            navigate(`/tools/tailor?ctx=${launch.launchId}`);
+                          }}
+                          className="px-3 py-1.5 rounded-full bg-[#faff69]/10 border border-[#faff69]/30 text-xs font-semibold text-[#faff69] hover:bg-[#faff69] hover:text-[#0a0a08]"
+                        >
+                          Tailor
+                        </button>
                         <Link
                           to="/tools/resume-checker"
                           className="px-3 py-1.5 rounded-full border border-[#24241c] text-xs font-semibold text-[#f1f1e8] hover:border-[#faff69]/40"
@@ -651,11 +692,11 @@ export const MySpaceWorkspacePage: React.FC = () => {
           {activeSection === 'outreach' && (
             <div className="space-y-4">
               <div className="p-3.5 rounded-xl border border-[#24241c] bg-[#10100d] text-xs text-[#9b9b8c]">
-                <strong className="text-[#f1f1e8]">Integration Note:</strong> Existing drafts in your vault can be tracked and opened in Reach Out Studio; new drafts composed inside{' '}
+                <strong className="text-[#f1f1e8]">Outreach Vault:</strong> Drafts saved from{' '}
                 <Link to="/tools/reach-out" className="text-[#faff69] underline">
                   /tools/reach-out
                 </Link>{' '}
-                are not yet automatically saved back to this vault.
+                appear here automatically with status tracking and copy actions.
               </div>
               <OutreachSection />
             </div>
@@ -707,3 +748,77 @@ export const MySpaceWorkspacePage: React.FC = () => {
     </div>
   );
 };
+
+function SavedTailorDraftsPanel() {
+  const navigate = useNavigate();
+  const sessionsMap = useTailorWorkspaceStore((s) => s.sessions);
+  const deleteDraft = useTailorWorkspaceStore((s) => s.deleteDraft);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
+  const drafts = useMemo(
+    () => Object.values(sessionsMap).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)),
+    [sessionsMap]
+  );
+
+  if (drafts.length === 0) return null;
+
+  return (
+    <div className="p-4 rounded-xl border border-[#24241c] bg-[#10100d] space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="text-xs font-semibold uppercase tracking-wider text-[#faff69]">
+          Saved Tailoring Drafts ({drafts.length})
+        </div>
+        <span className="text-[11px] text-[#6d6d61]">
+          Working drafts stay separate from immutable Resume Versions until committed
+        </span>
+      </div>
+      <div className="divide-y divide-[#1b1b15]">
+        {drafts.map((d) => (
+          <div key={d.sessionId} className="py-2.5 flex flex-wrap items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-sm font-semibold text-[#f1f1e8] truncate">{d.title}</div>
+              <div className="text-xs text-[#6d6d61]">
+                Mode: {d.mode.toUpperCase()} &middot; Status: {d.draftStatus.replace(/_/g, ' ')}
+                {d.reanalysisScore != null ? ` · ATS ${d.reanalysisScore}/100` : ''}
+              </div>
+              {confirmDeleteId === d.sessionId && (
+                <div role="status" className="text-[11px] text-[#ffb4a2] mt-1">
+                  Click trash again to confirm deleting draft
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => navigate(`/tools/tailor?draft=${d.sessionId}`)}
+                className="px-3 py-1 rounded-full bg-[#faff69] text-[#090907] text-xs font-bold"
+              >
+                Resume Draft
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  confirmDeleteId === d.sessionId
+                    ? (deleteDraft(d.sessionId), setConfirmDeleteId(null))
+                    : setConfirmDeleteId(d.sessionId)
+                }
+                aria-label={
+                  confirmDeleteId === d.sessionId
+                    ? `Confirm delete draft ${d.title}`
+                    : `Delete draft ${d.title}`
+                }
+                className={`p-1.5 rounded-full ${
+                  confirmDeleteId === d.sessionId
+                    ? 'text-[#ff6b4a] font-bold'
+                    : 'text-[#6d6d61] hover:text-[#ff8a70]'
+                }`}
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

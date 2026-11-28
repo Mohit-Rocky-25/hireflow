@@ -93,6 +93,17 @@ export interface EducationEntry {
   scoreValue?: string; // e.g. "9.2/10", "3.85/4.0", "88%"
   honors?: string;
   coursework?: string[];
+  rawText?: string;
+}
+
+export interface ExtractedSkillDetail {
+  rawSkill: string;
+  normalizedSkill: string;
+  taxonomyMatch: string | null;
+  taxonomyId: string | null;
+  confidence: number;
+  sourceEvidence: string;
+  unresolved: boolean;
 }
 
 // ── Candidate Experience ──
@@ -172,8 +183,12 @@ export interface CandidateProfile {
   customSections?: {
     id: string;
     title: string;
+    sectionKind?: 'research' | 'awards' | 'leadership' | 'volunteering' | 'open_source' | 'coursework' | 'extracurricular' | 'additional' | 'custom';
+    sourceOrder?: number;
     items: string[];
   }[];
+  extractedSkillRecords?: ExtractedSkillDetail[];
+  sectionOrder?: Array<{ key: string; title: string; rawLines: string[] }>;
   rawText: string;
   sourceFileName?: string;
   archetype?: CandidateArchetype;

@@ -43,6 +43,8 @@ import {
 } from 'lucide-react';
 import { useProfile } from '../profile/ProfileContext';
 import { DataProvenanceModal } from '../../../components/common/DataProvenanceModal';
+import { useMySpaceStore } from '../../my-space/useMySpaceStore';
+import { toast } from '../../../components/ui/Toast';
 
 // Types & Engine
 import {
@@ -227,6 +229,7 @@ export function ReachOutPage() {
 
   const [variantIndex, setVariantIndex] = useState<number>(0);
   const [copiedNote, setCopiedNote] = useState<boolean>(false);
+  const [savedToVault, setSavedToVault] = useState<boolean>(false);
   const [copiedSubject, setCopiedSubject] = useState<boolean>(false);
   const [showOverLengthModal, setShowOverLengthModal] = useState<boolean>(false);
   const [showProvenance, setShowProvenance] = useState<boolean>(false);
@@ -356,6 +359,25 @@ export function ReachOutPage() {
   };
 
   // Copy helpers
+  const handleSaveToVault = () => {
+    if (!fitResult.body.trim() || !selectedTemplate) return;
+    useMySpaceStore.getState().saveOutreachDraft({
+      templateId: selectedTemplate.id,
+      channel: selectedTemplate.channel as 'linkedin_connect' | 'cold_email' | 'warm_referral' | 'follow_up',
+      status: 'draft',
+      slots: {
+        person: slots.recipientName || 'Contact',
+        company: slots.targetCompany || '',
+      },
+      renderedText: fitResult.subject
+        ? `Subject: ${fitResult.subject}\n\n${fitResult.body}`
+        : fitResult.body,
+    });
+    setSavedToVault(true);
+    setTimeout(() => setSavedToVault(false), 2500);
+    toast('success', 'Outreach draft saved to My Space Outreach Vault.');
+  };
+
   const handleCopyNote = async () => {
     if (selectedTemplate.channel === 'linkedin_connect' && fitResult.charCount > 300) {
       setShowOverLengthModal(true);
@@ -1009,6 +1031,15 @@ export function ReachOutPage() {
               </button>
 
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleSaveToVault}
+                  disabled={!fitResult.body.trim()}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-volt/30 bg-volt/10 text-volt hover:bg-volt/20 text-xs font-semibold transition-all cursor-pointer disabled:opacity-40"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>{savedToVault ? 'Saved to Vault' : 'Save to Outreach Vault'}</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => {

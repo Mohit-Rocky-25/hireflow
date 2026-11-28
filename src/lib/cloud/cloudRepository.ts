@@ -31,6 +31,11 @@ import {
   rowToUserDocument,
   feedbackToRow,
   rowToFeedback,
+  tailoringSessionToRow,
+  rowToTailoringSession,
+  tailoringChangeToRow,
+  exportArtifactToRow,
+  rowToExportArtifact,
   type AuditRow,
   type TextSnapshotRow,
   type ResumeWorkspaceRow,
@@ -46,6 +51,9 @@ import {
   type FeedbackItemRow,
   type GapStatusRecord,
   type UserDocumentRecord,
+  type TailoringSessionRow,
+  type TailoringChangeRow,
+  type ExportArtifactRow,
 } from '@/sync/mappers';
 import type {
   AuditEntry,
@@ -60,6 +68,8 @@ import type {
   CandidateProfile,
   UserSettings,
 } from '@/domain/types';
+import type { ExportArtifactContract } from '@/domain/sharedAssetContracts';
+import type { TailorWorkspaceSession } from '@/features/tailor/model/tailorWorkspaceTypes';
 import type { SavedJD, FeedbackItem } from '@/types/schemas-v4';
 import {
   CloudAuthRequiredError,
@@ -84,6 +94,8 @@ export interface HydratedCloudDataset {
   feedbackItems: FeedbackItem[];
   documents: UserDocumentRecord[];
   importReceipts: LegacyImportReceiptRow[];
+  tailoringSessions: Record<string, TailorWorkspaceSession>;
+  exportArtifacts: Record<string, ExportArtifactContract[]>;
 }
 
 // Pure in-memory session snapshot lookup cache (cleared unconditionally on sign-out / account switch).
@@ -168,6 +180,9 @@ export const cloudRepository = {
         feedbackRows,
         documentRows,
         receiptRows,
+        tailoringSessionRows,
+        tailoringChangeRows,
+        exportArtifactRows,
       ] = await Promise.all([
         gateway.selectRows<UserProfileRow>('user_profiles', { limit: 1 }),
         gateway.selectRows<TextSnapshotRow>('text_snapshots', { orderBy: 'created_at', ascending: false, limit: 250 }),
@@ -183,6 +198,9 @@ export const cloudRepository = {
         gateway.selectRows<FeedbackItemRow>('feedback_items', { orderBy: 'updated_at', ascending: false, limit: 500 }),
         gateway.selectRows<UserDocumentRow>('user_documents', { orderBy: 'created_at', ascending: false, limit: 200 }),
         gateway.selectRows<LegacyImportReceiptRow>('legacy_import_receipts', { orderBy: 'imported_at', ascending: false, limit: 50 }),
+        gateway.selectRows<TailoringSessionRow>('tailoring_sessions', { orderBy: 'updated_at', ascending: false, limit: 100 }),
+        gateway.selectRows<TailoringChangeRow>('tailoring_changes', { orderBy: 'created_at', ascending: true, limit: 1000 }),
+        gateway.selectRows<ExportArtifactRow>('export_artifacts', { orderBy: 'created_at', ascending: false, limit: 200 }),
       ]);
 
       const snapshots: Record<string, TextSnapshot> = {};
@@ -245,6 +263,28 @@ export const cloudRepository = {
         };
       }
 
+      const changesBySession = new Map<string, TailoringChangeRow[]>();
+      for (const ch of tailoringChangeRows) {
+        const list = changesBySession.get(ch.session_id) ?? [];
+        list.push(ch);
+        changesBySession.set(ch.session_id, list);
+      }
+
+      const tailoringSessions: Record<string, TailorWorkspaceSession> = {};
+      for (const sr of tailoringSessionRows) {
+        const jdText = sr.jd_snapshot_hash ? snapshots[sr.jd_snapshot_hash]?.text ?? '' : '';
+        const sessionObj = rowToTailoringSession(sr, jdText, changesBySession.get(sr.id) ?? []);
+        tailoringSessions[sessionObj.sessionId] = sessionObj;
+      }
+
+      const exportArtifacts: Record<string, ExportArtifactContract[]> = {};
+      for (const er of exportArtifactRows) {
+        if (!er.session_id) continue;
+        const list = exportArtifacts[er.session_id] ?? [];
+        list.push(rowToExportArtifact(er));
+        exportArtifacts[er.session_id] = list;
+      }
+
       useCloudSyncStore.getState().setHydrated(userId);
 
       return {
@@ -262,6 +302,8 @@ export const cloudRepository = {
         feedbackItems: feedbackRows.map(rowToFeedback),
         documents: documentRows.map(rowToUserDocument),
         importReceipts: receiptRows,
+        tailoringSessions,
+        exportArtifacts,
       };
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unable to load cloud records.';
@@ -523,16 +565,121 @@ export const cloudRepository = {
     });
   },
 
-  async eraseAllUserCloudData(userId: string): Promise<void> {
-    await executeCloudWrite('account cloud erasure', async () => {
+  async saveTailoringSession(
+    userId: string,
+    session: TailorWorkspaceSession,
+    snapshotsToEnsure: TextSnapshot[] = []
+  ): Promise<void> {
+    await executeCloudWrite(`tailoring session "${session.title}"`, async () => {
       await assertSessionOwnership(userId);
       const gateway = getCloudGateway();
-      const paths = await gateway.listUserStoragePaths(userId);
-      if (paths.length > 0) {
-        await gateway.removeStorageFiles(paths);
+
+      if (snapshotsToEnsure.length > 0) {
+        const unique = Array.from(new Map(snapshotsToEnsure.map((s) => [s.hash, s])).values());
+        await gateway.upsertRows(
+          'text_snapshots',
+          unique.map((s) => snapshotToRow(s) as unknown as Record<string, unknown>),
+          { onConflict: 'user_id,hash', ignoreDuplicates: true }
+        );
+      }
+
+      await gateway.upsertRows(
+        'tailoring_sessions',
+        [tailoringSessionToRow(session) as unknown as Record<string, unknown>],
+        { onConflict: 'user_id,id' }
+      );
+
+      if (session.suggestions.length > 0) {
+        const nowIso = session.updatedAt || new Date().toISOString();
+        const changeRows = session.suggestions
+          .filter((s) => s.status !== 'pending' || s.truthGatePassed)
+          .slice(0, 100)
+          .map((s) => tailoringChangeToRow(session.sessionId, s, nowIso) as unknown as Record<string, unknown>);
+        if (changeRows.length > 0) {
+          await gateway.upsertRows('tailoring_changes', changeRows, { onConflict: 'user_id,id' });
+        }
+      }
+    });
+  },
+
+  async loadTailoringSession(userId: string, sessionId: string): Promise<TailorWorkspaceSession | null> {
+    await assertSessionOwnership(userId);
+    const gateway = getCloudGateway();
+    const rows = await gateway.selectRows<TailoringSessionRow>('tailoring_sessions', {
+      eq: { id: sessionId },
+      limit: 1,
+    });
+    if (!rows[0]) return null;
+    const changeRows = await gateway.selectRows<TailoringChangeRow>('tailoring_changes', {
+      eq: { session_id: sessionId },
+      orderBy: 'created_at',
+      ascending: true,
+      limit: 200,
+    });
+    const jdSnap = rows[0].jd_snapshot_hash
+      ? await this.fetchSnapshot(rows[0].jd_snapshot_hash, userId)
+      : null;
+    return rowToTailoringSession(rows[0], jdSnap?.text ?? '', changeRows);
+  },
+
+  async listTailoringSessions(userId: string): Promise<TailorWorkspaceSession[]> {
+    await assertSessionOwnership(userId);
+    const gateway = getCloudGateway();
+    const rows = await gateway.selectRows<TailoringSessionRow>('tailoring_sessions', {
+      orderBy: 'updated_at',
+      ascending: false,
+      limit: 100,
+    });
+    return rows.map((r) => {
+      const cachedJd = r.jd_snapshot_hash ? getCachedSnapshotInMemory(r.jd_snapshot_hash)?.text ?? '' : '';
+      return rowToTailoringSession(r, cachedJd, []);
+    });
+  },
+
+  async deleteTailoringSession(userId: string, sessionId: string): Promise<void> {
+    await executeCloudWrite('delete tailoring session', async () => {
+      await assertSessionOwnership(userId);
+      await getCloudGateway().deleteRows('tailoring_sessions', { user_id: userId, id: sessionId });
+    });
+  },
+
+  async saveExportArtifact(
+    userId: string,
+    artifact: ExportArtifactContract,
+    sessionId: string | null
+  ): Promise<void> {
+    await executeCloudWrite(`export artifact "${artifact.fileName}"`, async () => {
+      await assertSessionOwnership(userId);
+      await getCloudGateway().upsertRows(
+        'export_artifacts',
+        [exportArtifactToRow(artifact, sessionId) as unknown as Record<string, unknown>],
+        { onConflict: 'user_id,id', ignoreDuplicates: true }
+      );
+    });
+  },
+
+  async eraseAllUserCloudData(userId: string): Promise<{
+    storageCleared: boolean;
+    databaseCleared: boolean;
+    deletedPaths: string[];
+  }> {
+    return executeCloudWrite('account cloud erasure', async () => {
+      await assertSessionOwnership(userId);
+      const gateway = getCloudGateway();
+      const rawPaths = await gateway.listUserStoragePaths(userId);
+      const scopedPaths = Array.from(
+        new Set(rawPaths.filter((p) => typeof p === 'string' && p.startsWith(`${userId}/`)))
+      );
+      if (scopedPaths.length > 0) {
+        await gateway.removeStorageFiles(scopedPaths);
       }
       await gateway.eraseMyDataRpc();
       clearMemorySnapshotCache();
+      return {
+        storageCleared: true,
+        databaseCleared: true,
+        deletedPaths: scopedPaths,
+      };
     });
   },
 };
