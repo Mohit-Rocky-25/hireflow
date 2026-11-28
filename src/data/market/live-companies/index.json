@@ -1,6 +1,6 @@
 {
-  "lastSyncTimestamp": "2026-11-25T11:00:20.813Z",
-  "totalLiveRoles": 379,
+  "lastSyncTimestamp": "2026-11-28T09:59:25.516Z",
+  "totalLiveRoles": 398,
   "companyCount": 33,
   "cadence": "3-days",
   "companies": [
@@ -9,7 +9,7 @@
       "companyName": "CRED",
       "ats": "lever",
       "liveRoleCount": 3,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Python",
         "AWS",
@@ -23,8 +23,8 @@
       "companyId": "meesho",
       "companyName": "Meesho",
       "ats": "lever",
-      "liveRoleCount": 20,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 25,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Python",
         "Next.js",
@@ -39,7 +39,7 @@
       "companyName": "Groww",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -47,7 +47,7 @@
       "companyName": "InMobi",
       "ats": "greenhouse",
       "liveRoleCount": 8,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Machine Learning",
         "Generative AI",
@@ -62,7 +62,7 @@
       "companyName": "Stripe India",
       "ats": "greenhouse",
       "liveRoleCount": 15,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Distributed Systems",
         "Ruby",
@@ -77,7 +77,7 @@
       "companyName": "Datadog India",
       "ats": "greenhouse",
       "liveRoleCount": 1,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Scalable Logging & Monitoring",
         "Site Reliability Engineering",
@@ -89,15 +89,15 @@
       "companyId": "mongodb",
       "companyName": "MongoDB India",
       "ats": "greenhouse",
-      "liveRoleCount": 35,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 37,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "MongoDB",
         "AWS",
         "Azure",
         "Next.js",
         "Python",
-        "CI/CD Pipelines"
+        "Kubernetes"
       ]
     },
     {
@@ -105,7 +105,7 @@
       "companyName": "Elastic India",
       "ats": "greenhouse",
       "liveRoleCount": 13,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Elasticsearch",
         "Prometheus",
@@ -120,7 +120,7 @@
       "companyName": "GitLab India",
       "ats": "greenhouse",
       "liveRoleCount": 30,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "DevSecOps",
         "Ruby",
@@ -134,15 +134,15 @@
       "companyId": "rubrik",
       "companyName": "Rubrik India",
       "ats": "greenhouse",
-      "liveRoleCount": 23,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 27,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Python",
         "Distributed Systems",
-        "Go",
+        "Computer Science Fundamentals",
         "GCP",
         "AWS",
-        "High Availability & Fault Tolerance"
+        "Go"
       ]
     },
     {
@@ -150,7 +150,7 @@
       "companyName": "Coinbase India",
       "ats": "greenhouse",
       "liveRoleCount": 8,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Generative AI",
         "Security Compliance",
@@ -165,7 +165,7 @@
       "companyName": "Paytm",
       "ats": "lever",
       "liveRoleCount": 9,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Ansible",
         "Big Data Technologies",
@@ -179,30 +179,30 @@
       "companyId": "zscaler_india",
       "companyName": "Zscaler (India)",
       "ats": "greenhouse",
-      "liveRoleCount": 56,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 59,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Machine Learning",
         "AWS",
         "Python",
         "Azure",
         "Linux",
-        "Distributed Systems"
+        "GCP"
       ]
     },
     {
       "companyId": "zeta",
       "companyName": "Zeta Suite",
       "ats": "lever",
-      "liveRoleCount": 12,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 13,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Next.js",
         "System Design",
         "OAuth2 & JWT",
         "Python",
-        "Kubernetes",
-        "AWS"
+        "Root Cause Analysis & Debugging",
+        "Kubernetes"
       ]
     },
     {
@@ -210,7 +210,7 @@
       "companyName": "Slice",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -218,7 +218,7 @@
       "companyName": "Glance",
       "ats": "greenhouse",
       "liveRoleCount": 3,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Generative AI",
         "Machine Learning",
@@ -233,7 +233,7 @@
       "companyName": "Druva",
       "ats": "greenhouse",
       "liveRoleCount": 6,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Linux",
         "Python",
@@ -248,7 +248,7 @@
       "companyName": "Cyware Labs",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -256,7 +256,7 @@
       "companyName": "Reddit",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -264,7 +264,7 @@
       "companyName": "Pinterest",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -272,7 +272,7 @@
       "companyName": "Airbnb",
       "ats": "greenhouse",
       "liveRoleCount": 3,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Grafana",
         "Machine Learning",
@@ -287,7 +287,7 @@
       "companyName": "LinkedIn",
       "ats": "lever",
       "liveRoleCount": 8,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -295,7 +295,7 @@
       "companyName": "Discord",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -303,37 +303,37 @@
       "companyName": "Spotify",
       "ats": "lever",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
       "companyId": "twilio",
       "companyName": "Twilio India",
       "ats": "greenhouse",
-      "liveRoleCount": 11,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 12,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Next.js",
         "AWS",
         "Machine Learning",
         "Python",
         "Natural Language Processing",
-        "Statistical Analysis & A/B Testing"
+        "Root Cause Analysis & Debugging"
       ]
     },
     {
       "companyId": "okta",
       "companyName": "Okta India",
       "ats": "greenhouse",
-      "liveRoleCount": 55,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 56,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "AWS",
         "Machine Learning",
         "OAuth2 & JWT",
         "System Design",
-        "CI/CD Pipelines",
-        "Java"
+        "Java",
+        "Kubernetes"
       ]
     },
     {
@@ -341,20 +341,20 @@
       "companyName": "PagerDuty",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
       "companyId": "databricks",
       "companyName": "Databricks India",
       "ats": "greenhouse",
-      "liveRoleCount": 53,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "liveRoleCount": 55,
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
-        "Distributed Systems",
         "Computer Science Fundamentals",
-        "Next.js",
         "Feature Engineering",
+        "Next.js",
+        "Distributed Systems",
         "Java",
         "Python"
       ]
@@ -364,7 +364,7 @@
       "companyName": "Instacart",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -372,7 +372,7 @@
       "companyName": "Affirm",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     },
     {
@@ -380,7 +380,7 @@
       "companyName": "Anthropic",
       "ats": "greenhouse",
       "liveRoleCount": 4,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "Computer Science Fundamentals",
         "Feature Engineering",
@@ -395,7 +395,7 @@
       "companyName": "Roblox",
       "ats": "greenhouse",
       "liveRoleCount": 3,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": [
         "OAuth2 & JWT",
         "SQL",
@@ -410,7 +410,7 @@
       "companyName": "Gusto",
       "ats": "greenhouse",
       "liveRoleCount": 0,
-      "lastSyncedAt": "2026-11-25T11:00:20.813Z",
+      "lastSyncedAt": "2026-11-28T09:59:25.516Z",
       "topSkills": []
     }
   ]
