@@ -24,7 +24,7 @@ async function asOwner() {
   await db.exec('reset role;');
 }
 
-describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0003)', () => {
+describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0004 PGlite SQL Execution; 0003 Static Storage Policy Inspection)', () => {
   beforeAll(async () => {
     db = new PGlite();
     await db.exec(`
@@ -48,15 +48,20 @@ describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0003
       path.resolve('supabase/migrations/0002_cloud_first_schema_and_storage.sql'),
       'utf8'
     );
+    const sql0004 = fs.readFileSync(
+      path.resolve('supabase/migrations/0004_tailoring_workspace.sql'),
+      'utf8'
+    );
     await db.exec(sql0001);
     await db.exec(sql0002);
+    await db.exec(sql0004);
   });
 
   afterAll(async () => {
     await db?.close();
   });
 
-  it('enables RLS on all 14 tables and locks immutable grants on core append-only tables', async () => {
+  it('enables RLS on all 17 tables and locks immutable grants on core append-only tables', async () => {
     await asOwner();
     const { rows } = await db.query<{ relname: string; relrowsecurity: boolean }>(`
       select relname, relrowsecurity from pg_class
@@ -64,7 +69,7 @@ describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0003
       where n.nspname = 'public' and relkind = 'r'
       order by relname;
     `);
-    expect(rows.length).toBe(14);
+    expect(rows.length).toBe(17);
     for (const r of rows) {
       expect(r.relrowsecurity, `RLS enabled on ${r.relname}`).toBe(true);
     }
@@ -155,7 +160,7 @@ describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0003
     expect((await db.query('select * from public.saved_jds')).rows).toHaveLength(1);
   });
 
-  it('validates 0003_storage_private_bucket.sql enforces private 5MB bucket & per-user folder RLS', () => {
+  it('inspects 0003_storage_private_bucket.sql at policy-string level (Supabase storage.objects cannot execute inside local PGlite)', () => {
     const sql0003 = fs.readFileSync(
       path.resolve('supabase/migrations/0003_storage_private_bucket.sql'),
       'utf8'
@@ -168,5 +173,76 @@ describe('Candidate OS & Cloud-First Supabase SQL Migrations (0001 + 0002 + 0003
     expect(sql0003).toContain('for insert');
     expect(sql0003).toContain('for update');
     expect(sql0003).toContain('for delete');
+  });
+
+  it('enforces RLS, composite audit/snapshot FKs, LWW triggers & erase_my_data() across 0004_tailoring_workspace.sql', async () => {
+    const SESSION_A = '12121212-1212-4121-8121-121212121212';
+    const CHANGE_A = '13131313-1313-4131-8131-131313131313';
+    const ARTIFACT_A = '14141414-1414-4141-8141-141414141414';
+    const SESSION_B = '23232323-2323-4232-8232-232323232323';
+    const BAD_AUDIT = '77777777-7777-4777-8777-777777777777';
+
+    await asUser(USER_A);
+    await db.query(
+      `insert into public.text_snapshots (hash, body, char_count, word_count) values ($1, 'resume body', 11, 2)`,
+      ['1'.repeat(64)]
+    );
+
+    // Reject dangling source_audit_id FK
+    await expect(
+      db.query(
+        `insert into public.tailoring_sessions (id, title, mode, draft_status, entry_source, source_audit_id)
+         values ($1, 'Bad Audit FK', 'jd', 'in_progress', 'resume_roaster', $2)`,
+        [SESSION_A, BAD_AUDIT]
+      )
+    ).rejects.toThrow();
+
+    await db.query(
+      `insert into public.tailoring_sessions (id, title, mode, draft_status, entry_source, source_snapshot_hash, updated_at)
+       values ($1, 'Stripe Backend Draft', 'jd', 'in_progress', 'resume_roaster', $2, '2026-11-28T10:00:00Z')`,
+      [SESSION_A, '1'.repeat(64)]
+    );
+
+    // Verify LWW trigger rejects stale update_at timestamp on tailoring_sessions
+    await db.query(
+      `update public.tailoring_sessions set title = 'Stale Title', updated_at = '2026-11-28T09:00:00Z' where id = $1`,
+      [SESSION_A]
+    );
+    const afterStale = await db.query<{ title: string }>(
+      `select title from public.tailoring_sessions where id = $1`,
+      [SESSION_A]
+    );
+    expect(afterStale.rows[0].title).toBe('Stripe Backend Draft');
+
+    await db.query(
+      `insert into public.tailoring_changes (id, session_id, section_id, original_text, proposed_text, provenance_kind, evidence_class, truth_gate_passed, status, updated_at)
+       values ($1, $2, 'sec_experience', 'Worked on APIs', 'Built backend APIs', 'full_time', 'supported_paraphrase', true, 'accepted', '2026-11-28T10:00:00Z')`,
+      [CHANGE_A, SESSION_A]
+    );
+    await db.query(
+      `insert into public.export_artifacts (id, session_id, format, file_name, byte_size)
+       values ($1, $2, 'pdf', 'Candidate_Tailored.pdf', 4096)`,
+      [ARTIFACT_A, SESSION_A]
+    );
+
+    await asUser(USER_B);
+    expect((await db.query('select * from public.tailoring_sessions')).rows).toHaveLength(0);
+    expect((await db.query('select * from public.tailoring_changes')).rows).toHaveLength(0);
+    expect((await db.query('select * from public.export_artifacts')).rows).toHaveLength(0);
+
+    await db.query(
+      `insert into public.tailoring_sessions (id, title, mode, draft_status, entry_source)
+       values ($1, 'User B Draft', 'improve', 'new', 'paste')`,
+      [SESSION_B]
+    );
+
+    await asUser(USER_A);
+    await db.query('select public.erase_my_data()');
+    expect((await db.query('select * from public.tailoring_sessions')).rows).toHaveLength(0);
+    expect((await db.query('select * from public.tailoring_changes')).rows).toHaveLength(0);
+    expect((await db.query('select * from public.export_artifacts')).rows).toHaveLength(0);
+
+    await asUser(USER_B);
+    expect((await db.query('select * from public.tailoring_sessions')).rows).toHaveLength(1);
   });
 });
