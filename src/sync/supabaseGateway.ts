@@ -165,11 +165,14 @@ class LiveSupabaseGateway implements CloudGateway {
   async removeStorageFiles(paths: string[]): Promise<void> {
     if (paths.length === 0) return;
     const supabase = await getSupabase();
-    const { error } = await supabase.storage
-      .from(PRIVATE_DOCUMENT_BUCKET)
-      .remove(paths);
-    if (error) {
-      throw new Error(error.message || 'Failed to delete storage files');
+    for (let i = 0; i < paths.length; i += 100) {
+      const batch = paths.slice(i, i + 100);
+      const { error } = await supabase.storage
+        .from(PRIVATE_DOCUMENT_BUCKET)
+        .remove(batch);
+      if (error) {
+        throw new Error(error.message || 'Failed to delete storage files');
+      }
     }
   }
 
@@ -195,20 +198,29 @@ class LiveSupabaseGateway implements CloudGateway {
       }
     }
 
-    // Recursively walk private bucket folder `${userId}/` so orphaned uploads/exports are also discovered
+    // Recursively paginate private bucket folder `${userId}/` so >1 page of objects and nested orphans are all discovered
+    const PAGE_SIZE = 1000;
     const walkPrefix = async (prefix: string): Promise<void> => {
-      const { data: items, error: listErr } = await supabase.storage
-        .from(PRIVATE_DOCUMENT_BUCKET)
-        .list(prefix, { limit: 1000 });
-      if (listErr || !items) return;
-      for (const item of items) {
-        if (!item?.name) continue;
-        const fullPath = `${prefix}/${item.name}`;
-        if (item.id == null) {
-          await walkPrefix(fullPath);
-        } else if (fullPath.startsWith(`${userId}/`)) {
-          collected.add(fullPath);
+      let offset = 0;
+      while (true) {
+        const { data: items, error: listErr } = await supabase.storage
+          .from(PRIVATE_DOCUMENT_BUCKET)
+          .list(prefix, { limit: PAGE_SIZE, offset });
+        if (listErr) {
+          throw new Error(listErr.message || `Failed to list storage prefix ${prefix}`);
         }
+        if (!items || items.length === 0) break;
+        for (const item of items) {
+          if (!item?.name) continue;
+          const fullPath = `${prefix}/${item.name}`;
+          if (item.id == null) {
+            await walkPrefix(fullPath);
+          } else if (fullPath.startsWith(`${userId}/`)) {
+            collected.add(fullPath);
+          }
+        }
+        if (items.length < PAGE_SIZE) break;
+        offset += items.length;
       }
     };
     await walkPrefix(userId);

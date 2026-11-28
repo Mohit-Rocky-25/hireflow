@@ -158,6 +158,13 @@ async function executeCloudWrite<T>(
   }
 }
 
+const activeErasureUsers = new Set<string>();
+const MAX_ERASURE_RESCAN_ATTEMPTS = 3;
+
+export function isAccountErasureInProgress(userId: string): boolean {
+  return activeErasureUsers.has(userId);
+}
+
 export const cloudRepository = {
   async loadAllUserData(userId: string): Promise<HydratedCloudDataset> {
     await assertSessionOwnership(userId);
@@ -663,23 +670,54 @@ export const cloudRepository = {
     databaseCleared: boolean;
     deletedPaths: string[];
   }> {
-    return executeCloudWrite('account cloud erasure', async () => {
-      await assertSessionOwnership(userId);
-      const gateway = getCloudGateway();
-      const rawPaths = await gateway.listUserStoragePaths(userId);
-      const scopedPaths = Array.from(
-        new Set(rawPaths.filter((p) => typeof p === 'string' && p.startsWith(`${userId}/`)))
-      );
-      if (scopedPaths.length > 0) {
-        await gateway.removeStorageFiles(scopedPaths);
-      }
-      await gateway.eraseMyDataRpc();
-      clearMemorySnapshotCache();
-      return {
-        storageCleared: true,
-        databaseCleared: true,
-        deletedPaths: scopedPaths,
-      };
-    });
+    activeErasureUsers.add(userId);
+    try {
+      return await executeCloudWrite('account cloud erasure', async () => {
+        await assertSessionOwnership(userId);
+        const gateway = getCloudGateway();
+        const deletedSet = new Set<string>();
+        const filterScoped = (raw: string[]) =>
+          Array.from(new Set(raw.filter((p) => typeof p === 'string' && p.startsWith(`${userId}/`))));
+
+        const initialPaths = filterScoped(await gateway.listUserStoragePaths(userId));
+        if (initialPaths.length > 0) {
+          await gateway.removeStorageFiles(initialPaths);
+          initialPaths.forEach((p) => deletedSet.add(p));
+        }
+
+        await gateway.eraseMyDataRpc();
+
+        // Bounded rescan/retry loop to catch concurrent or eventual-consistency leftovers
+        for (let attempt = 0; attempt < MAX_ERASURE_RESCAN_ATTEMPTS; attempt++) {
+          const remaining = filterScoped(await gateway.listUserStoragePaths(userId));
+          if (remaining.length === 0) {
+            clearMemorySnapshotCache();
+            return {
+              storageCleared: true,
+              databaseCleared: true,
+              deletedPaths: Array.from(deletedSet),
+            };
+          }
+          await gateway.removeStorageFiles(remaining);
+          remaining.forEach((p) => deletedSet.add(p));
+        }
+
+        const stillRemaining = filterScoped(await gateway.listUserStoragePaths(userId));
+        if (stillRemaining.length > 0) {
+          throw new Error(
+            `Incomplete account erasure: ${stillRemaining.length} user storage object(s) remain after ${MAX_ERASURE_RESCAN_ATTEMPTS} rescan attempts.`
+          );
+        }
+
+        clearMemorySnapshotCache();
+        return {
+          storageCleared: true,
+          databaseCleared: true,
+          deletedPaths: Array.from(deletedSet),
+        };
+      });
+    } finally {
+      activeErasureUsers.delete(userId);
+    }
   },
 };

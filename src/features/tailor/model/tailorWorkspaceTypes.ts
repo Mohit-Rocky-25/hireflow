@@ -289,6 +289,7 @@ export interface TailorWorkspaceSession {
   cloudSyncStatus?: 'idle' | 'saving' | 'saved' | 'error' | 'demo_ephemeral';
   cloudSyncError?: string | null;
   syncRevision?: number;
+  lastSavedRevision?: number;
 
   createdAt: IsoDate;
   updatedAt: IsoDate;

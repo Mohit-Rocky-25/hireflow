@@ -98,6 +98,20 @@ export function TailorWorkspacePage() {
     }
   }, [activeSessionId]);
 
+  // Warn before unloading tab when authenticated cloud draft has unsaved edits
+  useEffect(() => {
+    if (!activeSession || authMode !== 'cloud') return;
+    const hasUnsavedCloudEdits =
+      (activeSession.syncRevision ?? 1) > (activeSession.lastSavedRevision ?? 0);
+    if (!hasUnsavedCloudEdits) return;
+    const onBeforeUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = '';
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [activeSession, authMode]);
+
   async function handleSaveCloudDraft() {
     if (!activeSession) return;
     setSavingDraft(true);

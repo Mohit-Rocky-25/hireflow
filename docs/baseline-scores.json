@@ -9,17 +9,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 78,
-      "band": "Competitive",
-      "headline": "Moderate Alignment (5/8 must-haves met) · Key requirements missing",
+      "score": 52,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (0/8 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 15,
-        "evidenceDepth": 25,
-        "impactMetrics": 9.4,
+        "mustHaveCoverage": 9.4,
+        "evidenceDepth": 5.1,
+        "impactMetrics": 9.8,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -73,17 +73,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 81,
-      "band": "Strong",
-      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
+      "score": 65,
+      "band": "Competitive",
+      "headline": "High Risk ATS Profile (6/13 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 23.6,
-        "evidenceDepth": 25,
-        "impactMetrics": 3.6,
+        "mustHaveCoverage": 17.3,
+        "evidenceDepth": 13.7,
+        "impactMetrics": 6.3,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -137,17 +137,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 75,
+      "score": 68,
       "band": "Competitive",
-      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
+      "headline": "High Risk ATS Profile (3/8 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 21.4,
-        "evidenceDepth": 15.3,
-        "impactMetrics": 14.3,
+        "mustHaveCoverage": 18.8,
+        "evidenceDepth": 12.3,
+        "impactMetrics": 13.9,
         "projectsAndOss": 10,
         "seniorityFit": 10,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -158,13 +158,17 @@
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
           "points": -6,
-          "reason": "16 of 20 skills listed in skills section lack any project or experience evidence."
+          "reason": "16 of 20 skills listed in skills section lack any project or experience evidence.",
+          "owner": "penalties",
+          "cause": "keyword_stuffing"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -214,17 +218,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 79,
-      "band": "Competitive",
-      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "score": 62,
+      "band": "Needs work",
+      "headline": "Moderate Alignment (5/10 must-haves met) · Key requirements missing",
       "subscores": {
-        "mustHaveCoverage": 27,
-        "evidenceDepth": 20,
-        "impactMetrics": 10.7,
+        "mustHaveCoverage": 19.5,
+        "evidenceDepth": 14.1,
+        "impactMetrics": 7.9,
         "projectsAndOss": 9,
         "seniorityFit": 10,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -235,13 +239,17 @@
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
           "points": -7,
-          "reason": "17 of 21 skills listed in skills section lack any project or experience evidence."
+          "reason": "17 of 21 skills listed in skills section lack any project or experience evidence.",
+          "owner": "penalties",
+          "cause": "keyword_stuffing"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 204 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -291,17 +299,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 93,
-      "band": "Strong",
-      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
+      "score": 53,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (0/5 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 30,
-        "evidenceDepth": 25,
-        "impactMetrics": 9.4,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 8.2,
+        "impactMetrics": 2.6,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -355,17 +363,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 66,
+      "score": 67,
       "band": "Competitive",
-      "headline": "Meets 100% of Must-Have Requirements (7/7) · Verified ATS Compatibility",
+      "headline": "High Risk ATS Profile (3/7 must-haves met) · Missing core job requirements",
       "subscores": {
         "mustHaveCoverage": 21.4,
-        "evidenceDepth": 20,
-        "impactMetrics": 6.3,
-        "projectsAndOss": 5,
-        "seniorityFit": 10,
+        "evidenceDepth": 17.1,
+        "impactMetrics": 12.3,
+        "projectsAndOss": 13.5,
+        "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -376,13 +384,17 @@
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
           "points": -6,
-          "reason": "15 of 20 skills listed in skills section lack any project or experience evidence."
+          "reason": "15 of 20 skills listed in skills section lack any project or experience evidence.",
+          "owner": "penalties",
+          "cause": "keyword_stuffing"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 145 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 145 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -432,13 +444,13 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 59,
+      "score": 45,
       "band": "Needs work",
-      "headline": "Moderate Alignment (1/2 must-haves met) · Key requirements missing",
+      "headline": "High Risk ATS Profile (0/4 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 7.5,
-        "evidenceDepth": 15.4,
-        "impactMetrics": 8.3,
+        "mustHaveCoverage": 11.3,
+        "evidenceDepth": 5.7,
+        "impactMetrics": 0,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
@@ -496,19 +508,19 @@
     "hasJd": false,
     "atsRoaster": {
       "success": true,
-      "score": 65,
-      "band": "Competitive",
+      "score": 56,
+      "band": "Needs work",
       "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
       "subscores": {
         "mustHaveCoverage": 30,
         "evidenceDepth": 0,
-        "impactMetrics": 10,
+        "impactMetrics": 1.6,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
         "tierFit": 3.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -517,7 +529,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 117 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 117 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -567,15 +581,15 @@
     "hasJd": false,
     "atsRoaster": {
       "success": true,
-      "score": 55,
+      "score": 53,
       "band": "Needs work",
       "headline": "Strong Core Match (0/0 must-haves met) · Minor evidence gaps detected",
       "subscores": {
         "mustHaveCoverage": 30,
         "evidenceDepth": 0,
         "impactMetrics": 0,
-        "projectsAndOss": 5,
-        "seniorityFit": 10,
+        "projectsAndOss": 13.5,
+        "seniorityFit": 0,
         "formatAndParse": 10,
         "tierFit": 3.5,
         "niceToHaveCoverage": 10,
@@ -588,7 +602,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 95 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 95 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -638,19 +654,19 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 34,
+      "score": 33,
       "band": "Weak match",
-      "headline": "Strong Core Match (5/6 must-haves met) · Minor evidence gaps detected",
+      "headline": "High Risk ATS Profile (0/7 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 12.5,
-        "evidenceDepth": 6.5,
+        "mustHaveCoverage": 12.9,
+        "evidenceDepth": 6.7,
         "impactMetrics": 0,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -659,13 +675,17 @@
           "id": "keyword_stuffing",
           "label": "Keyword Stuffing Detected",
           "points": -10,
-          "reason": "32 of 32 skills listed in skills section lack any project or experience evidence."
+          "reason": "32 of 32 skills listed in skills section lack any project or experience evidence.",
+          "owner": "penalties",
+          "cause": "keyword_stuffing"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 129 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 129 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -715,34 +735,38 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 36,
+      "score": 42,
       "band": "Weak match",
-      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "headline": "High Risk ATS Profile (0/7 must-haves met) · Missing core job requirements",
       "subscores": {
         "mustHaveCoverage": 15,
-        "evidenceDepth": 9.2,
+        "evidenceDepth": 7.9,
         "impactMetrics": 0,
-        "projectsAndOss": 7.5,
+        "projectsAndOss": 13.5,
         "seniorityFit": 0,
-        "formatAndParse": 8,
-        "tierFit": 3.5,
+        "formatAndParse": 10,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 7,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
-        "parseHealth": 4
+        "parseHealth": 5
       },
       "penalties": [
         {
           "id": "missing_projects",
           "label": "Missing Dedicated PROJECTS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for projects."
+          "reason": "ATS parser expects a dedicated header for projects.",
+          "owner": "penalties",
+          "cause": "missing_projects_section"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -792,34 +816,30 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 22,
+      "score": 31,
       "band": "Weak match",
-      "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
+      "headline": "High Risk ATS Profile (0/5 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 7.5,
-        "evidenceDepth": 3.7,
+        "mustHaveCoverage": 6,
+        "evidenceDepth": 3.1,
         "impactMetrics": 0,
-        "projectsAndOss": 7.5,
+        "projectsAndOss": 13.5,
         "seniorityFit": 0,
-        "formatAndParse": 8,
+        "formatAndParse": 10,
         "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
-        "parseHealth": 4
+        "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "missing_projects",
-          "label": "Missing Dedicated PROJECTS Section",
-          "points": -3,
-          "reason": "ATS parser expects a dedicated header for projects."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 89 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 89 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -869,19 +889,19 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 73,
-      "band": "Competitive",
-      "headline": "Meets 100% of Must-Have Requirements (4/4) · Verified ATS Compatibility",
+      "score": 47,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (0/4 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 26.3,
-        "evidenceDepth": 22.3,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 8.1,
         "impactMetrics": 0,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -890,7 +910,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 134 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 134 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -940,17 +962,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 92,
-      "band": "Strong",
-      "headline": "Meets 100% of Must-Have Requirements (1/1) · Verified ATS Compatibility",
+      "score": 50,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (0/2 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 30,
-        "evidenceDepth": 25,
-        "impactMetrics": 12.5,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 7.2,
+        "impactMetrics": 4.2,
         "projectsAndOss": 15,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -961,7 +983,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 104 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 104 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1011,19 +1035,19 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 75,
+      "score": 77,
       "band": "Competitive",
-      "headline": "Meets 100% of Must-Have Requirements (2/2) · Verified ATS Compatibility",
+      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 30,
-        "evidenceDepth": 24.7,
-        "impactMetrics": 0,
+        "evidenceDepth": 25,
+        "impactMetrics": 1.8,
         "projectsAndOss": 10.5,
         "seniorityFit": 0,
         "formatAndParse": 10,
         "tierFit": 3.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 7,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -1032,7 +1056,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 97 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1082,46 +1108,54 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 59,
-      "band": "Needs work",
-      "headline": "Meets 100% of Must-Have Requirements (5/5) · Verified ATS Compatibility",
+      "score": 11,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (0/5 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 30,
-        "evidenceDepth": 25,
+        "mustHaveCoverage": 15,
+        "evidenceDepth": 7.6,
         "impactMetrics": 0,
-        "projectsAndOss": 10.5,
+        "projectsAndOss": 0,
         "seniorityFit": 0,
-        "formatAndParse": 4.5,
-        "tierFit": 3.5,
+        "formatAndParse": 1,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
-        "educationAndCerts": 1,
-        "parseHealth": 2.3
+        "titleAlignment": 10,
+        "educationAndCerts": 4,
+        "parseHealth": 0.5
       },
       "penalties": [
         {
           "id": "no_contact_info",
           "label": "Missing Critical Contact Information",
           "points": -5,
-          "reason": "Resume is missing direct recruiter contact channels (email or phone)."
-        },
-        {
-          "id": "missing_education",
-          "label": "Missing Dedicated EDUCATION Section",
-          "points": -3,
-          "reason": "ATS parser expects a dedicated header for education."
+          "reason": "Resume is missing direct recruiter contact channels (email or phone).",
+          "owner": "penalties",
+          "cause": "missing_contact_channels"
         },
         {
           "id": "missing_skills",
           "label": "Missing Dedicated SKILLS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for skills."
+          "reason": "ATS parser expects a dedicated header for skills.",
+          "owner": "penalties",
+          "cause": "missing_skills_section"
+        },
+        {
+          "id": "missing_projects",
+          "label": "Missing Dedicated PROJECTS Section",
+          "points": -3,
+          "reason": "ATS parser expects a dedicated header for projects.",
+          "owner": "penalties",
+          "cause": "missing_projects_section"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 76 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 76 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1171,46 +1205,46 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 5,
+      "score": 9,
       "band": "Weak match",
-      "headline": "Moderate Alignment (2/4 must-haves met) · Key requirements missing",
+      "headline": "High Risk ATS Profile (0/6 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 7.5,
-        "evidenceDepth": 3.7,
+        "mustHaveCoverage": 10,
+        "evidenceDepth": 4.1,
         "impactMetrics": 0,
         "projectsAndOss": 0,
-        "seniorityFit": 0,
-        "formatAndParse": 4,
+        "seniorityFit": 1,
+        "formatAndParse": 1,
         "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 7.5,
-        "educationAndCerts": 1,
-        "parseHealth": 2
+        "titleAlignment": 1,
+        "educationAndCerts": 4,
+        "parseHealth": 0.5
       },
       "penalties": [
-        {
-          "id": "missing_education",
-          "label": "Missing Dedicated EDUCATION Section",
-          "points": -3,
-          "reason": "ATS parser expects a dedicated header for education."
-        },
         {
           "id": "missing_skills",
           "label": "Missing Dedicated SKILLS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for skills."
+          "reason": "ATS parser expects a dedicated header for skills.",
+          "owner": "penalties",
+          "cause": "missing_skills_section"
         },
         {
           "id": "missing_projects",
           "label": "Missing Dedicated PROJECTS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for projects."
+          "reason": "ATS parser expects a dedicated header for projects.",
+          "owner": "penalties",
+          "cause": "missing_projects_section"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 95 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 95 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1260,17 +1294,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 46,
-      "band": "Needs work",
-      "headline": "Moderate Alignment (2/3 must-haves met) · Key requirements missing",
+      "score": 36,
+      "band": "Weak match",
+      "headline": "High Risk ATS Profile (0/4 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 15,
-        "evidenceDepth": 11.1,
+        "mustHaveCoverage": 11.3,
+        "evidenceDepth": 5.9,
         "impactMetrics": 0,
         "projectsAndOss": 10.5,
         "seniorityFit": 0,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -1281,7 +1315,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 81 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 81 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1331,40 +1367,46 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 27,
+      "score": 32,
       "band": "Weak match",
-      "headline": "High Risk ATS Profile (1/4 must-haves met) · Missing core job requirements",
+      "headline": "High Risk ATS Profile (1/5 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 7.5,
-        "evidenceDepth": 13.9,
+        "mustHaveCoverage": 9,
+        "evidenceDepth": 7.4,
         "impactMetrics": 0,
-        "projectsAndOss": 7.5,
+        "projectsAndOss": 13.5,
         "seniorityFit": 0,
-        "formatAndParse": 6,
+        "formatAndParse": 10,
         "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 7,
+        "titleAlignment": 10,
         "educationAndCerts": 4,
-        "parseHealth": 3
+        "parseHealth": 5
       },
       "penalties": [
         {
           "id": "missing_skills",
           "label": "Missing Dedicated SKILLS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for skills."
+          "reason": "ATS parser expects a dedicated header for skills.",
+          "owner": "penalties",
+          "cause": "missing_skills_section"
         },
         {
           "id": "missing_projects",
           "label": "Missing Dedicated PROJECTS Section",
           "points": -3,
-          "reason": "ATS parser expects a dedicated header for projects."
+          "reason": "ATS parser expects a dedicated header for projects.",
+          "owner": "penalties",
+          "cause": "missing_projects_section"
         },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 88 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 88 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1414,13 +1456,13 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 86,
-      "band": "Strong",
-      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
+      "score": 79,
+      "band": "Competitive",
+      "headline": "Meets 100% of Must-Have Requirements (2/2) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 30,
-        "evidenceDepth": 20,
-        "impactMetrics": 7.1,
+        "evidenceDepth": 19.7,
+        "impactMetrics": 1,
         "projectsAndOss": 9,
         "seniorityFit": 10,
         "formatAndParse": 10,
@@ -1435,7 +1477,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 193 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 193 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1485,17 +1529,17 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 79,
-      "band": "Competitive",
-      "headline": "Strong Core Match (6/7 must-haves met) · Minor evidence gaps detected",
+      "score": 57,
+      "band": "Needs work",
+      "headline": "High Risk ATS Profile (3/11 must-haves met) · Missing core job requirements",
       "subscores": {
-        "mustHaveCoverage": 19.3,
-        "evidenceDepth": 20,
-        "impactMetrics": 10.7,
+        "mustHaveCoverage": 16.4,
+        "evidenceDepth": 10.2,
+        "impactMetrics": 3.3,
         "projectsAndOss": 9,
         "seniorityFit": 10,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 2.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
@@ -1506,7 +1550,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 191 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 191 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1556,19 +1602,19 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 89,
+      "score": 86,
       "band": "Strong",
-      "headline": "Meets 100% of Must-Have Requirements (3/3) · Verified ATS Compatibility",
+      "headline": "Meets 100% of Must-Have Requirements (2/2) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 30,
-        "evidenceDepth": 20,
-        "impactMetrics": 10.7,
+        "evidenceDepth": 19.9,
+        "impactMetrics": 15,
         "projectsAndOss": 9,
-        "seniorityFit": 10,
+        "seniorityFit": 1,
         "formatAndParse": 10,
-        "tierFit": 3.5,
+        "tierFit": 5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 10,
+        "titleAlignment": 1,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -1577,7 +1623,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 182 words (ideal technical resumes range between 250 and 1,200 words)."
+          "reason": "Resume has 182 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1627,19 +1675,19 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 24,
+      "score": 20,
       "band": "Weak match",
-      "headline": "High Risk ATS Profile (0/2 must-haves met) · Missing core job requirements",
+      "headline": "High Risk ATS Profile (0/3 must-haves met) · Missing core job requirements",
       "subscores": {
         "mustHaveCoverage": 0,
         "evidenceDepth": 0,
         "impactMetrics": 0,
-        "projectsAndOss": 15,
-        "seniorityFit": 0,
+        "projectsAndOss": 10,
+        "seniorityFit": 1,
         "formatAndParse": 10,
         "tierFit": 2.5,
         "niceToHaveCoverage": 10,
-        "titleAlignment": 5,
+        "titleAlignment": 1,
         "educationAndCerts": 4,
         "parseHealth": 5
       },
@@ -1648,7 +1696,9 @@
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 87 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 87 words (ideal technical resumes range between 140 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },
@@ -1698,34 +1748,30 @@
     "hasJd": true,
     "atsRoaster": {
       "success": true,
-      "score": 71,
+      "score": 76,
       "band": "Competitive",
       "headline": "Meets 100% of Must-Have Requirements (1/1) · Verified ATS Compatibility",
       "subscores": {
         "mustHaveCoverage": 30,
-        "evidenceDepth": 25,
-        "impactMetrics": 3.6,
-        "projectsAndOss": 7.5,
+        "evidenceDepth": 18.3,
+        "impactMetrics": 4.7,
+        "projectsAndOss": 13.5,
         "seniorityFit": 0,
-        "formatAndParse": 8,
+        "formatAndParse": 10,
         "tierFit": 3.5,
         "niceToHaveCoverage": 10,
         "titleAlignment": 10,
         "educationAndCerts": 4,
-        "parseHealth": 4
+        "parseHealth": 5
       },
       "penalties": [
-        {
-          "id": "missing_projects",
-          "label": "Missing Dedicated PROJECTS Section",
-          "points": -3,
-          "reason": "ATS parser expects a dedicated header for projects."
-        },
         {
           "id": "word_count_outlier",
           "label": "Resume Abnormally Brief",
           "points": -4,
-          "reason": "Resume has 102 words (ideal technical resumes range between 140 and 1,200 words)."
+          "reason": "Resume has 102 words (ideal technical resumes range between 250 and 1,200 words).",
+          "owner": "penalties",
+          "cause": "word_count_outlier"
         }
       ]
     },

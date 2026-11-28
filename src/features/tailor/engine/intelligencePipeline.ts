@@ -1276,11 +1276,15 @@ export function validateBeforeFinalize(params: {
     : doc;
   const baselineEntryHeaders = new Set<string>();
   const baselineEduAndTitleTokens = new Set<string>();
+  const baselineExperienceInternTitles = new Map<string, string>();
   for (const bSec of baselineDoc.sections) {
     for (const be of bSec.entries || []) {
       if (be.title) baselineEduAndTitleTokens.add(be.title.toLowerCase());
       if (be.organization) baselineEduAndTitleTokens.add(be.organization.toLowerCase());
       baselineEntryHeaders.add(`${be.title}|${be.organization || ''}`.toLowerCase());
+      if (bSec.kind === 'experience' && /\bintern(ship)?\b/i.test(be.title)) {
+        baselineExperienceInternTitles.set((be.organization || be.id).toLowerCase(), be.title);
+      }
     }
   }
 
@@ -1397,34 +1401,65 @@ export function validateBeforeFinalize(params: {
         });
       }
 
-      if (entry.title?.trim() && !entryInBaseline && !allowedCorpusLower.includes(entry.title.trim().toLowerCase())) {
-        if (sec.kind === 'education' || sec.kind === 'experience') {
+      if (entry.title?.trim()) {
+        const baselineInternTitle =
+          sec.kind === 'experience'
+            ? baselineExperienceInternTitles.get((entry.organization || entry.id).toLowerCase())
+            : undefined;
+        if (baselineInternTitle && !/\bintern(ship)?\b/i.test(entry.title)) {
           blockingIssues.push({
-            id: `val_entry_title_${entry.id}`,
+            id: `val_entry_intern_escalation_${entry.id}`,
             category: 'factual',
             severity: 'blocking',
-            message: `Unverified ${sec.kind === 'education' ? 'education degree/title' : 'role title'} "${entry.title}" in ${sec.title} is absent from source resume or confirmations.`,
+            message: `Internship role "${baselineInternTitle}" cannot be escalated to non-intern title "${entry.title}" without confirmation.`,
             sectionTitle: sec.title,
           });
-        } else {
-          blockingIssues.push(
-            ...detectEntityAndScopeViolations(entry.title, allowedCorpusLower, sec.title)
-          );
+        } else if (!entryInBaseline && !allowedCorpusLower.includes(entry.title.trim().toLowerCase())) {
+          if (sec.kind === 'education' || sec.kind === 'experience') {
+            blockingIssues.push({
+              id: `val_entry_title_${entry.id}`,
+              category: 'factual',
+              severity: 'blocking',
+              message: `Unverified ${sec.kind === 'education' ? 'education degree/title' : 'role title'} "${entry.title}" in ${sec.title} is absent from source resume or confirmations.`,
+              sectionTitle: sec.title,
+            });
+          } else {
+            blockingIssues.push(
+              ...detectEntityAndScopeViolations(entry.title, allowedCorpusLower, sec.title)
+            );
+          }
         }
       }
 
-      if (entry.dateRange?.trim() && !allowedCorpusLower.includes(entry.dateRange.trim().toLowerCase())) {
+      if (entry.dateRange?.trim()) {
         const yearTokens = entry.dateRange.match(/\b(19|20)\d{2}\b/g) || [];
-        const allYearsGrounded =
-          yearTokens.length > 0 && yearTokens.every((yr) => allowedCorpusLower.includes(yr));
-        if (!allYearsGrounded) {
+        if (yearTokens.length >= 2 && Number(yearTokens[0]) > Number(yearTokens[yearTokens.length - 1])) {
           blockingIssues.push({
-            id: `val_entry_date_${entry.id}`,
+            id: `val_entry_date_rev_${entry.id}`,
             category: 'factual',
             severity: 'blocking',
-            message: `Unverified date range "${entry.dateRange}" on "${entry.title || sec.title}" does not match source resume.`,
+            message: `Reversed chronological date range "${entry.dateRange}" on "${entry.title || sec.title}".`,
             sectionTitle: sec.title,
           });
+        } else {
+          const normalizedDate = entry.dateRange.trim().toLowerCase().replace(/\s+/g, ' ');
+          const normalizedCorpus = allowedCorpusLower.replace(/\s+/g, ' ');
+          if (!normalizedCorpus.includes(normalizedDate)) {
+            const strictSection = sec.kind === 'experience' || sec.kind === 'education';
+            const allYearsGrounded =
+              !strictSection &&
+              yearTokens.length > 0 &&
+              yearTokens.every((yr) => allowedCorpusLower.includes(yr));
+            if (!allYearsGrounded) {
+              blockingIssues.push({
+                id: `val_entry_date_${entry.id}`,
+                category: 'factual',
+                severity: 'blocking',
+                message: `Unverified date range "${entry.dateRange}" on "${entry.title || sec.title}" does not match source resume.`,
+                sectionTitle: sec.title,
+              });
+            }
+          }
         }
       }
 

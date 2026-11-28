@@ -44,6 +44,21 @@ import type {
   UserConfirmedEvidenceRecord,
 } from '../model/tailorWorkspaceTypes';
 
+const deletedSessionIds = new Set<string>();
+const sessionPersistQueues = new Map<string, Promise<boolean>>();
+
+function enqueueSessionPersist(sid: string, fn: () => Promise<boolean>): Promise<boolean> {
+  const prev = sessionPersistQueues.get(sid) ?? Promise.resolve(true);
+  const next = prev.catch(() => true).then(fn);
+  sessionPersistQueues.set(sid, next);
+  void next.finally(() => {
+    if (sessionPersistQueues.get(sid) === next) {
+      sessionPersistQueues.delete(sid);
+    }
+  });
+  return next;
+}
+
 function isCloudAuthenticated(auth: {
   status: string;
   isDemo: boolean;
@@ -223,7 +238,7 @@ export interface TailorWorkspaceState extends TailorWorkspaceControllerContract 
   clearError: () => void;
   closeActiveSession: () => void;
   resumeDraft: (sessionId: Uuid) => boolean;
-  deleteDraft: (sessionId: Uuid) => Promise<void>;
+  deleteDraft: (sessionId: Uuid) => Promise<boolean>;
   hydrateFromCloudSessions: (
     sessionsMap: Record<Uuid, TailorWorkspaceSession>,
     exportsMap?: Record<Uuid, ExportArtifactContract[]>
@@ -350,33 +365,51 @@ export const useTailorWorkspaceStore = create<TailorWorkspaceState>()((set, get)
   },
 
   deleteDraft: async (sessionId) => {
-    set((state) => {
-      const nextSessions = { ...state.sessions };
-      delete nextSessions[sessionId];
-      const nextExports = { ...state.exportHistory };
-      delete nextExports[sessionId];
-      return {
-        sessions: nextSessions,
-        exportHistory: nextExports,
-        activeSessionId: state.activeSessionId === sessionId ? null : state.activeSessionId,
-      };
-    });
-    const auth = useAuthStore.getState();
-    if (isCloudAuthenticated(auth)) {
-      try {
-        await cloudRepository.deleteTailoringSession(auth.userId, sessionId);
-      } catch (err) {
-        set({
-          lastError:
-            err instanceof Error ? err.message : 'Unable to delete tailoring session from cloud.',
-        });
+    deletedSessionIds.add(sessionId);
+    return enqueueSessionPersist(sessionId, async () => {
+      const auth = useAuthStore.getState();
+      if (isCloudAuthenticated(auth)) {
+        try {
+          await cloudRepository.deleteTailoringSession(auth.userId, sessionId);
+        } catch (err) {
+          const msg =
+            err instanceof Error ? err.message : 'Unable to delete tailoring session from cloud.';
+          set((state) => {
+            const cur = state.sessions[sessionId];
+            return {
+              lastError: msg,
+              sessions: cur
+                ? {
+                    ...state.sessions,
+                    [sessionId]: { ...cur, cloudSyncStatus: 'error', cloudSyncError: msg },
+                  }
+                : state.sessions,
+            };
+          });
+          return false;
+        }
       }
-    }
+
+      set((state) => {
+        const nextSessions = { ...state.sessions };
+        delete nextSessions[sessionId];
+        const nextExports = { ...state.exportHistory };
+        delete nextExports[sessionId];
+        return {
+          sessions: nextSessions,
+          exportHistory: nextExports,
+          activeSessionId: state.activeSessionId === sessionId ? null : state.activeSessionId,
+          lastError: null,
+        };
+      });
+      return true;
+    });
   },
 
   hydrateFromCloudSessions: (sessionsMap, exportsMap = {}) => {
     const rebuilt: Record<Uuid, TailorWorkspaceSession> = {};
     for (const [id, rawSession] of Object.entries(sessionsMap)) {
+      if (deletedSessionIds.has(id)) continue;
       rebuilt[id] = {
         ...rebuildSessionAnalysis(rawSession),
         cloudSyncStatus: 'saved',
@@ -395,93 +428,118 @@ export const useTailorWorkspaceStore = create<TailorWorkspaceState>()((set, get)
   persistSessionToCloud: async (targetId) => {
     const sid = targetId ?? get().activeSessionId;
     if (!sid) return false;
-    const cur = get().sessions[sid];
-    if (!cur) return false;
+    if (deletedSessionIds.has(sid)) return false;
+    const curAtCall = get().sessions[sid];
+    if (!curAtCall) return false;
+    const revisionSent = curAtCall.syncRevision ?? 1;
 
-    const auth = useAuthStore.getState();
-    if (!isCloudAuthenticated(auth)) {
-      set((s) => {
-        const latest = s.sessions[sid];
-        if (!latest) return s;
-        return {
-          sessions: {
-            ...s.sessions,
-            [sid]: { ...latest, cloudSyncStatus: 'demo_ephemeral', cloudSyncError: null },
-          },
-        };
-      });
-      return false;
-    }
+    return enqueueSessionPersist(sid, async () => {
+      if (deletedSessionIds.has(sid)) return false;
+      const cur = curAtCall;
 
-    const ownerUserId = auth.userId;
-    const revisionSent = cur.syncRevision ?? 1;
-    set((s) => {
-      const latest = s.sessions[sid];
-      if (!latest) return s;
-      return {
-        sessions: {
-          ...s.sessions,
-          [sid]: { ...latest, cloudSyncStatus: 'saving', cloudSyncError: null },
-        },
-      };
-    });
-
-    try {
-      const snapshots: TextSnapshot[] = [];
-      if (cur.sourceSnapshotHash) {
-        const sSnap = getCachedSnapshotInMemory(cur.sourceSnapshotHash);
-        if (sSnap) snapshots.push(sSnap);
-      }
-      if (cur.jdSnapshotHash && cur.jdText.trim()) {
-        const jdSnap = getCachedSnapshotInMemory(cur.jdSnapshotHash) ?? {
-          hash: cur.jdSnapshotHash,
-          text: cur.jdText.trim(),
-          charCount: cur.jdText.trim().length,
-          wordCount: cur.jdText.trim().split(/\s+/).filter(Boolean).length,
-          createdAt: cur.createdAt,
-        };
-        snapshots.push(jdSnap);
-      }
-
-      await cloudRepository.saveTailoringSession(ownerUserId, cur, snapshots);
-
-      // Guard against stale async completion or account switch
-      const currentAuth = useAuthStore.getState();
-      if (!isCloudAuthenticated(currentAuth) || currentAuth.userId !== ownerUserId) {
-        return false;
-      }
-      set((s) => {
-        const latest = s.sessions[sid];
-        if (!latest) return s;
-        if ((latest.syncRevision ?? 1) > revisionSent) {
-          return s;
-        }
-        return {
-          sessions: {
-            ...s.sessions,
-            [sid]: { ...latest, cloudSyncStatus: 'saved', cloudSyncError: null },
-          },
-        };
-      });
-      return true;
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Unable to save draft to cloud.';
-      const currentAuth = useAuthStore.getState();
-      if (isCloudAuthenticated(currentAuth) && currentAuth.userId === ownerUserId) {
+      const auth = useAuthStore.getState();
+      if (!isCloudAuthenticated(auth)) {
         set((s) => {
           const latest = s.sessions[sid];
           if (!latest) return s;
           return {
             sessions: {
               ...s.sessions,
-              [sid]: { ...latest, cloudSyncStatus: 'error', cloudSyncError: msg },
+              [sid]: { ...latest, cloudSyncStatus: 'demo_ephemeral', cloudSyncError: null },
             },
-            lastError: `Cloud draft save failed: ${msg}`,
           };
         });
+        return false;
       }
-      return false;
-    }
+
+      const ownerUserId = auth.userId;
+      set((s) => {
+        const latest = s.sessions[sid];
+        if (!latest) return s;
+        return {
+          sessions: {
+            ...s.sessions,
+            [sid]: { ...latest, cloudSyncStatus: 'saving', cloudSyncError: null },
+          },
+        };
+      });
+
+      try {
+        const snapshots: TextSnapshot[] = [];
+        if (cur.sourceSnapshotHash) {
+          const sSnap = getCachedSnapshotInMemory(cur.sourceSnapshotHash);
+          if (sSnap) snapshots.push(sSnap);
+        }
+        if (cur.jdSnapshotHash && cur.jdText.trim()) {
+          const jdSnap = getCachedSnapshotInMemory(cur.jdSnapshotHash) ?? {
+            hash: cur.jdSnapshotHash,
+            text: cur.jdText.trim(),
+            charCount: cur.jdText.trim().length,
+            wordCount: cur.jdText.trim().split(/\s+/).filter(Boolean).length,
+            createdAt: cur.createdAt,
+          };
+          snapshots.push(jdSnap);
+        }
+
+        if (deletedSessionIds.has(sid)) return false;
+        await cloudRepository.saveTailoringSession(ownerUserId, cur, snapshots);
+
+        const currentAuth = useAuthStore.getState();
+        if (!isCloudAuthenticated(currentAuth) || currentAuth.userId !== ownerUserId) {
+          return false;
+        }
+        if (deletedSessionIds.has(sid)) {
+          await cloudRepository.deleteTailoringSession(ownerUserId, sid).catch(() => {});
+          return false;
+        }
+        set((s) => {
+          const latest = s.sessions[sid];
+          if (!latest) return s;
+          const nextLastSaved = Math.max(latest.lastSavedRevision ?? 0, revisionSent);
+          if ((latest.syncRevision ?? 1) > revisionSent) {
+            return {
+              sessions: {
+                ...s.sessions,
+                [sid]: {
+                  ...latest,
+                  lastSavedRevision: nextLastSaved,
+                  cloudSyncStatus: 'idle',
+                },
+              },
+            };
+          }
+          return {
+            sessions: {
+              ...s.sessions,
+              [sid]: {
+                ...latest,
+                lastSavedRevision: nextLastSaved,
+                cloudSyncStatus: 'saved',
+                cloudSyncError: null,
+              },
+            },
+          };
+        });
+        return true;
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : 'Unable to save draft to cloud.';
+        const currentAuth = useAuthStore.getState();
+        if (isCloudAuthenticated(currentAuth) && currentAuth.userId === ownerUserId) {
+          set((s) => {
+            const latest = s.sessions[sid];
+            if (!latest) return s;
+            return {
+              sessions: {
+                ...s.sessions,
+                [sid]: { ...latest, cloudSyncStatus: 'error', cloudSyncError: msg },
+              },
+              lastError: `Cloud draft save failed: ${msg}`,
+            };
+          });
+        }
+        return false;
+      }
+    });
   },
 
   createSessionFromMatrix: async ({

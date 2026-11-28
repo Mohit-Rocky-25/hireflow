@@ -26,6 +26,7 @@ import {
   CloudWriteFailedError,
   CloudReadFailedError,
 } from './errors';
+import { isAccountErasureInProgress } from './cloudRepository';
 
 const ALLOWED_EXTENSION_MIME: Record<string, string[]> = {
   '.pdf': ['application/pdf'],
@@ -169,6 +170,12 @@ export async function uploadPrivateDocument(
   if (!activeUid || activeUid !== params.userId) {
     throw new CloudAuthRequiredError('Authenticated Supabase session does not match target user.');
   }
+  if (isAccountErasureInProgress(params.userId)) {
+    throw new CloudWriteFailedError(
+      'document upload',
+      'Account erasure is currently in progress in this client session.'
+    );
+  }
 
   const { normalizedMime } = await validateUploadBuffer({
     buffer: params.buffer,
@@ -187,6 +194,12 @@ export async function uploadPrivateDocument(
   const sha256 = await sha256BufferHex(params.buffer);
   const now = new Date().toISOString();
 
+  if (isAccountErasureInProgress(params.userId)) {
+    throw new CloudWriteFailedError(
+      'document upload',
+      'Account erasure is currently in progress in this client session.'
+    );
+  }
   await gateway.uploadStorageFile(storagePath, params.buffer, normalizedMime);
 
   const record: UserDocumentRecord = {
